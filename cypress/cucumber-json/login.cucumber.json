@@ -1,0 +1,157 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "MVP features for NVA",
+    "line": 1,
+    "id": "mvp-features-for-nva",
+    "tags": [],
+    "uri": "login.feature",
+    "elements": [
+      {
+        "id": "mvp-features-for-nva;a-user-logs-in-with-feide-for-the-first-time",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "A user logs in with Feide for the first time",
+        "tags": [
+          {
+            "name": "@351",
+            "line": 3
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "that the user has valid Feide credentials",
+            "result": {
+              "status": "passed",
+              "duration": 57000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 6,
+            "name": "they have NOT logged in with Feide before",
+            "result": {
+              "status": "passed",
+              "duration": 262000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "they are on the Start page",
+            "result": {
+              "status": "passed",
+              "duration": 48000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 8,
+            "name": "they click Log in",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they are redirected to Feide",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "they enter their Feide credentials",
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Username"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Email address"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Real name"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Affiliation"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Organization number"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 11,
+            "name": "they approve sharing of data with the NVA application regarding",
+            "result": {
+              "status": "passed",
+              "duration": 7000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "they are redirected back to the Start page",
+            "result": {
+              "status": "passed",
+              "duration": 17000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "they see their name in the Menu",
+            "result": {
+              "status": "failed",
+              "duration": 60021000000,
+              "error_message": "AssertionError: Timed out retrying: Expected to find element: `Test Testesen`, but never found it.\n    + expected - actual\n\n\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\login.feature:85:6)\n    at Context.resolveAndRunStepDefinition (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\login.feature:10496:9)\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\login.feature:9838:35)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "they see the Connect Author dialog",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
