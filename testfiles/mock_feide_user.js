@@ -4,7 +4,7 @@ export const mockUser = {
   email: 'testuser@unit.no',
   'custom:identifiers': 'tu@unit.no',
   'custom:orgName': 'unit',
-  'custom:applicationRoles': `PUBLISHER,ADMIN,APP_ADMIN}`,
+  'custom:applicationRoles': `PUBLISHER,ADMIN,APP_ADMIN`,
   'custom:application': 'NVA',
   'custom:orgNumber': 'NO919477822',
   'custom:commonName': 'Unit',
