@@ -26,8 +26,9 @@
             "line": 5,
             "name": "that the user is not logged in",
             "result": {
-              "status": "passed",
-              "duration": 6158000000
+              "status": "failed",
+              "duration": 349000000,
+              "error_message": "ReferenceError: CUSTOM_ORGN_UMBER is not defined\n    at Context.eval (https://frontend.sandbox.nva.aws.unit.no/__cypress/tests?p=cypress\\support\\index.js:45:13)\nFrom previous event:\n    at runCommand (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:162703:8)\n    at next (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:162846:14)\nFrom previous event:\n    at next (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:162846:34)\nFrom previous event:\n    at https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:162887:37\nFrom previous event:\n    at run (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:162880:19)\n    at Object.cy.<computed> [as then] (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:163332:11)\n    at Context.runnable.fn (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:163557:21)\n    at callFn (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:102437:21)\n    at Test.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:102424:7)\n    at https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:168711:28\nFrom previous event:\n    at Object.onRunnableRun (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:168699:20)\n    at $Cypress.action (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:159590:61)\n    at Test.Runnable.run (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:167324:13)\n    at Runner.../driver/node_modules/mocha/lib/runner.js.Runner.runTest (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:103096:10)\n    at https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:103222:12\n    at next (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:103005:14)\n    at https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:103015:7\n    at next (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:102917:14)\n    at https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:102978:7\n    at next (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:168635:16)\n    at https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:168656:11\nFrom previous event:\n    at onNext (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:168653:57)\n    at done (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:102377:5)\n    at callFn (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:102460:7)\n    at Hook.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:102424:7)\n    at https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:168711:28\nFrom previous event:\n    at Object.onRunnableRun (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:168699:20)\n    at $Cypress.action (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:159590:61)\n    at Hook.Runnable.run (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:167324:13)\n    at next (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:102939:10)\n    at https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:102983:5\n    at timeslice (https://frontend.sandbox.nva.aws.unit.no/__cypress/runner/cypress_runner.js:96909:27)"
             }
           },
           {
@@ -36,8 +37,7 @@
             "line": 6,
             "name": "they look at any page in NVA",
             "result": {
-              "status": "passed",
-              "duration": 2722000000
+              "status": "skipped"
             }
           },
           {
@@ -46,8 +46,7 @@
             "line": 7,
             "name": "they see the Log in button",
             "result": {
-              "status": "passed",
-              "duration": 53000000
+              "status": "skipped"
             }
           }
         ]

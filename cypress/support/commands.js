@@ -40,7 +40,7 @@ Cypress.Commands.add('addUser', (userName) => {
       UserAttributes: [
         { Name: CUSTOM_IDENTIFIERS, Value: 'feide:test@unit.no'},
         { Name: CUSTOM_ORG_LEGAL_NAME, Value: 'Unit'},
-        { Name: CUSTOM_ORGN_UMBER, Value: 'NO818477822'},
+        { Name: CUSTOM_ORG_NUMBER, Value: 'NO818477822'},
         { Name: CUSTOM_APPLICATION, Value: 'NVA'},
         { Name: CUSTOM_APPLICATION_ROLES, Value: 'Publisher'},
         { Name: CUSTOM_COMMON_NAME, Value: 'Test User'},
