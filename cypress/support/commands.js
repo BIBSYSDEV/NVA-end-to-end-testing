@@ -20,7 +20,7 @@ const NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED';
 
 const CUSTOM_IDENTIFIERS = 'custom:identifiers';
 const CUSTOM_ORG_LEGAL_NAME = 'custom:orgLegalName';
-const CUSTOM_ORGN_UMBER = 'custom:orgNumber';
+const CUSTOM_ORG_NUMBER = 'custom:orgNumber';
 const CUSTOM_APPLICATION = 'custom:application';
 const CUSTOM_APPLICATION_ROLES = 'custom:applicationRoles';
 const CUSTOM_COMMON_NAME = 'custom:commonName';
