@@ -4,13 +4,13 @@ AWS.config = new AWS.Config({
   accessKeyId: Cypress.env('AWS_ACCESS_KEY_ID'),
   secretAccessKey: Cypress.env('AWS_SECRET_ACCESS_KEY'),
   sessionToken: Cypress.env('AWS_SESSION_TOKEN'),
-  region: 'eu-west-1',
+  region: Cypress.env('AWS_REGION'),
 });
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
-const USER_POOL_ID = 'eu-west-1_Fto5AuFGa';
-const CLIENT_ID = '55h2kkdaljjq693fsp1h05tbbj';
+const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
+const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
 const TEMP_PASSWORD = 'Abcdefghijkl%9';
 const NEW_PASSWORD = 'NewPassword%0';

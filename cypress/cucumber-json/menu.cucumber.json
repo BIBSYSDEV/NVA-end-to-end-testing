@@ -27,7 +27,7 @@
             "name": "that the user is not logged in",
             "result": {
               "status": "passed",
-              "duration": 536000000
+              "duration": 6158000000
             }
           },
           {
@@ -37,7 +37,7 @@
             "name": "they look at any page in NVA",
             "result": {
               "status": "passed",
-              "duration": 406000000
+              "duration": 2722000000
             }
           },
           {
@@ -47,7 +47,7 @@
             "name": "they see the Log in button",
             "result": {
               "status": "passed",
-              "duration": 46000000
+              "duration": 53000000
             }
           }
         ]
