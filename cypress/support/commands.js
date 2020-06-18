@@ -1,4 +1,5 @@
 import AWS from 'aws-sdk';
+import { v4 as uuidv4 } from 'uuid';
 
 AWS.config = new AWS.Config({
   accessKeyId: Cypress.env('AWS_ACCESS_KEY_ID'),
@@ -12,8 +13,8 @@ const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
-const TEMP_PASSWORD = 'Abcdefghijkl%9';
-const NEW_PASSWORD = 'NewPassword%0';
+const TEMP_PASSWORD = uuidv4();
+const NEW_PASSWORD = uuidv4();
 
 const AUTH_FLOW = 'ADMIN_USER_PASSWORD_AUTH';
 const NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED';
