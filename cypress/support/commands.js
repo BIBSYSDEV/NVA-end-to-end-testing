@@ -51,7 +51,7 @@ Cypress.Commands.add('addUser', (userName) => {
   }
 
   identityServiceProvider.adminGetUser(testUser, (err, data) => {
-    if(data) {
+    if (data) {
       identityServiceProvider.adminDeleteUser(testUser, () => {});
     }
   });
@@ -72,8 +72,8 @@ Cypress.Commands.add('addUser', (userName) => {
       }
       
       identityServiceProvider.adminInitiateAuth(authorizeUser, (err, data) => {
-        if(data) {
-          if(data.ChallengeName === NEW_PASSWORD_REQUIRED) {
+        if (data) {
+          if (data.ChallengeName === NEW_PASSWORD_REQUIRED) {
 
             const challenge = {
               ChallengeName: NEW_PASSWORD_REQUIRED,
@@ -86,7 +86,7 @@ Cypress.Commands.add('addUser', (userName) => {
               }
             }
             identityServiceProvider.adminRespondToAuthChallenge(challenge, (err, data) => {
-              if(data) {
+              if (data) {
                 return data.AuthenticationResult;
               }
             });
