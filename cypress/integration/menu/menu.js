@@ -4,11 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 const USER_NAME = 'testUser@unit.no';
 
 Before(() => {
-  cy.addUser(USER_NAME)
-    .then((authResult) => {
-      cy.wrap(authResult).as('authResult');
-    })
-    .catch((err) => console.log(err));
+  cy.addUser(USER_NAME).then((authResult) => {
+    cy.wrap(authResult).as('authResult');
+  });
 });
 
 Given('that the user is not logged in', () => {

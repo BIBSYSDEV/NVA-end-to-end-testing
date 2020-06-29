@@ -1,17 +1,31 @@
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
+import Amplify, { Auth } from 'aws-amplify';
+
+const REGION = Cypress.env('AWS_REGION');
+const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
+const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
+const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
 AWS.config = new AWS.Config({
   accessKeyId: Cypress.env('AWS_ACCESS_KEY_ID'),
   secretAccessKey: Cypress.env('AWS_SECRET_ACCESS_KEY'),
   sessionToken: Cypress.env('AWS_SESSION_TOKEN'),
-  region: Cypress.env('AWS_REGION'),
+  region: REGION,
 });
 
-const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
+const amplifyConfig = {
+  Auth: {
+    identityPoolId: IDENTITY_POOL_ID,
+    region: REGION,
+    userPoolId: USER_POOL_ID,
+    userPoolWebClientId: CLIENT_ID,
+  },
+};
 
-const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
-const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
+Amplify.configure(amplifyConfig);
+
+const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
 const TEMP_PASSWORD = uuidv4() + 'P%9';
 const NEW_PASSWORD = uuidv4() + 'P%0';
@@ -19,6 +33,7 @@ const NEW_PASSWORD = uuidv4() + 'P%0';
 const AUTH_FLOW = 'ADMIN_USER_PASSWORD_AUTH';
 const NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED';
 
+const NAME = 'name';
 const CUSTOM_IDENTIFIERS = 'custom:identifiers';
 const CUSTOM_ORG_LEGAL_NAME = 'custom:orgLegalName';
 const CUSTOM_ORG_NUMBER = 'custom:orgNumber';
@@ -38,6 +53,7 @@ Cypress.Commands.add('addUser', (userName) => {
     TemporaryPassword: TEMP_PASSWORD,
     MessageAction: 'SUPPRESS',
     UserAttributes: [
+      { Name: NAME, Value: 'Test User' },
       { Name: CUSTOM_IDENTIFIERS, Value: 'feide:test@unit.no' },
       { Name: CUSTOM_ORG_LEGAL_NAME, Value: 'Unit' },
       { Name: CUSTOM_ORG_NUMBER, Value: 'NO818477822' },
@@ -83,18 +99,19 @@ Cypress.Commands.add('addUser', (userName) => {
                 };
                 identityServiceProvider.adminRespondToAuthChallenge(challenge, (err, data) => {
                   if (data) {
+                    Auth.signIn(userName, NEW_PASSWORD);
                     resolve(data.AuthenticationResult);
                   } else {
-                    console.log(err);
+                    reject(err);
                   }
                 });
               }
             } else {
-              console.log(err);
+              reject(err);
             }
           });
         } else {
-          console.log(err);
+          reject(err);
         }
       });
     });

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "aws-amplify": "^3.0.18",
     "aws-sdk": "^2.698.0",
     "cosmiconfig": "^6.0.0",
     "cypress-promise": "^1.1.0",
