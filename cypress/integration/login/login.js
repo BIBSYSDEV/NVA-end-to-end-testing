@@ -1,5 +1,4 @@
 import { Given, When, Before } from 'cypress-cucumber-preprocessor/steps';
-import { Auth } from 'aws-amplify';
 
 const USER_NAME = 'test@unit.no';
 
