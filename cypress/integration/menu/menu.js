@@ -1,10 +1,12 @@
-import { Given, When, Then, Before } from "cypress-cucumber-preprocessor/steps"
+import { Given, When, Then, Before } from 'cypress-cucumber-preprocessor/steps';
 import { v4 as uuidv4 } from 'uuid';
 
 const USER_NAME = 'testUser@unit.no';
 
-Before(async () => {
-  cy.addUser(USER_NAME).as('authResult');
+Before(() => {
+  cy.addUser(USER_NAME).then((authResult) => {
+    cy.wrap(authResult).as('authResult');
+  });
 });
 
 Given('that the user is not logged in', () => {
@@ -16,6 +18,7 @@ When('they look at any page in NVA', () => {
   const uuid = uuidv4();
   cy.visit(`/${uuid}`);
 });
+
 Then('they see the Log in button', () => {
   cy.get('[data-testid=menu-login-button]').should('be.visible');
-}); 
+});
