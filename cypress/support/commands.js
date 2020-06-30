@@ -45,7 +45,6 @@ const CUSTOM_AFFILIATION = 'custom:affiliation';
 
 const testUser = {
   UserPoolId: USER_POOL_ID,
-  Username: 'testuser',
 };
 
 Cypress.Commands.add('addUser', (userName) => {
