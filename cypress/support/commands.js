@@ -43,12 +43,11 @@ const CUSTOM_COMMON_NAME = 'custom:commonName';
 const CUSTOM_FEIDE_ID = 'custom:feideId';
 const CUSTOM_AFFILIATION = 'custom:affiliation';
 
-Cypress.Commands.add('addUser', (userName) => {
-  const testUser = {
-    UserPoolId: USER_POOL_ID,
-    Username: userName,
-  };
+const testUser = {
+  UserPoolId: USER_POOL_ID,
+};
 
+Cypress.Commands.add('addUser', (userName) => {
   const createUser = {
     TemporaryPassword: TEMP_PASSWORD,
     MessageAction: 'SUPPRESS',
@@ -66,54 +65,64 @@ Cypress.Commands.add('addUser', (userName) => {
   };
 
   return new Cypress.Promise((resolve, reject) => {
-    identityServiceProvider.adminGetUser(testUser, (err, data) => {
+    identityServiceProvider.adminCreateUser({ ...testUser, ...createUser, Username: userName }, (err, data) => {
       if (data) {
-        identityServiceProvider.adminDeleteUser(testUser, () => {});
-      }
-      identityServiceProvider.adminCreateUser({ ...testUser, ...createUser }, (err, data) => {
-        if (data) {
-          const userId = data.User.Username;
+        const userId = data.User.Username;
 
-          const authorizeUser = {
-            AuthFlow: AUTH_FLOW,
-            ClientId: CLIENT_ID,
-            UserPoolId: USER_POOL_ID,
-            AuthParameters: {
-              USERNAME: userId,
-              PASSWORD: TEMP_PASSWORD,
-            },
-          };
+        const authorizeUser = {
+          AuthFlow: AUTH_FLOW,
+          ClientId: CLIENT_ID,
+          UserPoolId: USER_POOL_ID,
+          AuthParameters: {
+            USERNAME: userId,
+            PASSWORD: TEMP_PASSWORD,
+          },
+        };
 
-          identityServiceProvider.adminInitiateAuth(authorizeUser, (err, data) => {
-            if (data) {
-              if (data.ChallengeName === NEW_PASSWORD_REQUIRED) {
-                const challenge = {
-                  ChallengeName: NEW_PASSWORD_REQUIRED,
-                  UserPoolId: USER_POOL_ID,
-                  ClientId: CLIENT_ID,
-                  Session: data.Session,
-                  ChallengeResponses: {
-                    USERNAME: userId,
-                    NEW_PASSWORD: NEW_PASSWORD,
-                  },
-                };
-                identityServiceProvider.adminRespondToAuthChallenge(challenge, (err, data) => {
-                  if (data) {
-                    Auth.signIn(userName, NEW_PASSWORD);
-                    resolve(data.AuthenticationResult);
-                  } else {
-                    reject(err);
-                  }
-                });
-              }
-            } else {
-              reject(err);
+        identityServiceProvider.adminInitiateAuth(authorizeUser, (err, data) => {
+          if (data) {
+            if (data.ChallengeName === NEW_PASSWORD_REQUIRED) {
+              const challenge = {
+                ChallengeName: NEW_PASSWORD_REQUIRED,
+                UserPoolId: USER_POOL_ID,
+                ClientId: CLIENT_ID,
+                Session: data.Session,
+                ChallengeResponses: {
+                  USERNAME: userId,
+                  NEW_PASSWORD: NEW_PASSWORD,
+                },
+              };
+              identityServiceProvider.adminRespondToAuthChallenge(challenge, (err, data) => {
+                if (data) {
+                  Auth.signIn(userName, NEW_PASSWORD);
+                  resolve(userId);
+                } else {
+                  reject(err);
+                }
+              });
             }
-          });
-        } else {
-          reject(err);
-        }
-      });
+          } else {
+            reject(err);
+          }
+        });
+      } else {
+        reject(err);
+      }
+    });
+  });
+});
+
+Cypress.Commands.add('deleteUser', (userName) => {
+  return new Cypress.Promise((resolve, reject) => {
+    const deleteUser = { ...testUser, Username: userName };
+    identityServiceProvider.adminGetUser(deleteUser, (err, data) => {
+      if (data) {
+        identityServiceProvider.adminDeleteUser(deleteUser, () => {
+          resolve();
+        });
+      } else {
+        resolve();
+      }
     });
   });
 });
