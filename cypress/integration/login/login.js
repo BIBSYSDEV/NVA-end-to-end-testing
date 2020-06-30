@@ -28,6 +28,25 @@ Then('the user sees that they are logged in', () => {
   });
 });
 
+Given('that the user logs in with Feide for the first time', () => {
+  cy.get('@userId').then(() => {
+    cy.visit('/');
+  });
+});
+
+When('they click OK in the Connect Author dialog', () => {
+  cy.get('[data-testid=create-author-button]').click();
+});
+
+Then('the Connect Author dialog closes', () => {
+  cy.get('[data-testid=create-author-button').should('not.be.visible');
+  cy.get('[data-testid=modal_next]').click();
+});
+
+Then('they see the Connect Orcid dialog', () => {
+  cy.get('[data-testid=connect-to-orcid]').should('be.visible');
+});
+
 After(() => {
   cy.deleteUser(USER_NAME);
 });
