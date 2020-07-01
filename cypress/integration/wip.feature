@@ -31,3 +31,12 @@
         When they click on the Menu
         And they click Log out
         Then they are logged out of the NVA application
+
+    Scenario: Creator opens New Registration
+        Given that the user is logged in as Creator
+        When they click the menu item New Registration
+        Then they see the New Registration page
+        And they see options
+            | Upload file            |
+            | Link                   |
+            | Suggestions from ORCID |
