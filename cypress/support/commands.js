@@ -47,7 +47,7 @@ const testUser = {
   UserPoolId: USER_POOL_ID,
 };
 
-Cypress.Commands.add('addUser', (userName) => {
+Cypress.Commands.add('addUser', (userName, role) => {
   const createUser = {
     TemporaryPassword: TEMP_PASSWORD,
     MessageAction: 'SUPPRESS',
@@ -57,7 +57,7 @@ Cypress.Commands.add('addUser', (userName) => {
       { Name: CUSTOM_ORG_LEGAL_NAME, Value: 'Unit' },
       { Name: CUSTOM_ORG_NUMBER, Value: 'NO818477822' },
       { Name: CUSTOM_APPLICATION, Value: 'NVA' },
-      { Name: CUSTOM_APPLICATION_ROLES, Value: 'Publisher' },
+      { Name: CUSTOM_APPLICATION_ROLES, Value: role },
       { Name: CUSTOM_COMMON_NAME, Value: 'Test User' },
       { Name: CUSTOM_FEIDE_ID, Value: 'test@unit.no' },
       { Name: CUSTOM_AFFILIATION, Value: '[member, employee, staff]' },
