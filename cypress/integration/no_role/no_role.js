@@ -13,12 +13,8 @@ Before(() => {
       cy.get('[data-testid=create-author-button]').click();
       cy.get('[data-testid=modal_next]').click();
       cy.get('[data-testid=skip-connect-to-orcid]').click();
-      cy.get('[data-testid=menu]').click();
 
-      // Set language
-      cy.get('[data-testid=menu-user-profile-button]').click();
-      cy.get('[data-testid=language-selector]').click();
-      cy.get('[data-testid=user-language-eng]').click();
+      cy.setLanguage();
       cy.visit('/');
     });
   });
