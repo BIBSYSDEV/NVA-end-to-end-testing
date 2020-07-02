@@ -48,12 +48,17 @@ const testUser = {
 };
 
 Cypress.Commands.add('connectAuthor', () => {
-  cy.get().click();
+  cy.get('[data-testid=create-author-button]').click();
+  cy.get('[data-testid=modal_next]').click();
 });
 
 Cypress.Commands.add('createAuthority', (user) => {});
 
 Cypress.Commands.add('deleteAuthority', (user) => {});
+
+Cypress.Commands.add('skipOrcid', () => {
+  cy.get('[data-testid=skip-connect-to-orcid]').click();
+});
 
 Cypress.Commands.add('connectOrcid', (user) => {});
 
@@ -62,6 +67,15 @@ Cypress.Commands.add('setLanguage', () => {
   cy.get('[data-testid=menu-user-profile-button]').click();
   cy.get('[data-testid=language-selector]').click();
   cy.get('[data-testid=user-language-eng]').click();
+});
+
+Cypress.Commands.add('createUser', (userName, author, orcid) => {
+  if (author.toUpperCase() === CONNECT_AUTHOR) {
+    cy.connectAuthor();
+  }
+
+  if (orcid.toUpperCase() === SKIP_AUTHOR) {
+  }
 });
 
 Cypress.Commands.add('addUser', (userName) => {
