@@ -1,4 +1,4 @@
-Feature: User menu with application admin role
+Feature: User menu with application administrator role
 
     Scenario: User sees the menu for Application administrator
         Given that the user is logged in
