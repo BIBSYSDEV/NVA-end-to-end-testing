@@ -1,4 +1,4 @@
-import { Given, When, Then, Before, After } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, Then, Before, After, And } from 'cypress-cucumber-preprocessor/steps';
 
 const USER_NAME = 'test@test.no';
 const NO_ROLE = '';
@@ -23,7 +23,7 @@ Before(() => {
 Given('that the user is logged in', () => {
   cy.get('@userId');
 });
-Given('they have no NVA role', () => {});
+And('they have no NVA role', () => {});
 
 When('they look at any page in NVA', () => {
   cy.visit('/');
