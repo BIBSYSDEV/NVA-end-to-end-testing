@@ -47,6 +47,13 @@ const testUser = {
   UserPoolId: USER_POOL_ID,
 };
 
+Cypress.Commands.add('setLanguage', () => {
+  cy.get('[data-testid=menu]').click();
+  cy.get('[data-testid=menu-user-profile-button]').click();
+  cy.get('[data-testid=language-selector]').click();
+  cy.get('[data-testid=user-language-eng]').click();
+});
+
 Cypress.Commands.add('addUser', (userName, role) => {
   const createUser = {
     TemporaryPassword: TEMP_PASSWORD,
