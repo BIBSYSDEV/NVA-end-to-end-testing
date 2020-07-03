@@ -47,6 +47,14 @@ const testUser = {
   UserPoolId: USER_POOL_ID,
 };
 
+const getIdToken = async () => {
+  if (USE_MOCK_DATA) {
+    return '';
+  }
+  const cognitoUser = await Auth.currentAuthenticatedUser();
+  return cognitoUser?.signInUserSession?.idToken?.jwtToken || null;
+};
+
 Cypress.Commands.add('connectAuthor', () => {
   cy.get('[data-testid=create-author-button]').click();
   cy.get('[data-testid=modal_next]').click();
@@ -67,15 +75,6 @@ Cypress.Commands.add('setLanguage', () => {
   cy.get('[data-testid=menu-user-profile-button]').click();
   cy.get('[data-testid=language-selector]').click();
   cy.get('[data-testid=user-language-eng]').click();
-});
-
-Cypress.Commands.add('createUser', (userName, author, orcid) => {
-  if (author.toUpperCase() === CONNECT_AUTHOR) {
-    cy.connectAuthor();
-  }
-
-  if (orcid.toUpperCase() === SKIP_AUTHOR) {
-  }
 });
 
 Cypress.Commands.add('addUser', (userName) => {
