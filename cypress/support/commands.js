@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
+import { createAuthority } from './authorityApi';
 
 const REGION = Cypress.env('AWS_REGION');
 const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
@@ -47,20 +48,20 @@ const testUser = {
   UserPoolId: USER_POOL_ID,
 };
 
-const getIdToken = async () => {
-  if (USE_MOCK_DATA) {
-    return '';
-  }
-  const cognitoUser = await Auth.currentAuthenticatedUser();
-  return cognitoUser?.signInUserSession?.idToken?.jwtToken || null;
-};
-
 Cypress.Commands.add('connectAuthor', () => {
   cy.get('[data-testid=create-author-button]').click();
   cy.get('[data-testid=modal_next]').click();
 });
 
-Cypress.Commands.add('createAuthority', (user) => {});
+Cypress.Commands.add('createAuthority', (user) => {
+  return new Cypress.Promise((resolve, reject) => {
+    const authority = createAuthority('Test', 'User', 'test@unit.no');
+    if (authority) {
+      console.log(authority);
+      resolve(authority);
+    }
+  });
+});
 
 Cypress.Commands.add('deleteAuthority', (user) => {});
 

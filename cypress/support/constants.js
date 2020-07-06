@@ -8,12 +8,12 @@ export const FEIDE_ID_QUALIFIER = 'feideid';
 export const API_URL = process.env.REACT_APP_API_URL;
 
 export const StatusCode = {
-  OK = 200,
-  CREATED = 201,
-  ACCEPTED = 202,
-  NO_CONTENT = 204,
-}
+  OK: 200,
+  CREATED: 201,
+  ACCEPTED: 202,
+  NO_CONTENT: 204,
+};
 
 export const AuthorityPaths = {
-    PERSON = '/person',
-}
+  PERSON: '/person',
+};
