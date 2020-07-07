@@ -86,19 +86,19 @@ Cypress.Commands.add('setLanguage', () => {
   cy.get('[data-testid=user-language-eng]').click();
 });
 
-Cypress.Commands.add('addUser', (userName) => {
+Cypress.Commands.add('addUser', (userName, name) => {
   const createUser = {
     TemporaryPassword: TEMP_PASSWORD,
     MessageAction: 'SUPPRESS',
     UserAttributes: [
-      { Name: NAME, Value: 'Test User' },
-      { Name: CUSTOM_IDENTIFIERS, Value: 'feide:test@unit.no' },
+      { Name: NAME, Value: name },
+      { Name: CUSTOM_IDENTIFIERS, Value: `feide:${userName}` },
       { Name: CUSTOM_ORG_LEGAL_NAME, Value: 'Unit' },
       { Name: CUSTOM_ORG_NUMBER, Value: 'NO818477822' },
       { Name: CUSTOM_APPLICATION, Value: 'NVA' },
       { Name: CUSTOM_APPLICATION_ROLES, Value: 'Publisher' },
-      { Name: CUSTOM_COMMON_NAME, Value: 'Test User' },
-      { Name: CUSTOM_FEIDE_ID, Value: 'test@unit.no' },
+      { Name: CUSTOM_COMMON_NAME, Value: name },
+      { Name: CUSTOM_FEIDE_ID, Value: userName },
       { Name: CUSTOM_AFFILIATION, Value: '[member, employee, staff]' },
     ],
   };

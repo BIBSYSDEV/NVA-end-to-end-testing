@@ -1,6 +1,5 @@
 import { Given, And, When, Then, Before } from 'cypress-cucumber-preprocessor/steps';
-
-const USER_NAME = 'test@unit.no';
+import { USER_NAME } from '../../support/constants';
 
 Before(() => {
   cy.deleteUser(USER_NAME).then(() => {
@@ -17,7 +16,6 @@ Before(() => {
           }
         });
         cy.visit('/');
-        // cy.wait(5000);
       });
     });
   });

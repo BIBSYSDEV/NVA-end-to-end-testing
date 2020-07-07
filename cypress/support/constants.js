@@ -18,3 +18,6 @@ export const StatusCode = {
 export const AuthorityPaths = {
   PERSON: '/person',
 };
+
+export const USER_NAME = 'test@unit.no';
+export const TEST_USER_NAME = 'Test USER';
