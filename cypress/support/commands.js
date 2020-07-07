@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
-import { createAuthority } from './authorityApi';
+import { createAuthority, getAuthorities } from './authorityApi';
 
 const REGION = Cypress.env('AWS_REGION');
 const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
@@ -53,17 +53,25 @@ Cypress.Commands.add('connectAuthor', () => {
   cy.get('[data-testid=modal_next]').click();
 });
 
-Cypress.Commands.add('createAuthority', (user) => {
+Cypress.Commands.add('createAuthority', (newAuthority, IdToken) => {
   return new Cypress.Promise((resolve, reject) => {
-    const authority = createAuthority('Test', 'User', 'test@unit.no');
+    const authority = createAuthority(newAuthority.lastName, newAuthority.firstName, newAuthority.feideid, IdToken);
     if (authority) {
-      console.log(authority);
       resolve(authority);
     }
   });
 });
 
-Cypress.Commands.add('deleteAuthority', (user) => {});
+Cypress.Commands.add('getAuthorities', (authority, idToken) => {
+  return new Cypress.Promise((resolve, reject) => {
+    const authorities = getAuthorities(`${authority.lastName}, ${authority.firstName}`, idToken);
+    if (authorities) {
+      resolve(authorities);
+    } else {
+      reject();
+    }
+  });
+});
 
 Cypress.Commands.add('skipOrcid', () => {
   cy.get('[data-testid=skip-connect-to-orcid]').click();
@@ -126,7 +134,7 @@ Cypress.Commands.add('addUser', (userName) => {
               identityServiceProvider.adminRespondToAuthChallenge(challenge, (err, data) => {
                 if (data) {
                   Auth.signIn(userName, NEW_PASSWORD);
-                  resolve(userId);
+                  resolve(data.AuthenticationResult.IdToken);
                 } else {
                   reject(err);
                 }

@@ -1,26 +1,20 @@
 import Axios from 'axios';
 import { StatusCode, API_URL, AuthorityPaths, FEIDE_ID_QUALIFIER } from './constants';
-import { Auth } from 'aws-amplify';
 
-Axios.defaults.baseURL = API_URL;
-Axios.defaults.headers.common = {
-  Accept: 'application/json',
-};
-Axios.defaults.headers.post['Content-Type'] = 'application/json';
-Axios.defaults.headers.put['Content-Type'] = 'application/json';
-
-export const getIdToken = async () => {
-  const cognitoUser = await Auth.currentAuthenticatedUser();
-  console.log(`cognitoUser = ${cognitoUser}`);
-  return cognitoUser?.signInUserSession?.idToken?.jwtToken || null;
+const setAxiosDefaults = () => {
+  Axios.defaults.baseURL = API_URL;
+  Axios.defaults.headers.common = {
+    Accept: 'application/json',
+  };
+  Axios.defaults.headers.post['Content-Type'] = 'application/json';
+  Axios.defaults.headers.put['Content-Type'] = 'application/json';
 };
 
-export const getAuthorities = async (name) => {
+export const getAuthorities = async (name, idToken) => {
+  setAxiosDefaults();
   const url = encodeURI(`${AuthorityPaths.PERSON}?name=${name}`);
-
   try {
     // remove when Authorization headers are set for all requests
-    const idToken = await getIdToken();
     const headers = {
       Authorization: `Bearer ${idToken}`,
     };
@@ -39,24 +33,30 @@ export const getAuthorities = async (name) => {
   }
 };
 
-export const createAuthority = async (firstName, lastName, feideId) => {
+export const createAuthority = async (firstName, lastName, feideId, idToken) => {
+  setAxiosDefaults();
   const url = AuthorityPaths.PERSON;
 
   const error = 'Error creating authority';
 
   try {
     // remove when Authorization headers are set for all requests
-    const idToken = await getIdToken();
-    console.log(idToken);
     const headers = {
       Authorization: `Bearer ${idToken}`,
     };
 
     const response = await Axios.post(url, { invertedname: `${lastName}, ${firstName}` }, { headers });
     if (response.status === StatusCode.OK) {
+      console.log(`feideid: ${feideid}`);
       if (feideId) {
         const systemControlNumber = response.data.systemControlNumber;
-        const updatedAuthority = await addQualifierIdForAuthority(systemControlNumber, FEIDE_ID_QUALIFIER, feideId);
+        console.log(response);
+        const updatedAuthority = await addQualifierIdForAuthority(
+          systemControlNumber,
+          FEIDE_ID_QUALIFIER,
+          feideId,
+          idToken
+        );
         if (updatedAuthority) {
           return updatedAuthority;
         }
@@ -68,5 +68,27 @@ export const createAuthority = async (firstName, lastName, feideId) => {
     }
   } catch (e) {
     return { error, e };
+  }
+};
+
+export const addQualifierIdForAuthority = async (systemControlNumber, qualifier, identifier, idToken) => {
+  setAxiosDefaults();
+
+  const url = `${AuthorityPaths.PERSON}/${systemControlNumber}/identifiers/${qualifier}/add`;
+
+  const error = 'Error adding qaualifier to authority.';
+
+  try {
+    const headers = {
+      Authorization: `Bearer ${idToken}`,
+    };
+    const response = await Axios.post(url, { identifier }, { headers });
+    if (response.status === StatusCode.OK) {
+      return { data: response.data };
+    } else {
+      return { error: response.error };
+    }
+  } catch {
+    return { error };
   }
 };

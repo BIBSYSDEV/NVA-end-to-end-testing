@@ -1,17 +1,23 @@
 import { Given, And, When, Then, Before } from 'cypress-cucumber-preprocessor/steps';
-import { getIdToken } from '../../support/authorityApi';
 
 const USER_NAME = 'test@unit.no';
 
 Before(() => {
   cy.deleteUser(USER_NAME).then(() => {
-    cy.addUser(USER_NAME).then((userId) => {
-      cy.wrap(userId).as('userId');
-      console.log(getIdToken());
-      cy.createAuthority().then((authority) => {
-        cy.wrap(authority).as('authority');
+    cy.addUser(USER_NAME).then((idToken) => {
+      cy.wrap(idToken).as('idToken');
+      cy.get('@idToken').then((idToken) => {
+        const newAuthority = { firstName: 'Test-end-to-end', lastName: 'User-end-to-end', feideid: 'test@unit.no' };
+        cy.getAuthorities(newAuthority, idToken).then((authorities) => {
+          console.log(authorities);
+          if (authorities?.length === 0) {
+            cy.createAuthority(newAuthority, idToken).then((authority) => {
+              cy.wrap(authority).as('authority');
+            });
+          }
+        });
         cy.visit('/');
-        cy.wait(5000);
+        // cy.wait(5000);
       });
     });
   });
