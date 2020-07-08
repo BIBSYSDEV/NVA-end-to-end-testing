@@ -8,7 +8,6 @@ Before(() => {
     cy.addUser(USER_NAME, NO_ROLE).then((userId) => {
       cy.wrap(userId).as('userId');
       cy.visit('/');
-      cy.wait(5000);
 
       cy.get('[data-testid=create-author-button]').click();
       cy.get('[data-testid=modal_next]').click();
