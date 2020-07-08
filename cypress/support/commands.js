@@ -47,7 +47,23 @@ const testUser = {
   UserPoolId: USER_POOL_ID,
 };
 
-Cypress.Commands.add('addUser', (userName) => {
+Cypress.Commands.add('setLanguage', () => {
+  cy.get('[data-testid=menu]').click();
+  cy.get('[data-testid=menu-user-profile-button]').click();
+  cy.get('[data-testid=language-selector]').click();
+  cy.get('[data-testid=user-language-eng]').click();
+});
+
+Cypress.Commands.add('checkMenu', (table) => {
+  cy.get('[data-testid=menu]').click();
+  table.forEach((row) => {
+    const menuItem = row[0];
+    cy.log(menuItem);
+    cy.get('li').should('contain.text', menuItem);
+  });
+})
+
+Cypress.Commands.add('addUser', (userName, role) => {
   const createUser = {
     TemporaryPassword: TEMP_PASSWORD,
     MessageAction: 'SUPPRESS',
@@ -57,7 +73,7 @@ Cypress.Commands.add('addUser', (userName) => {
       { Name: CUSTOM_ORG_LEGAL_NAME, Value: 'Unit' },
       { Name: CUSTOM_ORG_NUMBER, Value: 'NO818477822' },
       { Name: CUSTOM_APPLICATION, Value: 'NVA' },
-      { Name: CUSTOM_APPLICATION_ROLES, Value: 'Publisher' },
+      { Name: CUSTOM_APPLICATION_ROLES, Value: role },
       { Name: CUSTOM_COMMON_NAME, Value: 'Test User' },
       { Name: CUSTOM_FEIDE_ID, Value: 'test@unit.no' },
       { Name: CUSTOM_AFFILIATION, Value: '[member, employee, staff]' },

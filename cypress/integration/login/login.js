@@ -7,7 +7,6 @@ Before(() => {
     cy.addUser(USER_NAME).then((userId) => {
       cy.wrap(userId).as('userId');
       cy.visit('/');
-      cy.wait(5000);
     });
   });
 });
