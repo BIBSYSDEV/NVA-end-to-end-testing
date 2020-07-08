@@ -1,12 +1,12 @@
 import { Given, And, When, Then, Before } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR,  } from '../../support/constants';
+import { USER_WITH_AUTHOR, NAME_WITH_AUTHOR } from '../../support/constants';
 
 Before(() => {
-  cy.deleteUser(USER).then(() => {
-    cy.addUser(USER).then((idToken) => {
+  cy.deleteUser(USER_WITH_AUTHOR).then(() => {
+    cy.addUser(USER_WITH_AUTHOR, NAME_WITH_AUTHOR).then((idToken) => {
       cy.wrap(idToken).as('idToken');
       cy.get('@idToken').then((idToken) => {
-        const newAuthority = { firstName: 'Test-end-to-end', lastName: 'User-end-to-end', feideid: 'test@unit.no' };
+        const newAuthority = { firstName: NAME_WITH_AUTHOR.split(' ')[0], lastName: NAME_WITH_AUTHOR.split(' ')[1], feideid: USER_WITH_AUTHOR };
         cy.getAuthorities(newAuthority, idToken).then((authorities) => {
           console.log(authorities);
           if (authorities?.length === 0) {
