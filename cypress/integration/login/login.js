@@ -1,9 +1,9 @@
 import { Given, When, Before, After } from 'cypress-cucumber-preprocessor/steps';
-import { USER_NAME } from '../../support/constants';
+import { USER_NAME, TEST_USER_NAME } from '../../support/constants';
 
 Before(() => {
   cy.deleteUser(USER_NAME).then(() => {
-    cy.addUser(USER_NAME).then((userId) => {
+    cy.addUser(USER_NAME, TEST_USER_NAME).then((userId) => {
       cy.wrap(userId).as('userId');
       cy.visit('/');
     });
