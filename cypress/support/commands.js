@@ -55,7 +55,7 @@ Cypress.Commands.add('connectAuthor', () => {
 
 Cypress.Commands.add('createAuthority', (newAuthority, IdToken) => {
   return new Cypress.Promise((resolve, reject) => {
-    const authority = createAuthority(newAuthority.lastName, newAuthority.firstName, newAuthority.feideid, IdToken);
+    const authority = createAuthority(newAuthority.firstName, newAuthority.lastName, newAuthority.feideid, IdToken);
     if (authority) {
       resolve(authority);
     }

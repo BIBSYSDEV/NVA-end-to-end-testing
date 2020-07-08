@@ -1,13 +1,10 @@
 import { Given, When, Before, After } from 'cypress-cucumber-preprocessor/steps';
 import { USER, NAME } from '../../support/constants';
+import { createUser } from '../../support/users';
 
 Before(() => {
-  cy.deleteUser(USER).then(() => {
-    cy.addUser(USER, NAME).then((idToken) => {
-      cy.wrap(idToken).as('idToken');
-      cy.visit('/');
-    });
-  });
+  createUser(USER, NAME);
+  cy.visit('/');
 });
 
 Given('A user have logged in using Cognito', () => {
