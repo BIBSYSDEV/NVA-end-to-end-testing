@@ -32,11 +32,7 @@ Then('they see a menu containing', (tableData) => {
   // | My Profile   |
   // | Institutions |
   // | Log Out      |
-  cy.get('[data-testid=menu]').click();
-  tableData.rawTable.forEach((row) => {
-    const menuItem = row[0];
-    cy.get('li').should('contain.text', menuItem);
-  });
+  cy.checkMenu(tableData.rawTable);
 });
 
 After(() => {
