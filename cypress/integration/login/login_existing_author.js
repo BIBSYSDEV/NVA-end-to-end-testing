@@ -1,9 +1,9 @@
 import { Given, And, When, Then, Before } from 'cypress-cucumber-preprocessor/steps';
-import { USER_NAME } from '../../support/constants';
+import { USER_WITH_AUTHOR,  } from '../../support/constants';
 
 Before(() => {
-  cy.deleteUser(USER_NAME).then(() => {
-    cy.addUser(USER_NAME).then((idToken) => {
+  cy.deleteUser(USER).then(() => {
+    cy.addUser(USER).then((idToken) => {
       cy.wrap(idToken).as('idToken');
       cy.get('@idToken').then((idToken) => {
         const newAuthority = { firstName: 'Test-end-to-end', lastName: 'User-end-to-end', feideid: 'test@unit.no' };

@@ -19,5 +19,8 @@ export const AuthorityPaths = {
   PERSON: '/person',
 };
 
-export const USER_NAME = 'test@unit.no';
-export const TEST_USER_NAME = 'Test USER';
+export const USER = 'test-end-to-end@test.no';
+export const NAME = 'End-to-end User';
+
+export const USER_WITH_AUTHOR = 'test-author@test.no';
+export const NAME_WITH_AUTHOR = 'Author User';
