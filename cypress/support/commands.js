@@ -86,6 +86,15 @@ Cypress.Commands.add('setLanguage', () => {
   cy.get('[data-testid=user-language-eng]').click();
 });
 
+Cypress.Commands.add('checkMenu', (table) => {
+  cy.get('[data-testid=menu]').click();
+  table.forEach((row) => {
+    const menuItem = row[0];
+    cy.log(menuItem);
+    cy.get('li').should('contain.text', menuItem);
+  });
+})
+
 Cypress.Commands.add('addUser', (userName, name) => {
   const createUser = {
     TemporaryPassword: TEMP_PASSWORD,

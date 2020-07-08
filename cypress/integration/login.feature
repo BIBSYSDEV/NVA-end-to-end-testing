@@ -16,3 +16,9 @@ Feature: Login using Cognito
         When they log in
         Then they see a list containing <Author name> and <Last publication> for each ARP entry matching their <Name>
         And a Create New Author Button
+    Scenario: User connects Author
+        Given that the user logs in with Feide for the first time
+        When they click OK in the Connect Author dialog
+        Then the Connect Author dialog closes
+        And they see the Connect Orcid dialog
+
