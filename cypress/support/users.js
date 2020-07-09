@@ -1,42 +1,20 @@
 
-export const createUser = (user, name) => {
+export const createUser = (user, name, connectAuthor, feideid) => {
     cy.deleteUser(user).then(() => {
         cy.createUser(user, name).then((idToken) => {
           cy.wrap(idToken).as('idToken');
-        });
-      });
-}
-
-export const createUserWithAuthor = (user, name) => {
-    cy.deleteUser(user).then(() => {
-        cy.createUser(user, name).then((idToken) => {
-          cy.wrap(idToken).as('idToken');
-          cy.get('@idToken').then((idToken) => {
-            cy.getAuthorities(splitName(name), idToken).then((authorities) => {
-              if (authorities?.length === 0) {
-                cy.createAuthority(newAuthority, idToken).then((authority) => {
-                  cy.wrap(authority).as('authority');
-                });
-              }
+          if( connectAuthor ) {
+            cy.get('@idToken').then((idToken) => {
+              feideid = feideid ? feideid : '';
+              cy.getAuthorities({ ...splitName(name) , feideid: feideid }, idToken).then((authorities) => {
+                if (authorities?.length === 0) {
+                  cy.createAuthority(newAuthority, idToken).then((authority) => {
+                    cy.wrap(authority).as('authority');
+                  });
+                }
+              });
             });
-          });
-        });
-      });
-}
-
-export const createUserWithAuthorAndConnectedFeideId = (user, name, feideid) => {
-    cy.deleteUser(user).then(() => {
-        cy.createUser(user, name).then((idToken) => {
-          cy.wrap(idToken).as('idToken');
-          cy.get('@idToken').then((idToken) => {
-            cy.getAuthorities({ ...splitName(name) , feideid: feideid }, idToken).then((authorities) => {
-              if (authorities?.length === 0) {
-                cy.createAuthority(newAuthority, idToken).then((authority) => {
-                  cy.wrap(authority).as('authority');
-                });
-              }
-            });
-          });
+          }
         });
       });
 }
@@ -46,7 +24,7 @@ export const removeQualifier = (user, qualifier, type) => {
 }
 
 export const formatName = (name) => {
-  return `${name.split(' ')[1]}, ${name.split(' ')[0]}`;
+  return `${splitName(name).lastName}, ${splitName(name).lastName}`;
 }
 
 export const splitName = (name) => {

@@ -1,9 +1,9 @@
 import { Given, And, When, Then, Before, After } from 'cypress-cucumber-preprocessor/steps';
 import { NAME_WITH_AUTHOR, USER_WITH_AUTHOR } from '../../support/constants';
-import { createUserWithAuthor, formatName } from '../../support/users';
+import { createUser, formatName } from '../../support/users';
 
 Before(() => {
-  createUserWithAuthor(USER_WITH_AUTHOR, NAME_WITH_AUTHOR);
+  createUser(USER_WITH_AUTHOR, NAME_WITH_AUTHOR, true);
 });
 
 Given('that a User has a valid Feide ID and password', () => {
