@@ -42,7 +42,7 @@ export const createUserWithAuthorAndConnectedFeideId = (user, name, feideid) => 
 }
 
 export const formatName = (name) => {
-  return `${name.split(' ')[1]}, ${name.split(' ')[0]}`;
+  return `${splitName(name).lastName}, ${splitName(name).lastName}`;
 }
 
 export const splitName = (name) => {
