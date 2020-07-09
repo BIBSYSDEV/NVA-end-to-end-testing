@@ -3,7 +3,7 @@ import { USER, NAME } from '../../support/constants';
 
 Before(() => {
   cy.deleteUser(USER).then(() => {
-    cy.addUser(USER, NAME).then((idToken) => {
+    cy.createUser(USER, NAME).then((idToken) => {
       cy.wrap(idToken).as('idToken');
       cy.visit('/');
 

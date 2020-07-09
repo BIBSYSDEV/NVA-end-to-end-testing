@@ -95,7 +95,7 @@ Cypress.Commands.add('checkMenu', (table) => {
   });
 })
 
-Cypress.Commands.add('addUser', (userName, name) => {
+Cypress.Commands.add('createUser', (userName, name) => {
   const createUser = {
     TemporaryPassword: TEMP_PASSWORD,
     MessageAction: 'SUPPRESS',

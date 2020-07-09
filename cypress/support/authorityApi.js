@@ -91,3 +91,30 @@ export const addQualifierIdForAuthority = async (systemControlNumber, qualifier,
     return { error };
   }
 };
+
+export const removeQualifierIdFromAuthority = async (
+  systemControlNumber,
+  qualifier,
+  identifier,
+  idToken
+) => {
+  const url = `${AuthorityPaths.PERSON}/${systemControlNumber}/identifiers/${qualifier}/delete`;
+
+  const error = 'Error removing qualifier from authority.';
+
+  try {
+    const headers = {
+      Authorization: `Bearer ${idToken}`,
+    };
+
+    const response = await Axios.delete(url, { data: { identifier }, headers });
+
+    if (response.status === StatusCode.OK) {
+      return { data: response.data };
+    } else {
+      return { error: response.error };
+    }
+  } catch {
+    return { error };
+  }
+};

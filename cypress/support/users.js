@@ -1,7 +1,7 @@
 
 export const createUser = (user, name) => {
     cy.deleteUser(user).then(() => {
-        cy.addUser(user, name).then((idToken) => {
+        cy.createUser(user, name).then((idToken) => {
           cy.wrap(idToken).as('idToken');
         });
       });
@@ -9,7 +9,7 @@ export const createUser = (user, name) => {
 
 export const createUserWithAuthor = (user, name) => {
     cy.deleteUser(user).then(() => {
-        cy.addUser(user, name).then((idToken) => {
+        cy.createUser(user, name).then((idToken) => {
           cy.wrap(idToken).as('idToken');
           cy.get('@idToken').then((idToken) => {
             cy.getAuthorities(splitName(name), idToken).then((authorities) => {
@@ -26,7 +26,7 @@ export const createUserWithAuthor = (user, name) => {
 
 export const createUserWithAuthorAndConnectedFeideId = (user, name, feideid) => {
     cy.deleteUser(user).then(() => {
-        cy.addUser(user, name).then((idToken) => {
+        cy.createUser(user, name).then((idToken) => {
           cy.wrap(idToken).as('idToken');
           cy.get('@idToken').then((idToken) => {
             cy.getAuthorities({ ...splitName(name) , feideid: feideid }, idToken).then((authorities) => {
@@ -39,6 +39,10 @@ export const createUserWithAuthorAndConnectedFeideId = (user, name, feideid) => 
           });
         });
       });
+}
+
+export const removeQualifier = (user, qualifier, type) => {
+
 }
 
 export const formatName = (name) => {
