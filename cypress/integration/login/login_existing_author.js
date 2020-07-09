@@ -1,6 +1,6 @@
 import { Given, And, When, Then, Before, After } from 'cypress-cucumber-preprocessor/steps';
 import { NAME_WITH_AUTHOR, USER_WITH_AUTHOR } from '../../support/constants';
-import { createUserWithAuthor } from '../../support/users';
+import { createUserWithAuthor, formatName } from '../../support/users';
 
 Before(() => {
   createUserWithAuthor(USER_WITH_AUTHOR, NAME_WITH_AUTHOR);
@@ -20,8 +20,7 @@ When('they log in', () => {
 Then(
   'they see a list containing <Author name> and <Last publication> for each ARP entry matching their <Name>',
   () => {
-    const formatedName = `${NAME_WITH_AUTHOR.split(' ')[1]}, ${NAME_WITH_AUTHOR.split(' ')[0]}`;
-    cy.get('[data-testid=author-radio-button]').should('contain.text', formatedName);
+    cy.get('[data-testid=author-radio-button]').should('contain.text', formatName(NAME_WITH_AUTHOR));
   });
 And('a Create New Author Button', () => {
   cy.get('button').should('contain.text', 'Opprett meg som forfatter');
