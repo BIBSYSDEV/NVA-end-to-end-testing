@@ -53,3 +53,7 @@ export const splitName = (name) => {
     lastName: name.split(' ')[1]
   }
 }
+
+export const invertName = (firstName, lastName) => {
+  return `${lastName}, ${firstName}`;
+}

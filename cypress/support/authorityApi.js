@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { StatusCode, API_URL, AuthorityPaths, FEIDE_ID_QUALIFIER } from './constants';
+import { invertName } from './users';
 
 const setAxiosDefaults = () => {
   Axios.defaults.baseURL = API_URL;
@@ -45,7 +46,7 @@ export const createAuthority = async (firstName, lastName, feideId, idToken) => 
       Authorization: `Bearer ${idToken}`,
     };
 
-    const response = await Axios.post(url, { invertedname: `${lastName}, ${firstName}` }, { headers });
+    const response = await Axios.post(url, { invertedname: invertName(firstName, lastName) }, { headers });
     if (response.status === StatusCode.OK) {
       console.log(`feideid: ${feideid}`);
       if (feideId) {
