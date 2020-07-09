@@ -48,10 +48,8 @@ export const createAuthority = async (firstName, lastName, feideId, idToken) => 
 
     const response = await Axios.post(url, { invertedname: invertName(firstName, lastName) }, { headers });
     if (response.status === StatusCode.OK) {
-      console.log(`feideid: ${feideid}`);
       if (feideId) {
         const systemControlNumber = response.data.systemControlNumber;
-        console.log(response);
         const updatedAuthority = await addQualifierIdForAuthority(
           systemControlNumber,
           FEIDE_ID_QUALIFIER,

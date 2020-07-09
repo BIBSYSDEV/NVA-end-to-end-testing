@@ -13,7 +13,6 @@ export const createUserWithAuthor = (user, name) => {
           cy.wrap(idToken).as('idToken');
           cy.get('@idToken').then((idToken) => {
             cy.getAuthorities(splitName(name), idToken).then((authorities) => {
-              console.log(authorities);
               if (authorities?.length === 0) {
                 cy.createAuthority(newAuthority, idToken).then((authority) => {
                   cy.wrap(authority).as('authority');
@@ -31,7 +30,6 @@ export const createUserWithAuthorAndConnectedFeideId = (user, name, feideid) => 
           cy.wrap(idToken).as('idToken');
           cy.get('@idToken').then((idToken) => {
             cy.getAuthorities({ ...splitName(name) , feideid: feideid }, idToken).then((authorities) => {
-              console.log(authorities);
               if (authorities?.length === 0) {
                 cy.createAuthority(newAuthority, idToken).then((authority) => {
                   cy.wrap(authority).as('authority');
