@@ -1,20 +1,17 @@
 import { Given, When, Then, Before, After, And } from 'cypress-cucumber-preprocessor/steps';
 import { ADMIN_USER, ADMIN_NAME } from '../../support/constants';
+import { createUser } from '../../support/users';
 
 Before(() => {
-  cy.deleteUser(ADMIN_USER).then(() => {
-    cy.createUser(ADMIN_USER, ADMIN_NAME).then((idToken) => {
-      cy.wrap(idToken).as('idToken');
-      cy.visit('/');
+  createUser(ADMIN_USER, ADMIN_NAME);
+  cy.visit('/');
 
-      cy.get('[data-testid=create-author-button]', { timeout: 10000 }).click();
-      cy.get('[data-testid=modal_next]', { timeout: 10000 }).click();
-      cy.get('[data-testid=skip-connect-to-orcid]', { timeout: 10000 }).click();
+  cy.get('[data-testid=create-author-button]', { timeout: 10000 }).click();
+  cy.get('[data-testid=modal_next]', { timeout: 10000 }).click();
+  cy.get('[data-testid=skip-connect-to-orcid]', { timeout: 10000 }).click();
 
-      cy.setLanguage();
-      cy.visit('/');
-    });
-  });
+  cy.setLanguage();
+  cy.visit('/');
 });
 
 Given('that the user is logged in', () => {
@@ -34,5 +31,5 @@ Then('they see a menu containing', (tableData) => {
 });
 
 After(() => {
-  cy.deleteUser(ADMIN_USER);
+  cy.deleteCognitoUser(ADMIN_USER);
 });

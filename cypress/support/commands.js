@@ -93,9 +93,9 @@ Cypress.Commands.add('checkMenu', (table) => {
     cy.log(menuItem);
     cy.get('li').should('contain.text', menuItem);
   });
-})
+});
 
-Cypress.Commands.add('createUser', (userName, name) => {
+Cypress.Commands.add('createCognitoUser', (userName, name) => {
   const createUser = {
     TemporaryPassword: TEMP_PASSWORD,
     MessageAction: 'SUPPRESS',
@@ -160,7 +160,7 @@ Cypress.Commands.add('createUser', (userName, name) => {
   });
 });
 
-Cypress.Commands.add('deleteUser', (userName) => {
+Cypress.Commands.add('deleteCognitoUser', (userName) => {
   return new Cypress.Promise((resolve, reject) => {
     const deleteUser = { ...testUser, Username: userName };
     identityServiceProvider.adminGetUser(deleteUser, (err, data) => {

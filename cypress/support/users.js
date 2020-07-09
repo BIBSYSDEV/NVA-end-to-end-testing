@@ -1,7 +1,7 @@
 
 export const createUser = (user, name, connectAuthor, feideid) => {
-    cy.deleteUser(user).then(() => {
-        cy.createUser(user, name).then((idToken) => {
+    cy.deleteCognitoUser(user).then(() => {
+        cy.createCognitoUser(user, name).then((idToken) => {
           cy.wrap(idToken).as('idToken');
           if( connectAuthor ) {
             cy.get('@idToken').then((idToken) => {

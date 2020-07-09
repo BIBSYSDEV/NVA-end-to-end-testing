@@ -15,17 +15,15 @@ And('there are entries in ARP', () => {});
 When('they log in', () => {
   cy.get('@idToken').then(() => {
     cy.visit('/');
-  })
-});
-Then(
-  'they see a list containing <Author name> and <Last publication> for each ARP entry matching their <Name>',
-  () => {
-    cy.get('[data-testid=author-radio-button]').should('contain.text', formatName(NAME_WITH_AUTHOR));
   });
+});
+Then('they see a list containing <Author name> and <Last publication> for each ARP entry matching their <Name>', () => {
+  cy.get('[data-testid=author-radio-button]').should('contain.text', formatName(NAME_WITH_AUTHOR));
+});
 And('a Create New Author Button', () => {
   cy.get('button').should('contain.text', 'Opprett meg som forfatter');
 });
 
 After(() => {
-  cy.deleteUser(NAME_WITH_AUTHOR);
+  cy.deleteCognitoUser(NAME_WITH_AUTHOR);
 });

@@ -24,5 +24,5 @@ Then('the user sees that they are logged in', () => {
 });
 
 After(() => {
-  cy.deleteUser(USER);
+  cy.deleteCognitoUser(USER);
 });
