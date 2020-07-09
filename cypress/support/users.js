@@ -12,8 +12,7 @@ export const createUserWithAuthor = (user, name) => {
         cy.addUser(user, name).then((idToken) => {
           cy.wrap(idToken).as('idToken');
           cy.get('@idToken').then((idToken) => {
-            const newAuthority = { firstName: name.split(' ')[0], lastName: name.split(' ')[1] };
-            cy.getAuthorities(newAuthority, idToken).then((authorities) => {
+            cy.getAuthorities(splitName(name), idToken).then((authorities) => {
               console.log(authorities);
               if (authorities?.length === 0) {
                 cy.createAuthority(newAuthority, idToken).then((authority) => {
@@ -31,8 +30,7 @@ export const createUserWithAuthorAndConnectedFeideId = (user, name, feideid) => 
         cy.addUser(user, name).then((idToken) => {
           cy.wrap(idToken).as('idToken');
           cy.get('@idToken').then((idToken) => {
-            const newAuthority = { firstName: name.split(' ')[0], lastName: name.split(' ')[1], feideid: feideid };
-            cy.getAuthorities(newAuthority, idToken).then((authorities) => {
+            cy.getAuthorities({ ...splitName(name) , feideid: feideid }, idToken).then((authorities) => {
               console.log(authorities);
               if (authorities?.length === 0) {
                 cy.createAuthority(newAuthority, idToken).then((authority) => {
@@ -43,4 +41,15 @@ export const createUserWithAuthorAndConnectedFeideId = (user, name, feideid) => 
           });
         });
       });
+}
+
+export const formatName = (name) => {
+  return `${name.split(' ')[1]}, ${name.split(' ')[0]}`;
+}
+
+export const splitName = (name) => {
+  return {
+    firstName: name.split(' ')[0], 
+    lastName: name.split(' ')[1]
+  }
 }
