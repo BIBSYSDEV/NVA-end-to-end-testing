@@ -3,7 +3,7 @@ import { ADMIN_USER, ADMIN_NAME } from '../../support/constants';
 
 Before(() => {
   cy.deleteUser(ADMIN_USER).then(() => {
-    cy.addUser(ADMIN_USER, ADMIN_NAME).then((idToken) => {
+    cy.createUser(ADMIN_USER, ADMIN_NAME).then((idToken) => {
       cy.wrap(idToken).as('idToken');
       cy.visit('/');
 
