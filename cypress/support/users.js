@@ -5,9 +5,12 @@ export const createUser = (user, name, connectAuthor, feideid) => {
           cy.wrap(idToken).as('idToken');
           if( connectAuthor ) {
             cy.get('@idToken').then((idToken) => {
-              feideid = feideid ? feideid : '';
-              cy.getAuthorities({ ...splitName(name) , feideid: feideid }, idToken).then((authorities) => {
+              console.log(formatName(name));
+              cy.getAuthorities(formatName(name), idToken).then((authorities) => {
+                console.log(authorities);
                 if (authorities?.length === 0) {
+                  const newAuthority = { ...splitName(name), feideid: feideid ? feideid : '' };
+                  console.log(newAuthority);
                   cy.createAuthority(newAuthority, idToken).then((authority) => {
                     cy.wrap(authority).as('authority');
                   });
@@ -24,7 +27,7 @@ export const removeQualifier = (user, qualifier, type) => {
 }
 
 export const formatName = (name) => {
-  return `${splitName(name).lastName}, ${splitName(name).lastName}`;
+  return `${splitName(name).lastName}, ${splitName(name).firstName}`;
 }
 
 export const splitName = (name) => {

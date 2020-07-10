@@ -22,8 +22,8 @@ export const AuthorityPaths = {
 export const USER = 'test-user-end-to-end@test.no';
 export const NAME = 'End-to-end TestUser';
 
-export const USER_WITH_AUTHOR = 'test-user-author@test.no';
-export const NAME_WITH_AUTHOR = 'Author TestUser';
+export const USER_WITH_AUTHOR = 'test-user-with-author@test.no';
+export const NAME_WITH_AUTHOR = 'Withauthor TestUser';
 
 export const ADMIN_USER = 'test-user-admin@unit.no';
 export const ADMIN_NAME = 'Admin TestUser';

@@ -1,5 +1,6 @@
 Feature: Login using Cognito
 
+    @ignore
     Scenario: Login
 
         Given A user have logged in using Cognito
@@ -15,3 +16,4 @@ Feature: Login using Cognito
         When they log in
         Then they see a list containing <Author name> and <Last publication> for each ARP entry matching their <Name>
         And a Create New Author Button
+

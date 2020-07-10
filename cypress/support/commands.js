@@ -62,9 +62,9 @@ Cypress.Commands.add('createAuthority', (newAuthority, IdToken) => {
   });
 });
 
-Cypress.Commands.add('getAuthorities', (authority, idToken) => {
+Cypress.Commands.add('getAuthorities', (name, idToken) => {
   return new Cypress.Promise((resolve, reject) => {
-    const authorities = getAuthorities(`${authority.lastName}, ${authority.firstName}`, idToken);
+    const authorities = getAuthorities(name, idToken);
     if (authorities) {
       resolve(authorities);
     } else {
