@@ -1,14 +1,6 @@
 import { Given, When, Then, Before } from 'cypress-cucumber-preprocessor/steps';
 import { v4 as uuidv4 } from 'uuid';
 
-const USER_NAME = 'testUser@unit.no';
-
-Before(() => {
-  cy.addUser(USER_NAME).then((authResult) => {
-    cy.wrap(authResult).as('authResult');
-  });
-});
-
 Given('that the user is not logged in', () => {
   cy.visit('/');
   cy.get('[data-testid=menu-login-button]').should('be.visible');

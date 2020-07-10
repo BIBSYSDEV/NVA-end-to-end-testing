@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
+import { createAuthority, getAuthorities } from './authorityApi';
 
 const REGION = Cypress.env('AWS_REGION');
 const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
@@ -47,6 +48,37 @@ const testUser = {
   UserPoolId: USER_POOL_ID,
 };
 
+Cypress.Commands.add('connectAuthor', () => {
+  cy.get('[data-testid=create-author-button]').click();
+  cy.get('[data-testid=modal_next]').click();
+});
+
+Cypress.Commands.add('createAuthority', (newAuthority, IdToken) => {
+  return new Cypress.Promise((resolve, reject) => {
+    const authority = createAuthority(newAuthority.firstName, newAuthority.lastName, newAuthority.feideid, IdToken);
+    if (authority) {
+      resolve(authority);
+    }
+  });
+});
+
+Cypress.Commands.add('getAuthorities', (name, idToken) => {
+  return new Cypress.Promise((resolve, reject) => {
+    const authorities = getAuthorities(name, idToken);
+    if (authorities) {
+      resolve(authorities);
+    } else {
+      reject();
+    }
+  });
+});
+
+Cypress.Commands.add('skipOrcid', () => {
+  cy.get('[data-testid=skip-connect-to-orcid]').click();
+});
+
+Cypress.Commands.add('connectOrcid', (user) => {});
+
 Cypress.Commands.add('setLanguage', () => {
   cy.get('[data-testid=menu]').click();
   cy.get('[data-testid=menu-user-profile-button]').click();
@@ -61,21 +93,21 @@ Cypress.Commands.add('checkMenu', (table) => {
     cy.log(menuItem);
     cy.get('li').should('contain.text', menuItem);
   });
-})
+});
 
-Cypress.Commands.add('addUser', (userName, role) => {
+Cypress.Commands.add('createCognitoUser', (userName, name) => {
   const createUser = {
     TemporaryPassword: TEMP_PASSWORD,
     MessageAction: 'SUPPRESS',
     UserAttributes: [
-      { Name: NAME, Value: 'Test User' },
-      { Name: CUSTOM_IDENTIFIERS, Value: 'feide:test@unit.no' },
+      { Name: NAME, Value: name },
+      { Name: CUSTOM_IDENTIFIERS, Value: `feide:${userName}` },
       { Name: CUSTOM_ORG_LEGAL_NAME, Value: 'Unit' },
       { Name: CUSTOM_ORG_NUMBER, Value: 'NO818477822' },
       { Name: CUSTOM_APPLICATION, Value: 'NVA' },
-      { Name: CUSTOM_APPLICATION_ROLES, Value: role },
-      { Name: CUSTOM_COMMON_NAME, Value: 'Test User' },
-      { Name: CUSTOM_FEIDE_ID, Value: 'test@unit.no' },
+      { Name: CUSTOM_APPLICATION_ROLES, Value: 'Publisher' },
+      { Name: CUSTOM_COMMON_NAME, Value: name },
+      { Name: CUSTOM_FEIDE_ID, Value: userName },
       { Name: CUSTOM_AFFILIATION, Value: '[member, employee, staff]' },
     ],
   };
@@ -111,7 +143,7 @@ Cypress.Commands.add('addUser', (userName, role) => {
               identityServiceProvider.adminRespondToAuthChallenge(challenge, (err, data) => {
                 if (data) {
                   Auth.signIn(userName, NEW_PASSWORD);
-                  resolve(userId);
+                  resolve(data.AuthenticationResult.IdToken);
                 } else {
                   reject(err);
                 }
@@ -128,7 +160,7 @@ Cypress.Commands.add('addUser', (userName, role) => {
   });
 });
 
-Cypress.Commands.add('deleteUser', (userName) => {
+Cypress.Commands.add('deleteCognitoUser', (userName) => {
   return new Cypress.Promise((resolve, reject) => {
     const deleteUser = { ...testUser, Username: userName };
     identityServiceProvider.adminGetUser(deleteUser, (err, data) => {
