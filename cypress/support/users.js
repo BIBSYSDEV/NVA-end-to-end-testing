@@ -1,5 +1,6 @@
 
 export const createUser = (user, name, connectAuthor, feideid) => {
+  console.log(user, name);
     cy.deleteUser(user).then(() => {
         cy.createUser(user, name).then((idToken) => {
           cy.wrap(idToken).as('idToken');
@@ -14,16 +15,21 @@ export const createUser = (user, name, connectAuthor, feideid) => {
                   cy.createAuthority(newAuthority, idToken).then((authority) => {
                     cy.wrap(authority).as('authority');
                   });
+                } else {
+                  if (!feideid) {
+                    authorities.forEach((authority) => {
+                      console.log(authority);
+                      if(authority.feideids.includes(user)){
+                        cy.removeQualifierId(authority.systemControlNumber, 'feideid', user, idToken);
+                      }
+                    });
+                  }
                 }
               });
             });
           }
         });
       });
-}
-
-export const removeQualifier = (user, qualifier, type) => {
-
 }
 
 export const formatName = (name) => {

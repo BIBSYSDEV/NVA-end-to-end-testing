@@ -1,6 +1,5 @@
 Feature: Login using Cognito
 
-    @ignore
     Scenario: Login
 
         Given A user have logged in using Cognito

@@ -1,7 +1,8 @@
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
-import { createAuthority, getAuthorities } from './authorityApi';
+import { createAuthority, getAuthorities, removeQualifierIdFromAuthority } from './authorityApi';
+import { AuthorityPaths } from './constants';
 
 const REGION = Cypress.env('AWS_REGION');
 const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
@@ -72,6 +73,18 @@ Cypress.Commands.add('getAuthorities', (name, idToken) => {
     }
   });
 });
+
+Cypress.Commands.add('removeQualifierId', (systemControlNumber, qualifier, identifier, idToken) => {
+  return new Cypress.Promise((resolve, reject) => {
+    const response = removeQualifierIdFromAuthority(systemControlNumber, qualifier, identifier, idToken);
+    if(response.data) {
+      resolve(resonse.data);
+    } else {
+      reject(response.error);
+    }
+  })
+});
+
 
 Cypress.Commands.add('skipOrcid', () => {
   cy.get('[data-testid=skip-connect-to-orcid]').click();
