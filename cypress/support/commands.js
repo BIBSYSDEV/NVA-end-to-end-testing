@@ -173,8 +173,6 @@ Cypress.Commands.add('createUser', (userName, name) => {
 });
 
 Cypress.Commands.add('deleteUser', (userName) => {
-  console.log('Delete user:');
-  console.log(userName);
   return new Cypress.Promise((resolve, reject) => {
     const deleteUser = { ...testUser, Username: userName };
     identityServiceProvider.adminGetUser(deleteUser, (err, data) => {

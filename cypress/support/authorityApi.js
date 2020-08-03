@@ -92,12 +92,7 @@ export const addQualifierIdForAuthority = async (systemControlNumber, qualifier,
   }
 };
 
-export const removeQualifierIdFromAuthority = async (
-  systemControlNumber,
-  qualifier,
-  identifier,
-  idToken
-) => {
+export const removeQualifierIdFromAuthority = async (systemControlNumber, qualifier, identifier, idToken) => {
   const url = `${AuthorityPaths.PERSON}/${systemControlNumber}/identifiers/${qualifier}/delete`;
 
   const error = 'Error removing qualifier from authority.';
