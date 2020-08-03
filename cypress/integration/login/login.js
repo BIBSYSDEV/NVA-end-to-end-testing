@@ -2,12 +2,9 @@ import { Given, When, Before, After } from 'cypress-cucumber-preprocessor/steps'
 import { USER, NAME } from '../../support/constants';
 import { createUser } from '../../support/users';
 
-Before(() => {
+Given('A user have logged in using Cognito', () => {
   createUser(USER, NAME);
   cy.visit('/');
-});
-
-Given('A user have logged in using Cognito', () => {
   cy.get('@idToken');
 });
 
@@ -21,8 +18,5 @@ Then('the user sees that they are logged in', () => {
   cy.get('[data-testid=menu]').within(($menu) => {
     cy.get('p').should('have.text', NAME);
   });
-});
-
-After(() => {
   cy.deleteUser(USER);
 });

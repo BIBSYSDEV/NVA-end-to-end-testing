@@ -77,14 +77,13 @@ Cypress.Commands.add('getAuthorities', (name, idToken) => {
 Cypress.Commands.add('removeQualifierId', (systemControlNumber, qualifier, identifier, idToken) => {
   return new Cypress.Promise((resolve, reject) => {
     const response = removeQualifierIdFromAuthority(systemControlNumber, qualifier, identifier, idToken);
-    if(response.data) {
+    if (response.data) {
       resolve(resonse.data);
     } else {
       reject(response.error);
     }
-  })
+  });
 });
-
 
 Cypress.Commands.add('skipOrcid', () => {
   cy.get('[data-testid=skip-connect-to-orcid]').click();
@@ -106,7 +105,7 @@ Cypress.Commands.add('checkMenu', (table) => {
     cy.log(menuItem);
     cy.get('li').should('contain.text', menuItem);
   });
-})
+});
 
 Cypress.Commands.add('createUser', (userName, name) => {
   const createUser = {
@@ -174,6 +173,8 @@ Cypress.Commands.add('createUser', (userName, name) => {
 });
 
 Cypress.Commands.add('deleteUser', (userName) => {
+  console.log('Delete user:');
+  console.log(userName);
   return new Cypress.Promise((resolve, reject) => {
     const deleteUser = { ...testUser, Username: userName };
     identityServiceProvider.adminGetUser(deleteUser, (err, data) => {
