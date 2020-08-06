@@ -1,7 +1,12 @@
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
-import { createAuthority, getAuthorities, removeQualifierIdFromAuthority } from './authorityApi';
+import {
+  createAuthority,
+  getAuthorities,
+  removeQualifierIdFromAuthority,
+  addQualifierIdForAuthority,
+} from './authorityApi';
 import { AuthorityPaths } from './constants';
 
 const REGION = Cypress.env('AWS_REGION');
@@ -63,11 +68,22 @@ Cypress.Commands.add('createAuthority', (newAuthority, IdToken) => {
   });
 });
 
-Cypress.Commands.add('getAuthorities', (name, idToken) => {
+Cypress.Commands.add('getAuthorities', (name, feideId, idToken) => {
   return new Cypress.Promise((resolve, reject) => {
-    const authorities = getAuthorities(name, idToken);
+    const authorities = getAuthorities(name, feideId, idToken);
     if (authorities) {
       resolve(authorities);
+    } else {
+      reject();
+    }
+  });
+});
+
+Cypress.Commands.add('getAuthority', (scn, idToken) => {
+  return new Cypress.Promise((resolve, reject) => {
+    const authority = getAuthorities(scn, idToken);
+    if (authority) {
+      resolve(authority);
     } else {
       reject();
     }
@@ -79,6 +95,18 @@ Cypress.Commands.add('removeQualifierId', (systemControlNumber, qualifier, ident
     const response = removeQualifierIdFromAuthority(systemControlNumber, qualifier, identifier, idToken);
     if (response.data) {
       resolve(resonse.data);
+    } else {
+      reject(response.error);
+    }
+  });
+});
+
+Cypress.Commands.add('addQualifierId', (systemControlNumber, qualifier, identifier, idToken) => {
+  return new Cypress.Promise(async (resolve, reject) => {
+    await removeQualifierIdFromAuthority(systemControlNumber, qualifier, identifier, idToken);
+    const response = await addQualifierIdForAuthority(systemControlNumber, qualifier, identifier, idToken);
+    if (response.data) {
+      resolve(response.data);
     } else {
       reject(response.error);
     }

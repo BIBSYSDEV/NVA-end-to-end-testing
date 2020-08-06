@@ -25,5 +25,8 @@ export const NAME = 'End-to-end TestUser';
 export const USER_WITH_AUTHOR = 'test-user-with-author@test.no';
 export const NAME_WITH_AUTHOR = 'Withauthor TestUser';
 
+export const USER_CONNECT_ORCID = 'test-user5-connect-orcid@test.no';
+export const NAME_CONNECT_ORCID = 'Connectorcid TestUser5';
+
 export const ADMIN_USER = 'test-user-admin@unit.no';
 export const ADMIN_NAME = 'Admin TestUser';

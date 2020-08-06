@@ -11,9 +11,10 @@ const setAxiosDefaults = () => {
   Axios.defaults.headers.put['Content-Type'] = 'application/json';
 };
 
-export const getAuthorities = async (name, idToken) => {
+export const getAuthorities = async (name, feideId, idToken) => {
   setAxiosDefaults();
-  const url = encodeURI(`${AuthorityPaths.PERSON}?name=${name}`);
+  const query = name ? `name=${name}` : `feideid=${feideId}`;
+  const url = encodeURI(`${AuthorityPaths.PERSON}?${query}`);
   try {
     // remove when Authorization headers are set for all requests
     const headers = {
@@ -34,7 +35,7 @@ export const getAuthorities = async (name, idToken) => {
   }
 };
 
-export const createAuthority = async (firstName, lastName, feideId, idToken) => {
+export const createAuthority = async (newAuthority, idToken) => {
   setAxiosDefaults();
   const url = AuthorityPaths.PERSON;
 
@@ -46,22 +47,13 @@ export const createAuthority = async (firstName, lastName, feideId, idToken) => 
       Authorization: `Bearer ${idToken}`,
     };
 
-    const response = await Axios.post(url, { invertedname: invertName(firstName, lastName) }, { headers });
+    const response = await Axios.post(
+      url,
+      { invertedname: invertName(newAuthority.firstName, newAuthority.lastName) },
+      { headers }
+    );
     if (response.status === StatusCode.OK) {
-      if (feideId) {
-        const systemControlNumber = response.data.systemControlNumber;
-        const updatedAuthority = await addQualifierIdForAuthority(
-          systemControlNumber,
-          FEIDE_ID_QUALIFIER,
-          feideId,
-          idToken
-        );
-        if (updatedAuthority) {
-          return updatedAuthority;
-        }
-      } else {
-        return { authority: response.data };
-      }
+      return { authority: response.data };
     } else {
       return { error: response.error };
     }

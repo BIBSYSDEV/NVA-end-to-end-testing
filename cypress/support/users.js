@@ -1,30 +1,38 @@
-export const createUser = (user, name, connectAuthor, feideid) => {
-  cy.deleteUser(user).then(() => {
-    cy.createUser(user, name).then((idToken) => {
-      cy.wrap(idToken).as('idToken');
-      if (connectAuthor) {
-        cy.get('@idToken').then((idToken) => {
-          cy.getAuthorities(formatName(name), idToken).then((authorities) => {
-            if (authorities?.length === 0) {
-              const newAuthority = { ...splitName(name), feideid: feideid ? feideid : '' };
-              cy.createAuthority(newAuthority, idToken).then((authority) => {
-                cy.wrap(authority).as('authority');
-              });
-            } else {
-              if (!feideid) {
-                authorities.forEach((authority) => {
-                  if (authority.feideids.includes(user)) {
-                    cy.removeQualifierId(authority.systemControlNumber, 'feideid', user, idToken);
-                  }
-                });
-              }
-            }
-          });
+import {
+  removeQualifierIdFromAuthority,
+  addQualifierIdForAuthority,
+  getAuthorities,
+  createAuthority,
+} from './authorityApi';
+
+const UNIT = '20202.0.0.0';
+
+export const createUser = (user, name) => {
+  return new Cypress.Promise((resolve, reject) => {
+    cy.deleteUser(user).then(() => {
+      cy.createUser(user, name).then((idToken) => {
+        cy.wrap(idToken).as('idToken');
+        cy.get('@idToken').then(async (idToken) => {
+          const authorities = await getAuthorities(formatName(name), '', idToken);
+          let authority = authorities[0];
+          if (authorities?.length === 0) {
+            authority = await createAuthority(splitName(name), idToken);
+          }
+          resolve(authority);
         });
-      }
+      });
     });
   });
 };
+
+// export const addQualifierToAuthority = (systemControlNumber, type, value, idToken) => {
+//   return new Cypress.Promise(async (resolve, reject) => {
+//     const removeResponse = await removeQualifierIdFromAuthority(systemControlNumber, type, value, idToken);
+//     const response = await addQualifierIdForAuthority(systemControlNumber, type, value, idToken);
+
+//     resolve(response);
+//   });
+// };
 
 export const formatName = (name) => {
   return `${splitName(name).lastName}, ${splitName(name).firstName}`;
