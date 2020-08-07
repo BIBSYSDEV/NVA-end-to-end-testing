@@ -1,13 +1,13 @@
 import { Given, When, Then, Before, After, And } from 'cypress-cucumber-preprocessor/steps';
-import { ADMIN_USER, ADMIN_NAME } from '../../support/constants';
+import { APP_ADMIN_USER, APP_ADMIN_NAME } from '../../support/constants';
 
 Before(() => {
-  cy.deleteUser(ADMIN_USER).then(() => {
-    cy.createUser(ADMIN_USER, ADMIN_NAME).then((idToken) => {
+  cy.deleteUser(APP_ADMIN_USER).then(() => {
+    cy.createUser(APP_ADMIN_USER, APP_ADMIN_NAME).then((idToken) => {
       cy.wrap(idToken).as('idToken');
       cy.visit('/');
 
-      cy.get('[data-testid=create-author-button]', { timeout: 10000 }).click();
+      cy.get('[data-testid=create-author-button]').click();
       cy.get('[data-testid=modal_next]', { timeout: 10000 }).click();
       cy.get('[data-testid=skip-connect-to-orcid]', { timeout: 10000 }).click();
 
@@ -34,5 +34,5 @@ Then('they see a menu containing', (tableData) => {
 });
 
 After(() => {
-  cy.deleteUser(ADMIN_USER);
+  cy.deleteUser(APP_ADMIN_USER);
 });

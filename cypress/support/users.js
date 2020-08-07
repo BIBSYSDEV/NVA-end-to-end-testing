@@ -14,25 +14,13 @@ export const createUser = (user, name) => {
         cy.wrap(idToken).as('idToken');
         cy.get('@idToken').then(async (idToken) => {
           const authorities = await getAuthorities(formatName(name), '', idToken);
-          let authority = authorities[0];
-          if (authorities?.length === 0) {
-            authority = await createAuthority(splitName(name), idToken);
-          }
+          const authority = authorities.length > 0 ? authorities[0] : await createAuthority(splitName(name), idToken);
           resolve(authority);
         });
       });
     });
   });
 };
-
-// export const addQualifierToAuthority = (systemControlNumber, type, value, idToken) => {
-//   return new Cypress.Promise(async (resolve, reject) => {
-//     const removeResponse = await removeQualifierIdFromAuthority(systemControlNumber, type, value, idToken);
-//     const response = await addQualifierIdForAuthority(systemControlNumber, type, value, idToken);
-
-//     resolve(response);
-//   });
-// };
 
 export const formatName = (name) => {
   return `${splitName(name).lastName}, ${splitName(name).firstName}`;
