@@ -4,7 +4,7 @@ import { createUser, addQualifierToAuthority } from '../../support/users';
 
 Given('that the user has valid Feide credentials', () => {});
 And('they have logged in with Feide before', () => {
-  createUser(USER_CONNECT_ORCID, NAME_CONNECT_ORCID, true, USER_CONNECT_ORCID).then((authority) => {
+  createUser(USER_CONNECT_ORCID, NAME_CONNECT_ORCID).then((authority) => {
     cy.wrap(authority).as('authority');
     cy.get('@idToken').then((idToken) => {
       cy.addQualifierId(authority.systemControlNumber, 'feide', USER_CONNECT_ORCID, idToken).then(() => {

@@ -10,13 +10,11 @@ const UNIT = '20202.0.0.0';
 export const createUser = (user, name) => {
   return new Cypress.Promise((resolve, reject) => {
     cy.deleteUser(user).then(() => {
-      cy.createUser(user, name).then((idToken) => {
+      cy.createUser(user, name).then(async (idToken) => {
         cy.wrap(idToken).as('idToken');
-        cy.get('@idToken').then(async (idToken) => {
-          const authorities = await getAuthorities(formatName(name), '', idToken);
-          const authority = authorities.length > 0 ? authorities[0] : await createAuthority(splitName(name), idToken);
-          resolve(authority);
-        });
+        const authorities = await getAuthorities(formatName(name), '', idToken);
+        const authority = authorities.length > 0 ? authorities[0] : await createAuthority(splitName(name), idToken);
+        resolve(authority);
       });
     });
   });
