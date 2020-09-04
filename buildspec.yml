@@ -26,4 +26,7 @@ phases:
       - echo "post_build step"
 artifacts:
   files:
+    - '**/*'
+cache:
+  paths:
     - node_modules/**/*
