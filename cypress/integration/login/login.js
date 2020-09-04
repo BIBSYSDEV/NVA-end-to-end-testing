@@ -1,14 +1,10 @@
-import { Given, When, Before, After } from 'cypress-cucumber-preprocessor/steps';
-import { USER, NAME } from '../../support/constants';
-import { createUser } from '../../support/users';
-
-Before(() => {
-  createUser(USER, NAME);
-  cy.visit('/');
-});
+import { Given, When } from 'cypress-cucumber-preprocessor/steps';
+import { TEST_USER, TEST_USER_PASSWORD, TEST_USER_NAME } from '../../support/constants';
 
 Given('A user have logged in using Cognito', () => {
-  cy.get('@idToken');
+  cy.loginCognito(TEST_USER, TEST_USER_PASSWORD).then((idToken) => {
+    cy.wrap(idToken).as('idToken');
+  });
 });
 
 When('the user navigates to the front page', () => {
@@ -19,10 +15,6 @@ When('the user navigates to the front page', () => {
 
 Then('the user sees that they are logged in', () => {
   cy.get('[data-testid=menu]').within(($menu) => {
-    cy.get('p').should('have.text', NAME);
+    cy.get('p').should('have.text', TEST_USER_NAME);
   });
-});
-
-After(() => {
-  cy.deleteCognitoUser(USER);
 });

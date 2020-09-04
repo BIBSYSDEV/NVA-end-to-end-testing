@@ -2,11 +2,8 @@ import { Given, And, When, Then, Before, After } from 'cypress-cucumber-preproce
 import { NAME_WITH_AUTHOR, USER_WITH_AUTHOR } from '../../support/constants';
 import { createUser, formatName } from '../../support/users';
 
-Before(() => {
-  createUser(USER_WITH_AUTHOR, NAME_WITH_AUTHOR, true);
-});
-
 Given('that a User has a valid Feide ID and password', () => {
+  createUser(USER_WITH_AUTHOR, NAME_WITH_AUTHOR, true);
   cy.get('@idToken');
 });
 And('they do not have a Feide ID in their ARP entry', () => {});

@@ -8,12 +8,14 @@ const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
-AWS.config = new AWS.Config({
-  accessKeyId: Cypress.env('AWS_ACCESS_KEY_ID'),
-  secretAccessKey: Cypress.env('AWS_SECRET_ACCESS_KEY'),
-  sessionToken: Cypress.env('AWS_SESSION_TOKEN'),
-  region: REGION,
-});
+if (Cypress.env('REMOTE') !== 'remote') {
+  AWS.config = new AWS.Config({
+    accessKeyId: 'AWS_ACCESS_KEY_ID',
+    secretAccessKey: Cypress.env('AWS_SECRET_ACCESS_KEY'),
+    sessionToken: Cypress.env('AWS_SESSION_TOKEN'),
+    region: REGION,
+  });
+}
 
 const amplifyConfig = {
   Auth: {
@@ -148,6 +150,45 @@ Cypress.Commands.add('createCognitoUser', (userName, name) => {
                   reject(err);
                 }
               });
+            }
+          } else {
+            reject(err);
+          }
+        });
+      } else {
+        reject(err);
+      }
+    });
+  });
+});
+
+Cypress.Commands.add('loginCognito', (userId, password) => {
+  return new Cypress.Promise((resolve, reject) => {
+    const authorizeUser = {
+      AuthFlow: AUTH_FLOW,
+      ClientId: CLIENT_ID,
+      UserPoolId: USER_POOL_ID,
+      AuthParameters: {
+        USERNAME: userId,
+        PASSWORD: password,
+      },
+    };
+
+    const passwordParams = {
+      Password: password,
+      UserPoolId: USER_POOL_ID,
+      Username: userId,
+      Permanent: true,
+    };
+
+    identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+      if (data) {
+        identityServiceProvider.adminInitiateAuth(authorizeUser, (err, data) => {
+          if (data) {
+            console.log(data);
+            if (!data.ChallengeName) {
+              Auth.signIn(userId, password);
+              resolve(data.AuthenticationResult.IdToken);
             }
           } else {
             reject(err);
