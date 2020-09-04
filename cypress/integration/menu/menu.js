@@ -1,5 +1,5 @@
 import { Given, When, Then, Before } from 'cypress-cucumber-preprocessor/steps';
-import { v4 as uuidv4 } from 'uuid';
+import uuid from 'uuid';
 
 Given('that the user is not logged in', () => {
   cy.visit('/');
@@ -7,7 +7,7 @@ Given('that the user is not logged in', () => {
 });
 
 When('they look at any page in NVA', () => {
-  const uuid = uuidv4();
+  const uuid = uuid.v4();
   cy.visit(`/${uuid}`);
 });
 

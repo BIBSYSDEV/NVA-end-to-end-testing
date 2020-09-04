@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk';
-import { v4 as uuidv4 } from 'uuid';
+import uuid from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import { createAuthority, getAuthorities } from './authorityApi';
 
@@ -30,8 +30,8 @@ Amplify.configure(amplifyConfig);
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
-const TEMP_PASSWORD = uuidv4() + 'P%9';
-const NEW_PASSWORD = uuidv4() + 'P%0';
+const TEMP_PASSWORD = uuid.v4() + 'P%9';
+const NEW_PASSWORD = uuid.v4() + 'P%0';
 
 const AUTH_FLOW = 'ADMIN_USER_PASSWORD_AUTH';
 const NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED';
