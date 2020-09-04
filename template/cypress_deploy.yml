@@ -28,7 +28,7 @@ Parameters:
     Default: 'http://frontend.sandbox.nva.aws.unit.no/'
   ApiBaseUrl:
     Type: String
-    Description: Address to ORCID services
+    Description: Address to NVA services
     Default: 'https://api.sandbox.nva.aws.unit.no/'
   OrcidBaseUrl:
     Type: String
