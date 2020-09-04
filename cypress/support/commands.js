@@ -16,8 +16,17 @@ if (Cypress.env('REMOTE') !== 'remote') {
     region: REGION,
   });
 } else {
-  AWS.config = new AWS.Config({ ...AWS.config, region: REGION });
+  AWS.config = new AWS.Config();
+  AWS.config.update({ region: REGION });
 }
+
+AWS.config.getCredentials((err) => {
+  if (err) console.log(err.stack);
+  // credentials not loaded
+  else {
+    console.log('Access key:', AWS.config.credentials.accessKeyId);
+  }
+});
 
 const amplifyConfig = {
   Auth: {
