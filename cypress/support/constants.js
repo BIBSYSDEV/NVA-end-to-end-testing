@@ -1,3 +1,5 @@
+import uuid from 'uuid';
+
 export const ORCID_BASE_URL = Cypress.env('REACT_APP_ORCID_BASE_URL');
 export const ORCID_USER_INFO_URL = `${ORCID_BASE_URL}/oauth/userinfo`;
 const ORCID_CLIENT_ID = Cypress.env('REACT_APP_ORCID_CLIENT_ID');
@@ -29,5 +31,5 @@ export const ADMIN_USER = 'test-user-admin@unit.no';
 export const ADMIN_NAME = 'Admin TestUser';
 
 export const TEST_USER = '70d03e1e-0144-42f4-8512-95f6937ffe38';
-export const TEST_USER_PASSWORD = `P%0${uuidv4()}`;
+export const TEST_USER_PASSWORD = `P%0${uuid.v4()}`;
 export const TEST_USER_NAME = 'Connectorcid TestUser';
