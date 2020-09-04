@@ -15,6 +15,8 @@ if (Cypress.env('REMOTE') !== 'remote') {
     sessionToken: Cypress.env('AWS_SESSION_TOKEN'),
     region: REGION,
   });
+} else {
+  AWS.config = new AWS.Config({ ...AWS.config, region: REGION });
 }
 
 const amplifyConfig = {
