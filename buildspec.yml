@@ -13,7 +13,9 @@ phases:
       - npm install aws-sdk --save-prod
       - npm install aws-amplify --save-prod
       - npm install
-      - ls -l
+      - echo '---------'
+      - echo $CYPRESS_AWS_REGION
+      - echo '---------'
   pre_build:
     commands:
       - export CYPRESS_baseUrl=$CYPRESS_REACT_APP_URL
