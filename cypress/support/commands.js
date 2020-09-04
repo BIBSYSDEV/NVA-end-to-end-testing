@@ -8,17 +8,12 @@ const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
-if (Cypress.env('REMOTE') !== 'remote') {
-  AWS.config = new AWS.Config({
-    accessKeyId: 'AWS_ACCESS_KEY_ID',
-    secretAccessKey: Cypress.env('AWS_SECRET_ACCESS_KEY'),
-    sessionToken: Cypress.env('AWS_SESSION_TOKEN'),
-    region: REGION,
-  });
-} else {
-  AWS.config = new AWS.Config();
-  AWS.config.update({ region: REGION });
-}
+AWS.config = new AWS.Config({
+  accessKeyId: 'AWS_ACCESS_KEY_ID',
+  secretAccessKey: Cypress.env('AWS_SECRET_ACCESS_KEY'),
+  sessionToken: Cypress.env('AWS_SESSION_TOKEN'),
+  region: REGION,
+});
 
 AWS.config.getCredentials((err) => {
   if (err) console.log(err.stack);
