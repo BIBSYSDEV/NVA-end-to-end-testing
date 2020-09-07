@@ -13,7 +13,17 @@ phases:
       - npm install aws-sdk
       - npm install aws-amplify
       - npm install
-  pre_build:
+      - echo $ROLE_ARN
+      - TEMP_ROLE=`aws sts assume-role --role-arn $ROLE_ARN --role-session-name test`
+      - export TEMP_ROLE
+      - echo $TEMP_ROLE
+      - export AWS_ACCESS_KEY_ID=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.AccessKeyId')
+      - export AWS_SECRET_ACCESS_KEY=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.SecretAccessKey')
+      - export AWS_SESSION_TOKEN=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.SessionToken')
+      - echo $AWS_ACCESS_KEY_ID
+      - echo $AWS_SECRET_ACCESS_KEY
+      - echo $AWS_SESSION_TOKEN
+      pre_build:
     commands:
       - export CYPRESS_ROLE_ARN=$ROLE_ARN
       - echo $CYPRESS_ROLE_ARN
