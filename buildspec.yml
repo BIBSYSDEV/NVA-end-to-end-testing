@@ -14,7 +14,7 @@ phases:
       - npm install aws-amplify
       - npm install
       - echo '-------------------------'
-      - ls -l ~/.aws
+      - ls -l
       - echo '-------------------------'
   pre_build:
     commands:
