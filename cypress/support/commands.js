@@ -15,18 +15,22 @@ if (Cypress.env('REMOTE') !== 'remote') {
     sessionToken: Cypress.env('AWS_SESSION_TOKEN'),
     region: REGION,
   });
-
-  const amplifyConfig = {
-    Auth: {
-      identityPoolId: IDENTITY_POOL_ID,
-      region: REGION,
-      userPoolId: USER_POOL_ID,
-      userPoolWebClientId: CLIENT_ID,
-    },
-  };
-
-  Amplify.configure(amplifyConfig);
+} else {
+  AWS.config = new AWS.Config({
+    region: REGION,
+  });
 }
+
+const amplifyConfig = {
+  Auth: {
+    identityPoolId: IDENTITY_POOL_ID,
+    region: REGION,
+    userPoolId: USER_POOL_ID,
+    userPoolWebClientId: CLIENT_ID,
+  },
+};
+
+Amplify.configure(amplifyConfig);
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
