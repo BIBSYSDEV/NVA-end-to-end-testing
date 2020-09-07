@@ -23,7 +23,7 @@ phases:
       - echo $AWS_ACCESS_KEY_ID
       - echo $AWS_SECRET_ACCESS_KEY
       - echo $AWS_SESSION_TOKEN
-      pre_build:
+  pre_build:
     commands:
       - export CYPRESS_ROLE_ARN=$ROLE_ARN
       - echo $CYPRESS_ROLE_ARN
