@@ -13,8 +13,9 @@ phases:
       - npm install aws-sdk
       - npm install aws-amplify
       - npm install
-      - echo ${ROLE_ARN}
-      - echo ${CYPRESS_REGION}
+      - export CYPRESS_ROLE_ARN=$ROLE_ARN
+      - echo $CYPRESS_ROLE_ARN}
+      - echo $CYPRESS_REGION}
   pre_build:
     commands:
       - export CYPRESS_baseUrl=$CYPRESS_REACT_APP_URL
