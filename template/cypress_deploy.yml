@@ -89,7 +89,7 @@ Resources:
             Value: remote
           - Name: ROLE_ARN
             Type: PLAINTEXT
-            Value: ${CodeBuildServiceRole}
+            Value: !GetAtt CodeBuildServiceRole.Arn
       Source:
         Type: CODEPIPELINE
 
@@ -213,3 +213,9 @@ Resources:
     Properties:
       VersioningConfiguration:
         Status: Enabled
+Outputs:
+  CodebuildServiceRoleArn:
+    Description: ARN Identifier CodeBuildPolicy
+    Value: !GetAtt CodeBuildServiceRole.Arn
+    Export:
+      Name: CodeBuildServiceRoleArn
