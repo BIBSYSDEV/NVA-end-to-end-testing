@@ -89,7 +89,7 @@ Resources:
             Value: remote
           - Name: ROLE_ARN
             Type: PLAINTEXT
-            Value: !GetAtt CodeBuildServiceRole.Arn
+            Value: ${CodeBuildServiceRole.Arn}
       Source:
         Type: CODEPIPELINE
 
