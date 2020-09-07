@@ -14,7 +14,7 @@ phases:
       - npm install aws-amplify
       - npm install
       - echo '-------------------------'
-      - echo $AWS_ACCESS_KEY_ID
+      - ls -l ~/.aws
       - echo '-------------------------'
   pre_build:
     commands:
