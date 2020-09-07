@@ -13,7 +13,7 @@ phases:
       - npm install aws-sdk
       - npm install aws-amplify
       - npm install
-      - aws sts get-caller-identity
+      - echo $ROLE_ARN
   pre_build:
     commands:
       - export CYPRESS_baseUrl=$CYPRESS_REACT_APP_URL

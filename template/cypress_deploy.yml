@@ -87,6 +87,9 @@ Resources:
           - Name: CYPRESS_REMOTE
             Type: PLAINTEXT
             Value: remote
+          - Name: ROLE_ARN
+            Type: PLAINTEXT
+            Value: CodeBuildServiceRole.Arn
       Source:
         Type: CODEPIPELINE
 
