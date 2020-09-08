@@ -28,8 +28,8 @@ Amplify.configure(amplifyConfig);
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
-const TEMP_PASSWORD = uuidv4() + 'P%9';
-const NEW_PASSWORD = uuidv4() + 'P%0';
+const TEMP_PASSWORD = `P%9${uuidv4()}`;
+const NEW_PASSWORD = `P%0${uuidv4()}`;
 
 const AUTH_FLOW = 'ADMIN_USER_PASSWORD_AUTH';
 const NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED';
