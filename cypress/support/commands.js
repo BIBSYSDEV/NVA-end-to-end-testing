@@ -28,8 +28,8 @@ Amplify.configure(amplifyConfig);
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
-const TEMP_PASSWORD = uuidv4() + 'P%9';
-const NEW_PASSWORD = uuidv4() + 'P%0';
+const TEMP_PASSWORD = `P%9${uuidv4()}`;
+const NEW_PASSWORD = `P%0${uuidv4()}`;
 
 const AUTH_FLOW = 'ADMIN_USER_PASSWORD_AUTH';
 const NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED';
@@ -148,6 +148,45 @@ Cypress.Commands.add('createCognitoUser', (userName, name) => {
                   reject(err);
                 }
               });
+            }
+          } else {
+            reject(err);
+          }
+        });
+      } else {
+        reject(err);
+      }
+    });
+  });
+});
+
+Cypress.Commands.add('loginCognito', (userId, password) => {
+  return new Cypress.Promise((resolve, reject) => {
+    const authorizeUser = {
+      AuthFlow: AUTH_FLOW,
+      ClientId: CLIENT_ID,
+      UserPoolId: USER_POOL_ID,
+      AuthParameters: {
+        USERNAME: userId,
+        PASSWORD: password,
+      },
+    };
+
+    const passwordParams = {
+      Password: password,
+      UserPoolId: USER_POOL_ID,
+      Username: userId,
+      Permanent: true,
+    };
+
+    identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+      if (data) {
+        identityServiceProvider.adminInitiateAuth(authorizeUser, (err, data) => {
+          if (data) {
+            console.log(data);
+            if (!data.ChallengeName) {
+              Auth.signIn(userId, password);
+              resolve(data.AuthenticationResult.IdToken);
             }
           } else {
             reject(err);
