@@ -82,16 +82,12 @@ Cypress.Commands.add('loginCognito', (userId) => {
             if (!data.ChallengeName) {
               Auth.signIn(userId, RANDOM_PASSWORD);
               resolve(data.AuthenticationResult.IdToken);
-            } else {
-              console.log(data);
             }
           } else {
-            console.log(err);
             reject(err);
           }
         });
       } else {
-        console.log(err);
         reject(err);
       }
     });
