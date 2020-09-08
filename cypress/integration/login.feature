@@ -6,7 +6,6 @@ Feature: Login using Cognito
         When the user navigates to the front page
         Then the user sees that they are logged in
 
-    @ignore
     Scenario: Login with existing author
 
         Given that a User has a valid Feide ID and password

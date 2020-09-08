@@ -208,6 +208,16 @@ Resources:
                   - 's3:DeleteObjects'
                 Resource:
                   - !Sub ${ArtifactStoreBucket.Arn}/*
+        - PolicyName: CognitoPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'cognito-idp:AdminSetUserPassword'
+                  - 'cognito-idp:AdminInitiateAuth'
+                Resource:
+                  - '*'
   ArtifactStoreBucket:
     Type: AWS::S3::Bucket
     Properties:
