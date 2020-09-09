@@ -1,9 +1,8 @@
 import { Given, When, Then, Before, After, And } from 'cypress-cucumber-preprocessor/steps';
-import { ADMIN_USER, ADMIN_NAME } from '../../support/constants';
-import { createUser } from '../../support/users';
+import { ADMIN_USER } from '../../support/constants';
 
 Before(() => {
-  createUser(ADMIN_USER, ADMIN_NAME);
+  cy.loginCognito(ADMIN_USER).then((idToken) => cy.wrap(idToken).as('idToken'));
   cy.visit('/');
 
   cy.get('[data-testid=create-author-button]', { timeout: 10000 }).click();

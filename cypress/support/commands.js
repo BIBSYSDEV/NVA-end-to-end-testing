@@ -1,17 +1,19 @@
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
-import { createAuthority, getAuthorities } from './authorityApi';
 
+const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
+const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
+const AWS_SESSION_TOKEN = Cypress.env('AWS_SESSION_TOKEN');
 const REGION = Cypress.env('AWS_REGION');
 const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
 AWS.config = new AWS.Config({
-  accessKeyId: Cypress.env('AWS_ACCESS_KEY_ID'),
-  secretAccessKey: Cypress.env('AWS_SECRET_ACCESS_KEY'),
-  sessionToken: Cypress.env('AWS_SESSION_TOKEN'),
+  accessKeyId: AWS_ACCESS_KEY_ID,
+  secretAccessKey: AWS_SECRET_ACCESS_KEY,
+  sessionToken: AWS_SESSION_TOKEN,
   region: REGION,
 });
 
@@ -28,56 +30,16 @@ Amplify.configure(amplifyConfig);
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
-const TEMP_PASSWORD = `P%9${uuidv4()}`;
-const NEW_PASSWORD = `P%0${uuidv4()}`;
-
 const AUTH_FLOW = 'ADMIN_USER_PASSWORD_AUTH';
-const NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED';
-
-const NAME = 'name';
-const CUSTOM_IDENTIFIERS = 'custom:identifiers';
-const CUSTOM_ORG_LEGAL_NAME = 'custom:orgLegalName';
-const CUSTOM_ORG_NUMBER = 'custom:orgNumber';
-const CUSTOM_APPLICATION = 'custom:application';
-const CUSTOM_APPLICATION_ROLES = 'custom:applicationRoles';
-const CUSTOM_COMMON_NAME = 'custom:commonName';
-const CUSTOM_FEIDE_ID = 'custom:feideId';
-const CUSTOM_AFFILIATION = 'custom:affiliation';
-
-const testUser = {
-  UserPoolId: USER_POOL_ID,
-};
 
 Cypress.Commands.add('connectAuthor', () => {
   cy.get('[data-testid=create-author-button]').click();
   cy.get('[data-testid=modal_next]').click();
 });
 
-Cypress.Commands.add('createAuthority', (newAuthority, IdToken) => {
-  return new Cypress.Promise((resolve, reject) => {
-    const authority = createAuthority(newAuthority.firstName, newAuthority.lastName, newAuthority.feideid, IdToken);
-    if (authority) {
-      resolve(authority);
-    }
-  });
-});
-
-Cypress.Commands.add('getAuthorities', (name, idToken) => {
-  return new Cypress.Promise((resolve, reject) => {
-    const authorities = getAuthorities(name, idToken);
-    if (authorities) {
-      resolve(authorities);
-    } else {
-      reject();
-    }
-  });
-});
-
 Cypress.Commands.add('skipOrcid', () => {
   cy.get('[data-testid=skip-connect-to-orcid]').click();
 });
-
-Cypress.Commands.add('connectOrcid', (user) => {});
 
 Cypress.Commands.add('setLanguage', () => {
   cy.get('[data-testid=menu]').click();
@@ -95,85 +57,22 @@ Cypress.Commands.add('checkMenu', (table) => {
   });
 });
 
-Cypress.Commands.add('createCognitoUser', (userName, name) => {
-  const createUser = {
-    TemporaryPassword: TEMP_PASSWORD,
-    MessageAction: 'SUPPRESS',
-    UserAttributes: [
-      { Name: NAME, Value: name },
-      { Name: CUSTOM_IDENTIFIERS, Value: `feide:${userName}` },
-      { Name: CUSTOM_ORG_LEGAL_NAME, Value: 'Unit' },
-      { Name: CUSTOM_ORG_NUMBER, Value: 'NO818477822' },
-      { Name: CUSTOM_APPLICATION, Value: 'NVA' },
-      { Name: CUSTOM_APPLICATION_ROLES, Value: 'Publisher' },
-      { Name: CUSTOM_COMMON_NAME, Value: name },
-      { Name: CUSTOM_FEIDE_ID, Value: userName },
-      { Name: CUSTOM_AFFILIATION, Value: '[member, employee, staff]' },
-    ],
-  };
-
+Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
-    identityServiceProvider.adminCreateUser({ ...testUser, ...createUser, Username: userName }, (err, data) => {
-      if (data) {
-        const userId = data.User.Username;
+    const RANDOM_PASSWORD = `P%${uuidv4()}`;
 
-        const authorizeUser = {
-          AuthFlow: AUTH_FLOW,
-          ClientId: CLIENT_ID,
-          UserPoolId: USER_POOL_ID,
-          AuthParameters: {
-            USERNAME: userId,
-            PASSWORD: TEMP_PASSWORD,
-          },
-        };
-
-        identityServiceProvider.adminInitiateAuth(authorizeUser, (err, data) => {
-          if (data) {
-            if (data.ChallengeName === NEW_PASSWORD_REQUIRED) {
-              const challenge = {
-                ChallengeName: NEW_PASSWORD_REQUIRED,
-                UserPoolId: USER_POOL_ID,
-                ClientId: CLIENT_ID,
-                Session: data.Session,
-                ChallengeResponses: {
-                  USERNAME: userId,
-                  NEW_PASSWORD: NEW_PASSWORD,
-                },
-              };
-              identityServiceProvider.adminRespondToAuthChallenge(challenge, (err, data) => {
-                if (data) {
-                  Auth.signIn(userName, NEW_PASSWORD);
-                  resolve(data.AuthenticationResult.IdToken);
-                } else {
-                  reject(err);
-                }
-              });
-            }
-          } else {
-            reject(err);
-          }
-        });
-      } else {
-        reject(err);
-      }
-    });
-  });
-});
-
-Cypress.Commands.add('loginCognito', (userId, password) => {
-  return new Cypress.Promise((resolve, reject) => {
     const authorizeUser = {
       AuthFlow: AUTH_FLOW,
       ClientId: CLIENT_ID,
       UserPoolId: USER_POOL_ID,
       AuthParameters: {
         USERNAME: userId,
-        PASSWORD: password,
+        PASSWORD: RANDOM_PASSWORD,
       },
     };
 
     const passwordParams = {
-      Password: password,
+      Password: RANDOM_PASSWORD,
       UserPoolId: USER_POOL_ID,
       Username: userId,
       Permanent: true,
@@ -183,9 +82,8 @@ Cypress.Commands.add('loginCognito', (userId, password) => {
       if (data) {
         identityServiceProvider.adminInitiateAuth(authorizeUser, (err, data) => {
           if (data) {
-            console.log(data);
             if (!data.ChallengeName) {
-              Auth.signIn(userId, password);
+              Auth.signIn(userId, RANDOM_PASSWORD);
               resolve(data.AuthenticationResult.IdToken);
             }
           } else {
@@ -194,21 +92,6 @@ Cypress.Commands.add('loginCognito', (userId, password) => {
         });
       } else {
         reject(err);
-      }
-    });
-  });
-});
-
-Cypress.Commands.add('deleteCognitoUser', (userName) => {
-  return new Cypress.Promise((resolve, reject) => {
-    const deleteUser = { ...testUser, Username: userName };
-    identityServiceProvider.adminGetUser(deleteUser, (err, data) => {
-      if (data) {
-        identityServiceProvider.adminDeleteUser(deleteUser, () => {
-          resolve();
-        });
-      } else {
-        resolve();
       }
     });
   });

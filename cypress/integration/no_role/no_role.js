@@ -3,7 +3,7 @@ import { USER, NAME } from '../../support/constants';
 import { createUser } from '../../support/users';
 
 Before(() => {
-  createUser(USER, NAME);
+  cy.loginCognito(USER).then((idToken) => cy.wrap(idToken).as('idToken'));
   cy.visit('/');
 
   cy.get('[data-testid=create-author-button]').click();

@@ -3,8 +3,7 @@ import { NAME_WITH_AUTHOR, USER_WITH_AUTHOR } from '../../support/constants';
 import { createUser, formatName } from '../../support/users';
 
 Given('that a User has a valid Feide ID and password', () => {
-  createUser(USER_WITH_AUTHOR, NAME_WITH_AUTHOR, true);
-  cy.get('@idToken');
+  cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => cy.wrap(idToken).as('idToken'));
 });
 And('they do not have a Feide ID in their ARP entry', () => {});
 And('there are entries in ARP', () => {});
@@ -19,8 +18,4 @@ Then('they see a list containing <Author name> and <Last publication> for each A
 });
 And('a Create New Author Button', () => {
   cy.get('button').should('contain.text', 'Opprett meg som forfatter');
-});
-
-After(() => {
-  cy.deleteCognitoUser(NAME_WITH_AUTHOR);
 });
