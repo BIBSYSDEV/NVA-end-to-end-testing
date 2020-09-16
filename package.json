@@ -12,8 +12,8 @@
   },
   "devDependencies": {
     "axios": "^0.19.2",
-    "cypress": "^4.9.0",
-    "cypress-cucumber-preprocessor": "^2.4.0",
+    "cypress": "^4.7.0",
+    "cypress-cucumber-preprocessor": "^2.5.5",
     "prettier": "2.0.5"
   },
   "scripts": {
