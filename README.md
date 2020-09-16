@@ -9,4 +9,6 @@ After cloning repository run:
 Edit `scripts/testedFeatures.json` to include the features you want to create tests for.
 
 run
+
     npm run test:pull-features
+    
