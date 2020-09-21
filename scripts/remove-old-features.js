@@ -12,9 +12,7 @@ const getDirectories = (src, callback) => {
 const isInTestedFeatures = (filePath) => {
   let isInTested = false;
   testedFeatures.forEach((feature) => {
-    console.log(feature);
     if (filePath.includes(feature)) {
-      console.log(filePath);
       return (isInTested = true);
     }
   });
@@ -24,14 +22,11 @@ const isInTestedFeatures = (filePath) => {
 const isFileToDelete = (f) => {
   const filename = f.replace(CYPRESS_DIR, '');
   const gherkinFile = `${GHERKIN_DIR}${filename}`;
-  console.log(isInTestedFeatures(gherkinFile));
   const exists = fs.existsSync(gherkinFile) && isInTestedFeatures(gherkinFile);
-  console.log(`${f} exists: ${exists}`);
   return !exists;
 };
 
 const deleteFile = (f) => {
-  console.log('Deleting old feature file', f);
   fs.unlinkSync(f);
 };
 
