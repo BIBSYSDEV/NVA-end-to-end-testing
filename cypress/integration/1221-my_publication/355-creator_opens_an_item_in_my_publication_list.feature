@@ -1,5 +1,3 @@
-Feature: Creator opens an item in My Publication list
-
     @355
     Scenario: Creator opens an item in My Publication list
         Given that the user is logged in as Creator

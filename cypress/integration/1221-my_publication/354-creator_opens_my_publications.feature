@@ -1,6 +1,5 @@
-Feature: Creator opens My Publications
+Feature: Open My Publications
 
-  @ignore
   @354
   Scenario Outline: Creator opens My Publications
     Given the user is logged in as Creator
