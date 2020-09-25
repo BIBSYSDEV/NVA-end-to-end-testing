@@ -1,3 +1,5 @@
+Feature: Creator opens an item in My Publication list
+
     @355
     Scenario: Creator opens an item in My Publication list
         Given that the user is logged in as Creator
@@ -7,9 +9,9 @@
         And they see the Description tab
         And they see fields:
             | Title                        |
-            | Alternative title(s)         |
+            #            | Alternative title(s)         |
             | Abstract                     |
-            | Alternative abstract(s)      |
+            #            | Alternative abstract(s)      |
             | Description                  |
             | Date published               |
             | Primary language for content |
