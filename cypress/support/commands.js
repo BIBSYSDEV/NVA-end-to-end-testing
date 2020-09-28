@@ -83,8 +83,9 @@ Cypress.Commands.add('loginCognito', (userId) => {
         identityServiceProvider.adminInitiateAuth(authorizeUser, (err, data) => {
           if (data) {
             if (!data.ChallengeName) {
-              Auth.signIn(userId, RANDOM_PASSWORD);
-              resolve(data.AuthenticationResult.IdToken);
+              Auth.signIn(userId, RANDOM_PASSWORD).then(() => {
+                resolve(data.AuthenticationResult.IdToken);
+              });
             }
           } else {
             reject(err);
