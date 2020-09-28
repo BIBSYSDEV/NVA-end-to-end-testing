@@ -26,8 +26,6 @@ const amplifyConfig = {
   },
 };
 
-Amplify.configure(amplifyConfig);
-
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
 const AUTH_FLOW = 'ADMIN_USER_PASSWORD_AUTH';
@@ -59,6 +57,7 @@ Cypress.Commands.add('checkMenu', (table) => {
 
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
+    Amplify.configure(amplifyConfig);
     const RANDOM_PASSWORD = `P%${uuidv4()}`;
 
     const authorizeUser = {
@@ -95,4 +94,8 @@ Cypress.Commands.add('loginCognito', (userId) => {
       }
     });
   });
+});
+
+Cypress.Commands.add('logoutCognito', () => {
+  Auth.signOut();
 });
