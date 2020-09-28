@@ -31,7 +31,6 @@ Amplify.configure(amplifyConfig);
 
 Given('that the user is logged in as Creator', () => {
   cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
-    console.log(Auth.currentAuthenticatedUser());
     cy.wrap(idToken).as('idToken');
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
