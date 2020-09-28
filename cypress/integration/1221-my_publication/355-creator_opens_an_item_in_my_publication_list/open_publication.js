@@ -1,15 +1,6 @@
 import { After, And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import 'cypress-localstorage-commands';
-import Amplify, { Auth } from 'aws-amplify';
-
-const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
-const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
-const AWS_SESSION_TOKEN = Cypress.env('AWS_SESSION_TOKEN');
-const REGION = Cypress.env('AWS_REGION');
-const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
-const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
-const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
 Given('that the user is logged in as Creator', () => {
   cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
