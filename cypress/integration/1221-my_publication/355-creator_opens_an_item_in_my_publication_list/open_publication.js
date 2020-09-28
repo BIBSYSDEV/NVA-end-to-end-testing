@@ -11,24 +11,6 @@ const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
-AWS.config = new AWS.Config({
-  accessKeyId: AWS_ACCESS_KEY_ID,
-  secretAccessKey: AWS_SECRET_ACCESS_KEY,
-  sessionToken: AWS_SESSION_TOKEN,
-  region: REGION,
-});
-
-const amplifyConfig = {
-  Auth: {
-    identityPoolId: IDENTITY_POOL_ID,
-    region: REGION,
-    userPoolId: USER_POOL_ID,
-    userPoolWebClientId: CLIENT_ID,
-  },
-};
-
-Amplify.configure(amplifyConfig);
-
 Given('that the user is logged in as Creator', () => {
   cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
     cy.wrap(idToken).as('idToken');
