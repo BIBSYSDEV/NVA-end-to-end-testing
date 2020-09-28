@@ -80,12 +80,11 @@ Cypress.Commands.add('loginCognito', (userId) => {
 
     identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
       if (data) {
-        identityServiceProvider.adminInitiateAuth(authorizeUser, (err, data) => {
+        identityServiceProvider.adminInitiateAuth(authorizeUser, async (err, data) => {
           if (data) {
             if (!data.ChallengeName) {
-              Auth.signIn(userId, RANDOM_PASSWORD).then(() => {
-                resolve(data.AuthenticationResult.IdToken);
-              });
+              await Auth.signIn(userId, RANDOM_PASSWORD);
+              resolve(data.AuthenticationResult.IdToken);
             }
           } else {
             reject(err);
