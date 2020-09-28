@@ -96,3 +96,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
     });
   });
 });
+
+Cypress.Commands.add('logoutCognito', () => {
+  Auth.signOut();
+});
