@@ -155,3 +155,4 @@ cypress/cucumber-json/*
 aws.py
 cognito.txt
 login.ps1
+features.diff

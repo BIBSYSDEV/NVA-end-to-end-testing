@@ -1,4 +1,4 @@
-Feature: Open My Publications
+Feature: Creator opens My Publications
 
   @354
   Scenario Outline: Creator opens My Publications

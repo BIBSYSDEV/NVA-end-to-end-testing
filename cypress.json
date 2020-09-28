@@ -3,6 +3,6 @@
     "TAGS": "not @ignore"
   },
   "testFiles": "**/*.feature",
-  "defaultCommandTimeout": 6000,
+  "defaultCommandTimeout": 20000,
   "baseUrl": "https://frontend.sandbox.nva.aws.unit.no"
 }
