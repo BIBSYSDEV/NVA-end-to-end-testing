@@ -58,7 +58,6 @@ And('they see fields:', (dataTable) => {
 
 After(() => {
   cy.logoutCognito();
-  console.log(Auth.currentAuthenticatedUser());
 });
 // | Title                        |
 // | Alternative title(s)         |
