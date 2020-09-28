@@ -29,9 +29,6 @@ And('they see fields:', (dataTable) => {
   });
 });
 
-After(() => {
-  cy.logoutCognito();
-});
 // | Title                        |
 // | Alternative title(s)         |
 // | Abstract                     |
