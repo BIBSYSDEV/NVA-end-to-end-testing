@@ -9,5 +9,4 @@ Feature: User sees the menu for Creator
             | My profile      |
             | New publication |
             | My publications |
-            # | My Messages      |
             | Log out         |
