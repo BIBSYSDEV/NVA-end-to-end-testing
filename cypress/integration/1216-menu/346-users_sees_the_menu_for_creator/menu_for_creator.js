@@ -27,3 +27,8 @@ Then('they see a menu containing', (dataTable) => {
 // | New Registration |
 // | My Publications  |
 // | Log Out          |
+And('they see the buttons', (dataTable) => {
+  dataTable.rawTable.forEach((value) => {
+    cy.get('span[MuiTypography-button]').contains(value);
+  });
+});
