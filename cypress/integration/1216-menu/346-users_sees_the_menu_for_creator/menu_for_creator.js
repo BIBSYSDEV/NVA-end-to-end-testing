@@ -24,8 +24,6 @@ Then('they see a menu containing', (dataTable) => {
   });
 });
 // | My Profile       |
-// | New Registration |
-// | My Publications  |
 // | Log Out          |
 And('they see the buttons', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
