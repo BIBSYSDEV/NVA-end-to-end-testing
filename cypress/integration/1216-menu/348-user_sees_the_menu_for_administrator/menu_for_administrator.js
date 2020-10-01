@@ -23,6 +23,7 @@ Then('they see a menu containing', (dataTable) => {
     });
   });
 });
-// | My profile  |
-// | My worklist |
-// | Log out     |
+// | My profile     |
+// | Users          |
+// | My institution |
+// | Log out        |
