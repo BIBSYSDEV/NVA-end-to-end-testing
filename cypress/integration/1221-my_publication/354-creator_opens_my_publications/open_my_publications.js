@@ -16,9 +16,13 @@ When('they click the button My Publications', () => {
 Then('they see My Publications', () => {
   cy.get('h1').contains('My publications');
 });
-And('they see a list of all unpublished registrations with the fields', (dataTable) => {});
+And('they see a list of all unpublished registrations with the fields', (dataTable) => {
+  dataTable.rawTable.forEach((value) => {
+    cy.get('h6').contains(value[0]);
+  });
+});
 // | Publication name |
-// | <Status>         |
+// | Status           |
 // | Date             |
 And('they see each list item has a button Delete and Edit that is enabled', () => {});
 And('they see the navigation bar for unpublished registrations is selected', () => {
@@ -27,8 +31,3 @@ And('they see the navigation bar for unpublished registrations is selected', () 
 And('they see the navigation bar for published registrations is enabled', () => {
   cy.get('[data-testid=published-button]');
 });
-
-//   Examples:
-//     | Status   |
-//     | Draft    |
-//     | Rejected |
