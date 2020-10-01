@@ -29,6 +29,8 @@ Then('they see a menu containing', (dataTable) => {
 // | Log Out          |
 And('they see the buttons', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
-    cy.get('span[MuiTypography-button]').contains(value);
+    cy.get(`[data-testid]`).contains(value[0]);
   });
 });
+// | New publication |
+// | My publications |
