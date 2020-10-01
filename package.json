@@ -8,7 +8,9 @@
     "aws-amplify": "^3.0.18",
     "aws-sdk": "^2.698.0",
     "cosmiconfig": "^6.0.0",
+    "cypress-localstorage-commands": "^1.2.2",
     "cypress-promise": "^1.1.0",
+    "lodash": "^4.17.20",
     "uuid": "^8.1.0"
   },
   "devDependencies": {
@@ -28,7 +30,8 @@
       "outputFolder": "cypress/cucumber-json",
       "filePrefix": "",
       "fileSuffix": ".cucumber"
-    }
+    },
+    "step_definitions": "cypress/integration"
   },
   "author": "",
   "license": "ISC"

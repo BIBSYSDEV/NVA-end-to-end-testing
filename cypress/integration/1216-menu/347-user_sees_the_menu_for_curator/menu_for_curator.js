@@ -1,5 +1,5 @@
 import { Given, And, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import { USER_CURATOR_WITH_AUTHOR, USER_WITH_AUTHOR } from '../../../support/constants';
+import { USER_CURATOR_WITH_AUTHOR } from '../../../support/constants';
 import { v4 as uuidv4 } from 'uuid';
 import 'cypress-localstorage-commands';
 

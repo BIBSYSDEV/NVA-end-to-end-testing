@@ -24,6 +24,11 @@ Then('they see a menu containing', (dataTable) => {
   });
 });
 // | My Profile       |
-// | New Registration |
-// | My Publications  |
 // | Log Out          |
+And('they see the buttons', (dataTable) => {
+  dataTable.rawTable.forEach((value) => {
+    cy.get(`[data-testid]`).contains(value[0]);
+  });
+});
+// | New publication |
+// | My publications |
