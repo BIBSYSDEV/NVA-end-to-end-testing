@@ -27,6 +27,12 @@ export const NAME = 'End-to-end TestUser';
 export const USER_WITH_AUTHOR = 'test-user-with-author@test.no';
 export const NAME_WITH_AUTHOR = 'Withauthor TestUser';
 
+export const USER_CURATOR_WITH_AUTHOR = 'test-user-curator@test.no';
+export const NAME_CURATOR_WITH_AUTHOR = 'Curator TestUser';
+
+export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-inst-admin@test.no';
+export const NAME_INST_ADMIN_WITH_AUTHOR = 'Institution-admin TestUser';
+
 export const ADMIN_USER = 'test-user-admin@unit.no';
 export const ADMIN_NAME = 'Admin TestUser';
 
