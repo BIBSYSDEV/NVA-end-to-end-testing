@@ -2,5 +2,6 @@
   "355-creator_opens_an_item_in_my_publication_list",
   "346-users_sees_the_menu_for_creator",
   "347-user_sees_the_menu_for_curator",
-  "348-user_sees_the_menu_for_administrator"
+  "348-user_sees_the_menu_for_administrator",
+  "350-user_sees_the_menu_for_application_administrator"
 ]
