@@ -4,4 +4,5 @@
   "347-user_sees_the_menu_for_curator",
   "348-user_sees_the_menu_for_administrator",
   "345-user_sees_a_menu_when_logged_in"
+  "344-user_sees_non-logged-in_menu"
 ]
