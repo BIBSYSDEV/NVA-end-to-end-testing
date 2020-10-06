@@ -14,7 +14,7 @@ And('is on the page My Publications', () => {
   cy.get('[data-testid=my-publications]').click({ force: true });
 });
 When('they click Edit on an item', () => {
-  cy.get('[data-testid^=edit-publication]').click({ force: true });
+  cy.get('[data-testid^=edit-publication]').first().click({ force: true });
 });
 Then('they see the item is opened in the Wizard', () => {});
 And('they see the Description tab', () => {
