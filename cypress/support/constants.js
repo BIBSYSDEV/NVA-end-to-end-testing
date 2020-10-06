@@ -33,8 +33,8 @@ export const NAME_CURATOR_WITH_AUTHOR = 'Curator TestUser';
 export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-inst-admin@test.no';
 export const NAME_INST_ADMIN_WITH_AUTHOR = 'Institution-admin TestUser';
 
-export const ADMIN_USER = 'test-user-admin@unit.no';
-export const ADMIN_NAME = 'Admin TestUser';
+export const ADMIN_USER = 'test-user-app-admin@test.no';
+export const ADMIN_NAME = 'App-admin TestUser';
 
 export const TEST_USER = 'test-user-login@test.no';
 export const TEST_USER_NAME = 'Login TestUser';
