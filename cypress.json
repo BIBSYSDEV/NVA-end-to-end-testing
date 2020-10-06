@@ -1,7 +1,8 @@
 {
-    "env": {
-        "TAGS": "not @ignore"
-    },
-    "testFiles": "**/*.feature",
-    "defaultCommandTimeout": 60000
+  "env": {
+    "TAGS": "not @ignore"
+  },
+  "testFiles": "**/*.feature",
+  "defaultCommandTimeout": 20000,
+  "baseUrl": "https://frontend.sandbox.nva.aws.unit.no"
 }

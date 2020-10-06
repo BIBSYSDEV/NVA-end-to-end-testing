@@ -4,15 +4,24 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@aws-amplify/pubsub": "^3.2.1",
+    "aws-amplify": "^3.0.18",
+    "aws-sdk": "^2.698.0",
     "cosmiconfig": "^6.0.0",
+    "cypress-localstorage-commands": "^1.2.2",
+    "cypress-promise": "^1.1.0",
+    "lodash": "^4.17.20",
     "uuid": "^8.1.0"
   },
   "devDependencies": {
-    "cypress": "^4.8.0",
-    "cypress-cucumber-preprocessor": "^2.4.0"
+    "axios": "^0.19.2",
+    "cypress": "^5.2.0",
+    "cypress-cucumber-preprocessor": "^2.5.5",
+    "prettier": "2.0.5"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:pull-features": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features.js"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,
@@ -21,7 +30,8 @@
       "outputFolder": "cypress/cucumber-json",
       "filePrefix": "",
       "fileSuffix": ".cucumber"
-    }
+    },
+    "step_definitions": "cypress/integration"
   },
   "author": "",
   "license": "ISC"

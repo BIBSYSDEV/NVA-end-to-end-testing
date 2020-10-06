@@ -150,3 +150,9 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,node
+
+cypress/cucumber-json/*
+aws.py
+cognito.txt
+login.ps1
+features.diff
