@@ -11,8 +11,7 @@ Given('that the user is logged in as Creator', () => {
   });
 });
 And('is on the page My Publications', () => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-my-publications-button]').click({ force: true });
+  cy.get('[data-testid=my-publications]').click({ force: true });
 });
 When('they click Edit on an item', () => {
   cy.get('[data-testid^=edit-publication]').click({ force: true });
