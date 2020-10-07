@@ -15,7 +15,7 @@ Given('User opens Add Institution from My Profile', () => {
 });
 
 When('they enter an Institution name', () => {
-  cy.get('[data-testid=autocomplete-institution]').click;
+  cy.get('[data-testid=autocomplete-institution]').click({ force: true }).type('testing');
 });
 And('they select an Institution', () => {});
 And('they click Save', () => {});
