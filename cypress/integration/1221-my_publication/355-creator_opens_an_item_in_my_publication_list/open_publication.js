@@ -29,9 +29,7 @@ And('they see fields:', (dataTable) => {
 });
 
 // | Title                        |
-// | Alternative title(s)         |
 // | Abstract                     |
-// | Alternative abstract(s)      |
 // | Description                  |
 // | Date published               |
 // | Primary language for content |
