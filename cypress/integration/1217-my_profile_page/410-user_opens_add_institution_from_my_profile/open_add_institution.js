@@ -14,7 +14,8 @@ Given('user opens the page My Profile', () => {
 });
 
 When('they click Add Institution', () => {
-  cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled').click({ force: true });
+  cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
+  cy.get('[data-testid=add-new-institution-button]').click({ force: true });
 });
 Then('they see the Autosearch box for Institutions', () => {
   cy.get('[data-testid=autocomplete-institution]').should('be.visible');
