@@ -9,7 +9,7 @@ Given('user opens the page My Profile', () => {
     cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.visit('/');
     cy.get('[data-testid=menu]').click({ force: true });
-    cy.get('[data-testid=menu-user-profile-button]').click({ froce: true });
+    cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
   });
 });
 
