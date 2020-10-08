@@ -1,10 +1,12 @@
 [
   "355-creator_opens_an_item_in_my_publication_list",
   "346-users_sees_the_menu_for_creator",
+  "354-creator_opens_my_publications",
   "347-user_sees_the_menu_for_curator",
   "348-user_sees_the_menu_for_administrator",
   "350-user_sees_the_menu_for_application_administrator",
   "345-user_sees_a_menu_when_logged_in",
   "344-user_sees_non-logged-in_menu",
-  "410-user_opens_add_institution_from_my_profile"
+  "410-user_opens_add_institution_from_my_profile",
+  "352-user_opens_the_page_my_profile"
 ]
