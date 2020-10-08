@@ -10,11 +10,11 @@ Given('the user is logged in as Creator', () => {
     cy.visit('/');
   });
 });
-When('they click the button My Publications', () => {
+When('they click the button My Registrations', () => {
   cy.get('[data-testid=my-publications').click({ force: true });
 });
-Then('they see My Publications', () => {
-  cy.get('h1').contains('My publications');
+Then('they see My Registrations', () => {
+  cy.get('h1').contains('My registrations');
 });
 And('they see a list of all unpublished registrations with the fields', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
@@ -24,10 +24,22 @@ And('they see a list of all unpublished registrations with the fields', (dataTab
 // | Publication name |
 // | Status           |
 // | Date             |
-And('they see each list item has a button Delete and Edit that is enabled', () => {});
+And('they see each list item has a button Delete and Edit that is enabled', () => {
+  cy.get('[data-testid^=edit-publication]').should('not.be.disabled');
+  // cy.get('[data-testid^=delete-publication]').should('not.be.disabled'); Delete button not implemented
+});
 And('they see the navigation bar for unpublished registrations is selected', () => {
   cy.get('[data-testid=unpublished-button][tabindex=0]');
 });
 And('they see the navigation bar for published registrations is enabled', () => {
   cy.get('[data-testid=published-button]');
 });
+And('they see items with Status <Status>', (dataTable) => {
+  dataTable.rawTable.forEach((value) => {
+    cy.get('p').contains(value[0]);
+  });
+});
+// Examples:
+//   | Status   |
+//   | Draft    |
+//   | Rejected |

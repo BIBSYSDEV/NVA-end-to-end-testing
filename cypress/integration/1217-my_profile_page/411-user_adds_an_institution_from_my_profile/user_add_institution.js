@@ -27,14 +27,14 @@ And('they see a button Add that is enabled for the new Institution', () => {
 And('they see a button Cancel that is enabled for the new Institution', () => {
   cy.get('[data-testid=institution-cancel-button]').should('be.visible');
 });
-And('the click on the Add button', () => {
+And('they click on the Add button', () => {
   cy.get('[placeholder="Search for department"]').should('be.visible');
   cy.get('[data-testid=institution-add-button]').click({ force: true });
 });
 Then('they see the new Institution in My Profile', () => {
   cy.contains('Norges teknisk-naturvitenskapelige universitet');
 });
-And('they see the Remove button', () => {
+And('they see a button Remove that is enabled for the new Institution', () => {
   cy.get('[data-testid^=button-delete-institution]').should(($delete) => {
     expect($delete).to.have.length(2);
   });
