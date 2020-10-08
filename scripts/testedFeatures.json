@@ -7,6 +7,7 @@
   "350-user_sees_the_menu_for_application_administrator",
   "345-user_sees_a_menu_when_logged_in",
   "344-user_sees_non-logged-in_menu",
+  "411-user_adds_an_institution_from_my_profile",
   "410-user_opens_add_institution_from_my_profile",
   "352-user_opens_the_page_my_profile"
 ]

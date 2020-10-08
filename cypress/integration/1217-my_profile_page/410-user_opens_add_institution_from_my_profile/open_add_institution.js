@@ -14,6 +14,7 @@ Given('user opens the page My Profile', () => {
 });
 
 When('they click Add Institution', () => {
+  cy.get('[data-testid=add-new-institution-button]').should('be.visible');
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
   cy.get('[data-testid=add-new-institution-button]').click({ force: true });
 });
