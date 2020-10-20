@@ -30,8 +30,8 @@ Then('they see Subsubunit dropdown containing all the subsubunits for that subun
     .within(($autocomplete) => {
       cy.wrap($autocomplete).should('have.value', '');
       cy.wrap($autocomplete).type('fakultet');
-      cy.wrap($autocomplete).contains('fakultetsadministrasjon');
     });
+  cy.contains('IE fakultetsadministrasjon');
 });
 
 After(() => {
