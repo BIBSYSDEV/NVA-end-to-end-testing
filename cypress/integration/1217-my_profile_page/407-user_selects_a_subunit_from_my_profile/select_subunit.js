@@ -19,7 +19,7 @@ Given('user sees a Subunit from My Profile', () => {
 });
 
 When('they select a Subunit from the Subunit dropdown', () => {
-  cy.get('[placeholder="Search for department"]').type('Fakultet for informasjonsteknologi og elektroteknikk');
+  cy.get('[data-testid=autocomplete-institution]').last().type('Fakultet for informasjonsteknologi og elektroteknikk');
   cy.contains('Fakultet for informasjonsteknologi og elektroteknikk').click({ force: true });
 });
 And('they click Add', () => {
