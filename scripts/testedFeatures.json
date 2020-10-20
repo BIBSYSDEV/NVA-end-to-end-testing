@@ -9,5 +9,6 @@
   "344-user_sees_non-logged-in_menu",
   "411-user_adds_an_institution_from_my_profile",
   "410-user_opens_add_institution_from_my_profile",
-  "352-user_opens_the_page_my_profile"
+  "352-user_opens_the_page_my_profile",
+  "551-user_removes_an_institution_from_my_profile"
 ]
