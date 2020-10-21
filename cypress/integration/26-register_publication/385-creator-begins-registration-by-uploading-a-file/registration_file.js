@@ -1,0 +1,35 @@
+import { Given, And, When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { USER_WITH_AUTHOR } from '../../../support/constants';
+import 'cypress-localstorage-commands';
+import 'cypress-file-upload';
+
+const testFile = 'example.txt';
+
+Given('Creator begins registering a Registration', () => {
+  cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
+    cy.wrap(idToken).as('idToken');
+    cy.setLocalStorage('i18nextLng', 'eng');
+    cy.setLocalStorage('previouslyLoggedIn', 'true');
+    cy.visit('/');
+    cy.get('[data-testid=new-publication]').click({ force: true });
+  });
+});
+
+When('they click Upload file', () => {
+  cy.get('[data-testid=new-publication-file]').click({ force: true });
+});
+And('they upload a file', () => {
+  cy.get('input[type=file]').attachFile(testFile);
+});
+Then('they see the file name', () => {
+  cy.contains(testFile);
+});
+And('they see the file size', () => {
+  cy.contains('Uploaded 1 kB');
+});
+And('they see the Remove button', () => {
+  cy.get('[data-testid=button-remove-file]').should('be.visible');
+});
+And('they see the Start button is enabled', () => {
+  cy.get('[data-testid="publication-file-start-button"]').should('be.enabled');
+});
