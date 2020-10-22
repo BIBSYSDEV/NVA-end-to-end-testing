@@ -27,8 +27,11 @@ Given('user sees a Subsubsubunit from My Profile', () => {
         cy.wrap($autocomplete).should('have.value', '');
         cy.wrap($autocomplete).type('realfagsrekruttering');
       });
-    cy.contains('Nasjonalt senter for realfagsrekruttering').click({ force: true });
   });
+});
+
+When('they select a Subsubsubunit from the Subsubsubunit dropdown', () => {
+  cy.contains('Nasjonalt senter for realfagsrekruttering').click({ force: true });
 });
 
 And('they click Add', () => {

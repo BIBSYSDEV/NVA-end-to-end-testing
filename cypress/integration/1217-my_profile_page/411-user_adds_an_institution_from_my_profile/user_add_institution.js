@@ -27,7 +27,7 @@ And('they see a button Add that is enabled for the new Institution', () => {
 And('they see a button Cancel that is enabled for the new Institution', () => {
   cy.get('[data-testid=institution-cancel-button]').should('be.visible');
 });
-And('they click on the Add button', () => {
+And('they click Add', () => {
   cy.get('[placeholder="Search for department"]').should('be.visible');
   cy.get('[data-testid=institution-add-button]').click({ force: true });
 });
