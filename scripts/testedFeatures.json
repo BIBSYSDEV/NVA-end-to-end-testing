@@ -14,5 +14,8 @@
   "407-user_selects_a_subunit_from_my_profile",
   "409-user_sees_a_subsubunit_from_my_profile",
   "1218-user_selects_a_subsubunit_from_my_profile",
+  "1219-user_sees_a_subsubsubunit_from_my_profile",
+  "1220-user_selects_a_subsubsubunit_from_my_profile",
+  "551-user_removes_an_institution_from_my_profile",
   "385-creator_begins_registration_by_uploading_a_file"
 ]
