@@ -51,10 +51,10 @@ And('they see fields:', (dataTable) => {
 And('they see the tab Reference is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-reference]').should('be.visible');
 });
-And('they see the tab Contributor is clickable', () => {
+And('they see the tab Contributors is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-contributors]').should('be.visible');
 });
-And('they see the tab Files and Licenses is clickable', () => {
+And('they see the tab Files and License is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-files-and-license]').should('be.visible');
 });
 And('they see the tab Summary is clickable', () => {

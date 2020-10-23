@@ -12,4 +12,5 @@ Feature: User opens the page My Profile
             | ORCID              |
             | Role(s)            |
             | Institution        |
+            | Contact info       |
             | Preferred language |
