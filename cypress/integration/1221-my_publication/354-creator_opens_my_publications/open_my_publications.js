@@ -10,10 +10,10 @@ Given('the user is logged in as Creator', () => {
     cy.visit('/');
   });
 });
-When('they click the button My Registrations', () => {
+When('they click the button My registrations', () => {
   cy.get('[data-testid=my-publications').click({ force: true });
 });
-Then('they see My Registrations', () => {
+Then('they see My registrations', () => {
   cy.get('h1').contains('My registrations');
 });
 And('they see a list of all unpublished registrations with the fields', (dataTable) => {
@@ -34,12 +34,11 @@ And('they see the navigation bar for unpublished registrations is selected', () 
 And('they see the navigation bar for published registrations is enabled', () => {
   cy.get('[data-testid=published-button]');
 });
-And('they see items with Status <Status>', (dataTable) => {
+And('they see items with Status', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
     cy.get('p').contains(value[0]);
   });
 });
 // Examples:
-//   | Status   |
 //   | Draft    |
 //   | Rejected |
