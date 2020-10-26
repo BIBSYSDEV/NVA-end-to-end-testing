@@ -71,7 +71,8 @@ And('they see Save is enabled', () => {
 And('they click the Save button', () => {
   cy.get('[data-testid=publication-title-input]').focus();
   cy.get('[data-testid=publication-title-input]').blur();
-  //   cy.get('[data-testid=button-save-publication]').click({ force: true }); // TODO works in dev, not in sandbox atm
+  // TODO works in dev, not in sandbox atm
+  //   cy.get('[data-testid=button-save-publication]').click({ force: true });
 });
 Then('they can see "Required field" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
