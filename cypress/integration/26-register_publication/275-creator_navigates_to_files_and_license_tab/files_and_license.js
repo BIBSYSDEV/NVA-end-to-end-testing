@@ -20,9 +20,6 @@ When('they navigate to the Files and License tab', () => {
   cy.get('[data-testid=publication-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-files-and-license').click({ force: true });
 });
-Then('they see the Publication Channel Information box', () => {
-  cy.contains('Information from Norwegian Register for Scientific Journals, Series and Publishers');
-});
 And('they see the File upload widget', () => {
   cy.contains('Drag files here');
 });
