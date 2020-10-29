@@ -5,7 +5,10 @@ import 'cypress-file-upload';
 
 const testFile = 'example.txt';
 
-// common steps
+// Start common steps for
+// Scenario: Creator navigates to Reference tab
+// and
+// Scenario: Creator sees that fields are validated on Reference tab
 
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
@@ -22,6 +25,8 @@ When('they navigate to the Reference tab', () => {
   cy.get('[data-testid=publication-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-reference').click({ force: true });
 });
+
+// End common steps
 
 // Scenario: Creator navigates to Reference tab
 Then('they see the field for Type', () => {
@@ -50,6 +55,8 @@ And('they see Save is enabled', () => {
 });
 
 // Scenario: Creator sees that fields are validated on Reference tab
+
+// When they navigate to the Reference tab
 And('they click the Save button', () => {
   // TODO works in dev, not in sandbox atm
   //   cy.get('[data-testid=button-save-publication]').click({ force: true });

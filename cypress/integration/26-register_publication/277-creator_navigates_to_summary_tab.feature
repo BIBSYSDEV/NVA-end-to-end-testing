@@ -1,6 +1,5 @@
 Feature: Creator navigates to Summary tab
 
-
   @277
   Scenario: Creator navigates to Summary tab with validation errors
     Given Creator begins registering a Registration in the Wizard

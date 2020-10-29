@@ -5,7 +5,10 @@ import 'cypress-file-upload';
 
 const testFile = 'example.txt';
 
-// common steps
+// Start common steps for
+// Scenario: Creator begins Wizard registration and navigates to Description tab
+// and
+// Scenario: Creator sees that fields are validated on Description tab
 
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
@@ -21,6 +24,8 @@ Given('Creator begins registering a Registration in the Wizard', () => {
 When('they navigate to the Description tab', () => {
   cy.get('[data-testid=publication-file-start-button]').click({ force: true });
 });
+
+// End common steps
 
 // Scenario: Creator begins Wizard registration and navigates to Description tab
 Then('they see the Description tab is selected', () => {
@@ -68,12 +73,15 @@ And('they see Save is enabled', () => {
 });
 
 // Scenario: Creator sees that fields are validated on Description tab
+
+// When they navigate to the Description tab
 And('they click the Save button', () => {
   cy.get('[data-testid=publication-title-input]').focus();
   cy.get('[data-testid=publication-title-input]').blur();
   // TODO works in dev, not in sandbox atm
   //   cy.get('[data-testid=button-save-publication]').click({ force: true });
 });
+
 Then('they can see "Required field" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
     cy.contains(`${value[0]}`).within(($field) => {
