@@ -73,8 +73,6 @@ And('they see Save is enabled', () => {
 });
 
 // Scenario: Creator sees that fields are validated on Description tab
-
-// When they navigate to the Description tab
 And('they click the Save button', () => {
   cy.get('[data-testid=publication-title-input]').focus();
   cy.get('[data-testid=publication-title-input]').blur();
