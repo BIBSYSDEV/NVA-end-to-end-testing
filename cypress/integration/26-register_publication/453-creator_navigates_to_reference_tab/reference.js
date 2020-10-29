@@ -55,8 +55,6 @@ And('they see Save is enabled', () => {
 });
 
 // Scenario: Creator sees that fields are validated on Reference tab
-
-// When they navigate to the Reference tab
 And('they click the Save button', () => {
   // TODO works in dev, not in sandbox atm
   //   cy.get('[data-testid=button-save-publication]').click({ force: true });
