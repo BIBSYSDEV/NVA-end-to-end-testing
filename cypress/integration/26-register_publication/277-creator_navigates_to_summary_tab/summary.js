@@ -5,7 +5,10 @@ import 'cypress-file-upload';
 
 const testFile = 'example.txt';
 
-// common steps
+// Start common steps for
+// Scenario: Creator navigates to Summary tab with validation errors
+// and
+// Scenario: Creator navigates to Summary tab without validation errors
 
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
@@ -58,7 +61,10 @@ And('they see Information box for', (dataTable) => {
 // | Contributors      |
 // | Files and License |
 
+// End common steps
+
 // Scenario: Creator navigates to Summary tab with validation errors
+
 And('there are validation errors', () => {});
 
 Then('they see Error box for Validation errors', () => {
@@ -69,6 +75,7 @@ And('they see Publish is disabled', () => {
 });
 
 // Scenario: Creator navigates to Summary tab without validation errors
+
 And('there are no validation errors', () => {
   // Description
   cy.get('[data-testid=nav-tabpanel-description').click({ force: true });
