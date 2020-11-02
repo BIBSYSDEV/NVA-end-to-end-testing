@@ -96,6 +96,23 @@ Cypress.Commands.add('loginCognito', (userId) => {
   });
 });
 
+Cypress.Commands.add('login', (userId, callback, params) => {
+  cy.loginCognito(userId).then((idToken) => {
+    cy.wrap(idToken).as('idToken');
+    cy.setLocalStorage('i18nextLng', 'eng');
+    cy.setLocalStorage('previouslyLoggedIn', 'true');
+    cy.visit('/');
+    callback(params);
+  });
+});
+
+Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
+  cy.log(fileName);
+  cy.get('[data-testid=new-publication]').click({ force: true });
+  cy.get('[data-testid=new-publication-file]').click({ force: true });
+  cy.get('input[type=file]').attachFile(fileName);
+});
+
 Cypress.Commands.add('logoutCognito', () => {
   Auth.signOut();
 });
