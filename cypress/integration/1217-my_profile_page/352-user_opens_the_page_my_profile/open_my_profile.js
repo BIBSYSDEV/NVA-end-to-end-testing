@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from 'uuid';
 import 'cypress-localstorage-commands';
 
 Given('that the user is logged in', () => {
-  cy.login(USER_WITH_AUTHOR, () => {}).then((idToken) => {
+  cy.login(USER_WITH_AUTHOR).then((idToken) => {
     cy.wrap(idToken).as('idToken');
   });
 });

@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import 'cypress-localstorage-commands';
 import 'cypress-file-upload';
@@ -6,7 +6,8 @@ import 'cypress-file-upload';
 const testFile = 'example.txt';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(USER_WITH_AUTHOR, cy.startRegistrationWithFile, testFile).then((idToken) => {
+  cy.login(USER_WITH_AUTHOR).then((idToken) => {
+    cy.startRegistrationWithFile(testFile);
     cy.wrap(idToken).as('idToken');
   });
 });

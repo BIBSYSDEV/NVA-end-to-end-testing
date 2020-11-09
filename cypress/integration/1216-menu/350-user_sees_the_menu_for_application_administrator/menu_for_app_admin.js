@@ -4,11 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import 'cypress-localstorage-commands';
 
 Given('that the user is logged in', () => {
-  cy.loginCognito(ADMIN_USER).then((idToken) => {
+  cy.login(ADMIN_USER).then((idToken) => {
     cy.wrap(idToken).as('idToken');
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.visit('/');
   });
 });
 And('they have the role of Application administrator', () => {});

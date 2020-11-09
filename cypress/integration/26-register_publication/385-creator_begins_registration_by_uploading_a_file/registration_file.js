@@ -6,11 +6,8 @@ import 'cypress-file-upload';
 const testFile = 'example.txt';
 
 Given('Creator begins registering a Registration', () => {
-  cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
+  cy.login(USER_WITH_AUTHOR).then((idToken) => {
     cy.wrap(idToken).as('idToken');
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.visit('/');
     cy.get('[data-testid=new-publication]').click({ force: true });
   });
 });
