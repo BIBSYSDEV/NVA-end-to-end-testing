@@ -3,9 +3,7 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 import 'cypress-localstorage-commands';
 
 Given('the user is logged in as Creator', () => {
-  cy.login(USER_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
-  });
+  cy.login(USER_WITH_AUTHOR);
 });
 When('they click the button My registrations', () => {
   cy.get('[data-testid=my-publications').click({ force: true });

@@ -6,8 +6,7 @@ import 'cypress-file-upload';
 const testFile = 'example.txt';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(USER_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
+  cy.login(USER_WITH_AUTHOR).then(() => {
     cy.startRegistrationWithFile(testFile);
   });
 });

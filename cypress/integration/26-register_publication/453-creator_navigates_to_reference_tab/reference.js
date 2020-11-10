@@ -11,12 +11,8 @@ const testFile = 'example.txt';
 // Scenario: Creator sees that fields are validated on Reference tab
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(USER_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
+  cy.login(USER_WITH_AUTHOR).then(() => {
     cy.startRegistrationWithFile(testFile);
-    cy.get('[data-testid=new-publication]').click({ force: true });
-    cy.get('[data-testid=new-publication-file]').click({ force: true });
-    cy.get('input[type=file]').attachFile(testFile);
   });
 });
 When('they navigate to the Reference tab', () => {

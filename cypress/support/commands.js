@@ -102,6 +102,7 @@ Cypress.Commands.add('login', (userId) => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.visit('/');
+    // cy.wrap(idToken).as('idToken');
   });
 });
 

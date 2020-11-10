@@ -3,8 +3,7 @@ import { USER_ADD_INSTITUTION } from '../../../support/constants';
 import 'cypress-localstorage-commands';
 
 Given('user sees a Subsubunit from My Profile', () => {
-  cy.login(USER_ADD_INSTITUTION).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
+  cy.login(USER_ADD_INSTITUTION).then(() => {
     cy.get('[data-testid=menu]').click({ force: true });
     cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
     cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');

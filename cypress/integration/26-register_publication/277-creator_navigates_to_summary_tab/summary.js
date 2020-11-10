@@ -11,8 +11,7 @@ const testFile = 'example.txt';
 // Scenario: Creator navigates to Summary tab without validation errors
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(USER_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
+  cy.login(USER_WITH_AUTHOR).then(() => {
     cy.startRegistrationWithFile(testFile);
     cy.get('[data-testid=publication-file-start-button]').click({ force: true });
   });

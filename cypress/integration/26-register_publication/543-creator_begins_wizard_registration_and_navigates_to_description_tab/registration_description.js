@@ -11,8 +11,7 @@ const testFile = 'example.txt';
 // Scenario: Creator sees that fields are validated on Description tab
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(USER_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
+  cy.login(USER_WITH_AUTHOR).then(() => {
     cy.startRegistrationWithFile(testFile);
   });
 });
