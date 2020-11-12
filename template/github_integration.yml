@@ -112,8 +112,8 @@ Resources:
                 Provider: CodeStarSourceConnection
               Configuration:
                 ConnectionArn: arn:aws:codestar-connections:eu-west-1:750639270376:connection/b130e470-071e-4d44-b542-b74d8dbae527
-                FullRepositoryId: BIBSYSDEV/NVA-end-to-end-testing
-                BranchName: develop
+                FullRepositoryId: !Sub ${GitHubIwner}/${GitHubRepo}
+                BranchName: !Ref GitHubBranch
                 OutputArtifactFormat: CODE_ZIP
               OutputArtifacts:
                 - Name: SourceArtifact
