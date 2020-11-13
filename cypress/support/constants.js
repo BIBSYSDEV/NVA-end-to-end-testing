@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 export const ORCID_BASE_URL = Cypress.env('REACT_APP_ORCID_BASE_URL');
 export const ORCID_USER_INFO_URL = `${ORCID_BASE_URL}/oauth/userinfo`;
 const ORCID_CLIENT_ID = Cypress.env('REACT_APP_ORCID_CLIENT_ID');
@@ -29,6 +27,9 @@ export const NAME_WITH_AUTHOR = 'Withauthor TestUser';
 
 export const USER_ADD_INSTITUTION = 'test-user-add-institution@test.no';
 export const NAME_ADD_INSTITUTION = 'Add institution TestUser';
+
+export const USER_WITH_INSTITUTION_REMOVE_INSTITUTION = 'test-user-with-institution-remove-institution@test.no';
+export const NAME_WITH_INSTITUTION_REMOVE_INSTITUTION = 'Remove institution TestUser';
 
 export const USER_CURATOR_WITH_AUTHOR = 'test-user-curator@test.no';
 export const NAME_CURATOR_WITH_AUTHOR = 'Curator TestUser';

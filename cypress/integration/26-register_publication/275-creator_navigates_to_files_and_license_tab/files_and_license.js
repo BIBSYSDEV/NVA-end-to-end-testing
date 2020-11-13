@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import 'cypress-localstorage-commands';
 import 'cypress-file-upload';
@@ -6,14 +6,8 @@ import 'cypress-file-upload';
 const testFile = 'example.txt';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.visit('/');
-    cy.get('[data-testid=new-publication]').click({ force: true });
-    cy.get('[data-testid=new-publication-file]').click({ force: true });
-    cy.get('input[type=file]').attachFile(testFile);
+  cy.login(USER_WITH_AUTHOR).then(() => {
+    cy.startRegistrationWithFile(testFile);
   });
 });
 When('they navigate to the Files and License tab', () => {

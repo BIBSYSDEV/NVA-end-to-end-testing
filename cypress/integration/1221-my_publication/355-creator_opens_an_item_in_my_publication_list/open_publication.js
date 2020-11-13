@@ -3,12 +3,7 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 import 'cypress-localstorage-commands';
 
 Given('that the user is logged in as Creator', () => {
-  cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.visit('/');
-  });
+  cy.login(USER_WITH_AUTHOR);
 });
 And('is on the page My Publications', () => {
   cy.get('[data-testid=my-publications]').click({ force: true });

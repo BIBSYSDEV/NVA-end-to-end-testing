@@ -1,13 +1,9 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { USER_ADD_INSTITUTION } from '../../../support/constants';
+import { USER_WITH_INSTITUTION_REMOVE_INSTITUTION } from '../../../support/constants';
 import 'cypress-localstorage-commands';
 
 Given('User sees an Institution from My Profile', () => {
-  cy.loginCognito(USER_ADD_INSTITUTION).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.visit('/');
+  cy.login(USER_WITH_INSTITUTION_REMOVE_INSTITUTION).then(() => {
     cy.get('[data-testid=menu]').click({ force: true });
     cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
     cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');

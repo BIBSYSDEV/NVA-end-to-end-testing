@@ -11,14 +11,8 @@ const testFile = 'example.txt';
 // Scenario: Creator sees that fields are validated on Description tab
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.visit('/');
-    cy.get('[data-testid=new-publication]').click({ force: true });
-    cy.get('[data-testid=new-publication-file]').click({ force: true });
-    cy.get('input[type=file]').attachFile(testFile);
+  cy.login(USER_WITH_AUTHOR).then(() => {
+    cy.startRegistrationWithFile(testFile);
   });
 });
 When('they navigate to the Description tab', () => {

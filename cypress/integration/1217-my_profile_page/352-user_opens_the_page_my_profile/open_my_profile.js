@@ -4,12 +4,7 @@ import { v4 as uuidV4 } from 'uuid';
 import 'cypress-localstorage-commands';
 
 Given('that the user is logged in', () => {
-  cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.visit('/');
-  });
+  cy.login(USER_WITH_AUTHOR);
 });
 When('they click the menu item My Profile', () => {
   cy.get('[data-testid=menu]').click({ force: true });
