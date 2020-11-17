@@ -5,7 +5,7 @@ import 'cypress-localstorage-commands';
 
 Given('the user has navigated to any other page than Start Page', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.get('[user-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations]').click({ force: true });
 });
 And('they see a "Back" button', () => {
   cy.contains('Back');
@@ -14,5 +14,5 @@ When('they click "Back"', () => {
   cy.contains('Back').click({ force: true });
 });
 Then('they see the previous page', () => {
-  cy.location().should('equal', '/');
+  cy.contains('Recently added');
 });
