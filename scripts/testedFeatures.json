@@ -22,5 +22,6 @@
   "551-user_removes_an_institution_from_my_profile",
   "1218-user_selects_a_subsubunit_from_my_profile",
   "1219-user_sees_a_subsubsubunit_from_my_profile",
-  "1220-user_selects_a_subsubsubunit_from_my_profile"
+  "1220-user_selects_a_subsubsubunit_from_my_profile",
+  "1725-user_without_any_roles_views_my_profile"
 ]

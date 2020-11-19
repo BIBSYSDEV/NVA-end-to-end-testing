@@ -42,3 +42,6 @@ export const ADMIN_NAME = 'App-admin TestUser';
 
 export const TEST_USER = 'test-user-login@test.no';
 export const TEST_USER_NAME = 'Login TestUser';
+
+export const USER_NO_ROLE = 'test-user-with-no-role@test.no';
+export const USER_NO_ROLE_NAME = 'Login TestUser';
