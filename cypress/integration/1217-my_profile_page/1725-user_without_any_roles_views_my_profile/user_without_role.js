@@ -10,7 +10,7 @@ When('they navigate to My Profile', () => {
   cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
 });
 Then('they see that they have no roles', () => {
-  cy.get('[data-testid=user-role]').should('be.null');
+  cy.get('[data-testid^=user-role]').should('not.exist');
 });
 And('they see an Information text explaining why they have no roles', () => {
   cy.contains("You don't have any roles because your administrator has not assigned any roles to you");
