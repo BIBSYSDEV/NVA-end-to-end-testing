@@ -8,10 +8,10 @@ Given('the user has navigated to any other page than Start Page', () => {
   cy.get('[data-testid=my-registrations]').click({ force: true });
 });
 And('they see a "Back" button', () => {
-  cy.contains('Back');
+  cy.get('[data-testid=navigate-back-button]').should('be.visible');
 });
 When('they click "Back"', () => {
-  cy.contains('Back').click({ force: true });
+  cy.get('[data-testid=navigate-back-button]').click({ force: true });
 });
 Then('they see the previous page', () => {
   cy.contains('Recently added');

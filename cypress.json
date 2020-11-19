@@ -4,5 +4,5 @@
   },
   "testFiles": "**/*.feature",
   "defaultCommandTimeout": 20000,
-  "baseUrl": "https://frontend.dev.nva.aws.unit.no"
+  "baseUrl": "https://frontend.sandbox.nva.aws.unit.no"
 }
