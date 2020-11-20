@@ -15,7 +15,7 @@ When('they enter an Institution name', () => {
   cy.get('[data-testid=autocomplete-institution]').type('ntnu');
 });
 And('they select an Institution', () => {
-  cy.contains('Norges teknisk-naturvitenskapelige universitet').click({ force: true });
+  cy.contains('Norwegian University of Science and Technology').click({ force: true });
 });
 Then('they see Subunit dropdown containing all the subunits at their Institution', () => {
   cy.contains('Department').should('be.visible');

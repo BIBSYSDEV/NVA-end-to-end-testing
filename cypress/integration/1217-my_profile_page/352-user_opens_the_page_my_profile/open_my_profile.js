@@ -17,7 +17,7 @@ And('they see their Profile page which includes information for', (dataTable) =>
     'Feide ID': 'user-id',
     Email: 'user-id',
     ORCID: 'button-create-connect-orcid',
-    'Role(s)': 'user-role',
+    'Role(s)': 'user-role-creator',
     Institution: 'institution-presentation',
     'Preferred language': 'language-selector',
   };

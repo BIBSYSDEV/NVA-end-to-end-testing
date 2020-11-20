@@ -15,7 +15,7 @@ When('they enter an Institution name', () => {
   cy.get('[data-testid=autocomplete-institution]').type('ntnu');
 });
 And('they select an Institution', () => {
-  cy.contains('Norges teknisk-naturvitenskapelige universitet').click({ force: true });
+  cy.contains('Norwegian University of Science and Technology').click({ force: true });
 });
 And('they see a button Add that is enabled for the new Institution', () => {
   cy.get('[data-testid=institution-add-button]').should('be.visible');
@@ -28,7 +28,7 @@ And('they click Add', () => {
   cy.get('[data-testid=institution-add-button]').click({ force: true });
 });
 Then('they see the new Institution in My Profile', () => {
-  cy.contains('Norges teknisk-naturvitenskapelige universitet');
+  cy.contains('Norwegian University of Science and Technology');
 });
 And('they see a button Remove that is enabled for the new Institution', () => {
   cy.get('[data-testid^=button-delete-institution]').should(($delete) => {

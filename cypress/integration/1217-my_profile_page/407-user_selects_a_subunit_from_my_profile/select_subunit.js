@@ -9,21 +9,23 @@ Given('user sees a Subunit from My Profile', () => {
     cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
     cy.get('[data-testid=add-new-institution-button]').click();
     cy.get('[data-testid=autocomplete-institution]').type('ntnu');
-    cy.contains('Norges teknisk-naturvitenskapelige universitet').click({ force: true });
+    cy.contains('Norwegian University of Science and Technology').click({ force: true });
     cy.contains('Department').should('be.visible');
   });
 });
 
 When('they select a Subunit from the Subunit dropdown', () => {
-  cy.get('[data-testid=autocomplete-institution]').last().type('Fakultet for informasjonsteknologi og elektroteknikk');
-  cy.contains('Fakultet for informasjonsteknologi og elektroteknikk').click({ force: true });
+  cy.get('[data-testid=autocomplete-institution]')
+    .last()
+    .type('Faculty of Information Technology and Electrical Engineering');
+  cy.contains('Faculty of Information Technology and Electrical Engineering').click({ force: true });
 });
 And('they click Add', () => {
   cy.get('[data-testid=institution-add-button]').click({ force: true });
 });
 Then('they see the new Institution and subunit in My Profile', () => {
-  cy.contains('Norges teknisk-naturvitenskapelige universitet');
-  cy.contains('Fakultet for informasjonsteknologi og elektroteknikk');
+  cy.contains('Norwegian University of Science and Technology');
+  cy.contains('Faculty of Information Technology and Electrical Engineering');
 });
 
 After(() => {
