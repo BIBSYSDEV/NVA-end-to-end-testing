@@ -11,7 +11,7 @@
   "354-creator_opens_my_publications",
   "355-creator_opens_an_item_in_my_publication_list",
   "385-creator_begins_registration_by_uploading_a_file",
-  "406-user_sees_a_subunit_from_my_profile",
+  "405-user_sees_a_subunit_from_my_profile",
   "407-user_selects_a_subunit_from_my_profile",
   "409-user_sees_a_subsubunit_from_my_profile",
   "411-user_adds_an_institution_from_my_profile",
@@ -22,5 +22,7 @@
   "551-user_removes_an_institution_from_my_profile",
   "1218-user_selects_a_subsubunit_from_my_profile",
   "1219-user_sees_a_subsubsubunit_from_my_profile",
-  "1220-user_selects_a_subsubsubunit_from_my_profile"
+  "1220-user_selects_a_subsubsubunit_from_my_profile",
+  "1661-user_navigates_back_to_previous_page",
+  "1725-user_without_any_roles_views_my_profile"
 ]
