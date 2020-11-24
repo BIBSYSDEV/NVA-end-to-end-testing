@@ -13,7 +13,7 @@ const testFile = 'example.txt';
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR).then(() => {
     cy.startRegistrationWithFile(testFile);
-    cy.get('[data-testid=publication-file-start-button]').click({ force: true });
+    cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   });
 });
 
@@ -38,7 +38,7 @@ And('they see the tab Summary is selected', () => {
   cy.get('[data-testid=nav-tabpanel-submission][aria-selected=true]');
 });
 And('they see Save and present is enabled', () => {
-  cy.get('[data-testid=button-save-publication]').should('be.enabled');
+  cy.get('[data-testid=button-save-registration]').should('be.enabled');
 });
 And('they see Information box for', (dataTable) => {
   cy.get('h2')
@@ -65,7 +65,7 @@ Then('they see Error box for Validation errors', () => {
   cy.get('[data-testid=error-summary-card]');
 });
 And('they see Publish is disabled', () => {
-  cy.get('[data-testid=button-publish-publication]').should('be.disabled');
+  cy.get('[data-testid=button-publish-registration]').should('be.disabled');
 });
 
 // Scenario: Creator navigates to Summary tab without validation errors
@@ -73,7 +73,7 @@ And('they see Publish is disabled', () => {
 And('there are no validation errors', () => {
   // Description
   cy.get('[data-testid=nav-tabpanel-description').click({ force: true });
-  cy.get('[data-testid=publication-title-input]').type('Title');
+  cy.get('[data-testid=registration-title-input]').type('Title');
 
   // Reference
   cy.get('[data-testid=nav-tabpanel-reference').click({ force: true });
@@ -84,8 +84,10 @@ And('there are no validation errors', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
 
-  cy.get('[data-testid=autosearch-publisher]').click({ force: true }).type('Norges');
+  cy.get('[data-testid=publisher-search-input]').click({ force: true }).type('Norges');
   cy.contains('Norges forskningsråd').click({ force: true });
+
+  cy.get('[data-testid=peer_review-true]').click({ force: true });
 
   // Contributors
   cy.get('[data-testid=nav-tabpanel-contributors').click({ force: true });
@@ -101,5 +103,5 @@ And('there are no validation errors', () => {
 });
 
 And('they see Publish is enabled', () => {
-  cy.get('[data-testid=button-publish-publication]').should('be.enabled');
+  cy.get('[data-testid=button-publish-registration]').should('be.enabled');
 });

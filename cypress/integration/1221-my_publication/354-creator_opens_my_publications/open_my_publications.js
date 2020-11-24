@@ -6,7 +6,7 @@ Given('the user is logged in as Creator', () => {
   cy.login(USER_WITH_AUTHOR);
 });
 When('they click the button My registrations', () => {
-  cy.get('[data-testid=my-publications').click({ force: true });
+  cy.get('[data-testid=my-registrations').click({ force: true });
 });
 Then('they see My registrations', () => {
   cy.get('h1').contains('My registrations');
@@ -20,7 +20,7 @@ And('they see a list of all unpublished registrations with the fields', (dataTab
 // | Status           |
 // | Date             |
 And('they see each list item has a button Delete and Edit that is enabled', () => {
-  cy.get('[data-testid^=edit-publication]').should('not.be.disabled');
+  cy.get('[data-testid^=edit-registration]').should('not.be.disabled');
   // cy.get('[data-testid^=delete-publication]').should('not.be.disabled'); Delete button not implemented
 });
 And('they see the navigation bar for unpublished registrations is selected', () => {

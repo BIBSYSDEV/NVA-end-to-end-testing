@@ -16,7 +16,7 @@ Given('Creator begins registering a Registration in the Wizard', () => {
   });
 });
 When('they navigate to the Description tab', () => {
-  cy.get('[data-testid=publication-file-start-button]').click({ force: true });
+  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
 });
 
 // End common steps
@@ -63,13 +63,13 @@ And('they see Next is enabled', () => {
   cy.get('[data-testid=button-next-tab]').should('be.enabled');
 });
 And('they see Save is enabled', () => {
-  cy.get('[data-testid=button-save-publication]').should('be.enabled');
+  cy.get('[data-testid=button-save-registration]').should('be.enabled');
 });
 
 // Scenario: Creator sees that fields are validated on Description tab
 And('they click the Save button', () => {
-  cy.get('[data-testid=publication-title-input]').focus();
-  cy.get('[data-testid=publication-title-input]').blur();
+  cy.get('[data-testid=registration-title-input]').focus();
+  cy.get('[data-testid=registration-title-input]').blur();
   // TODO works in dev, not in sandbox atm
   //   cy.get('[data-testid=button-save-publication]').click({ force: true });
 });

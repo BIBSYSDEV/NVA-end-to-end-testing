@@ -11,7 +11,7 @@ Given('Creator begins registering a Registration in the Wizard', () => {
   });
 });
 When('they navigate to the Contributors tab', () => {
-  cy.get('[data-testid=publication-file-start-button]').click({ force: true });
+  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-contributors').click({ force: true });
 });
 Then('they see Add Author is enabled', () => {
@@ -36,5 +36,5 @@ And('they see Next is enabled', () => {
   cy.get('[data-testid=button-next-tab]').should('be.enabled');
 });
 And('they see Save is enabled', () => {
-  cy.get('[data-testid=button-save-publication]').should('be.enabled');
+  cy.get('[data-testid=button-save-registration]').should('be.enabled');
 });

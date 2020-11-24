@@ -9,18 +9,18 @@ Given('they see a Subsubunit from My Profile', () => {
     cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
     cy.get('[data-testid=add-new-institution-button]').click();
     cy.get('[data-testid=autocomplete-institution]').type('ntnu');
-    cy.contains('Norges teknisk-naturvitenskapelige universitet').click({ force: true });
+    cy.contains('Norwegian University of Science and Technology').click({ force: true });
     cy.contains('Department').should('be.visible');
     cy.get('[data-testid=autocomplete-institution]')
       .last()
-      .type('Fakultet for informasjonsteknologi og elektroteknikk');
-    cy.contains('Fakultet for informasjonsteknologi og elektroteknikk').click({ force: true });
+      .type('Faculty of Information Technology and Electrical Engineering');
+    cy.contains('Faculty of Information Technology and Electrical Engineering').click({ force: true });
   });
 });
 
 And('they select a Subsubunit from the Subsubunit dropdown', () => {
-  cy.get('[data-testid=autocomplete-institution]').last().type('IE fakultetsadministrasjon');
-  cy.contains('IE fakultetsadministrasjon').click({ force: true });
+  cy.get('[data-testid=autocomplete-institution]').last().type('IE Faculty Administration');
+  cy.contains('IE Faculty Administration').click({ force: true });
 });
 And('the see the Subsubsubunit dropdown', () => {
   cy.get('[data-testid=autocomplete-institution]').last().should('have.value', '');
@@ -30,12 +30,12 @@ When('they click the Subsubsubunit dropdown', () => {
     .last()
     .within(($autocomplete) => {
       cy.wrap($autocomplete).should('have.value', '');
-      cy.wrap($autocomplete).type('realfagsrekruttering');
+      cy.wrap($autocomplete).type('recruit');
     });
 });
 
 Then('they see a Subsubsubunit dropdown containing all the Subsubsubunits at their Subsubunit', () => {
-  cy.contains('Nasjonalt senter for realfagsrekruttering');
+  cy.contains('The National Centre for Science Recruitment');
 });
 
 After(() => {
