@@ -24,5 +24,6 @@
   "1219-user_sees_a_subsubsubunit_from_my_profile",
   "1220-user_selects_a_subsubsubunit_from_my_profile",
   "1661-user_navigates_back_to_previous_page",
-  "1725-user_without_any_roles_views_my_profile"
+  "1725-user_without_any_roles_views_my_profile",
+  "443-creator_begins_registering_a_registration_in_the_wizard"
 ]
