@@ -9,7 +9,7 @@ When('they click the button My registrations', () => {
   cy.get('[data-testid=my-registrations').click({ force: true });
 });
 Then('they see My registrations', () => {
-  cy.get('h1').contains('My registrations');
+  cy.location('pathname').should('eq', '/my-registrations');
 });
 And('they see a list of all unpublished registrations with the fields', (dataTable) => {
   dataTable.rawTable.forEach((value) => {

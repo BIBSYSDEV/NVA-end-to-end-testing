@@ -2,6 +2,7 @@ import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
+import 'cypress-file-upload';
 
 const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -115,4 +116,36 @@ Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
 
 Cypress.Commands.add('logoutCognito', () => {
   Auth.signOut();
+});
+
+Cypress.Commands.add('createValidRegistration', () => {
+  // Description
+  cy.get('[data-testid=nav-tabpanel-description').click({ force: true });
+  cy.get('[data-testid=registration-title-input]').type('Title');
+
+  // Reference
+  cy.get('[data-testid=nav-tabpanel-reference').click({ force: true });
+
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
+
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
+
+  cy.get('[data-testid=publisher-search-input]').click({ force: true }).type('Norges');
+  cy.contains('Norges forskningsråd').click({ force: true });
+
+  cy.get('[data-testid=peer_review-true]').click({ force: true });
+
+  // Contributors
+  cy.get('[data-testid=nav-tabpanel-contributors').click({ force: true });
+  cy.get('[data-testid=add-contributor]').click({ force: true });
+  cy.get('[data-testid=search-input]').type('Testuser Withauthor{enter}');
+  cy.get('[data-testid=author-radio-button]').click({ force: true });
+  cy.get('[data-testid=connect-author-button]').click({ force: true });
+
+  // Files and reference
+  cy.get('[data-testid=nav-tabpanel-files-and-license').click({ force: true });
+  cy.get('[data-testid=uploaded-file-select-license]').click({ force: true }).type(' ');
+  cy.get('[data-testid=license-item]').first().click({ force: true });
 });
