@@ -34,4 +34,9 @@ And('they navigate to the Submission tab', () => {
 });
 Then('they see that the Author is registered as a Corresponding Author', () => {
   cy.contains('Corresponding author');
+  cy.contains('Corresponding author')
+    .parent()
+    .within(($corresponding) => {
+      cy.wrap($corresponding).contains('TestUser, Withauthor');
+    });
 });
