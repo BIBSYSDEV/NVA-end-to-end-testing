@@ -29,6 +29,8 @@ When('they select {string}', (subType) => {
 });
 Then('they see that the Peer Review Details are hidden', () => {
   cy.get('[data-testid=nvi_fail_no_peer_review]').should('be.visible');
+  cy.get('[data-testid=nvi_success]').should('not.be.visible');
+  nvi_fail_no_peer_review;
 });
 // Examples:
 //     | Subtype              |
