@@ -6,7 +6,7 @@ const testFile = 'example.txt';
 
 const subTypes = {
   'Short communication': 'publication-instance-type-JournalShortCommunication',
-  Editorial: 'publication-instance-type-JournalLeader',
+  'Editorial': 'publication-instance-type-JournalLeader',
   'Letter to the editor': 'publication-instance-type-JournalLetter',
   'Book review': 'publication-instance-type-JournalReview',
 };
