@@ -2,6 +2,7 @@ import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
+import 'cypress-file-upload';
 
 const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
