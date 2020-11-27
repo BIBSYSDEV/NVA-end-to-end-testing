@@ -1,7 +1,6 @@
 import { Given, When, Before } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import 'cypress-localstorage-commands';
-import 'cypress-file-upload';
 
 const testFile = 'example.txt';
 
@@ -27,13 +26,13 @@ Then('they see the Description tab is selected', () => {
 });
 And('they see fields:', (dataTable) => {
   const fieldMap = {
-    Title: 'Title',
-    Abstract: 'Abstract',
-    Description: 'Description',
+    'Title': 'Title',
+    'Abstract': 'Abstract',
+    'Description': 'Description',
     'NPI disciplines': 'Scientific field in Norwegian publication indicator',
-    Keywords: 'Keywords',
+    'Keywords': 'Keywords',
     'Primary language for content': 'Primary language for content',
-    'Project association': 'Project association',
+    'Project association': 'Connect to project',
   };
   dataTable.rawTable.forEach((value) => {
     cy.contains(`${fieldMap[value[0]]}`);
@@ -70,15 +69,20 @@ And('they see Save is enabled', () => {
 And('they click the Save button', () => {
   cy.get('[data-testid=registration-title-input]').focus();
   cy.get('[data-testid=registration-title-input]').blur();
-  // TODO works in dev, not in sandbox atm
-  //   cy.get('[data-testid=button-save-publication]').click({ force: true });
+  cy.get('[data-testid=button-save-registration]').click({ force: true });
 });
 
-Then('they can see "Required field" error messages for fields:', (dataTable) => {
+Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
+  const fieldMap = {
+    'Title': 'registration-title-field',
+    'Date published': 'date-published-field',
+  };
+
   dataTable.rawTable.forEach((value) => {
-    cy.contains(`${value[0]}`).within(($field) => {
-      cy.wrap($field).parent().contains('Required field');
+    cy.get(`[data-testid=${fieldMap[value[0]]}]`).within(($field) => {
+      cy.wrap($field).contains('Mandatory');
     });
   });
 });
-// | Title |
+// | Title          |
+// | Date published |

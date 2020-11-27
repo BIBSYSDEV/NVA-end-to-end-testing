@@ -36,6 +36,9 @@ And('they see the tab Files and License is clickable', () => {
 And('they see the tab Summary is selected', () => {
   cy.get('[data-testid=nav-tabpanel-submission][aria-selected=true]');
 });
+And('they see Previous is enabled', () => {
+  // TODO waiting for implementation
+});
 And('they see Save and present is enabled', () => {
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
 });
