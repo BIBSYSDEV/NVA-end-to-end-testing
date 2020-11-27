@@ -6,7 +6,7 @@ const testFile = 'example.txt';
 
 const subTypes = {
   'Short communication': 'publication-instance-type-JournalShortCommunication',
-  Editorial: 'publication-instance-type-JournalLeader',
+  'Editorial': 'publication-instance-type-JournalLeader',
   'Letter to the editor': 'publication-instance-type-JournalLetter',
   'Book review': 'publication-instance-type-JournalReview',
 };
@@ -29,6 +29,8 @@ When('they select {string}', (subType) => {
 });
 Then('they see that the Peer Review Details are hidden', () => {
   cy.get('[data-testid=nvi_fail_no_peer_review]').should('be.visible');
+  cy.get('[data-testid=nvi_fail_not_rated]').should('not.exist');
+  cy.get('[data-testid=nvi_success]').should('not.exist');
 });
 // Examples:
 //     | Subtype              |
