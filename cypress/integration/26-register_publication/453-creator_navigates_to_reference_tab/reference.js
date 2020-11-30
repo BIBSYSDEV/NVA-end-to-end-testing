@@ -20,7 +20,7 @@ When('they navigate to the Reference tab', () => {
 });
 
 And('they see Previous is enabled', () => {
-  // TODO waiting for implementation
+  cy.get('[data-testid=button-previous-tab]').should('be.enabled');
 });
 
 // End common steps

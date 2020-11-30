@@ -37,7 +37,7 @@ And('they see the tab Summary is selected', () => {
   cy.get('[data-testid=nav-tabpanel-submission][aria-selected=true]');
 });
 And('they see Previous is enabled', () => {
-  // TODO waiting for implementation
+  cy.get('[data-testid=button-previous-tab]').should('be.enabled');
 });
 And('they see Save and present is enabled', () => {
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
