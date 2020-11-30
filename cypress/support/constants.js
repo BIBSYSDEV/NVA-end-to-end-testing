@@ -28,6 +28,9 @@ export const NAME_WITH_AUTHOR = 'Withauthor TestUser';
 export const USER_ADD_INSTITUTION = 'test-user-add-institution@test.no';
 export const NAME_ADD_INSTITUTION = 'Add institution TestUser';
 
+export const USER_CHANGE_INSTITUTION = 'test-user-change-institution@test.no';
+export const NAME_CHANGE_INSTITUTION = 'Change institution TestUser';
+
 export const USER_WITH_INSTITUTION_REMOVE_INSTITUTION = 'test-user-with-institution-remove-institution@test.no';
 export const NAME_WITH_INSTITUTION_REMOVE_INSTITUTION = 'Remove institution TestUser';
 
