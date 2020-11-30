@@ -31,6 +31,9 @@ And('they see the tab Files and License is clickable', () => {
 And('they see the tab Summary is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-submission]').should('be.visible');
 });
+And('they see Previous is enabled', () => {
+  cy.get('[data-testid=button-previous-tab]').should('be.enabled');
+});
 And('they see Next is enabled', () => {
   cy.get('[data-testid=button-next-tab]').should('be.enabled');
 });

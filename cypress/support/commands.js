@@ -122,6 +122,7 @@ Cypress.Commands.add('createValidRegistration', () => {
   // Description
   cy.get('[data-testid=nav-tabpanel-description').click({ force: true });
   cy.get('[data-testid=registration-title-input]').type('Title');
+  cy.get('[data-testid=date-published-field]').type('01.01.2020');
 
   // Reference
   cy.get('[data-testid=nav-tabpanel-reference').click({ force: true });
@@ -148,4 +149,10 @@ Cypress.Commands.add('createValidRegistration', () => {
   cy.get('[data-testid=nav-tabpanel-files-and-license').click({ force: true });
   cy.get('[data-testid=uploaded-file-select-license]').click({ force: true }).type(' ');
   cy.get('[data-testid=license-item]').first().click({ force: true });
+});
+
+Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
+  dataTable.rawTable.forEach((value) => {
+    cy.get(`[data-testid=${values[value[0]]}]`);
+  });
 });

@@ -11,19 +11,25 @@ When('they look at any page in NVA', () => {
   cy.visit(`/${uuidv4()}`);
 });
 Then('they see a menu containing', (dataTable) => {
+  const fieldMap = {
+    'My profile': 'menu-user-profile-button',
+    'Log out': 'menu-logout-button',
+  };
+  cy.get('[data-testid=menu]').click({ force: true });
   dataTable.rawTable.forEach((value) => {
-    cy.get('[data-testid=menu]').click({ force: true });
-    cy.get('ul[role=menu]').within(() => {
-      cy.get('li[role=menuitem]').contains(value[0]);
-    });
+    cy.get(`[data-testid=${fieldMap[value[0]]}]`);
   });
 });
 // | My Profile       |
 // | Log Out          |
 And('they see the buttons', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid]`).contains(value[0]);
-  });
+  const fieldMap = {
+    'New Registration': 'new-registration',
+    'My Registrations': 'my-registrations',
+    'My Messages': 'my-messages',
+  };
+  cy.testDataTestidList(dataTable, fieldMap);
 });
-// | New publication |
-// | My publications |
+// | New Registration |
+// | My Registrations |
+// | My Messages      |

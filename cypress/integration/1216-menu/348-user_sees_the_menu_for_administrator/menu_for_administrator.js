@@ -11,12 +11,14 @@ When('they look at any page in NVA', () => {
   cy.visit(`/${uuidv4()}`);
 });
 Then('they see a menu containing', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
-    cy.get('[data-testid=menu]').click({ force: true });
-    cy.get('ul[role=menu]').within(() => {
-      cy.get('li[role=menuitem]').contains(value[0]);
-    });
-  });
+  const fieldMap = {
+    'My profile': 'menu-user-profile-button',
+    'Users': 'menu-admin-institution-users-button',
+    'My institution': 'menu-admin-institution-button',
+    'Log out': 'menu-logout-button',
+  };
+  cy.get('[data-testid=menu]').click({ force: true });
+  cy.testDataTestidList(dataTable, fieldMap);
 });
 // | My profile     |
 // | Users          |

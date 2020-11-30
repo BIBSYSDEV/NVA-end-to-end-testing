@@ -11,10 +11,12 @@ When('they look at any page in NVA', () => {
   cy.visit(`/${uuidV4()}`);
 });
 Then('they see a menu containing', (dataTable) => {
+  const fieldMap = {
+    'My profile': 'menu-user-profile-button',
+    'Log out': 'menu-logout-button',
+  };
   cy.get('[data-testid=menu]').click({ force: true });
-  dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid]`).contains(value[0]);
-  });
+  cy.testDataTestidList(dataTable, fieldMap);
 });
 // | My profile |
 // | Log out    |

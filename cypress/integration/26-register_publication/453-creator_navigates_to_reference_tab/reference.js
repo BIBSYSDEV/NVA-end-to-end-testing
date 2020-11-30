@@ -1,7 +1,6 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import 'cypress-localstorage-commands';
-import 'cypress-file-upload';
 
 const testFile = 'example.txt';
 
@@ -18,6 +17,10 @@ Given('Creator begins registering a Registration in the Wizard', () => {
 When('they navigate to the Reference tab', () => {
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-reference').click({ force: true });
+});
+
+And('they see Previous is enabled', () => {
+  cy.get('[data-testid=button-previous-tab]').should('be.enabled');
 });
 
 // End common steps
@@ -50,15 +53,12 @@ And('they see Save is enabled', () => {
 
 // Scenario: Creator sees that fields are validated on Reference tab
 And('they click the Save button', () => {
-  // TODO works in dev, not in sandbox atm
-  //   cy.get('[data-testid=button-save-publication]').click({ force: true });
-  cy.get('[data-testid=nav-tabpanel-description').click({ force: true });
-  cy.get('[data-testid=nav-tabpanel-reference').click({ force: true });
+  cy.get('[data-testid=button-save-registration]').click({ force: true });
 });
 Then('they can see "Required field" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
     cy.contains(`${value[0]}`).within(($field) => {
-      cy.wrap($field).parent().contains('Required field');
+      cy.wrap($field).parent().contains('Mandatory');
     });
   });
 });
