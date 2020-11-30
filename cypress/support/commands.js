@@ -149,3 +149,9 @@ Cypress.Commands.add('createValidRegistration', () => {
   cy.get('[data-testid=uploaded-file-select-license]').click({ force: true }).type(' ');
   cy.get('[data-testid=license-item]').first().click({ force: true });
 });
+
+Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
+  dataTable.rawTable.forEach((value) => {
+    cy.get(`[data-testid=${values[value[0]]}]`);
+  });
+});

@@ -18,12 +18,13 @@ And('they select the Reference type "Report"', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ');
 });
 Then('they see a list of subtypes:', (dataTable) => {
-  const valueMap = {
+  const fieldMap = {
     'Research report': 'publication-instance-type-ReportResearch',
     'Policy report': 'publication-instance-type-ReportPolicy',
     'Working paper': 'publication-instance-type-ReportWorkingPaper',
     'Other type of report': 'publication-instance-type-ReportBasic',
   };
+  cy.testDataTestidList(dataTable, fieldMap);
 });
 // | Research report      |
 // | Policy report        |
