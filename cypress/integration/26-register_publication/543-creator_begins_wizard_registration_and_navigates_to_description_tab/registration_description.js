@@ -1,6 +1,6 @@
 import { Given, When, Before } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
+import { DESCRIPTION_FIELDS, DESCRIPTION_MANDATORY_FIELDS } from '../../../support/data_testid_constants';
 import 'cypress-localstorage-commands';
 
 const testFile = 'example.txt';
@@ -63,13 +63,8 @@ And('they click the Save button', () => {
 });
 
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
-  const fieldMap = {
-    'Title': 'registration-title-field',
-    'Date published': 'date-published-field',
-  };
-
   dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid=${fieldMap[value[0]]}]`).within(($field) => {
+    cy.get(`[data-testid=${DESCRIPTION_FIELDS[value[0]]}]`).within(($field) => {
       cy.wrap($field).contains('Mandatory');
     });
   });
