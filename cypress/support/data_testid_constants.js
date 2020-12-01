@@ -9,6 +9,35 @@ export const CREATOR_MENU = {
   'My Messages': 'my-messages',
 };
 
+export const CURATOR_MENU = {
+  'My profile': 'menu-user-profile-button',
+  'My worklist': 'menu-my-worklist-button',
+  'Log out': 'menu-logout-button',
+};
+
+export const INST_ADMIN_MENU = {
+  'My profile': 'menu-user-profile-button',
+  'Users': 'menu-admin-institution-users-button',
+  'My institution': 'menu-admin-institution-button',
+  'Log out': 'menu-logout-button',
+};
+
+export const ADMIN_MENU = {
+  'My profile': 'menu-user-profile-button',
+  'Institutions': 'menu-admin-institution-button',
+  'Log out': 'menu-logout-button',
+};
+
+export const PROFILE_PAGE_FIELDS = {
+  'Real name': 'user-name',
+  'Feide ID': 'user-id',
+  'Email': 'user-id',
+  'ORCID': 'button-create-connect-orcid',
+  'Role(s)': 'user-role-creator',
+  'Institution': 'institution-presentation',
+  'Preferred language': 'language-selector',
+};
+
 export const JOURNAL_SUBTYPES = {
   'Short communication': 'publication-instance-type-JournalShortCommunication',
   'Editorial': 'publication-instance-type-JournalLeader',
