@@ -26,8 +26,7 @@ Then('they see the Description tab is selected', () => {
   cy.get('[data-testid=nav-tabpanel-description][aria-selected=true]');
 });
 And('they see fields:', (dataTable) => {
-  const fieldMap = DESCRIPTION_FIELDS;
-  cy.testDataTestidList(dataTable, fieldMap).should('be.visible');
+  cy.testDataTestidList(dataTable, DESCRIPTION_FIELDS).should('be.visible');
 });
 //   | Title                        |
 //   | Abstract                     |

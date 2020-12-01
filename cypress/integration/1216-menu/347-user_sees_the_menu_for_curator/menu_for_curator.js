@@ -12,9 +12,8 @@ When('they look at any page in NVA', () => {
   cy.visit(`/${uuidv4()}`);
 });
 Then('they see a menu containing', (dataTable) => {
-  const fieldMap = CURATOR_MENU;
   cy.get('[data-testid=menu]').click({ force: true });
-  cy.testDataTestidList(dataTable, fieldMap);
+  cy.testDataTestidList(dataTable, CURATOR_MENU);
 });
 // | My profile  |
 // | My worklist |

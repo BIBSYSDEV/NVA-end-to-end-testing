@@ -1,12 +1,17 @@
+export const MAIN_BUTTONS = {
+  'New Registration': 'new-registration',
+  'My Registrations': 'my-registrations',
+  'My Messages': 'my-messages',
+};
+
 export const USER_MENU = {
   'My profile': 'menu-user-profile-button',
   'Log out': 'menu-logout-button',
 };
 
 export const CREATOR_MENU = {
-  'New Registration': 'new-registration',
-  'My Registrations': 'my-registrations',
-  'My Messages': 'my-messages',
+  'My profile': 'menu-user-profile-button',
+  'Log out': 'menu-logout-button',
 };
 
 export const CURATOR_MENU = {

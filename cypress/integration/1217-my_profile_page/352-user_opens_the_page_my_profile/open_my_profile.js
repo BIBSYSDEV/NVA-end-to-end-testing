@@ -12,8 +12,7 @@ When('they click the menu item My Profile', () => {
 });
 Then('they see My Profile', () => {});
 And('they see their Profile page which includes information for', (dataTable) => {
-  const fieldMap = PROFILE_PAGE_FIELDS;
-  cy.testDataTestidList(dataTable, fieldMap);
+  cy.testDataTestidList(dataTable, PROFILE_PAGE_FIELDS);
 });
 // | Real name          |
 // | Feide ID           |
