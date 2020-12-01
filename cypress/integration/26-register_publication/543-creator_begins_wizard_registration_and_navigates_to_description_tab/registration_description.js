@@ -1,5 +1,6 @@
 import { Given, When, Before } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
 import 'cypress-localstorage-commands';
 
 const testFile = 'example.txt';
@@ -25,18 +26,8 @@ Then('they see the Description tab is selected', () => {
   cy.get('[data-testid=nav-tabpanel-description][aria-selected=true]');
 });
 And('they see fields:', (dataTable) => {
-  const fieldMap = {
-    'Title': 'Title',
-    'Abstract': 'Abstract',
-    'Description': 'Description',
-    'NPI disciplines': 'Scientific field in Norwegian publication indicator',
-    'Keywords': 'Keywords',
-    'Primary language for content': 'Primary language for content',
-    'Project association': 'Connect to project',
-  };
-  dataTable.rawTable.forEach((value) => {
-    cy.contains(`${fieldMap[value[0]]}`);
-  });
+  const fieldMap = DESCRIPTION_FIELDS;
+  cy.testDataTestidList(dataTable, fieldMap).should('be.visible');
 });
 //   | Title                        |
 //   | Abstract                     |

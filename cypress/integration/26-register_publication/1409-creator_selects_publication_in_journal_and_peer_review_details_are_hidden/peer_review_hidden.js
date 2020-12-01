@@ -1,15 +1,11 @@
 import { Given, When, Then, And, After } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { JOURNAL_SUBTYPES } from '../../../support/data_testid_constants';
 import 'cypress-localstorage-commands';
 
 const testFile = 'example.txt';
 
-const subTypes = {
-  'Short communication': 'publication-instance-type-JournalShortCommunication',
-  'Editorial': 'publication-instance-type-JournalLeader',
-  'Letter to the editor': 'publication-instance-type-JournalLetter',
-  'Book review': 'publication-instance-type-JournalReview',
-};
+const subTypes = JOURNAL_SUBTYPES;
 
 Given('that a Creator navigates to the Reference tab', () => {
   cy.login(USER_WITH_AUTHOR).then(() => {
