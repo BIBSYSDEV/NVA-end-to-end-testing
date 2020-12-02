@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 export const ORCID_BASE_URL = Cypress.env('REACT_APP_ORCID_BASE_URL');
 export const ORCID_USER_INFO_URL = `${ORCID_BASE_URL}/oauth/userinfo`;
 const ORCID_CLIENT_ID = Cypress.env('REACT_APP_ORCID_CLIENT_ID');
@@ -27,14 +25,26 @@ export const NAME = 'End-to-end TestUser';
 export const USER_WITH_AUTHOR = 'test-user-with-author@test.no';
 export const NAME_WITH_AUTHOR = 'Withauthor TestUser';
 
+export const USER_ADD_INSTITUTION = 'test-user-add-institution@test.no';
+export const NAME_ADD_INSTITUTION = 'Add institution TestUser';
+
+export const USER_CHANGE_INSTITUTION = 'test-user-change-institution@test.no';
+export const NAME_CHANGE_INSTITUTION = 'Change institution TestUser';
+
+export const USER_WITH_INSTITUTION_REMOVE_INSTITUTION = 'test-user-with-institution-remove-institution@test.no';
+export const NAME_WITH_INSTITUTION_REMOVE_INSTITUTION = 'Remove institution TestUser';
+
 export const USER_CURATOR_WITH_AUTHOR = 'test-user-curator@test.no';
 export const NAME_CURATOR_WITH_AUTHOR = 'Curator TestUser';
 
 export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-inst-admin@test.no';
 export const NAME_INST_ADMIN_WITH_AUTHOR = 'Institution-admin TestUser';
 
-export const ADMIN_USER = 'test-user-admin@unit.no';
-export const ADMIN_NAME = 'Admin TestUser';
+export const ADMIN_USER = 'test-user-app-admin@test.no';
+export const ADMIN_NAME = 'App-admin TestUser';
 
 export const TEST_USER = 'test-user-login@test.no';
 export const TEST_USER_NAME = 'Login TestUser';
+
+export const USER_NO_ROLE = 'test-user-with-no-role@test.no';
+export const USER_NO_ROLE_NAME = 'Login TestUser';

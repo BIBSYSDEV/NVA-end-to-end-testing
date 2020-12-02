@@ -154,5 +154,5 @@ $RECYCLE.BIN/
 cypress/cucumber-json/*
 aws.py
 cognito.txt
-login.ps1
+*.ps1
 features.diff
