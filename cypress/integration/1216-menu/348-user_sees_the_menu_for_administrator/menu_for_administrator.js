@@ -1,27 +1,19 @@
 import { Given, And, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { USER_INST_ADMIN_WITH_AUTHOR } from '../../../support/constants';
+import { INST_ADMIN_MENU } from '../../../support/data_testid_constants';
 import { v4 as uuidv4 } from 'uuid';
 import 'cypress-localstorage-commands';
 
 Given('that the user is logged in', () => {
-  cy.loginCognito(USER_INST_ADMIN_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.visit('/');
-  });
+  cy.login(USER_INST_ADMIN_WITH_AUTHOR);
 });
 And('they have the role of Institution-admin', () => {});
 When('they look at any page in NVA', () => {
   cy.visit(`/${uuidv4()}`);
 });
 Then('they see a menu containing', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
-    cy.get('[data-testid=menu]').click({ force: true });
-    cy.get('ul[role=menu]').within(() => {
-      cy.get('li[role=menuitem]').contains(value[0]);
-    });
-  });
+  cy.get('[data-testid=menu]').click({ force: true });
+  cy.testDataTestidList(dataTable, INST_ADMIN_MENU);
 });
 // | My profile     |
 // | Users          |
