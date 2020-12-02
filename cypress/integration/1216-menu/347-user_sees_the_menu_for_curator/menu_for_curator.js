@@ -1,5 +1,6 @@
 import { Given, And, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { USER_CURATOR_WITH_AUTHOR } from '../../../support/constants';
+import { CURATOR_MENU } from '../../../support/data_testid_constants';
 import { v4 as uuidv4 } from 'uuid';
 import 'cypress-localstorage-commands';
 
@@ -11,13 +12,8 @@ When('they look at any page in NVA', () => {
   cy.visit(`/${uuidv4()}`);
 });
 Then('they see a menu containing', (dataTable) => {
-  const fieldMap = {
-    'My profile': 'menu-user-profile-button',
-    'My worklist': 'menu-my-worklist-button',
-    'Log out': 'menu-logout-button',
-  };
   cy.get('[data-testid=menu]').click({ force: true });
-  cy.testDataTestidList(dataTable, fieldMap);
+  cy.testDataTestidList(dataTable, CURATOR_MENU);
 });
 // | My profile  |
 // | My worklist |

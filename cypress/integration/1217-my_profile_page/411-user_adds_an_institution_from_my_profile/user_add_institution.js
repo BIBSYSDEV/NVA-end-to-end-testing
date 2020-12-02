@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { After, And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_ADD_INSTITUTION } from '../../../support/constants';
 import 'cypress-localstorage-commands';
 
@@ -34,4 +34,8 @@ And('they see a button Remove that is enabled for the new Institution', () => {
   cy.get('[data-testid^=button-delete-institution]').should(($delete) => {
     expect($delete).to.have.length(2);
   });
+});
+
+After(() => {
+  cy.get('[data-testid^=button-delete-institution]').last().click({ force: true });
 });
