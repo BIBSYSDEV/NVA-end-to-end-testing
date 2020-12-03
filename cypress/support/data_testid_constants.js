@@ -4,6 +4,16 @@ export const MAIN_BUTTONS = {
   'My Messages': 'my-messages',
 };
 
+export const NEW_REGISTRATION_BUTTONS = {
+  'Link to registration': 'new-registration-link',
+  'Upload file': 'new-registration-file',
+};
+
+export const NEW_REGISTRATION_START_BUTTONS = {
+  'Link to registration': 'registration-link-start-button',
+  'Upload file': 'registration-file-start-button',
+};
+
 export const USER_MENU = {
   'My profile': 'menu-user-profile-button',
   'Log out': 'menu-logout-button',
