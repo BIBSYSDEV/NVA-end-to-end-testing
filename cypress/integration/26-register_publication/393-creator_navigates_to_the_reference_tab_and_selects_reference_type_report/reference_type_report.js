@@ -1,5 +1,6 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { REPORT_SUBTYPES } from '../../../support/data_test_id_constants';
 import 'cypress-localstorage-commands';
 
 const testFile = 'example.txt';
@@ -18,13 +19,7 @@ And('they select the Reference type "Report"', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ');
 });
 Then('they see a list of subtypes:', (dataTable) => {
-  const fieldMap = {
-    'Research report': 'publication-instance-type-ReportResearch',
-    'Policy report': 'publication-instance-type-ReportPolicy',
-    'Working paper': 'publication-instance-type-ReportWorkingPaper',
-    'Other type of report': 'publication-instance-type-ReportBasic',
-  };
-  cy.testDataTestidList(dataTable, fieldMap);
+  cy.testDataTestidList(dataTable, REPORT_SUBTYPES);
 });
 // | Research report      |
 // | Policy report        |
