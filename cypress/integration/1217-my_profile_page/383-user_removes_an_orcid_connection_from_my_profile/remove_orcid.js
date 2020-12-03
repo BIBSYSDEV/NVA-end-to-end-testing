@@ -12,5 +12,5 @@ When('they click Remove ORCID', () => {
   cy.get('[data-testid=accept-button]').click({ force: true });
 });
 Then('they see a confirmation that the ORCID is removed', () => {
-  cy.contains('Deleted identifier');
+  cy.get('[data-testid=snackbar-success]').should('be.visible');
 });

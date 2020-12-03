@@ -39,4 +39,4 @@ export const TEST_USER = 'test-user-login@test.no';
 
 export const USER_NO_ROLE = 'test-user-with-no-role@test.no';
 
-export const USER_REMOVE_ORCID = 'test-user-remove-orcid@test.no';
+export const USER_REMOVE_ORCID = 'test-user-remove-existing-orcid@test.no';
