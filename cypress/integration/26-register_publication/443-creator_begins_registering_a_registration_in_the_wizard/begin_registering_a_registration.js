@@ -17,8 +17,8 @@ And('they have selected {string} for starting the Wizard', (method) => {
     // Start registation with link
     case methods[0]:
       cy.get('[data-testid=new-registration-link-input]').type(LINK);
-      cy.get('[doi-search-button]').should('be.enabled');
-      cy.get('[doi-search-button]').click({ force: true });
+      cy.get('[data-testid=doi-search-button]').should('be.enabled');
+      cy.get('[data-testid=doi-search-button]').click({ force: true });
       break;
     // Start registration with file
     case methods[1]:
