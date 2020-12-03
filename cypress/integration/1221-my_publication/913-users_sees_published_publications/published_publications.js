@@ -8,7 +8,11 @@ Given('Creator opens the page My Publications', () => {
 When('they click Published registrations in the navigation bar', () => {
   cy.get('[data-testid=published-button]').click({ force: true });
 });
-Then('they see a list of all published registrations with the fields', () => {});
+Then('they see a list of all published registrations with the fields', (dataTable) => {
+  dataTable.rawTable.forEach((value) => {
+    console.log(value[0]);
+  });
+});
 // | Title      |
 // | "<Status>" |
 // | Created    |
