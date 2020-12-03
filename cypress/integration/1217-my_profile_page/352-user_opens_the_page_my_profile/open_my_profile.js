@@ -1,6 +1,6 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { v4 as uuidV4 } from 'uuid';
+import { PROFILE_PAGE_FIELDS } from '../../../support/data_testid_constants';
 import 'cypress-localstorage-commands';
 
 Given('that the user is logged in', () => {
@@ -12,18 +12,7 @@ When('they click the menu item My Profile', () => {
 });
 Then('they see My Profile', () => {});
 And('they see their Profile page which includes information for', (dataTable) => {
-  const fieldMap = {
-    'Real name': 'user-name',
-    'Feide ID': 'user-id',
-    Email: 'user-id',
-    ORCID: 'button-create-connect-orcid',
-    'Role(s)': 'user-role-creator',
-    Institution: 'institution-presentation',
-    'Preferred language': 'language-selector',
-  };
-  dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid=${fieldMap[value[0]]}]`).should('exist');
-  });
+  cy.testDataTestidList(dataTable, PROFILE_PAGE_FIELDS);
 });
 // | Real name          |
 // | Feide ID           |

@@ -1,7 +1,7 @@
 import { Given, When, Before } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { DESCRIPTION_FIELDS, DESCRIPTION_MANDATORY_FIELDS } from '../../../support/data_testid_constants';
 import 'cypress-localstorage-commands';
-import 'cypress-file-upload';
 
 const testFile = 'example.txt';
 
@@ -26,18 +26,7 @@ Then('they see the Description tab is selected', () => {
   cy.get('[data-testid=nav-tabpanel-description][aria-selected=true]');
 });
 And('they see fields:', (dataTable) => {
-  const fieldMap = {
-    Title: 'Title',
-    Abstract: 'Abstract',
-    Description: 'Description',
-    'NPI disciplines': 'Scientific field in Norwegian publication indicator',
-    Keywords: 'Keywords',
-    'Primary language for content': 'Primary language for content',
-    'Project association': 'Project association',
-  };
-  dataTable.rawTable.forEach((value) => {
-    cy.contains(`${fieldMap[value[0]]}`);
-  });
+  cy.testDataTestidList(dataTable, DESCRIPTION_FIELDS).should('be.visible');
 });
 //   | Title                        |
 //   | Abstract                     |
@@ -70,15 +59,15 @@ And('they see Save is enabled', () => {
 And('they click the Save button', () => {
   cy.get('[data-testid=registration-title-input]').focus();
   cy.get('[data-testid=registration-title-input]').blur();
-  // TODO works in dev, not in sandbox atm
-  //   cy.get('[data-testid=button-save-publication]').click({ force: true });
+  cy.get('[data-testid=button-save-registration]').click({ force: true });
 });
 
-Then('they can see "Required field" error messages for fields:', (dataTable) => {
+Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
-    cy.contains(`${value[0]}`).within(($field) => {
-      cy.wrap($field).parent().contains('Required field');
+    cy.get(`[data-testid=${DESCRIPTION_FIELDS[value[0]]}]`).within(($field) => {
+      cy.wrap($field).contains('Mandatory');
     });
   });
 });
-// | Title |
+// | Title          |
+// | Date published |
