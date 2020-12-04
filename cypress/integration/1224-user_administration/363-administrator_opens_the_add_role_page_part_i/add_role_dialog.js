@@ -9,7 +9,7 @@ And('they are on the User Administration Page', () => {
   cy.get('[data-testid=menu]').click({ force: true });
   cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
 });
-When('they click a {string} under a {string}', (button, section) => {
+When('they click a {string} under {string}', (button, section) => {
   cy.contains(USER_ADMINISTRATION_HEADINGS[section])
     .parent()
     .within(($section) => {
@@ -22,7 +22,6 @@ Then('they see the Add Role Dialog with Authentication ID', () => {
 And('they see a Search box for employees', () => {
   cy.get('[data-testid=add-role-search-box]').should('be.visible');
 });
-And('they see a Search button', () => {});
 And('they see an Information box', () => {
   cy.get('[data-testid=add-role-info]').should('be.visible');
 });
