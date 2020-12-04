@@ -9,7 +9,7 @@ And('they are on the User Administration Page', () => {
   cy.get('[data-testid=menu]').click({ force: true });
   cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
 });
-When('they click a {string} under {string}', (button, section) => {
+When('they click {string} under {string}', (button, section) => {
   cy.contains(USER_ADMINISTRATION_HEADINGS[section])
     .parent()
     .within(($section) => {
