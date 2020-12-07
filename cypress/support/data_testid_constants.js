@@ -43,6 +43,18 @@ export const PROFILE_PAGE_FIELDS = {
   'Preferred language': 'language-selector',
 };
 
+export const USER_ADMINISTRATION_HEADINGS = {
+  'Administrator': 'Administrators',
+  'Curator': 'Curators',
+  'Editor': 'Editor',
+};
+
+export const USER_ADMINISTRAION_BUTTONS = {
+  'New Administrator': 'button-add-institution-admin',
+  'New Curator': 'button-add-curator',
+  'New Editor': 'button-add-editor',
+};
+
 export const JOURNAL_SUBTYPES = {
   'Short communication': 'publication-instance-type-JournalShortCommunication',
   'Editorial': 'publication-instance-type-JournalLeader',
