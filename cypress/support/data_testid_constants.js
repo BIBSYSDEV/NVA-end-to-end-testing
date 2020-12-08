@@ -5,32 +5,28 @@ export const MAIN_BUTTONS = {
 };
 
 export const USER_MENU = {
-  'My profile': 'menu-user-profile-button',
+  'My user profile': 'menu-user-profile-button',
   'Log out': 'menu-logout-button',
 };
 
-export const CREATOR_MENU = {
-  'My profile': 'menu-user-profile-button',
-  'Log out': 'menu-logout-button',
-};
+export const CREATOR_MENU = { 
+  ...USER_MENU 
+}
 
-export const CURATOR_MENU = {
-  'My profile': 'menu-user-profile-button',
+export const CURATOR_MENU = { 
+  ...USER_MENU, 
   'My worklist': 'menu-my-worklist-button',
-  'Log out': 'menu-logout-button',
 };
 
-export const INST_ADMIN_MENU = {
-  'My profile': 'menu-user-profile-button',
+export const INST_ADMIN_MENU = { 
+  ...USER_MENU,
   'Users': 'menu-admin-institution-users-button',
   'My institution': 'menu-admin-institution-button',
-  'Log out': 'menu-logout-button',
 };
 
-export const ADMIN_MENU = {
-  'My profile': 'menu-user-profile-button',
+export const ADMIN_MENU = { 
+  ...USER_MENU,
   'Institutions': 'menu-admin-institution-button',
-  'Log out': 'menu-logout-button',
 };
 
 export const PROFILE_PAGE_FIELDS = {
@@ -38,9 +34,9 @@ export const PROFILE_PAGE_FIELDS = {
   'Feide ID': 'user-id',
   'Email': 'user-id',
   'ORCID': 'button-create-connect-orcid',
-  'Role(s)': 'user-role-creator',
-  'Institution': 'institution-presentation',
-  'Preferred language': 'language-selector',
+  'Roles': 'user-role-creator',
+  'Organizations': 'institution-presentation',
+  'Language': 'language-selector',
 };
 
 export const USER_ADMINISTRATION_HEADINGS = {
