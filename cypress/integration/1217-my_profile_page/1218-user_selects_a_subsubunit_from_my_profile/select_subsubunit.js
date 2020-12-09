@@ -1,6 +1,5 @@
 import { After, And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_ADD_INSTITUTION } from '../../../support/constants';
-import 'cypress-localstorage-commands';
 
 Given('user sees a Subsubunit from My Profile', () => {
   cy.login(USER_ADD_INSTITUTION).then(() => {

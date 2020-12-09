@@ -1,6 +1,5 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR, USER_WITH_AUTHOR_NAME } from '../../../support/constants';
-import 'cypress-localstorage-commands';
+import { USER_WITH_AUTHOR } from '../../../support/constants';
 
 const testFile = 'example.txt';
 
