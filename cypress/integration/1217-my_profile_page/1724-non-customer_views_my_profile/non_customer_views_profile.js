@@ -13,10 +13,11 @@ Then('they see that they have no roles', () => {
   cy.get('[data-testid^=user-role]').should('not.exist');
 });
 And('they see an information text explaining why they have no roles', () => {
-  cy.get('[data-testid=no-roles-text]').should('be.visible');
+  cy.get('[data-testid=not-customer-text]').should('be.visible');
 });
 And('they see their Institution name', () => {
-  cy.get('[data-testid=institution-presentation]').within(($presentation) => {
-    cy.wrap($presentation).contains('Norwegian University of Science and Technology').should('be.visible');
-  });
+  cy.contains('Name: TestOrg').should('be.visible');
+});
+And('they see their Feide Organization ID', () => {
+  cy.contains('Organization number: 0987654321').should('be.visible');
 });
