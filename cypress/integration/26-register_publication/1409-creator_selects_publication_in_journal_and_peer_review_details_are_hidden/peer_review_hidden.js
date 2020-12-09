@@ -1,7 +1,6 @@
 import { Given, When, Then, And, After } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { JOURNAL_SUBTYPES } from '../../../support/data_testid_constants';
-import 'cypress-localstorage-commands';
 
 const testFile = 'example.txt';
 
@@ -22,9 +21,15 @@ And('they select type Publication in Journal', () => {
 });
 When('they select {string}', (subType) => {
   cy.get(`[data-testid=${subTypes[subType]}]`).click({ force: true });
+  cy.wrap(subType).as('subtype');
 });
 Then('they see that the Peer Review Details are hidden', () => {
-  cy.get('[data-testid=nvi_fail_no_peer_review]').should('be.visible');
+  const subtype = cy.get('@subtype');
+  if (subtype === 'Short communication') {
+    cy.get('[data-testid=nvi_fail_no_peer_review]').should('be.visible');
+  } else {
+    cy.get('[data-testid=nvi_fail_no_peer_review]').should('not.exist');
+  }
   cy.get('[data-testid=nvi_fail_not_rated]').should('not.exist');
   cy.get('[data-testid=nvi_success]').should('not.exist');
 });

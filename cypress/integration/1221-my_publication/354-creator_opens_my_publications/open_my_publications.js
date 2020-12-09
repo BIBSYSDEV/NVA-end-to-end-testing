@@ -1,6 +1,5 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import 'cypress-localstorage-commands';
 
 Given('the user is logged in as Creator', () => {
   cy.login(USER_WITH_AUTHOR);

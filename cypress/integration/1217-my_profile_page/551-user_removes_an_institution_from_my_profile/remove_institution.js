@@ -1,6 +1,5 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_INSTITUTION_REMOVE_INSTITUTION } from '../../../support/constants';
-import 'cypress-localstorage-commands';
 
 Given('User sees an Institution from My Profile', () => {
   cy.login(USER_WITH_INSTITUTION_REMOVE_INSTITUTION).then(() => {

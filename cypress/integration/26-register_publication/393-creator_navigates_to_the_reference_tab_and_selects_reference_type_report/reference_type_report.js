@@ -1,7 +1,6 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { REPORT_SUBTYPES } from '../../../support/data_testid_constants';
-import 'cypress-localstorage-commands';
 
 const testFile = 'example.txt';
 

@@ -9,22 +9,22 @@ export const USER_MENU = {
   'Log out': 'menu-logout-button',
 };
 
-export const CREATOR_MENU = { 
-  ...USER_MENU 
-}
+export const CREATOR_MENU = {
+  ...USER_MENU,
+};
 
-export const CURATOR_MENU = { 
-  ...USER_MENU, 
+export const CURATOR_MENU = {
+  ...USER_MENU,
   'My worklist': 'menu-my-worklist-button',
 };
 
-export const INST_ADMIN_MENU = { 
+export const INST_ADMIN_MENU = {
   ...USER_MENU,
   'Users': 'menu-admin-institution-users-button',
   'My institution': 'menu-admin-institution-button',
 };
 
-export const ADMIN_MENU = { 
+export const ADMIN_MENU = {
   ...USER_MENU,
   'Institutions': 'menu-admin-institution-button',
 };
@@ -66,9 +66,9 @@ export const REPORT_SUBTYPES = {
 };
 
 export const DESCRIPTION_FIELDS = {
-  'Title': 'registration-title-input',
-  'Abstract': 'registration-abstract-input',
-  'Description': 'registration-description-input',
+  'Title': 'registration-title-field',
+  'Abstract': 'registration-abstract-field',
+  'Description': 'registration-description-field',
   'Date published': 'date-published-field',
   'NPI disciplines': 'search_npi',
   'Keywords': 'registration-tag-field',
