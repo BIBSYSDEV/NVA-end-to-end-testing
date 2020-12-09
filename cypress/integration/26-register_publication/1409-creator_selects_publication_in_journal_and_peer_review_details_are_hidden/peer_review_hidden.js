@@ -1,15 +1,10 @@
 import { Given, When, Then, And, After } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import 'cypress-localstorage-commands';
+import { JOURNAL_SUBTYPES } from '../../../support/data_testid_constants';
 
 const testFile = 'example.txt';
 
-const subTypes = {
-  'Short communication': 'publication-instance-type-JournalShortCommunication',
-  'Editorial': 'publication-instance-type-JournalLeader',
-  'Letter to the editor': 'publication-instance-type-JournalLetter',
-  'Book review': 'publication-instance-type-JournalReview',
-};
+const subTypes = JOURNAL_SUBTYPES;
 
 Given('that a Creator navigates to the Reference tab', () => {
   cy.login(USER_WITH_AUTHOR).then(() => {
@@ -26,9 +21,15 @@ And('they select type Publication in Journal', () => {
 });
 When('they select {string}', (subType) => {
   cy.get(`[data-testid=${subTypes[subType]}]`).click({ force: true });
+  cy.wrap(subType).as('subtype');
 });
 Then('they see that the Peer Review Details are hidden', () => {
-  cy.get('[data-testid=nvi_fail_no_peer_review]').should('be.visible');
+  const subtype = cy.get('@subtype');
+  if (subtype === 'Short communication') {
+    cy.get('[data-testid=nvi_fail_no_peer_review]').should('be.visible');
+  } else {
+    cy.get('[data-testid=nvi_fail_no_peer_review]').should('not.exist');
+  }
   cy.get('[data-testid=nvi_fail_not_rated]').should('not.exist');
   cy.get('[data-testid=nvi_success]').should('not.exist');
 });

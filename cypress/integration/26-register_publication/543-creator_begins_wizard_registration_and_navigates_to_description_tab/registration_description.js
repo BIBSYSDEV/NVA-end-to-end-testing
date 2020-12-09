@@ -1,6 +1,6 @@
 import { Given, When, Before } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import 'cypress-localstorage-commands';
+import { DESCRIPTION_FIELDS, DESCRIPTION_MANDATORY_FIELDS } from '../../../support/data_testid_constants';
 
 const testFile = 'example.txt';
 
@@ -25,18 +25,7 @@ Then('they see the Description tab is selected', () => {
   cy.get('[data-testid=nav-tabpanel-description][aria-selected=true]');
 });
 And('they see fields:', (dataTable) => {
-  const fieldMap = {
-    'Title': 'Title',
-    'Abstract': 'Abstract',
-    'Description': 'Description',
-    'NPI disciplines': 'Scientific field in Norwegian publication indicator',
-    'Keywords': 'Keywords',
-    'Primary language for content': 'Primary language for content',
-    'Project association': 'Connect to project',
-  };
-  dataTable.rawTable.forEach((value) => {
-    cy.contains(`${fieldMap[value[0]]}`);
-  });
+  cy.testDataTestidList(dataTable, DESCRIPTION_FIELDS).should('be.visible');
 });
 //   | Title                        |
 //   | Abstract                     |
@@ -73,13 +62,8 @@ And('they click the Save button', () => {
 });
 
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
-  const fieldMap = {
-    'Title': 'registration-title-field',
-    'Date published': 'date-published-field',
-  };
-
   dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid=${fieldMap[value[0]]}]`).within(($field) => {
+    cy.get(`[data-testid=${DESCRIPTION_FIELDS[value[0]]}]`).within(($field) => {
       cy.wrap($field).contains('Mandatory');
     });
   });
