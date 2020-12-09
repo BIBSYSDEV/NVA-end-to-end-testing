@@ -14,17 +14,18 @@ Then('they see the page Institutions', () => {
 And('they see a table of all Institutions', () => {
   cy.get('[data-testid=customer-institutions-list]').should('be.visible');
 });
-And('they see the table contains the fields', (tableData) => {
-  cy.get('[data-testid=customer-institutions-list]').within(($institutitons) => {
-    // cy.get('thead').contains()
+And('they see the table contains the fields', (dataTable) => {
+  cy.get('[data-testid=customer-institutions-list]').within(() => {
+    dataTable.rawTable.forEach((value) => {
+      cy.get('thead').contains(value[0]);
+    });
   });
 });
-// | Institution |
-// | Created     |
-// | Editor      |
-And('they see a button Open that is enabled for each Institution', () => {
+// | Name |
+// | Date |
+And('they see a button Edit that is enabled for each Institution', () => {
   cy.get('[data-testid^=edit-institution]').should('have.length.above', 0);
 });
-And('they see a button Create Institution that is enabled', () => {
-  cy.get('[data-testid=add-institution-button]').should('be.visible').and('be.enabled');
+And('they see a button Add institution that is enabled', () => {
+  cy.get('[data-testid=add-institution-button]').should('be.visible');
 });
