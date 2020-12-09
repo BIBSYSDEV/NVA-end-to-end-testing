@@ -15,6 +15,7 @@
   "383-user_removes_an_orcid_connection_from_my_profile",
   "385-creator_begins_registration_by_uploading_a_file",
   "393-creator_navigates_to_the_reference_tab_and_selects_reference_type_report",
+  "394-creator_navigates_to_the_reference_tab_and_selects_reference_type_student_thesis",
   "405-user_sees_a_subunit_from_my_profile",
   "406-user_changes_their_institution_on_my_profile",
   "407-user_selects_a_subunit_from_my_profile",
