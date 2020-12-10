@@ -65,6 +65,13 @@ export const REPORT_SUBTYPES = {
   'Other type of report': 'publication-instance-type-ReportBasic',
 };
 
+export const REPORT_FIELDS = {
+  'Search box for Publisher': 'publisher-search-input',
+  'ISBN': 'isbn-input',
+  'Total number of pages': 'pages-input',
+  'Search box for Series': 'series-search-input',
+};
+
 export const DESCRIPTION_FIELDS = {
   'Title': 'registration-title-field',
   'Abstract': 'registration-abstract-field',
