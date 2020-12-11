@@ -12,6 +12,7 @@
   "354-creator_opens_my_publications",
   "355-creator_opens_an_item_in_my_publication_list",
   "363-administrator_opens_the_add_role_page_part_i",
+  "365-application_administrator_opens_institutions",
   "383-user_removes_an_orcid_connection_from_my_profile",
   "385-creator_begins_registration_by_uploading_a_file",
   "393-creator_navigates_to_the_reference_tab_and_selects_reference_type_report",
@@ -25,6 +26,7 @@
   "453-creator_navigates_to_reference_tab",
   "543-creator_begins_wizard_registration_and_navigates_to_description_tab",
   "551-user_removes_an_institution_from_my_profile",
+  "902-user_opens_a_public_profile_from_a_public_page",
   "1214-creator_registers_corresponding_author",
   "1218-user_selects_a_subsubunit_from_my_profile",
   "1219-user_sees_a_subsubsubunit_from_my_profile",
@@ -33,6 +35,5 @@
   "1409-creator_selects_publication_in_journal_and_peer_review_details_are_hidden",
   "1661-user_navigates_back_to_previous_page",
   "1724-non-customer_views_my_profile",
-  "1725-user_without_any_roles_views_my_profile",
-  "902-user_opens_a_public_profile_from_a_public_page"
+  "1725-user_without_any_roles_views_my_profile"
 ]
