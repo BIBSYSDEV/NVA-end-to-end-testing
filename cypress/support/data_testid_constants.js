@@ -71,6 +71,13 @@ export const REPORT_SUBTYPES = {
   'Other type of report': 'publication-instance-type-ReportBasic',
 };
 
+export const REPORT_FIELDS = {
+  'Search box for Publisher': 'publisher-search-input',
+  'ISBN': 'isbn-input',
+  'Total number of pages': 'pages-input',
+  'Search box for Series': 'series-search-input',
+};
+
 export const STUDENT_THESIS_SUBTYPES = {
   'Bachelor thesis': 'publication-instance-type-DegreeBachelor',
   'Master thesis': 'publication-instance-type-DegreeMaster',
