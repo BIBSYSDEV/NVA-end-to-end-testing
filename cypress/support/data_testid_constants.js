@@ -40,15 +40,21 @@ export const PROFILE_PAGE_FIELDS = {
 };
 
 export const USER_ADMINISTRATION_HEADINGS = {
-  'Administrator': 'Administrators',
-  'Curator': 'Curators',
-  'Editor': 'Editor',
+  'Institution Administrators': 'Administrators',
+  'Curators': 'Curators',
+  'Editors': 'Editor',
 };
 
 export const USER_ADMINISTRAION_BUTTONS = {
-  'New Administrator': 'button-add-institution-admin',
-  'New Curator': 'button-add-curator',
-  'New Editor': 'button-add-editor',
+  'Administrator': 'button-add-institution-admin',
+  'Curator': 'button-add-curator',
+  'Editor': 'button-add-editor',
+};
+
+export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
+  'Institution Administrators': 'button-remove-role-Institution-admin',
+  'Curators': 'button-remove-role-Curator',
+  'Editors': 'button-remove-role-Editor',
 };
 
 export const JOURNAL_SUBTYPES = {
