@@ -71,6 +71,13 @@ export const REPORT_SUBTYPES = {
   'Other type of report': 'publication-instance-type-ReportBasic',
 };
 
+export const STUDENT_THESIS_SUBTYPES = {
+  'Bachelor thesis': 'publication-instance-type-DegreeBachelor',
+  'Master thesis': 'publication-instance-type-DegreeMaster',
+  'Doctoral thesis': 'publication-instance-type-DegreePhd',
+  'Other student thesis': 'publication-instance-type-OtherStudentWork',
+};
+
 export const DESCRIPTION_FIELDS = {
   'Title': 'registration-title-field',
   'Abstract': 'registration-abstract-field',

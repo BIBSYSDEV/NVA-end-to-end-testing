@@ -41,7 +41,7 @@ And('they see a button Remove that is enabled for each user', () => {
 });
 And('they see a section Registrator with a policy for who are able to publish', () => {
   cy.get('h3').contains('Registrator');
-  cy.get('[data-testid=checkbox-assign-creators]');
+  cy.get('[data-testid=checkbox-assign-creators]').should('exist');
 });
 // Examples:
 //     | Section                    | Role          |
