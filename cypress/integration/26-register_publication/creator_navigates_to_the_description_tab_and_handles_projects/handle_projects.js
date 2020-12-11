@@ -18,13 +18,16 @@ And('they enter search term in the Search box', () => {
   cy.get('[data-testid=project-search-input]').type('test');
 });
 Then('they see list of Projects matching the search term', () => {
-  cy.get('[class=MuiAutocomplete-option]').as('options');
-  cy.get('@options').then((options) => {
-    console.log(options);
-  });
+  //   cy.get('[class=MuiAutocomplete-option]').as('options');
+  //   cy.get('@options').then((options) => {
+  //     console.log(options);
+  //   });
+  // cy.get('[data-testid^=project-option]').should('have.length.above', 0);
   cy.get('[class=MuiAutocomplete-option]').should('have.length.above', 0);
 });
 And('they see title and associated Institutions for each Project', () => {
+  // cy.get('[data-testid^=project-option]').contains('a test battery for assessing pain');
+  // cy.get('[data-testid^=project-option]').contains('Høgskulen på Vestlandet');
   cy.get('[class=MuiAutocomplete-option]').contains('a test battery for assessing pain');
   cy.get('[class=MuiAutocomplete-option]').contains('Høgskulen på Vestlandet');
 });
