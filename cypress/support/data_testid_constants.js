@@ -40,15 +40,21 @@ export const PROFILE_PAGE_FIELDS = {
 };
 
 export const USER_ADMINISTRATION_HEADINGS = {
-  'Administrator': 'Administrators',
-  'Curator': 'Curators',
-  'Editor': 'Editor',
+  'Institution Administrators': 'Administrators',
+  'Curators': 'Curators',
+  'Editors': 'Editor',
 };
 
 export const USER_ADMINISTRAION_BUTTONS = {
-  'New Administrator': 'button-add-institution-admin',
-  'New Curator': 'button-add-curator',
-  'New Editor': 'button-add-editor',
+  'Administrator': 'button-add-institution-admin',
+  'Curator': 'button-add-curator',
+  'Editor': 'button-add-editor',
+};
+
+export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
+  'Institution Administrators': 'button-remove-role-Institution-admin',
+  'Curators': 'button-remove-role-Curator',
+  'Editors': 'button-remove-role-Editor',
 };
 
 export const JOURNAL_SUBTYPES = {
@@ -63,6 +69,20 @@ export const REPORT_SUBTYPES = {
   'Policy report': 'publication-instance-type-ReportPolicy',
   'Working paper': 'publication-instance-type-ReportWorkingPaper',
   'Other type of report': 'publication-instance-type-ReportBasic',
+};
+
+export const REPORT_FIELDS = {
+  'Search box for Publisher': 'publisher-search-input',
+  'ISBN': 'isbn-input',
+  'Total number of pages': 'pages-input',
+  'Search box for Series': 'series-search-input',
+};
+
+export const STUDENT_THESIS_SUBTYPES = {
+  'Bachelor thesis': 'publication-instance-type-DegreeBachelor',
+  'Master thesis': 'publication-instance-type-DegreeMaster',
+  'Doctoral thesis': 'publication-instance-type-DegreePhd',
+  'Other student thesis': 'publication-instance-type-OtherStudentWork',
 };
 
 export const DESCRIPTION_FIELDS = {
