@@ -15,7 +15,7 @@ And('they see a Search box for Projects', () => {
   cy.get('[data-testid=project-search-input]').should('be.visible');
 });
 And('they enter search term in the Search box', () => {
-  cy.get('[data-testid=project-search-input]').type('test');
+  cy.get('[data-testid=project-search-input]').type('a test battery for assessing pain');
 });
 Then('they see list of Projects matching the search term', () => {
   cy.get('[class=MuiAutocomplete-option]').as('options');
@@ -36,14 +36,15 @@ Given('Creator has searched for a Project', () => {
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
 And('they see Search results', () => {
-  cy.get('[data-testid=project-search-input]').type('test');
+  cy.get('[data-testid=project-search-input]').type('a test battery for assessing pain');
 });
 When('they select a Project from the Search results', () => {
   cy.get('[class=MuiAutocomplete-option]').contains('a test battery for assessing pain').click({ force: true });
 });
 Then('the selected Project is added to the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('have.length', 1);
-  cy.get('[data-testid^=project-chip]').contains('a test battery for assessing pain');
+  cy.get('[data-testid^=project-chip]').contains('test-retest av test batteri');
+  // TODO fix when project endpoint returns english project title
 });
 
 Given('Creator has added a Project', () => {
@@ -51,7 +52,7 @@ Given('Creator has added a Project', () => {
   cy.startRegistrationWithFile(filename);
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
-  cy.get('[data-testid=project-search-input]').type('test');
+  cy.get('[data-testid=project-search-input]').type('a test battery for assessing pain');
   cy.get('[class=MuiAutocomplete-option]').contains('a test battery for assessing pain').click({ force: true });
 });
 When('they click the Remove Project icon', () => {
