@@ -45,10 +45,16 @@ export const USER_ADMINISTRATION_HEADINGS = {
   'Editors': 'Editor',
 };
 
-export const USER_ADMINISTRAION_BUTTONS = {
+export const USER_ADMINISTRATION_BUTTONS = {
   'Administrator': 'button-add-institution-admin',
   'Curator': 'button-add-curator',
   'Editor': 'button-add-editor',
+};
+
+export const USER_ADMINISTRATION_ADD_ROLE_BUTTONS = {
+  'Administrator': 'button-add-role-Institution-admin',
+  'Curator': 'button-add-role-Curator',
+  'Editor': 'button-add-role-Editor',
 };
 
 export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
