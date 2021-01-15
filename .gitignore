@@ -156,3 +156,4 @@ aws.py
 cognito.txt
 *.ps1
 features.diff
+*.pyc
