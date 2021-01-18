@@ -101,3 +101,7 @@ export const DESCRIPTION_FIELDS = {
   'Primary language for content': 'registration-language-field',
   'Project association': 'project-search-input',
 };
+
+export const REFERENCE_FIELDS = {
+  'Type': 'publication-context-type',
+}
