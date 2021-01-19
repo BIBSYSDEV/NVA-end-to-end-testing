@@ -40,27 +40,27 @@ export const PROFILE_PAGE_FIELDS = {
 };
 
 export const USER_ADMINISTRATION_HEADINGS = {
-  'Institution Administrators': 'Administrators',
-  'Curators': 'Curators',
-  'Editors': 'Editor',
+  'Administrator': 'Administrators',
+  'Curator': 'Curators',
+  'Editor': 'Editor',
 };
 
 export const USER_ADMINISTRATION_BUTTONS = {
-  'Administrator': 'button-add-institution-admin',
-  'Curator': 'button-add-curator',
-  'Editor': 'button-add-editor',
+  'New Administrator': 'button-add-institution-admin',
+  'New Curator': 'button-add-curator',
+  'New Editor': 'button-add-editor',
 };
 
 export const USER_ADMINISTRATION_ADD_ROLE_BUTTONS = {
-  'Administrator': 'button-add-role-Institution-admin',
-  'Curator': 'button-add-role-Curator',
-  'Editor': 'button-add-role-Editor',
+  'New Administrator': 'button-add-role-Institution-admin',
+  'New Curator': 'button-add-role-Curator',
+  'New Editor': 'button-add-role-Editor',
 };
 
 export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
-  'Institution Administrators': 'button-remove-role-Institution-admin',
-  'Curators': 'button-remove-role-Curator',
-  'Editors': 'button-remove-role-Editor',
+  'Administrator': 'button-remove-role-Institution-admin',
+  'Curator': 'button-remove-role-Curator',
+  'Editor': 'button-remove-role-Editor',
 };
 
 export const JOURNAL_SUBTYPES = {
@@ -104,4 +104,4 @@ export const DESCRIPTION_FIELDS = {
 
 export const REFERENCE_FIELDS = {
   'Type': 'publication-context-type',
-}
+};
