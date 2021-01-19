@@ -6,8 +6,9 @@ Feature: User sees the menu for Creator
         And they have the role of Creator
         When they look at any page in NVA
         Then they see a menu containing
-            | My profile      |
+            | My user profile |
             | Log out         |
         And they see the buttons
-            | New publication |
-            | My publications |
+            | New Registration |
+            | My Registrations |
+            | My Messages      |

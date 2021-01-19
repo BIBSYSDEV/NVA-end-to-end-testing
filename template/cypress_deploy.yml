@@ -218,6 +218,15 @@ Resources:
                   - 'cognito-idp:AdminInitiateAuth'
                 Resource:
                   - '*'
+        - PolicyName: StsPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'sts:AssumeRole'
+                Resource:
+                  - '*'
   ArtifactStoreBucket:
     Type: AWS::S3::Bucket
     Properties:
