@@ -11,7 +11,7 @@ When('they click the menu item Institutions', () => {
 Then('they see the page Institutions', () => {
   cy.location('pathname').should('equal', '/admin-institutions');
 });
-And('they see a table of all Institutions', () => {
+And('they see a table of all Institutions \\(customers)', () => {
   cy.get('[data-testid=customer-institutions-list]').should('be.visible');
 });
 And('they see the table contains the fields', (dataTable) => {

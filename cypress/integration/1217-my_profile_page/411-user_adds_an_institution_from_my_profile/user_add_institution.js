@@ -37,4 +37,5 @@ And('they see a button Remove that is enabled for the new Institution', () => {
 
 After(() => {
   cy.get('[data-testid^=button-delete-institution]').last().click({ force: true });
+  cy.get('[data-testid=accept-button]').click({ force: true });
 });
