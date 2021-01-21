@@ -5,7 +5,7 @@ Feature: Application Administrator opens Institutions
         Given that the user is logged in as Application Administrator
         When they click the menu item Institutions
         Then they see the page Institutions
-        And they see a table of all Institutions 
+        And they see a table of all Institutions (customers)
         And they see the table contains the fields
             | Name |
             | Date |
