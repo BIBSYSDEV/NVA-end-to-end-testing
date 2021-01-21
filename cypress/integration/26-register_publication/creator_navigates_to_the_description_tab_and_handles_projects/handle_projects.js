@@ -6,6 +6,7 @@ const filename = 'example.txt';
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startRegistrationWithFile(filename);
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
 });
 When('they navigate to the Description tab', () => {
@@ -29,6 +30,7 @@ And('they see title and associated Institutions for each Project', () => {
 Given('Creator has searched for a Project', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startRegistrationWithFile(filename);
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
@@ -40,13 +42,13 @@ When('they select a Project from the Search results', () => {
 });
 Then('the selected Project is added to the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('have.length', 1);
-  cy.get('[data-testid^=project-chip]').contains('test-retest av test batteri');
-  // TODO fix when project endpoint returns english project title
+  cy.get('[data-testid^=project-chip]').contains('a test battery for assessing pain');
 });
 
 Given('Creator has added a Project', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startRegistrationWithFile(filename);
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
   cy.get('[data-testid=project-search-input]').type('a test battery for assessing pain');
