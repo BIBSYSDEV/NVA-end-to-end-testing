@@ -63,6 +63,19 @@ export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
   'Editor': 'button-remove-role-Editor',
 };
 
+export const MY_INSTITUTION_FIELDS = {
+  'Name in organization registry': 'autocomplete-institution',
+  'Display name': 'customer-institution-display-name-input',
+  'Short display name': 'customer-institution-short-name-input',
+  'Archive name': 'customer-institution-archive-name-input',
+};
+
+export const MY_INSTITUTION_FIELDS_TESTVALUE = {
+  'Display name': 'Testinstitusjon',
+  'Short display name': 'Testinst',
+  'Archive name': 'Testarchive',
+};
+
 export const JOURNAL_SUBTYPES = {
   'Short communication': 'publication-instance-type-JournalShortCommunication',
   'Editorial': 'publication-instance-type-JournalLeader',
