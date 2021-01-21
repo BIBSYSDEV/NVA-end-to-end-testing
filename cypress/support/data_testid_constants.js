@@ -105,3 +105,15 @@ export const DESCRIPTION_FIELDS = {
 export const REFERENCE_FIELDS = {
   'Type': 'publication-context-type',
 };
+
+export const MY_REGISTRATION_FIELDS = {
+  'Title': 'header-registration-title',
+  'Status': 'header-registration-status',
+  'Created': 'header-registration-created',
+};
+
+export const MY_REGISTRATION_BUTTONS = {
+  'Show': 'open-registration',
+  'Edit': 'edit-registration',
+  'Delete': 'delete-registration',
+};
