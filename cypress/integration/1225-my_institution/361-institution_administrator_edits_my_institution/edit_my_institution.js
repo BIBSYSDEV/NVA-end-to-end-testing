@@ -41,7 +41,6 @@ When('they edit fields:', (dataTable) => {
     }
   });
 });
-// | Name in organization registry |
 // | Display name                  |
 // | Short display name            |
 // | Archive name                  |
