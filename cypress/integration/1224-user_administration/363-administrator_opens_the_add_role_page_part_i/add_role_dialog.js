@@ -1,6 +1,6 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_INST_ADMIN_WITH_AUTHOR } from '../../../support/constants';
-import { USER_ADMINISTRATION_HEADINGS, USER_ADMINISTRAION_BUTTONS } from '../../../support/data_testid_constants';
+import { USER_ADMINISTRATION_HEADINGS, USER_ADMINISTRATION_BUTTONS } from '../../../support/data_testid_constants';
 
 Given('that the User is logged in as Administrator', () => {
   cy.login(USER_INST_ADMIN_WITH_AUTHOR);
@@ -13,7 +13,7 @@ When('they click {string} under {string}', (button, section) => {
   cy.contains(USER_ADMINISTRATION_HEADINGS[section])
     .parent()
     .within(($section) => {
-      cy.wrap($section).get(`[data-testid=${USER_ADMINISTRAION_BUTTONS[button]}]`).click({ force: true });
+      cy.wrap($section).get(`[data-testid=${USER_ADMINISTRATION_BUTTONS[button]}]`).click({ force: true });
     });
 });
 Then('they see the Add Role Dialog with Authentication ID', () => {

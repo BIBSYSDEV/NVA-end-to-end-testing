@@ -58,6 +58,8 @@ When('they click the Save button', () => {
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
+    cy.get(`[data-testid=${REPORT_FIELDS[value[0]]}]`).focus();
+    cy.get(`[data-testid=${REPORT_FIELDS[value[0]]}]`).blur();
     cy.get(`[data-testid=${REPORT_FIELDS[value[0]]}]`).parent().parent().contains('Mandatory');
   });
 });
