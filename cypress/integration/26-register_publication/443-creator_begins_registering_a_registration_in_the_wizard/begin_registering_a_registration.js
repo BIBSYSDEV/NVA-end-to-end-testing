@@ -28,6 +28,7 @@ And('they have selected {string} for starting the Wizard', (method) => {
 });
 When('they click Start', () => {
   cy.get('@registrationMethod').then((method) => {
+    cy.get(`[data-testid=${NEW_REGISTRATION_START_BUTTONS[method]}]`).should('be.enabled');
     cy.get(`[data-testid=${NEW_REGISTRATION_START_BUTTONS[method]}]`).click({ force: true });
   });
 });

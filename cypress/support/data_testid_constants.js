@@ -29,6 +29,16 @@ export const ADMIN_MENU = {
   'Institutions': 'menu-admin-institution-button',
 };
 
+export const NEW_REGISTRATION_BUTTONS = {
+  'Link to registration': 'new-registration-link',
+  'Upload file': 'new-registration-file',
+};
+
+export const NEW_REGISTRATION_START_BUTTONS = {
+  'Link to registration': 'registration-link-next-button',
+  'Upload file': 'registration-file-start-button',
+};
+
 export const PROFILE_PAGE_FIELDS = {
   'Real name': 'user-name',
   'Feide ID': 'user-id',
