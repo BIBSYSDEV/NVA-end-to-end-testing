@@ -1,7 +1,6 @@
 import { Given, When, Before } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { DESCRIPTION_FIELDS, DESCRIPTION_MANDATORY_FIELDS } from '../../../support/data_testid_constants';
-import 'cypress-localstorage-commands';
 
 const testFile = 'example.txt';
 
@@ -57,8 +56,6 @@ And('they see Save is enabled', () => {
 
 // Scenario: Creator sees that fields are validated on Description tab
 And('they click the Save button', () => {
-  cy.get('[data-testid=registration-title-input]').focus();
-  cy.get('[data-testid=registration-title-input]').blur();
   cy.get('[data-testid=button-save-registration]').click({ force: true });
 });
 

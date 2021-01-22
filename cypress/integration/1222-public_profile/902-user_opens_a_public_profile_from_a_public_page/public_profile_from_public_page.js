@@ -1,6 +1,5 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR, USER_WITH_AUTHOR_NAME } from '../../../support/constants';
-import 'cypress-localstorage-commands';
+import { USER_WITH_AUTHOR } from '../../../support/constants';
 
 const testFile = 'example.txt';
 
@@ -10,11 +9,9 @@ Given('the Creator publishes Publication', () => {
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   cy.createValidRegistration();
 
-  cy.get('[data-testid=nav-tabpanel-submission').click({ force: true });
-
-  cy.get('[data-testid=button-publish-registration]').should('be.enabled');
-  cy.get('[data-testid=button-publish-registration]').click({ force: true });
-  cy.get('[data-testid=button-publish-registration]').should('not.exist');
+  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.get('[data-testid=button-save-registration]').should('not.exist');
 });
 When('they click a Contributor', () => {
   cy.get('[data-testid^=presentation-author-link]').first().click({ force: true });
