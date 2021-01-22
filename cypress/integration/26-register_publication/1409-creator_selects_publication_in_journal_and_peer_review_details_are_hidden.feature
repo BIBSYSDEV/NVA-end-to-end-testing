@@ -8,6 +8,7 @@ Feature: Creator selects Publication in Journal and Peer Review Details are hidd
         Then they see that the Peer Review Details are hidden
         Examples:
             | Subtype              |
+            | Short communication  |
             | Editorial            |
             | Letter to the editor |
             | Book review          |
