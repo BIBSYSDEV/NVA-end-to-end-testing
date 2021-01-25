@@ -34,7 +34,7 @@ When('they click Start', () => {
 });
 Then('they see the Wizard', () => {
   cy.location('pathname').should('contain', '/registration');
-  cy.location('pathname').should('have.length', 50);
+  cy.get('[data-testid=registration-title-input]').should('be.visible');
 });
 // Examples:
 //   | Method                 |
