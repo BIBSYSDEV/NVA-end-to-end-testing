@@ -111,7 +111,13 @@ export const STUDENT_THESIS_SUBTYPES = {
   'Bachelor thesis': 'publication-instance-type-DegreeBachelor',
   'Master thesis': 'publication-instance-type-DegreeMaster',
   'Doctoral thesis': 'publication-instance-type-DegreePhd',
-  'Other student thesis': 'publication-instance-type-OtherStudentWork',
+  'Other student work': 'publication-instance-type-OtherStudentWork',
+};
+
+export const STUDENT_THESIS_FIELDS = {
+  'Search box for Publisher': '',
+  'DOI': '',
+  'Search box for Series': '',
 };
 
 export const DESCRIPTION_FIELDS = {
