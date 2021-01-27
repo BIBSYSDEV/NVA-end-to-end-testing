@@ -1,6 +1,6 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { STUDENT_THESIS_SUBTYPES, STUDENT_THESIS_FIELDS } from '../../../support/data_testid_constants;';
+import { STUDENT_THESIS_SUBTYPES, STUDENT_THESIS_FIELDS } from '../../../support/data_testid_constants';
 
 const filename = 'example.txt';
 
@@ -15,7 +15,7 @@ When('they navigate to the Reference tab', () => {
 });
 And('they select the Reference type "Student thesis"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Student-thesis]').click({ force: true });
+  cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
 });
 And('they select {string}:', (subType) => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
