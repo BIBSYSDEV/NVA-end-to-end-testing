@@ -43,5 +43,6 @@
   "1661-user_navigates_back_to_previous_page",
   "1693-creator_selects_reference_type_report_and_selects_subtype",
   "1724-non-customer_views_my_profile",
-  "1725-user_without_any_roles_views_my_profile"
+  "1725-user_without_any_roles_views_my_profile",
+  "creator_requests_support"
 ]
