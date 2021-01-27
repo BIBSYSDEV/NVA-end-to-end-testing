@@ -13,9 +13,7 @@ When('they click the "Request support" button', () => {
   cy.get('[data-testid=open-support-button]').click({ force: true });
 });
 Then('the "Request support" dialog is opened', () => {
-  cy.get('[role=dialog]').within((dialog) => {
-    cy.wrap(dialog).get('h3').contains('Support');
-  });
+  cy.get('[data-testid=support-modal]').should('be.visible');
 });
 And('they see field for Message', () => {
   cy.get('[data-testid=message-input]').should('be.visible');
