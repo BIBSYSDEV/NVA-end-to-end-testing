@@ -40,7 +40,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 });
 // | Search box for Publisher |
 
-// Examples:
+// Subtypes:
 // | Subtype              |
 // | Bachelor thesis      |
 // | Master thesis        |
