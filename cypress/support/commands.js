@@ -108,10 +108,16 @@ Cypress.Commands.add('login', (userId) => {
 });
 
 Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
-  cy.log(fileName);
   cy.get('[data-testid=new-registration]').click({ force: true });
   cy.get('[data-testid=new-registration-file]').click({ force: true });
   cy.get('input[type=file]').attachFile(fileName);
+});
+
+Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
+  cy.get('[data-testid=new-registration]').click({ force: true });
+  cy.get('[data-testid=new-registration-link]').click({ force: true });
+  cy.get('[data-testid=new-registration-link-input]').type(doiLink);
+  cy.get('[data-testid=doi-search-button]').click({force: true});
 });
 
 Cypress.Commands.add('logoutCognito', () => {

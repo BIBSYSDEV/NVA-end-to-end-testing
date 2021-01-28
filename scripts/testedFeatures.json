@@ -26,6 +26,7 @@
   "411-user_adds_an_institution_from_my_profile",
   "410-user_opens_add_institution_from_my_profile",
   "417-creator-navigates-to-contributor-tab",
+  "443-creator_begins_registering_a_registration_in_the_wizard",
   "creator_navigates_to_the_description_tab_and_handles_projects",
   "453-creator_navigates_to_reference_tab",
   "543-creator_begins_wizard_registration_and_navigates_to_description_tab",
@@ -42,6 +43,8 @@
   "1442-prohibit_deletion_of_last_institution_admin",
   "1661-user_navigates_back_to_previous_page",
   "1693-creator_selects_reference_type_report_and_selects_subtype",
+  "1694-creator_selects_reference_type_student_thesis_and_selects_subtype",
   "1724-non-customer_views_my_profile",
-  "1725-user_without_any_roles_views_my_profile"
+  "1725-user_without_any_roles_views_my_profile",
+  "creator_requests_support"
 ]
