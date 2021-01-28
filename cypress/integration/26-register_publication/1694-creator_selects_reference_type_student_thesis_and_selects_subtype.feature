@@ -9,7 +9,6 @@ Feature: Creator selects Reference type Student thesis and selects subtype
             | Search box for Publisher |
             | DOI                      |
             | Search box for Series    |
-
         Examples:
             | Subtype              |
             | Bachelor thesis      |
