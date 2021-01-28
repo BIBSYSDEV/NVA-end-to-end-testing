@@ -120,6 +120,12 @@ export const STUDENT_THESIS_FIELDS = {
   'Search box for Series': '',
 };
 
+export const STUDENT_THESIS_FIELDS = {
+  'Search box for Publisher': 'publisher-search-input',
+  'DOI': 'doi-field',
+  'Search box for Series': 'series-search-input',
+};
+
 export const DESCRIPTION_FIELDS = {
   'Title': 'registration-title-field',
   'Abstract': 'registration-abstract-field',

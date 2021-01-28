@@ -1,21 +1,21 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { STUDENT_THESIS_SUBTYPES, STUDENT_THESIS_FIELDS } from '../../../support/data_testid_constants;';
+import { STUDENT_THESIS_SUBTYPES, STUDENT_THESIS_FIELDS } from '../../../support/data_testid_constants';
 
-const filename = 'example.txt';
+const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 
 Given('Creator begins registering a Publication in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startRegistrationWithFile(filename);
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+  cy.startRegistrationWithLink(doiLink);
+  cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
+  cy.get('[data-testid=registration-link-next-button]').click({ force: true });
 });
 When('they navigate to the Reference tab', () => {
   cy.get('[data-testid=nav-tabpanel-reference]').click({ force: true });
 });
 And('they select the Reference type "Student thesis"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Student-thesis]').click({ force: true });
+  cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
 });
 And('they select {string}:', (subType) => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
@@ -32,13 +32,15 @@ When('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
-  dataTable.rawData.forEach((value) => {
+  dataTable.rawTable.forEach((value) => {
+    cy.get(`[data-testid=${STUDENT_THESIS_FIELDS[value[0]]}]`).focus();
+    cy.get(`[data-testid=${STUDENT_THESIS_FIELDS[value[0]]}]`).blur();
     cy.get(`[data-testid=${STUDENT_THESIS_FIELDS[value[0]]}]`).parent().parent().contains('Mandatory');
   });
 });
 // | Search box for Publisher |
 
-// Examples:
+// Subtypes:
 // | Subtype              |
 // | Bachelor thesis      |
 // | Master thesis        |
