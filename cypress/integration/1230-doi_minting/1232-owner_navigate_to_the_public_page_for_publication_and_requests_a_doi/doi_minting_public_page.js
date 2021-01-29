@@ -6,13 +6,13 @@ Given('that the Creator navigates to the Landing page for published Registration
   cy.get('[data-testid=my-registrations]').click({ force: true });
   cy.get('[data-testid=published-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
-    .filter(':contains("Published publication request DOI")')
+    .filter(':contains("Published publication requesting DOI")')
     .parent()
     .within((presentationLine) => {
       cy.wrap(presentationLine).get('[data-testid^=open-registration]').click({ force: true });
     });
 });
-And('they are the Owner of the Publication', () => {});
+And('they are the Owner of the Registration', () => {});
 And('open "Request a DOI" dialog', () => {
   cy.get('[data-testid=button-toggle-request-doi]').click({ force: true });
 });
@@ -20,32 +20,24 @@ And('optional add a message to the Curator', () => {
   cy.get('textarea').type('Optional message');
 });
 When('the user click the Send Button', () => {
-  cy.get('[data-testid=button-send-doi-request]'); // TODO find out how to test without creating a multitude of doi
+  cy.get('[data-testid=button-send-doi-request]').click({ force: true });
 });
-Then('the Public Page for Publication is displayed', () => {
+Then('the Landing page is displayed', () => {
   cy.location('pathname').should('contain', 'public');
 });
-And('the "Request a DOI" button is renamed to "DOI pending" and is disabled', () => {
-  // rewrite scenario
+And('the "Request a DOI" button is no longer visible', () => {
+  cy.get('[data-testid=button-send-doi-request]').should('not.exist');
 });
-And('the request is listed in User Worklist', () => {
+And('the request is listed in My Messages', () => {
   cy.get('[data-testid=my-messages]').click({ force: true });
-  cy.get('[data-testid^=doi-request]').contains('Published publication request DOI');
+  cy.get('[data-testid^=doi-request]').contains('Published publication requesting DOI');
 });
 And('the request is listed in Curator Worklist', () => {
+  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-logout-button]').click({ force: true });
   cy.login(USER_CURATOR_WITH_AUTHOR);
-  cy.visit('/')
-  cy.get('[data-testid=menu]').click({force: true})
-  cy.get('[data-testid=menu-my-worklist-button]').click({force: true})
-
+  cy.visit('/');
+  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-my-worklist-button]').click({ force: true });
+  cy.get('[data-testid^=doi-request]').filter(':contains("Published publication requesting DOI")').should('be.visible');
 });
-
-
-And they are the Owner of the Registration
-And open "Request a DOI" dialog
-And optional add a message to the Curator
-When the user click the Send Button
-Then the Landing page is displayed
-And the "Request a DOI" button is no longer visible
-And the request is listed in My messages
-And the request is listed in Curator Worklist
