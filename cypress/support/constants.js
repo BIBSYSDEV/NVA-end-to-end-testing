@@ -31,7 +31,7 @@ export const USER_WITH_INSTITUTION_REMOVE_INSTITUTION = 'test-user-with-institut
 
 export const USER_CURATOR_WITH_AUTHOR = 'test-user-curator@test.no';
 
-export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-inst-admin@test.no';
+export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-first-inst-admin@test.no';
 
 export const ADMIN_USER = 'test-user-app-admin@test.no';
 
