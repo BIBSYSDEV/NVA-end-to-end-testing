@@ -26,7 +26,7 @@ export const INST_ADMIN_MENU = {
 
 export const ADMIN_MENU = {
   ...USER_MENU,
-  'Institutions': 'menu-admin-institution-button',
+  'Institutions': 'menu-admin-institutions-button',
 };
 
 export const NEW_REGISTRATION_BUTTONS = {
@@ -62,9 +62,9 @@ export const USER_ADMINISTRATION_BUTTONS = {
 };
 
 export const USER_ADMINISTRATION_ADD_ROLE_BUTTONS = {
-  'New Administrator': 'button-add-role-Institution-admin',
-  'New Curator': 'button-add-role-Curator',
-  'New Editor': 'button-add-role-Editor',
+  'Add Administrator': 'button-add-role-Institution-admin',
+  'Add Curator': 'button-add-role-Curator',
+  'Add Editor': 'button-add-role-Editor',
 };
 
 export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
@@ -111,7 +111,13 @@ export const STUDENT_THESIS_SUBTYPES = {
   'Bachelor thesis': 'publication-instance-type-DegreeBachelor',
   'Master thesis': 'publication-instance-type-DegreeMaster',
   'Doctoral thesis': 'publication-instance-type-DegreePhd',
-  'Other student thesis': 'publication-instance-type-OtherStudentWork',
+  'Other student work': 'publication-instance-type-OtherStudentWork',
+};
+
+export const STUDENT_THESIS_FIELDS = {
+  'Search box for Publisher': '',
+  'DOI': '',
+  'Search box for Series': '',
 };
 
 export const STUDENT_THESIS_FIELDS = {

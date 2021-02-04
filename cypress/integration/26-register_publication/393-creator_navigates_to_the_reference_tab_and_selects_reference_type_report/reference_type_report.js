@@ -7,6 +7,7 @@ const testFile = 'example.txt';
 Given('Creator begins registering a Publication in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startRegistrationWithFile(testFile);
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
 });
 When('they navigate to the Reference tab', () => {

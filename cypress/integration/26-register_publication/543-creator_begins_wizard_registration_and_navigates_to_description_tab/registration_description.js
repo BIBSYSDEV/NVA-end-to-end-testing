@@ -15,6 +15,7 @@ Given('Creator begins registering a Registration in the Wizard', () => {
   });
 });
 When('they navigate to the Description tab', () => {
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
 });
 
