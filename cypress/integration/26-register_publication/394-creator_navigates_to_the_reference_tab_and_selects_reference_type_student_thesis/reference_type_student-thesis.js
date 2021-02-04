@@ -7,6 +7,7 @@ const filename = 'example.txt';
 Given('Creator begins registering a Publication in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR).then(() => {
     cy.startRegistrationWithFile(filename);
+    cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
     cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   });
 });

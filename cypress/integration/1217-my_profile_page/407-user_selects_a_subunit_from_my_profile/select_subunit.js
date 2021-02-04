@@ -1,8 +1,8 @@
 import { After, And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { USER_ADD_INSTITUTION } from '../../../support/constants';
+import { USER_INSTITUTION_SUBUNIT } from '../../../support/constants';
 
 Given('user sees a Subunit from My Profile', () => {
-  cy.login(USER_ADD_INSTITUTION).then(() => {
+  cy.login(USER_INSTITUTION_SUBUNIT).then(() => {
     cy.get('[data-testid=menu]').click({ force: true });
     cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
     cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
