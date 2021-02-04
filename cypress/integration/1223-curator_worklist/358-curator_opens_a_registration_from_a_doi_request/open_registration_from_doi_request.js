@@ -27,4 +27,3 @@ And('the Create DOI button is enabled', () => {
 And('the Decline DOI button is enabled', () => {
   cy.get('[data-testid=button-reject-doi]').should('be.enabled');
 });
-And('the Save and Present button is enabled', () => {});
