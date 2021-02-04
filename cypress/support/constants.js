@@ -27,11 +27,17 @@ export const USER_ADD_INSTITUTION = 'test-user-add-institution@test.no';
 
 export const USER_CHANGE_INSTITUTION = 'test-user-change-institution@test.no';
 
+export const USER_INSTITUTION_SUBUNIT = 'test-user-subunit@test.no';
+
+export const USER_INSTITUTION_SUBSUBUNIT = 'test-user-subsubunit@test.no';
+
+export const USER_INSTITUTION_SUBSUBSUBUNIT = 'test-user-subsubsubunit@test.no';
+
 export const USER_WITH_INSTITUTION_REMOVE_INSTITUTION = 'test-user-with-institution-remove-institution@test.no';
 
 export const USER_CURATOR_WITH_AUTHOR = 'test-user-curator@test.no';
 
-export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-inst-admin@test.no';
+export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-first-inst-admin@test.no';
 
 export const ADMIN_USER = 'test-user-app-admin@test.no';
 

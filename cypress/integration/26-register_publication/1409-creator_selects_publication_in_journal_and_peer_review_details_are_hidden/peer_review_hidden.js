@@ -10,6 +10,7 @@ Given('that a Creator navigates to the Reference tab', () => {
   cy.login(USER_WITH_AUTHOR).then(() => {
     cy.startRegistrationWithFile(testFile);
   });
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-reference').click({ force: true });
 });
