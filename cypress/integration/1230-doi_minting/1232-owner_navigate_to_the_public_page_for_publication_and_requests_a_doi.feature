@@ -1,7 +1,7 @@
 Feature: Owner navigates to the Public Page for Publication and requests a DOI
 
     @1232
-    Scenario: Owner navigates to the Public Page for Publication and requests a DOI
+    Scenario: Owner navigates to the Landing page and requests a DOI
         Given that the Creator navigates to the Landing page for published Registration without DOI
         And they are the Owner of the Registration
         And open "Request a DOI" dialog
@@ -10,4 +10,5 @@ Feature: Owner navigates to the Public Page for Publication and requests a DOI
         Then the Landing page is displayed
         And the "Request a DOI" button is no longer visible
         And the request is listed in My Messages
+        
         And the request is listed in Curator Worklist
