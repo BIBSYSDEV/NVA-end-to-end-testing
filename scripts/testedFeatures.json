@@ -36,6 +36,7 @@
   "1218-user_selects_a_subsubunit_from_my_profile",
   "1219-user_sees_a_subsubsubunit_from_my_profile",
   "1220-user_selects_a_subsubsubunit_from_my_profile",
+  "1232-owner_navigate_to_the_public_page_for_publication_and_requests_a_doi",
   "1231-owner_navigates_to_the_public_page_for_publication_for_published_publication_without_doi",
   "1362-administrator_searches_for_user",
   "1531-creator_previews_registration",
