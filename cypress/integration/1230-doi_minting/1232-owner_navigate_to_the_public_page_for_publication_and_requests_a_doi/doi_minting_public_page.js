@@ -39,5 +39,5 @@ And('the request is listed in Curator Worklist', () => {
   cy.visit('/');
   cy.get('[data-testid=menu]').click({ force: true });
   cy.get('[data-testid=menu-my-worklist-button]').click({ force: true });
-  cy.get('[data-testid^=doi-request]').filter(':contains("Published publication requesting DOI")').should('be.visible');
+  cy.get('[data-testid^=title-doi-request]').filter(':contains("Published publication requesting DOI")').should('be.visible');
 });
