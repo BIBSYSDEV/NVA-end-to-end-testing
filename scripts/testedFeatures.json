@@ -1,5 +1,6 @@
 [
   "226-creator_begins_registering_a_registration",
+  "274-creator_navigates_to_the_reference_tab_and_selects_reference_type_contribution_to_journal",
   "275-creator_navigates_to_files_and_license_tab",
   "344-user_sees_non-logged-in_menu",
   "345-user_sees_a_menu_when_logged_in",

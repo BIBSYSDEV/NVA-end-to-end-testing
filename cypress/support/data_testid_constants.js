@@ -87,10 +87,13 @@ export const MY_INSTITUTION_FIELDS_TESTVALUE = {
 };
 
 export const JOURNAL_SUBTYPES = {
-  'Short communication': 'publication-instance-type-JournalShortCommunication',
-  'Editorial': 'publication-instance-type-JournalLeader',
-  'Letter to the editor': 'publication-instance-type-JournalLetter',
+  'Journal article': 'publication-instance-type-JournalArticle',
+  'Short communication': 'publication-instance-type-JournalShortCommunication',
+  'Feature article': 'publication-instance-type-FeatureArticle',
+  'Letter to the Editor': 'publication-instance-type-JournalLetter',
   'Book review': 'publication-instance-type-JournalReview',
+  'Editorial': 'publication-instance-type-JournalLeader',
+  'Corrigendum': 'publication-instance-type-JournalCorrigendum',
 };
 
 export const REPORT_SUBTYPES = {
@@ -112,12 +115,6 @@ export const STUDENT_THESIS_SUBTYPES = {
   'Master thesis': 'publication-instance-type-DegreeMaster',
   'Doctoral thesis': 'publication-instance-type-DegreePhd',
   'Other student work': 'publication-instance-type-OtherStudentWork',
-};
-
-export const STUDENT_THESIS_FIELDS = {
-  'Search box for Publisher': '',
-  'DOI': '',
-  'Search box for Series': '',
 };
 
 export const STUDENT_THESIS_FIELDS = {

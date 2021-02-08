@@ -117,7 +117,7 @@ Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
   cy.get('[data-testid=new-registration]').click({ force: true });
   cy.get('[data-testid=new-registration-link]').click({ force: true });
   cy.get('[data-testid=new-registration-link-input]').type(doiLink);
-  cy.get('[data-testid=doi-search-button]').click({force: true});
+  cy.get('[data-testid=doi-search-button]').click({ force: true });
 });
 
 Cypress.Commands.add('logoutCognito', () => {
@@ -159,6 +159,7 @@ Cypress.Commands.add('createValidRegistration', () => {
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.rawTable.forEach((value) => {
+    cy.log(value[0]);
     cy.get(`[data-testid=${values[value[0]]}]`);
   });
 });
