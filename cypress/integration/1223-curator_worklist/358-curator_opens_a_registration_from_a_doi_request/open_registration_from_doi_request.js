@@ -9,7 +9,7 @@ Given('that a Curator views their Worklist', () => {
 And('they have selected the DOI Requests tab', () => {
   cy.get('[data-testid=doi-requests-button]').click({ force: true });
 });
-And('they have expanded a DOI Request item', () => {
+And('they have expanded an item \\(DOI Request)', () => {
   cy.get('[data-testid^=doi-request-]').first().as('doiRequest');
   cy.get('@doiRequest').click();
 });
