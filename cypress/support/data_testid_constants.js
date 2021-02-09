@@ -115,12 +115,6 @@ export const STUDENT_THESIS_SUBTYPES = {
 };
 
 export const STUDENT_THESIS_FIELDS = {
-  'Search box for Publisher': '',
-  'DOI': '',
-  'Search box for Series': '',
-};
-
-export const STUDENT_THESIS_FIELDS = {
   'Search box for Publisher': 'publisher-search-input',
   'DOI': 'doi-field',
   'Search box for Series': 'series-search-input',
