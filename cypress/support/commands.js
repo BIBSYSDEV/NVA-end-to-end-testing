@@ -159,7 +159,6 @@ Cypress.Commands.add('createValidRegistration', () => {
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.rawTable.forEach((value) => {
-    cy.log(value[0]);
     cy.get(`[data-testid=${values[value[0]]}]`);
   });
 });
