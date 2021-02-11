@@ -7,7 +7,7 @@ Given('Creator opens My Publications', () => {
 });
 When('they click Delete on an item', () => {
   cy.get('[data-testid^=registration-title]')
-    .contains('Delete publication')
+    .contains('Delete registration')
     .parent()
     .parent()
     .within((presentationLine) => {
