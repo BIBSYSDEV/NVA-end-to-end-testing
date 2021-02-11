@@ -1,7 +1,7 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 
-Given('Creator opens My Publications', () => {
+Given('Creator opens My Registrations', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.get('[data-testid=my-registrations]').click({ force: true });
 });
@@ -20,6 +20,6 @@ And('they see a confirmation pop-up is opened', () => {
 And('they select Yes', () => {
   cy.get('[data-testid=accept-button]').click({ force: true });
 });
-Then('they see that the Publication is deleted', () => {
-  cy.get('[data-testid^=registration-title]').contains('Delete publication').should('not.exist');
+Then('they see that the Registration is deleted', () => {
+  cy.get('[data-testid^=registration-title]').contains('Delete registration').should('not.exist');
 });
