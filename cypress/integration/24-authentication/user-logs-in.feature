@@ -8,14 +8,14 @@ Feature: User logs in
   #   And they see a Create New Author Button
   #   And they see a Support button
 
-  @1206
-  Scenario: User with their Feide ID in ARP logs in
-    Given that the user logs in with their Feide ID
-    And their Feide ID is in an ARP entry
-    Then they can see their name in the menu
+  # @1206
+  # Scenario: User with their Feide ID in ARP logs in
+  #   Given that the user logs in with their Feide ID
+  #   And their Feide ID is in an ARP entry
+  #   Then they can see their name in the menu
 
   # @384
-  # Scenario: User creates a new Author identity
+  Scenario: User creates a new Author identity
     Given that the user logs in with their Feide ID
     And they do not have their Feide ID in any ARP entry
     Then they see proposed name for a new Author identity based on data from their Feide account

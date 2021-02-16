@@ -1,5 +1,5 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_NO_ARP, USER_WITH_AUTHOR } from '../../../support/constants';
+import { USER_NO_ARP, USER_NO_NAME_IN_ARP, USER_WITH_AUTHOR } from '../../../support/constants';
 
 Given('that the user logs in with their Feide ID', () => {});
 
@@ -27,13 +27,13 @@ Then('they can see their name in the menu', () => {
 // @384
 // Scenario: User creates a new Author identity
 And('they do not have their Feide ID in any ARP entry', () => {
-  cy.login(USER_NO_ARP);
+  cy.login(USER_NO_NAME_IN_ARP);
 });
 Then('they see proposed name for a new Author identity based on data from their Feide account', () => {
   cy.get('[data-testid=connect-author-modal]').contains('No ARP TestUser');
 });
 When('they click Create Author identity button', () => {
-  cy.get('[data-testid=create-author-button]').click({ force: true });
+  cy.get('[data-testid=button-create-authority]').click({ force: true });
 });
 Then('this new Author identity is added to ARP', () => {});
 And('their Feide ID is added to their Author identity', () => {});
