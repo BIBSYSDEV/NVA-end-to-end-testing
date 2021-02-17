@@ -74,11 +74,17 @@ Then('they see a dialog for connecting ORCID', () => {
   cy.get('[data-testid=open-orcid-modal]').should('be.visible');
 });
 When('they click Create or add ORCID', () => {
-  // cy.intercept()
+  cy.intercept('https://sandbox.orcid.org', 'success!');
 });
 And('they are redirected to ORCID for login', () => {});
 And('they log into ORCID', () => {});
 And('they accept that NVA uses their data', () => {});
 Then('they are redirected back to NVA', () => {});
-And('their ORCID is added to their Author identity', () => {});
-And('they see their ORCID on My Profile', () => {});
+And('their ORCID is added to their Author identity', () => {
+  cy.addMockOrcid();
+});
+And('they see their ORCID on My Profile', () => {
+  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
+  cy.contains('test_orcid');
+});
