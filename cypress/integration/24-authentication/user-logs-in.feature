@@ -1,12 +1,12 @@
 Feature: User logs in
 
-  # @217
-  # Scenario: User without their Feide ID in ARP logs in
-  #   Given that the user logs in with their Feide ID
-  #   And they do not have their Feide ID in any ARP entry
-  #   Then they see a list containing "Name", "Last registration" and "Institutions" for each ARP entry matching their name
-  #   And they see a Create New Author Button
-  #   And they see a Support button
+  @217
+  Scenario: User without their Feide ID in ARP logs in
+    Given that the user logs in with their Feide ID
+    And they do not have their Feide ID in any ARP entry
+    Then they see a list containing "Name", "Last registration" and "Institutions" for each ARP entry matching their name
+    And they see a Create New Author Button
+    And they see a Support button
 
   # @1206
   # Scenario: User with their Feide ID in ARP logs in

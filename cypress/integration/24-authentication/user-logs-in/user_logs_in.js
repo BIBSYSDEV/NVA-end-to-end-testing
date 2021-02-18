@@ -1,5 +1,11 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_NO_ARP, USER_NO_NAME_IN_ARP, USER_NO_ORCID, USER_WITH_AUTHOR } from '../../../support/constants';
+import {
+  USER_CONNECT_ORCID,
+  USER_NO_ARP,
+  USER_NO_NAME_IN_ARP,
+  USER_NO_ORCID,
+  USER_WITH_AUTHOR,
+} from '../../../support/constants';
 
 Given('that the user logs in with their Feide ID', () => {});
 
@@ -61,11 +67,8 @@ And('they can see confirmation message that they have connected an Author identi
 // Scenario: User adds an ORCID to their Author identity
 Given('that the user has just connected to an Author identity', () => {
   cy.login(USER_CONNECT_ORCID);
-});
-And('they can see confirmation message that they have connected an Author identity', () => {
-  cy.login(USER_NO_ORCID);
   cy.get('[data-testid=author-radio-button]')
-    .filter(':contains("TestUser, No ORCID")')
+    .filter(':contains("TestUser, Connect ORCID")')
     .get('input[type=radio]')
     .click({ force: true });
   cy.get('[data-testid=connect-author-button]').click({ force: true });
@@ -91,6 +94,7 @@ And('their ORCID is added to their Author identity', () => {
   cy.addMockOrcid();
 });
 And('they see their ORCID on My Profile', () => {
+  cy.get('body').click(0, 0);
   cy.get('[data-testid=menu]').click({ force: true });
   cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
   cy.contains('test_orcid');
