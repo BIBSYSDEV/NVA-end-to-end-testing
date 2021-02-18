@@ -1,18 +1,20 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_NO_ARP, USER_NO_NAME_IN_ARP, USER_WITH_AUTHOR } from '../../../support/constants';
+import { USER_NO_ARP, USER_NO_NAME_IN_ARP, USER_WITH_AUTHOR, USER_CONNECT_ORCID } from '../../../support/constants';
 
 Given('that the user logs in with their Feide ID', () => {});
 
 // @217
 // Scenario: User without their Feide ID in ARP logs in
 And('they do not have their Feide ID in any ARP entry', () => {
-  cy.login(USER_NO_ARP);
+  cy.login(USER_NO_NAME_IN_ARP);
 });
 Then(
   'they see a list containing "Name", "Last registration" and "Institutions" for each ARP entry matching their name',
   () => {}
 );
-And('they see a Create New Author Button', () => {});
+And('they see a Create New Author Button', () => {
+  cy.get('[data-testid=button-create-authority]').should('be.visible');
+});
 And('they see a Support button', () => {});
 
 // @1206
@@ -42,7 +44,9 @@ And('they can see confirmation message that they have connected an Author identi
 
 // @219
 // Scenario: User updates an Author identity
-And('they do not have their Feide ID in any ARP entry', () => {});
+And('they do not have their Feide ID in any ARP entry', () => {
+  cy.login(USER_NO_ARP);
+});
 And(
   'they see a list containing "Name", "Last registration" and "Institutions" for each ARP entry matching their name',
   () => {}
@@ -55,12 +59,20 @@ And('they can see confirmation message that they have connected an Author identi
 
 // @222
 // Scenario: User adds an ORCID to their Author identity
-Given('that the user has just connected to an Author identity', () => {});
+Given('that the user has just connected to an Author identity', () => {
+  cy.login(USER_CONNECT_ORCID);
+});
 And('they can see confirmation message that they have connected an Author identity', () => {});
 And('their Author identity do not have any connection to ORCID', () => {});
-When('they click the Next button', () => {});
-Then('they see a dialog for connecting ORCID', () => {});
-When('they click Create or add ORCID', () => {});
+When('they click the Next button', () => {
+  cy.get('[data-testid=modal_next]').click({ force: true });
+});
+Then('they see a dialog for connecting ORCID', () => {
+  cy.get('[data-testid=open-orcid-modal]').should('be.visible');
+});
+When('they click Create or add ORCID', () => {
+  cy.get('[data-testid=connect-to-orcid]');
+});
 And('they are redirected to ORCID for login', () => {});
 And('they log into ORCID', () => {});
 And('they accept that NVA uses their data', () => {});
