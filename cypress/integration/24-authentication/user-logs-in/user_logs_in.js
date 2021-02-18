@@ -1,5 +1,5 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_NO_ARP, USER_NO_NAME_IN_ARP, USER_WITH_AUTHOR, USER_CONNECT_ORCID } from '../../../support/constants';
+import { USER_NO_ARP, USER_NO_NAME_IN_ARP, USER_NO_ORCID, USER_WITH_AUTHOR } from '../../../support/constants';
 
 Given('that the user logs in with their Feide ID', () => {});
 
@@ -32,7 +32,7 @@ And('they do not have their Feide ID in any ARP entry', () => {
   cy.login(USER_NO_NAME_IN_ARP);
 });
 Then('they see proposed name for a new Author identity based on data from their Feide account', () => {
-  cy.get('[data-testid=connect-author-modal]').contains('No ARP TestUser');
+  cy.get('[data-testid=connect-author-modal]').contains('TestUser, No name in ARP');
 });
 When('they click Create Author identity button', () => {
   cy.get('[data-testid=button-create-authority]').click({ force: true });
@@ -62,7 +62,17 @@ And('they can see confirmation message that they have connected an Author identi
 Given('that the user has just connected to an Author identity', () => {
   cy.login(USER_CONNECT_ORCID);
 });
-And('they can see confirmation message that they have connected an Author identity', () => {});
+And('they can see confirmation message that they have connected an Author identity', () => {
+  cy.login(USER_NO_ORCID);
+  cy.get('[data-testid=author-radio-button]')
+    .filter(':contains("TestUser, No ORCID")')
+    .get('input[type=radio]')
+    .click({ force: true });
+  cy.get('[data-testid=connect-author-button]').click({ force: true });
+});
+And('they can see confirmation message that they have connected an Author identity', () => {
+  cy.get('h3').filter(':contains("Your author identity is connected")');
+});
 And('their Author identity do not have any connection to ORCID', () => {});
 When('they click the Next button', () => {
   cy.get('[data-testid=modal_next]').click({ force: true });
@@ -71,11 +81,17 @@ Then('they see a dialog for connecting ORCID', () => {
   cy.get('[data-testid=open-orcid-modal]').should('be.visible');
 });
 When('they click Create or add ORCID', () => {
-  cy.get('[data-testid=connect-to-orcid]');
+  cy.intercept('https://sandbox.orcid.org', 'success!');
 });
 And('they are redirected to ORCID for login', () => {});
 And('they log into ORCID', () => {});
 And('they accept that NVA uses their data', () => {});
 Then('they are redirected back to NVA', () => {});
-And('their ORCID is added to their Author identity', () => {});
-And('they see their ORCID on My Profile', () => {});
+And('their ORCID is added to their Author identity', () => {
+  cy.addMockOrcid();
+});
+And('they see their ORCID on My Profile', () => {
+  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
+  cy.contains('test_orcid');
+});

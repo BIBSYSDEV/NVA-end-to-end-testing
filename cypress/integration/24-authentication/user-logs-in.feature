@@ -36,7 +36,7 @@ Feature: User logs in
   #   And their Organization ID (Cristin ID) is added to their Author identity
   #   And they can see confirmation message that they have connected an Author identity
 
-  # @222
+  @222
   Scenario: User adds an ORCID to their Author identity
     Given that the user has just connected to an Author identity
     And they can see confirmation message that they have connected an Author identity
