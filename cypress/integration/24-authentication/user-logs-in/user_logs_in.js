@@ -6,7 +6,7 @@ Given('that the user logs in with their Feide ID', () => {});
 // @217
 // Scenario: User without their Feide ID in ARP logs in
 And('they do not have their Feide ID in any ARP entry', () => {
-  cy.login(USER_NO_NAME_IN_ARP);
+  cy.login(USER_NO_ARP);
 });
 Then(
   'they see a list containing "Name", "Last registration" and "Institutions" for each ARP entry matching their name',
@@ -88,6 +88,7 @@ Given('that the user has just connected to an Author identity', () => {
   cy.get('[data-testid=author-radio-button]')
     .filter(':contains("TestUser, Connect ORCID")')
     .get('input[type=radio]')
+    .first()
     .click({ force: true });
   cy.get('[data-testid=connect-author-button]').click({ force: true });
 });
