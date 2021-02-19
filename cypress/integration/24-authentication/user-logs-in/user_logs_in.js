@@ -1,11 +1,5 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import {
-  USER_CONNECT_ORCID,
-  USER_NO_ARP,
-  USER_NO_NAME_IN_ARP,
-  USER_NO_ORCID,
-  USER_WITH_AUTHOR,
-} from '../../../support/constants';
+import { USER_CONNECT_ORCID, USER_NO_ARP, USER_NO_NAME_IN_ARP, USER_WITH_AUTHOR } from '../../../support/constants';
 
 Given('that the user logs in with their Feide ID', () => {});
 
@@ -17,11 +11,9 @@ And('they do not have their Feide ID in any ARP entry', () => {
 Then(
   'they see a list containing "Name", "Last registration" and "Institutions" for each ARP entry matching their name',
   () => {
-    cy.get('[data-testid=connect-author-modal]').within((orcidModal) => {
-      cy.get(orcidModal).contains('Name');
-      cy.get(orcidModal).contains('Last registration');
-      cy.get(orcidModal).contains('Organizations');
-    });
+    cy.get('[data-testid=author-name-column]');
+    cy.get('[data-testid=author-last-registration-column]');
+    cy.get('[data-testid=author-organizations-column]');
   }
 );
 And('they see a Create New Author Button', () => {
@@ -57,10 +49,11 @@ Then('they see proposed name for a new Author identity based on data from their 
 });
 When('they click Create Author identity button', () => {
   cy.get('[data-testid=button-create-authority]').click({ force: true });
+  cy.window().its('store').invoke('getState').its('user').its('authority').as('authority');
 });
 Then('this new Author identity is added to ARP', () => {});
 And('they can see confirmation message that they have connected an Author identity', () => {
-  cy.get('[data-testid=connect-author-modal]').contains('Your author identity is connected');
+  cy.get('[data-testid=connect-author-modal]').get('[data-testid=connected-authority-heading]').should('be.visible');
 });
 
 // @219
@@ -70,11 +63,9 @@ And(
   'they see a list containing "Name", "Last registration" and "Institutions" for each ARP entry matching their name',
   () => {
     cy.login(USER_NO_ARP);
-    cy.get('[data-testid=connect-author-modal]').within((connectAuthor) => {
-      cy.wrap(connectAuthor).contains('Name');
-      cy.wrap(connectAuthor).contains('Last registration');
-      cy.wrap(connectAuthor).contains('Organizations');
-    });
+    cy.get('[data-testid=author-name-column]');
+    cy.get('[data-testid=author-last-registration-column]');
+    cy.get('[data-testid=author-organizations-column]');
   }
 );
 When('they select an Author identity', () => {
@@ -87,7 +78,7 @@ And('they click Connect Author identity', () => {
   cy.window().its('store').invoke('getState').its('user').its('authority').as('authority');
 });
 And('they can see confirmation message that they have connected an Author identity', () => {
-  cy.get('[data-testid=connect-author-modal]').contains('Your author identity is connected');
+  cy.get('[data-testid=connect-author-modal]').get('[data-testid=connected-authority-heading]').should('be.visible');
 });
 
 // @222
@@ -101,7 +92,7 @@ Given('that the user has just connected to an Author identity', () => {
   cy.get('[data-testid=connect-author-button]').click({ force: true });
 });
 And('they can see confirmation message that they have connected an Author identity', () => {
-  cy.get('h3').filter(':contains("Your author identity is connected")');
+  cy.get('[data-testid=connected-authority-heading]').should('be.visible');
 });
 And('their Author identity do not have any connection to ORCID', () => {});
 When('they click the Next button', () => {
@@ -121,8 +112,8 @@ And('their ORCID is added to their Author identity', () => {
   cy.addMockOrcid();
 });
 And('they see their ORCID on My Profile', () => {
-  cy.get('body').click(0, 0);
+  cy.get('[data-testid=close-modal]').click({ force: true });
   cy.get('[data-testid=menu]').click({ force: true });
   cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
-  cy.contains('test_orcid');
+  cy.get('[data-testid=orcid-line]').contains('test_orcid');
 });
