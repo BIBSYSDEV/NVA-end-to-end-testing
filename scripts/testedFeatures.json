@@ -1,5 +1,6 @@
 [
   "226-creator_begins_registering_a_registration",
+  "274-creator_navigates_to_the_reference_tab_and_selects_reference_type_contribution_to_journal",
   "275-creator_navigates_to_files_and_license_tab",
   "344-user_sees_non-logged-in_menu",
   "345-user_sees_a_menu_when_logged_in",
@@ -10,6 +11,7 @@
   "352-user_opens_the_page_my_profile",
   "354-creator_opens_my_publications",
   "355-creator_opens_an_item_in_my_publication_list",
+  "356-user_delete_an_unpublished_item_in_the_my_registrations_list",
   "358-curator_opens_a_registration_from_a_doi_request",
   "359-administrator_views_user_administration_sections_with_role_members_part_i",
   "361-institution_administrator_edits_my_institution",
