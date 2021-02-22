@@ -49,6 +49,8 @@ export const USER_CURATOR_WITH_AUTHOR = 'test-user-curator@test.no';
 
 export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-first-inst-admin@test.no';
 
+export const USER_SECOND_INST_ADMIN_WITH_AUTHOR = 'test-user-second-inst-admin-1@test.no';
+
 export const ADMIN_USER = 'test-user-app-admin@test.no';
 
 export const TEST_USER = 'test-user-login@test.no';

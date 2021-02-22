@@ -1,5 +1,5 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_INST_ADMIN_WITH_AUTHOR } from '../../../support/constants';
+import { USER_SECOND_INST_ADMIN_WITH_AUTHOR } from '../../../support/constants';
 import {
   USER_ADMINISTRATION_BUTTONS,
   USER_ADMINISTRATION_HEADINGS,
@@ -7,7 +7,7 @@ import {
 } from '../../../support/data_testid_constants';
 
 Given('that the user is logged in as Administrator', () => {
-  cy.login(USER_INST_ADMIN_WITH_AUTHOR);
+  cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
 });
 When('they click the menu item Users', () => {
   cy.get('[data-testid=menu]').click({ force: true });
@@ -17,13 +17,13 @@ Then('they see the User Administration page', () => {
   cy.location('pathname').should('equal', '/my-institution-users');
 });
 And('they see the Section {string}', (section) => {
-  cy.get('h3').contains(USER_ADMINISTRATION_HEADINGS[section]).parent().as('section');
-  cy.wrap(section).as('sectionName');
+  cy.wrap(section).as('section');
+  cy.get('h3').contains(USER_ADMINISTRATION_HEADINGS[section]).parent().as('roleSection');
 });
 And(
   'they see the Section {string} contains a list of all users affiliated with their institution and with with role {string}',
   (section, role) => {
-    cy.get('@section').get('tr').as('userList').should('have.length.above', 0);
+    cy.wrap(section).get('tr').as('userList').should('have.length.above', 0);
   }
 );
 // And they see a Button "<Button>" to assign the Role "<Role>" to a another user
@@ -34,9 +34,9 @@ And('they see that the list has the field "Username" for each user', () => {
   cy.get('@userList').parent().get('thead').contains('Username');
 });
 And('they see a button Remove that is enabled for each user', () => {
-  cy.get('@section').within((section) => {
-    cy.get('@sectionName').then((sectionName) => {
-      cy.get(`[data-testid^=${USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS[sectionName]}]`).should('be.enabled');
+  cy.get('@roleSection').within(() => {
+    cy.get('@section').then((section) => {
+      cy.get(`[data-testid^=${USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS[section]}]`).should('be.enabled');
     });
   });
 });

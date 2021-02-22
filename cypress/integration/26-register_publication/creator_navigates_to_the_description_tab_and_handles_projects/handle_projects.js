@@ -38,7 +38,9 @@ And('they see Search results', () => {
   cy.get('[data-testid=project-search-input]').type('a test battery for assessing pain');
 });
 When('they select a Project from the Search results', () => {
-  cy.get('[class=MuiAutocomplete-option]').contains('a test battery for assessing pain').click({ force: true });
+  cy.get('[data-testid^=project-option]')
+    .filter(':contains("a test battery for assessing pain")')
+    .click({ force: true });
 });
 Then('the selected Project is added to the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('have.length', 1);
@@ -52,7 +54,9 @@ Given('Creator has added a Project', () => {
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
   cy.get('[data-testid=project-search-input]').type('a test battery for assessing pain');
-  cy.get('[class=MuiAutocomplete-option]').contains('a test battery for assessing pain').click({ force: true });
+  cy.get('[data-testid^=project-option]')
+    .filter(':contains("a test battery for assessing pain")')
+    .click({ force: true });
 });
 When('they click the Remove Project icon', () => {
   cy.get('[data-testid^=project-chip]')
