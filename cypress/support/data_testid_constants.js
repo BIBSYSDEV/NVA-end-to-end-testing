@@ -56,9 +56,9 @@ export const USER_ADMINISTRATION_HEADINGS = {
 };
 
 export const USER_ADMINISTRATION_BUTTONS = {
-  'New Administrator': 'button-add-institution-admin',
-  'New Curator': 'button-add-curator',
-  'New Editor': 'button-add-editor',
+  'Add Administrator': 'button-add-institution-admin',
+  'Add Curator': 'button-add-curator',
+  'Add Editor': 'button-add-editor',
 };
 
 export const USER_ADMINISTRATION_ADD_ROLE_BUTTONS = {
@@ -90,7 +90,7 @@ export const JOURNAL_SUBTYPES = {
   'Journal article': 'publication-instance-type-JournalArticle',
   'Short communication': 'publication-instance-type-JournalShortCommunication',
   'Feature article': 'publication-instance-type-FeatureArticle',
-  'Letter to the Editor': 'publication-instance-type-JournalLetter',
+  'Letter to the editor': 'publication-instance-type-JournalLetter',
   'Book review': 'publication-instance-type-JournalReview',
   'Editorial': 'publication-instance-type-JournalLeader',
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',

@@ -6,7 +6,7 @@ Given('that the Creator navigates to the Public Page for Publication', () => {
   cy.get('[data-testid=my-registrations]').click({ force: true });
   cy.get('[data-testid=published-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
-    .filter(':contains("Published publication without DOI")') // need to use text search to find correct registration
+    .filter(':contains("Published registration without DOI")') // need to use text search to find correct registration
     .parent()
     .within((publicationLine) => {
       cy.wrap(publicationLine).get('[data-testid^=open-registration]').click({ force: true });

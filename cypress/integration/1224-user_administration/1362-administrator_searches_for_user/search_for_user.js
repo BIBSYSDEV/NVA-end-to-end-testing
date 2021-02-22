@@ -15,7 +15,7 @@ And('they are on the User Administration Page', () => {
   cy.get(`[data-testid=${INST_ADMIN_MENU['Users']}]`).click({ force: true });
 });
 
-When('they click the Add {string} button', (role) => {
+When('they click the {string} button', (role) => {
   cy.get(`[data-testid=${USER_ADMINISTRATION_BUTTONS[role]}]`).click({ force: true });
   cy.wrap(role).as('role');
 });
@@ -29,7 +29,7 @@ Then('they see the Search result for "Kari" with Authentication ID', ()
   cy.contains('test-user-kari@test.no');
 });
 
-And('they see an Add Role button for each row', () => {
+And('they see an Add button for each row', () => {
   cy.get('@role').then((role) => {
     cy.get(`[data-testid^=${USER_ADMINISTRATION_ADD_ROLE_BUTTONS[role]}]`).should('be.visible');
   });

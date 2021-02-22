@@ -1,12 +1,14 @@
 import { Given, And, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { USER_CURATOR_WITH_AUTHOR, USER_WITH_AUTHOR } from '../../../support/constants';
 
+const PUBLIC_REGISTRATION_REQUESTING_DOI = 'Published registration requesting DOI';
+
 Given('that the Creator navigates to the Landing page for published Registration without DOI', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.get('[data-testid=my-registrations]').click({ force: true });
   cy.get('[data-testid=published-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
-    .filter(':contains("Published publication requesting DOI")')
+    .filter(`:contains(${PUBLIC_REGISTRATION_REQUESTING_DOI})`)
     .parent()
     .within((presentationLine) => {
       cy.wrap(presentationLine).get('[data-testid^=open-registration]').click({ force: true });
@@ -30,7 +32,9 @@ And('the "Request a DOI" button is no longer visible', () => {
 });
 And('the request is listed in My Messages', () => {
   cy.get('[data-testid=my-messages]').click({ force: true });
-  cy.get('[data-testid^=doi-request]').contains('Published publication requesting DOI');
+  cy.get('[data-testid^=title-doi-request]')
+    .filter(`:contains(${PUBLIC_REGISTRATION_REQUESTING_DOI})`)
+    .should('be.visible');
 });
 And('the request is listed in Curator Worklist', () => {
   cy.get('[data-testid=menu]').click({ force: true });
@@ -39,5 +43,7 @@ And('the request is listed in Curator Worklist', () => {
   cy.visit('/');
   cy.get('[data-testid=menu]').click({ force: true });
   cy.get('[data-testid=menu-my-worklist-button]').click({ force: true });
-  cy.get('[data-testid^=title-doi-request]').contains('Published publication requesting DOI').should('be.visible');
+  cy.get('[data-testid^=title-doi-request]')
+    .filter(`:contains(${PUBLIC_REGISTRATION_REQUESTING_DOI})`)
+    .should('be.visible');
 });
