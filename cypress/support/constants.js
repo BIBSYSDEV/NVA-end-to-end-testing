@@ -21,6 +21,16 @@ export const AuthorityPaths = {
 
 export const USER = 'test-user-end-to-end@test.no';
 
+export const USER_NO_ARP = 'test-user-no-arp@test.no';
+
+export const USER_NO_NAME_IN_ARP = 'test-user-no-name-in-arp@test.no';
+
+export const USER_CONNECT_ARP = 'test-user-connect-arp@test.no';
+
+export const USER_NO_ORCID = 'test-user-no-orcid@test.no';
+
+export const USER_CONNECT_ORCID = 'test-user-connect-orcid@test.no';
+
 export const USER_WITH_AUTHOR = 'test-user-with-author@test.no';
 
 export const USER_ADD_INSTITUTION = 'test-user-add-institution@test.no';
