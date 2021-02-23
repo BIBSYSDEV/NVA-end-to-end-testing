@@ -90,7 +90,7 @@ export const JOURNAL_SUBTYPES = {
   'Journal article': 'publication-instance-type-JournalArticle',
   'Short communication': 'publication-instance-type-JournalShortCommunication',
   'Feature article': 'publication-instance-type-FeatureArticle',
-  'Letter to the editor': 'publication-instance-type-JournalLetter',
+  'Letter to the Editor': 'publication-instance-type-JournalLetter',
   'Book review': 'publication-instance-type-JournalReview',
   'Editorial': 'publication-instance-type-JournalLeader',
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',
