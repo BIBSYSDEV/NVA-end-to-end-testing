@@ -22,7 +22,9 @@ And('they see each list item has a button Delete and Edit that is enabled', () =
   cy.get('tr')
     .find('[data-testid^=registration-title]')
     .each((presentationLine) => {
+      cy.wrap(presentationLine).get('[data-testid^=edit-registration]').should('exist');
       cy.wrap(presentationLine).get('[data-testid^=edit-registration]').should('not.be.disabled');
+      cy.wrap(presentationLine).get('[data-testid^=delete-registration]').should('exist');
       cy.wrap(presentationLine).get('[data-testid^=delete-registration]').should('not.be.disabled');
     });
 });
