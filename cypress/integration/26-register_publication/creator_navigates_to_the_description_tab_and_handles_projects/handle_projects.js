@@ -40,7 +40,8 @@ And('they see Search results', () => {
 });
 When('they select a Project from the Search results', () => {
   cy.get('[data-testid^=project-option]')
-    .filter(':contains("a test battery for assessing pain")')
+    .filter(`:contains(${PROJECT_NAME})`)
+
     .click({ force: true });
 });
 Then('the selected Project is added to the list of selected Projects', () => {
