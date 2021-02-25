@@ -56,9 +56,9 @@ export const USER_ADMINISTRATION_HEADINGS = {
 };
 
 export const USER_ADMINISTRATION_BUTTONS = {
-  'New Administrator': 'button-add-institution-admin',
-  'New Curator': 'button-add-curator',
-  'New Editor': 'button-add-editor',
+  'Add Administrator': 'button-add-institution-admin',
+  'Add Curator': 'button-add-curator',
+  'Add Editor': 'button-add-editor',
 };
 
 export const USER_ADMINISTRATION_ADD_ROLE_BUTTONS = {

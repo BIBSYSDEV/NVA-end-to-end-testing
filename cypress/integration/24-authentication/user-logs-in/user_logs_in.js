@@ -1,21 +1,32 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_CONNECT_ORCID, USER_NO_ARP, USER_NO_NAME_IN_ARP, USER_WITH_AUTHOR } from '../../../support/constants';
+import { Given, When, Then, And, After } from 'cypress-cucumber-preprocessor/steps';
+import {
+  USER_CONNECT_ORCID,
+  USER_NO_ARP,
+  USER_NO_NAME_IN_ARP,
+  USER_WITH_AUTHOR,
+  USER_NAME_IN_ARP,
+} from '../../../support/constants';
 
 Given('that the user logs in with their Feide ID', () => {});
 
-// @217
-// Scenario: User without their Feide ID in ARP logs in
-And('they do not have their Feide ID in any ARP entry', () => {
-  cy.login(USER_NO_ARP);
-});
+// Common steps for @217 and @219
 Then(
   'they see a list containing "Name", "Last registration" and "Institutions" for each ARP entry matching their name',
   () => {
+    if (window.testState.currentScenario.name === 'User without their Feide ID in ARP logs in') {
+      cy.login(USER_NO_ARP);
+    } else if (window.testState.currentScenario.name === 'User updates an Author identity') {
+      cy.login(USER_NAME_IN_ARP);
+    }
     cy.get('[data-testid=author-name-column]');
     cy.get('[data-testid=author-last-registration-column]');
     cy.get('[data-testid=author-organizations-column]');
   }
 );
+
+// @217
+// Scenario: User without their Feide ID in ARP logs in
+And('they do not have their Feide ID in any ARP entry', () => {});
 And('they see a Create New Author Button', () => {
   cy.get('[data-testid=button-create-authority]').should('be.visible');
 });
@@ -45,10 +56,11 @@ And('their Organization ID \\(Cristin ID) is added to their Author identity', ()
 And('they do not have their Feide ID in any ARP entry', () => {});
 Then('they see proposed name for a new Author identity based on data from their Feide account', () => {
   cy.login(USER_NO_NAME_IN_ARP);
-  cy.get('[data-testid=connect-author-modal]').contains('TestUser, No name in ARP');
+  cy.get('[data-testid=connect-author-modal]').contains('No name in ARP');
 });
 When('they click Create Author identity button', () => {
-  cy.get('[data-testid=button-create-authority]').click({ force: true });
+  cy.get('[data-testid=create-author-button]').click({ force: true });
+  cy.get('[data-testid=modal_next]').should('be.visible'); // Wait until next modal is visible to avoid race condition
   cy.window().its('store').invoke('getState').its('user').its('authority').as('authority');
 });
 Then('this new Author identity is added to ARP', () => {});
@@ -59,17 +71,11 @@ And('they can see confirmation message that they have connected an Author identi
 // @219
 // Scenario: User updates an Author identity
 And('they do not have their Feide ID in any ARP entry', () => {});
-And(
-  'they see a list containing "Name", "Last registration" and "Institutions" for each ARP entry matching their name',
-  () => {
-    cy.login(USER_NO_ARP);
-    cy.get('[data-testid=author-name-column]');
-    cy.get('[data-testid=author-last-registration-column]');
-    cy.get('[data-testid=author-organizations-column]');
-  }
-);
 When('they select an Author identity', () => {
-  cy.get('[data-testid=connect-author-modal]').get('[data-testid^=author-radio-button]').first().click({ force: true });
+  cy.get('[data-testid=connect-author-modal]')
+    .get('[data-testid^=author-radio-button]')
+    .filter(':contains("TestUser, Name in ARP")')
+    .click({ force: true });
 });
 And('they click Connect Author identity', () => {
   cy.get('[data-testid=connect-author-button]').should('be.enabled');

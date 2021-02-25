@@ -4,8 +4,6 @@ import { JOURNAL_SUBTYPES } from '../../../support/data_testid_constants';
 
 const testFile = 'example.txt';
 
-const subTypes = JOURNAL_SUBTYPES;
-
 Given('that a Creator navigates to the Reference tab', () => {
   cy.login(USER_WITH_AUTHOR).then(() => {
     cy.startRegistrationWithFile(testFile);
@@ -21,7 +19,7 @@ And('they select type Publication in Journal', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
 });
 When('they select {string}', (subType) => {
-  cy.get(`[data-testid=${subTypes[subType]}]`).click({ force: true });
+  cy.get(`[data-testid=${JOURNAL_SUBTYPES[subType]}]`).click({ force: true });
   cy.wrap(subType).as('subtype');
 });
 Then('they see that the Peer Review Details are hidden', () => {

@@ -5,7 +5,7 @@ import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
 Given('that the user is logged in as Creator', () => {
   cy.login(USER_WITH_AUTHOR);
 });
-And('is on the page My Publications', () => {
+And('is on the page My Registrations', () => {
   cy.get('[data-testid=my-registrations]').click({ force: true });
 });
 When('they click Edit on an item', () => {

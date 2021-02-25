@@ -12,5 +12,5 @@ When('they click "Back"', () => {
   cy.get('[data-testid=navigate-back-button]').click({ force: true });
 });
 Then('they see the previous page', () => {
-  cy.contains('Recently added');
+  cy.get('[data-testid=button-read-more]').should('exist');
 });

@@ -23,6 +23,8 @@ export const USER = 'test-user-end-to-end@test.no';
 
 export const USER_NO_ARP = 'test-user-no-arp@test.no';
 
+export const USER_NAME_IN_ARP = 'test-user-name-in-arp@test.no';
+
 export const USER_NO_NAME_IN_ARP = 'test-user-no-name-in-arp@test.no';
 
 export const USER_CONNECT_ARP = 'test-user-connect-arp@test.no';
@@ -48,6 +50,8 @@ export const USER_WITH_INSTITUTION_REMOVE_INSTITUTION = 'test-user-with-institut
 export const USER_CURATOR_WITH_AUTHOR = 'test-user-curator@test.no';
 
 export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-first-inst-admin@test.no';
+
+export const USER_SECOND_INST_ADMIN_WITH_AUTHOR = 'test-user-second-inst-admin-1@test.no';
 
 export const ADMIN_USER = 'test-user-app-admin@test.no';
 

@@ -6,7 +6,7 @@ Given('that a Creator navigates to the Landing page for published Registration w
   cy.get('[data-testid=my-registrations]').click({ force: true });
   cy.get('[data-testid=published-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
-    .filter(':contains("Published publication without DOI")')
+    .filter(':contains("Published registration without DOI")')
     .parent()
     .within((presentationLine) => {
       cy.wrap(presentationLine).get('[data-testid^=open-registration]').click({ force: true });
