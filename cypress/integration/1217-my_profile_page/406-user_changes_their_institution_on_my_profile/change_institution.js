@@ -26,6 +26,7 @@ Then('they see their Institution is selected inside the Institution dropdown', (
   cy.get(`[value="${INSTITUTION}"]`);
 });
 And('they see a Subunit dropdown with subunits for the selected Institution', () => {
+  cy.get('[data-testid=autocomplete-institution]').should('have.length.at.least', 2);
   cy.get('[data-testid=autocomplete-institution]').last().click({ force: true });
   cy.contains('Avdeling Aarhus');
 });

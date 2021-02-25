@@ -1,6 +1,5 @@
 import { After, And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_ADD_INSTITUTION } from '../../../support/constants';
-import 'cypress-localstorage-commands';
 
 Given('User opens Add Institution from My Profile', () => {
   cy.login(USER_ADD_INSTITUTION).then(() => {
@@ -38,4 +37,5 @@ And('they see a button Remove that is enabled for the new Institution', () => {
 
 After(() => {
   cy.get('[data-testid^=button-delete-institution]').last().click({ force: true });
+  cy.get('[data-testid=accept-button]').click({ force: true });
 });

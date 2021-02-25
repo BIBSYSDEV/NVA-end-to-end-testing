@@ -12,6 +12,8 @@ const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
+const SET_EXTERNAL_ORCID = 'set external orcid';
+
 AWS.config = new AWS.Config({
   accessKeyId: AWS_ACCESS_KEY_ID,
   secretAccessKey: AWS_SECRET_ACCESS_KEY,
@@ -108,10 +110,16 @@ Cypress.Commands.add('login', (userId) => {
 });
 
 Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
-  cy.log(fileName);
   cy.get('[data-testid=new-registration]').click({ force: true });
   cy.get('[data-testid=new-registration-file]').click({ force: true });
   cy.get('input[type=file]').attachFile(fileName);
+});
+
+Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
+  cy.get('[data-testid=new-registration]').click({ force: true });
+  cy.get('[data-testid=new-registration-link]').click({ force: true });
+  cy.get('[data-testid=new-registration-link-input]').type(doiLink);
+  cy.get('[data-testid=doi-search-button]').click({ force: true });
 });
 
 Cypress.Commands.add('logoutCognito', () => {
@@ -155,4 +163,8 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.rawTable.forEach((value) => {
     cy.get(`[data-testid=${values[value[0]]}]`);
   });
+});
+
+Cypress.Commands.add('addMockOrcid', () => {
+  cy.window().its('store').invoke('dispatch', { type: SET_EXTERNAL_ORCID, orcid: 'test_orcid' });
 });

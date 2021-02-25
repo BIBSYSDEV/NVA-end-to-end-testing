@@ -1,9 +1,8 @@
 import { After, And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { USER_ADD_INSTITUTION } from '../../../support/constants';
-import 'cypress-localstorage-commands';
+import { USER_INSTITUTION_SUBSUBUNIT } from '../../../support/constants';
 
 Given('they see a Subunit from My Profile', () => {
-  cy.login(USER_ADD_INSTITUTION).then(() => {
+  cy.login(USER_INSTITUTION_SUBSUBUNIT).then(() => {
     cy.get('[data-testid=menu]').click({ force: true });
     cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
     cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
@@ -19,7 +18,7 @@ When('they click the Subunit dropdown', () => {
     .last()
     .type('Faculty of Information Technology and Electrical Engineering');
 });
-And('the select a Subunit from the dropdown', () => {
+And('they select a Subunit from the dropdown', () => {
   cy.contains('Faculty of Information Technology and Electrical Engineering').click({ force: true });
 });
 Then('they see Subsubunit dropdown containing all the subsubunits for that subunit', () => {
