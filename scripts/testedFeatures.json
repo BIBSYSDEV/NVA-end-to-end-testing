@@ -52,5 +52,7 @@
   "1724-non-customer_views_my_profile",
   "1725-user_without_any_roles_views_my_profile",
   "creator_requests_support",
-  "user-logs-in"
+  "user-logs-in",
+  "creator_navigates_to_description_tab",
+  "creator-navigates-to-contributor-tab"
 ]
