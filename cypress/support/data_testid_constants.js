@@ -137,3 +137,8 @@ export const DESCRIPTION_FIELDS = {
 export const REFERENCE_FIELDS = {
   'Type': 'publication-context-type',
 };
+
+export const CONTRIBUTOR_CREATE_FIELDS = {
+  'First name': 'create-contributor-first-name',
+  'Last name': 'create-contributor-last-name',
+};
