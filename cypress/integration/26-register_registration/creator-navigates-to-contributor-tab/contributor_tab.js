@@ -60,7 +60,7 @@ And('they click "Add me as Author"', () => {
   cy.get('[data-testid=button-add-self-author]').click({ force: true });
 });
 Then('their Author identity is added to the list of Authors', () => {
-  cy.get('[data-testid=contributors-Authors]')
+  cy.get('[data-testid=contributors-Creator]')
     .within((authors) => {
       cy.wrap(authors).contains('TestUser, Withauthor');
     });
@@ -78,7 +78,7 @@ And('they click "Add"', () => {
   cy.get('[data-testid=connect-author-button]').click({ force: true });
 });
 Then('the selected Author identity is added to the list of Authors', () => {
-  cy.get('[data-testid=contributors-Authors]')
+  cy.get('[data-testid=contributors-Creator]')
     .within((authors) => {
       cy.wrap(authors).contains('TestUser, Kari');
     });
@@ -98,7 +98,7 @@ And('they select Registration Subtype "Monograph"', () => {
 });
 
 //   Scenario: Creator adds an Author to the list of Authors for Resource Type Chapter
-And('they select the Resource Type "Part of book', () => {
+And('they select the Resource Type "Part of book / report"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Chapter]').click({ force: true });
 });
@@ -123,7 +123,7 @@ And('they search for Editor in the Author Search Dialog', () => {
   cy.get('[data-testid=search-input]').type('TestUser Kari');
 });
 Then('the selected Author identity is added to the list of Editors', () => {
-  cy.get('[data-testid=contributors-Editors]')
+  cy.get('[data-testid=contributors-Editor]')
     .within((editors) => {
       cy.wrap(editors).contains('TestUser, Kari');
     });
@@ -149,7 +149,7 @@ And('they search for Supervisor in the Author Search Dialog', () => {
   cy.get('[data-testid=search-input]').type('TestUser Kari');
 });
 Then('the selected Author identity is added to the list of Supervisors', () => {
-  cy.get('[data-testid=contributors-Editors]')
+  cy.get('[data-testid=contributors-Supervisor]')
     .within((editors) => {
       cy.wrap(editors).contains('TestUser, Kari');
     });

@@ -54,5 +54,6 @@
   "creator_requests_support",
   "user-logs-in",
   "creator_navigates_to_description_tab",
-  "creator-navigates-to-contributor-tab"
+  "creator-navigates-to-contributor-tab",
+  "creator_begins_registering_a_registration"
 ]
