@@ -153,6 +153,7 @@ $RECYCLE.BIN/
 
 cypress/cucumber-json/*
 cypress/screenshots/*
+cypress/videos/*
 aws.py
 cognito.txt
 *.ps1
