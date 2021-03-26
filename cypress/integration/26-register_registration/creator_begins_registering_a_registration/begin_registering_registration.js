@@ -96,12 +96,14 @@ And('they expand the Expansion panel for Link to resource', () => {
   cy.get('[data-testid=new-registration-link]').click({ force: true });
 });
 When('they enter {string} from {string}', (link, source) => {
-    cy.get('[data-testid=new-registration-link-input]').type(link);
-  });
+  cy.get('[data-testid=new-registration-link-input]').type(link);
+});
 And('they click Search', () => {
   cy.get('[data-testid=doi-search-button]').click({ force: true });
 });
-Then('they see metadata about the Link in the Expansion panel', () => {});
+Then('they see metadata about the Link in the Expansion panel', () => {
+  cy.get('[data-testid=link-metadata]').should('be.visible');
+});
 
 // //   @228
 // //   Scenario: Creator begins registering with a Link with direct data from Datacite/Crossref
@@ -144,4 +146,3 @@ Then('they see metadata about the Link in the Expansion panel', () => {});
 // When('they enter {string}', () => {
 //   cy.get('[data-testid=new-registration-link-input]').type(schemaLink);
 // });
-
