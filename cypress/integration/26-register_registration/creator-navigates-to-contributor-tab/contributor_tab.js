@@ -1,6 +1,6 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { CONTRIBUTOR_CREATE_FIELDS } from '../../../support/data_testid_constants';
+import { CONTRIBUTOR_CREATE_FIELDS, RESOURCE_TYPES } from '../../../support/data_testid_constants';
 
 const filename = 'example.txt';
 
@@ -60,10 +60,9 @@ And('they click "Add me as Author"', () => {
   cy.get('[data-testid=button-add-self-author]').click({ force: true });
 });
 Then('their Author identity is added to the list of Authors', () => {
-  cy.get('[data-testid=contributors-Creator]')
-    .within((authors) => {
-      cy.wrap(authors).contains('TestUser, Withauthor');
-    });
+  cy.get('[data-testid=contributors-Creator]').within((authors) => {
+    cy.wrap(authors).contains('TestUser, Withauthor');
+  });
 });
 
 //   @419
@@ -78,10 +77,9 @@ And('they click "Add"', () => {
   cy.get('[data-testid=connect-author-button]').click({ force: true });
 });
 Then('the selected Author identity is added to the list of Authors', () => {
-  cy.get('[data-testid=contributors-Creator]')
-    .within((authors) => {
-      cy.wrap(authors).contains('TestUser, Kari');
-    });
+  cy.get('[data-testid=contributors-Creator]').within((authors) => {
+    cy.wrap(authors).contains('TestUser, Kari');
+  });
 });
 
 //   Scenario: Creator adds an Author to the list of Authors for Resource Type Book, Monograph
@@ -98,9 +96,9 @@ And('they select Registration Subtype "Monograph"', () => {
 });
 
 //   Scenario: Creator adds an Author to the list of Authors for Resource Type Chapter
-And('they select the Resource Type "Part of book / report"', () => {
+And('they select the Resource Type', (dataTable) => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Chapter]').click({ force: true });
+  cy.get(`[data-testid=${RESOURCE_TYPES[dataTable.rawTable[0]]}]`).click({ force: true });
 });
 And('they select the Registration Subtype "Chapter in anthology"', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
@@ -123,10 +121,9 @@ And('they search for Editor in the Author Search Dialog', () => {
   cy.get('[data-testid=search-input]').type('TestUser Kari');
 });
 Then('the selected Author identity is added to the list of Editors', () => {
-  cy.get('[data-testid=contributors-Editor]')
-    .within((editors) => {
-      cy.wrap(editors).contains('TestUser, Kari');
-    });
+  cy.get('[data-testid=contributors-Editor]').within((editors) => {
+    cy.wrap(editors).contains('TestUser, Kari');
+  });
 });
 
 //   @2204
@@ -149,10 +146,9 @@ And('they search for Supervisor in the Author Search Dialog', () => {
   cy.get('[data-testid=search-input]').type('TestUser Kari');
 });
 Then('the selected Author identity is added to the list of Supervisors', () => {
-  cy.get('[data-testid=contributors-Supervisor]')
-    .within((editors) => {
-      cy.wrap(editors).contains('TestUser, Kari');
-    });
+  cy.get('[data-testid=contributors-Supervisor]').within((editors) => {
+    cy.wrap(editors).contains('TestUser, Kari');
+  });
 });
 
 //   @788

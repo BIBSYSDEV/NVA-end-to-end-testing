@@ -54,7 +54,6 @@ Cypress.Commands.add('checkMenu', (table) => {
   cy.get('[data-testid=menu]').click();
   table.forEach((row) => {
     const menuItem = row[0];
-    cy.log(menuItem);
     cy.get('li').should('contain.text', menuItem);
   });
 });

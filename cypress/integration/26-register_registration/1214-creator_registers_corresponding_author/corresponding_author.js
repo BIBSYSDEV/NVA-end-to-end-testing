@@ -23,3 +23,8 @@ And('they see an Author', () => {
 When('they check the Corresponding checkbox', () => {
   cy.get('[data-testid=author-corresponding-checkbox]').click({ force: true });
 });
+Then('they see the Corresponding Author checkbox is checked', () => {
+  cy.get('[data-testid=author-corresponding-checkbox]').within((checkbox) => {
+    cy.wrap(checkbox).get('input').should('be.checked');
+  });
+});
