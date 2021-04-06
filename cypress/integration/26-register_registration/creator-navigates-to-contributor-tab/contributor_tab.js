@@ -162,8 +162,6 @@ Then('the selected Author identity is added to the list of Supervisors', () => {
 //     And they see the "Add Author" Button
 //     And they click "Add Author"
 And('they see the "Create new Author" Button', () => {
-  cy.log(window.testState.currentScenario);
-  // if(window.testState.currentScenario.step)
   cy.get('[data-testid=button-create-new-author]').should('be.visible');
 });
 When('they click "Create new Author"', () => {
