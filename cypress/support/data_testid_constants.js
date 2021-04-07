@@ -96,6 +96,12 @@ export const JOURNAL_SUBTYPES = {
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',
 };
 
+export const BOOK_FIELDS = {
+  'ISBN': 'isbn-field',
+  'Total number of pages': 'pages-field',
+  'NPI discipline': 'search_npi',
+};
+
 export const REPORT_SUBTYPES = {
   'Research report': 'publication-instance-type-ReportResearch',
   'Policy report': 'publication-instance-type-ReportPolicy',
@@ -134,7 +140,7 @@ export const DESCRIPTION_FIELDS = {
   'Project association': 'project-search-input',
 };
 
-export const REFERENCE_FIELDS = {
+export const RESOURCE_TYPE_FIELDS = {
   'Type': 'publication-context-type',
 };
 

@@ -1,6 +1,6 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { REFERENCE_FIELDS } from '../../../support/data_testid_constants';
+import { RESOURCE_TYPE_FIELDS } from '../../../support/data_testid_constants';
 
 const testFile = 'example.txt';
 
@@ -58,7 +58,7 @@ And('they click the Save button', () => {
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid=${REFERENCE_FIELDS[value[0]]}]`).contains('Mandatory');
+    cy.get(`[data-testid=${RESOURCE_TYPE_FIELDS[value[0]]}]`).contains('Mandatory');
   });
 });
 // | Type |
