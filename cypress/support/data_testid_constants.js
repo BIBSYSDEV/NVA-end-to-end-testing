@@ -96,6 +96,21 @@ export const JOURNAL_SUBTYPES = {
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',
 };
 
+export const JOURNAL_FIELDS = {
+  'Journal': 'journal-search-field',
+  'Search-box for Journal': 'journal-search-field',
+  'Search box for Journal': 'journal-search-field',
+  'Search box for "Journal article"': 'article-search-field',
+  'DOI': 'doi-field',
+  'Volume': 'volume-field',
+  'Issue': 'issue-field',
+  'Search box for published books': '',
+  'Pages from': 'pages-from-field',
+  'Pages to': 'pages-to-field',
+  'Article number': 'article-number-field',
+  'Peer reviewed': 'peer_review-true',
+};
+
 export const BOOK_FIELDS = {
   'ISBN': 'isbn-field',
   'Total number of pages': 'pages-field',
@@ -124,9 +139,28 @@ export const STUDENT_THESIS_SUBTYPES = {
 };
 
 export const STUDENT_THESIS_FIELDS = {
-  'Search box for Publisher': 'publisher-search-input',
+  'Search box for Publisher': 'publisher-search-field',
   'DOI': 'doi-field',
-  'Search box for Series': 'series-search-input',
+  'Search box for Series': 'series-search-field',
+};
+
+export const CHAPTER_SUBTYPES = {
+  'Chapter in anthology': 'publication-instance-type-ChapterArticle',
+};
+
+export const CHAPTER_FIELDS = {
+  'DOI': 'doi-field',
+  'Search box for published books': 'anthology-info',
+  'Pages from': 'chapter-pages-from',
+  'Pages to': 'chapter-pages-to',
+  'Peer reviewed': 'peer_review-true',
+};
+
+export const OTHER_SUBTYPES = {
+  'Feature article': 'publication-instance-type-FeatureArticle',
+  'Map': 'publication-instance-type-Map',
+  'Musical notation': 'publication-instance-type-MusicalNotation',
+  'Other publication': 'publication-instance-type-OtherPublication',
 };
 
 export const DESCRIPTION_FIELDS = {
@@ -142,6 +176,14 @@ export const DESCRIPTION_FIELDS = {
 
 export const RESOURCE_TYPE_FIELDS = {
   'Type': 'publication-context-type',
+};
+
+export const RESOURCE_TYPES = {
+  'Contribution to journal': 'publication-context-type-Journal',
+  'Book': 'publication-context-type-Book',
+  'Report': 'publication-context-type-Report',
+  'Student thesis': 'publication-context-type-Degree',
+  'Part of book/report': 'publication-context-type-Chapter',
 };
 
 export const CONTRIBUTOR_CREATE_FIELDS = {

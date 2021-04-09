@@ -1,52 +1,88 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import {
-  JOURNAL_SUBTYPES,
   RESOURCE_TYPE_FIELDS,
+  JOURNAL_SUBTYPES,
+  JOURNAL_FIELDS,
   REPORT_SUBTYPES,
   STUDENT_THESIS_SUBTYPES,
   REPORT_FIELDS,
   BOOK_FIELDS,
+  RESOURCE_TYPES,
+  STUDENT_THESIS_FIELDS,
+  CHAPTER_FIELDS,
+  OTHER_SUBTYPES,
 } from '../../../support/data_testid_constants';
 
-const fileName = 'example.json';
+const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
+const filename = 'example.txt';
 
 // Feature: Creator navigates to Resource Type tab
 
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startRegistrationWithFile(fileName);
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+  let scenario = '';
+  if (window.testState.currentScenario.scenarios && window.testState.currentScenario.scenarios.length > 0) {
+    scenario = window.testState.currentScenario.scenarios[0].name;
+  } else {
+    scenario = window.testState.currentScenario.name;
+    scenario = scenario.substring(0, scenario.indexOf('(example')).trim();
+  }
+
+  switch (scenario) {
+    case '@395':
+    case '@1625':
+    case '@1656':
+    case '@1694':
+    case '@2021':
+    case 'Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype':
+      cy.startRegistrationWithLink(doiLink);
+      cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
+      cy.get('[data-testid=registration-link-next-button]').click({ force: true });
+      break;
+    default:
+      cy.startRegistrationWithFile(filename);
+      cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
+      cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+  }
 });
 When('they navigate to the Resource Type tab', () => {
   cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
 });
-Then('they see a list of subtypes:', (dataTable) => {
-  const step = window.testState.currentScenario.name;
-  let subtypes = {};
-  switch (step) {
-    case 'Creator navigates to the Resource Type tab and selects Resource type "Contribution to journal"':
-      subtypes = JOURNAL_SUBTYPES;
-      break;
-    case 'Creator navigates to the Resource Type tab and selects Resource type "Report"':
-      subtypes = REPORT_SUBTYPES;
-      break;
-    case 'Creator navigates to the Resource Type tab and selects Resource type "Student thesis"':
-      subtypes = STUDENT_THESIS_SUBTYPES;
-      break;
-  }
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.testDataTestidList(dataTable, subtypes);
+And('they click the Save button', () => {
+  cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.get('[data-testid=button-next-tab]').click({ force: true });
+  cy.get('[data-testid=button-previous-tab]').click({ force: true });
 });
-
-//   @274
-//   Scenario: Creator navigates to the Resource Type tab and selects Resource type "Contribution to journal"
 And('they select the Resource type "Contribution to journal"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Journal]').click({ force: true });
 });
+And('they select Resource type Book', () => {
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
+});
+Then('they see a Search box for "Publisher name"', () => {
+  cy.get('[data-testid=publisher-search-field]').should('be.visible');
+});
+And('they see a checkbox for "Is this a textbook?"', () => {
+  cy.get('[data-testid=is-textbook-checkbox]').should('be.visible');
+});
+And('they select the Resource Type', (dataTable) => {
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get(`[data-testid=${RESOURCE_TYPES[dataTable.rawTable[0]]}]`).click({ force: true });
+});
+And('they select Resource subtype {string}', (subtype) => {
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
+  cy.get(`[data-testid=${JOURNAL_SUBTYPES[subtype]}]`).click({ force: true });
+});
+
+// end common steps
+
+//   @274
+//   Scenario: Creator navigates to the Resource Type tab and selects Resource type "Contribution to journal"
 //   | Journal article      |
 //   | Short communication  |
 //   | Feature article      |
@@ -83,21 +119,11 @@ And('they see Save is enabled', () => {
 });
 
 //   Scenario: Creator sees that fields are validated on Resource Type tab
-And('they click the Save button', () => {
-  cy.get('[data-testid=button-save-registration]').click({ force: true });
-});
-Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid=${RESOURCE_TYPE_FIELDS[value[0]]}]`).within((field) => {
-      cy.wrap(field).contains('Mandatory');
-    });
-  });
-});
 //   | Type |
 
 //   @393
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource type "Report"
-And('they select the Resource type "Report"', () => {
+And('they select the Resource type "Report"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Report]').click({ force: true });
 });
@@ -108,19 +134,9 @@ And('they select the Resource type "Report"', () => {
 
 //   @392
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Anthology"
-And('they select Resource type Book', () => {
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
-});
 And('they select Resource subtype "Anthology" from the list', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-instance-type-BookAnthology]').click({ force: true });
-});
-Then('they see a Search box for "Publisher name"', () => {
-  cy.get('[data-testid=publisher-search-field]').should('be.visible');
-});
-And('they see a checkbox for "Is this a textbook?"', () => {
-  cy.get('[data-testid=is-textbook-checkbox]').should('be.visible');
 });
 And('they see fields for', (dataTable) => {
   cy.testDataTestidList(dataTable, BOOK_FIELDS);
@@ -150,23 +166,35 @@ And('they select the Resource type "Student thesis"', () => {
 
 // @395
 // Scenario: Creator sees fields for Resource subtype "Chapter in book"
-And('they select the Resource Type', (dataTable) => {});
 // | Part of book/report |
-And('they select the Registration Subtype "Chapter in book"', () => {});
-Then('they see an information box describing that a Container book must be published first', () => {});
-And('they see fields:', (dataTable) => {});
+And('they select the Registration Subtype "Chapter in book"', () => {
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-instance-type-ChapterArticle]').click({ force: true });
+  cy.wrap('Chapter in book').as('subType');
+});
+Then('they see an information box describing that a Container book must be published first', () => {
+  // cy.get('[data-testid=info-anthology]').should('be.visible');
+});
 //   | DOI                            |
 //   | Search box for published books |
 //   | Pages from                     |
 //   | Pages to                       |
 //   | Peer reviewed                  |
-And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {});
+// And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
+//   cy.get('[data-testid=nvi-chapter]').should('be.visible');
+// });
 
 // @1409
 // Scenario Outline: Creator selects Contribution to Journal and Peer Review Details are hidden
-And('they select type Contribution to Journal', () => {});
-When('they select {string}', (subType) => {});
-Then('they see that the Peer Review Details are hidden', () => {});
+And('they select type Contribution to Journal', () => {
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Journal]').click({ force: true });
+});
+Then('they see that the Peer Review Details are hidden', () => {
+  cy.get('[data-testid=peer-review]').should('not.exist');
+  cy.get('[data-testid=peer_review-true]').should('not.exist');
+  cy.get('[data-testid=peer_review-false]').should('not.exist');
+});
 // Examples:
 //   | Subtype              |
 //   | Editorial            |
@@ -175,8 +203,8 @@ Then('they see that the Peer Review Details are hidden', () => {});
 
 // @1624
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Other publication"
+// TODO not implemented
 And('they select the Resource type "Other publication"', () => {});
-Then('they see a list of subtypes:', (dataTable) => {});
 //   | Feature article   |
 //   | Map               |
 //   | Musical notation  |
@@ -184,9 +212,10 @@ Then('they see a list of subtypes:', (dataTable) => {});
 
 // @1625
 // Scenario: Creator sees fields for Resource subtype "Corrigendum"
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select the Resource subtype "Corrigendum"', () => {});
-Then('they see fields:', () => {});
+And('they select the Resource subtype "Corrigendum"', () => {
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
+  cy.get(`[data-testid=publication-instance-type-JournalCorrigendum]`).click({ force: true });
+});
 // | Search box for "Journal article" |
 // | DOI                              |
 // | Volume                           |
@@ -197,18 +226,26 @@ Then('they see fields:', () => {});
 And('they see a disabled field for Journal based on selected Journal article', () => {});
 
 // Scenario: Creator sees that fields for Resource subtype "Corrigendum" are validated
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select the Resource subtype "Corrigendum"', () => {});
-And('they enter an invalid value in fields:', () => {});
 // | Volume         |
 // | Issue          |
 // | Pages from     |
 // | Pages to       |
 // | Article number |
-When('they click the Save button', () => {});
-Then('they can see "Mandatory" error message for fields:', () => {});
+// Then('they can see "Mandatory" error message for fields:', (dataTable) => {
+//   dataTable.rawTable.forEach((field) => {
+//     cy.get(`[data-testid=${JOURNAL_FIELDS[field[0]]}]`).within((field) => {
+//       cy.wrap(field).contains('Journal is required');
+//     });
+//   });
+// });
 // | Search box for "Journal article" |
-And('they can see "Invalid format" error message for fields:', () => {});
+And('they can see "Invalid format" error message for fields:', (dataTable) => {
+  dataTable.rawTable.forEach((field) => {
+    cy.get(`[data-testid=${JOURNAL_FIELDS[field[0]]}]`).within((field) => {
+      cy.wrap(field).contains('has invalid format');
+    });
+  });
+});
 // | Volume         |
 // | Issue          |
 // | Pages from     |
@@ -217,17 +254,17 @@ And('they can see "Invalid format" error message for fields:', () => {});
 
 // @1631
 // Scenario: Creator selects Resource type "Other publication" and selects subtype "Map"
+// TODO not implemented
 And('they select the Resource type "Other publication"', () => {});
 And('they select the subtype "Map"', () => {});
-Then('they see fields', () => {});
 // | Search box for Publisher |
 // | Original version         |
 
 // @1632
 // Scenario: Creator selects Resource type "Other publication" and selects subtype "Musical notation"
+// TODO not implemented
 And('they select the Resource type "Other publication"', () => {});
 And('they select the subtype "Musical notation"', () => {});
-Then('they see fields', () => {});
 // | Search box for Publisher |
 // | Original version         |
 // | Pages from               |
@@ -236,9 +273,9 @@ Then('they see fields', () => {});
 
 // @1633
 // Scenario: Creator selects Resource type "Other publication" and selects subtype "Other publication"
+// TODO not implemented
 And('they select the Resource type "Other publication"', () => {});
 And('they select the subtype "Other publication"', () => {});
-Then('they see fields', () => {});
 // | Original version            |
 // | Search box for Published in |
 // | Search box for Publisher    |
@@ -248,9 +285,6 @@ Then('they see fields', () => {});
 
 // @1656
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) compatible Resource subtype
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select Resource subtype "<Subtype>"', () => {});
-And('they see fields:', () => {});
 // | Search-box for Journal |
 // | DOI                    |
 // | Volume                 |
@@ -259,23 +293,21 @@ And('they see fields:', () => {});
 // | Pages to               |
 // | Article number         |
 // | Peer reviewed          |
-And('they see the Norwegian Science Index (NVI) evaluation status', () => {});
+// And('they see the Norwegian Science Index (NVI) evaluation status', () => {
+//   cy.get('[data-testid^=peer_review]');
+// });
 // Examples:
 //   | Subtype             |
 //   | Journal article     |
 //   | Short communication |
 
 // Scenario Outline: Creator sees that fields for Norwegian Science Index (NVI) compatible Resource subtype are validated
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select Resource subtype {string}', () => {});
-And('they enter an invalid value in fields:', () => {});
+// And('they enter an invalid value in fields:', () => {});
 // | Volume         |
 // | Issue          |
 // | Pages from     |
 // | Pages to       |
 // | Article number |
-When('they click the Save button', () => {});
-Then('they can see "Mandatory" error message for fields:', () => {});
 // | Search box for Journal |
 And('they can see "Invalid format" error message for fields:', () => {});
 //   | Volume         |
@@ -290,9 +322,6 @@ And('they can see "Invalid format" error message for fields:', () => {});
 
 // @1659
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select Resource subtype {string}', () => {});
-Then('they see fields:', () => {});
 //   | Search box for Journal |
 //   | DOI                    |
 //   | Volume                 |
@@ -308,16 +337,13 @@ Then('they see fields:', () => {});
 //   | Feature article      |
 
 // Scenario Outline: Creator sees that fields for Norwegian Science Index (NVI) incompatible Resource subtype are validated
-And('they select the Resource type "Contribution to journal"', () => {});
 And('they select Resource subtype {string}', () => {});
-And('they enter an invalid value in fields:', () => {});
+// And('they enter an invalid value in fields:', () => {});
 // | Volume         |
 // | Issue          |
 // | Pages from     |
 // | Pages to       |
 // | Article number |
-When('they click the Save button', () => {});
-Then('they can see "Mandatory" error messages for fields:', () => {});
 // | Search box for Journal |
 And('they can see "Invalid format" error message for fields:', () => {});
 //   | Volume         |
@@ -335,9 +361,9 @@ And('they can see "Invalid format" error message for fields:', () => {});
 
 // @1669
 // Scenario: Creator selects Resource type "Other publication" and selects subtype "Feature article"
+// TODO not implemented
 And('they select the Resource type "Other publication"', () => {});
 And('they select the subtype "Feature article"', () => {});
-Then('they see fields', () => {});
 // | Original version            |
 // | Search box for Published in |
 // | Volume                      |
@@ -347,9 +373,10 @@ Then('they see fields', () => {});
 
 // @1693
 // Scenario Outline: Creator sees fields for Resource subtypes for "Report"
-And('they select the Resource type "Report"', () => {});
-And('they select the subtype {string}:', () => {});
-Then('they see fields:', () => {});
+And('they select the Resource type "Report"', () => {
+  cy.get('');
+});
+// And('they select the subtype {string}:', () => {});
 //   | Search box for Publisher |
 //   | ISBN                     |
 //   | Total number of pages    |
@@ -363,13 +390,11 @@ Then('they see fields:', () => {});
 
 // Scenario Outline: Creator sees that fields are validated for Resource subtypes for "Report"
 And('they select the Resource type "Report"', () => {});
-And('they select the subtype {string}:', () => {});
-And('they enter an invalid value in fields:', () => {});
+// And('they select the subtype {string}:', () => {});
+// And('they enter an invalid value in fields:', () => {});
 // | ISBN                  |
 // | Total number of pages |
 Then('they can see the "Invalid ISBN" error message', () => {});
-When('they click the Save button', () => {});
-Then('they can see "Mandatory" error messages for fields:', () => {});
 // | Search box for Publisher |
 And('they can see "Invalid format" error message for fields:', () => {});
 //   | Total number of pages |
@@ -382,9 +407,11 @@ And('they can see "Invalid format" error message for fields:', () => {});
 
 // @1694
 // Scenario Outline: Creator sees fields for Resource subtypes for "Student thesis"
-And('they select the Resource type "Student thesis"', () => {});
-And('they select {string}:', () => {});
-Then('they see fields:', () => {});
+And('they select the Resource type "Student thesis"', () => {
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
+});
+// And('they select {string}:', () => {});
 //   | Search box for Publisher |
 //   | DOI                      |
 //   | Search box for Series    |
@@ -397,9 +424,7 @@ Then('they see fields:', () => {});
 
 // Scenario Outline: Creator sees that fields are validated for Resource subtypes for "Student thesis"
 And('they select the Resource type "Student thesis"', () => {});
-And('they select {string}:', () => {});
-When('they click the Save button', () => {});
-Then('they can see "Mandatory" error messages for fields:', () => {});
+// And('they select {string}:', () => {});
 //   | Search box for Publisher |
 // Examples:
 //   | Subtype              |
@@ -410,24 +435,20 @@ Then('they can see "Mandatory" error messages for fields:', () => {});
 
 // @1963
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"
-And('they select Resource type Book', () => {});
 And('they select Resource subtype "Monograph" from the list', () => {});
-Then('they see a Search box for "Publisher name"', () => {});
-And('they see a checkbox for "Is this a textbook?"', () => {});
 And('they see fields for', () => {});
 // | ISBN                  |
 // | Total number of pages |
 // | NPI discipline        |
 And('they see a Search box for "Title of the Series"', () => {});
 And('they see a preselected value for Peer review "Not peer reviewed"', () => {});
-And('they see the Norwegian Science Index (NVI) evaluation status', () => {});
+// And('they see the Norwegian Science Index (NVI) evaluation status', () => {});
 
 // @2021
 // Scenario: Creator sees fields for Resource subtype "Chapter in report"
 And('they select the Resource Type "Part of book/report"', () => {});
 And('they select the Registration Subtype "Chapter in report"', () => {});
 Then('they see an information box describing that a Container report must be published first', () => {});
-And('they see fields:', () => {});
 // | DOI                              |
 // | Search box for published reports |
 // | Pages from                       |
@@ -437,8 +458,6 @@ And('they see fields:', () => {});
 // Scenario: Creator sees that fields for Book are validated on Resource Type tab
 And('they select Resource type "Book"', () => {});
 And('they select Resource subtype "<BookType>" from the list', () => {});
-And('they click the Save button', () => {});
-Then('they can see "Mandatory" error messages for fields:', () => {});
 //   | Publisher      |
 //   | NPI discipline |
 // Examples:
