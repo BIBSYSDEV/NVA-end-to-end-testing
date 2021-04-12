@@ -24,25 +24,25 @@ Then('they see a list of subtypes:', (dataTable) => {
 });
 
 const selectSubtype = (subType) => {
-    let tag = window.testState.currentScenario.tags[0] > 0 || '';
-    let subtypes = {};
-    switch (tag) {
-      case '@1409':
-        subtypes = JOURNAL_SUBTYPES;
-        break;
-      case '@1694':
-      case '':
-        subtypes = STUDENT_THESIS_SUBTYPES;
-        break;
-    }
-    cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-    cy.get(`[data-testid=${subtypes[subType]}]`).click({ force: true });
-}
+  let tag = window.testState.currentScenario.tags[0].name;
+  let subtypes = {};
+  switch (tag) {
+    case '@1409':
+      subtypes = JOURNAL_SUBTYPES;
+      break;
+    case '@1694':
+    case '':
+      subtypes = STUDENT_THESIS_SUBTYPES;
+      break;
+  }
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
+  cy.get(`[data-testid=${subtypes[subType]}]`).click({ force: true });
+};
 
 And('they select {string}', (subType) => {
-    selectSubtype(subType)
+  selectSubtype(subType);
 });
 
 And('they select {string}:', (subType) => {
-    selectSubtype(subType)
+  selectSubtype(subType);
 });

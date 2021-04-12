@@ -111,7 +111,13 @@ export const JOURNAL_FIELDS = {
   'Peer reviewed': 'peer_review-true',
 };
 
+export const BOOK_SUPTYPES = {
+  'Monograph': 'BookMonograph',
+  'Anthology': 'BookAnthology',
+};
+
 export const BOOK_FIELDS = {
+  'Publisher': 'publisher-search-field',
   'ISBN': 'isbn-field',
   'Total number of pages': 'pages-field',
   'NPI discipline': 'search_npi',
@@ -125,10 +131,10 @@ export const REPORT_SUBTYPES = {
 };
 
 export const REPORT_FIELDS = {
-  'Search box for Publisher': 'publisher-search-input',
-  'ISBN': 'isbn-input',
-  'Total number of pages': 'pages-input',
-  'Search box for Series': 'series-search-input',
+  'Search box for Publisher': 'publisher-search-field',
+  'ISBN': 'isbn-field',
+  'Total number of pages': 'pages-field',
+  'Search box for Series': 'series-search-field',
 };
 
 export const STUDENT_THESIS_SUBTYPES = {
