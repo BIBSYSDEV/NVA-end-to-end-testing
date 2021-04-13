@@ -55,5 +55,6 @@
   "user-logs-in",
   "creator_navigates_to_description_tab",
   "creator-navigates-to-contributor-tab",
-  "creator_begins_registering_a_registration"
+  "creator_begins_registering_a_registration",
+  "creator_navigates_to_resource_type_tab"
 ]

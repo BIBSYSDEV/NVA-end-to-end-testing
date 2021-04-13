@@ -30,7 +30,23 @@ const deleteFile = (f) => {
   fs.unlinkSync(f);
 };
 
+const removeWhitespace = (f) => {
+  fs.readFile(f, 'utf8', function (err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    const result = data.replace(/[\u{0080}-\u{FFFF}]/gu, ' ');
+
+    fs.writeFile(f, result, 'utf8', function (err) {
+      if (err) return console.log(err);
+    });
+  });
+};
+
 getDirectories(CYPRESS_DIR, (err, res) => {
   const filesToDelete = res.filter(isFileToDelete);
+  const filesToKeep = res.filter(isInTestedFeatures);
   filesToDelete.forEach(deleteFile);
+  console.log(filesToKeep);
+  filesToKeep.forEach(removeWhitespace);
 });
