@@ -156,7 +156,7 @@ export const CHAPTER_SUBTYPES = {
 
 export const CHAPTER_FIELDS = {
   'DOI': 'doi-field',
-  'Search box for published books': 'anthology-info',
+  'Search box for published books': 'info-anthology',
   'Pages from': 'chapter-pages-from',
   'Pages to': 'chapter-pages-to',
   'Peer reviewed': 'peer_review-true',

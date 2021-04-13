@@ -33,8 +33,6 @@ Given('Creator begins registering a Registration in the Wizard', () => {
     }
   }
 
-  cy.log(scenario);
-
   switch (scenario) {
     case '@395':
     case '@1625':
@@ -84,18 +82,10 @@ And('they select Resource subtype {string}', (subtype) => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get(`[data-testid=${JOURNAL_SUBTYPES[subtype]}]`).click({ force: true });
 });
-
 // end common steps
 
 //   @274
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource type "Contribution to journal"
-//   | Journal article      |
-//   | Short communication  |
-//   | Feature article      |
-//   | Letter to the Editor |
-//   | Book review          |
-//   | Editorial            |
-//   | Corrigendum          |
 
 //   @453
 //   Scenario: Creator navigates to Resource Type tab
@@ -125,19 +115,13 @@ And('they see Save is enabled', () => {
 });
 
 //   Scenario: Creator sees that fields are validated on Resource Type tab
-//   | Type |
 
 //   @393
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource type "Report"
-// And('they select the Resource type "Report"', () => {
-//   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-//   cy.get('[data-testid=publication-context-type-Report]').click({ force: true });
-// });
-//   | Research report      |
-//   | Policy report        |
-//   | Working paper        |
-//   | Other type of report |
-
+And('they select the Resource type "Report"', () => {
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Report]').click({ force: true });
+});
 //   @392
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Anthology"
 And('they select Resource subtype "Anthology" from the list', () => {
@@ -161,7 +145,7 @@ And('they see a preselected value for Peer review "Not peer reviewed"', () => {
 
 // @394
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Student thesis"
-And('they select the Resource type "Student thesis"', () => {
+And('they select the Resource type "Student thesis"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
 });
@@ -186,9 +170,6 @@ Then('they see an information box describing that a Container book must be publi
 //   | Pages from                     |
 //   | Pages to                       |
 //   | Peer reviewed                  |
-// And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
-//   cy.get('[data-testid=nvi-chapter]').should('be.visible');
-// });
 
 // @1409
 // Scenario Outline: Creator selects Contribution to Journal and Peer Review Details are hidden
@@ -204,17 +185,13 @@ Then('they see that the Peer Review Details are hidden', () => {
 // Examples:
 //   | Subtype              |
 //   | Editorial            |
-//   | Letter to the Editor |
+//   | Letter to the Editor |
 //   | Book review          |
 
 // @1624
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Other publication"
 // TODO not implemented
-And('they select the Resource type "Other publication"', () => {});
-//   | Feature article   |
-//   | Map               |
-//   | Musical notation  |
-//   | Other publication |
+And('they select the Resource type "Other publication"', () => {});
 
 // @1625
 // Scenario: Creator sees fields for Resource subtype "Corrigendum"
@@ -222,194 +199,54 @@ And('they select the Resource subtype "Corrigendum"', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get(`[data-testid=publication-instance-type-JournalCorrigendum]`).click({ force: true });
 });
-// | Search box for "Journal article" |
-// | DOI                              |
-// | Volume                           |
-// | Issue                            |
-// | Pages from                       |
-// | Pages to                         |
-// | Article number                   |
-And('they see a disabled field for Journal based on selected Journal article', () => {});
+And('they see a disabled field for Journal based on selected Journal article', () => {
+  // Journal article not selected in test, unable to test this
+});
 
 // Scenario: Creator sees that fields for Resource subtype "Corrigendum" are validated
-// | Volume         |
-// | Issue          |
-// | Pages from     |
-// | Pages to       |
-// | Article number |
-// Then('they can see "Mandatory" error message for fields:', (dataTable) => {
-//   dataTable.rawTable.forEach((field) => {
-//     cy.get(`[data-testid=${JOURNAL_FIELDS[field[0]]}]`).within((field) => {
-//       cy.wrap(field).contains('Journal is required');
-//     });
-//   });
-// });
-// | Search box for "Journal article" |
-// | Volume         |
-// | Issue          |
-// | Pages from     |
-// | Pages to       |
-// | Article number |
 
 // @1631
 // Scenario: Creator selects Resource type "Other publication" and selects subtype "Map"
 // TODO not implemented
-And('they select the Resource type "Other publication"', () => {});
+And('they select the Resource type "Other publication"', () => {});
 And('they select the subtype "Map"', () => {});
-// | Search box for Publisher |
-// | Original version         |
 
 // @1632
 // Scenario: Creator selects Resource type "Other publication" and selects subtype "Musical notation"
 // TODO not implemented
-And('they select the Resource type "Other publication"', () => {});
+And('they select the Resource type "Other publication"', () => {});
 And('they select the subtype "Musical notation"', () => {});
-// | Search box for Publisher |
-// | Original version         |
-// | Pages from               |
-// | Pages to                 |
-// | ISMN                     |
 
 // @1633
 // Scenario: Creator selects Resource type "Other publication" and selects subtype "Other publication"
 // TODO not implemented
-And('they select the Resource type "Other publication"', () => {});
+And('they select the Resource type "Other publication"', () => {});
 And('they select the subtype "Other publication"', () => {});
-// | Original version            |
-// | Search box for Published in |
-// | Search box for Publisher    |
-// | Pages from                  |
-// | Pages to                    |
-// | Total number of pages       |
 
 // @1656
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) compatible Resource subtype
-// | Search-box for Journal |
-// | DOI                    |
-// | Volume                 |
-// | Issue                  |
-// | Pages from             |
-// | Pages to               |
-// | Article number         |
-// | Peer reviewed          |
-// And('they see the Norwegian Science Index (NVI) evaluation status', () => {
-//   cy.get('[data-testid^=peer_review]');
-// });
-// Examples:
-//   | Subtype             |
-//   | Journal article     |
-//   | Short communication |
 
 // Scenario Outline: Creator sees that fields for Norwegian Science Index (NVI) compatible Resource subtype are validated
-// And('they enter an invalid value in fields:', () => {});
-// | Volume         |
-// | Issue          |
-// | Pages from     |
-// | Pages to       |
-// | Article number |
-// | Search box for Journal |
-// And('they can see "Invalid format" error message for fields:', () => {});
-//   | Volume         |
-//   | Issue          |
-//   | Pages from     |
-//   | Pages to       |
-//   | Article number |
-// Examples:
-//   | Subtype             |
-//   | Journal article     |
-//   | Short communication |
 
 // @1659
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype
-//   | Search box for Journal |
-//   | DOI                    |
-//   | Volume                 |
-//   | Issue                  |
-//   | Pages from             |
-//   | Pages to               |
-//   | Article number         |
-// Examples:
-//   | Subtype              |
-//   | Letter to the Editor |
-//   | Book review          |
-//   | Editorial            |
-//   | Feature article      |
 
 // Scenario Outline: Creator sees that fields for Norwegian Science Index (NVI) incompatible Resource subtype are validated
-And('they select Resource subtype {string}', () => {});
-// And('they enter an invalid value in fields:', () => {});
-// | Volume         |
-// | Issue          |
-// | Pages from     |
-// | Pages to       |
-// | Article number |
-// | Search box for Journal |
-// And('they can see "Invalid format" error message for fields:', () => {});
-//   | Volume         |
-//   | Issue          |
-//   | Pages from     |
-//   | Pages to       |
-//   | Article number |
-// Examples:
-//   | Subtype              |
-//   | Feature article      |
-//   | Letter to the Editor |
-//   | Book review          |
-//   | Editorial            |
-//   | Feature article      |
 
 // @1669
 // Scenario: Creator selects Resource type "Other publication" and selects subtype "Feature article"
 // TODO not implemented
-And('they select the Resource type "Other publication"', () => {});
+And('they select the Resource type "Other publication"', () => {});
 And('they select the subtype "Feature article"', () => {});
-// | Original version            |
-// | Search box for Published in |
-// | Volume                      |
-// | Issue                       |
-// | Pages from                  |
-// | Pages to                    |
 
 // @1693
 // Scenario Outline: Creator sees fields for Resource subtypes for "Report"
-And('they select the Resource type "Report"', () => {
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Report]').click({ force: true });
-});
-And('they select the subtype {string}:', (subtype) => {
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get(`[data-testid=${REPORT_SUBTYPES[subtype]}]`).click({ force: true });
-});
-//   | Search box for Publisher |
-//   | ISBN                     |
-//   | Total number of pages    |
-//   | Search box for Series    |
-// Examples:
-//   | Subtype              |
-//   | Research report      |
-//   | Policy report        |
-//   | Working paper        |
-//   | Other type of report |
 
 // Scenario Outline: Creator sees that fields are validated for Resource subtypes for "Report"
-// And('they select the Resource type "Report"', () => {});
-And('they select the subtype {string}:', (subtype) => {});
-// And('they enter an invalid value in fields:', () => {});
-// | ISBN                  |
-// | Total number of pages |
 Then('they can see the "Invalid ISBN" error message', () => {
   cy.get('[data-testid=isbn-field] input').type('invalid').focus().blur();
   cy.get('[data-testid=snackbar-warning]').contains('invalid');
 });
-// | Search box for Publisher |
-// And('they can see "Invalid format" error message for fields:', () => {});
-//   | Total number of pages |
-// Examples:
-//   | Subtype              |
-//   | Research report      |
-//   | Policy report        |
-//   | Working paper        |
-//   | Other type of report |
 
 // @1694
 // Scenario Outline: Creator sees fields for Resource subtypes for "Student thesis"
@@ -417,27 +254,9 @@ And('they select the Resource type "Student thesis"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
 });
-// And('they select {string}:', () => {});
-//   | Search box for Publisher |
-//   | DOI                      |
-//   | Search box for Series    |
-// Examples:
-//   | Subtype              |
-//   | Bachelor thesis      |
-//   | Master thesis        |
-//   | Doctoral thesis      |
-//   | Other student thesis |
 
 // Scenario Outline: Creator sees that fields are validated for Resource subtypes for "Student thesis"
 And('they select the Resource type "Student thesis"', () => {});
-// And('they select {string}:', () => {});
-//   | Search box for Publisher |
-// Examples:
-//   | Subtype              |
-//   | Bachelor thesis      |
-//   | Master thesis        |
-//   | Doctoral thesis      |
-//   | Other student thesis |
 
 // @1963
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"
@@ -445,29 +264,15 @@ And('they select Resource subtype "Monograph" from the list', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
 });
-// And('they see fields for', () => {});
-// | ISBN                  |
-// | Total number of pages |
-// | NPI discipline        |
-// And('they see a Search box for "Title of the Series"', () => {});
-// And('they see a preselected value for Peer review "Not peer reviewed"', () => {});
-// And('they see the Norwegian Science Index (NVI) evaluation status', () => {});
 
 // @2021
 // Scenario: Creator sees fields for Resource subtype "Chapter in report"
 // TODO not implemented
-
-// And('they select the Resource Type "Part of book/report"', () => {});
-// TODO not implemented
 And('they select the Registration Subtype "Chapter in report"', () => {});
 Then('they see an information box describing that a Container report must be published first', () => {});
-// | DOI                              |
-// | Search box for published reports |
-// | Pages from                       |
-// | Pages to                         |
 
 // @2229
-// Scenario: Creator sees that fields for Book are validated on Resource Type tab
+// Scenario Outline: Creator sees that fields for Book are validated on Resource Type tab
 And('they select Resource type "Book"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
@@ -478,8 +283,6 @@ And('they select Resource subtype "<BookType>" from the list', (dataTable) => {
     cy.get(`[data-testid=publication-instance-type-${type[0]}]`).click({ force: true });
   });
 });
-//   | Publisher      |
-//   | NPI discipline |
 // Examples:
 //   | BookType  |
 //   | Anthology |

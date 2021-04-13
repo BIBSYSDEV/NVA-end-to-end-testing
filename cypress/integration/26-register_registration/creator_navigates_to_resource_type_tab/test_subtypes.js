@@ -32,10 +32,6 @@ const selectSubtype = (subType) => {
     scenario = scenario.substring(0, scenario.indexOf('(example')).trim();
   }
 
-  cy.log(scenario);
-  cy.log(subType);
-  cy.log(window.testState.currentScenario);
-
   let subtypes = {};
   switch (scenario) {
     case '@1409':
@@ -46,7 +42,6 @@ const selectSubtype = (subType) => {
       subtypes = STUDENT_THESIS_SUBTYPES;
       break;
   }
-  cy.log(subtypes);
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get(`[data-testid=${subtypes[subType]}]`).click({ force: true });
 };

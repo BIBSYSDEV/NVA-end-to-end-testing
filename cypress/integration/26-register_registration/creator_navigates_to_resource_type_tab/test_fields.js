@@ -8,9 +8,9 @@ import {
 } from '../../../support/data_testid_constants';
 
 const testFields = (dataTable) => {
-  const tag = window.testState.currentScenario.tags[0].name;
+  const scenario = window.testState.currentScenario.tags[0].name;
   let fields = {};
-  switch (tag) {
+  switch (scenario) {
     case '@395':
     case '@2021':
       fields = CHAPTER_FIELDS;

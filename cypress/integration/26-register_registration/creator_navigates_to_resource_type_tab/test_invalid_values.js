@@ -59,9 +59,6 @@ const testMandatoryFields = (dataTable) => {
     }
   }
 
-  cy.log(window.testState.currentScenario);
-  cy.log(scenario);
-
   let fields = {};
 
   switch (scenario) {
@@ -83,8 +80,6 @@ const testMandatoryFields = (dataTable) => {
       fields = STUDENT_THESIS_FIELDS;
       break;
   }
-  cy.log(fields);
-  cy.log(dataTable.rawTable);
   dataTable.rawTable.forEach((value) => {
     cy.get(`[data-testid=${fields[value[0]]}]`).within((field) => {
       cy.wrap(field).contains('is required');
