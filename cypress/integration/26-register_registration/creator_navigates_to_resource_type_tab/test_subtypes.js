@@ -24,17 +24,29 @@ Then('they see a list of subtypes:', (dataTable) => {
 });
 
 const selectSubtype = (subType) => {
-  let tag = window.testState.currentScenario.tags[0].name;
+  let scenario = window.testState.currentScenario.name;
+  if (window.testState.currentScenario.tags.length > 0) {
+    scenario = window.testState.currentScenario.tags[0].name;
+  }
+  if (scenario.includes('(example')) {
+    scenario = scenario.substring(0, scenario.indexOf('(example')).trim();
+  }
+
+  cy.log(scenario);
+  cy.log(subType);
+  cy.log(window.testState.currentScenario);
+
   let subtypes = {};
-  switch (tag) {
+  switch (scenario) {
     case '@1409':
       subtypes = JOURNAL_SUBTYPES;
       break;
     case '@1694':
-    case '':
+    case 'Creator sees that fields are validated for Resource subtypes for "Student thesis"':
       subtypes = STUDENT_THESIS_SUBTYPES;
       break;
   }
+  cy.log(subtypes);
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get(`[data-testid=${subtypes[subType]}]`).click({ force: true });
 };

@@ -179,7 +179,7 @@ And('they select the Registration Subtype "Chapter in book"', () => {
   cy.wrap('Chapter in book').as('subType');
 });
 Then('they see an information box describing that a Container book must be published first', () => {
-  // cy.get('[data-testid=info-anthology]').should('be.visible');
+  cy.get('[data-testid=info-anthology]').should('be.visible');
 });
 //   | DOI                            |
 //   | Search box for published books |
@@ -458,9 +458,9 @@ And('they select Resource subtype "Monograph" from the list', () => {
 // TODO not implemented
 
 // And('they select the Resource Type "Part of book/report"', () => {});
-// And('they select the Registration Subtype "Chapter in report"', () => {
-// });
-// Then('they see an information box describing that a Container report must be published first', () => {});
+// TODO not implemented
+And('they select the Registration Subtype "Chapter in report"', () => {});
+Then('they see an information box describing that a Container report must be published first', () => {});
 // | DOI                              |
 // | Search box for published reports |
 // | Pages from                       |

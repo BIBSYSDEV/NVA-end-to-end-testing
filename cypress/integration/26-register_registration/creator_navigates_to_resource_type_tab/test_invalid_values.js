@@ -113,10 +113,15 @@ And('they can see "Invalid format" error message for fields:', (dataTable) => {
 
   switch (scenario) {
     case 'Creator sees that fields for Resource subtype "Corrigendum" are validated':
+    case 'Creator sees that fields for Norwegian Science Index (NVI) compatible Resource subtype are validated':
+    case 'Creator sees that fields for Norwegian Science Index (NVI) incompatible Resource subtype are validated':
       fields = JOURNAL_FIELDS;
       break;
     case 'Creator sees that fields are validated for Resource subtypes for "Report"':
       fields = REPORT_FIELDS;
+      break;
+    case 'Creator sees that fields are validated for Resource subtypes for "Student thesis"':
+      fields = STUDENT_THESIS_FIELDS;
       break;
   }
 
