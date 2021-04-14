@@ -19,8 +19,8 @@ And('they see the File upload widget', () => {
 And('they see the tab Description is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-description]').should('be.visible');
 });
-And('they see the tab Reference is clickable', () => {
-  cy.get('[data-testid=nav-tabpanel-reference]').should('be.visible');
+And('they see the tab Resource Type is clickable', () => {
+  cy.get('[data-testid=nav-tabpanel-resource-type]').should('be.visible');
 });
 And('they see the tab Contributors is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-contributors]').should('be.visible');

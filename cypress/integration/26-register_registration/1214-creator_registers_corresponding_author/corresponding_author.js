@@ -23,9 +23,8 @@ And('they see an Author', () => {
 When('they check the Corresponding checkbox', () => {
   cy.get('[data-testid=author-corresponding-checkbox]').click({ force: true });
 });
-Then('they see the Corresponding Author Email field', () => {
-  cy.get('[data-testid=author-email-input]').should('be.visible');
-});
-And("they enter the Author's email", () => {
-  cy.get('[data-testid=author-email-input]').type('test@test.no');
+Then('they see the Corresponding Author checkbox is checked', () => {
+  cy.get('[data-testid=author-corresponding-checkbox]').within((checkbox) => {
+    cy.wrap(checkbox).get('input').should('be.checked');
+  });
 });

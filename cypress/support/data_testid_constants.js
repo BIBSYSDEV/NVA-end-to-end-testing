@@ -86,6 +86,14 @@ export const MY_INSTITUTION_FIELDS_TESTVALUE = {
   'Archive name': 'Testarchive',
 };
 
+export const RESOURCE_TYPES = {
+  'Contribution to journal': 'publication-context-type-Journal',
+  'Book': 'publication-context-type-Book',
+  'Report': 'publication-context-type-Report',
+  'Student thesis': 'publication-context-type-Degree',
+  'Part of book/report': 'publication-context-type-Chapter',
+};
+
 export const JOURNAL_SUBTYPES = {
   'Journal article': 'publication-instance-type-JournalArticle',
   'Short communication': 'publication-instance-type-JournalShortCommunication',
@@ -136,4 +144,9 @@ export const DESCRIPTION_FIELDS = {
 
 export const REFERENCE_FIELDS = {
   'Type': 'publication-context-type',
+};
+
+export const CONTRIBUTOR_CREATE_FIELDS = {
+  'First name': 'create-contributor-first-name',
+  'Last name': 'create-contributor-last-name',
 };
