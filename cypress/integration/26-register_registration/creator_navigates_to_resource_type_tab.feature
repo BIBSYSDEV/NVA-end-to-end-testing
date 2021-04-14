@@ -58,22 +58,12 @@ Feature: Creator navigates to Resource Type tab
       | Total number of pages |
       | NPI discipline        |
     And they see a Search box for "Title of the Series"
-<<<<<<< HEAD
 
   @394
   Scenario: Creator navigates to the Resource Type tab and selects Resource type "Student thesis"
     Given Creator begins registering a Registration in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Student thesis"
-=======
-    And they see a preselected value for Peer review "Not peer reviewed"
-
-  @394
-  Scenario: Creator navigates to the Resource Type tab and selects Resource type "Student thesis"
-    Given Creator begins registering a Registration in the Wizard
-    When they navigate to the Resource Type tab
-    And they select the Resource type "Student thesis"
->>>>>>> develop
     Then they see a list of subtypes:
       | Bachelor thesis      |
       | Master thesis        |
@@ -105,24 +95,14 @@ Feature: Creator navigates to Resource Type tab
     Examples:
       | Subtype              |
       | Editorial            |
-<<<<<<< HEAD
       | Letter to the Editor |
-=======
-      | Letter to the Editor |
->>>>>>> develop
       | Book review          |
 
   @1624
   Scenario: Creator navigates to the Resource Type tab and selects Resource type "Other publication"
-<<<<<<< HEAD
     Given Creator begins registering a Publication in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Other publication"
-=======
-    Given Creator begins registering a Publication in the Wizard
-    When they navigate to the Resource Type tab
-    And they select the Resource type "Other publication"
->>>>>>> develop
     Then they see a list of subtypes:
       | Feature article   |
       | Map               |
@@ -168,15 +148,9 @@ Feature: Creator navigates to Resource Type tab
 
   @1631
   Scenario: Creator selects Resource type "Other publication" and selects subtype "Map"
-<<<<<<< HEAD
     Given Creator begins registering a Publication in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Other publication"
-=======
-    Given Creator begins registering a Publication in the Wizard
-    When they navigate to the Resource Type tab
-    And they select the Resource type "Other publication"
->>>>>>> develop
     And they select the subtype "Map"
     Then they see fields
       | Search box for Publisher |
@@ -184,51 +158,29 @@ Feature: Creator navigates to Resource Type tab
 
   @1632
   Scenario: Creator selects Resource type "Other publication" and selects subtype "Musical notation"
-<<<<<<< HEAD
     Given Creator begins registering a Publication in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Other publication"
-=======
-    Given Creator begins registering a Publication in the Wizard
-    When they navigate to the Resource Type tab
-    And they select the Resource type "Other publication"
->>>>>>> develop
     And they select the subtype "Musical notation"
     Then they see fields
       | Search box for Publisher |
       | Original version         |
-<<<<<<< HEAD
       | Pages from               |
       | Pages to                 |
-=======
-      | Pages from               |
-      | Pages to                 |
->>>>>>> develop
       | ISMN                     |
 
   @1633
   Scenario: Creator selects Resource type "Other publication" and selects subtype "Other publication"
-<<<<<<< HEAD
     Given Creator begins registering a Publication in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Other publication"
-=======
-    Given Creator begins registering a Publication in the Wizard
-    When they navigate to the Resource Type tab
-    And they select the Resource type "Other publication"
->>>>>>> develop
     And they select the subtype "Other publication"
     Then they see fields
       | Original version            |
       | Search box for Published in |
       | Search box for Publisher    |
-<<<<<<< HEAD
       | Pages from                  |
       | Pages to                    |
-=======
-      | Pages from                  |
-      | Pages to                    |
->>>>>>> develop
       | Total number of pages       |
 
   @1656
@@ -328,28 +280,17 @@ Feature: Creator navigates to Resource Type tab
 
   @1669
   Scenario: Creator selects Resource type "Other publication" and selects subtype "Feature article"
-<<<<<<< HEAD
     Given Creator begins registering a Publication in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Other publication"
-=======
-    Given Creator begins registering a Publication in the Wizard
-    When they navigate to the Resource Type tab
-    And they select the Resource type "Other publication"
->>>>>>> develop
     And they select the subtype "Feature article"
     Then they see fields
       | Original version            |
       | Search box for Published in |
       | Volume                      |
       | Issue                       |
-<<<<<<< HEAD
       | Pages from                  |
       | Pages to                    |
-=======
-      | Pages from                  |
-      | Pages to                    |
->>>>>>> develop
 
   @1693
   Scenario Outline: Creator sees fields for Resource subtypes for "Report"
@@ -452,11 +393,7 @@ Feature: Creator navigates to Resource Type tab
       | Pages to                         |
 
   @2229
-<<<<<<< HEAD
-  Scenario Outline: Creator sees that fields for Book are validated on Resource Type tab
-=======
   Scenario: Creator sees that fields for Book are validated on Resource Type tab
->>>>>>> develop
     Given Creator begins registering a Registration in the Wizard
     When they navigate to the Resource Type tab
     And they select Resource type "Book"
