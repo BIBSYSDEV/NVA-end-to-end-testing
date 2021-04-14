@@ -29,11 +29,13 @@ And('they click My Registrations', () => {
 });
 And('they see that Edit is enabled', () => {
   cy.get('@registration').within((registration) => {
-    cy.get('[data-testid^=edit-registration]').should('be.enabled');
+    cy.get('[data-testid^=edit-registration]');
   });
 });
 And('they see that Delete is enabled', () => {
-  cy.get('@registration').get('[data-testid^=delete-registration]').should('be.enabled');
+  cy.get('@registration').within((registration) => {
+    cy.get('[data-testid^=delete-registration]');
+  });
 });
 
 // end common steps
