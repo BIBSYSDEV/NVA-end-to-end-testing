@@ -1,19 +1,6 @@
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import {
-  RESOURCE_TYPE_FIELDS,
-  JOURNAL_SUBTYPES,
-  JOURNAL_FIELDS,
-  REPORT_SUBTYPES,
-  STUDENT_THESIS_SUBTYPES,
-  REPORT_FIELDS,
-  BOOK_SUBTYPES,
-  BOOK_FIELDS,
-  RESOURCE_TYPES,
-  STUDENT_THESIS_FIELDS,
-  CHAPTER_FIELDS,
-  OTHER_SUBTYPES,
-} from '../../../support/data_testid_constants';
+import { JOURNAL_SUBTYPES, BOOK_FIELDS, RESOURCE_TYPES } from '../../../support/data_testid_constants';
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 const filename = 'example.txt';
