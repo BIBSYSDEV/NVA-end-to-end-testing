@@ -74,7 +74,8 @@ Feature: Creator navigates to Resource Type tab
   Scenario: Creator sees fields for Resource subtype "Chapter in book"
     Given Creator begins registering a Registration in the Wizard
     When they navigate to the Resource Type tab
-    And they select the Resource Type "Part of book/report"
+    And they select the Resource Type 
+      | Part of book/report |
     And they select the Registration Subtype "Chapter in book"
     Then they see an information box describing that a Container book must be published first
     And they see fields:
@@ -100,7 +101,7 @@ Feature: Creator navigates to Resource Type tab
 
   @1624
   Scenario: Creator navigates to the Resource Type tab and selects Resource type "Other publication"
-    Given Creator begins registering a Publication in the Wizard
+    Given Creator begins registering a Registration in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Other publication"
     Then they see a list of subtypes:
@@ -148,7 +149,7 @@ Feature: Creator navigates to Resource Type tab
 
   @1631
   Scenario: Creator selects Resource type "Other publication" and selects subtype "Map"
-    Given Creator begins registering a Publication in the Wizard
+    Given Creator begins registering a Registration in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Other publication"
     And they select the subtype "Map"
@@ -158,7 +159,7 @@ Feature: Creator navigates to Resource Type tab
 
   @1632
   Scenario: Creator selects Resource type "Other publication" and selects subtype "Musical notation"
-    Given Creator begins registering a Publication in the Wizard
+    Given Creator begins registering a Registration in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Other publication"
     And they select the subtype "Musical notation"
@@ -171,7 +172,7 @@ Feature: Creator navigates to Resource Type tab
 
   @1633
   Scenario: Creator selects Resource type "Other publication" and selects subtype "Other publication"
-    Given Creator begins registering a Publication in the Wizard
+    Given Creator begins registering a Registration in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Other publication"
     And they select the subtype "Other publication"
@@ -280,7 +281,7 @@ Feature: Creator navigates to Resource Type tab
 
   @1669
   Scenario: Creator selects Resource type "Other publication" and selects subtype "Feature article"
-    Given Creator begins registering a Publication in the Wizard
+    Given Creator begins registering a Registration in the Wizard
     When they navigate to the Resource Type tab
     And they select the Resource type "Other publication"
     And they select the subtype "Feature article"
@@ -383,7 +384,8 @@ Feature: Creator navigates to Resource Type tab
   Scenario: Creator sees fields for Resource subtype "Chapter in report"
     Given Creator begins registering a Registration in the Wizard
     When they navigate to the Resource Type tab
-    And they select the Resource Type "Part of book/report"
+    And they select the Resource Type 
+      | Part of book/report |
     And they select the Registration Subtype "Chapter in report"
     Then they see an information box describing that a Container report must be published first
     And they see fields:
@@ -393,7 +395,7 @@ Feature: Creator navigates to Resource Type tab
       | Pages to                         |
 
   @2229
-  Scenario: Creator sees that fields for Book are validated on Resource Type tab
+  Scenario Outline: Creator sees that fields for Book are validated on Resource Type tab
     Given Creator begins registering a Registration in the Wizard
     When they navigate to the Resource Type tab
     And they select Resource type "Book"

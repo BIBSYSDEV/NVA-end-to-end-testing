@@ -192,14 +192,6 @@ export const RESOURCE_TYPE_FIELDS = {
   'Type': 'publication-context-type',
 };
 
-export const RESOURCE_TYPES = {
-  'Contribution to journal': 'publication-context-type-Journal',
-  'Book': 'publication-context-type-Book',
-  'Report': 'publication-context-type-Report',
-  'Student thesis': 'publication-context-type-Degree',
-  'Part of book/report': 'publication-context-type-Chapter',
-};
-
 export const CONTRIBUTOR_CREATE_FIELDS = {
   'First name': 'create-contributor-first-name',
   'Last name': 'create-contributor-last-name',

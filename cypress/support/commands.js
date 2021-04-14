@@ -169,3 +169,16 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 Cypress.Commands.add('addMockOrcid', () => {
   cy.window().its('store').invoke('dispatch', { type: SET_EXTERNAL_ORCID, orcid: 'test_orcid' });
 });
+
+Cypress.Commands.add('findScenario', () => {
+  let scenario = '';
+  if (window.testState.currentScenario.tags && window.testState.currentScenario.tags.length > 0) {
+    scenario = window.testState.currentScenario.tags[0].name;
+  } else {
+    scenario = window.testState.currentScenario.name;
+    if (scenario.includes('(example')) {
+      scenario = scenario.substring(0, scenario.indexOf('(example')).trim();
+    }
+  }
+  cy.wrap(scenario).as('scenario');
+});

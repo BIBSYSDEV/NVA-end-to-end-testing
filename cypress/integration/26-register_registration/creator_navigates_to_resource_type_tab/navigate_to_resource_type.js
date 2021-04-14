@@ -10,33 +10,26 @@ const filename = 'example.txt';
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  let scenario = '';
-  if (window.testState.currentScenario.tags && window.testState.currentScenario.tags.length > 0) {
-    scenario = window.testState.currentScenario.tags[0].name;
-  } else {
-    scenario = window.testState.currentScenario.name;
-    if (scenario.includes('(example')) {
-      scenario = scenario.substring(0, scenario.indexOf('(example')).trim();
+  cy.findScenario();
+  cy.get('@scenario').then((scenario) => {
+    switch (scenario) {
+      case '@395':
+      case '@1625':
+      case '@1656':
+      case '@1659':
+      case '@1694':
+      case '@2021':
+      case 'Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype':
+        cy.startRegistrationWithLink(doiLink);
+        cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
+        cy.get('[data-testid=registration-link-next-button]').click({ force: true });
+        break;
+      default:
+        cy.startRegistrationWithFile(filename);
+        cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
+        cy.get('[data-testid=registration-file-start-button]').click({ force: true });
     }
-  }
-
-  switch (scenario) {
-    case '@395':
-    case '@1625':
-    case '@1656':
-    case '@1659':
-    case '@1694':
-    case '@2021':
-    case 'Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype':
-      cy.startRegistrationWithLink(doiLink);
-      cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
-      cy.get('[data-testid=registration-link-next-button]').click({ force: true });
-      break;
-    default:
-      cy.startRegistrationWithFile(filename);
-      cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-      cy.get('[data-testid=registration-file-start-button]').click({ force: true });
-  }
+  });
 });
 When('they navigate to the Resource Type tab', () => {
   cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
@@ -136,10 +129,6 @@ And('they select the Resource type "Student thesis"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
 });
-//   | Bachelor thesis      |
-//   | Master thesis        |
-//   | Doctoral thesis      |
-//   | Other student thesis |
 
 // @395
 // Scenario: Creator sees fields for Resource subtype "Chapter in book"
@@ -152,11 +141,6 @@ And('they select the Registration Subtype "Chapter in book"', () => {
 Then('they see an information box describing that a Container book must be published first', () => {
   cy.get('[data-testid=info-anthology]').should('be.visible');
 });
-//   | DOI                            |
-//   | Search box for published books |
-//   | Pages from                     |
-//   | Pages to                       |
-//   | Peer reviewed                  |
 
 // @1409
 // Scenario Outline: Creator selects Contribution to Journal and Peer Review Details are hidden
