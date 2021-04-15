@@ -1,5 +1,5 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { USER_SAVE_REGISTRATION } from '../../../support/constants';
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 const doiTitle =
@@ -43,7 +43,7 @@ And('they see that Delete is enabled', () => {
 // @388
 // Scenario: Creator sees Registration based on a Link is saved
 Given('Creator begins registering with a Link', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(USER_SAVE_REGISTRATION);
   cy.startRegistrationWithLink(doiLink);
 });
 Then('they see the Registration is saved and the title is listed and marked as Draft', () => {
@@ -63,7 +63,7 @@ Then('they see the Registration is saved and the title is listed and marked as D
 // @391
 // Scenario: Creator sees Registration based on file upload is saved
 Given('Creator begins registration by uploading a file', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(USER_SAVE_REGISTRATION);
   cy.startRegistrationWithFile(filename);
 });
 Then('they see the Registration is saved and the title is "[Missing title]" and marked as Draft', () => {
