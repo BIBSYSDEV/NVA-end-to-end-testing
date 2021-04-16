@@ -57,5 +57,6 @@
   "creator_navigates_to_description_tab",
   "creator-navigates-to-contributor-tab",
   "creator_begins_registering_a_registration",
-  "institution_administrator_edits_my_institution"
+  "institution_administrator_edits_my_institution",
+  "owner_navigates_to_the_landing_page_for_their_registration"
 ]
