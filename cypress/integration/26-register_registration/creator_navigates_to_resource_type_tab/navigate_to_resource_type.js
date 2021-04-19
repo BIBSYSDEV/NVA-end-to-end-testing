@@ -164,19 +164,6 @@ Then('they see that the Peer Review Details are hidden', () => {
   cy.get('[data-testid=peer_review-true]').should('not.exist');
   cy.get('[data-testid=peer_review-false]').should('not.exist');
 });
-// Examples:
-//   | Subtype              |
-//   | Editorial            |
-//   | Letter to the Editor |
-//   | Book review          |
-
-// @1624
-// Scenario: Creator navigates to the Resource Type tab and selects Resource type "Other publication"
-// TODO not implemented
-And('they select the Resource type "Other publication"', () => {
-  cy.wrap({}).as('subTypes');
-  cy.wrap({}).as('fields');
-});
 
 // @1625
 // Scenario: Creator sees fields for Resource subtype "Corrigendum"
@@ -190,24 +177,6 @@ And('they see a disabled field for Journal based on selected Journal article', (
 
 // Scenario: Creator sees that fields for Resource subtype "Corrigendum" are validated
 
-// @1631
-// Scenario: Creator selects Resource type "Other publication" and selects subtype "Map"
-// TODO not implemented
-And('they select the Resource type "Other publication"', () => {});
-And('they select the subtype "Map"', () => {});
-
-// @1632
-// Scenario: Creator selects Resource type "Other publication" and selects subtype "Musical notation"
-// TODO not implemented
-And('they select the Resource type "Other publication"', () => {});
-And('they select the subtype "Musical notation"', () => {});
-
-// @1633
-// Scenario: Creator selects Resource type "Other publication" and selects subtype "Other publication"
-// TODO not implemented
-And('they select the Resource type "Other publication"', () => {});
-And('they select the subtype "Other publication"', () => {});
-
 // @1656
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) compatible Resource subtype
 
@@ -217,12 +186,6 @@ And('they select the subtype "Other publication"', () => {});
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype
 
 // Scenario Outline: Creator sees that fields for Norwegian Science Index (NVI) incompatible Resource subtype are validated
-
-// @1669
-// Scenario: Creator selects Resource type "Other publication" and selects subtype "Feature article"
-// TODO not implemented
-And('they select the Resource type "Other publication"', () => {});
-And('they select the subtype "Feature article"', () => {});
 
 // @1693
 // Scenario Outline: Creator sees fields for Resource subtypes for "Report"
@@ -249,15 +212,6 @@ And('they select Resource subtype "Monograph" from the list', () => {
   cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
 });
 
-// @2021
-// Scenario: Creator sees fields for Resource subtype "Chapter in report"
-// TODO not implemented
-And('they select the Registration Subtype "Chapter in report"', () => {
-  cy.wrap({}).as('fields');
-  cy.wrap({}).as('subTypes');
-});
-Then('they see an information box describing that a Container report must be published first', () => {});
-
 // @2229
 // Scenario Outline: Creator sees that fields for Book are validated on Resource Type tab
 And('they select Resource subtype "<BookType>" from the list', (dataTable) => {
@@ -270,3 +224,38 @@ And('they select Resource subtype "<BookType>" from the list', (dataTable) => {
 //   | BookType  |
 //   | Anthology |
 //   | Monograph |
+
+// TODO not implemented
+// @1624
+// Scenario: Creator navigates to the Resource Type tab and selects Resource type "Other publication"
+And('they select the Resource type "Other publication"', () => {
+  cy.wrap({}).as('subTypes');
+  cy.wrap({}).as('fields');
+});
+
+// @1631
+// Scenario: Creator selects Resource type "Other publication" and selects subtype "Map"
+And('they select the Resource type "Other publication"', () => {});
+And('they select the subtype "Map"', () => {});
+// @1632
+// Scenario: Creator selects Resource type "Other publication" and selects subtype "Musical notation"
+And('they select the Resource type "Other publication"', () => {});
+And('they select the subtype "Musical notation"', () => {});
+
+// @1633
+// Scenario: Creator selects Resource type "Other publication" and selects subtype "Other publication"
+And('they select the Resource type "Other publication"', () => {});
+And('they select the subtype "Other publication"', () => {});
+
+// @1669
+// Scenario: Creator selects Resource type "Other publication" and selects subtype "Feature article"
+And('they select the Resource type "Other publication"', () => {});
+And('they select the subtype "Feature article"', () => {});
+
+// @2021
+// Scenario: Creator sees fields for Resource subtype "Chapter in report"
+And('they select the Registration Subtype "Chapter in report"', () => {
+  cy.wrap({}).as('fields');
+  cy.wrap({}).as('subTypes');
+});
+Then('they see an information box describing that a Container report must be published first', () => {});
