@@ -170,12 +170,9 @@ export const CHAPTER_FIELDS = {
   'Peer reviewed': 'peer_review-true',
 };
 
-export const OTHER_SUBTYPES = {
-  'Feature article': 'publication-instance-type-FeatureArticle',
-  'Map': 'publication-instance-type-Map',
-  'Musical notation': 'publication-instance-type-MusicalNotation',
-  'Other publication': 'publication-instance-type-OtherPublication',
-};
+export const OTHER_SUBTYPES = {};
+
+export const OTHER_FIELDS = {};
 
 export const DESCRIPTION_FIELDS = {
   'Title': 'registration-title-field',

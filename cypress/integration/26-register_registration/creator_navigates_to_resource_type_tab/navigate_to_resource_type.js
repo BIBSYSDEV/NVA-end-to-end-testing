@@ -1,6 +1,19 @@
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { JOURNAL_SUBTYPES, BOOK_FIELDS, RESOURCE_TYPES } from '../../../support/data_testid_constants';
+import {
+  JOURNAL_SUBTYPES,
+  JOURNAL_FIELDS,
+  BOOK_SUBTYPES,
+  BOOK_FIELDS,
+  REPORT_SUBTYPES,
+  REPORT_FIELDS,
+  CHAPTER_SUBTYPES,
+  CHAPTER_FIELDS,
+  STUDENT_THESIS_SUBTYPES,
+  STUDENT_THESIS_FIELDS,
+  RESOURCE_TYPES,
+  RESOURCE_TYPE_FIELDS,
+} from '../../../support/data_testid_constants';
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 const filename = 'example.txt';
@@ -8,31 +21,21 @@ const filename = 'example.txt';
 // Feature: Creator navigates to Resource Type tab
 
 // Common steps
-Given('Creator begins registering a Registration in the Wizard', () => {
+Given('Creator begins registering a Registration in the Wizard with a link', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.findScenario();
-  cy.get('@scenario').then((scenario) => {
-    switch (scenario) {
-      case '@395':
-      case '@1625':
-      case '@1656':
-      case '@1659':
-      case '@1694':
-      case '@2021':
-      case 'Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype':
-        cy.startRegistrationWithLink(doiLink);
-        cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
-        cy.get('[data-testid=registration-link-next-button]').click({ force: true });
-        break;
-      default:
-        cy.startRegistrationWithFile(filename);
-        cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-        cy.get('[data-testid=registration-file-start-button]').click({ force: true });
-    }
-  });
+  cy.startRegistrationWithLink(doiLink);
+  cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
+  cy.get('[data-testid=registration-link-next-button]').click({ force: true });
+});
+Given('Creator begins registering a Registration in the Wizard with a file', () => {
+  cy.login(USER_WITH_AUTHOR);
+  cy.startRegistrationWithFile(filename);
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
+  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
 });
 When('they navigate to the Resource Type tab', () => {
   cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
+  cy.wrap(RESOURCE_TYPE_FIELDS).as('fields');
 });
 And('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
@@ -43,24 +46,32 @@ And('they click the Save button', () => {
 And('they select the Resource type "Contribution to journal"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Journal]').click({ force: true });
+  cy.wrap(JOURNAL_SUBTYPES).as('subTypes');
+  cy.wrap(JOURNAL_FIELDS).as('fields');
 });
-And('they select Resource type Book', () => {
+And('they select the Resource type "Book"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
+  cy.wrap(BOOK_SUBTYPES).as('subTypes');
+  cy.wrap(BOOK_FIELDS).as('fields');
 });
 Then('they see a Search box for "Publisher name"', () => {
   cy.get('[data-testid=publisher-search-field]').should('be.visible');
 });
-And('they see a checkbox for "Is this a textbook?"', () => {
-  cy.get('[data-testid=is-textbook-checkbox]').should('be.visible');
-});
 And('they select the Resource Type', (dataTable) => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get(`[data-testid=${RESOURCE_TYPES[dataTable.rawTable[0]]}]`).click({ force: true });
+  cy.wrap(CHAPTER_SUBTYPES).as('subTypes');
+  cy.wrap(CHAPTER_FIELDS).as('fields');
 });
 And('they select Resource subtype {string}', (subtype) => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get(`[data-testid=${JOURNAL_SUBTYPES[subtype]}]`).click({ force: true });
+  cy.get('@subTypes').then((subTypes) => {
+    cy.get(`[data-testid=${subTypes[subtype]}]`).click({ force: true });
+  });
+});
+And('they see a checkbox for "Is this a textbook?"', () => {
+  cy.get('[data-testid=is-textbook-checkbox]').should('be.visible');
 });
 // end common steps
 
@@ -101,6 +112,8 @@ And('they see Save is enabled', () => {
 And('they select the Resource type "Report"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Report]').click({ force: true });
+  cy.wrap(REPORT_SUBTYPES).as('subTypes');
+  cy.wrap(REPORT_FIELDS).as('fields');
 });
 //   @392
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Anthology"
@@ -128,6 +141,8 @@ And('they see a preselected value for Peer review "Not peer reviewed"', () => {
 And('they select the Resource type "Student thesis"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
+  cy.wrap(STUDENT_THESIS_SUBTYPES).as('subTypes');
+  cy.wrap(STUDENT_THESIS_FIELDS).as('fields');
 });
 
 // @395
@@ -144,10 +159,6 @@ Then('they see an information box describing that a Container book must be publi
 
 // @1409
 // Scenario Outline: Creator selects Contribution to Journal and Peer Review Details are hidden
-And('they select type Contribution to Journal', () => {
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Journal]').click({ force: true });
-});
 Then('they see that the Peer Review Details are hidden', () => {
   cy.get('[data-testid=peer-review]').should('not.exist');
   cy.get('[data-testid=peer_review-true]').should('not.exist');
@@ -162,7 +173,10 @@ Then('they see that the Peer Review Details are hidden', () => {
 // @1624
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Other publication"
 // TODO not implemented
-And('they select the Resource type "Other publication"', () => {});
+And('they select the Resource type "Other publication"', () => {
+  cy.wrap({}).as('subTypes');
+  cy.wrap({}).as('fields');
+});
 
 // @1625
 // Scenario: Creator sees fields for Resource subtype "Corrigendum"
@@ -227,7 +241,6 @@ And('they select the Resource type "Student thesis"', () => {
 });
 
 // Scenario Outline: Creator sees that fields are validated for Resource subtypes for "Student thesis"
-And('they select the Resource type "Student thesis"', () => {});
 
 // @1963
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"
@@ -239,15 +252,14 @@ And('they select Resource subtype "Monograph" from the list', () => {
 // @2021
 // Scenario: Creator sees fields for Resource subtype "Chapter in report"
 // TODO not implemented
-And('they select the Registration Subtype "Chapter in report"', () => {});
+And('they select the Registration Subtype "Chapter in report"', () => {
+  cy.wrap({}).as('fields');
+  cy.wrap({}).as('subTypes');
+});
 Then('they see an information box describing that a Container report must be published first', () => {});
 
 // @2229
 // Scenario Outline: Creator sees that fields for Book are validated on Resource Type tab
-And('they select Resource type "Book"', () => {
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
-});
 And('they select Resource subtype "<BookType>" from the list', (dataTable) => {
   dataTable.rawTable.forEach((type) => {
     cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
