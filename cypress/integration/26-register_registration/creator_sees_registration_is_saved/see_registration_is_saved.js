@@ -11,17 +11,18 @@ const fileTitle = '[Missing title]';
 
 // common steps
 When('they click Start', () => {
-  const scenario = window.testState.currentScenario.tags[0].name;
-  switch (scenario) {
-    case '@388':
-      cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
-      cy.get('[data-testid=registration-link-next-button]').click({ force: true });
-      break;
-    case '@391':
-      cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-      cy.get('[data-testid=registration-file-start-button]').click({ force: true });
-      break;
-  }
+  cy.get('@registrationMethod').then((registrationMethod) => {
+    switch (registrationMethod) {
+      case 'link':
+        cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
+        cy.get('[data-testid=registration-link-next-button]').click({ force: true });
+        break;
+      case 'file':
+        cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
+        cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+        break;
+    }
+  });
   cy.get('[data-testid=nav-tabpanel-description]').should('be.visible');
 });
 And('they click My Registrations', () => {
@@ -43,6 +44,7 @@ And('they see that Delete is enabled', () => {
 // @388
 // Scenario: Creator sees Registration based on a Link is saved
 Given('Creator begins registering with a Link', () => {
+  cy.wrap('link').as('registrationMethod');
   cy.login(USER_SAVE_REGISTRATION);
   cy.startRegistrationWithLink(doiLink);
 });
@@ -63,6 +65,7 @@ Then('they see the Registration is saved and the title is listed and marked as D
 // @391
 // Scenario: Creator sees Registration based on file upload is saved
 Given('Creator begins registration by uploading a file', () => {
+  cy.wrap('file').as('registrationMethod');
   cy.login(USER_SAVE_REGISTRATION);
   cy.startRegistrationWithFile(filename);
 });
