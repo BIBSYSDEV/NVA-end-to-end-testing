@@ -75,9 +75,9 @@ export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
 
 export const MY_INSTITUTION_FIELDS = {
   'Name in organization registry': 'autocomplete-institution',
-  'Display name': 'customer-institution-display-name-input',
-  'Short display name': 'customer-institution-short-name-input',
-  'Archive name': 'customer-institution-archive-name-input',
+  'Display name': 'customer-institution-display-name-field',
+  'Short display name': 'customer-institution-short-name-field',
+  'Archive name': 'customer-institution-archive-name-field',
 };
 
 export const MY_INSTITUTION_FIELDS_TESTVALUE = {
