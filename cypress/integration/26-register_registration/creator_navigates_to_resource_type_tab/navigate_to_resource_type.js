@@ -21,13 +21,13 @@ const filename = 'example.txt';
 // Feature: Creator navigates to Resource Type tab
 
 // Common steps
-Given('Creator begins registering a Registration in the Wizard with a link', () => {
+Given('Creator begins registering a Registration in the Wizard with a Link', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startRegistrationWithLink(doiLink);
   cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
   cy.get('[data-testid=registration-link-next-button]').click({ force: true });
 });
-Given('Creator begins registering a Registration in the Wizard with a file', () => {
+Given('Creator begins registering a Registration in the Wizard with a File', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startRegistrationWithFile(filename);
   cy.get('[data-testid=registration-file-start-button]').should('be.enabled');

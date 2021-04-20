@@ -1,11 +1,4 @@
 import { And } from 'cypress-cucumber-preprocessor/steps';
-import {
-  JOURNAL_FIELDS,
-  REPORT_FIELDS,
-  STUDENT_THESIS_FIELDS,
-  CHAPTER_FIELDS,
-  BOOK_FIELDS,
-} from '../../../support/data_testid_constants';
 
 And('they enter an invalid value in fields:', (dataTable) => {
   cy.get('@fields').then((fields) => {

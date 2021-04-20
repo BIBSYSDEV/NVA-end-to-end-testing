@@ -9,7 +9,7 @@ Then('they see a list of subtypes:', (dataTable) => {
   });
 });
 
-And('they select the subtype {string}:', (subType) => {
+And('they select the Subtype {string}:', (subType) => {
   cy.get('@subTypes').then((subTypes) => {
     if (Object.keys(subTypes).length > 0) {
       cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
