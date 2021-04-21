@@ -2,7 +2,8 @@ import { And } from 'cypress-cucumber-preprocessor/steps';
 
 And('they enter an invalid value in fields:', (dataTable) => {
   cy.get('@fields').then((fields) => {
-    if (fields !== {}) {
+    if (Object.keys(fields).length > 0) {
+
       dataTable.rawTable.forEach((field) => {
         cy.get(`[data-testid=${fields[field[0]]}]`).type('invalid');
       });
