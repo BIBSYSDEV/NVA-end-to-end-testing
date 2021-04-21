@@ -34,6 +34,7 @@
   "511-owner_opens_the_request_a_doi_dialog",
   "543-creator_begins_wizard_registration_and_navigates_to_description_tab",
   "551-user_removes_an_institution_from_my_profile",
+  "576-creator_cancels_deletion_of_an_item_in_my_registrations_list",
   "902-user_opens_a_public_profile_from_a_public_page",
   "1214-creator_registers_corresponding_author",
   "1218-user_selects_a_subsubunit_from_my_profile",
@@ -52,9 +53,12 @@
   "1724-non-customer_views_my_profile",
   "1725-user_without_any_roles_views_my_profile",
   "creator_requests_support",
+  "creator_sees_registration_is_saved",
   "user-logs-in",
+  "creator_begins_registering_a_registration",
   "creator_navigates_to_description_tab",
   "creator-navigates-to-contributor-tab",
-  "creator_begins_registering_a_registration",
-  "creator_navigates_to_resource_type_tab"
+  "creator_navigates_to_resource_type_tab",
+  "institution_administrator_edits_my_institution",
+  "owner_navigates_to_the_landing_page_for_their_registration"
 ]
