@@ -4,12 +4,10 @@ const testFields = (dataTable) => {
   cy.get('@fields').then((fields) => {
     if (Object.keys(fields).length > 0) {
       const fieldTestList = {};
-      if (Object.keys(fields).length > 0) {
-        dataTable.rawTable.forEach((fieldName) => {
-          fieldTestList[fieldName] = fields[fieldName];
-        });
-        cy.testDataTestidList(dataTable, fieldTestList);
-      }
+      dataTable.rawTable.forEach((fieldName) => {
+        fieldTestList[fieldName] = fields[fieldName];
+      });
+      cy.testDataTestidList(dataTable, fieldTestList);
     }
   });
 };
