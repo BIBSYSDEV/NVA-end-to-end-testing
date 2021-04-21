@@ -21,7 +21,7 @@ Then('they see the Add Institution page', () => {
   cy.location('search').should('equal', '?id=new');
 });
 And('they see fields:', (dataTable) => {
-  tableData.rawData.forEach((field) => {
+  dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${INSTITUTION_FIELDS[field[0]]}]`).should('be.visible');
   });
 });
