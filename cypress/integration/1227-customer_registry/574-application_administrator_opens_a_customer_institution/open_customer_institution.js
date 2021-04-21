@@ -1,22 +1,22 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_APP_ADMIN } from '../../../support/constants';
+import { ADMIN_USER } from '../../../support/constants';
 import { INSTITUTION_FIELDS } from '../../../support/data_testid_constants';
 
 // Feature: Application Administrator opens a Customer Institution
 
 // @574
 // Scenario: Application Administrator opens a Customer Institution
-Given(' that the user is logged in as Application Administrator', () => {
-  cy.login(USER_APP_ADMIN);
+Given('that the user is logged in as Application Administrator', () => {
+  cy.login(ADMIN_USER);
 });
 When('they open a Customer Institution', () => {
   cy.get('[data-testid=menu]').click({ force: true });
   cy.get('[data-testid=menu-admin-institutions-button]').click({ force: true });
-  cy.get('[data-testid=edit-institution-TestInst2]').click({ force: true });
+  cy.get('[data-testid="edit-institution-TestInst 2"]').click({ force: true });
 });
 Then('they see fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
-    cy.get(`[data-testid=${INSTIUTION_FIELDS[field[0]]}]`).should('be.visible');
+    cy.get(`[data-testid=${INSTITUTION_FIELDS[field[0]]}]`).should('be.visible');
   });
 });
 // | Name in organization registry |
