@@ -34,5 +34,6 @@ And('every Institution Administrator has a Remove button', () => {
   cy.get('[data-testid^=button-remove-role-]').should('have.length', 2);
 });
 And('they see button to add a new Institution Administrator', () => {
-  cy.get('[data-testid^=button-open-add-admin]').should('be.visible');
+  cy.get('[data-testid=button-open-add-admin]').should('be.visible');
+
 });
