@@ -9,8 +9,8 @@
   "348-user_sees_the_menu_for_administrator",
   "350-user_sees_the_menu_for_application_administrator",
   "352-user_opens_the_page_my_profile",
-  "354-creator_opens_my_publications",
-  "355-creator_opens_an_item_in_my_publication_list",
+  "354-creator_opens_my_registrations",
+  "355-creator_opens_an_item_in_my_registrations_list",
   "356-user_delete_an_unpublished_item_in_the_my_registrations_list",
   "358-curator_opens_a_registration_from_a_doi_request",
   "359-administrator_views_user_administration_sections_with_role_members_part_i",
@@ -52,5 +52,12 @@
   "1694-creator_selects_reference_type_student_thesis_and_selects_subtype",
   "1724-non-customer_views_my_profile",
   "1725-user_without_any_roles_views_my_profile",
-  "creator_requests_support"
+  "creator_requests_support",
+  "creator_sees_registration_is_saved",
+  "user-logs-in",
+  "creator_navigates_to_description_tab",
+  "creator-navigates-to-contributor-tab",
+  "creator_begins_registering_a_registration",
+  "institution_administrator_edits_my_institution",
+  "owner_navigates_to_the_landing_page_for_their_registration"
 ]

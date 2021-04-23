@@ -152,6 +152,8 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,node
 
 cypress/cucumber-json/*
+cypress/screenshots/*
+cypress/videos/*
 aws.py
 cognito.txt
 *.ps1

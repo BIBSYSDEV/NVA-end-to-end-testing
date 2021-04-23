@@ -56,9 +56,9 @@ export const USER_ADMINISTRATION_HEADINGS = {
 };
 
 export const USER_ADMINISTRATION_BUTTONS = {
-  'New Administrator': 'button-add-institution-admin',
-  'New Curator': 'button-add-curator',
-  'New Editor': 'button-add-editor',
+  'Add Administrator': 'button-add-institution-admin',
+  'Add Curator': 'button-add-curator',
+  'Add Editor': 'button-add-editor',
 };
 
 export const USER_ADMINISTRATION_ADD_ROLE_BUTTONS = {
@@ -75,15 +75,23 @@ export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
 
 export const MY_INSTITUTION_FIELDS = {
   'Name in organization registry': 'autocomplete-institution',
-  'Display name': 'customer-institution-display-name-input',
-  'Short display name': 'customer-institution-short-name-input',
-  'Archive name': 'customer-institution-archive-name-input',
+  'Display name': 'customer-institution-display-name-field',
+  'Short display name': 'customer-institution-short-name-field',
+  'Archive name': 'customer-institution-archive-name-field',
 };
 
 export const MY_INSTITUTION_FIELDS_TESTVALUE = {
   'Display name': 'Testinstitusjon',
   'Short display name': 'Testinst',
   'Archive name': 'Testarchive',
+};
+
+export const RESOURCE_TYPES = {
+  'Contribution to journal': 'publication-context-type-Journal',
+  'Book': 'publication-context-type-Book',
+  'Report': 'publication-context-type-Report',
+  'Student thesis': 'publication-context-type-Degree',
+  'Part of book/report': 'publication-context-type-Chapter',
 };
 
 export const JOURNAL_SUBTYPES = {
@@ -136,4 +144,9 @@ export const DESCRIPTION_FIELDS = {
 
 export const REFERENCE_FIELDS = {
   'Type': 'publication-context-type',
+};
+
+export const CONTRIBUTOR_CREATE_FIELDS = {
+  'First name': 'create-contributor-first-name',
+  'Last name': 'create-contributor-last-name',
 };
