@@ -86,6 +86,14 @@ export const MY_INSTITUTION_FIELDS_TESTVALUE = {
   'Archive name': 'Testarchive',
 };
 
+export const INSTITUTION_FIELDS = {
+  'Name in organization registry': 'autocomplete-institution',
+  'Display name': 'customer-institution-display-name-field',
+  'Short display name': 'customer-institution-short-name-field',
+  'Archive name': 'customer-institution-archive-name-field',
+  'Feide Organization ID': 'customer-institution-feide-organization-id-field',
+};
+
 export const RESOURCE_TYPES = {
   'Contribution to journal': 'publication-context-type-Journal',
   'Book': 'publication-context-type-Book',
