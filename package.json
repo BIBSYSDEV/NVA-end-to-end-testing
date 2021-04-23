@@ -37,6 +37,5 @@
     "step_definitions": "cypress/integration"
   },
   "author": "",
-  "license": "ISC",
-  "type": "module"
+  "license": "ISC"
 }

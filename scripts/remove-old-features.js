@@ -1,9 +1,7 @@
-import glob from 'glob';
-import fs from 'fs';
-import { removeWhitespace } from './remove-whitespace.js';
+const glob = require('glob');
+const fs = require('fs');
+const testedFeatures = require('./testedFeatures.json');
 
-const rawData = fs.readFileSync('scripts/testedFeatures.json');
-const testedFeatures = JSON.parse(rawData);
 const CYPRESS_DIR = 'cypress/integration';
 const GHERKIN_DIR = 'features';
 
@@ -32,10 +30,22 @@ const deleteFile = (f) => {
   fs.unlinkSync(f);
 };
 
+const removeWhitespace = (f) => {
+  fs.readFile(f, 'utf8', function (err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    const result = data.replace(/[\u{0080}-\u{FFFF}]/gu, ' ');
+
+    fs.writeFile(f, result, 'utf8', function (err) {
+      if (err) return console.log(err);
+    });
+  });
+};
+
 getDirectories(CYPRESS_DIR, (err, res) => {
   const filesToDelete = res.filter(isFileToDelete);
   const filesToKeep = res.filter(isInTestedFeatures);
   filesToDelete.forEach(deleteFile);
-  console.log(filesToKeep);
-  filesToKeep.forEach((file) => removeWhitespace(file));
+  filesToKeep.forEach(removeWhitespace);
 });
