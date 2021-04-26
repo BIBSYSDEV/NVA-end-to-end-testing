@@ -112,6 +112,33 @@ export const JOURNAL_SUBTYPES = {
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',
 };
 
+export const JOURNAL_FIELDS = {
+  'Journal': 'journal-search-field',
+  'Search-box for Journal': 'journal-search-field',
+  'Search box for Journal': 'journal-search-field',
+  'Search box for "Journal article"': 'article-search-field',
+  'DOI': 'doi-field',
+  'Volume': 'volume-field',
+  'Issue': 'issue-field',
+  'Search box for published books': '',
+  'Pages from': 'pages-from-field',
+  'Pages to': 'pages-to-field',
+  'Article number': 'article-number-field',
+  'Peer reviewed': 'peer_review-true',
+};
+
+export const BOOK_SUPTYPES = {
+  'Monograph': 'BookMonograph',
+  'Anthology': 'BookAnthology',
+};
+
+export const BOOK_FIELDS = {
+  'Publisher': 'publisher-search-field',
+  'ISBN': 'isbn-field',
+  'Total number of pages': 'pages-field',
+  'NPI discipline': 'search_npi',
+};
+
 export const REPORT_SUBTYPES = {
   'Research report': 'publication-instance-type-ReportResearch',
   'Policy report': 'publication-instance-type-ReportPolicy',
@@ -120,10 +147,10 @@ export const REPORT_SUBTYPES = {
 };
 
 export const REPORT_FIELDS = {
-  'Search box for Publisher': 'publisher-search-input',
-  'ISBN': 'isbn-input',
-  'Total number of pages': 'pages-input',
-  'Search box for Series': 'series-search-input',
+  'Search box for Publisher': 'publisher-search-field',
+  'ISBN': 'isbn-field',
+  'Total number of pages': 'pages-field',
+  'Search box for Series': 'series-search-field',
 };
 
 export const STUDENT_THESIS_SUBTYPES = {
@@ -134,10 +161,26 @@ export const STUDENT_THESIS_SUBTYPES = {
 };
 
 export const STUDENT_THESIS_FIELDS = {
-  'Search box for Publisher': 'publisher-search-input',
+  'Search box for Publisher': 'publisher-search-field',
   'DOI': 'doi-field',
-  'Search box for Series': 'series-search-input',
+  'Search box for Series': 'series-search-field',
 };
+
+export const CHAPTER_SUBTYPES = {
+  'Chapter in anthology': 'publication-instance-type-ChapterArticle',
+};
+
+export const CHAPTER_FIELDS = {
+  'DOI': 'doi-field',
+  'Search box for published books': 'info-anthology',
+  'Pages from': 'chapter-pages-from',
+  'Pages to': 'chapter-pages-to',
+  'Peer reviewed': 'peer_review-true',
+};
+
+export const OTHER_SUBTYPES = {};
+
+export const OTHER_FIELDS = {};
 
 export const DESCRIPTION_FIELDS = {
   'Title': 'registration-title-field',
@@ -150,7 +193,7 @@ export const DESCRIPTION_FIELDS = {
   'Project association': 'project-search-input',
 };
 
-export const REFERENCE_FIELDS = {
+export const RESOURCE_TYPE_FIELDS = {
   'Type': 'publication-context-type',
 };
 
