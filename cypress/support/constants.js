@@ -19,8 +19,6 @@ export const AuthorityPaths = {
   PERSON: '/person',
 };
 
-export const USER = 'test-user-end-to-end@test.no';
-
 export const USER_NO_ARP = 'test-user-no-arp@test.no';
 
 export const USER_NAME_IN_ARP = 'test-user-name-in-arp@test.no';
@@ -64,3 +62,5 @@ export const USER_NO_ROLE = 'test-user-with-no-role@test.no';
 export const USER_REMOVE_ORCID = 'test-user-remove-existing-orcid@test.no';
 
 export const USER_NON_CUSTOMER = 'test-user-not-customer@test.no';
+
+export const USER_DRAFT_DOI = 'test-user-draft-doi@test.no';
