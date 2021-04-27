@@ -1,9 +1,11 @@
+import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_DRAFT_DOI } from '../../../support/constants';
 
 const filename = 'example.txt';
 
-const registerRegistration = () => {
+Before(() => {
+  cy.login(USER_DRAFT_DOI);
   cy.startRegistrationWithFile(filename);
   cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
@@ -15,18 +17,16 @@ const registerRegistration = () => {
   cy.get('[data-testid=publication-instance-type-JournalArticle]').click({ force: true });
   cy.get('[data-testid=button-save-registration]').click({ force: true });
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
-};
+});
 
 Given('that an Owner views the Landing Page for their Registration', () => {
-  cy.login(USER_DRAFT_DOI);
-  registerRegistration();
-
   cy.get('[data-testid=my-registrations]').click({ force: true });
 });
 And('the Registration has status Draft', () => {
   cy.get('[data-testid=unpublished-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
     .filter(':contains("Draft registration requesting DOI")')
+    .first()
     .parent()
     .within((presentationLine) => {
       cy.get('[data-testid^=open-registration]').click({ force: true });
