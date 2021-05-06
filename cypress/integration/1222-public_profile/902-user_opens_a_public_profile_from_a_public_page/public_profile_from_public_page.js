@@ -5,9 +5,7 @@ const testFile = 'example.txt';
 
 Given('the Creator publishes Publication', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startRegistrationWithFile(testFile);
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+  cy.startWizardWithFile(testFile);
 
   cy.createValidRegistration();
   cy.get('[data-testid=button-save-registration]').should('be.enabled');

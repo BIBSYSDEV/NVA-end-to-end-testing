@@ -10,9 +10,7 @@ const INSTITUTION_NAME = 'Høgskulen på Vestlandet';
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startRegistrationWithFile(filename);
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+  cy.startWizardWithFile(filename);
 });
 When('they navigate to the Description tab', () => {
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
@@ -82,9 +80,7 @@ And('they see title and associated Institutions for each Project', () => {
 // Scenario: Creator adds a Project
 Given('Creator has searched for a Project', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startRegistrationWithFile(filename);
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+  cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
 And('they see Search results', () => {
@@ -103,9 +99,7 @@ Then('the selected Project is added to the list of selected Projects', () => {
 // Scenario: Creator removes a Project
 Given('Creator has added a Project', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startRegistrationWithFile(filename);
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+  cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
   cy.get('[data-testid=project-search-input]').type(PROJECT_NAME);
   cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).click({ force: true });

@@ -3,13 +3,12 @@ import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_DRAFT_DOI } from '../../../support/constants';
 
 const filename = 'example.txt';
+const registrationTitle = 'Draft registration requesting DOI';
 
 Before(() => {
   cy.login(USER_DRAFT_DOI);
-  cy.startRegistrationWithFile(filename);
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
-  cy.get('[data-testid=registration-title-field]').type('Draft registration requesting DOI');
+  cy.startWizardWithFile(filename);
+  cy.get('[data-testid=registration-title-field]').type(registrationTitle);
   cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Journal]').click({ force: true });
@@ -25,7 +24,7 @@ Given('that an Owner views the Landing Page for their Registration', () => {
 And('the Registration has status Draft', () => {
   cy.get('[data-testid=unpublished-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
-    .filter(':contains("Draft registration requesting DOI")')
+    .filter(`:contains(${registrationTitle})`)
     .first()
     .parent()
     .within((presentationLine) => {

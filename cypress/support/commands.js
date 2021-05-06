@@ -114,6 +114,12 @@ Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
   cy.get('input[type=file]').attachFile(fileName);
 });
 
+Cypress.Commands.add('startWizardWithFile', (fileName) => {
+  cy.startRegistrationWithFile(fileName);
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
+  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+});
+
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
   cy.get('[data-testid=new-registration]').click({ force: true });
   cy.get('[data-testid=new-registration-link]').click({ force: true });
@@ -121,6 +127,12 @@ Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
     cy.wrap(linkField).get('input').type(doiLink);
   });
   cy.get('[data-testid=doi-search-button]').click({ force: true });
+});
+
+Cypress.Commands.add('startWizardWithLink', (doiLink) => {
+  cy.startRegistrationWithLink(doiLink);
+  cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
+  cy.get('[data-testid=registration-link-next-button]').click({ force: true });
 });
 
 Cypress.Commands.add('logoutCognito', () => {
