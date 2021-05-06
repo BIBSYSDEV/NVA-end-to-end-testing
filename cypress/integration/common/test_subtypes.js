@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { Then, And } from 'cypress-cucumber-preprocessor/steps';
 
 Then('they see a list of subtypes:', (dataTable) => {
   cy.get('@subTypes').then((subTypes) => {

@@ -1,4 +1,4 @@
-import { And } from 'cypress-cucumber-preprocessor/steps';
+import { And, Then } from 'cypress-cucumber-preprocessor/steps';
 
 And('they enter an invalid value in fields:', (dataTable) => {
   cy.get('@fields').then((fields) => {
@@ -9,8 +9,6 @@ And('they enter an invalid value in fields:', (dataTable) => {
     }
   });
 });
-
-const testMandatoryFields = (dataTable) => {};
 
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('@fields').then((fields) => {
@@ -23,10 +21,6 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
       });
     }
   });
-});
-
-Then('they can see "Mandatory" error message for fields:', (dataTable) => {
-  testMandatoryFields(dataTable);
 });
 
 And('they can see "Invalid format" error messages for fields:', (dataTable) => {

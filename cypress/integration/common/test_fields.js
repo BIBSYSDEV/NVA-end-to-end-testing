@@ -1,6 +1,6 @@
 import { And } from 'cypress-cucumber-preprocessor/steps';
 
-const testFields = (dataTable) => {
+And('they see fields:', (dataTable) => {
   cy.get('@fields').then((fields) => {
     if (Object.keys(fields).length > 0) {
       const fieldTestList = {};
@@ -10,14 +10,6 @@ const testFields = (dataTable) => {
       cy.testDataTestidList(dataTable, fieldTestList);
     }
   });
-};
-
-And('they see fields:', (dataTable) => {
-  testFields(dataTable);
-});
-
-And('they see fields', (dataTable) => {
-  testFields(dataTable);
 });
 
 And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {

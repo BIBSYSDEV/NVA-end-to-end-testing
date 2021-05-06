@@ -127,7 +127,7 @@ export const JOURNAL_FIELDS = {
   'Peer reviewed': 'peer_review-true',
 };
 
-export const BOOK_SUPTYPES = {
+export const BOOK_SUBTYPES = {
   'Monograph': 'BookMonograph',
   'Anthology': 'BookAnthology',
 };
