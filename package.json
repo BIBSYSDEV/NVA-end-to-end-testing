@@ -10,7 +10,7 @@
     "cosmiconfig": "^6.0.0",
     "cypress-localstorage-commands": "^1.2.2",
     "cypress-promise": "^1.1.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "lstat": "^1.0.0",
     "uuid": "^8.1.0",
     "immer": ">=8.0.1"
