@@ -4,13 +4,10 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 const testFile = 'example.txt';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(USER_WITH_AUTHOR).then(() => {
-    cy.startRegistrationWithFile(testFile);
-  });
+  cy.login(USER_WITH_AUTHOR);
+  cy.startWizardWithFile(testFile);
 });
 And('they navigate to the Contributors tab', () => {
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-contributors').click({ force: true });
 });
 And('they see an Author', () => {

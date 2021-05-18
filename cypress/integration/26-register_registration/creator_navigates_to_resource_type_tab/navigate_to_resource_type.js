@@ -23,15 +23,11 @@ const filename = 'example.txt';
 // Common steps
 Given('Creator begins registering a Registration in the Wizard with a Link', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startRegistrationWithLink(doiLink);
-  cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
-  cy.get('[data-testid=registration-link-next-button]').click({ force: true });
+  cy.startWizardWithLink(doiLink);
 });
 Given('Creator begins registering a Registration in the Wizard with a File', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startRegistrationWithFile(filename);
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+  cy.startWizardWithFile(filename);
 });
 When('they navigate to the Resource Type tab', () => {
   cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });

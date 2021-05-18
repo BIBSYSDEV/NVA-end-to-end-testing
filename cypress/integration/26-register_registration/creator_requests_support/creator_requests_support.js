@@ -5,9 +5,7 @@ const filename = 'example.txt';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startRegistrationWithFile(filename);
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+  cy.startWizardWithFile(filename);
 });
 When('they click the "Request support" button', () => {
   cy.get('[data-testid=open-support-button]').click({ force: true });
