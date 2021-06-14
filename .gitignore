@@ -154,8 +154,14 @@ $RECYCLE.BIN/
 cypress/cucumber-json/*
 cypress/screenshots/*
 cypress/videos/*
+cypress/results/*
+cypress/reports/*
+
 aws.py
 cognito.txt
 *.ps1
 features.diff
+
+__pycache__/*
+*/__pycache__/*
 *.pyc

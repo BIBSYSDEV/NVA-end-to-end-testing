@@ -11,6 +11,7 @@ When('they look at any page in NVA', () => {
   cy.visit(`/${uuidV4()}`);
 });
 Then('they see a menu containing', (dataTable) => {
+  cy.get('[data-testid=menu]').should('exist');
   cy.get('[data-testid=menu]').click({ force: true });
   cy.testDataTestidList(dataTable, USER_MENU);
 });
