@@ -1,0 +1,101 @@
+[
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "Draft registration"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT_FOR_DELETION",
+    "contributor": "",
+    "title": "Deleted Draft registration"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Published registration"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Published registration without DOI"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Published registration requesting DOI"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Delete registration"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Draft registration without DOI"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Draft registration requesting DOI"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Delete Draft registration"
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "familyName": {
+    "S": "####################"
+  },
+  "givenName": {
+    "S": "####################"
+  },
+  "institution": {
+    "S": "####################"
+  },
+  "PrimaryKeyHashKey": {
+    "S": "####################"
+  },
+  "PrimaryKeyRangeKey": {
+    "S": "USER"
+  },
+  "SecondaryIndex1HashKey": {
+    "S": "####################"
+  },
+  "SecondaryIndex1RangeKey": {
+    "S": "####################"
+  },
+  "roles": {
+    "L": []
+  },
+  "type": {
+    "S": "USER"
+  },
+  "username": {
+    "S": "####################"
+  }
+}

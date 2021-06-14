@@ -10,10 +10,11 @@
     "cosmiconfig": "^6.0.0",
     "cypress-localstorage-commands": "^1.2.2",
     "cypress-promise": "^1.1.0",
+    "cypress-tags": "^0.1.0",
+    "immer": ">=8.0.1",
     "lodash": "^4.17.21",
     "lstat": "^1.0.0",
-    "uuid": "^8.1.0",
-    "immer": ">=8.0.1"
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "axios": "^0.21.1",
@@ -24,7 +25,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:pull-features": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features.js"
+    "test:pull-features": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features.js",
+    "test:pull-features_deploy": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features_deploy.js"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,
