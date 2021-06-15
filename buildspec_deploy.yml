@@ -26,7 +26,7 @@ phases:
     commands:
       - wget https://github.com/BIBSYSDEV/NVA-end-to-end-testing/archive/refs/heads/test-deploy.zip
       - unzip test-deploy.zip
-      - cd NVA-end-to-end-testing-develop
+      - cd NVA-end-to-end-testing-test-deploy
   build:
     commands:
       - cd test_data
@@ -41,5 +41,5 @@ artifacts:
     - '**/*'
 cache:
   paths:
-    - NVA-end-to-end-testing-develop/node_modules/**/*
+    - NVA-end-to-end-testing-test-deploy/node_modules/**/*
     
