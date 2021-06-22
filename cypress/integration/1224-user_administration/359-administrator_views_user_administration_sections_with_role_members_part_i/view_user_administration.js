@@ -18,7 +18,7 @@ Then('they see the User Administration page', () => {
 });
 And('they see the Section {string}', (section) => {
   cy.wrap(section).as('section');
-  cy.get('h3').contains(USER_ADMINISTRATION_HEADINGS[section]).parent().as('roleSection');
+  cy.get('h2').contains(USER_ADMINISTRATION_HEADINGS[section]).parent().as('roleSection');
 });
 And(
   'they see the Section {string} contains a list of all users affiliated with their institution and with with role {string}',
@@ -41,7 +41,7 @@ And('they see a button Remove that is enabled for each user', () => {
   });
 });
 And('they see a section Registrator with a policy for who are able to publish', () => {
-  cy.get('h3').contains('Registrator');
+  cy.get('h2').contains('Registrator');
   cy.get('[data-testid=checkbox-assign-creators]').should('exist');
 });
 // Examples:

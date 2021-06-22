@@ -16,9 +16,9 @@ s3_bucket_name = ssm.get_parameter(Name='/test/RESOURCE_S3_BUCKET',
                                    WithDecryption=False)['Parameter']['Value']
 STAGE = ssm.get_parameter(Name='/test/STAGE',
                           WithDecryption=False)['Parameter']['Value']
-USER_POOL_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_ID',
+USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
-CLIENT_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_WEB_CLIENT_ID',
+CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 publication_template_file_name = './publications/new_test_registration.json'
 test_publications_file_name = './publications/test_publications.json'

@@ -7,7 +7,7 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 Given('that the Creator navigates to the Landing Page for a Registration', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.get('[data-testid=my-registrations]').click({ force: true });
-  cy.get('[data-testid=published-button]').click({ force: true });
+  // cy.get('[data-testid=published-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
     .filter(':contains("Published registration without DOI")') // need to use text search to find correct registration
     .parent()

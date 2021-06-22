@@ -43,7 +43,7 @@ export const PROFILE_PAGE_FIELDS = {
   'Real name': 'user-name',
   'Feide ID': 'user-id',
   'Email': 'user-id',
-  'ORCID': 'button-create-connect-orcid',
+  'ORCID': 'orcid-line',
   'Roles': 'user-role-creator',
   'Organizations': 'institution-presentation',
   'Language': 'language-selector',
