@@ -3,7 +3,7 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
 
 const filename = 'example.txt';
-const PROJECT_NAME = 'a test battery for assessing pain';
+const PROJECT_NAME = 'test';
 const INSTITUTION_NAME = 'Høgskulen på Vestlandet';
 
 // Feature: Creator navigates to Description tab
@@ -19,7 +19,7 @@ Given('Creator begins Wizard registration and navigates to Description tab', () 
   cy.login(USER_WITH_AUTHOR);
   cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
-})
+});
 // End common steps
 
 // Scenario: Creator begins Wizard registration and navigates to Description tab
@@ -60,7 +60,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${DESCRIPTION_FIELDS[field]}]`).within((descriptionField) => {
-      cy.wrap(descriptionField).contains('Mandatory');
+      cy.wrap(descriptionField).contains('required');
     });
   });
 });
@@ -83,7 +83,7 @@ And('they see title and associated Institutions for each Project', () => {
 });
 
 // Scenario: Creator adds a Project
-Given('Creator has searched for Project', () => {
+Given('Creator searches for Project', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
@@ -100,7 +100,7 @@ Then('the selected Project is added to the list of selected Projects', () => {
 });
 
 // Scenario: Creator removes a Project
-Given('Creator has added a Project', () => {
+Given('Creator adds a Project', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
