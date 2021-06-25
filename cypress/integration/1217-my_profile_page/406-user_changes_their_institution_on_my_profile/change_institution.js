@@ -14,7 +14,7 @@ And('they open My Profile', () => {
 And('they see their Connected Institution', () => {
   cy.get('[data-testid=institution-presentation]').contains(INSTITUTION);
 });
-When('they click Change Institution', () => {
+When('they click Edit Institution', () => {
   cy.get('[data-testid=institution-presentation]')
     .contains(INSTITUTION)
     .parents('[data-testid=institution-presentation]')

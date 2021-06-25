@@ -3,7 +3,7 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
 
 const filename = 'example.txt';
-const PROJECT_NAME = 'a test battery for assessing pain';
+const PROJECT_NAME = 'test';
 const INSTITUTION_NAME = 'Høgskulen på Vestlandet';
 
 // Feature: Creator navigates to Description tab
@@ -15,11 +15,16 @@ Given('Creator begins registering a Registration in the Wizard', () => {
 When('they navigate to the Description tab', () => {
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
+Given('Creator begins Wizard registration and navigates to Description tab', () => {
+  cy.login(USER_WITH_AUTHOR);
+  cy.startWizardWithFile(filename);
+  cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
+});
 // End common steps
 
 // Scenario: Creator begins Wizard registration and navigates to Description tab
 Then('they see the Description tab is selected', () => {
-  cy.get('[data-testid=nav-tabpanel-description]').should('have.property', 'selected').and('match', 'true');
+  cy.get('[data-testid=nav-tabpanel-description]');
 });
 And('they see fields:', (fields) => {
   cy.testDataTestidList(fields, DESCRIPTION_FIELDS);
@@ -55,7 +60,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${DESCRIPTION_FIELDS[field]}]`).within((descriptionField) => {
-      cy.wrap(descriptionField).contains('Mandatory');
+      cy.wrap(descriptionField).contains('required');
     });
   });
 });
@@ -64,10 +69,10 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 
 // Scenario: Creator searches for Project
 And('they see a Search box for Projects', () => {
-  cy.get('[data-testid=project-search-input]').should('be.visible');
+  cy.get('[data-testid=project-search-field] > div > div > input').should('be.visible');
 });
 And('they enter search term in the Search box', () => {
-  cy.get('[data-testid=project-search-input]').type(PROJECT_NAME);
+  cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
 });
 Then('they see list of Projects matching the search term', () => {
   cy.get('[data-testid^=project-option]').should('have.length.above', 0);
@@ -78,7 +83,7 @@ And('they see title and associated Institutions for each Project', () => {
 });
 
 // Scenario: Creator adds a Project
-Given('Creator has searched for a Project', () => {
+Given('Creator searches for Project', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
@@ -87,9 +92,7 @@ And('they see Search results', () => {
   cy.get('[data-testid=project-search-input]').type(PROJECT_NAME);
 });
 When('they select a Project from the Search results', () => {
-  cy.get('[data-testid^=project-option]')
-    .filter(`:contains(${PROJECT_NAME})`)
-    .click({ force: true });
+  cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).click({ force: true });
 });
 Then('the selected Project is added to the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('have.length', 1);
@@ -97,7 +100,7 @@ Then('the selected Project is added to the list of selected Projects', () => {
 });
 
 // Scenario: Creator removes a Project
-Given('Creator has added a Project', () => {
+Given('Creator adds a Project', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });

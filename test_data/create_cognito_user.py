@@ -4,9 +4,9 @@ import uuid
 
 ssm = boto3.client('ssm')
 client = boto3.client('cognito-idp')
-USER_POOL_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_ID',
+USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
-CLIENT_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_WEB_CLIENT_ID',
+CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 secretsmanager = boto3.client('secretsmanager')
 # PASSWORD = json.loads(secretsmanager.get_secret_value(SecretId='apiTestUserPassword')['SecretString'])['password']

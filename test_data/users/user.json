@@ -57,6 +57,6 @@
   },
   {
     "Name": "custom:affiliation",
-    "Value": "[member, employee, staff]"
+    "Value": "[member]"
   }
 ]

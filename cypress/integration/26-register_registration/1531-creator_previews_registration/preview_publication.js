@@ -4,7 +4,6 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 Given('that a Creator views a Registration', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.get('[data-testid=my-registrations]').click({ force: true });
-  cy.get('[data-testid=published-button').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 And('they navigate to the Files and License tab', () => {
