@@ -62,6 +62,7 @@
   "creator_sees_registration_is_saved",
   "creator_selects_resource_type_book",
   "creator_selects_resource_type_chapter",
+  "creator_selects_resource_type_contribution_to_journal",
   "institution_administrator_edits_my_institution",
   "owner_navigates_to_the_landing_page_for_their_registration",
   "user-logs-in"
