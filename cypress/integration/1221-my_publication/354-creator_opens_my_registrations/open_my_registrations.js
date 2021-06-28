@@ -12,7 +12,7 @@ Then('they see My Registrations', () => {
 });
 And('they see a list of all unpublished Registrations with the fields', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
-    cy.get('h6').contains(value[0]);
+    cy.get('thead').contains(value[0]);
   });
 });
 // | Publication name |
@@ -31,7 +31,7 @@ And('they see each list item has a button Delete and Edit that is enabled', () =
 And('they see the navigation bar for unpublished Registrations is selected', () => {
   cy.get('[data-testid=unpublished-button][tabindex=0]');
 });
-And('they see the navigation bar for published Registrations is enabled', () => {
+And('they see the navigation bar for published registrations is enabled', () => {
   cy.get('[data-testid=published-button]').should('be.enabled');
 });
 And('they see items with Status', (dataTable) => {

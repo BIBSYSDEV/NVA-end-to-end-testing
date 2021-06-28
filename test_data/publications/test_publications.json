@@ -99,14 +99,25 @@
     "title": "Delete Draft registration"
   },
   {
-    "publication_type": "",
-    "publication_context_type": "",
-    "publication_instance_type": "",
+    "publication_type": "BookContent",
+    "publication_context_type": "Book",
+    "publication_instance_type": "BookMonograph",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-book@test.no",
     "status": "DRAFT",
     "contributor": "test-user-book@test.no",
     "title": "Resource type Book"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Registration with validation error"
   }
 ]

@@ -248,7 +248,7 @@
     "role": [],
     "author": true,
     "orcid": true,
-    "affiliation": "[member, employee, staff]",
+    "affiliation": "[member]",
     "orgNumber": "1111111111",
     "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
   },

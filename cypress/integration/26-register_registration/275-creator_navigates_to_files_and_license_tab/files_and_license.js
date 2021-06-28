@@ -13,6 +13,7 @@ When('they navigate to the Files and License tab', () => {
 And('they see the File upload widget', () => {
   // cy.contains('Drag files here');
 });
+And('they see an Input Field for Linked Resources', () => {});
 And('they see the tab Description is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-description]').should('be.visible');
 });

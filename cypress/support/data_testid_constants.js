@@ -43,7 +43,7 @@ export const PROFILE_PAGE_FIELDS = {
   'Real name': 'user-name',
   'Feide ID': 'user-id',
   'Email': 'user-id',
-  'ORCID': 'button-create-connect-orcid',
+  'ORCID': 'orcid-line',
   'Roles': 'user-role-creator',
   'Organizations': 'institution-presentation',
   'Language': 'language-selector',
@@ -187,10 +187,10 @@ export const DESCRIPTION_FIELDS = {
   'Abstract': 'registration-abstract-field',
   'Description': 'registration-description-field',
   'Date published': 'date-published-field',
-  'NPI disciplines': 'search_npi',
   'Keywords': 'registration-tag-field',
+  'Vocabularies': 'search_npi',
   'Primary language for content': 'registration-language-field',
-  'Project association': 'project-search-input',
+  'Project association': 'project-search-field',
 };
 
 export const RESOURCE_TYPE_FIELDS = {
