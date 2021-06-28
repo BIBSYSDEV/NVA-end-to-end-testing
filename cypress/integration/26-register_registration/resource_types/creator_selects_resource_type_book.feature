@@ -1,5 +1,6 @@
 Feature: Creator selects Resource type Book
 
+    @test
     Scenario: Creator navigates to the Resource Type tab and selects Resource type "Book"
         Given Creator navigates to Resource Type tab
         When they select the Resource type "Book"

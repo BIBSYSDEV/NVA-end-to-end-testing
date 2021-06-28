@@ -64,3 +64,5 @@ export const USER_REMOVE_ORCID = 'test-user-remove-existing-orcid@test.no';
 export const USER_NON_CUSTOMER = 'test-user-not-customer@test.no';
 
 export const USER_DRAFT_DOI = 'test-user-draft-doi@test.no';
+
+export const USER_RESOURCE_TYPE_BOOK = 'test-user-book@test.no'

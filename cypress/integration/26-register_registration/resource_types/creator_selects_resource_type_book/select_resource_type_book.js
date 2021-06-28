@@ -1,6 +1,11 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
+import { USER_RESOURCE_TYPE_BOOK } from '../../../../support/constants';
 
 // Feature: Creator selects Resource type Book
+Before(() => {
+  cy.login(USER_RESOURCE_TYPE_BOOK);
+  cy.get('[data-testid=my-registrations]').click({ force: true });
+});
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Book"
 Given('Creator navigates to Resource Type tab', () => {});
@@ -14,7 +19,7 @@ Then('they see a list of subtypes:', () => {});
 // @392
 // Scenario Outline: Creator navigates to the Resource Type tab and selects Resource subtype
 Given('Creator navigates to the Resource Type tab and selects Resource type "Book"', () => {});
-When('they select Resource subtype "<BookType>"', () => {});
+When('they select Resource subtype {string}', () => {});
 And('they see fields:', () => {});
 //     | Publisher             |
 //     | ISBN                  |
@@ -29,7 +34,7 @@ And('they see fields:', () => {});
 // @2229
 // Scenario Outline: Creator sees that fields for Book are validated on Resource Type tab
 Given('Creator navigates to the Resource Type tab and selects Resource type "Book"', () => {});
-When('they select Resource subtype "<BookType>"', () => {});
+When('they select Resource subtype {string}', () => {});
 And('they click the Save button', () => {});
 Then('they can see "Mandatory" error messages for fields:', () => {});
 //     | Publisher |
@@ -62,4 +67,4 @@ When('they select Content type "Academic Monograph"', () => {});
 Then('they see fields:', () => {});
 // | Peer reviewed         |
 // | Presents new research |
-And('they see the Norwegian Science Index (NVI) evaluation status', () => {});
+And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {});
