@@ -97,5 +97,16 @@
     "status": "DRAFT",
     "contributor": "test-user-with-author@test.no",
     "title": "Delete Draft registration"
+  },
+  {
+    "publication_type": "",
+    "publication_context_type": "",
+    "publication_instance_type": "",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-book@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-book@test.no",
+    "title": "Resource type Book"
   }
 ]

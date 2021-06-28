@@ -1,12 +1,13 @@
 import boto3
 import json
 import uuid
+import sys
 
 ssm = boto3.client('ssm')
 client = boto3.client('cognito-idp')
-USER_POOL_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_ID',
+USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
-CLIENT_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_WEB_CLIENT_ID',
+CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 secretsmanager = boto3.client('secretsmanager')
 # PASSWORD = json.loads(secretsmanager.get_secret_value(SecretId='apiTestUserPassword')['SecretString'])['password']
@@ -33,19 +34,22 @@ def create_user(client):
                 break
         user_exist = find_user(client=client, username=username)
         if not user_exist:
-            print('Creating user...')
-            client.admin_create_user(
-                UserPoolId=USER_POOL_ID,
-                Username=username,
-                UserAttributes=cognito_user,
-                MessageAction='SUPPRESS'
-            )
-            client.admin_set_user_password(
-                Password='P_' + str(uuid.uuid4()),
-                UserPoolId=USER_POOL_ID,
-                Username=username,
-                Permanent=True,
-            )
+            try:
+                print('Creating user...')
+                client.admin_create_user(
+                    UserPoolId=USER_POOL_ID,
+                    Username=username,
+                    UserAttributes=cognito_user,
+                    MessageAction='SUPPRESS'
+                )
+                client.admin_set_user_password(
+                    Password='P_' + str(uuid.uuid4()),
+                    UserPoolId=USER_POOL_ID,
+                    Username=username,
+                    Permanent=True,
+                )
+            except:
+                print('Error creating user', sys.exc_info()[0])
         else:
             print('User already exists...')
 

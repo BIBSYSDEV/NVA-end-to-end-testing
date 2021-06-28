@@ -16,13 +16,13 @@ s3_bucket_name = ssm.get_parameter(Name='/test/RESOURCE_S3_BUCKET',
                                    WithDecryption=False)['Parameter']['Value']
 STAGE = ssm.get_parameter(Name='/test/STAGE',
                           WithDecryption=False)['Parameter']['Value']
-USER_POOL_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_ID',
+USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
-CLIENT_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_WEB_CLIENT_ID',
+CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 publication_template_file_name = './publications/new_test_registration.json'
 test_publications_file_name = './publications/test_publications.json'
-user_tablename = 'UsersAndRolesTable'
+user_tablename = 'nva-users-and-roles-nva-identity-service-nva-identity-service'
 person_query = 'https://api.{}.nva.aws.unit.no/person/?name={} {}'
 user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
@@ -67,13 +67,13 @@ def upload_file(bearer_token):
     # create
     print('create...')
     response = requests.post(
-      upload_create, 
+      upload_create,
       json={
         'filename': 'test_file.pdf',
         'size': 32404,
         'lastmodified': 1353189358000,
         'mimetype': 'application/pdf'
-      }, 
+      },
       headers=headers)
     uploadId = response.json()['uploadId']
     key = response.json()['key']
@@ -110,12 +110,19 @@ def upload_file(bearer_token):
 
 def scan_resources():
     print('scanning resourcess')
-    response = dynamodb_client.scan(TableName=publications_tablename)
+    response = dynamodb_client.scan(TableName=publications_tablename,
+        FilterExpression='contains(#PK0, :val)',
+        ExpressionAttributeNames={'#PK0': 'PK0'},
+        ExpressionAttributeValues={':val': {'S': 'test.no'}})
     scanned_publications = response['Items']
     more_items = 'LastEvaluatedKey' in response
     while more_items:
         start_key = response['LastEvaluatedKey']
-        response = dynamodb_client.scan(TableName=publications_tablename, ExclusiveStartKey=start_key)
+        response = dynamodb_client.scan(TableName=publications_tablename,
+            FilterExpression='contains(#PK0, :val)',
+            ExpressionAttributeNames={'#PK0': 'PK0'},
+            ExpressionAttributeValues={':val': {'S': 'test.no'}},
+            ExclusiveStartKey=start_key)
         scanned_publications.extend(response['Items'])
         more_items = 'LastEvaluatedKey' in response
     return scanned_publications
@@ -133,19 +140,16 @@ def delete_publications():
             if 'test.no' in owner:
                 print(
                     'Deleting {} - {}'.format(identifier, owner))
-                try:
-                    response = dynamodb_client.delete_item(
-                        TableName=publications_tablename,
-                        Key={
-                            'PK0': {
-                                'S': primary_partition_key
-                            },
-                            'SK0': {
-                                'S': primary_sort_key
-                            }
-                        })
-                except e:
-                    print(e)
+                response = dynamodb_client.delete_item(
+                    TableName=publications_tablename,
+                    Key={
+                        'PK0': {
+                            'S': primary_partition_key
+                        },
+                        'SK0': {
+                            'S': primary_sort_key
+                        }
+                    })
     return
 
 
@@ -233,7 +237,6 @@ def run():
     print('publications...')
     bearer_token = common.login()
     map_user_to_arp()
-    # upload_file(bearer_token)
 
     delete_publications()
     create_publications(bearer_token=bearer_token)
