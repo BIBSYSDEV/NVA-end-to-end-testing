@@ -359,8 +359,8 @@
   },
   {
     "familyName": "TestUser",
-    "givenName": "Resource type Book",
-    "username": "test-user-book@test.no",
+    "givenName": "Resource type",
+    "username": "test-user-resource-type@test.no",
     "role": [
       "CREATOR"
     ],

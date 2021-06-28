@@ -104,10 +104,10 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-book@test.no",
+    "owner": "test-user-resource-type@test.no",
     "status": "DRAFT",
-    "contributor": "test-user-book@test.no",
-    "title": "Resource type Book"
+    "contributor": "test-user-resource-type@test.no",
+    "title": "Test Resource type"
   },
   {
     "publication_type": "JournalContent",

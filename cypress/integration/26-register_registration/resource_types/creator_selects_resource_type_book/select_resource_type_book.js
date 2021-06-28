@@ -1,10 +1,10 @@
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
-import { USER_RESOURCE_TYPE_BOOK } from '../../../../support/constants';
+import { USER_RESOURCE_TYPE } from '../../../../support/constants';
 import { BOOK_SUBTYPES, BOOK_FIELDS } from '../../../../support/data_testid_constants';
 
 // Feature: Creator selects Resource type Book
 Before(() => {
-  cy.login(USER_RESOURCE_TYPE_BOOK);
+  cy.login(USER_RESOURCE_TYPE);
   cy.get('[data-testid=my-registrations]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
@@ -30,7 +30,6 @@ When('they select the Resource type "Book"', () => {
   cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
 });
 Then('they see a list of subtypes:', (dataTable) => {
-  cy.log(BOOK_SUBTYPES);
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.testDataTestidList(dataTable, BOOK_SUBTYPES);
 });

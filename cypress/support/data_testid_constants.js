@@ -169,15 +169,16 @@ export const STUDENT_THESIS_FIELDS = {
 };
 
 export const CHAPTER_SUBTYPES = {
-  'Chapter in anthology': 'publication-instance-type-ChapterArticle',
+  'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
 };
 
 export const CHAPTER_FIELDS = {
   'DOI': 'doi-field',
-  'Search box for published books': 'info-anthology',
+  'Search box for published Anthologies': 'info-anthology',
   'Pages from': 'chapter-pages-from',
   'Pages to': 'chapter-pages-to',
-  'Peer reviewed': 'peer_review-true',
+  'Peer reviewed': 'peer-review-true',
+  'NPI discipline': 'npi-search',
 };
 
 export const OTHER_SUBTYPES = {};
