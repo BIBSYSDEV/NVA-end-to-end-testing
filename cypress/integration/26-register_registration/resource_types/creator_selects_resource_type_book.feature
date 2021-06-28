@@ -1,6 +1,5 @@
 Feature: Creator selects Resource type Book
 
-    @test
     Scenario: Creator navigates to the Resource Type tab and selects Resource type "Book"
         Given Creator navigates to Resource Type tab
         When they select the Resource type "Book"
@@ -40,6 +39,7 @@ Feature: Creator selects Resource type Book
             | Exhibition catalog  |
 
     @1963
+    @test
     Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"
         Given Creator navigates to the Resource Type tab and selects Resource type "Book"
         When they select Resource subtype "Monograph"

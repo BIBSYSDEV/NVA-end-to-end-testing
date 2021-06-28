@@ -99,9 +99,9 @@
     "title": "Delete Draft registration"
   },
   {
-    "publication_type": "BookContent",
-    "publication_context_type": "Book",
-    "publication_instance_type": "BookMonograph",
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-book@test.no",

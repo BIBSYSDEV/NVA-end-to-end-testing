@@ -39,6 +39,7 @@ test_file = open(test_file_name, 'rb').read()
 
 arp_dict = {}
 file_dict = {}
+bearer_tokens = {}
 
 def map_user_to_arp():
     with open('./users/test_users.json') as user_file:
@@ -159,6 +160,8 @@ def put_item(new_publication, bearer_token):
       'accept': 'application/json'
     }
     response = requests.post(publication_endpoint, json=new_publication, headers=headers)
+    if response.status_code != 201:
+        print(response.__dict__)
 
 
 def get_customer(username, bearer_token):
@@ -215,7 +218,7 @@ def create_test_publication(publication_template, test_publication, bearer_token
 
     return new_publication
 
-def create_publications(bearer_token):
+def create_publications():
     with open(publication_template_file_name) as publication_template_file:
         publication_template = json.load(publication_template_file)
 
@@ -223,7 +226,13 @@ def create_publications(bearer_token):
 
         test_publications = json.load(test_publications_file)
         for test_publication in test_publications:
-
+            username = test_publication['owner']
+            bearer_token = ''
+            if username in bearer_tokens:
+                bearer_token = bearer_tokens[username]
+            else:
+                bearer_token = common.login(username)
+                bearer_tokens[username] = bearer_token
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
@@ -235,11 +244,10 @@ def create_publications(bearer_token):
 
 def run():
     print('publications...')
-    bearer_token = common.login()
     map_user_to_arp()
 
     delete_publications()
-    create_publications(bearer_token=bearer_token)
+    create_publications()
 
 
 if __name__ == '__main__':

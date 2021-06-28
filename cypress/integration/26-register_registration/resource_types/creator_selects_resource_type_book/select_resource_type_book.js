@@ -1,16 +1,39 @@
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { USER_RESOURCE_TYPE_BOOK } from '../../../../support/constants';
+import { BOOK_SUBTYPES, BOOK_FIELDS } from '../../../../support/data_testid_constants';
 
 // Feature: Creator selects Resource type Book
 Before(() => {
   cy.login(USER_RESOURCE_TYPE_BOOK);
   cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 
+// Common steps
+Given('Creator navigates to the Resource Type tab and selects Resource type "Book"', () => {
+  cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
+});
+When('they select Resource subtype {string}', (subtype) => {
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
+  cy.get(`[data-testid=${BOOK_SUBTYPES[subtype]}]`).click({ force: true });
+});
+// end Common steps
+
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Book"
-Given('Creator navigates to Resource Type tab', () => {});
-When('they select the Resource type "Book"', () => {});
-Then('they see a list of subtypes:', () => {});
+Given('Creator navigates to Resource Type tab', () => {
+  cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
+});
+When('they select the Resource type "Book"', () => {
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
+});
+Then('they see a list of subtypes:', (dataTable) => {
+  cy.log(BOOK_SUBTYPES);
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.testDataTestidList(dataTable, BOOK_SUBTYPES);
+});
 // | Anthology           |
 // | Monograph           |
 // | Abstract collection |
@@ -18,9 +41,9 @@ Then('they see a list of subtypes:', () => {});
 
 // @392
 // Scenario Outline: Creator navigates to the Resource Type tab and selects Resource subtype
-Given('Creator navigates to the Resource Type tab and selects Resource type "Book"', () => {});
-When('they select Resource subtype {string}', () => {});
-And('they see fields:', () => {});
+And('they see fields:', (dataTable) => {
+  cy.testDataTestidList(dataTable, BOOK_FIELDS);
+});
 //     | Publisher             |
 //     | ISBN                  |
 //     | Total number of pages |
@@ -33,10 +56,17 @@ And('they see fields:', () => {});
 
 // @2229
 // Scenario Outline: Creator sees that fields for Book are validated on Resource Type tab
-Given('Creator navigates to the Resource Type tab and selects Resource type "Book"', () => {});
-When('they select Resource subtype {string}', () => {});
-And('they click the Save button', () => {});
-Then('they can see "Mandatory" error messages for fields:', () => {});
+And('they click the Save button', () => {
+  cy.get('[data-testid=button-save-registration]').click({ force: true });
+});
+Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
+  dataTable.rawTable.forEach((field) => {
+    cy.get(`[data-testid=${BOOK_FIELDS[field[0]]}]`).within(() => {
+      cy.get('p').should('have.class', 'Mui-error');
+      cy.get('p').should('have.class', 'Mui-required');
+    });
+  });
+});
 //     | Publisher |
 // Examples:
 //     | BookType            |
@@ -47,8 +77,10 @@ Then('they can see "Mandatory" error messages for fields:', () => {});
 
 // @1963
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"
-Given('Creator navigates to the Resource Type tab and selects Resource type "Book"', () => {});
-When('they select Resource subtype "Monograph"', () => {});
+When('they select Resource subtype "Monograph"', () => {
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
+});
 And('they see fields:', () => {});
 // | NPI discipline |
 // | Series title   |
@@ -62,7 +94,13 @@ And('they see a field Content Type with options:', () => {});
 
 // @2782
 // Scenario: Creator selects Resource subtype "Monograph" and Content type Academic Monograph
-Given('Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"', () => {});
+Given('Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"', () => {
+  cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
+});
 When('they select Content type "Academic Monograph"', () => {});
 Then('they see fields:', () => {});
 // | Peer reviewed         |
