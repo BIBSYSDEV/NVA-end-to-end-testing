@@ -166,5 +166,8 @@ Feature: Creator selects Resource type Contribution to journal
         Examples:
             | Subtype         |
             | Feature article |
+            | Comment         |
             | Book review     |
             | Leader          |
+            | Corrigendum     |
+            | Booklet         |
