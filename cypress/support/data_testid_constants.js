@@ -108,7 +108,7 @@ export const JOURNAL_SUBTYPES = {
   'Feature article': 'publication-instance-type-FeatureArticle',
   'Letter to the Editor': 'publication-instance-type-JournalLetter',
   'Book review': 'publication-instance-type-JournalReview',
-  'Editorial': 'publication-instance-type-JournalLeader',
+  'Leader': 'publication-instance-type-JournalLeader',
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',
 };
 

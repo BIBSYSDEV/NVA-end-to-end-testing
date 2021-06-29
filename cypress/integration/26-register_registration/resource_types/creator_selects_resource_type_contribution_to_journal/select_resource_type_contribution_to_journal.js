@@ -1,22 +1,78 @@
-import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
-import { USER_RESOURCE_TYPE } from '../../../../support/constants';
+import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { USER_WITH_AUTHOR } from '../../../../support/constants';
 import { JOURNAL_SUBTYPES, JOURNAL_FIELDS } from '../../../../support/data_testid_constants';
-
-// Feature: Creator selects Resource type Book
-Before(() => {
-  cy.login(USER_RESOURCE_TYPE);
-  cy.get('[data-testid=my-registrations]').click({ force: true });
-  cy.get('[data-testid^=edit-registration]').first().click({ force: true });
-});
 
 // Feature: Creator selects Resource type Contribution to journal
 
+const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
+const filename = 'example.txt';
+
+// Common steps
+Given('Creator begins registering a Registration in the Wizard with a Link', () => {
+  cy.login(USER_WITH_AUTHOR);
+  cy.startWizardWithLink(doiLink);
+});
+Given('Creator begins registering a Registration in the Wizard with a File', () => {
+  cy.login(USER_WITH_AUTHOR);
+  cy.startWizardWithFile(filename);
+});
+When('they navigate to the Resource Type tab', () => {
+  cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
+});
+And('they click the Save button', () => {
+  cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.get('[data-testid=button-next-tab]').click({ force: true });
+  cy.get('[data-testid=button-previous-tab]').click({ force: true });
+});
+And('they select the Resource type "Contribution to journal"', () => {
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Journal]').click({ force: true });
+});
+And('they select Resource subtype Journal article', () => {
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.get('[data-testid=publication-instance-type-JournalArticle]').click({ force: true });
+});
+And('they enter an invalid value in fields:', (dataTable) => {
+  dataTable.rawTable.forEach((field) => {
+    cy.get(`[data-testid=${JOURNAL_FIELDS[field]}]`).type('{selectall}{del}invalid');
+  });
+});
+When('they click the Save button', () => {
+  cy.get('[data-testid=save-publication-button]').click({ force: true });
+});
+Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
+  dataTable.rawTable.forEach((field) => {
+    cy.get(`[data-testid=${JOURNAL_FIELDS[field[0]]}]`).within(() => {
+      cy.get('p').should('have.class', 'Mui-error');
+      cy.get('p').should('have.class', 'Mui-required');
+    });
+  });
+});
+And('they can see "Invalid format" error messages for fields:', (dataTable) => {
+  dataTable.rawTable.forEach((field) => {
+    cy.get(`[data-testid=${JOURNAL_FIELDS[field[0]]}]`).within(() => {
+      cy.get('input').focus().blur();
+      cy.wrap(field).get('p').should('have.class', 'Mui-error');
+    });
+  });
+});
+And('they see fields:', (dataTable) => {
+  cy.testDataTestidList(dataTable, JOURNAL_FIELDS);
+});
+And('they select the Resource subtype "Corrigendum"', () => {
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.get(`[data-testid=${JOURNAL_SUBTYPES['Corrigendum']}]`).click({ force: true });
+});
+// End common staps
+
+// TODO Booklet, Comment missing
 // @274
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Contribution to journal"
-Given('Creator begins registering a Registration in the Wizard with a File', () => {});
-When('they navigate to the Resource Type tab', () => {});
-And('they select the Resource type "Contribution to journal"', () => {});
-Then('they see a list of subtypes:', () => {});
+Then('they see a list of subtypes:', (dataTable) => {
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.testDataTestidList(dataTable, JOURNAL_SUBTYPES);
+});
 // | Journal article |
 // | Feature article |
 // | Comment         |
@@ -25,57 +81,19 @@ Then('they see a list of subtypes:', () => {});
 // | Corrigendum     |
 // | Booklet         |
 
-// @1656
-// Scenario: Creator sees fields for Journal article
-Given('Creator begins registering a Registration in the Wizard with a Link', () => {});
-When('they navigate to the Resource Type tab', () => {});
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select Resource subtype Journal article', () => {});
-And('they see fields:', () => {});
-// | Search-box for Journal |
-// | DOI                    |
-// | Volume                 |
-// | Issue                  |
-// | Pages from             |
-// | Pages to               |
-// | Article number         |
-And('they see a dropdown for Content Type with options:', () => {});
-// | Research article        |
-// | Review article          |
-// | Case report             |
-// | Study protocol          |
-// | Professional article    |
-// | Popular science article |
-And('they see the Norwegian Science Index (NVI) evaluation status', () => {});
-
+// TODO Article number is not being validated
 // Scenario: Creator sees that fields for Journal article are validated
-Given('Creator begins registering a Registration in the Wizard with a File', () => {});
-And('they navigate to the Resource Type tab', () => {});
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select Resource subtype Journal article', () => {});
-And('they enter an invalid value in fields:', () => {});
-// | Volume         |
-// | Issue          |
-// | Pages from     |
-// | Pages to       |
-// | Article number |
-When('they click the Save button', () => {});
-Then('they can see "Mandatory" error messages for fields:', () => {});
-// | Search box for Journal |
-And('they can see "Invalid format" error messages for fields:', () => {});
-// | Volume         |
-// | Issue          |
-// | Pages from     |
-// | Pages to       |
-// | Article number |
 
+// TODO Booklet, Comment missing
 // @1409
 // Scenario Outline: Creator selects Contribution to Journal and Peer Review Details are hidden
-Given('Creator begins registering a Registration in the Wizard with a File', () => {});
-And('they navigate to the Resource Type tab', () => {});
-And('they select the Resource type "Contribution to journal"', () => {});
-When('they select the Subtype "<Subtype>"', () => {});
-Then('they see that the Peer Review Details are hidden', () => {});
+When('they select the Subtype {string}', (subtype) => {
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.get(`[data-testid=${JOURNAL_SUBTYPES[subtype]}]`).click({ force: true });
+});
+Then('they see that the Peer Review Details are hidden', () => {
+  cy.get('[data-testid=peer-review-field]').should('not.exist');
+});
 // Examples:
 //     | Subtype         |
 //     | Feature article |
@@ -87,64 +105,24 @@ Then('they see that the Peer Review Details are hidden', () => {});
 
 // @1625
 // Scenario: Creator sees fields for Resource subtype "Corrigendum"
-Given('Creator begins registering a Registration in the Wizard with a Link', () => {});
-When('they navigate to the Resource Type tab', () => {});
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select the Resource subtype "Corrigendum"', () => {});
-Then('they see fields:', () => {});
-// | Search box for "Journal article" |
-// | DOI                              |
-// | Volume                           |
-// | Issue                            |
-// | Pages from                       |
-// | Pages to                         |
-// | Article number                   |
-And('they see a disabled field for Journal based on selected Journal article', () => {});
+And('they see a disabled field for Journal based on selected Journal article', () => {
+  cy.get('[data-testid=article-search-field]').within(() => {
+    cy.get('input').type('Leaders');
+  });
+  cy.contains('collaborative').click({ force: true });
+  cy.get('[data-testid=article-search-field] > p').first().contains('Journal');
+});
 
+// TODO Article number is not being validated
 // Scenario: Creator sees that fields for Resource subtype "Corrigendum" are validated
-Given('Creator begins registering a Registration in the Wizard with a File', () => {});
-And('they navigate to the Resource Type tab', () => {});
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select the Resource subtype "Corrigendum"', () => {});
-And('they enter an invalid value in fields:', () => {});
-// | Volume         |
-// | Issue          |
-// | Pages from     |
-// | Pages to       |
-// | Article number |
-When('they click the Save button', () => {});
-Then('they can see "Mandatory" error messages for fields:', () => {});
-// | Search box for "Journal article" |
-And('they can see "Invalid format" error messages for fields:', () => {});
-// | Volume         |
-// | Issue          |
-// | Pages from     |
-// | Pages to       |
-// | Article number |
 
-// @2685
-// Scenario: Creator sees extra fields for Norwegian Science Index (NVI) compatible Journal article
-Given('Creator sees fields for Journal article', () => {});
-When('they set Content Type to one of:', () => {});
-// | Research article |
-// | Review article   |
-Then('they see radio buttons for Peer reviewed', () => {});
-And('they see radio buttons for Presents new original research', () => {});
-
+// TODO Booklet, Comment missing
 // @1659
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype
-Given('Creator begins registering a Registration in the Wizard with a Link', () => {});
-When('they navigate to the Resource Type tab', () => {});
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select Resource subtype "<Subtype>"', () => {});
-Then('they see fields:', () => {});
-//     | Search box for Journal |
-//     | DOI                    |
-//     | Volume                 |
-//     | Issue                  |
-//     | Pages from             |
-//     | Pages to               |
-//     | Article number         |
+And('they select Resource subtype {string}', (subtype) => {
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.get(`[data-testid=${JOURNAL_SUBTYPES[subtype]}]`).click({ force: true });
+});
 // Examples:
 //     | Subtype         |
 //     | Feature article |
@@ -154,31 +132,6 @@ Then('they see fields:', () => {});
 //     | Corrigendum     |
 //     | Booklet         |
 
+// TODO Booklet, Comment missing
+// TODO Article number is not being validated
 // Scenario Outline: Creator sees that fields for Norwegian Science Index (NVI) incompatible Resource subtype are validated
-Given('Creator begins registering a Registration in the Wizard with a File', () => {});
-And('they navigate to the Resource Type tab', () => {});
-And('they select the Resource type "Contribution to journal"', () => {});
-And('they select Resource subtype "<Subtype>"', () => {});
-And('they enter an invalid value in fields:', () => {});
-// | Volume         |
-// | Issue          |
-// | Pages from     |
-// | Pages to       |
-// | Article number |
-When('they click the Save button', () => {});
-Then('they can see "Mandatory" error messages for fields:', () => {});
-// | Search box for Journal |
-And('they can see "Invalid format" error messages for fields:', () => {});
-//     | Volume         |
-//     | Issue          |
-//     | Pages from     |
-//     | Pages to       |
-//     | Article number |
-// Examples:
-//     | Subtype         |
-//     | Feature article |
-//     | Comment         |
-//     | Book review     |
-//     | Leader          |
-//     | Corrigendum     |
-//     | Booklet         |
