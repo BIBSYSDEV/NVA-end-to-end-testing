@@ -64,8 +64,7 @@ And('they click the Save button', () => {
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${BOOK_FIELDS[field[0]]}]`).within(() => {
-      cy.get('p').should('have.class', 'Mui-error');
-      cy.get('p').should('have.class', 'Mui-required');
+      cy.wrap(field).get('p').should('have.class', 'Mui-error');
     });
   });
 });

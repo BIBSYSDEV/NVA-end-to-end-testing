@@ -91,8 +91,8 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 And('they can see "Invalid format" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${REPORT_FIELDS[field[0]]}]`).within(() => {
+      cy.get('input').focus().blur();
       cy.get('p').should('have.class', 'Mui-error');
-      cy.get('p').should('have.class', 'Mui-required');
     });
   });
 });
