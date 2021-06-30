@@ -1,17 +1,15 @@
 Feature: Creator selects Resource type Degree
 
-    @test
     @394
     Scenario: Creator navigates to the Resource Type tab and selects Resource type "Student thesis"
         Given Creator navigates to Resource Type tab
         When they select the Resource type "Student thesis"
         Then they see a list of subtypes:
-        | Bachelor thesis      |
-        | Master thesis        |
-        | Doctoral thesis      |
-        | Other student thesis |
-    
-    @test
+            | Bachelor thesis      |
+            | Master thesis        |
+            | Doctoral thesis      |
+            | Other student thesis |
+
     @1694
     Scenario Outline: Creator sees fields for Resource subtypes for "Student thesis"
         Given Creator navigates to the Resource Type tab and selects Resource type "Student thesis"
@@ -27,14 +25,12 @@ Feature: Creator selects Resource type Degree
             | Doctoral thesis      |
             | Other student thesis |
 
-    @test
     Scenario: Creator sees that fields are validated for Resource subtypes for "Student thesis"
         Given Creator sees fields for Resource subtypes for "Student thesis"
         When they click the Save button
         Then they can see "Mandatory" error messages for fields:
             | Search box for Publisher |
 
-    @test
     @2776
     Scenario: Creator sees series fields for Resource subtypes "Doctoral thesis"
         Given Creator navigates to the Resource Type tab and selects Resource type "Student thesis"

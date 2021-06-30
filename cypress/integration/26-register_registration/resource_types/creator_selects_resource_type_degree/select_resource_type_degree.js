@@ -30,11 +30,9 @@ When('they select the Resource type "Student thesis"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
 });
-Then('they see a list of subtypes:', () => {
-  Then('they see a list of subtypes:', (dataTable) => {
-    cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-    cy.testDataTestidList(dataTable, STUDENT_THESIS_SUBTYPES);
-  });
+Then('they see a list of subtypes:', (dataTable) => {
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.testDataTestidList(dataTable, STUDENT_THESIS_SUBTYPES);
 });
 // | Bachelor thesis      |
 // | Master thesis        |

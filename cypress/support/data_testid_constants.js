@@ -153,6 +153,7 @@ export const REPORT_FIELDS = {
   'ISBN': 'isbn-field',
   'Total number of pages': 'pages-field',
   'Search box for Series': 'series-search-field',
+  'Series number': 'series-number-field',
 };
 
 export const STUDENT_THESIS_SUBTYPES = {
