@@ -102,7 +102,7 @@ When('they enter {string} from {string}', (link, source) => {
 And('they click Search', () => {
   cy.get('[data-testid=doi-search-button]').click({ force: true });
 });
-// TODO
+// TODO Need correct link for schema.org
 Then('they see metadata about the Link in the Expansion panel', () => {
   cy.get('@source').then((source) => {
     if (source !== 'schema.org') {

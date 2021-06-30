@@ -55,6 +55,12 @@ export const USER_ADMINISTRATION_HEADINGS = {
   'Editor': 'Editor',
 };
 
+export const USER_ADMINISTRATION_SECTIONS = {
+  'Administrators': 'users-administrators',
+  'Curators': 'users-curators',
+  'Editors': 'users-editors',
+};
+
 export const USER_ADMINISTRATION_BUTTONS = {
   'Add Administrator': 'button-add-institution-admin',
   'Add Curator': 'button-add-curator',
