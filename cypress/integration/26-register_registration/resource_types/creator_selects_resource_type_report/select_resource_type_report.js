@@ -60,6 +60,10 @@ Given('Creator sees fields for Resource subtypes for "Report"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Report]').click({ force: true });
 });
+And('they have selected the Subtype {string}', (subtype) => {
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.get(`[data-testid=${REPORT_SUBTYPES[subtype]}]`).click();
+});
 When('they enter an invalid value in fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${REPORT_FIELDS[field[0]]}]`).type('{selectall}{del}invalid');
@@ -73,18 +77,25 @@ Then('they can see the "Invalid ISBN" error message', () => {
 });
 When('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click();
-  cy.get('[data-testid=button-save-registration]').should('be.enabled')
+  cy.get('[data-testid=button-save-registration]').should('be.enabled');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
-  dataTable.rawTable.forEach(field => {
+  dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${REPORT_FIELDS[field[0]]}]`).within(() => {
       cy.get('p').should('have.class', 'Mui-error');
       cy.get('p').should('have.class', 'Mui-required');
-    })
-  })
+    });
+  });
 });
 // | Search box for Publisher |
-And('they can see "Invalid format" error messages for fields:', () => {});
+And('they can see "Invalid format" error messages for fields:', (dataTable) => {
+  dataTable.rawTable.forEach((field) => {
+    cy.get(`[data-testid=${REPORT_FIELDS[field[0]]}]`).within(() => {
+      cy.get('p').should('have.class', 'Mui-error');
+      cy.get('p').should('have.class', 'Mui-required');
+    });
+  });
+});
 //     | Total number of pages |
 // Examples:
 //     | Subtype              |

@@ -64,7 +64,7 @@ And('they select the Resource subtype "Corrigendum"', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get(`[data-testid=${JOURNAL_SUBTYPES['Corrigendum']}]`).click({ force: true });
 });
-// End common staps
+// End common steps
 
 // TODO Booklet, Comment missing
 // @274

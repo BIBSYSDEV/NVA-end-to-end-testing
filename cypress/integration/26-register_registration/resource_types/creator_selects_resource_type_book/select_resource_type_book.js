@@ -21,6 +21,7 @@ When('they select Resource subtype {string}', (subtype) => {
 });
 // end Common steps
 
+// TODO Missing subtypes Abstract collection, Exhibition catalog
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Book"
 Given('Creator navigates to Resource Type tab', () => {
   cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
@@ -38,6 +39,7 @@ Then('they see a list of subtypes:', (dataTable) => {
 // | Abstract collection |
 // | Exhibition catalog  |
 
+// TODO Missing subtypes Abstract collection, Exhibition catalog
 // @392
 // Scenario Outline: Creator navigates to the Resource Type tab and selects Resource subtype
 And('they see fields:', (dataTable) => {
@@ -53,6 +55,7 @@ And('they see fields:', (dataTable) => {
 //     | Abstract collection |
 //     | Exhibition catalog  |
 
+// TODO Missing subtypes Abstract collection, Exhibition catalog
 // @2229
 // Scenario Outline: Creator sees that fields for Book are validated on Resource Type tab
 And('they click the Save button', () => {
@@ -73,35 +76,3 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 //     | Monograph           |
 //     | Abstract collection |
 //     | Exhibition catalog  |
-
-// @1963
-// Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"
-When('they select Resource subtype "Monograph"', () => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
-});
-And('they see fields:', () => {});
-// | NPI discipline |
-// | Series title   |
-// | Series number  |
-And('they see a field Content Type with options:', () => {});
-// | Academic Monograph        |
-// | Non-fiction Monograph     |
-// | Popular Science Monograph |
-// | Textbook                  |
-// | Encyclopedia              |
-
-// @2782
-// Scenario: Creator selects Resource subtype "Monograph" and Content type Academic Monograph
-Given('Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"', () => {
-  cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
-});
-When('they select Content type "Academic Monograph"', () => {});
-Then('they see fields:', () => {});
-// | Peer reviewed         |
-// | Presents new research |
-And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {});
