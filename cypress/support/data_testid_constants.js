@@ -108,7 +108,7 @@ export const JOURNAL_SUBTYPES = {
   'Feature article': 'publication-instance-type-FeatureArticle',
   'Letter to the Editor': 'publication-instance-type-JournalLetter',
   'Book review': 'publication-instance-type-JournalReview',
-  'Editorial': 'publication-instance-type-JournalLeader',
+  'Leader': 'publication-instance-type-JournalLeader',
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',
 };
 
@@ -127,9 +127,9 @@ export const JOURNAL_FIELDS = {
   'Peer reviewed': 'peer_review-true',
 };
 
-export const BOOK_SUPTYPES = {
-  'Monograph': 'BookMonograph',
-  'Anthology': 'BookAnthology',
+export const BOOK_SUBTYPES = {
+  'Monograph': 'publication-instance-type-BookMonograph',
+  'Anthology': 'publication-instance-type-BookAnthology',
 };
 
 export const BOOK_FIELDS = {
@@ -137,6 +137,8 @@ export const BOOK_FIELDS = {
   'ISBN': 'isbn-field',
   'Total number of pages': 'pages-field',
   'NPI discipline': 'search_npi',
+  'Series title': 'series-search-field',
+  'Series number': 'series-number-field',
 };
 
 export const REPORT_SUBTYPES = {
@@ -151,6 +153,7 @@ export const REPORT_FIELDS = {
   'ISBN': 'isbn-field',
   'Total number of pages': 'pages-field',
   'Search box for Series': 'series-search-field',
+  'Series number': 'series-number-field',
 };
 
 export const STUDENT_THESIS_SUBTYPES = {
@@ -164,18 +167,20 @@ export const STUDENT_THESIS_FIELDS = {
   'Search box for Publisher': 'publisher-search-field',
   'DOI': 'doi-field',
   'Search box for Series': 'series-search-field',
+  'Series number': 'series-number-field',
 };
 
 export const CHAPTER_SUBTYPES = {
-  'Chapter in anthology': 'publication-instance-type-ChapterArticle',
+  'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
 };
 
 export const CHAPTER_FIELDS = {
   'DOI': 'doi-field',
-  'Search box for published books': 'info-anthology',
+  'Search box for published Anthologies': 'info-anthology',
   'Pages from': 'chapter-pages-from',
   'Pages to': 'chapter-pages-to',
-  'Peer reviewed': 'peer_review-true',
+  'Peer reviewed': 'peer-review-true',
+  'NPI discipline': 'npi-search',
 };
 
 export const OTHER_SUBTYPES = {};

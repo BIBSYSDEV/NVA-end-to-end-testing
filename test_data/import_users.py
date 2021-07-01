@@ -1,10 +1,10 @@
 import boto3
 import json
-import os
+import sys
 import copy
 import requests
 
-ROLE_TABLENAME = 'UsersAndRolesTable'
+ROLE_TABLENAME = 'nva-users-and-roles-nva-identity-service-nva-identity-service'
 CUSTOMER_TABLENAME = 'nva_customers'
 
 ssm = boto3.client('ssm')
@@ -150,14 +150,14 @@ def run():
                             STAGE, CUSTOMER_ID)
 
                 try:
-                    print(username)
+                    print('Creating {}'.format(username))
                     response = cognito_client.admin_create_user(
                         UserPoolId=USER_POOL_ID,
                         Username=username,
                         UserAttributes=user_attributes,
                         MessageAction='SUPPRESS')
                 except:
-                    print('Error creating users')
+                    print('Error creating user {}'.format(username), sys.exc_info()[0])
                     pass
 
                 role = test_user['role']

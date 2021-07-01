@@ -8,7 +8,7 @@ CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 username = 'test-user-with-author@test.no'
 
-def login():
+def login(username):
     client = boto3.client('cognito-idp')
     password = 'P%' + str(uuid.uuid4())
     response = client.admin_set_user_password(
