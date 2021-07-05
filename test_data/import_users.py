@@ -4,7 +4,7 @@ import os
 import copy
 import requests
 
-ROLE_TABLENAME = 'UsersAndRolesTable'
+ROLE_TABLENAME = 'nva-users-and-roles-nva-identity-service-nva-identity-service'
 CUSTOMER_TABLENAME = 'nva_customers'
 
 ssm = boto3.client('ssm')
