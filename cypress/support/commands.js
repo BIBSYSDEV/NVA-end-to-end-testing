@@ -12,7 +12,7 @@ const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
-const SET_EXTERNAL_ORCID = 'set external orcid';
+const SET_AUTHORITY_DATA = 'set authority data';
 
 AWS.config = new AWS.Config({
   accessKeyId: AWS_ACCESS_KEY_ID,
@@ -178,8 +178,17 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   });
 });
 
-Cypress.Commands.add('addMockOrcid', () => {
-  cy.window().its('store').invoke('dispatch', { type: SET_EXTERNAL_ORCID, orcid: 'test_orcid' });
+Cypress.Commands.add('addMockOrcid', (username) => {
+  cy.request(`https://api.dev.nva.aws.unit.no/person?feideid=${username}`).then((response) => {
+    const orcid_authority = response.body[0]
+    orcid_authority.orcids.push('test_orcid') 
+    cy.window() 
+      .its('store')
+      .invoke('dispatch', {
+        type: SET_AUTHORITY_DATA,
+        authority: orcid_authority,
+      });
+  });
 });
 
 Cypress.Commands.add('findScenario', () => {
