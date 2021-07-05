@@ -1,9 +1,7 @@
 import boto3
 import json
 import copy
-import uuid
 import requests
-import uuid
 import os
 import common
 
@@ -20,13 +18,16 @@ USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
 CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
+user_tablename = ssm.get_parameter(Name='/test/USER_TABLE',
+                                   WithDecryption=False)['Parameter']['Value']
 publication_template_file_name = './publications/new_test_registration.json'
 test_publications_file_name = './publications/test_publications.json'
-user_tablename = 'nva-users-and-roles-nva-identity-service-nva-identity-service'
 person_query = 'https://api.{}.nva.aws.unit.no/person/?name={} {}'
 user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = 'https://api.{}.nva.aws.unit.no/publication'.format(STAGE)
+publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/publish/{}'
+request_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/doirequest'.format(STAGE)
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
@@ -35,7 +36,6 @@ test_file_name = 'publications/files/test_file.pdf'
 test_file_size = os.stat(test_file_name).st_size
 test_file_modified = os.stat(test_file_name).st_mtime
 test_file = open(test_file_name, 'rb').read()
-
 
 arp_dict = {}
 file_dict = {}
@@ -161,7 +161,8 @@ def put_item(new_publication, bearer_token):
     }
     response = requests.post(publication_endpoint, json=new_publication, headers=headers)
     if response.status_code != 201:
-        print(response.__dict__)
+        print(response.json())
+    return response.json()
 
 
 def get_customer(username, bearer_token):
@@ -239,8 +240,32 @@ def create_publications():
                 bearer_token=bearer_token
             )
             print(test_publication['title'])
-            put_item(new_publication=new_publication, bearer_token=bearer_token)
+            response = put_item(new_publication=new_publication, bearer_token=bearer_token)
+            identifier = response['identifier']
+            if test_publication['status'] == 'PUBLISHED':
+                print('publishing...{}'.format(identifier))
+                publish_publication(identifier=identifier, bearer_token=bearer_token)
+            if 'doi' in test_publication:
+                print('requesting doi...')
+                request_doi(identifier=identifier, bearer_token=bearer_token)
 
+def publish_publication(identifier, bearer_token):
+    headers = {
+        'Authorization': 'Bearer {}'.format(bearer_token),
+        'accept': 'application/json'
+    }
+    requests.post(publish_endpoint.format(STAGE, identifier), headers=headers)
+
+def request_doi(identifier, bearer_token):
+    headers = {
+        'Authorization': 'Bearer {}'.format(bearer_token),
+        'accept': 'application/json'
+    }
+    doi_request_payload = {
+        "identifier": identifier,
+        "message": "Test"
+    }
+    requests.post(request_doi_endpoint, json=doi_request_payload, headers=headers)
 
 def run():
     print('publications...')
