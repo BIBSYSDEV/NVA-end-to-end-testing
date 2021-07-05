@@ -155,7 +155,6 @@ Given('Administrator opens the Add Role Dialog', () => {
   cy.get('[data-testid=menu]').click({ force: true });
   cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
 });
-And('they click {string} under {string}', () => {});
 When('they enter text into the Search field', () => {
   cy.get('@section').then((section) => {
     cy.get('[data-testid=add-role-search-box]').type(roleSearchTerms[section]);
