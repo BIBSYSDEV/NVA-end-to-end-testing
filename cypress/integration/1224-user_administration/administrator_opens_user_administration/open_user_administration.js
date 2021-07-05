@@ -14,7 +14,6 @@ const roleSearchTerms = {
 };
 
 // Feature: Administrator opens user administration
-
 // Common steps
 And('they see the number of items viewed per page', () => {
   cy.get('@listControls').within(() => {
