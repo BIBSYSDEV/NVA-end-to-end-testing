@@ -116,7 +116,7 @@ And('they log into ORCID', () => {});
 And('they accept that NVA uses their data', () => {});
 Then('they are redirected back to NVA', () => {});
 And('their ORCID is added to their Author identity', () => {
-  cy.addMockOrcid();
+  cy.addMockOrcid(USER_CONNECT_ORCID);
 });
 And('they see their ORCID on My Profile', () => {
   cy.get('[data-testid=close-modal]').click({ force: true });

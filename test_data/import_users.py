@@ -1,6 +1,6 @@
 import boto3
 import json
-import os
+import sys
 import copy
 import requests
 
@@ -150,14 +150,14 @@ def run():
                             STAGE, CUSTOMER_ID)
 
                 try:
-                    print(username)
+                    print('Creating {}'.format(username))
                     response = cognito_client.admin_create_user(
                         UserPoolId=USER_POOL_ID,
                         Username=username,
                         UserAttributes=user_attributes,
                         MessageAction='SUPPRESS')
                 except:
-                    print('Error creating users')
+                    print('Error creating user {}'.format(username), sys.exc_info()[0])
                     pass
 
                 role = test_user['role']

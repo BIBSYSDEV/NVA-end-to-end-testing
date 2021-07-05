@@ -552,5 +552,18 @@
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
     "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Resource type",
+    "username": "test-user-resource-type@test.no",
+    "role": [
+      "CREATOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "1111111111",
+    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
   }
 ]
