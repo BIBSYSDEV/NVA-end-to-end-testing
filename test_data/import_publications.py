@@ -93,8 +93,8 @@ def upload_file(bearer_token):
         headers=headers)
     presignedUrl = response.json()['url']
     # upload
-    response = requests.put(presignedUrl, headers={
-                            'Accept': 'appliation/pdf'}, data=test_file)
+    response = requests.put(presignedUrl, headers= { 'Accept': 'appliation/pdf' }, data=test_file)
+
     ETag = response.headers['ETag']
     # complete
     print('complete...')
