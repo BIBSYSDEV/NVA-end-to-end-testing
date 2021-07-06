@@ -28,8 +28,7 @@ upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = 'https://api.{}.nva.aws.unit.no/publication'.format(
     STAGE)
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/publish/{}'
-request_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/doirequest'.format(
-    STAGE)
+request_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/doirequest'
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
