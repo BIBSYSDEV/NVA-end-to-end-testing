@@ -39,9 +39,15 @@ test_file_size = os.stat(test_file_name).st_size
 test_file_modified = os.stat(test_file_name).st_mtime
 test_file = open(test_file_name, 'rb').read()
 
+
 arp_dict = {}
 file_dict = {}
 bearer_tokens = {}
+headers = {
+    'Authorization': '',
+    'accept': 'application/json'
+}
+
 
 STRING = 'S'
 MAP = 'M'
@@ -68,10 +74,7 @@ def map_user_to_arp():
 
 def upload_file(bearer_token):
     print('upload file...')
-    headers = {
-        'Authorization': 'Bearer {}'.format(bearer_token),
-        'accept': 'application/pdf'
-    }
+    headers['Authorization'] = 'Bearer {bearer_token}'
     # create
     print('create...')
     response = requests.post(
@@ -165,10 +168,7 @@ def delete_publications():
 
 
 def put_item(new_publication, bearer_token):
-    headers = {
-        'Authorization': 'Bearer {}'.format(bearer_token),
-        'accept': 'application/json'
-    }
+    headers['Authorization'] = 'Bearer {bearer_token}'
     response = requests.post(publication_endpoint,
                              json=new_publication, headers=headers)
     if response.status_code != 201:
@@ -177,10 +177,7 @@ def put_item(new_publication, bearer_token):
 
 
 def get_customer(username, bearer_token):
-    headers = {
-        'Authorization': 'Bearer {}'.format(bearer_token),
-        'accept': 'application/json'
-    }
+    headers['Authorization'] = 'Bearer {bearer_token}'
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
     return response.json()['institution']
@@ -269,10 +266,6 @@ def create_publications():
 
 
 def publish_publication(identifier, bearer_token):
-    headers = {
-        'Authorization': 'Bearer {}'.format(bearer_token),
-        'accept': 'application/json'
-    }
     requests.post(publish_endpoint.format(STAGE, identifier), headers=headers)
 
 
