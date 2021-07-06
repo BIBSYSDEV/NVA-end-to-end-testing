@@ -73,7 +73,7 @@ def map_user_to_arp():
 
 def upload_file(bearer_token):
     print('upload file...')
-    headers['Authorization'] = 'Bearer {bearer_token}'
+    headers['Authorization'] = f'Bearer {bearer_token}'
     # create
     print('create...')
     response = requests.post(
@@ -167,7 +167,7 @@ def delete_publications():
 
 
 def put_item(new_publication, bearer_token):
-    headers['Authorization'] = 'Bearer {bearer_token}'
+    headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.post(publication_endpoint,
                              json=new_publication, headers=headers)
     if response.status_code != 201:
@@ -176,7 +176,7 @@ def put_item(new_publication, bearer_token):
 
 
 def get_customer(username, bearer_token):
-    headers['Authorization'] = 'Bearer {bearer_token}'
+    headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
     return response.json()['institution']
@@ -265,14 +265,12 @@ def create_publications():
 
 
 def publish_publication(identifier, bearer_token):
+    headers['Authorization'] = f'Bearer {bearer_token}'
     requests.post(publish_endpoint.format(STAGE, identifier), headers=headers)
 
 
 def request_doi(identifier, bearer_token):
-    headers = {
-        'Authorization': 'Bearer {}'.format(bearer_token),
-        'accept': 'application/json'
-    }
+    headers['Authorization'] = f'Bearer {bearer_token}'
     doi_request_payload = {
         "identifier": identifier,
         "message": "Test"
