@@ -43,6 +43,9 @@ arp_dict = {}
 file_dict = {}
 bearer_tokens = {}
 
+STRING = 'S'
+MAP = 'M'
+
 
 def map_user_to_arp():
     with open('./users/test_users.json') as user_file:
@@ -120,7 +123,7 @@ def scan_resources():
     response = dynamodb_client.scan(TableName=publications_tablename,
                                     FilterExpression='contains(#PK0, :val)',
                                     ExpressionAttributeNames={'#PK0': 'PK0'},
-                                    ExpressionAttributeValues={':val': {'S': 'test.no'}})
+                                    ExpressionAttributeValues={':val': {STRING: 'test.no'}})
     scanned_publications = response['Items']
     more_items = 'LastEvaluatedKey' in response
     while more_items:
@@ -130,7 +133,7 @@ def scan_resources():
                                         ExpressionAttributeNames={
                                             '#PK0': 'PK0'},
                                         ExpressionAttributeValues={
-                                            ':val': {'S': 'test.no'}},
+                                            ':val': {STRING: 'test.no'}},
                                         ExclusiveStartKey=start_key)
         scanned_publications.extend(response['Items'])
         more_items = 'LastEvaluatedKey' in response
@@ -140,11 +143,11 @@ def scan_resources():
 def delete_publications():
     resources = scan_resources()
     for resource in resources:
-        publication = resource['data']['M']
-        primary_partition_key = resource['PK0']['S']
-        primary_sort_key = resource['SK0']['S']
-        identifier = publication['identifier']['S']
-        owner = publication['owner']['S']
+        publication = resource['data'][MAP]
+        primary_partition_key = resource['PK0'][STRING]
+        primary_sort_key = resource['SK0'][STRING]
+        identifier = publication['identifier'][STRING]
+        owner = publication['owner'][STRING]
         if 'test.no' in owner:
             print(
                 'Deleting {} - {}'.format(identifier, owner))
@@ -152,10 +155,10 @@ def delete_publications():
                 TableName=publications_tablename,
                 Key={
                     'PK0': {
-                        'S': primary_partition_key
+                        STRING: primary_partition_key
                     },
                     'SK0': {
-                        'S': primary_sort_key
+                        STRING: primary_sort_key
                     }
                 })
     return
