@@ -137,8 +137,64 @@
   },
   {
     "familyName": "TestUser",
-    "givenName": "Second Institution Curator",
-    "username": "test-user-second-inst-curator@test.no",
+    "givenName": "Second Institution-admin-3",
+    "username": "test-user-second-inst-admin-3@test.no",
+    "role": [
+      "CREATOR",
+      "INST-ADMIN"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution-admin-4",
+    "username": "test-user-second-inst-admin-4@test.no",
+    "role": [
+      "CREATOR",
+      "INST-ADMIN"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution-admin-5",
+    "username": "test-user-second-inst-admin-5@test.no",
+    "role": [
+      "CREATOR",
+      "INST-ADMIN"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution-admin-6",
+    "username": "test-user-second-inst-admin-6@test.no",
+    "role": [
+      "CREATOR",
+      "INST-ADMIN"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Curator 1",
+    "username": "test-user-second-inst-curator-1@test.no",
     "role": [
       "CREATOR",
       "CURATOR"
@@ -151,8 +207,148 @@
   },
   {
     "familyName": "TestUser",
-    "givenName": "Second Institution Editor",
-    "username": "test-user-second-inst-editor@test.no",
+    "givenName": "Second Institution Curator 2",
+    "username": "test-user-second-inst-curator-2@test.no",
+    "role": [
+      "CREATOR",
+      "CURATOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Curator 3",
+    "username": "test-user-second-inst-curator-3@test.no",
+    "role": [
+      "CREATOR",
+      "CURATOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Curator 4",
+    "username": "test-user-second-inst-curator-4@test.no",
+    "role": [
+      "CREATOR",
+      "CURATOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Curator 5",
+    "username": "test-user-second-inst-curator-5@test.no",
+    "role": [
+      "CREATOR",
+      "CURATOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Curator 6",
+    "username": "test-user-second-inst-curator-6@test.no",
+    "role": [
+      "CREATOR",
+      "CURATOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Editor 1",
+    "username": "test-user-second-inst-editor-1@test.no",
+    "role": [
+      "CREATOR",
+      "EDITOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Editor 2",
+    "username": "test-user-second-inst-editor-2@test.no",
+    "role": [
+      "CREATOR",
+      "EDITOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Editor 3",
+    "username": "test-user-second-inst-editor-3@test.no",
+    "role": [
+      "CREATOR",
+      "EDITOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Editor 4",
+    "username": "test-user-second-inst-editor-4@test.no",
+    "role": [
+      "CREATOR",
+      "EDITOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Editor 5",
+    "username": "test-user-second-inst-editor-5@test.no",
+    "role": [
+      "CREATOR",
+      "EDITOR"
+    ],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Second Institution Editor 6",
+    "username": "test-user-second-inst-editor-6@test.no",
     "role": [
       "CREATOR",
       "EDITOR"
