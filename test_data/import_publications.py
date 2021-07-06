@@ -25,9 +25,11 @@ test_publications_file_name = './publications/test_publications.json'
 person_query = 'https://api.{}.nva.aws.unit.no/person/?name={} {}'
 user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
-publication_endpoint = 'https://api.{}.nva.aws.unit.no/publication'.format(STAGE)
+publication_endpoint = 'https://api.{}.nva.aws.unit.no/publication'.format(
+    STAGE)
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/publish/{}'
-request_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/doirequest'.format(STAGE)
+request_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/doirequest'.format(
+    STAGE)
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
@@ -40,6 +42,7 @@ test_file = open(test_file_name, 'rb').read()
 arp_dict = {}
 file_dict = {}
 bearer_tokens = {}
+
 
 def map_user_to_arp():
     with open('./users/test_users.json') as user_file:
@@ -59,71 +62,76 @@ def map_user_to_arp():
                     arp_dict[user['username']]['scn'] = query_response.json(
                     )[0]['id']
 
+
 def upload_file(bearer_token):
     print('upload file...')
     headers = {
-      'Authorization': 'Bearer {}'.format(bearer_token),
-      'accept': 'application/pdf'
+        'Authorization': 'Bearer {}'.format(bearer_token),
+        'accept': 'application/pdf'
     }
     # create
     print('create...')
     response = requests.post(
-      upload_create,
-      json={
-        'filename': 'test_file.pdf',
-        'size': 32404,
-        'lastmodified': 1353189358000,
-        'mimetype': 'application/pdf'
-      },
-      headers=headers)
+        upload_create,
+        json={
+            'filename': 'test_file.pdf',
+            'size': 32404,
+            'lastmodified': 1353189358000,
+            'mimetype': 'application/pdf'
+        },
+        headers=headers)
     uploadId = response.json()['uploadId']
     key = response.json()['key']
     # prepare
     response = requests.post(
-      upload_prepare,
-      json={
-        'number': '1',
-        'uploadId': uploadId,
-        'body': str(test_file),
-        'key': key
-      },
-      headers=headers)
+        upload_prepare,
+        json={
+            'number': '1',
+            'uploadId': uploadId,
+            'body': str(test_file),
+            'key': key
+        },
+        headers=headers)
     presignedUrl = response.json()['url']
     # upload
-    response = requests.put(presignedUrl, headers = { 'Accept': 'appliation/pdf' }, data = test_file)
+    response = requests.put(presignedUrl, headers={
+                            'Accept': 'appliation/pdf'}, data=test_file)
     ETag = response.headers['ETag']
     # complete
     print('complete...')
     response = requests.post(
-      upload_complete,
-      json={
-        'uploadId': uploadId,
-        'key': key,
-        'parts': [
-          {
-            'partNumber': '1',
-            'Etag': ETag
-          }
-        ]
-      },
-      headers=headers)
+        upload_complete,
+        json={
+            'uploadId': uploadId,
+            'key': key,
+            'parts': [
+                {
+                    'partNumber': '1',
+                    'Etag': ETag
+                }
+            ]
+        },
+        headers=headers)
     return
 
+
 def scan_resources():
-    print('scanning resourcess')
+    print('scanning resources')
     response = dynamodb_client.scan(TableName=publications_tablename,
-        FilterExpression='contains(#PK0, :val)',
-        ExpressionAttributeNames={'#PK0': 'PK0'},
-        ExpressionAttributeValues={':val': {'S': 'test.no'}})
+                                    FilterExpression='contains(#PK0, :val)',
+                                    ExpressionAttributeNames={'#PK0': 'PK0'},
+                                    ExpressionAttributeValues={':val': {'S': 'test.no'}})
     scanned_publications = response['Items']
     more_items = 'LastEvaluatedKey' in response
     while more_items:
         start_key = response['LastEvaluatedKey']
         response = dynamodb_client.scan(TableName=publications_tablename,
-            FilterExpression='contains(#PK0, :val)',
-            ExpressionAttributeNames={'#PK0': 'PK0'},
-            ExpressionAttributeValues={':val': {'S': 'test.no'}},
-            ExclusiveStartKey=start_key)
+                                        FilterExpression='contains(#PK0, :val)',
+                                        ExpressionAttributeNames={
+                                            '#PK0': 'PK0'},
+                                        ExpressionAttributeValues={
+                                            ':val': {'S': 'test.no'}},
+                                        ExclusiveStartKey=start_key)
         scanned_publications.extend(response['Items'])
         more_items = 'LastEvaluatedKey' in response
     return scanned_publications
@@ -132,34 +140,34 @@ def scan_resources():
 def delete_publications():
     resources = scan_resources()
     for resource in resources:
-        if resource['type']['S'] == 'Resource':
-            publication = resource['data']['M']
-            primary_partition_key = resource['PK0']['S']
-            primary_sort_key = resource['SK0']['S']
-            identifier = publication['identifier']['S']
-            owner = publication['owner']['S']
-            if 'test.no' in owner:
-                print(
-                    'Deleting {} - {}'.format(identifier, owner))
-                response = dynamodb_client.delete_item(
-                    TableName=publications_tablename,
-                    Key={
-                        'PK0': {
-                            'S': primary_partition_key
-                        },
-                        'SK0': {
-                            'S': primary_sort_key
-                        }
-                    })
+        publication = resource['data']['M']
+        primary_partition_key = resource['PK0']['S']
+        primary_sort_key = resource['SK0']['S']
+        identifier = publication['identifier']['S']
+        owner = publication['owner']['S']
+        if 'test.no' in owner:
+            print(
+                'Deleting {} - {}'.format(identifier, owner))
+            response = dynamodb_client.delete_item(
+                TableName=publications_tablename,
+                Key={
+                    'PK0': {
+                        'S': primary_partition_key
+                    },
+                    'SK0': {
+                        'S': primary_sort_key
+                    }
+                })
     return
 
 
 def put_item(new_publication, bearer_token):
     headers = {
-      'Authorization': 'Bearer {}'.format(bearer_token),
-      'accept': 'application/json'
+        'Authorization': 'Bearer {}'.format(bearer_token),
+        'accept': 'application/json'
     }
-    response = requests.post(publication_endpoint, json=new_publication, headers=headers)
+    response = requests.post(publication_endpoint,
+                             json=new_publication, headers=headers)
     if response.status_code != 201:
         print(response.json())
     return response.json()
@@ -167,24 +175,25 @@ def put_item(new_publication, bearer_token):
 
 def get_customer(username, bearer_token):
     headers = {
-      'Authorization': 'Bearer {}'.format(bearer_token),
-      'accept': 'application/json'
+        'Authorization': 'Bearer {}'.format(bearer_token),
+        'accept': 'application/json'
     }
-    response = requests.get(user_endpoint.format(STAGE, username), headers=headers)
+    response = requests.get(user_endpoint.format(
+        STAGE, username), headers=headers)
     return response.json()['institution']
 
 
 def create_contributor(contributor):
     with open('./publications/contributors.json'
-                ) as contributor_template_file:
+              ) as contributor_template_file:
         contributor_template = json.load(contributor_template_file)
 
         new_contributor = copy.deepcopy(contributor_template)
         new_contributor['email'] = contributor
         new_contributor['identity']['id'] = arp_dict[contributor]['scn']
         new_contributor['identity']['name'] = '{},{}'.format(
-                arp_dict[contributor]['familyName'],
-                arp_dict[contributor]['givenName'])
+            arp_dict[contributor]['familyName'],
+            arp_dict[contributor]['givenName'])
         return new_contributor
 
 
@@ -200,12 +209,15 @@ def create_publication_data(publication_template, test_publication, username, cu
     if test_publication['contributor'] != '':
         contributor = test_publication['contributor']
         new_contributor = create_contributor(contributor=contributor)
-        new_publication['entityDescription']['contributors'].append(new_contributor)
+        new_publication['entityDescription']['contributors'].append(
+            new_contributor)
 
     return new_publication
 
+
 def create_test_publication(publication_template, test_publication, bearer_token):
-    customer = get_customer(test_publication['owner'], bearer_token=bearer_token).replace('https://api.dev.nva.aws.unit.no/customer/', '')
+    customer = get_customer(test_publication['owner'], bearer_token=bearer_token).replace(
+        'https://api.dev.nva.aws.unit.no/customer/', '')
     username = test_publication['owner']
     status = test_publication['status']
 
@@ -218,6 +230,7 @@ def create_test_publication(publication_template, test_publication, bearer_token
     )
 
     return new_publication
+
 
 def create_publications():
     with open(publication_template_file_name) as publication_template_file:
@@ -240,14 +253,17 @@ def create_publications():
                 bearer_token=bearer_token
             )
             print(test_publication['title'])
-            response = put_item(new_publication=new_publication, bearer_token=bearer_token)
+            response = put_item(
+                new_publication=new_publication, bearer_token=bearer_token)
             identifier = response['identifier']
             if test_publication['status'] == 'PUBLISHED':
                 print('publishing...{}'.format(identifier))
-                publish_publication(identifier=identifier, bearer_token=bearer_token)
+                publish_publication(identifier=identifier,
+                                    bearer_token=bearer_token)
             if 'doi' in test_publication:
                 print('requesting doi...')
                 request_doi(identifier=identifier, bearer_token=bearer_token)
+
 
 def publish_publication(identifier, bearer_token):
     headers = {
@@ -255,6 +271,7 @@ def publish_publication(identifier, bearer_token):
         'accept': 'application/json'
     }
     requests.post(publish_endpoint.format(STAGE, identifier), headers=headers)
+
 
 def request_doi(identifier, bearer_token):
     headers = {
@@ -265,7 +282,9 @@ def request_doi(identifier, bearer_token):
         "identifier": identifier,
         "message": "Test"
     }
-    requests.post(request_doi_endpoint, json=doi_request_payload, headers=headers)
+    requests.post(request_doi_endpoint,
+                  json=doi_request_payload, headers=headers)
+
 
 def run():
     print('publications...')
