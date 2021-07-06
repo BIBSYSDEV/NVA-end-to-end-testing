@@ -12,7 +12,8 @@ And('they have selected the DOI Requests tab', () => {
 });
 And('they have expanded an Message', () => {
   cy.get('[data-testid^=message-]').first().as('doiRequest');
-  cy.get('@doiRequest').click({force: true});
+  cy.get('@doiRequest').click();
+
 });
 When('they click "Go to registration"', () => {
   cy.get('@doiRequest').within(() => {
