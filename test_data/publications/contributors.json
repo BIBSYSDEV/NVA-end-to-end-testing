@@ -12,6 +12,7 @@
     "name": "#####################",
     "type": "Identity"
   },
+  "role": "Creator",
   "sequence": "1",
   "type": "Contributor"
 }

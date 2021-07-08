@@ -26,7 +26,7 @@ person_query = 'https://api.{}.nva.aws.unit.no/person/?name={} {}'
 user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
-publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/publish/{}'
+publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/publish'
 request_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/doirequest'
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
@@ -123,7 +123,6 @@ def upload_file(bearer_token):
     return response.json()['location']
 
 
-
 def scan_resources():
     print('scanning resources')
     response = dynamodb_client.scan(TableName=publications_tablename,
@@ -218,6 +217,13 @@ def create_publication_data(publication_template, test_publication, location, us
     file = {
         "administrativeAgreement": False,
         "identifier": location,
+        "license": {
+            "identifier": "CC0",
+            "labels": {
+                "nb": "CC0"
+            },
+            "type": "License"
+        },
         "mimeType": "application/pdf",
         "name": test_file_name,
         "publisherAuthority": False,
@@ -275,8 +281,8 @@ def create_publications(location):
             identifier = response['identifier']
             if test_publication['status'] == 'PUBLISHED':
                 print('publishing...{}'.format(identifier))
-                publish_publication(identifier=identifier,
-                                    bearer_token=bearer_token)
+                response = publish_publication(identifier=identifier,
+                                               bearer_token=bearer_token)
             if 'doi' in test_publication:
                 print('requesting doi...')
                 request_doi(identifier=identifier, bearer_token=bearer_token)
@@ -284,7 +290,10 @@ def create_publications(location):
 
 def publish_publication(identifier, bearer_token):
     headers['Authorization'] = f'Bearer {bearer_token}'
-    requests.post(publish_endpoint.format(STAGE, identifier), headers=headers)
+    print(publish_endpoint.format(STAGE, identifier))
+    response = requests.put(publish_endpoint.format(
+        STAGE, identifier), headers=headers)
+    print(response.json())
 
 
 def request_doi(identifier, bearer_token):
