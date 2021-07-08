@@ -12,13 +12,15 @@ STAGE = ssm.get_parameter(Name='/test/STAGE',
 customer_template_file_name = './customers/institution.json'
 test_customers_file_name = './customers/test_institutions.json'
 customer_tablename = 'nva-customers-nva-identity-service-nva-identity-service'
-customer_endpoint = 'https://api.{}.nva.aws.unit.no/customer'.format(STAGE)
-username='test-data-user@test.no'
+customer_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/customer'
+username = 'test-data-user@test.no'
+
 
 def scan_customers():
     response = client.scan(TableName=customer_tablename)
 
     return response['Items']
+
 
 def delete_customers():
     customers = scan_customers()
@@ -26,12 +28,13 @@ def delete_customers():
         if 'archiveName' in customer:
             archiveName = customer['archiveName']['S']
             if 'test archive' in archiveName:
-                print('deleting {}'.format(archiveName))
+                print(f'deleting {archiveName}')
                 response = client.delete_item(
                     TableName=customer_tablename,
                     Key={'identifier': {
                         'S': customer['identifier']['S']
                     }})
+
 
 def create_customers(bearer_token):
     with open(customer_template_file_name) as customer_template_file:
@@ -51,18 +54,22 @@ def create_customers(bearer_token):
                 new_customer['shortName'] = test_customer['shortName']
                 new_customer['archiveName'] = 'test archive'
 
-                print('Creating customer: {}'.format(test_customer['name']))
-                response = put_item(new_customer=new_customer, bearer_token=bearer_token)
+                print(f'Creating customer: {test_customer["name"]}')
+                response = put_item(new_customer=new_customer,
+                                    bearer_token=bearer_token)
                 if response.status_code != 201:
-                    print('Error creating customer with name {}'.format(test_customer['name']))
+                    print(
+                        f'Error creating customer with name {test_customer["name"]}')
                     print(response.__dict__)
+
 
 def put_item(new_customer, bearer_token):
     headers = {
-      'Authorization': 'Bearer {}'.format(bearer_token),
-      'accept': 'application/json'
+        f'Authorization': 'Bearer {bearer_token}',
+        'accept': 'application/json'
     }
-    response = requests.post(customer_endpoint, json=new_customer, headers=headers)
+    response = requests.post(
+        customer_endpoint, json=new_customer, headers=headers)
 
     return response
 

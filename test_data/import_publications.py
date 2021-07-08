@@ -64,7 +64,7 @@ def map_user_to_arp():
                     person_query.format(STAGE, user['givenName'],
                                         user['familyName']))
                 if query_response.status_code != 200:
-                    print('GET /person/ {}'.format(query_response.status_code))
+                    print(f'GET /person/ {query_response.status_code}')
                 if query_response.json() != []:
                     arp_dict[user['username']]['scn'] = query_response.json(
                     )[0]['id']
@@ -155,7 +155,7 @@ def delete_publications():
         owner = publication['owner'][STRING]
         if 'test.no' in owner:
             print(
-                'Deleting {} - {}'.format(identifier, owner))
+                f'Deleting {identifier} - {owner}')
             response = dynamodb_client.delete_item(
                 TableName=publications_tablename,
                 Key={
@@ -193,9 +193,7 @@ def create_contributor(contributor):
         new_contributor = copy.deepcopy(contributor_template)
         new_contributor['email'] = contributor
         new_contributor['identity']['id'] = arp_dict[contributor]['scn']
-        new_contributor['identity']['name'] = '{},{}'.format(
-            arp_dict[contributor]['familyName'],
-            arp_dict[contributor]['givenName'])
+        new_contributor['identity']['name'] = f'{arp_dict[contributor]["familyName"]},{arp_dict[contributor]["givenName"]}'
         return new_contributor
 
 
@@ -280,7 +278,7 @@ def create_publications(location):
                 new_publication=new_publication, bearer_token=bearer_token)
             identifier = response['identifier']
             if test_publication['status'] == 'PUBLISHED':
-                print('publishing...{}'.format(identifier))
+                print(f'publishing...{identifier}')
                 response = publish_publication(identifier=identifier,
                                                bearer_token=bearer_token)
             if 'doi' in test_publication:

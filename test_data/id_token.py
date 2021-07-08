@@ -20,7 +20,7 @@ def get_id_token(username, client):
             Permanent=True,
         )
     except:
-        print('User: {}'.format(username))
+        print(f'User: {username}')
         print('Error setting password', sys.exc_info()[0])
 
     response = client.admin_initiate_auth(UserPoolId=USER_POOL_ID,
