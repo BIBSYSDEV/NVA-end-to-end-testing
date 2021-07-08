@@ -25,26 +25,30 @@ test_publications_file_name = './publications/test_publications.json'
 person_query = 'https://api.{}.nva.aws.unit.no/person/?name={} {}'
 user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
-publication_endpoint = 'https://api.{}.nva.aws.unit.no/publication'.format(
-    STAGE)
+publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/publish/{}'
-request_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/doirequest'.format(
-    STAGE)
+request_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/doirequest'
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
 username = 'test-data-user@test.no'
-test_file_name = 'publications/files/test_file.pdf'
-test_file_size = os.stat(test_file_name).st_size
-test_file_modified = os.stat(test_file_name).st_mtime
-test_file = open(test_file_name, 'rb').read()
-
-STRING = 'S'
-MAP = 'M'
+test_file_name = 'test_file.pdf'
+test_file_path = f'publications/files/{test_file_name}'
+test_file_size = os.stat(test_file_path).st_size
+test_file_modified = os.stat(test_file_path).st_mtime
+test_file = open(test_file_path, 'rb').read()
 
 arp_dict = {}
 file_dict = {}
 bearer_tokens = {}
+headers = {
+    'Authorization': '',
+    'accept': 'application/json'
+}
+
+
+STRING = 'S'
+MAP = 'M'
 
 
 def map_user_to_arp():
@@ -68,33 +72,32 @@ def map_user_to_arp():
 
 def upload_file(bearer_token):
     print('upload file...')
-    headers = {
-        'Authorization': 'Bearer {}'.format(bearer_token),
-        'accept': 'application/pdf'
-    }
+    headers['Authorization'] = f'Bearer {bearer_token}'
     # create
     print('create...')
     response = requests.post(
         upload_create,
         json={
             'filename': 'test_file.pdf',
-            'size': 32404,
-            'lastmodified': 1353189358000,
+            'size': test_file_size,
+            'lastmodified': test_file_modified,
             'mimetype': 'application/pdf'
         },
         headers=headers)
     uploadId = response.json()['uploadId']
     key = response.json()['key']
     # prepare
+    print('prepare...')
     response = requests.post(
         upload_prepare,
         json={
-            'number': '1',
+            'number': 1,
             'uploadId': uploadId,
             'body': str(test_file),
             'key': key
         },
         headers=headers)
+    print('upload...')
     presignedUrl = response.json()['url']
     # upload
     response = requests.put(presignedUrl, headers={
@@ -102,20 +105,22 @@ def upload_file(bearer_token):
     ETag = response.headers['ETag']
     # complete
     print('complete...')
+    payload = {
+        'uploadId': uploadId,
+        'key': key,
+        'parts': [
+            {
+                'partNumber': 1,
+                'ETag': ETag
+            }
+        ]
+    }
     response = requests.post(
         upload_complete,
-        json={
-            'uploadId': uploadId,
-            'key': key,
-            'parts': [
-                {
-                    'partNumber': '1',
-                    'Etag': ETag
-                }
-            ]
-        },
+        json=payload,
         headers=headers)
-    return
+    print(response.status_code)
+    return response.json()['location']
 
 
 def scan_resources():
@@ -165,10 +170,7 @@ def delete_publications():
 
 
 def put_item(new_publication, bearer_token):
-    headers = {
-        'Authorization': 'Bearer {}'.format(bearer_token),
-        'accept': 'application/json'
-    }
+    headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.post(publication_endpoint,
                              json=new_publication, headers=headers)
     if response.status_code != 201:
@@ -177,10 +179,7 @@ def put_item(new_publication, bearer_token):
 
 
 def get_customer(username, bearer_token):
-    headers = {
-        'Authorization': 'Bearer {}'.format(bearer_token),
-        'accept': 'application/json'
-    }
+    headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
     return response.json()['institution']
@@ -200,7 +199,7 @@ def create_contributor(contributor):
         return new_contributor
 
 
-def create_publication_data(publication_template, test_publication, username, customer, status):
+def create_publication_data(publication_template, test_publication, location, username, customer, status):
     new_publication = copy.deepcopy(publication_template)
     new_publication['entityDescription']['mainTitle'] = test_publication['title']
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
@@ -215,10 +214,22 @@ def create_publication_data(publication_template, test_publication, username, cu
         new_publication['entityDescription']['contributors'].append(
             new_contributor)
 
+    file = {
+        "administrativeAgreement": False,
+        "identifier": location,
+        "mimeType": "application/pdf",
+        "name": test_file_name,
+        "publisherAuthority": False,
+        "size": test_file_size,
+        "type": "File"
+    }
+
+    new_publication['fileSet']['files'].append(file)
+
     return new_publication
 
 
-def create_test_publication(publication_template, test_publication, bearer_token):
+def create_test_publication(publication_template, test_publication, location, bearer_token):
     customer = get_customer(test_publication['owner'], bearer_token=bearer_token).replace(
         'https://api.dev.nva.aws.unit.no/customer/', '')
     username = test_publication['owner']
@@ -227,6 +238,7 @@ def create_test_publication(publication_template, test_publication, bearer_token
     new_publication = create_publication_data(
         publication_template=publication_template,
         test_publication=test_publication,
+        location=location,
         username=username,
         customer=customer,
         status=status
@@ -235,7 +247,7 @@ def create_test_publication(publication_template, test_publication, bearer_token
     return new_publication
 
 
-def create_publications():
+def create_publications(location):
     with open(publication_template_file_name) as publication_template_file:
         publication_template = json.load(publication_template_file)
 
@@ -248,11 +260,12 @@ def create_publications():
             if username in bearer_tokens:
                 bearer_token = bearer_tokens[username]
             else:
-                bearer_token = common.login(username)
+                bearer_token = common.login(username=username)
                 bearer_tokens[username] = bearer_token
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
+                location=location,
                 bearer_token=bearer_token
             )
             print(test_publication['title'])
@@ -269,18 +282,12 @@ def create_publications():
 
 
 def publish_publication(identifier, bearer_token):
-    headers = {
-        'Authorization': 'Bearer {}'.format(bearer_token),
-        'accept': 'application/json'
-    }
+    headers['Authorization'] = f'Bearer {bearer_token}'
     requests.post(publish_endpoint.format(STAGE, identifier), headers=headers)
 
 
 def request_doi(identifier, bearer_token):
-    headers = {
-        'Authorization': 'Bearer {}'.format(bearer_token),
-        'accept': 'application/json'
-    }
+    headers['Authorization'] = f'Bearer {bearer_token}'
     doi_request_payload = {
         "identifier": identifier,
         "message": "Test"
@@ -292,10 +299,11 @@ def request_doi(identifier, bearer_token):
 def run():
     print('publications...')
     map_user_to_arp()
-    bearer_token = common.login('test-user-with-author@test.no')
-    upload_file(bearer_token=bearer_token)
+    bearer_token = common.login(username='test-user-with-author@test.no')
+    location = upload_file(bearer_token=bearer_token)
+
     delete_publications()
-    create_publications()
+    create_publications(location=location)
 
 
 if __name__ == '__main__':
