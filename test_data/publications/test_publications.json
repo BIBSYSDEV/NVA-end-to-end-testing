@@ -18,7 +18,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "DRAFT_FOR_DELETION",
-    "contributor": "",
+    "contributor": "test-user-with-author@test.no",
     "title": "Deleted Draft registration"
   },
   {
@@ -52,7 +52,8 @@
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
-    "title": "Published registration requesting DOI"
+    "title": "Published registration requesting DOI",
+    "doi": true
   },
   {
     "publication_type": "JournalContent",
@@ -85,7 +86,8 @@
     "owner": "test-user-draft-doi@test.no",
     "status": "DRAFT",
     "contributor": "test-user-draft-doi@test.no",
-    "title": "Draft registration requesting DOI"
+    "title": "Draft registration requesting DOI",
+    "doi": true
   },
   {
     "publication_type": "JournalContent",

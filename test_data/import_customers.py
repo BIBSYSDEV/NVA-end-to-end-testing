@@ -13,6 +13,7 @@ customer_template_file_name = './customers/institution.json'
 test_customers_file_name = './customers/test_institutions.json'
 customer_tablename = 'nva-customers-nva-identity-service-nva-identity-service'
 customer_endpoint = 'https://api.{}.nva.aws.unit.no/customer'.format(STAGE)
+username='test-data-user@test.no'
 
 def scan_customers():
     response = client.scan(TableName=customer_tablename)
@@ -68,7 +69,7 @@ def put_item(new_customer, bearer_token):
 
 def run():
     print('customers...')
-    bearer_token = common.login()
+    bearer_token = common.login(username=username)
     delete_customers()
     create_customers(bearer_token)
 

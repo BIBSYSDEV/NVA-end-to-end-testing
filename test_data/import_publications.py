@@ -123,6 +123,7 @@ def upload_file(bearer_token):
     return response.json()['location']
 
 
+
 def scan_resources():
     print('scanning resources')
     response = dynamodb_client.scan(TableName=publications_tablename,
