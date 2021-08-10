@@ -71,5 +71,6 @@
   "creator_selects_resource_type_report",
   "institution_administrator_edits_my_institution",
   "owner_navigates_to_the_landing_page_for_their_registration",
-  "user-logs-in"
+  "user-logs-in",
+  "anonymous_user_views_landing_page_for_registration"
 ]
