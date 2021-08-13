@@ -80,8 +80,6 @@ Then('they see the Log in Button', () => {
 // @345
 // Scenario: User without any role sees menu
 And('they have no NVA role', () => {});
-// | My user profile |
-// | Log out    |
 
 // @346
 // Scenario: User sees the menu for Creator
