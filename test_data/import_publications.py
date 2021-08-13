@@ -119,7 +119,6 @@ def upload_file(bearer_token):
         upload_complete,
         json=payload,
         headers=headers)
-    print(response.status_code)
     return response.json()['location']
 
 

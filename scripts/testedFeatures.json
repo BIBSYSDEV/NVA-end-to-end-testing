@@ -57,7 +57,6 @@
   "administrator_opens_user_administration",
   "creator_requests_support",
   "creator_sees_registration_is_saved",
-  "user-logs-in",
   "creator_begins_registering_a_registration",
   "creator-navigates-to-contributor-tab",
   "creator_navigates_to_description_tab",
@@ -71,5 +70,6 @@
   "creator_selects_resource_type_report",
   "institution_administrator_edits_my_institution",
   "owner_navigates_to_the_landing_page_for_their_registration",
-  "user-logs-in"
+  "user-logs-in",
+  "user-sees-menu"
 ]

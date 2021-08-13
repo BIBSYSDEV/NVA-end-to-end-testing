@@ -46,7 +46,7 @@ export const PROFILE_PAGE_FIELDS = {
   'ORCID': 'orcid-line',
   'Roles': 'user-role-creator',
   'Organizations': 'institution-presentation',
-  'Language': 'language-selector',
+  'Language': 'language-button',
 };
 
 export const USER_ADMINISTRATION_HEADINGS = {
