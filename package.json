@@ -8,7 +8,7 @@
     "aws-amplify": "^3.3.15",
     "aws-sdk": "^2.698.0",
     "cosmiconfig": "^6.0.0",
-    "cypress-localstorage-commands": "^1.2.2",
+    "cypress-localstorage-commands": "^1.5.0",
     "cypress-promise": "^1.1.0",
     "cypress-tags": "^0.1.0",
     "immer": ">=8.0.1",
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "axios": "^0.21.1",
-    "cypress": "^8.2.0",
+    "cypress": "^6.9.1",
     "cypress-cucumber-preprocessor": "^2.5.5",
     "cypress-file-upload": "^4.1.1",
     "prettier": "2.0.5"

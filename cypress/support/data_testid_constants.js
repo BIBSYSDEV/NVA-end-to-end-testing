@@ -212,3 +212,19 @@ export const CONTRIBUTOR_CREATE_FIELDS = {
   'First name': 'create-contributor-first-name',
   'Last name': 'create-contributor-last-name',
 };
+
+export const LANDING_PAGE_FIELDS = {
+  'Title': 'public-registration-title',
+  'Abstract': 'abstract-accordion',
+  NPI: 'public-registration-npi',
+  Keywords: 'public-registration-keywords',
+  'Publication date': 'public-registration-publication-date',
+  'Primary language': 'public-registration-primary-language',
+  Projects: 'projects-accordion',
+  'Registration subtype': 'public-registration-registration-subtype',
+  'Fields corresponding to subtype': 'public-registration-subtype-fields',
+  Contributors: 'public-registration-contributors',
+  Files: 'files-accordion',
+  'DOI link': 'public-registration-doi-link',
+  License: 'public-registration-license',
+};
