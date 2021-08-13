@@ -1,19 +1,71 @@
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
-import { USER_CURATOR_WITH_AUTHOR, USER_NO_ROLE, USER_WITH_AUTHOR } from '../../../support/constants';
+import {
+  USER_CURATOR_WITH_AUTHOR,
+  USER_NO_ROLE,
+  USER_WITH_AUTHOR,
+  ADMIN_USER,
+  USER_INST_ADMIN_WITH_AUTHOR,
+} from '../../../support/constants';
+import {
+  ADMIN_MENU,
+  CREATOR_MENU,
+  CURATOR_MENU,
+  INST_ADMIN_MENU,
+  MAIN_BUTTONS,
+  USER_MENU,
+} from '../../../support/data_testid_constants';
 import { v4 as uuidV4 } from 'uuid';
 
 // Feature: User sees menu
 
 // Common steps
 
-Before(() => {
-  cy.log(Cypress.currentTest);
+Before({ tags: '@345' }, () => {
+  cy.wrap(USER_NO_ROLE).as('USER');
+  cy.wrap(USER_MENU).as('MENU');
+});
+
+Before({ tags: '@346' }, () => {
+  cy.wrap(USER_WITH_AUTHOR).as('USER');
+  cy.wrap(CREATOR_MENU).as('MENU');
+});
+
+Before({ tags: '@347' }, () => {
+  cy.wrap(USER_CURATOR_WITH_AUTHOR).as('USER');
+  cy.wrap(CURATOR_MENU).as('MENU');
+});
+
+Before({ tags: '@348' }, () => {
+  cy.wrap(USER_INST_ADMIN_WITH_AUTHOR).as('USER');
+  cy.wrap(INST_ADMIN_MENU).as('MENU');
+});
+
+Before({ tags: '@350' }, () => {
+  cy.wrap(ADMIN_USER).as('USER');
+  cy.wrap(ADMIN_MENU).as('MENU');
 });
 
 Given('that the user is logged in', () => {
-  cy.login(USER_NO_ROLE);
+  cy.get('@USER').then((user) => {
+    cy.login(user);
+  });
 });
-And('they see the Language selector', () => {});
+When('they look at any page in NVA', () => {
+  cy.visit(`/${uuidV4()}`);
+});
+Then('they see a Dropdown Menu with items:', (dataTable) => {
+  cy.get('[data-testid=menu]').should('exist');
+  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('@MENU').then((menu) => {
+    cy.testDataTestidList(dataTable, menu);
+  });
+});
+And('they see Menu items:', (dataTable) => {
+  cy.testDataTestidList(dataTable, MAIN_BUTTONS);
+});
+And('they see the Language selector', () => {
+  cy.get('[data-testid=language-button]').should('be.visible');
+});
 // End common steps
 
 // @344
@@ -21,99 +73,28 @@ And('they see the Language selector', () => {});
 Given('that the User is not logged in', () => {
   cy.visit('/');
 });
-When('they look at any page in NVA', () => {
-  cy.visit(`/${uuidV4()}`);
-});
-Then('they see the Log in button', () => {
+Then('they see the Log in Button', () => {
   cy.get('[data-testid=menu-login-button').should('be.visible');
 });
 
 // @345
 // Scenario: User without any role sees menu
-Given('that the user is logged in', () => {
-  cy.login(USER_NO_ROLE);
-});
 And('they have no NVA role', () => {});
-When('they look at any page in NVA', () => {
-  cy.visit(`/${uuidV4()}`);
-});
-Then('they see a menu containing', (dataTable) => {
-  cy.get('[data-testid=menu]').should('exist');
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.testDataTestidList(dataTable, USER_MENU);
-});
 // | My user profile |
 // | Log out    |
 
 // @346
 // Scenario: User sees the menu for Creator
-Given('that the user is logged in', () => {
-  cy.login(USER_WITH_AUTHOR);
-});
 And('they have the "Creator" role', () => {});
-When('they look at any page in NVA', () => {
-  cy.visit(`/${uuidv4()}`);
-});
-Then('they see a Dropdown Menu with items:', (dataTable) => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.testDataTestidList(dataTable, CREATOR_MENU);
-});
-// | My Profile       |
-// | Log Out          |
-And('they see Menu items:', (dataTable) => {
-  cy.testDataTestidList(dataTable, MAIN_BUTTONS);
-});
-// | New Registration |
-// | My Registrations |
-// | My Messages      |
 
 // @347
 // Scenario: User sees the menu for Curator
-Given('that the user is logged in', () => {
-  cy.login(USER_CURATOR_WITH_AUTHOR);
-});
 And('they have the "Curator" Role', () => {});
-When('they look at any page in NVA', () => {
-  cy.visit(`/${uuidv4()}`);
-});
-Then('they see a Dropdown Menu with items:', (dataTable) => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.testDataTestidList(dataTable, CURATOR_MENU);
-});
-//   | My worklist     |
-//   | My user profile |
-//   | Log out         |
-And('they see Menu items:', (dataTable) => {});
-//   | My messages |
 
 // @348
 // Scenario: User sees the menu for Institution-admin
-Given('that the user is logged in', () => {
-  cy.login(USER_INST_ADMIN_WITH_AUTHOR);
-});
 And('they have the "Institution-admin" role', () => {});
-When('they look at any page in NVA', () => {
-  cy.visit(`/${uuidv4()}`);
-});
-Then('they see a Dropdown Menu with items:', (dataTable) => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.testDataTestidList(dataTable, INST_ADMIN_MENU);
-});
-// | My institution  |
-// | Users           |
-// | My user profile |
-// | Log out         |
 
 // @350
 // Scenario: User sees the menu for Application administrator
-Given('that the user is logged in', () => {
-  cy.login(ADMIN_USER);
-});
 And('they have the "App-admin" role', () => {});
-When('they look at any page in NVA', () => {
-  cy.visit(`/${uuidv4()}`);
-});
-Then('they see a Dropdown Menu with items:', (dataTable) => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.testDataTestidList(dataTable, ADMIN_MENU);
-});
