@@ -12,7 +12,7 @@ STAGE = ssm.get_parameter(Name='/test/STAGE',
 customer_template_file_name = './customers/institution.json'
 test_customers_file_name = './customers/test_institutions.json'
 customer_tablename = 'nva-customers-nva-identity-service-nva-identity-service'
-customer_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/customer'
+customer_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/customer/'
 username = 'test-data-user@test.no'
 
 
@@ -27,7 +27,7 @@ def delete_customers():
     for customer in customers:
         if 'archiveName' in customer:
             archiveName = customer['archiveName']['S']
-            if 'test archive' in archiveName:
+            if 'test' in archiveName:
                 print(f'deleting {archiveName}')
                 response = client.delete_item(
                     TableName=customer_tablename,
@@ -46,17 +46,19 @@ def create_customers(bearer_token):
             for test_customer in test_customers:
                 new_customer = copy.deepcopy(customer_template)
                 new_customer['feideOrganizationId'] = test_customer[
-                    'feide_organization_id']
-                new_customer['identifier'] = str(uuid.uuid4())
+                    'feideOrganizationId']
                 new_customer['cristinId'] = test_customer['cristinId']
                 new_customer['displayName'] = test_customer['displayName']
                 new_customer['name'] = test_customer['name']
                 new_customer['shortName'] = test_customer['shortName']
-                new_customer['archiveName'] = 'test archive'
+                new_customer['archiveName'] = test_customer['archiveName']
 
                 print(f'Creating customer: {test_customer["name"]}')
                 response = put_item(new_customer=new_customer,
                                     bearer_token=bearer_token)
+                
+                print(new_customer)
+                print(customer_endpoint)
                 if response.status_code != 201:
                     print(
                         f'Error creating customer with name {test_customer["name"]}')

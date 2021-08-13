@@ -1,17 +1,17 @@
 [
   {
-    "administration_id": "test-user-admin@test.no",
-    "archive_name": "test archive",
-    "feide_organization_id": "1111111111",
+    "administrationId": "test-user-admin@test.no",
+    "archiveName": "test 1",
+    "feideOrganizationId": "1111111111",
     "cristinId": "https://api.cristin.no/v2/institutions/1111111111",
     "displayName": "Test Institution",
     "name": "Test Institution",
     "shortName": "TestInst"
   },
   {
-    "administration_id": "test-user-second-inst-admin@test.no",
-    "archive_name": "test archive 2",
-    "feide_organization_id": "2222222222",
+    "administrationId": "test-user-second-inst-admin@test.no",
+    "archiveName": "test 2",
+    "feideOrganizationId": "2222222222",
     "cristinId": "https://api.cristin.no/v2/institutions/2222222222",
     "displayName": "Test Institution 2",
     "name": "Test Institution 2",
