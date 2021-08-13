@@ -7,14 +7,14 @@ Given('the Anonymous User has opened NVA', () => {
   cy.visit('/');
 });
 When('they navigate to Landing Page for a Registration', () => {
-  cy.contains('Search for publication').click();
-  cy.get('[data-testid=search-field]').type('View landing page{enter}');
+  cy.get('[data-testid=search-button]').click();
+  cy.get('[data-testid=search-field]').type('View Landing Page{enter}');
   cy.get('[data-testid=result-list-item]').within((result) => {
     cy.wrap(result).get('a').filter(':contains("View Landing Page")').click();
   });
 });
 Then('they see page fields for', (dataTable) => {
-  cy.testDataTestidList(dataTable, LANDING_PAGE_FIELDS)
+  cy.testDataTestidList(dataTable, LANDING_PAGE_FIELDS);
 });
 // | Title                           |
 // | Abstract                        |
