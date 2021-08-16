@@ -19,37 +19,7 @@ import { v4 as uuidV4 } from 'uuid';
 // Feature: User sees menu
 
 // Common steps
-
-Before({ tags: '@345' }, () => {
-  cy.wrap(USER_NO_ROLE).as('USER');
-  cy.wrap(USER_MENU).as('MENU');
-});
-
-Before({ tags: '@346' }, () => {
-  cy.wrap(USER_WITH_AUTHOR).as('USER');
-  cy.wrap(CREATOR_MENU).as('MENU');
-});
-
-Before({ tags: '@347' }, () => {
-  cy.wrap(USER_CURATOR_WITH_AUTHOR).as('USER');
-  cy.wrap(CURATOR_MENU).as('MENU');
-});
-
-Before({ tags: '@348' }, () => {
-  cy.wrap(USER_INST_ADMIN_WITH_AUTHOR).as('USER');
-  cy.wrap(INST_ADMIN_MENU).as('MENU');
-});
-
-Before({ tags: '@350' }, () => {
-  cy.wrap(ADMIN_USER).as('USER');
-  cy.wrap(ADMIN_MENU).as('MENU');
-});
-
-Given('that the user is logged in', () => {
-  cy.get('@USER').then((user) => {
-    cy.login(user);
-  });
-});
+Given('that the user is logged in', () => {});
 When('they look at any page in NVA', () => {
   cy.visit(`/${uuidV4()}`);
 });
@@ -79,20 +49,35 @@ Then('they see the Log in Button', () => {
 
 // @345
 // Scenario: User without any role sees menu
-And('they have no NVA role', () => {});
+And('they have no NVA role', () => {
+  cy.login(USER_NO_ROLE);
+  cy.wrap(USER_MENU).as('MENU');
+});
 
 // @346
 // Scenario: User sees the menu for Creator
-And('they have the "Creator" role', () => {});
+And('they have the "Creator" role', () => {
+  cy.login(USER_WITH_AUTHOR);
+  cy.wrap(CREATOR_MENU).as('MENU');
+});
 
 // @347
 // Scenario: User sees the menu for Curator
-And('they have the "Curator" Role', () => {});
+And('they have the "Curator" Role', () => {
+  cy.login(USER_CURATOR_WITH_AUTHOR);
+  cy.wrap(CURATOR_MENU).as('MENU');
+});
 
 // @348
 // Scenario: User sees the menu for Institution-admin
-And('they have the "Institution-admin" role', () => {});
+And('they have the "Institution-admin" role', () => {
+  cy.login(USER_INST_ADMIN_WITH_AUTHOR);
+  cy.wrap(INST_ADMIN_MENU).as('MENU');
+});
 
 // @350
 // Scenario: User sees the menu for Application administrator
-And('they have the "App-admin" role', () => {});
+And('they have the "App-admin" role', () => {
+  cy.login(ADMIN_USER);
+  cy.wrap(ADMIN_MENU).as('MENU');
+});
