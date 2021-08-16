@@ -66,3 +66,5 @@ export const USER_NON_CUSTOMER = 'test-user-not-customer@test.no';
 export const USER_DRAFT_DOI = 'test-user-draft-doi@test.no';
 
 export const USER_RESOURCE_TYPE = 'test-user-resource-type@test.no'
+
+export const USER_VIEW_REGISTRATION = 'test-user-view-registration@test.no'
