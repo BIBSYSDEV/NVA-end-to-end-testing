@@ -169,10 +169,7 @@ def delete_publications():
 
 
 def put_item(new_publication, bearer_token):
-    print(f'endpoint = {publication_endpoint}')
     headers['Authorization'] = f'Bearer {bearer_token}'
-    print(headers)
-    print(new_publication)
     response = requests.post(publication_endpoint,
                              json=new_publication, headers=headers)
     if response.status_code != 201:
@@ -278,7 +275,6 @@ def create_publications(location):
             print(test_publication['title'])
             response = put_item(
                 new_publication=new_publication, bearer_token=bearer_token)
-            print(response)
             identifier = response['identifier']
             if test_publication['status'] == 'PUBLISHED':
                 print(f'publishing...{identifier}')
