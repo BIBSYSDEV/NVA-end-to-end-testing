@@ -88,11 +88,9 @@ Given('Creator searches for Project', () => {
   cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
-And('they see Search results', () => {
-  cy.get('[data-testid=project-search-input]').type(PROJECT_NAME);
-});
 When('they select a Project from the Search results', () => {
-  cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).click({ force: true });
+  cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
+  cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).first().click({ force: true });
 });
 Then('the selected Project is added to the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('have.length', 1);
@@ -104,8 +102,8 @@ Given('Creator adds a Project', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
-  cy.get('[data-testid=project-search-input]').type(PROJECT_NAME);
-  cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).click({ force: true });
+  cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
+  cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).first().click({ force: true });
 });
 When('they click the Remove Project icon', () => {
   cy.get('[data-testid^=project-chip]')
@@ -117,3 +115,4 @@ When('they click the Remove Project icon', () => {
 Then('they see the Project is removed from the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('not.exist');
 });
+
