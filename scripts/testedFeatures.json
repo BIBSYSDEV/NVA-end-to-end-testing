@@ -55,9 +55,9 @@
   "1724-non-customer_views_my_profile",
   "1725-user_without_any_roles_views_my_profile",
   "administrator_opens_user_administration",
+  "anonymous_user_views_landing_page_for_registration",
   "creator_requests_support",
   "creator_sees_registration_is_saved",
-  "user-logs-in",
   "creator_begins_registering_a_registration",
   "creator-navigates-to-contributor-tab",
   "creator_navigates_to_description_tab",
@@ -72,5 +72,5 @@
   "institution_administrator_edits_my_institution",
   "owner_navigates_to_the_landing_page_for_their_registration",
   "user-logs-in",
-  "anonymous_user_views_landing_page_for_registration"
+  "user-sees-menu"
 ]
