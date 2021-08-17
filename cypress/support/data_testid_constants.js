@@ -147,6 +147,14 @@ export const BOOK_FIELDS = {
   'Series number': 'series-number-field',
 };
 
+export const CONTENT_TYPE = {
+  'Academic Monograph': 'content-value-academic-monograph',
+  'Non-fiction Monograph': 'content-value-non-fiction-monograph',
+  'Popular Science Monograph': 'content-value-popular-science-monograph',
+  'Textbook': 'content-value-textbook',
+  'Encyclopedia': 'content-value-encyclopedia',
+};
+
 export const REPORT_SUBTYPES = {
   'Research report': 'publication-instance-type-ReportResearch',
   'Policy report': 'publication-instance-type-ReportPolicy',
