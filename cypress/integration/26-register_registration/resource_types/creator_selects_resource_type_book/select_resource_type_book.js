@@ -1,6 +1,6 @@
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { USER_RESOURCE_TYPE } from '../../../../support/constants';
-import { BOOK_SUBTYPES, BOOK_FIELDS } from '../../../../support/data_testid_constants';
+import { BOOK_SUBTYPES, BOOK_FIELDS, CONTENT_TYPE } from '../../../../support/data_testid_constants';
 
 // Feature: Creator selects Resource type Book
 Before(() => {
@@ -54,6 +54,18 @@ And('they see fields:', (dataTable) => {
 //     | Monograph           |
 //     | Abstract collection |
 //     | Exhibition catalog  |
+
+// @1963
+// Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"
+And('they see a field Content Type with options:', (dataTable) => {
+  cy.get('[data-testid=content-field]').click();
+  cy.testDataTestidList(dataTable, CONTENT_TYPE);
+});
+// | Academic Monograph        |
+// | Non-fiction Monograph     |
+// | Popular Science Monograph |
+// | Textbook                  |
+// | Encyclopedia              |
 
 // TODO Missing subtypes Abstract collection, Exhibition catalog
 // @2229
