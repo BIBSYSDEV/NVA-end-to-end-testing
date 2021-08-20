@@ -2,6 +2,13 @@
   "type": "Publication",
   "status": "DRAFT",
   "owner": "<owner_id>",
+  "projects": [
+    {
+      "id": "https://api.dev.nva.aws.unit.no/project/403669",
+      "name": "test-retest av test batteri til måling av smerte og funksjon hos personer med\r\nkne artrose: reliabilitet, validitet, sensivitet og spesifisitet",
+      "type": "ResearchProject"
+    }
+  ],
   "publisher": {
     "type": "Organization",
     "id": "<nva_org_url>"
@@ -15,6 +22,7 @@
   "entityDescription": {
     "type": "EntityDescription",
     "mainTitle": "Test registration",
+    "language" : "http://lexvo.org/id/iso639-3/eng",
     "date": {
       "type": "PublicationDate",
       "year": "2020",
@@ -26,6 +34,7 @@
     "description": "Description",
     "reference": {
       "type": "Reference",
+      "doi": "https://testdoi.org/test",
       "publicationContext": {
         "type": "Journal",
         "title": "International Journal of Human-Computer Interaction",
@@ -47,6 +56,7 @@
         }
       }
     },
+    "npiSubjectHeading" : "010",
     "abstract": "Abstract"
   },
   "modelVersion": "0.11.14"
