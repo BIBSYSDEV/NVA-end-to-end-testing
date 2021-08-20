@@ -157,6 +157,9 @@ Cypress.Commands.add('createValidRegistration', () => {
   cy.get('[data-testid=publisher-search-field]').click({ force: true }).type('Norges');
   cy.contains('Norges forskningsråd').click({ force: true });
 
+  cy.get('[data-testid=content-field]').click();
+  cy.get('[data-testid=content-value-academic-monograph]').click();
+
   cy.get('[data-testid=peer-review-field] > div > label > span').first().click({ force: true });
 
   // Contributors
@@ -180,14 +183,12 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 
 Cypress.Commands.add('addMockOrcid', (username) => {
   cy.request(`https://api.dev.nva.aws.unit.no/person?feideid=${username}`).then((response) => {
-    const orcid_authority = response.body[0]
-    orcid_authority.orcids.push('test_orcid') 
-    cy.window() 
-      .its('store')
-      .invoke('dispatch', {
-        type: SET_AUTHORITY_DATA,
-        authority: orcid_authority,
-      });
+    const orcid_authority = response.body[0];
+    orcid_authority.orcids.push('test_orcid');
+    cy.window().its('store').invoke('dispatch', {
+      type: SET_AUTHORITY_DATA,
+      authority: orcid_authority,
+    });
   });
 });
 
