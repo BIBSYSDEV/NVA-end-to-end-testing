@@ -17,7 +17,7 @@ And('they are the Owner of the Registration', () => {
 
 And('the Registration has no DOI', () => {
   cy.get('[data-testid=published-button]').click({ force: true });
-  cy.get('[data-testid^=registration-title]').first()
+  cy.get('[data-testid^=registration-title]')
      .filter(':contains("Published registration without DOI")') // need to use text search to find correct registration
     .parent()
     .within((publicationLine) => {
@@ -35,8 +35,8 @@ Then('they see buttons for "Request a DOI" and "Edit Registration"', () => {
 
 // Scenario: Owner navigates to the Landing Page for their Registration with Validation Errors
 And('the Registration has Validation Errors', () => {
-  cy.get('[data-testid^=registration-title]').first()
-     .filter(':contains("Registration with validation errors")') // need to use text search to find correct registration
+  cy.get('[data-testid^=registration-title]')
+     .filter(':contains("Registration with validation error")') // need to use text search to find correct registration
     .parent()
     .within((publicationLine) => {
       cy.wrap(publicationLine).get('[data-testid^=open-registration]').click({ force: true });

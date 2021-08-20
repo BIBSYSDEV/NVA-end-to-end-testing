@@ -53,7 +53,8 @@
           "type": "Range",
           "begin": "3",
           "end": "4"
-        }
+        },
+        "contentType": "Research article"
       }
     },
     "npiSubjectHeading" : "010",

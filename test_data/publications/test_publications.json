@@ -120,7 +120,8 @@
     "owner": "test-user-with-author@test.no",
     "status": "DRAFT",
     "contributor": "test-user-with-author@test.no",
-    "title": "Registration with validation error"
+    "title": "Registration with validation error",
+    "publication_content_type": ""
   },
   {
     "publication_type": "JournalContent",
