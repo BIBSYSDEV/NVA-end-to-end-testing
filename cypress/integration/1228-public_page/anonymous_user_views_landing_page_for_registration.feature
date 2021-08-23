@@ -1,6 +1,5 @@
 Feature: Anonymous User views Landing Page for Registration
 
-    @test
     @881
     Scenario: Anonymous User views Landing Page for Registration
         Given the Anonymous User has opened NVA
