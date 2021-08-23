@@ -15,17 +15,17 @@ When('they navigate to the Contributors tab', () => {
 });
 
 And('they see the "Add Author" Button', () => {
-  cy.get('[data-testid=add-contributor-Creator]').should('be.visible');
+  cy.get('[data-testid=add-Creator]').should('be.visible');
 });
 And('they click "Add Author"', () => {
-  cy.get('[data-testid=add-contributor-Creator]').click({ force: true });
+  cy.get('[data-testid=add-Creator]').click({ force: true });
 });
 // End common steps
 
 //   @417
 //   Scenario: Creator navigates to Contributors tab
-Then('they see "Add Author" Button is enabled', () => {
-  cy.get('[data-testid=add-contributor-Creator]').should('be.enabled');
+Then('they see "Add Contributor" Button is enabled', () => {
+  cy.get('[data-testid=add-Creator]').should('be.enabled');
 });
 And('they see the tab Description is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-description]').should('be.enabled');
@@ -58,15 +58,15 @@ And('they click "Add me as Author"', () => {
   cy.get('[data-testid=button-add-self-author]').click({ force: true });
 });
 Then('their Author identity is added to the list of Authors', () => {
-  cy.get('[data-testid=contributors-Creator]').within((authors) => {
+  cy.get('[data-testid=Creator]').within((authors) => {
     cy.wrap(authors).contains('TestUser, Withauthor');
   });
 });
-
+And('their current Affiliations are listed', () => {})
 //   @419
 //   Scenario: Creator adds an Author to the list of Authors
 And('they search for Author in the Author Search Dialog', () => {
-  cy.get('[data-testid=search-input]').type('TestUser Kari');
+  cy.get('[data-testid=search-field]').type('TestUser Kari');
 });
 And('they select an Author identity', () => {
   cy.get('[data-testid=author-radio-button]').first().click({ force: true });
@@ -75,7 +75,7 @@ And('they click "Add"', () => {
   cy.get('[data-testid=connect-author-button]').click({ force: true });
 });
 Then('the selected Author identity is added to the list of Authors', () => {
-  cy.get('[data-testid=contributors-Creator]').within((authors) => {
+  cy.get('[data-testid=Creator]').within((authors) => {
     cy.wrap(authors).contains('TestUser, Kari');
   });
 });
@@ -110,16 +110,16 @@ And('they select Registration Subtype "Anthology"', () => {
   cy.get('[data-testid=publication-instance-type-BookAnthology]').click({ force: true });
 });
 And('they see the "Add Editor" Button', () => {
-  cy.get('[data-testid=add-contributor-Editor]').should('be.visible');
+  cy.get('[data-testid=add-Editor]').should('be.visible');
 });
 And('they click "Add Editor"', () => {
-  cy.get('[data-testid=add-contributor-Editor]').click({ force: true });
+  cy.get('[data-testid=add-Editor]').click({ force: true });
 });
 And('they search for Editor in the Author Search Dialog', () => {
-  cy.get('[data-testid=search-input]').type('TestUser Kari');
+  cy.get('[data-testid=search-field]').type('TestUser Kari');
 });
 Then('the selected Author identity is added to the list of Editors', () => {
-  cy.get('[data-testid=contributors-Editor]').within((editors) => {
+  cy.get('[data-testid=Editor]').within((editors) => {
     cy.wrap(editors).contains('TestUser, Kari');
   });
 });
@@ -135,26 +135,22 @@ And('they select any Registration Subtype', () => {
   cy.get('[data-testid=publication-instance-type-DegreeMaster]').click({ force: true });
 });
 And('they see the "Add Supervisor" Button', () => {
-  cy.get('[data-testid=add-contributor-Supervisor]').should('be.visible');
+  cy.get('[data-testid=add-Supervisor]').should('be.visible');
 });
 And('they click "Add Supervisor"', () => {
-  cy.get('[data-testid=add-contributor-Supervisor]').click({ force: true });
+  cy.get('[data-testid=add-Supervisor]').click({ force: true });
 });
 And('they search for Supervisor in the Author Search Dialog', () => {
-  cy.get('[data-testid=search-input]').type('TestUser Kari');
+  cy.get('[data-testid=search-field]').type('TestUser Kari');
 });
 Then('the selected Author identity is added to the list of Supervisors', () => {
-  cy.get('[data-testid=contributors-Supervisor]').within((editors) => {
+  cy.get('[data-testid=Supervisor]').within((editors) => {
     cy.wrap(editors).contains('TestUser, Kari');
   });
 });
 
 //   @788
 //   Scenario: Creator creates a new Author in the Author dialog
-//     Given Creator begins registering a Registration in the Wizard
-//     And they navigate to the Contributors tab
-//     And they see the "Add Author" Button
-//     And they click "Add Author"
 And('they see the "Create new Author" Button', () => {
   cy.get('[data-testid=button-create-new-author]').should('be.visible');
 });
@@ -170,6 +166,6 @@ Then('they see fields:', (dataTable) => {
 });
 //       | First name |
 //       | Last name  |
-And('they see the "Create new Author" Button in the Create new author Dialog', () => {
+And('they see the "Create new Author" Button in the Create new Author Dialog', () => {
   cy.get('[data-testid=button-create-authority]').should('be.visible');
 });

@@ -18,7 +18,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "DRAFT_FOR_DELETION",
-    "contributor": "",
+    "contributor": "test-user-with-author@test.no",
     "title": "Deleted Draft registration"
   },
   {
@@ -52,7 +52,8 @@
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
-    "title": "Published registration requesting DOI"
+    "title": "Published registration requesting DOI",
+    "doi": true
   },
   {
     "publication_type": "JournalContent",
@@ -85,7 +86,8 @@
     "owner": "test-user-draft-doi@test.no",
     "status": "DRAFT",
     "contributor": "test-user-draft-doi@test.no",
-    "title": "Draft registration requesting DOI"
+    "title": "Draft registration requesting DOI",
+    "doi": true
   },
   {
     "publication_type": "JournalContent",
@@ -97,5 +99,49 @@
     "status": "DRAFT",
     "contributor": "test-user-with-author@test.no",
     "title": "Delete Draft registration"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-type@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-resource-type@test.no",
+    "title": "Test Resource type"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Registration with validation error"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-view-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-view-registration@test.no",
+    "title": "View registration"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "View Landing Page"
   }
 ]

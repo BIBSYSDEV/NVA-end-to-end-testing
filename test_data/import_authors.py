@@ -7,9 +7,9 @@ from id_token import get_id_token
 import clear_arp
 
 ssm = boto3.client('ssm')
-USER_POOL_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_ID',
+USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
-CLIENT_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_WEB_CLIENT_ID',
+CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 STAGE = ssm.get_parameter(Name='/test/STAGE',
                           WithDecryption=False)['Parameter']['Value']
@@ -34,31 +34,25 @@ def connect_author(id_token, id,
             json=payload,
             headers={'Authorization': token})
         if not connect_response:
-            print('POST /person/ {} {}'.format(connect_response.status_code,
-                                               connect_response.reason))
+            print(f'POST /person/ {connect_response.status_code} {connect_response.reason}')
     if not connect_author:
         token = 'Bearer ' + id_token
         delete_response = requests.delete(
-            'https://api.{}.nva.aws.unit.no/person/{}/identifiers/{}/delete'
-            .format(STAGE, id, connection_type),
+            f'https://api.{STAGE}.nva.aws.unit.no/person/{id}/identifiers/{connection_type}/delete',
             json=payload,
             headers={'Authorization': token})
-        if not delete_response:
-            print('DELETE /person/{}/identifiers/{}/delete {}'.format(
-                scn, connectionType, delete_response.status_code))
 
 def create_author(family_name, given_name, id_token, has_author, has_orcid, payload):
-    inverted_name = '{}, {}'.format(family_name, given_name)
+    inverted_name = f'{family_name}, {given_name}'
     new_author = {'invertedname': inverted_name}
     token = 'Bearer ' + id_token
     if has_author:
         create_response = requests.post(
-            'https://api.{}.nva.aws.unit.no/person/'.format(STAGE),
+            f'https://api.{STAGE}.nva.aws.unit.no/person/',
             json=new_author,
             headers={'Authorization': token})
         if not create_response:
-            print('POST /person/ {}'.format(
-                create_response.status_code))
+            print(f'POST /person/ {create_response.status_code}')
         else:
             id = create_response.json()['id'].split('/')[-1]
             if has_author:
@@ -109,7 +103,7 @@ def run():
             query_response = requests.get(
                 person_query.format(STAGE, username))
             if query_response.status_code != 200:
-                print('GET /person/ {}'.format(resp.status_code))
+                print(f'GET /person/ {query_response.status_code}')
             if query_response.json() == []:
                 create_author(family_name=family_name,
                     given_name=given_name, id_token=id_token, has_author=has_author, has_orcid=has_orcid, payload=feideid_payload)

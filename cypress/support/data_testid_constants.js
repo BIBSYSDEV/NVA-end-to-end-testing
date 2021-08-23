@@ -43,16 +43,22 @@ export const PROFILE_PAGE_FIELDS = {
   'Real name': 'user-name',
   'Feide ID': 'user-id',
   'Email': 'user-id',
-  'ORCID': 'button-create-connect-orcid',
+  'ORCID': 'orcid-line',
   'Roles': 'user-role-creator',
   'Organizations': 'institution-presentation',
-  'Language': 'language-selector',
+  'Language': 'language-button',
 };
 
 export const USER_ADMINISTRATION_HEADINGS = {
   'Administrator': 'Administrators',
   'Curator': 'Curators',
   'Editor': 'Editor',
+};
+
+export const USER_ADMINISTRATION_SECTIONS = {
+  'Administrators': 'users-administrators',
+  'Curators': 'users-curators',
+  'Editors': 'users-editors',
 };
 
 export const USER_ADMINISTRATION_BUTTONS = {
@@ -108,7 +114,7 @@ export const JOURNAL_SUBTYPES = {
   'Feature article': 'publication-instance-type-FeatureArticle',
   'Letter to the Editor': 'publication-instance-type-JournalLetter',
   'Book review': 'publication-instance-type-JournalReview',
-  'Editorial': 'publication-instance-type-JournalLeader',
+  'Leader': 'publication-instance-type-JournalLeader',
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',
 };
 
@@ -127,9 +133,9 @@ export const JOURNAL_FIELDS = {
   'Peer reviewed': 'peer_review-true',
 };
 
-export const BOOK_SUPTYPES = {
-  'Monograph': 'BookMonograph',
-  'Anthology': 'BookAnthology',
+export const BOOK_SUBTYPES = {
+  'Monograph': 'publication-instance-type-BookMonograph',
+  'Anthology': 'publication-instance-type-BookAnthology',
 };
 
 export const BOOK_FIELDS = {
@@ -137,6 +143,16 @@ export const BOOK_FIELDS = {
   'ISBN': 'isbn-field',
   'Total number of pages': 'pages-field',
   'NPI discipline': 'search_npi',
+  'Series title': 'series-search-field',
+  'Series number': 'series-number-field',
+};
+
+export const CONTENT_TYPE = {
+  'Academic Monograph': 'content-value-academic-monograph',
+  'Non-fiction Monograph': 'content-value-non-fiction-monograph',
+  'Popular Science Monograph': 'content-value-popular-science-monograph',
+  'Textbook': 'content-value-textbook',
+  'Encyclopedia': 'content-value-encyclopedia',
 };
 
 export const REPORT_SUBTYPES = {
@@ -151,6 +167,7 @@ export const REPORT_FIELDS = {
   'ISBN': 'isbn-field',
   'Total number of pages': 'pages-field',
   'Search box for Series': 'series-search-field',
+  'Series number': 'series-number-field',
 };
 
 export const STUDENT_THESIS_SUBTYPES = {
@@ -164,18 +181,20 @@ export const STUDENT_THESIS_FIELDS = {
   'Search box for Publisher': 'publisher-search-field',
   'DOI': 'doi-field',
   'Search box for Series': 'series-search-field',
+  'Series number': 'series-number-field',
 };
 
 export const CHAPTER_SUBTYPES = {
-  'Chapter in anthology': 'publication-instance-type-ChapterArticle',
+  'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
 };
 
 export const CHAPTER_FIELDS = {
   'DOI': 'doi-field',
-  'Search box for published books': 'info-anthology',
+  'Search box for published Anthologies': 'info-anthology',
   'Pages from': 'chapter-pages-from',
   'Pages to': 'chapter-pages-to',
-  'Peer reviewed': 'peer_review-true',
+  'Peer reviewed': 'peer-review-true',
+  'NPI discipline': 'npi-search',
 };
 
 export const OTHER_SUBTYPES = {};
@@ -187,10 +206,10 @@ export const DESCRIPTION_FIELDS = {
   'Abstract': 'registration-abstract-field',
   'Description': 'registration-description-field',
   'Date published': 'date-published-field',
-  'NPI disciplines': 'search_npi',
   'Keywords': 'registration-tag-field',
+  'Vocabularies': 'search_npi',
   'Primary language for content': 'registration-language-field',
-  'Project association': 'project-search-input',
+  'Project association': 'project-search-field',
 };
 
 export const RESOURCE_TYPE_FIELDS = {
@@ -200,4 +219,20 @@ export const RESOURCE_TYPE_FIELDS = {
 export const CONTRIBUTOR_CREATE_FIELDS = {
   'First name': 'create-contributor-first-name',
   'Last name': 'create-contributor-last-name',
+};
+
+export const LANDING_PAGE_FIELDS = {
+  'Title': 'public-registration-title',
+  'Abstract': 'abstract-accordion',
+  NPI: 'public-registration-npi',
+  Keywords: 'public-registration-keywords',
+  'Publication date': 'public-registration-publication-date',
+  'Primary language': 'public-registration-primary-language',
+  Projects: 'projects-accordion',
+  'Registration subtype': 'public-registration-registration-subtype',
+  'Fields corresponding to subtype': 'public-registration-subtype-fields',
+  Contributors: 'public-registration-contributors',
+  Files: 'files-accordion',
+  'DOI link': 'public-registration-doi-link',
+  License: 'public-registration-license',
 };

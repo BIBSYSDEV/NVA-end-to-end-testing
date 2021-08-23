@@ -24,9 +24,9 @@ phases:
       - export CYPRESS_AWS_SESSION_TOKEN=$(cat Credentials | jq -r '.Credentials.SessionToken')
   pre_build:
     commands:
-      - wget https://github.com/BIBSYSDEV/NVA-end-to-end-testing/archive/refs/heads/master.zip
-      - unzip master.zip
-      - cd NVA-end-to-end-testing-develop
+      - wget https://github.com/BIBSYSDEV/NVA-end-to-end-testing/archive/refs/heads/test-deploy.zip
+      - unzip test-deploy.zip
+      - cd NVA-end-to-end-testing-test-deploy
   build:
     commands:
       - cd test_data
@@ -41,4 +41,5 @@ artifacts:
     - '**/*'
 cache:
   paths:
-    - node_modules/**/*
+    - NVA-end-to-end-testing-test-deploy/node_modules/**/*
+    

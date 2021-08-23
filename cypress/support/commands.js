@@ -12,7 +12,7 @@ const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
-const SET_EXTERNAL_ORCID = 'set external orcid';
+const SET_AUTHORITY_DATA = 'set authority data';
 
 AWS.config = new AWS.Config({
   accessKeyId: AWS_ACCESS_KEY_ID,
@@ -142,11 +142,11 @@ Cypress.Commands.add('logoutCognito', () => {
 Cypress.Commands.add('createValidRegistration', () => {
   // Description
   cy.get('[data-testid=nav-tabpanel-description').click({ force: true });
-  cy.get('[data-testid=registration-title-input]').type('Title');
+  cy.get('[data-testid=registration-title-field]').type('Title');
   cy.get('[data-testid=date-published-field]').type('01.01.2020');
 
   // Reference
-  cy.get('[data-testid=nav-tabpanel-reference').click({ force: true });
+  cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
 
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
@@ -154,15 +154,18 @@ Cypress.Commands.add('createValidRegistration', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
 
-  cy.get('[data-testid=publisher-search-input]').click({ force: true }).type('Norges');
+  cy.get('[data-testid=publisher-search-field]').click({ force: true }).type('Norges');
   cy.contains('Norges forskningsråd').click({ force: true });
 
-  cy.get('[data-testid=peer_review-true]').click({ force: true });
+  cy.get('[data-testid=content-field]').click();
+  cy.get('[data-testid=content-value-academic-monograph]').click();
+
+  cy.get('[data-testid=peer-review-field] > div > label > span').first().click({ force: true });
 
   // Contributors
   cy.get('[data-testid=nav-tabpanel-contributors').click({ force: true });
-  cy.get('[data-testid=add-contributor]').click({ force: true });
-  cy.get('[data-testid=search-input]').type('Testuser Withauthor{enter}');
+  cy.get('[data-testid=Creator] > button').click({ force: true });
+  cy.get('[data-testid=search-field]').type('Testuser Withauthor{enter}');
   cy.get('[data-testid=author-radio-button]').click({ force: true });
   cy.get('[data-testid=connect-author-button]').click({ force: true });
 
@@ -178,8 +181,15 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   });
 });
 
-Cypress.Commands.add('addMockOrcid', () => {
-  cy.window().its('store').invoke('dispatch', { type: SET_EXTERNAL_ORCID, orcid: 'test_orcid' });
+Cypress.Commands.add('addMockOrcid', (username) => {
+  cy.request(`https://api.dev.nva.aws.unit.no/person?feideid=${username}`).then((response) => {
+    const orcid_authority = response.body[0];
+    orcid_authority.orcids.push('test_orcid');
+    cy.window().its('store').invoke('dispatch', {
+      type: SET_AUTHORITY_DATA,
+      authority: orcid_authority,
+    });
+  });
 });
 
 Cypress.Commands.add('findScenario', () => {

@@ -12,6 +12,7 @@ And('is on the My Registrations page', () => {
   cy.get('[data-testid=my-registrations]').click({ force: true });
 });
 When('they click Delete on an item', () => {
+  cy.get('[data-testid^=delete-registration]').first().as('registration');
   cy.get('[data-testid^=delete-registration]').first().click({ force: true });
 });
 And('they click No in the confirmation dialog', () => {

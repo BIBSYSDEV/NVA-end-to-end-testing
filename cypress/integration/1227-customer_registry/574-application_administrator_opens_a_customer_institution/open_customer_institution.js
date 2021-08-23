@@ -12,7 +12,7 @@ Given('that the user is logged in as Application Administrator', () => {
 When('they open a Customer Institution', () => {
   cy.get('[data-testid=menu]').click({ force: true });
   cy.get('[data-testid=menu-admin-institutions-button]').click({ force: true });
-  cy.get('[data-testid="edit-institution-TestInst 2"]').click({ force: true });
+  cy.get('[data-testid="edit-institution-TestInst 2"]').first().click({ force: true });
 });
 Then('they see fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
@@ -31,9 +31,8 @@ And('they see the list of current Institution Administrators', () => {
   cy.get('[data-testid^=button-remove-role-]').should('have.length.above', 0);
 });
 And('every Institution Administrator has a Remove button', () => {
-  cy.get('[data-testid^=button-remove-role-]').should('have.length', 2);
+  cy.get('[data-testid^=button-remove-role-]').should('have.length', 5);
 });
 And('they see button to add a new Institution Administrator', () => {
   cy.get('[data-testid=button-open-add-admin]').should('be.visible');
-
 });

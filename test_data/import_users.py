@@ -1,16 +1,16 @@
 import boto3
 import json
-import os
+import sys
 import copy
 import requests
 
-ROLE_TABLENAME = 'UsersAndRolesTable'
+ROLE_TABLENAME = 'nva-users-and-roles-nva-identity-service-nva-identity-service'
 CUSTOMER_TABLENAME = 'nva_customers'
 
 ssm = boto3.client('ssm')
-USER_POOL_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_ID',
+USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
-CLIENT_ID = ssm.get_parameter(Name='/test/AWS_USER_POOL_WEB_CLIENT_ID',
+CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 STAGE = ssm.get_parameter(Name='/test/STAGE',
                           WithDecryption=False)['Parameter']['Value']
@@ -34,7 +34,7 @@ def findCustomer(org_number):
             IndexName='byOrgNumber')
         return response['Items'][0]['identifier']['S']
     except:
-        print('Customer not found: {}'.format(org_number))
+        print(f'Customer not found: {org_number}')
         pass
 
 
@@ -50,17 +50,14 @@ def createRole(test_user):
         username = test_user['username']
         role = test_user['role']
         org_number = test_user['orgNumber']
-        customer_iri = 'https://api.{}.nva.aws.unit.no/customer/{}'.format(
-            STAGE, findCustomer(org_number))
-
-        customer_identifier = findCustomer(test_user['orgNumber'])
+        customer_iri = f'https://api.{STAGE}.nva.aws.unit.no/customer/{findCustomer(org_number)}'
 
         new_role = copy.deepcopy(role_template)
         new_role['familyName']['S'] = family_name
         new_role['givenName']['S'] = given_name
         new_role['institution']['S'] = customer_iri
-        new_role['PrimaryKeyHashKey']['S'] = 'USER#{}'.format(username)
-        new_role['PrimaryKeyRangeKey']['S'] = 'USER#{}'.format(username)
+        new_role['PrimaryKeyHashKey']['S'] = f'USER#{username}'
+        new_role['PrimaryKeyRangeKey']['S'] = f'USER#{username}'
         new_role['SecondaryIndex1HashKey']['S'] = customer_iri
         new_role['SecondaryIndex1RangeKey']['S'] = username
         for user_role in role:
@@ -74,7 +71,7 @@ def deleteRole(username):
     response = DB_CLIENT.delete_item(TableName=ROLE_TABLENAME,
                                      Key={
                                          'PrimaryKeyHashKey': {
-                                             'S': 'USER#{}'.format(username)
+                                             'S': f'USER#{username}'
                                          },
                                          'PrimaryKeyRangeKey': {
                                              'S': 'USER'
@@ -127,14 +124,13 @@ def run():
 
                 for attribute in user_attributes:
                     if attribute['Name'] == 'custom:identifiers':
-                        attribute['Value'] = 'feide:{}'.format(username)
+                        attribute['Value'] = f'feide:{username}'
                     if attribute['Name'] == 'custom:feideId' or attribute[
                             'Name'] == 'email':
                         attribute['Value'] = username
                     if attribute['Name'] == 'name' or attribute[
                             'Name'] == 'custom:commonName':
-                        attribute['Value'] = '{} {}'.format(
-                            given_name, family_name)
+                        attribute['Value'] = f'{given_name} {family_name}'
                     if attribute['Name'] == 'given_name':
                         attribute['Value'] = given_name
                     if attribute['Name'] == 'family_name':
@@ -144,19 +140,20 @@ def run():
                     if attribute['Name'] == 'custom:cristinId':
                         attribute['Value'] = cristinId
                     if attribute['Name'] == 'custom:affiliation':
-                        attribute['Value'] = 'feide:{}'.format(affiliation)
+                        attribute['Value'] = f'feide:{affiliation}'
                     if attribute['Name'] == 'custom:customerId':
                         attribute['Value'] = attribute['Value'].format(
                             STAGE, CUSTOMER_ID)
 
                 try:
+                    print(f'Creating {username}')
                     response = cognito_client.admin_create_user(
                         UserPoolId=USER_POOL_ID,
                         Username=username,
                         UserAttributes=user_attributes,
                         MessageAction='SUPPRESS')
                 except:
-                    print('Error creating users')
+                    print(f'Error creating user {username}', sys.exc_info()[0])
                     pass
 
                 role = test_user['role']
