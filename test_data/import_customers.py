@@ -67,7 +67,7 @@ def create_customers(bearer_token):
 
 def put_item(new_customer, bearer_token):
     headers = {
-        f'Authorization': 'Bearer {bearer_token}',
+        'Authorization': f'Bearer {bearer_token}',
         'accept': 'application/json'
     }
     response = requests.post(
