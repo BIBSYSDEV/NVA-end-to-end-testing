@@ -1,12 +1,15 @@
 import { USER_WITH_AUTHOR } from './constants';
 
 export const PERSON_API_PATH = '/person';
+export const PROJECT_API_PATH = '/project';
+
+export const PROJECT_SEARCH_MOCK_FILE = 'mock_project_search.json'
 
 export const mockPersons = {};
 mockPersons[USER_WITH_AUTHOR] = [
   {
     'id': 'https://api.dev.nva.aws.unit.no/person/1234567890',
-    'name': 'TestUser, Withauthor(mock)',
+    'name': 'TestUser, Withauthor',
     'feideids': ['test-user-with-author@test.no'],
     'orcids': ['test-user-with-author@test.no'],
     'orgunitids': ['https://api.cristin.no/v2/institutions/1111111111'],

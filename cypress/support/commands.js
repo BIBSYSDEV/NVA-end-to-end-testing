@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import 'cypress-file-upload';
-import { PERSON_API_PATH, mockPersons } from './mock_data';
+import { PERSON_API_PATH, mockPersons, PROJECT_SEARCH_MOCK_FILE, PROJECT_API_PATH } from './mock_data';
 
 const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -206,6 +206,12 @@ Cypress.Commands.add('findScenario', () => {
   cy.wrap(scenario).as('scenario');
 });
 
-Cypress.Commands.add('mockPerson', (person) => {
+Cypress.Commands.add('mockPersonSearch', (person) => {
   cy.intercept(PERSON_API_PATH, mockPersons[person]);
+});
+
+Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
+  cy.fixture(PROJECT_SEARCH_MOCK_FILE).then((searchResult) => {
+    cy.intercept(PROJECT_API_PATH, searchResult);
+  });
 });
