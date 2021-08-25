@@ -15,6 +15,17 @@ When('they click Start', () => {
     switch (registrationMethod) {
       case 'link':
         cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
+        cy.intercept('/doi-fetch', {
+          'identifier': '',
+          'title':
+            'Mock DOI fetch',
+          'creatorName': null,
+          'date': {
+            'year': '1970',
+            'month': '8',
+            'day': '14',
+          },
+        });
         cy.get('[data-testid=registration-link-next-button]').click({ force: true });
         break;
       case 'file':
