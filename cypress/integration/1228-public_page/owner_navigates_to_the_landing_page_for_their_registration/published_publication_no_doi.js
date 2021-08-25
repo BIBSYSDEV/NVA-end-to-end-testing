@@ -6,22 +6,23 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 // Common steps
 Given('that the Creator navigates to the Landing Page for a Registration', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.get('[data-testid=my-registrations]').click({ force: true });
-  cy.get('[data-testid=published-button]').click({ force: true });
-  cy.get('[data-testid^=registration-title]')
-    .filter(':contains("Published registration without DOI")') // need to use text search to find correct registration
-    .parent()
-    .within((publicationLine) => {
-      cy.wrap(publicationLine).get('[data-testid^=open-registration]').click({ force: true });
-    });
 });
-And('they are the Owner of the Registration', () => {});
+And('they are the Owner of the Registration', () => {
+  cy.get('[data-testid=my-registrations]').click({ force: true });
+});
 // End common steps
 
 // @1231
 // Scenario: Owner navigates to the Landing Page for their Published Registration without DOI
 
 And('the Registration has no DOI', () => {
+  cy.get('[data-testid=published-button]').click({ force: true });
+  cy.get('[data-testid^=registration-title]')
+     .filter(':contains("Published registration without DOI")') // need to use text search to find correct registration
+    .parent()
+    .within((publicationLine) => {
+      cy.wrap(publicationLine).get('[data-testid^=open-registration]').click({ force: true });
+    });
   cy.get('[data-testid=doi-presentation]').should('not.exist');
 });
 When('they see the Status Bar', () => {
@@ -33,7 +34,14 @@ Then('they see buttons for "Request a DOI" and "Edit Registration"', () => {
 });
 
 // Scenario: Owner navigates to the Landing Page for their Registration with Validation Errors
-And('the Registration has Validation Errors', () => {});
+And('the Registration has Validation Errors', () => {
+  cy.get('[data-testid^=registration-title]')
+     .filter(':contains("Registration with validation error")') // need to use text search to find correct registration
+    .parent()
+    .within((publicationLine) => {
+      cy.wrap(publicationLine).get('[data-testid^=open-registration]').click({ force: true });
+    });
+});
 When('they see the Landing Page for the Registration', () => {
   cy.location('pathname').should('contain', '/public');
 });
