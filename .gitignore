@@ -165,3 +165,4 @@ features.diff
 __pycache__/*
 */__pycache__/*
 *.pyc
+mochawesome-report/
