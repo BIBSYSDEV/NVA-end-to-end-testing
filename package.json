@@ -14,19 +14,26 @@
     "immer": ">=8.0.1",
     "lodash": "^4.17.21",
     "lstat": "^1.0.0",
-    "uuid": "^8.1.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "axios": "^0.21.1",
     "cypress": "^6.9.1",
     "cypress-cucumber-preprocessor": "^2.5.5",
     "cypress-file-upload": "^4.1.1",
+    "mocha": "^9.1.0",
+    "mochawesome": "^6.2.2",
+    "mochawesome-merge": "^4.2.0",
+    "mochawesome-report-generator": "^5.2.0",
     "prettier": "2.0.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:pull-features": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features.js",
-    "test:pull-features_deploy": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features_deploy.js"
+    "test:pull-features_deploy": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features_deploy.js",
+    "delete:reportFolder": "rm -rf mochawesome-report/",
+    "merge:reports": "mochawesome-merge mochawesome-report/*.json > cypress-combined-report.json",
+    "create:html:report": "npm run merge:reports && marge --reportDir TestReport cypress-combined-report.json"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,

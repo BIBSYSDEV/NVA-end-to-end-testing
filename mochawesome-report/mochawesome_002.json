@@ -1,0 +1,123 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-08-26T10:35:39.271Z",
+    "end": "2021-08-26T10:35:52.432Z",
+    "duration": 13161,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "9d0a76b4-f035-4f1b-9b96-8e36ce090338",
+      "title": "",
+      "fullFile": "cypress\\integration\\26-register_registration\\creator_navigates_to_resource_type_tab.feature",
+      "file": "cypress\\integration\\26-register_registration\\creator_navigates_to_resource_type_tab.feature",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ed9adf48-57af-4410-8d6d-01a0f124a643",
+          "title": "Creator navigates to Resource Type tab",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Creator navigates to Resource Type tab",
+              "fullTitle": "Creator navigates to Resource Type tab Creator navigates to Resource Type tab",
+              "timedOut": null,
+              "duration": 6997,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach(step =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() =>\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {},
+              "uuid": "5caac599-9b57-426e-8701-9fd91de22ae2",
+              "parentUUID": "ed9adf48-57af-4410-8d6d-01a0f124a643",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Creator sees that fields are validated on Resource Type tab",
+              "fullTitle": "Creator navigates to Resource Type tab Creator sees that fields are validated on Resource Type tab",
+              "timedOut": null,
+              "duration": 5961,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach(step =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() =>\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {},
+              "uuid": "98787eb5-eae1-4763-a7da-e11777b533ea",
+              "parentUUID": "ed9adf48-57af-4410-8d6d-01a0f124a643",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "5caac599-9b57-426e-8701-9fd91de22ae2",
+            "98787eb5-eae1-4763-a7da-e11777b533ea"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 12958,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.2.2"
+    },
+    "marge": {
+      "options": {
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

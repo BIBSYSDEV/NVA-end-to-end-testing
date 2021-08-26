@@ -1,0 +1,301 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 10,
+    "passes": 4,
+    "pending": 5,
+    "failures": 1,
+    "start": "2021-08-26T10:33:17.425Z",
+    "end": "2021-08-26T10:35:03.057Z",
+    "duration": 105632,
+    "testsRegistered": 10,
+    "passPercent": 80,
+    "pendingPercent": 50,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "d09bb5d0-6a36-4d1b-9776-d018e9ba30be",
+      "title": "",
+      "fullFile": "cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature",
+      "file": "cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+          "title": "Creator navigates to Description tab",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Creator begins Wizard registration and navigates to Description tab",
+              "fullTitle": "Creator navigates to Description tab Creator begins Wizard registration and navigates to Description tab",
+              "timedOut": null,
+              "duration": 60345,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach(step =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() =>\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 30000ms: Expected to find element: `[data-testid=search_npi]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 30000ms: Expected to find element: `[data-testid=search_npi]`, but never found it.\n    at eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\support\\index.js:244:8)\nat Array.forEach (<anonymous>)\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\support\\index.js:243:22)",
+                "diff": null
+              },
+              "uuid": "0efb2735-4394-4d8a-b311-9fa868fb73f7",
+              "parentUUID": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Creator sees that fields are validated on Description tab",
+              "fullTitle": "Creator navigates to Description tab Creator sees that fields are validated on Description tab",
+              "timedOut": null,
+              "duration": 11278,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach(step =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() =>\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {},
+              "uuid": "29a92586-df85-4c60-a557-460c3fb55a17",
+              "parentUUID": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Creator searches for Project",
+              "fullTitle": "Creator navigates to Description tab Creator searches for Project",
+              "timedOut": null,
+              "duration": 17446,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach(step =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() =>\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {},
+              "uuid": "e71901dc-0080-4af8-a88a-bf7e659316fe",
+              "parentUUID": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Creator adds a Project",
+              "fullTitle": "Creator navigates to Description tab Creator adds a Project",
+              "timedOut": null,
+              "duration": 7873,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach(step =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() =>\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {},
+              "uuid": "6bbf1aa9-5d9f-4b17-aa0f-94ac075c9695",
+              "parentUUID": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Creator removes a Project",
+              "fullTitle": "Creator navigates to Description tab Creator removes a Project",
+              "timedOut": null,
+              "duration": 8225,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach(step =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() =>\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {},
+              "uuid": "8736d900-d505-4a70-918c-b1273e7f5c66",
+              "parentUUID": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Creator opens dropdown with Allowed Vocabularies",
+              "fullTitle": "Creator navigates to Description tab Creator opens dropdown with Allowed Vocabularies",
+              "timedOut": null,
+              "duration": 33,
+              "state": "pending",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// register this scenario with the cucumber data collector\n// but don't run it\n// Tell mocha this is a skipped test so it also shows correctly in Cypress\nconst state = window.testState;\ncy.then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() => state.onFinishScenario(scenario))\n  // eslint-disable-next-line func-names\n  .then(function() {\n    return this.skip();\n  });",
+              "err": {
+                "message": "CypressError: sync skip; aborting execution",
+                "estack": "[object Object]\nFrom Your Spec Code:\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature:12130:10)\nFrom Your Spec Code:\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature:12130:10)",
+                "diff": null
+              },
+              "uuid": "22f756a7-7138-4959-ae02-46eb287af841",
+              "parentUUID": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Creator sees input field for an Allowed Vocabulary",
+              "fullTitle": "Creator navigates to Description tab Creator sees input field for an Allowed Vocabulary",
+              "timedOut": null,
+              "duration": 21,
+              "state": "pending",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// register this scenario with the cucumber data collector\n// but don't run it\n// Tell mocha this is a skipped test so it also shows correctly in Cypress\nconst state = window.testState;\ncy.then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() => state.onFinishScenario(scenario))\n  // eslint-disable-next-line func-names\n  .then(function() {\n    return this.skip();\n  });",
+              "err": {
+                "message": "CypressError: sync skip; aborting execution",
+                "estack": "[object Object]\nFrom Your Spec Code:\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature:12130:10)\nFrom Your Spec Code:\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature:12130:10)",
+                "diff": null
+              },
+              "uuid": "14e1cfba-1ad6-4e9e-8f17-665615dfa32a",
+              "parentUUID": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Creator sees input field for a Default Vocabulary",
+              "fullTitle": "Creator navigates to Description tab Creator sees input field for a Default Vocabulary",
+              "timedOut": null,
+              "duration": 24,
+              "state": "pending",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// register this scenario with the cucumber data collector\n// but don't run it\n// Tell mocha this is a skipped test so it also shows correctly in Cypress\nconst state = window.testState;\ncy.then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() => state.onFinishScenario(scenario))\n  // eslint-disable-next-line func-names\n  .then(function() {\n    return this.skip();\n  });",
+              "err": {
+                "message": "CypressError: sync skip; aborting execution",
+                "estack": "[object Object]\nFrom Your Spec Code:\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature:12130:10)\nFrom Your Spec Code:\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature:12130:10)",
+                "diff": null
+              },
+              "uuid": "ef4dd6b1-79ed-42e5-b8ae-1597e3003c27",
+              "parentUUID": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Creator opens Dialog for creating a new Project",
+              "fullTitle": "Creator navigates to Description tab Creator opens Dialog for creating a new Project",
+              "timedOut": null,
+              "duration": 22,
+              "state": "pending",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// register this scenario with the cucumber data collector\n// but don't run it\n// Tell mocha this is a skipped test so it also shows correctly in Cypress\nconst state = window.testState;\ncy.then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() => state.onFinishScenario(scenario))\n  // eslint-disable-next-line func-names\n  .then(function() {\n    return this.skip();\n  });",
+              "err": {
+                "message": "CypressError: sync skip; aborting execution",
+                "estack": "[object Object]\nFrom Your Spec Code:\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature:12130:10)\nFrom Your Spec Code:\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature:12130:10)",
+                "diff": null
+              },
+              "uuid": "aefe025c-91a3-4ddc-b984-9eaadb38ead2",
+              "parentUUID": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Creator creates a new Project",
+              "fullTitle": "Creator navigates to Description tab Creator creates a new Project",
+              "timedOut": null,
+              "duration": 19,
+              "state": "pending",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// register this scenario with the cucumber data collector\n// but don't run it\n// Tell mocha this is a skipped test so it also shows correctly in Cypress\nconst state = window.testState;\ncy.then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() => state.onFinishScenario(scenario))\n  // eslint-disable-next-line func-names\n  .then(function() {\n    return this.skip();\n  });",
+              "err": {
+                "message": "CypressError: sync skip; aborting execution",
+                "estack": "[object Object]\nFrom Your Spec Code:\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature:12130:10)\nFrom Your Spec Code:\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\integration\\26-register_registration\\creator_navigates_to_description_tab.feature:12130:10)",
+                "diff": null
+              },
+              "uuid": "29eafe16-f6d7-4417-ae91-a78b0af497f0",
+              "parentUUID": "7acc7e12-7e23-4547-ac6c-392aea5042df",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "29a92586-df85-4c60-a557-460c3fb55a17",
+            "e71901dc-0080-4af8-a88a-bf7e659316fe",
+            "6bbf1aa9-5d9f-4b17-aa0f-94ac075c9695",
+            "8736d900-d505-4a70-918c-b1273e7f5c66"
+          ],
+          "failures": [
+            "0efb2735-4394-4d8a-b311-9fa868fb73f7"
+          ],
+          "pending": [],
+          "skipped": [
+            "22f756a7-7138-4959-ae02-46eb287af841",
+            "14e1cfba-1ad6-4e9e-8f17-665615dfa32a",
+            "ef4dd6b1-79ed-42e5-b8ae-1597e3003c27",
+            "aefe025c-91a3-4ddc-b984-9eaadb38ead2",
+            "29eafe16-f6d7-4417-ae91-a78b0af497f0"
+          ],
+          "duration": 105286,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.2.2"
+    },
+    "marge": {
+      "options": {
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}
