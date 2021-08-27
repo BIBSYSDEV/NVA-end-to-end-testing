@@ -45,6 +45,7 @@ And('they see the tab Contributors is clickable', () => {
 And('they see the tab Files and License is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-files-and-license]').should('be.enabled');
 });
+And('they see a Button for creating a new Project is enabled', () => {});
 And('they see Next is enabled', () => {
   cy.get('[data-testid=button-next-tab]').should('be.enabled');
 });
@@ -115,4 +116,3 @@ When('they click the Remove Project icon', () => {
 Then('they see the Project is removed from the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('not.exist');
 });
-

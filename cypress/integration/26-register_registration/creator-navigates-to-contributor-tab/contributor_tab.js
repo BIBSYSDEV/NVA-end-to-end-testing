@@ -66,7 +66,7 @@ And('their current Affiliations are listed', () => {})
 //   @419
 //   Scenario: Creator adds an Author to the list of Authors
 And('they search for Author in the Author Search Dialog', () => {
-  cy.get('[data-testid=search-field]').type('TestUser Kari');
+  cy.get('[data-testid=search-field]').type('TestUser, Kari');
 });
 And('they select an Author identity', () => {
   cy.get('[data-testid=author-radio-button]').first().click({ force: true });
