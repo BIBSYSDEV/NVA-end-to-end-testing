@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "axios": "^0.21.1",
+    "cucumber-html-reporter": "^5.5.0",
     "cypress": "^6.9.1",
     "cypress-cucumber-preprocessor": "^2.5.5",
     "cypress-file-upload": "^4.1.1",
@@ -31,9 +32,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:pull-features": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features.js",
     "test:pull-features_deploy": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features_deploy.js",
-    "delete:reportFolder": "rm -rf mochawesome-report/",
+    "delete:reportFolder": "rm -rf mochawesome-report/*",
     "merge:reports": "mochawesome-merge mochawesome-report/*.json > cypress-combined-report.json",
-    "create:html:report": "npm run merge:reports && marge --reportDir TestReport cypress-combined-report.json"
+    "create:cucumber:report": "node scripts/cucumber_report.js",
+    "create:html:report": "npm run merge:reports && marge --reportDir TestReport cypress-combined-report.json",
+    "create:test:reports": "npm run create:html:report && npm run create:cucumber:report",
+    "test:cli": "npm run delete:reportFolder && npx cypress run"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,

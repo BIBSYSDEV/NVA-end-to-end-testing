@@ -1,0 +1,2555 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "Creator navigates to Contributors tab",
+    "line": 1,
+    "id": "creator-navigates-to-contributors-tab",
+    "tags": [],
+    "uri": "creator-navigates-to-contributor-tab.feature",
+    "elements": [
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-navigates-to-contributors-tab",
+        "keyword": "Scenario",
+        "line": 5,
+        "name": "Creator navigates to Contributors tab",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 3
+          },
+          {
+            "name": "@417",
+            "line": 4
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 6,
+            "name": "Creator begins registering a Registration in the Wizard",
+            "result": {
+              "status": "passed",
+              "duration": 5971000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 7,
+            "name": "they navigate to the Contributors tab",
+            "result": {
+              "status": "passed",
+              "duration": 824000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "they see \"Add Contributor\" Button is enabled",
+            "result": {
+              "status": "passed",
+              "duration": 34000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they see the tab Description is clickable",
+            "result": {
+              "status": "passed",
+              "duration": 44000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "they see the tab Resource Type is clickable",
+            "result": {
+              "status": "passed",
+              "duration": 33000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "they see the tab Contributors is selected",
+            "result": {
+              "status": "passed",
+              "duration": 19000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "they see the tab Files and License is clickable",
+            "result": {
+              "status": "passed",
+              "duration": 40000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "they see Previous is enabled",
+            "result": {
+              "status": "passed",
+              "duration": 37000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "they see Next is enabled",
+            "result": {
+              "status": "passed",
+              "duration": 35000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "they see Save is enabled",
+            "result": {
+              "status": "passed",
+              "duration": 36000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-adds-themselves-to-the-list-of-authors",
+        "keyword": "Scenario",
+        "line": 19,
+        "name": "Creator adds themselves to the list of Authors",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 17
+          },
+          {
+            "name": "@1837",
+            "line": 18
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 20,
+            "name": "Creator begins registering a Registration in the Wizard",
+            "result": {
+              "status": "passed",
+              "duration": 4525000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 21,
+            "name": "they navigate to the Contributors tab",
+            "result": {
+              "status": "passed",
+              "duration": 763000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 22,
+            "name": "they see the \"Add Author\" Button",
+            "result": {
+              "status": "passed",
+              "duration": 29000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "they click \"Add Author\"",
+            "result": {
+              "status": "passed",
+              "duration": 117000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 24,
+            "name": "they see the Author Search Dialog",
+            "result": {
+              "status": "passed",
+              "duration": 32000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 25,
+            "name": "they click \"Add me as Author\"",
+            "result": {
+              "status": "passed",
+              "duration": 191000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 26,
+            "name": "their Author identity is added to the list of Authors",
+            "result": {
+              "status": "passed",
+              "duration": 59000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 27,
+            "name": "their current Affiliations are listed",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-adds-an-author-to-the-list-of-authors",
+        "keyword": "Scenario",
+        "line": 31,
+        "name": "Creator adds an Author to the list of Authors",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 29
+          },
+          {
+            "name": "@419",
+            "line": 30
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 32,
+            "name": "Creator begins registering a Registration in the Wizard",
+            "result": {
+              "status": "passed",
+              "duration": 3648000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 33,
+            "name": "they navigate to the Contributors tab",
+            "result": {
+              "status": "passed",
+              "duration": 572000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 34,
+            "name": "they see the \"Add Author\" Button",
+            "result": {
+              "status": "passed",
+              "duration": 30000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 35,
+            "name": "they click \"Add Author\"",
+            "result": {
+              "status": "passed",
+              "duration": 117000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 36,
+            "name": "they search for Author in the Author Search Dialog",
+            "result": {
+              "status": "passed",
+              "duration": 359000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "they select an Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 1337000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 38,
+            "name": "they click \"Add\"",
+            "result": {
+              "status": "passed",
+              "duration": 139000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 39,
+            "name": "the selected Author identity is added to the list of Authors",
+            "result": {
+              "status": "passed",
+              "duration": 46000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 40,
+            "name": "their current Affiliations are listed",
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-adds-an-author-to-the-list-of-authors-for-resource-type-book,-monograph",
+        "keyword": "Scenario",
+        "line": 43,
+        "name": "Creator adds an Author to the list of Authors for Resource Type Book, Monograph",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 42
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 44,
+            "name": "Creator begins registering a Registration in the Wizard",
+            "result": {
+              "status": "passed",
+              "duration": 4504000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 45,
+            "name": "they navigate to the Resources tab",
+            "result": {
+              "status": "passed",
+              "duration": 691000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 46,
+            "name": "they select Resource Type \"Book\"",
+            "result": {
+              "status": "passed",
+              "duration": 543000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 47,
+            "name": "they select Registration Subtype \"Monograph\"",
+            "result": {
+              "status": "passed",
+              "duration": 864000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 48,
+            "name": "they navigate to the Contributors tab",
+            "result": {
+              "status": "passed",
+              "duration": 345000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 49,
+            "name": "they see the \"Add Author\" Button",
+            "result": {
+              "status": "passed",
+              "duration": 56000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 50,
+            "name": "they click \"Add Author\"",
+            "result": {
+              "status": "passed",
+              "duration": 151000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 51,
+            "name": "they search for Author in the Author Search Dialog",
+            "result": {
+              "status": "passed",
+              "duration": 438000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 52,
+            "name": "they select an Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 1340000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 53,
+            "name": "they click \"Add\"",
+            "result": {
+              "status": "passed",
+              "duration": 256000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 54,
+            "name": "the selected Author identity is added to the list of Authors",
+            "result": {
+              "status": "passed",
+              "duration": 76000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 55,
+            "name": "their current Affiliations are listed",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-adds-an-author-to-the-list-of-authors-for-resource-type-chapter",
+        "keyword": "Scenario",
+        "line": 58,
+        "name": "Creator adds an Author to the list of Authors for Resource Type Chapter",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 57
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 59,
+            "name": "Creator begins registering a Registration in the Wizard",
+            "result": {
+              "status": "passed",
+              "duration": 5435000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 60,
+            "name": "they navigate to the Resources tab",
+            "result": {
+              "status": "passed",
+              "duration": 1078000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Part of book/report"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 61,
+            "name": "they select the Resource Type",
+            "result": {
+              "status": "passed",
+              "duration": 541000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 63,
+            "name": "they select the Registration Subtype \"Chapter in anthology\"",
+            "result": {
+              "status": "passed",
+              "duration": 758000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 64,
+            "name": "they navigate to the Contributors tab",
+            "result": {
+              "status": "passed",
+              "duration": 324000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 65,
+            "name": "they see the \"Add Author\" Button",
+            "result": {
+              "status": "passed",
+              "duration": 51000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 66,
+            "name": "they click \"Add Author\"",
+            "result": {
+              "status": "passed",
+              "duration": 153000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 67,
+            "name": "they search for Author in the Author Search Dialog",
+            "result": {
+              "status": "passed",
+              "duration": 401000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 68,
+            "name": "they select an Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 1273000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 69,
+            "name": "they click \"Add\"",
+            "result": {
+              "status": "passed",
+              "duration": 146000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 70,
+            "name": "the selected Author identity is added to the list of Authors",
+            "result": {
+              "status": "passed",
+              "duration": 53000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 71,
+            "name": "their current Affiliations are listed",
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-adds-an-editor-to-the-list-of-editors-for-resource-type-book,-anthology",
+        "keyword": "Scenario",
+        "line": 75,
+        "name": "Creator adds an Editor to the list of Editors for Resource Type Book, Anthology",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 73
+          },
+          {
+            "name": "@2203",
+            "line": 74
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 76,
+            "name": "Creator begins registering a Registration in the Wizard",
+            "result": {
+              "status": "passed",
+              "duration": 4844000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 77,
+            "name": "they navigate to the Resources tab",
+            "result": {
+              "status": "passed",
+              "duration": 569000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 78,
+            "name": "they select Resource Type \"Book\"",
+            "result": {
+              "status": "passed",
+              "duration": 359000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 79,
+            "name": "they select Registration Subtype \"Anthology\"",
+            "result": {
+              "status": "passed",
+              "duration": 601000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 80,
+            "name": "they navigate to the Contributors tab",
+            "result": {
+              "status": "passed",
+              "duration": 166000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 81,
+            "name": "they see the \"Add Editor\" Button",
+            "result": {
+              "status": "passed",
+              "duration": 34000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 82,
+            "name": "they click \"Add Editor\"",
+            "result": {
+              "status": "passed",
+              "duration": 122000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 83,
+            "name": "they search for Editor in the Author Search Dialog",
+            "result": {
+              "status": "passed",
+              "duration": 335000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 84,
+            "name": "they select an Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 1292000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 85,
+            "name": "they click \"Add\"",
+            "result": {
+              "status": "passed",
+              "duration": 143000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 86,
+            "name": "the selected Author identity is added to the list of Editors",
+            "result": {
+              "status": "passed",
+              "duration": 50000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 87,
+            "name": "their current Affiliations are listed",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-adds-a-supervisor-to-the-list-of-supervisors-for-resource-type-student-thesis",
+        "keyword": "Scenario",
+        "line": 91,
+        "name": "Creator adds a Supervisor to the list of Supervisors for Resource Type Student Thesis",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 89
+          },
+          {
+            "name": "@2204",
+            "line": 90
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 92,
+            "name": "Creator begins registering a Registration in the Wizard",
+            "result": {
+              "status": "passed",
+              "duration": 4593000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 93,
+            "name": "they navigate to the Resources tab",
+            "result": {
+              "status": "passed",
+              "duration": 813000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 94,
+            "name": "they select Resource Type \"Student Thesis\"",
+            "result": {
+              "status": "passed",
+              "duration": 359000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 95,
+            "name": "they select any Registration Subtype",
+            "result": {
+              "status": "passed",
+              "duration": 520000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 96,
+            "name": "they navigate to the Contributors tab",
+            "result": {
+              "status": "passed",
+              "duration": 164000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 97,
+            "name": "they see the \"Add Author\" Button",
+            "result": {
+              "status": "passed",
+              "duration": 33000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 98,
+            "name": "they see the \"Add Supervisor\" Button",
+            "result": {
+              "status": "passed",
+              "duration": 36000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 99,
+            "name": "they click \"Add Supervisor\"",
+            "result": {
+              "status": "passed",
+              "duration": 125000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 100,
+            "name": "they search for Supervisor in the Author Search Dialog",
+            "result": {
+              "status": "passed",
+              "duration": 354000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 101,
+            "name": "they select an Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 1221000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 102,
+            "name": "they click \"Add\"",
+            "result": {
+              "status": "passed",
+              "duration": 165000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 103,
+            "name": "the selected Author identity is added to the list of Supervisors",
+            "result": {
+              "status": "passed",
+              "duration": 62000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 104,
+            "name": "their current Affiliations are listed",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-creates-a-new-author-in-the-author-dialog",
+        "keyword": "Scenario",
+        "line": 108,
+        "name": "Creator creates a new Author in the Author dialog",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 106
+          },
+          {
+            "name": "@788",
+            "line": 107
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 109,
+            "name": "Creator begins registering a Registration in the Wizard",
+            "result": {
+              "status": "passed",
+              "duration": 4646000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 110,
+            "name": "they navigate to the Contributors tab",
+            "result": {
+              "status": "passed",
+              "duration": 586000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 111,
+            "name": "they see the \"Add Author\" Button",
+            "result": {
+              "status": "passed",
+              "duration": 28000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 112,
+            "name": "they click \"Add Author\"",
+            "result": {
+              "status": "passed",
+              "duration": 101000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 113,
+            "name": "they see the \"Create new Author\" Button",
+            "result": {
+              "status": "passed",
+              "duration": 28000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 114,
+            "name": "they click \"Create new Author\"",
+            "result": {
+              "status": "passed",
+              "duration": 101000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "First name"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Last name"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 115,
+            "name": "they see fields:",
+            "result": {
+              "status": "passed",
+              "duration": 73000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 118,
+            "name": "they see the \"Create new Author\" Button in the Create new Author Dialog",
+            "result": {
+              "status": "passed",
+              "duration": 34000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-sees-button-to-verify-contributor",
+        "keyword": "Scenario",
+        "line": 120,
+        "name": "Creator sees Button to Verify Contributor",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 121,
+            "name": "Creator navigates to Contributors tab",
+            "result": {
+              "status": "skipped",
+              "duration": 48000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 122,
+            "name": "the Registration has an Unverified Contributor",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 123,
+            "name": "they see a Button to Verify the Contributor",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-opens-dialog-to-verify-contributor",
+        "keyword": "Scenario",
+        "line": 125,
+        "name": "Creator opens Dialog to Verify Contributor",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 126,
+            "name": "Creator sees Button to Verify Contributor",
+            "result": {
+              "status": "skipped",
+              "duration": 16000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 127,
+            "name": "they click the Button to Verify Contributor",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 128,
+            "name": "they see the Verify Contributor Dialog",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 129,
+            "name": "they see a search field prefilled with the selected Contributor's name",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 130,
+            "name": "they see a list of Persons matching the search",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-contributors-tab;creator-verifies-contributor",
+        "keyword": "Scenario",
+        "line": 133,
+        "name": "Creator verifies Contributor",
+        "tags": [
+          {
+            "name": "@2467",
+            "line": 132
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 134,
+            "name": "Creator opens Dialog to Verify Contributor",
+            "result": {
+              "status": "skipped",
+              "duration": 13000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 135,
+            "name": "they select a Person from the Search Results",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 136,
+            "name": "they click the Button to Verify Contributor",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 137,
+            "name": "the Dialog is closed",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 138,
+            "name": "they see the Contributor is now verified",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 139,
+            "name": "all current Affiliations are listed for the Contributor",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "keyword": "Feature",
+    "name": "Creator navigates to Description tab",
+    "line": 1,
+    "id": "creator-navigates-to-description-tab",
+    "tags": [],
+    "uri": "creator_navigates_to_description_tab.feature",
+    "elements": [
+      {
+        "id": "creator-navigates-to-description-tab;creator-begins-wizard-registration-and-navigates-to-description-tab",
+        "keyword": "Scenario",
+        "line": 5,
+        "name": "Creator begins Wizard registration and navigates to Description tab",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 3
+          },
+          {
+            "name": "@452",
+            "line": 4
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 6,
+            "name": "Creator begins registering a Registration in the Wizard",
+            "result": {
+              "status": "passed",
+              "duration": 6970000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 7,
+            "name": "they navigate to the Description tab",
+            "result": {
+              "status": "passed",
+              "duration": 866000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "they see the Description tab is selected",
+            "result": {
+              "status": "passed",
+              "duration": 54000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Title"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Abstract"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Description"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Date published"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Keywords"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Vocabularies"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Primary language for content"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Project association"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they see fields:",
+            "result": {
+              "status": "failed",
+              "duration": 30131000000,
+              "error_message": "AssertionError: Timed out retrying after 30000ms: Expected to find element: `[data-testid=search_npi]`, but never found it.\n    at eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\support\\index.js:244:8)\nat Array.forEach (<anonymous>)\n    at Context.eval (https://frontend.dev.nva.aws.unit.no/__cypress/tests?p=cypress\\support\\index.js:243:22)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "they see the tab Resource Type is clickable",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "they see the tab Contributors is clickable",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "they see the tab Files and License is clickable",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 21,
+            "name": "they see a Button for creating a new Project is enabled",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 22,
+            "name": "they see Next is enabled",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "they see Save is enabled",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-description-tab;creator-sees-that-fields-are-validated-on-description-tab",
+        "keyword": "Scenario",
+        "line": 26,
+        "name": "Creator sees that fields are validated on Description tab",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 25
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 27,
+            "name": "Creator begins Wizard registration and navigates to Description tab",
+            "result": {
+              "status": "passed",
+              "duration": 6362000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 28,
+            "name": "they click the Save button",
+            "result": {
+              "status": "passed",
+              "duration": 89000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Title"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Date published"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 29,
+            "name": "they can see \"Mandatory\" error messages for fields:",
+            "result": {
+              "status": "passed",
+              "duration": 4293000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-description-tab;creator-searches-for-project",
+        "keyword": "Scenario",
+        "line": 35,
+        "name": "Creator searches for Project",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 33
+          },
+          {
+            "name": "@445",
+            "line": 34
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 36,
+            "name": "Creator begins Wizard registration and navigates to Description tab",
+            "result": {
+              "status": "passed",
+              "duration": 6129000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "they see a Search box for Projects",
+            "result": {
+              "status": "passed",
+              "duration": 47000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 38,
+            "name": "they enter search term in the Search box",
+            "result": {
+              "status": "passed",
+              "duration": 282000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 39,
+            "name": "they see list of Projects matching the search term",
+            "result": {
+              "status": "passed",
+              "duration": 10307000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 40,
+            "name": "they see title and associated Institutions for each Project",
+            "result": {
+              "status": "passed",
+              "duration": 103000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-description-tab;creator-adds-a-project",
+        "keyword": "Scenario",
+        "line": 44,
+        "name": "Creator adds a Project",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 42
+          },
+          {
+            "name": "@446",
+            "line": 43
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 45,
+            "name": "Creator searches for Project",
+            "result": {
+              "status": "passed",
+              "duration": 5301000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 46,
+            "name": "they select a Project from the Search results",
+            "result": {
+              "status": "passed",
+              "duration": 2020000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 47,
+            "name": "the selected Project is added to the list of selected Projects",
+            "result": {
+              "status": "passed",
+              "duration": 52000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-description-tab;creator-removes-a-project",
+        "keyword": "Scenario",
+        "line": 51,
+        "name": "Creator removes a Project",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 49
+          },
+          {
+            "name": "@1774",
+            "line": 50
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 52,
+            "name": "Creator adds a Project",
+            "result": {
+              "status": "passed",
+              "duration": 7800000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 53,
+            "name": "they click the Remove Project icon",
+            "result": {
+              "status": "passed",
+              "duration": 154000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 54,
+            "name": "they see the Project is removed from the list of selected Projects",
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-description-tab;creator-opens-dropdown-with-allowed-vocabularies",
+        "keyword": "Scenario",
+        "line": 56,
+        "name": "Creator opens dropdown with Allowed Vocabularies",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 57,
+            "name": "Creator begins Wizard registration and navigates to Description tab",
+            "result": {
+              "status": "skipped",
+              "duration": 49000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 58,
+            "name": "their Institution has a Vocabulary set as \"Allowed\"",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 59,
+            "name": "they click \"Add Vocabulary\"",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 60,
+            "name": "they can see a dropdown with Allowed Vocabularies",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-description-tab;creator-sees-input-field-for-an-allowed-vocabulary",
+        "keyword": "Scenario",
+        "line": 63,
+        "name": "Creator sees input field for an Allowed Vocabulary",
+        "tags": [
+          {
+            "name": "@2446",
+            "line": 62
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 64,
+            "name": "Creator opens dropdown with Allowed Vocabularies",
+            "result": {
+              "status": "skipped",
+              "duration": 19000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 65,
+            "name": "they select an Allowed Vocabulary",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 66,
+            "name": "they see an input field for the selected Vocabulary",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-description-tab;creator-sees-input-field-for-a-default-vocabulary",
+        "keyword": "Scenario",
+        "line": 69,
+        "name": "Creator sees input field for a Default Vocabulary",
+        "tags": [
+          {
+            "name": "@2448",
+            "line": 68
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 70,
+            "name": "Creator begins Wizard registration and navigates to Description tab",
+            "result": {
+              "status": "skipped",
+              "duration": 20000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 71,
+            "name": "their Institution has a Vocabulary set as \"Default\"",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 72,
+            "name": "they can see an input field for the Default Vocabulary",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-description-tab;creator-opens-dialog-for-creating-a-new-project",
+        "keyword": "Scenario",
+        "line": 74,
+        "name": "Creator opens Dialog for creating a new Project",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 75,
+            "name": "Creator begins Wizard registration and navigates to Description tab",
+            "result": {
+              "status": "skipped",
+              "duration": 19000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 76,
+            "name": "they click Button for creating a new Project",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Project Title"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Coordinating Institution"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Project Manager"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Start Date"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Internal reference"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 77,
+            "name": "they see a Dialog with input fields:",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 83,
+            "name": "they see a Cancel Button",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 84,
+            "name": "they see a Save Button",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-description-tab;creator-creates-a-new-project",
+        "keyword": "Scenario",
+        "line": 87,
+        "name": "Creator creates a new Project",
+        "tags": [
+          {
+            "name": "@2556",
+            "line": 86
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 88,
+            "name": "Creator opens Dialog for creating a new Project",
+            "result": {
+              "status": "skipped",
+              "duration": 16000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 89,
+            "name": "they enter a Project Title",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 90,
+            "name": "they select a Coordinating Institution",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 91,
+            "name": "they select a Project Manager",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 92,
+            "name": "they set a Start Date",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 93,
+            "name": "they click Save",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 94,
+            "name": "the Dialog is closed",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 95,
+            "name": "they see a confirmation message that the Project was created",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 96,
+            "name": "they see the Project is listed under Project Associations",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "keyword": "Feature",
+    "name": "Creator navigates to Resource Type tab",
+    "line": 1,
+    "id": "creator-navigates-to-resource-type-tab",
+    "tags": [],
+    "uri": "creator_navigates_to_resource_type_tab.feature",
+    "elements": [
+      {
+        "id": "creator-navigates-to-resource-type-tab;creator-navigates-to-resource-type-tab",
+        "keyword": "Scenario",
+        "line": 5,
+        "name": "Creator navigates to Resource Type tab",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 3
+          },
+          {
+            "name": "@453",
+            "line": 4
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 6,
+            "name": "Creator begins registering a Registration in the Wizard with a File",
+            "result": {
+              "status": "passed",
+              "duration": 4895000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 7,
+            "name": "they navigate to the Resource Type tab",
+            "result": {
+              "status": "passed",
+              "duration": 791000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "they see the field for Type",
+            "result": {
+              "status": "passed",
+              "duration": 39000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they see the tab Description is clickable",
+            "result": {
+              "status": "passed",
+              "duration": 38000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "they see the tab Resource Type is selected",
+            "result": {
+              "status": "passed",
+              "duration": 85000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "they see the tab Contributors is clickable",
+            "result": {
+              "status": "passed",
+              "duration": 41000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "they see the tab Files and License is clickable",
+            "result": {
+              "status": "passed",
+              "duration": 46000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "they see Previous is enabled",
+            "result": {
+              "status": "passed",
+              "duration": 32000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "they see Next is enabled",
+            "result": {
+              "status": "passed",
+              "duration": 34000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "they see Save is enabled",
+            "result": {
+              "status": "passed",
+              "duration": 38000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "creator-navigates-to-resource-type-tab;creator-sees-that-fields-are-validated-on-resource-type-tab",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "Creator sees that fields are validated on Resource Type tab",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 17
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 19,
+            "name": "Creator begins registering a Registration in the Wizard with a File",
+            "result": {
+              "status": "passed",
+              "duration": 5067000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 20,
+            "name": "they navigate to the Resource Type tab",
+            "result": {
+              "status": "passed",
+              "duration": 901000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 21,
+            "name": "they click the Save button",
+            "result": {
+              "status": "passed",
+              "duration": 525000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Type"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 22,
+            "name": "they can see \"Mandatory\" error messages for fields:",
+            "result": {
+              "status": "passed",
+              "duration": 95000000
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "keyword": "Feature",
+    "name": "User logs in",
+    "line": 1,
+    "id": "user-logs-in",
+    "tags": [],
+    "uri": "user-logs-in.feature",
+    "elements": [
+      {
+        "id": "user-logs-in;user-without-their-feide-id-in-arp-logs-in",
+        "keyword": "Scenario",
+        "line": 5,
+        "name": "User without their Feide ID in ARP logs in",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 3
+          },
+          {
+            "name": "@217",
+            "line": 4
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 6,
+            "name": "that the user logs in with their Feide ID",
+            "result": {
+              "status": "passed",
+              "duration": 109000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "they do not have their Feide ID in any ARP entry",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "they see a list containing \"Name\", \"Last registration\" and \"Institutions\" for each ARP entry matching their name",
+            "result": {
+              "status": "passed",
+              "duration": 5259000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "they see a Create New Author Button",
+            "result": {
+              "status": "passed",
+              "duration": 92000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "they see a Support button",
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "user-logs-in;user-with-their-feide-id-in-arp-logs-in",
+        "keyword": "Scenario",
+        "line": 14,
+        "name": "User with their Feide ID in ARP logs in",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 12
+          },
+          {
+            "name": "@1206",
+            "line": 13
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 15,
+            "name": "that the user logs in with their Feide ID",
+            "result": {
+              "status": "passed",
+              "duration": 134000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 16,
+            "name": "their Feide ID is in an ARP entry",
+            "result": {
+              "status": "passed",
+              "duration": 1940000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "they can see their name in the menu",
+            "result": {
+              "status": "passed",
+              "duration": 9359000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "user-logs-in;user-creates-a-new-author-identity",
+        "keyword": "Scenario",
+        "line": 21,
+        "name": "User creates a new Author identity",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 19
+          },
+          {
+            "name": "@384",
+            "line": 20
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 22,
+            "name": "that the user logs in with their Feide ID",
+            "result": {
+              "status": "passed",
+              "duration": 77000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "they do not have their Feide ID in any ARP entry",
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 24,
+            "name": "they see proposed name for a new Author identity based on data from their Feide account",
+            "result": {
+              "status": "passed",
+              "duration": 2430000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 25,
+            "name": "they click Create Author identity button",
+            "result": {
+              "status": "passed",
+              "duration": 1822000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 26,
+            "name": "this new Author identity is added to ARP",
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 27,
+            "name": "their Feide ID is added to their Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 8000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 28,
+            "name": "their Organization ID (Cristin ID) is added to their Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 7000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 29,
+            "name": "they can see confirmation message that they have connected an Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 43000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "user-logs-in;user-updates-an-author-identity",
+        "keyword": "Scenario",
+        "line": 33,
+        "name": "User updates an Author identity",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 31
+          },
+          {
+            "name": "@219",
+            "line": 32
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 34,
+            "name": "that the user logs in with their Feide ID",
+            "result": {
+              "status": "passed",
+              "duration": 62000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 35,
+            "name": "they do not have their Feide ID in any ARP entry",
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 36,
+            "name": "they see a list containing \"Name\", \"Last registration\" and \"Institutions\" for each ARP entry matching their name",
+            "result": {
+              "status": "passed",
+              "duration": 2145000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 37,
+            "name": "they select an Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 90000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 38,
+            "name": "they click Connect Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 1129000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 39,
+            "name": "their Feide ID is added to their Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 12000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 40,
+            "name": "their Organization ID (Cristin ID) is added to their Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 8000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 41,
+            "name": "they can see confirmation message that they have connected an Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 41000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "user-logs-in;user-adds-an-orcid-to-their-author-identity",
+        "keyword": "Scenario",
+        "line": 45,
+        "name": "User adds an ORCID to their Author identity",
+        "tags": [
+          {
+            "name": "@test",
+            "line": 43
+          },
+          {
+            "name": "@222",
+            "line": 44
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 46,
+            "name": "that the user has just connected to an Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 2469000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 47,
+            "name": "they can see confirmation message that they have connected an Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 855000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 48,
+            "name": "their Author identity do not have any connection to ORCID",
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 49,
+            "name": "they click the Next button",
+            "result": {
+              "status": "passed",
+              "duration": 73000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 50,
+            "name": "they see a dialog for connecting ORCID",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 51,
+            "name": "they click Create or add ORCID",
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 52,
+            "name": "they are redirected to ORCID for login",
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 53,
+            "name": "they log into ORCID",
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 54,
+            "name": "they accept that NVA uses their data",
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 55,
+            "name": "they are redirected back to NVA",
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 56,
+            "name": "their ORCID is added to their Author identity",
+            "result": {
+              "status": "passed",
+              "duration": 265000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 57,
+            "name": "they see their ORCID on My Profile",
+            "result": {
+              "status": "passed",
+              "duration": 449000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
