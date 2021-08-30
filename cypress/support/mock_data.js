@@ -17,3 +17,7 @@ mockPersons[USER_WITH_AUTHOR] = [
     'handles': ['http://hdl.handle.net/11250.1/1234567890'],
   },
 ];
+
+export const doiFetchResponse = {
+  
+}

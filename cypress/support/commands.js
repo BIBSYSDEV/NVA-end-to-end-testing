@@ -215,3 +215,7 @@ Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
     cy.intercept(PROJECT_API_PATH, searchResult);
   });
 });
+
+Cypress.Commands.add('mockDoiFetch', (doi) => {
+  
+})
