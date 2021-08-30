@@ -10,7 +10,7 @@ Feature: Creator sees Registration is saved
         And they see that Edit is enabled
         And they see that Delete is enabled
 
-    # @test
+    @test
     @391
     Scenario: Creator sees Registration based on file upload is saved
         Given Creator begins registration by uploading a file

@@ -201,7 +201,7 @@ def create_publication_data(publication_template, test_publication, location, us
     new_publication['entityDescription']['mainTitle'] = test_publication['title']
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
-    new_publication['owner'] = username
+    new_publication['owner'] = test_publication['owner']
     new_publication['publisher']['id'] = customer
     new_publication['status'] = status
 
