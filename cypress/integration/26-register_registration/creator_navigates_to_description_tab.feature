@@ -11,8 +11,8 @@ Feature: Creator navigates to Description tab
       | Abstract                     |
       | Description                  |
       | Date published               |
-      # | Keywords                     |
-      # | Vocabularies                 |
+      | Keywords                     |
+      | Vocabularies                 |
       | Primary language for content |
       | Project association          |
     And they see the tab Resource Type is clickable
