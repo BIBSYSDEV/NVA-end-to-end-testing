@@ -1,6 +1,6 @@
 Feature: Creator selects Resource type Report
 
-    @test
+    # @test
     @393
     Scenario: Creator navigates to the Resource Type tab and selects Resource type "Report"
         Given Creator navigates to Resource Type tab
@@ -11,7 +11,7 @@ Feature: Creator selects Resource type Report
             | Working paper        |
             | Other type of report |
 
-    @test
+    # @test
     @1693
     Scenario Outline: Creator sees fields for Resource subtypes for "Report"
         Given Creator navigates to the Resource Type tab and selects Resource type "Report"
