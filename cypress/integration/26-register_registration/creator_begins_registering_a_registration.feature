@@ -1,6 +1,6 @@
 Feature: Creator begins registering a Registration
 
-  # @test
+  @test
   @443
   Scenario Outline: Creator begins registering a Registration in the Wizard
     Given Creator begins registering a Registration
@@ -12,7 +12,7 @@ Feature: Creator begins registering a Registration
       | Link to registration |
       | Upload file          |
 
-  # @test
+  @test
   @226
   Scenario: Creator begins registering a Registration
     Given that the user is logged in
@@ -23,7 +23,7 @@ Feature: Creator begins registering a Registration
     And they see an Expansion panel for Upload file
     And they see an Expansion panel for Link to resource
 
-  # @test
+  @test
   @385
   Scenario: Creator begins registration by uploading a file
     Given Creator begins registering a Registration

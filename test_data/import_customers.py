@@ -68,7 +68,6 @@ def put_item(new_customer, bearer_token):
         'Authorization': f'Bearer {bearer_token}',
         'accept': 'application/json'
     }
-    print(headers)
     response = requests.post(
         customer_endpoint, json=new_customer, headers=headers)
 
