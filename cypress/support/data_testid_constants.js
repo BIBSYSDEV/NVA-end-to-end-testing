@@ -186,6 +186,7 @@ export const STUDENT_THESIS_SUBTYPES = {
 export const STUDENT_THESIS_FIELDS = {
   'Search box for Publisher': 'publisher-search-field',
   'DOI': 'doi-field',
+  'Total pages': 'pages-field',
   'Search box for Series': 'series-search-field',
   'Series number': 'series-number-field',
 };
