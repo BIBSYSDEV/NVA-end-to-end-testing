@@ -8,7 +8,7 @@ Feature: User sees menu
         Then they see the Log in Button
         And they see the Language selector
 
-    # @test
+    @test
     @345
     Scenario: User without any role sees menu
         Given that the user is logged in
@@ -19,7 +19,7 @@ Feature: User sees menu
             | Log out         |
         And they see the Language selector
 
-    # @test
+    @test
     @346
     Scenario: User sees the menu for Creator
         Given that the user is logged in
@@ -34,7 +34,7 @@ Feature: User sees menu
             | My Messages      |
         And they see the Language selector
 
-    # @test
+    @test
     @347
     Scenario: User sees the menu for Curator
         Given that the user is logged in
@@ -48,7 +48,7 @@ Feature: User sees menu
             | My Messages |
         And they see the Language selector
 
-    # @test
+    @test
     @348
     Scenario: User sees the menu for Institution-admin
         Given that the user is logged in
@@ -72,7 +72,7 @@ Feature: User sees menu
             | Log out               |
         And they see the Language selector
 
-    # @test
+    @test
     @350
     Scenario: User sees the menu for Application administrator
         Given that the user is logged in
