@@ -24,7 +24,6 @@ AWS.config = new AWS.Config({
 
 const amplifyConfig = {
   Auth: {
-    identityPoolId: IDENTITY_POOL_ID,
     region: REGION,
     userPoolId: USER_POOL_ID,
     userPoolWebClientId: CLIENT_ID,
@@ -183,14 +182,26 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 });
 
 Cypress.Commands.add('addMockOrcid', (username) => {
-  cy.request(`https://api.dev.nva.aws.unit.no/person?feideid=${username}`).then((response) => {
-    const orcid_authority = response.body[0];
-    orcid_authority.orcids.push('test_orcid');
+  cy.window()
+  .its('store')
+  .invoke('getState')
+  .then((state) => {
+    const user_authority = state.user.authority;
+    user_authority.orcids.push('test_orcid');
     cy.window().its('store').invoke('dispatch', {
-      type: SET_AUTHORITY_DATA,
-      authority: orcid_authority,
+      type: 'set authority data',
+      authority: user_authority,
     });
   });
+
+  // cy.request(`https://api.dev.nva.aws.unit.no/person?feideid=${username}`).then((response) => {
+  //   const orcid_authority = response.body[0];
+  //   orcid_authority.orcids.push('test_orcid');
+  //   cy.window().its('store').invoke('dispatch', {
+  //     type: SET_AUTHORITY_DATA,
+  //     authority: orcid_authority,
+  //   });
+  // });
 });
 
 Cypress.Commands.add('findScenario', () => {
@@ -216,6 +227,37 @@ Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
   });
 });
 
-Cypress.Commands.add('mockDoiFetch', (doi) => {
-  
+Cypress.Commands.add('mockInstitution', (cristinId) => {
+  cy.fixture('institutions.json').then((institutions) => {
+    cy.intercept('https://api.dev.nva.aws.unit.no/institution/institutions*', institutions);
+  });
+});
+
+Cypress.Commands.add('mockDepartments', (cristinId) => {
+  var departments_file = 'departments.json';
+  cristinId ? departments_file = `departments_${cristinId}.json` : null;
+  cy.fixture(departments_file).then((departments) => {
+    cy.intercept(
+      `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
+      departments
+    );
+    cy.intercept(
+      `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Funits%2F${cristinId}*&language=en`,
+      departments
+    );
+  });
+})
+
+Cypress.Commands.add('changeUserInstitution', (institution) => {
+  cy.window()
+    .its('store')
+    .invoke('getState')
+    .then((state) => {
+      const user_authority = state.user.authority;
+      user_authority.orgunitids = [`https://api.cristin.no/v2/institutions/${institution}`];
+      cy.window().its('store').invoke('dispatch', {
+        type: 'set authority data',
+        authority: user_authority,
+      });
+    });
 })

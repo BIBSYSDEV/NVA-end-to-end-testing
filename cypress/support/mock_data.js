@@ -3,7 +3,11 @@ import { USER_WITH_AUTHOR } from './constants';
 export const PERSON_API_PATH = '/person';
 export const PROJECT_API_PATH = '/project';
 
-export const PROJECT_SEARCH_MOCK_FILE = 'mock_project_search.json'
+export const PROJECT_SEARCH_MOCK_FILE = 'mock_project_search.json';
+
+export const MOCK_CRISTINID = ['1111111111', '2222222222', '3333333333'];
+export const MOCK_INSTITUTION = ['Mock institution 1', 'Mock institution 2', 'Mock institution 3'];
+export const MOCK_DEPARTMENT = ['Mock department 1', 'Mock department 2', 'Mock department 3'];
 
 export const mockPersons = {};
 mockPersons[USER_WITH_AUTHOR] = [
@@ -18,6 +22,4 @@ mockPersons[USER_WITH_AUTHOR] = [
   },
 ];
 
-export const doiFetchResponse = {
-  
-}
+export const doiFetchResponse = {};

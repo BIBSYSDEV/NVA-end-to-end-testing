@@ -29,8 +29,7 @@ def connect_author(id_token, id,
     if connect_author:
         token = 'Bearer ' + id_token
         connect_response = requests.post(
-            'https://api.{}.nva.aws.unit.no/person/{}/identifiers/{}/add'.
-            format(STAGE, id, connection_type),
+            f'https://api.{STAGE}.nva.aws.unit.no/person/{id}/identifiers/{connection_type}/add',
             json=payload,
             headers={'Authorization': token})
         if not connect_response:
