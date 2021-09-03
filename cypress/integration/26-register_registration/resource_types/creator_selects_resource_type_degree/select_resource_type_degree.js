@@ -54,9 +54,11 @@ When('they select the Subtype {string}', (subtype) => {
 
 // Scenario: Creator sees that fields are validated for Resource subtypes for "Student thesis"
 Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
-  cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
+  cy.get('[data-testid=nav-tabpanel-resource-type]').click({force:true});
+  cy.get('[data-testid=publication-context-type]').click({force:true}).type(' ');
+  cy.get('[data-testid=publication-context-type-Degree]').click({force:true});
+  cy.get('[data-testid=publication-instance-type]').click({force:true}).type(' ');
+  cy.get('[data-testid=publication-instance-type-DegreeBachelor]').click({force:true});
 });
 When('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });

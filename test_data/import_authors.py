@@ -25,7 +25,6 @@ client = boto3.client('cognito-idp')
 
 def connect_author(id_token, id,
                    payload, connection_type):
-
     if connect_author:
         token = 'Bearer ' + id_token
         connect_response = requests.post(
