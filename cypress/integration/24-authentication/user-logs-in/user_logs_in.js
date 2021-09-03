@@ -56,7 +56,7 @@ And('their Organization ID \\(Cristin ID) is added to their Author identity', ()
 And('they do not have their Feide ID in any ARP entry', () => {});
 Then('they see proposed name for a new Author identity based on data from their Feide account', () => {
   cy.login(USER_NO_NAME_IN_ARP);
-  cy.get('[data-testid=connect-author-modal]').contains('No name in ARP');
+  cy.get('[data-testid=connect-author-modal]').contains('No ARP entry');
 });
 When('they click Create Author identity button', () => {
   cy.get('[data-testid=create-author-button]').click({ force: true });

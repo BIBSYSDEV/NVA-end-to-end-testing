@@ -67,8 +67,8 @@
   },
   {
     "familyName": "TestUser",
-    "givenName": "Curator",
-    "username": "test-user-curator@test.no",
+    "givenName": "Curator Requests",
+    "username": "test-user-curator-requests@test.no",
     "role": [
       "CREATOR",
       "CURATOR"
@@ -474,8 +474,8 @@
   },
   {
     "familyName": "TestUser",
-    "givenName": "No name in ARP",
-    "username": "test-user-no-name-in-arp@test.no",
+    "givenName": "No ARP entry",
+    "username": "test-user-no-arp-entry@test.no",
     "role": [],
     "author": false,
     "orcid": false,

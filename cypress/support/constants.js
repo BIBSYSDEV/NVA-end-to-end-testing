@@ -23,7 +23,7 @@ export const USER_NO_ARP = 'test-user-no-arp@test.no';
 
 export const USER_NAME_IN_ARP = 'test-user-name-in-arp@test.no';
 
-export const USER_NO_NAME_IN_ARP = 'test-user-no-name-in-arp@test.no';
+export const USER_NO_NAME_IN_ARP = 'test-user-no-arp-entry@test.no';
 
 export const USER_CONNECT_ARP = 'test-user-connect-arp@test.no';
 
@@ -47,7 +47,7 @@ export const USER_INSTITUTION_SUBSUBSUBUNIT = 'test-user-subsubsubunit@test.no';
 
 export const USER_WITH_INSTITUTION_REMOVE_INSTITUTION = 'test-user-with-institution-remove-institution@test.no';
 
-export const USER_CURATOR_WITH_AUTHOR = 'test-user-curator@test.no';
+export const USER_CURATOR_WITH_AUTHOR = 'test-user-curator-requests@test.no';
 
 export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-first-inst-admin@test.no';
 
