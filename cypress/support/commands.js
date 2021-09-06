@@ -193,15 +193,6 @@ Cypress.Commands.add('addMockOrcid', (username) => {
       authority: user_authority,
     });
   });
-
-  // cy.request(`https://api.dev.nva.aws.unit.no/person?feideid=${username}`).then((response) => {
-  //   const orcid_authority = response.body[0];
-  //   orcid_authority.orcids.push('test_orcid');
-  //   cy.window().its('store').invoke('dispatch', {
-  //     type: SET_AUTHORITY_DATA,
-  //     authority: orcid_authority,
-  //   });
-  // });
 });
 
 Cypress.Commands.add('findScenario', () => {
