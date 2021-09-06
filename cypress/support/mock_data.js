@@ -9,8 +9,8 @@ export const MOCK_CRISTINID = ['1111111111', '2222222222', '3333333333'];
 export const MOCK_INSTITUTION = ['Mock institution 1', 'Mock institution 2', 'Mock institution 3'];
 export const MOCK_DEPARTMENT = ['Mock department 1', 'Mock department 2', 'Mock department 3'];
 
-export const mockPersons = {};
-mockPersons[USER_WITH_AUTHOR] = [
+export const mockPersons = {
+   USER_WITH_AUTHOR: [
   {
     'id': 'https://api.dev.nva.aws.unit.no/person/1234567890',
     'name': 'TestUser, Withauthor',
@@ -20,6 +20,7 @@ mockPersons[USER_WITH_AUTHOR] = [
     'birthDate': '',
     'handles': ['http://hdl.handle.net/11250.1/1234567890'],
   },
-];
+]
+};
 
 export const doiFetchResponse = {};
