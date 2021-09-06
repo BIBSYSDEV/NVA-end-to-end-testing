@@ -72,8 +72,12 @@ When('they enter an invalid value in fields:', (dataTable) => {
 // | ISBN                  |
 // | Total number of pages |
 Then('they can see the "Invalid ISBN" error message', () => {
-  cy.get(`[data-testid=${REPORT_FIELDS['ISBN']}]`).type('{selectall}{del}invalid{enter}');
-  cy.get('[data-testid=snackbar-warning]').contains('ISBN has invalid format');
+  cy.get(`[data-testid=${REPORT_FIELDS['ISBN']}]`).type('{selectall}{del}111111111111111');
+  cy.get(`[data-testid=${REPORT_FIELDS['ISBN']}] > div > input`).blur();
+  cy.get(`[data-testid=${REPORT_FIELDS['ISBN']}]`).within(() => {
+    cy.get('p').should('have.class', 'Mui-error');
+  });
+  cy.get('[data-testid=error-list-div]').contains('ISBN has invalid format');
 });
 When('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click();

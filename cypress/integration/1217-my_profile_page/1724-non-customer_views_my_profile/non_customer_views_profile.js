@@ -1,5 +1,6 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_NON_CUSTOMER } from '../../../support/constants';
+import { MOCK_CRISTINID } from '../../../support/mock_data';
 
 Given('that a User is logged in with Feide', () => {
   cy.login(USER_NON_CUSTOMER);

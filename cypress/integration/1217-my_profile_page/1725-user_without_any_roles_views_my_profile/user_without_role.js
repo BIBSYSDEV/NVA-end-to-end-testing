@@ -1,7 +1,10 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_NO_ROLE } from '../../../support/constants';
+import { MOCK_CRISTINID } from '../../../support/mock_data';
 Given('that a User is logged in with Feide', () => {
   cy.login(USER_NO_ROLE);
+  cy.mockInstitution();
+  cy.mockDepartments(MOCK_CRISTINID[0]);
 });
 And('their Institution is a Customer of NVA', () => {});
 And('their Administrator has not assigned any roles to them', () => {});

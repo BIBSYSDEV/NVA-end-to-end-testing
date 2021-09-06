@@ -383,7 +383,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "914086434",
-    "cristinId": "https://api.cristin.no/v2/institutions/194"
+    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
   },
   {
     "familyName": "TestUser",
