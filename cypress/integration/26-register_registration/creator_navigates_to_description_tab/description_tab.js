@@ -3,8 +3,8 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
 
 const filename = 'example.txt';
-const PROJECT_NAME = 'test';
-const INSTITUTION_NAME = 'Høgskulen på Vestlandet';
+const PROJECT_NAME = 'Test mock project';
+const INSTITUTION_NAME = 'Test institution';
 
 // Feature: Creator navigates to Description tab
 // Common steps
@@ -45,6 +45,7 @@ And('they see the tab Contributors is clickable', () => {
 And('they see the tab Files and License is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-files-and-license]').should('be.enabled');
 });
+And('they see a Button for creating a new Project is enabled', () => {});
 And('they see Next is enabled', () => {
   cy.get('[data-testid=button-next-tab]').should('be.enabled');
 });
@@ -72,6 +73,7 @@ And('they see a Search box for Projects', () => {
   cy.get('[data-testid=project-search-field] > div > div > input').should('be.visible');
 });
 And('they enter search term in the Search box', () => {
+  cy.mockProjectSearch(PROJECT_NAME);
   cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
 });
 Then('they see list of Projects matching the search term', () => {
@@ -89,6 +91,7 @@ Given('Creator searches for Project', () => {
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
 When('they select a Project from the Search results', () => {
+  cy.mockProjectSearch(PROJECT_NAME);
   cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
   cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).first().click({ force: true });
 });
@@ -102,6 +105,7 @@ Given('Creator adds a Project', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
+  cy.mockProjectSearch(PROJECT_NAME);
   cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
   cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).first().click({ force: true });
 });
@@ -115,4 +119,3 @@ When('they click the Remove Project icon', () => {
 Then('they see the Project is removed from the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('not.exist');
 });
-

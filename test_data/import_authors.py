@@ -29,8 +29,7 @@ def connect_author(id_token, id,
     if connect_author:
         token = 'Bearer ' + id_token
         connect_response = requests.post(
-            'https://api.{}.nva.aws.unit.no/person/{}/identifiers/{}/add'.
-            format(STAGE, id, connection_type),
+            f'https://api.{STAGE}.nva.aws.unit.no/person/{id}/identifiers/{connection_type}/add',
             json=payload,
             headers={'Authorization': token})
         if not connect_response:
@@ -52,7 +51,7 @@ def create_author(family_name, given_name, id_token, has_author, has_orcid, payl
             json=new_author,
             headers={'Authorization': token})
         if not create_response:
-            print(f'POST /person/ {create_response.status_code}')
+            print(f'POST /person/ {create_response.status_code} {create_response.reason}')
         else:
             id = create_response.json()['id'].split('/')[-1]
             if has_author:

@@ -18,6 +18,7 @@ And('they see the "Add Author" Button', () => {
   cy.get('[data-testid=add-Creator]').should('be.visible');
 });
 And('they click "Add Author"', () => {
+  cy.mockPersonSearch(USER_WITH_AUTHOR);
   cy.get('[data-testid=add-Creator]').click({ force: true });
 });
 // End common steps
@@ -62,11 +63,11 @@ Then('their Author identity is added to the list of Authors', () => {
     cy.wrap(authors).contains('TestUser, Withauthor');
   });
 });
-And('their current Affiliations are listed', () => {})
+And('their current Affiliations are listed', () => {});
 //   @419
 //   Scenario: Creator adds an Author to the list of Authors
 And('they search for Author in the Author Search Dialog', () => {
-  cy.get('[data-testid=search-field]').type('TestUser Kari');
+  cy.get('[data-testid=search-field]').type('TestUser, Kari');
 });
 And('they select an Author identity', () => {
   cy.get('[data-testid=author-radio-button]').first().click({ force: true });

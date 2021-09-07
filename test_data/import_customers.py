@@ -57,8 +57,6 @@ def create_customers(bearer_token):
                 response = put_item(new_customer=new_customer,
                                     bearer_token=bearer_token)
                 
-                print(new_customer)
-                print(customer_endpoint)
                 if response.status_code != 201:
                     print(
                         f'Error creating customer with name {test_customer["name"]}')
@@ -67,7 +65,7 @@ def create_customers(bearer_token):
 
 def put_item(new_customer, bearer_token):
     headers = {
-        f'Authorization': 'Bearer {bearer_token}',
+        'Authorization': f'Bearer {bearer_token}',
         'accept': 'application/json'
     }
     response = requests.post(

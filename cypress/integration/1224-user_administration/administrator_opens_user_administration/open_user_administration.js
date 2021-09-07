@@ -5,6 +5,7 @@ import {
   USER_ADMINISTRATION_SECTIONS,
   USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS,
   USER_ADMINISTRATION_ADD_ROLE_BUTTONS,
+  USER_ADMINISTRATION_PAGINATION,
 } from '../../../support/data_testid_constants';
 
 const roleSearchTerms = {
@@ -77,7 +78,7 @@ And(
     cy.get(`[data-testid=${USER_ADMINISTRATION_SECTIONS[section]}]`).should('exist').and('be.visible');
     cy.get(`[data-testid=${USER_ADMINISTRATION_SECTIONS[section]}]`).within(() => {
       cy.get('tbody > tr').should('have.length', 5);
-      cy.get(`[data-testid=user-pagination-${role}]`).as('listControls');
+      cy.get(`[data-testid=user-pagination-${USER_ADMINISTRATION_PAGINATION[role]}]`).as('listControls');
     });
   }
 );
