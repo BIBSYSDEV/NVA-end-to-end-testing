@@ -102,7 +102,7 @@ Cypress.Commands.add('login', (userId) => {
   cy.loginCognito(userId).then((idToken) => {
     cy.wrap(idToken).as('idToken');
     cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'false');
+    cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.visit('/');
   });
 });
@@ -182,16 +182,16 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 
 Cypress.Commands.add('addMockOrcid', (username) => {
   cy.window()
-  .its('store')
-  .invoke('getState')
-  .then((state) => {
-    const user_authority = state.user.authority;
-    user_authority.orcids.push('test_orcid');
-    cy.window().its('store').invoke('dispatch', {
-      type: 'set authority data',
-      authority: user_authority,
+    .its('store')
+    .invoke('getState')
+    .then((state) => {
+      const user_authority = state.user.authority;
+      user_authority.orcids.push('test_orcid');
+      cy.window().its('store').invoke('dispatch', {
+        type: 'set authority data',
+        authority: user_authority,
+      });
     });
-  });
 });
 
 Cypress.Commands.add('findScenario', () => {
@@ -225,7 +225,7 @@ Cypress.Commands.add('mockInstitution', (cristinId) => {
 
 Cypress.Commands.add('mockDepartments', (cristinId) => {
   var departments_file = 'departments.json';
-  cristinId ? departments_file = `departments_${cristinId}.json` : null;
+  cristinId ? (departments_file = `departments_${cristinId}.json`) : null;
   cy.fixture(departments_file).then((departments) => {
     cy.intercept(
       `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
@@ -236,7 +236,7 @@ Cypress.Commands.add('mockDepartments', (cristinId) => {
       departments
     );
   });
-})
+});
 
 Cypress.Commands.add('changeUserInstitution', (institution) => {
   cy.window()
@@ -250,4 +250,4 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
         authority: user_authority,
       });
     });
-})
+});
