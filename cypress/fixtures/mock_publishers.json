@@ -1,0 +1,11 @@
+[
+  {
+    "@context": "https://bibsysdev.github.io/src/publication-channel/channel-context.json",
+    "id": "https://api.dev.nva.aws.unit.no/publication-channels/publisher/1234/1999",
+    "type": "Publisher",
+    "identifier": "1234",
+    "name": "Mock publisher",
+    "website": "http://test.no/publisher",
+    "active": true
+  }
+]
