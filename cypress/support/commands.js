@@ -3,7 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import 'cypress-file-upload';
-import { PERSON_API_PATH, mockPersons, PROJECT_SEARCH_MOCK_FILE, PROJECT_API_PATH } from './mock_data';
+import {
+  PERSON_API_PATH,
+  mockPersons,
+  PROJECT_SEARCH_MOCK_FILE,
+  PROJECT_API_PATH,
+  JOURNAL_SEARCH_MOCK_FILE,
+} from './mock_data';
 
 const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -183,16 +189,16 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 
 Cypress.Commands.add('addMockOrcid', (username) => {
   cy.window()
-  .its('store')
-  .invoke('getState')
-  .then((state) => {
-    const user_authority = state.user.authority;
-    user_authority.orcids.push('test_orcid');
-    cy.window().its('store').invoke('dispatch', {
-      type: 'set authority data',
-      authority: user_authority,
+    .its('store')
+    .invoke('getState')
+    .then((state) => {
+      const user_authority = state.user.authority;
+      user_authority.orcids.push('test_orcid');
+      cy.window().its('store').invoke('dispatch', {
+        type: 'set authority data',
+        authority: user_authority,
+      });
     });
-  });
 });
 
 Cypress.Commands.add('findScenario', () => {
@@ -226,7 +232,7 @@ Cypress.Commands.add('mockInstitution', (cristinId) => {
 
 Cypress.Commands.add('mockDepartments', (cristinId) => {
   var departments_file = 'departments.json';
-  cristinId ? departments_file = `departments_${cristinId}.json` : null;
+  cristinId ? (departments_file = `departments_${cristinId}.json`) : null;
   cy.fixture(departments_file).then((departments) => {
     cy.intercept(
       `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
@@ -237,7 +243,13 @@ Cypress.Commands.add('mockDepartments', (cristinId) => {
       departments
     );
   });
-})
+});
+
+Cypress.Commands.add('mockJournalSearch', () => {
+  cy.fixture(JOURNAL_SEARCH_MOCK_FILE).then((journals) => {
+    cy.intercept('https://api.dev.nva.aws.unit.no/publication-channels/journal*', journals);
+  });
+});
 
 Cypress.Commands.add('changeUserInstitution', (institution) => {
   cy.window()
@@ -251,4 +263,4 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
         authority: user_authority,
       });
     });
-})
+});
