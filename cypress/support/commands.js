@@ -15,7 +15,6 @@ const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
 const AWS_SESSION_TOKEN = Cypress.env('AWS_SESSION_TOKEN');
 const REGION = Cypress.env('AWS_REGION');
-const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
@@ -256,11 +255,11 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
     .its('store')
     .invoke('getState')
     .then((state) => {
-      const user_authority = state.user.authority;
-      user_authority.orgunitids = [`https://api.cristin.no/v2/institutions/${institution}`];
+      const { authority } = state.user;
+      authority.orgunitids = [`https://api.cristin.no/v2/institutions/${institution}`];
       cy.window().its('store').invoke('dispatch', {
         type: 'set authority data',
-        authority: user_authority,
+        authority: authority,
       });
     });
 });

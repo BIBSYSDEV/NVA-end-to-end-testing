@@ -126,7 +126,7 @@ def run():
                     if attribute['Name'] == 'custom:identifiers':
                         attribute['Value'] = f'feide:{username}'
                     if attribute['Name'] == 'custom:feideId' or attribute[
-                            'Name'] == 'email':
+                            'Name'] == 'email' or attribute['Name'] == 'custom:feideTargetedId':
                         attribute['Value'] = username
                     if attribute['Name'] == 'name' or attribute[
                             'Name'] == 'custom:commonName':
