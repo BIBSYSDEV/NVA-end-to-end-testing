@@ -3,7 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import 'cypress-file-upload';
-import { PERSON_API_PATH, mockPersons, PROJECT_SEARCH_MOCK_FILE, PROJECT_API_PATH } from './mock_data';
+import {
+  PERSON_API_PATH,
+  mockPersons,
+  PROJECT_SEARCH_MOCK_FILE,
+  PROJECT_API_PATH,
+  JOURNAL_SEARCH_MOCK_FILE,
+} from './mock_data';
 
 const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -235,6 +241,12 @@ Cypress.Commands.add('mockDepartments', (cristinId) => {
       `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Funits%2F${cristinId}*&language=en`,
       departments
     );
+  });
+});
+
+Cypress.Commands.add('mockJournalSearch', () => {
+  cy.fixture(JOURNAL_SEARCH_MOCK_FILE).then((journals) => {
+    cy.intercept('https://api.dev.nva.aws.unit.no/publication-channels/journal*', journals);
   });
 });
 
