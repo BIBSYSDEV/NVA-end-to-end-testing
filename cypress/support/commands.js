@@ -243,11 +243,11 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
     .its('store')
     .invoke('getState')
     .then((state) => {
-      const user_authority = state.user.authority;
-      user_authority.orgunitids = [`https://api.cristin.no/v2/institutions/${institution}`];
+      const { authority } = state.user;
+      authority.orgunitids = [`https://api.cristin.no/v2/institutions/${institution}`];
       cy.window().its('store').invoke('dispatch', {
         type: 'set authority data',
-        authority: user_authority,
+        authority: authority,
       });
     });
 });
