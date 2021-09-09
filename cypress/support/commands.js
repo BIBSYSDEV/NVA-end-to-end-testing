@@ -3,7 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import 'cypress-file-upload';
-import { PERSON_API_PATH, mockPersons, PROJECT_SEARCH_MOCK_FILE, PROJECT_API_PATH, PUBLISHER_SEARCH_MOCK_FILE } from './mock_data';
+import {
+  PERSON_API_PATH,
+  mockPersons,
+  PROJECT_SEARCH_MOCK_FILE,
+  PROJECT_API_PATH,
+  PUBLISHER_SEARCH_MOCK_FILE,
+} from './mock_data';
 
 const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -186,11 +192,11 @@ Cypress.Commands.add('addMockOrcid', (username) => {
     .its('store')
     .invoke('getState')
     .then((state) => {
-      const user_authority = state.user.authority;
-      user_authority.orcids.push('test_orcid');
+      const { authority } = state.user;
+      authority.orcids.push('test_orcid');
       cy.window().its('store').invoke('dispatch', {
         type: 'set authority data',
-        authority: user_authority,
+        authority: authority,
       });
     });
 });
