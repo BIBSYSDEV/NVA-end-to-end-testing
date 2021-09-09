@@ -9,7 +9,6 @@ const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
 const AWS_SESSION_TOKEN = Cypress.env('AWS_SESSION_TOKEN');
 const REGION = Cypress.env('AWS_REGION');
-const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
@@ -183,16 +182,16 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 
 Cypress.Commands.add('addMockOrcid', (username) => {
   cy.window()
-  .its('store')
-  .invoke('getState')
-  .then((state) => {
-    const user_authority = state.user.authority;
-    user_authority.orcids.push('test_orcid');
-    cy.window().its('store').invoke('dispatch', {
-      type: 'set authority data',
-      authority: user_authority,
+    .its('store')
+    .invoke('getState')
+    .then((state) => {
+      const user_authority = state.user.authority;
+      user_authority.orcids.push('test_orcid');
+      cy.window().its('store').invoke('dispatch', {
+        type: 'set authority data',
+        authority: user_authority,
+      });
     });
-  });
 });
 
 Cypress.Commands.add('findScenario', () => {
@@ -226,7 +225,7 @@ Cypress.Commands.add('mockInstitution', (cristinId) => {
 
 Cypress.Commands.add('mockDepartments', (cristinId) => {
   var departments_file = 'departments.json';
-  cristinId ? departments_file = `departments_${cristinId}.json` : null;
+  cristinId ? (departments_file = `departments_${cristinId}.json`) : null;
   cy.fixture(departments_file).then((departments) => {
     cy.intercept(
       `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
@@ -237,18 +236,18 @@ Cypress.Commands.add('mockDepartments', (cristinId) => {
       departments
     );
   });
-})
+});
 
 Cypress.Commands.add('changeUserInstitution', (institution) => {
   cy.window()
     .its('store')
     .invoke('getState')
     .then((state) => {
-      const user_authority = state.user.authority;
-      user_authority.orgunitids = [`https://api.cristin.no/v2/institutions/${institution}`];
+      const { authority } = state.user;
+      authority.orgunitids = [`https://api.cristin.no/v2/institutions/${institution}`];
       cy.window().its('store').invoke('dispatch', {
         type: 'set authority data',
-        authority: user_authority,
+        authority: authority,
       });
     });
-})
+});
