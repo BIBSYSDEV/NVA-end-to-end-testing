@@ -1,0 +1,17 @@
+[
+  {
+    "@context": "https://bibsysdev.github.io/src/publication-channel/channel-context.json",
+    "id": "https://api.dev.nva.aws.unit.no/publication-channels/journal/123456/2020",
+    "type": "Journal",
+    "identifier": "123456",
+    "name": "Mock journal",
+    "website": "https://test.no",
+    "active": true,
+    "onlineIssn": "1234-5678",
+    "printIssn": "5678-1234",
+    "npiDomain": "Medier og kommunikasjon",
+    "openAccess": null,
+    "language": "Engelsk",
+    "publisherId": null
+  }
+]

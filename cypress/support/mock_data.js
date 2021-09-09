@@ -5,6 +5,7 @@ export const PROJECT_API_PATH = '/project';
 
 export const PROJECT_SEARCH_MOCK_FILE = 'mock_project_search.json';
 export const PUBLISHER_SEARCH_MOCK_FILE = 'mock_publishers.json';
+export const JOURNAL_SEARCH_MOCK_FILE = 'mock_journals.json';
 
 export const MOCK_CRISTINID = ['1111111111', '2222222222', '3333333333'];
 export const MOCK_INSTITUTION = ['Mock institution 1', 'Mock institution 2', 'Mock institution 3'];
