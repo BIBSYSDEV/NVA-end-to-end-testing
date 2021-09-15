@@ -7,6 +7,7 @@
     "@aws-amplify/pubsub": "^3.2.1",
     "aws-amplify": "^3.3.15",
     "aws-sdk": "^2.698.0",
+    "babel-cli": "^6.26.0",
     "cosmiconfig": "^6.0.0",
     "cypress-localstorage-commands": "^1.5.0",
     "cypress-promise": "^1.1.0",
@@ -19,7 +20,7 @@
   "devDependencies": {
     "axios": "^0.21.1",
     "cucumber-html-reporter": "^5.5.0",
-    "cypress": "^8.3.0",
+    "cypress": "^8.4.0",
     "cypress-cucumber-preprocessor": "^2.5.5",
     "cypress-file-upload": "^4.1.1",
     "mocha": "^9.1.0",

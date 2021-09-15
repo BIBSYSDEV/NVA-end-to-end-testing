@@ -568,7 +568,7 @@
   },
   {
     "familyName": "TestUser",
-    "givenName": "Resource type",
+    "givenName": "View registration",
     "username": "test-user-view-registration@test.no",
     "role": [
       "CREATOR"

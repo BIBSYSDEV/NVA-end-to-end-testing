@@ -24,8 +24,8 @@ When('they look at any page in NVA', () => {
   cy.visit(`/${uuidV4()}`);
 });
 Then('they see a Dropdown Menu with items:', (dataTable) => {
-  cy.get('[data-testid=menu]').should('exist');
-  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-button]').should('exist');
+  cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('@MENU').then((menu) => {
     cy.testDataTestidList(dataTable, menu);
   });
@@ -44,7 +44,7 @@ Given('that the User is not logged in', () => {
   cy.visit('/');
 });
 Then('they see the Log in Button', () => {
-  cy.get('[data-testid=menu-login-button').should('be.visible');
+  cy.get('[data-testid=log-in-link').should('be.visible');
 });
 
 // @345
@@ -64,6 +64,7 @@ And('they have the "Creator" role', () => {
 // @347
 // Scenario: User sees the menu for Curator
 And('they have the "Curator" Role', () => {
+  cy.mockPersonSearch(USER_CURATOR_WITH_AUTHOR);
   cy.login(USER_CURATOR_WITH_AUTHOR);
   cy.wrap(CURATOR_MENU).as('MENU');
 });

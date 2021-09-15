@@ -37,11 +37,11 @@ And('the request is listed in My Messages', () => {
     .should('be.visible');
 });
 And('the request is listed in Curator Worklist', () => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-logout-button]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=log-out-link]').click({ force: true });
   cy.login(USER_CURATOR_WITH_AUTHOR);
   cy.visit('/');
-  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=menu-my-worklist-button]').click({ force: true });
   cy.get('[data-testid^=title-doi-request]')
     .filter(`:contains(${PUBLIC_REGISTRATION_REQUESTING_DOI})`)
