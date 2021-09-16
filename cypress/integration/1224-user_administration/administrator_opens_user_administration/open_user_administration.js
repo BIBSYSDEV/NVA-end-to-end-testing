@@ -63,7 +63,7 @@ Given('that the user is logged in as Administrator', () => {
   cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
 });
 When('they click the menu item Users', () => {
-  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
 });
 Then('they see the User Administration page', () => {
@@ -116,7 +116,7 @@ And('they see a section Registrator with a policy for who are able to publish', 
 // Scenario Outline: Administrator opens the Add Role Dialog
 Given('Administrator opens User Administration', () => {
   cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
-  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
 });
 Then('they see the Add Role Dialog', () => {
@@ -153,7 +153,7 @@ And('they see a "Close" button', () => {
 // Scenario: Administrator searches for User
 Given('Administrator opens the Add Role Dialog', () => {
   cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
-  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
 });
 When('they enter text into the Search field', () => {

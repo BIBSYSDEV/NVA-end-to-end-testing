@@ -1,7 +1,7 @@
 [
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -12,7 +12,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -23,7 +23,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -34,7 +34,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -45,7 +45,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -57,7 +57,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -68,7 +68,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -79,7 +79,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -91,7 +91,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -102,7 +102,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -113,7 +113,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -125,7 +125,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -136,7 +136,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -147,7 +147,7 @@
   },
   {
     "publication_type": "JournalContent",
-    "publication_context_type": "Journal",
+    "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
