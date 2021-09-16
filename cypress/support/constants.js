@@ -52,31 +52,32 @@ const userData = {
   inArp: true,
 };
 
-export const USER = {};
-USER[USER_NO_ARP] = { ...userData, name: 'TestUser, No ARP', feideid: false, orcid: false };
-USER[USER_NAME_IN_ARP] = { ...userData, name: 'TestUser, Name in ARP', feideid: false, orcid: false };
-USER[USER_NO_NAME_IN_ARP] = { ...userData, name: '', feideid: false, orcid: false, inArp: false };
-USER[USER_CONNECT_ARP] = { ...userData, name: 'TestUser, Connect ARP', feideid: false, orcid: false };
-USER[USER_NO_ORCID] = { ...userData, name: 'TestUser, No ORCID', orcid: false };
-USER[USER_CONNECT_ORCID] = { ...userData, name: 'TestUser, Connect ORCID', feideid: false, orcid: false };
-USER[USER_WITH_AUTHOR] = { ...userData, name: 'TestUser, WithAuthor' };
-USER[USER_SAVE_REGISTRATION] = { ...userData, name: 'TestUser, Save Registration' };
-USER[USER_ADD_INSTITUTION] = { ...userData, name: 'TestUser, Add institution' };
-USER[USER_CHANGE_INSTITUTION] = { ...userData, name: 'TestUser, Change institution' };
-USER[USER_INSTITUTION_SUBUNIT] = { ...userData, name: 'TestUser, Subunit' };
-USER[USER_INSTITUTION_SUBSUBUNIT] = { ...userData, name: 'TestUser, Subsubunit' };
-USER[USER_INSTITUTION_SUBSUBSUBUNIT] = { ...userData, name: 'TestUser, Subsubsubunit' };
-USER[USER_WITH_INSTITUTION_REMOVE_INSTITUTION] = {
-  ...userData,
-  name: 'TestUser, Remove institution',
+export const user = {
+  [USER_NO_ARP]: { ...userData, name: 'TestUser, No ARP', feideid: false, orcid: false },
+  [USER_NAME_IN_ARP]: { ...userData, name: 'TestUser, Name in ARP', feideid: false, orcid: false },
+  [USER_NO_NAME_IN_ARP]: { ...userData, name: '', feideid: false, orcid: false, inArp: false },
+  [USER_CONNECT_ARP]: { ...userData, name: 'TestUser, Connect ARP', feideid: false, orcid: false },
+  [USER_NO_ORCID]: { ...userData, name: 'TestUser, No ORCID', orcid: false },
+  [USER_CONNECT_ORCID]: { ...userData, name: 'TestUser, Connect ORCID', feideid: false, orcid: false },
+  [USER_WITH_AUTHOR]: { ...userData, name: 'TestUser, WithAuthor' },
+  [USER_SAVE_REGISTRATION]: { ...userData, name: 'TestUser, Save Registration' },
+  [USER_ADD_INSTITUTION]: { ...userData, name: 'TestUser, Add institution' },
+  [USER_CHANGE_INSTITUTION]: { ...userData, name: 'TestUser, Change institution' },
+  [USER_INSTITUTION_SUBUNIT]: { ...userData, name: 'TestUser, Subunit' },
+  [USER_INSTITUTION_SUBSUBUNIT]: { ...userData, name: 'TestUser, Subsubunit' },
+  [USER_INSTITUTION_SUBSUBSUBUNIT]: { ...userData, name: 'TestUser, Subsubsubunit' },
+  [USER_WITH_INSTITUTION_REMOVE_INSTITUTION]: {
+    ...userData,
+    name: 'TestUser, Remove institution',
+  },
+  [USER_CURATOR_WITH_AUTHOR]: { ...userData, name: 'TestUser, Curator' },
+  [USER_INST_ADMIN_WITH_AUTHOR]: { ...userData, name: 'TestUser, Institution-admin' },
+  [USER_SECOND_INST_ADMIN_WITH_AUTHOR]: { ...userData, name: 'TestUser, Second Institution-admin-1' },
+  [ADMIN_USER]: { ...userData, name: 'TestUser, App-admin' },
+  [USER_NO_ROLE]: { ...userData, name: 'TestUser, No role' },
+  [USER_REMOVE_ORCID]: { ...userData, name: 'TestUser, Remove orcid' },
+  [USER_NON_CUSTOMER]: { ...userData, name: 'TestUser, Not customer' },
+  [USER_DRAFT_DOI]: { ...userData, name: 'TestUser, Draft DOI' },
+  [USER_RESOURCE_TYPE]: { ...userData, name: 'TestUser, Resource type' },
+  [USER_VIEW_REGISTRATION]: { ...userData, name: 'TestUser, View registration' },
 };
-USER[USER_CURATOR_WITH_AUTHOR] = { ...userData, name: 'TestUser, Curator' };
-USER[USER_INST_ADMIN_WITH_AUTHOR] = { ...userData, name: 'TestUser, Institution-admin' };
-USER[USER_SECOND_INST_ADMIN_WITH_AUTHOR] = { ...userData, name: 'TestUser, Second Institution-admin-1' };
-USER[ADMIN_USER] = { ...userData, name: 'TestUser, App-admin' };
-USER[USER_NO_ROLE] = { ...userData, name: 'TestUser, No role' };
-USER[USER_REMOVE_ORCID] = { ...userData, name: 'TestUser, Remove orcid' };
-USER[USER_NON_CUSTOMER] = { ...userData, name: 'TestUser, Not customer' };
-USER[USER_DRAFT_DOI] = { ...userData, name: 'TestUser, Draft DOI' };
-USER[USER_RESOURCE_TYPE] = { ...userData, name: 'TestUser, Resource type' };
-USER[USER_VIEW_REGISTRATION] = { ...userData, name: 'TestUser, View registration' };
