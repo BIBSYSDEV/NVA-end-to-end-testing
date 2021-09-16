@@ -6,7 +6,7 @@ Given('that the User is logged in as Administrator', () => {
   cy.login(USER_INST_ADMIN_WITH_AUTHOR);
 });
 And('they are on the User Administration Page', () => {
-  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
 });
 When('they click {string} under {string}', (button, section) => {

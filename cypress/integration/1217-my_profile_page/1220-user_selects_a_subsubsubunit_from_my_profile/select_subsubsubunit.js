@@ -5,18 +5,16 @@ import { MOCK_CRISTINID, MOCK_DEPARTMENT, MOCK_INSTITUTION } from '../../../supp
 Given('user sees a Subsubsubunit from My Profile', () => {
   cy.login(USER_INSTITUTION_SUBSUBSUBUNIT);
   cy.mockInstitution();
-  cy.mockDepartments(MOCK_CRISTINID[0]);
-  cy.mockDepartments(MOCK_CRISTINID[2]);
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
+  cy.mockDepartments();
+  cy.mockDepartments();
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=my-profile-link]').click({ force: true });
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
   cy.get('[data-testid=add-new-institution-button]').click();
   cy.get('[data-testid=autocomplete-institution]').type(MOCK_INSTITUTION[2]);
   cy.contains(MOCK_INSTITUTION[2]).click({ force: true });
   cy.contains('Department').should('be.visible');
-  cy.get('[data-testid=autocomplete-institution]')
-    .last()
-    .type(MOCK_DEPARTMENT[0]);
+  cy.get('[data-testid=autocomplete-institution]').last().type(MOCK_DEPARTMENT[0]);
   cy.contains(MOCK_DEPARTMENT[0]).click({ force: true });
   cy.get('[data-testid=autocomplete-institution]').last().type(MOCK_DEPARTMENT[1]);
   cy.contains(MOCK_DEPARTMENT[1]).click({ force: true });

@@ -10,7 +10,7 @@ Given('that the user is logged in as Application Administrator', () => {
   cy.login(ADMIN_USER);
 });
 When('they open a Customer Institution', () => {
-  cy.get('[data-testid=menu]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=menu-admin-institutions-button]').click({ force: true });
   cy.get('[data-testid="edit-institution-TestInst 2"]').first().click({ force: true });
 });

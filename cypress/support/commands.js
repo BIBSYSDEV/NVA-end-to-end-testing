@@ -4,8 +4,9 @@ import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import 'cypress-file-upload';
 import {
-  PERSON_API_PATH,
-  mockPersons,
+  mockPersonFeideIdSearch,
+  mockPersonNameSearch,
+  mockPerson,
   PROJECT_SEARCH_MOCK_FILE,
   PROJECT_API_PATH,
   JOURNAL_SEARCH_MOCK_FILE,
@@ -17,8 +18,6 @@ const AWS_SESSION_TOKEN = Cypress.env('AWS_SESSION_TOKEN');
 const REGION = Cypress.env('AWS_REGION');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
-
-const SET_AUTHORITY_DATA = 'set authority data';
 
 AWS.config = new AWS.Config({
   accessKeyId: AWS_ACCESS_KEY_ID,
@@ -49,14 +48,14 @@ Cypress.Commands.add('skipOrcid', () => {
 });
 
 Cypress.Commands.add('setLanguage', () => {
-  cy.get('[data-testid=menu]').click();
-  cy.get('[data-testid=menu-user-profile-button]').click();
+  cy.get('[data-testid=menu-button]').click();
+  cy.get('[data-testid=my-profile-link]').click();
   cy.get('[data-testid=language-selector]').click();
   cy.get('[data-testid=user-language-eng]').click();
 });
 
 Cypress.Commands.add('checkMenu', (table) => {
-  cy.get('[data-testid=menu]').click();
+  cy.get('[data-testid=menu-button]').click();
   table.forEach((row) => {
     const menuItem = row[0];
     cy.get('li').should('contain.text', menuItem);
@@ -109,6 +108,10 @@ Cypress.Commands.add('login', (userId) => {
     cy.wrap(idToken).as('idToken');
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
+    cy.mockPersonSearch(userId);
+    cy.mockCreatePerson(userId);
+    cy.mockUpdatePerson(userId);
+    cy.mockDepartments();
     cy.visit('/');
   });
 });
@@ -191,11 +194,25 @@ Cypress.Commands.add('addMockOrcid', (username) => {
     .its('store')
     .invoke('getState')
     .then((state) => {
-      const user_authority = state.user.authority;
-      user_authority.orcids.push('test_orcid');
+      const { authority } = state.user;
+      authority.orcids.push('test_orcid');
       cy.window().its('store').invoke('dispatch', {
         type: 'set authority data',
-        authority: user_authority,
+        authority: authority,
+      });
+    });
+});
+
+Cypress.Commands.add('addFeideId', (username) => {
+  cy.window()
+    .its('store')
+    .invoke('getState')
+    .then((state) => {
+      const { authority } = state.user;
+      authority.feideids.push(username);
+      cy.window().its('store').invoke('dispatch', {
+        type: 'set authority data',
+        authority: authority,
       });
     });
 });
@@ -213,8 +230,12 @@ Cypress.Commands.add('findScenario', () => {
   cy.wrap(scenario).as('scenario');
 });
 
-Cypress.Commands.add('mockPersonSearch', (person) => {
-  cy.intercept(PERSON_API_PATH, mockPersons[person]);
+Cypress.Commands.add('mockPersonSearch', (userId) => {
+  cy.intercept(
+    `https://api.dev.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
+    mockPersonFeideIdSearch(userId)
+  );
+  cy.intercept(`https://api.dev.nva.aws.unit.no/person?name=*`, mockPersonNameSearch(userId));
 });
 
 Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
@@ -229,18 +250,20 @@ Cypress.Commands.add('mockInstitution', (cristinId) => {
   });
 });
 
-Cypress.Commands.add('mockDepartments', (cristinId) => {
-  var departments_file = 'departments.json';
-  cristinId ? (departments_file = `departments_${cristinId}.json`) : null;
-  cy.fixture(departments_file).then((departments) => {
-    cy.intercept(
-      `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
-      departments
-    );
-    cy.intercept(
-      `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Funits%2F${cristinId}*&language=en`,
-      departments
-    );
+Cypress.Commands.add('mockDepartments', () => {
+  const institutionIds = ['1111111111', '2222222222', '3333333333'];
+  institutionIds.forEach((cristinId) => {
+    const departments_file = `departments_${cristinId}.json`;
+    cy.fixture(departments_file).then((departments) => {
+      cy.intercept(
+        `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
+        departments
+      );
+      cy.intercept(
+        `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Funits%2F${cristinId}*&language=en`,
+        departments
+      );
+    });
   });
 });
 
@@ -262,4 +285,18 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
         authority: authority,
       });
     });
+});
+
+Cypress.Commands.add('mockUpdatePerson', (userId) => {
+  const author = { ...mockPerson(userId), feideids: [userId] };
+  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/feideid/add', author);
+  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/add', author);
+});
+
+Cypress.Commands.add('mockCreatePerson', (userId) => {
+  const author = { ...mockPerson(userId), feideids: [userId] };
+  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person', {
+    statusCode: 200,
+    body: author,
+  });
 });
