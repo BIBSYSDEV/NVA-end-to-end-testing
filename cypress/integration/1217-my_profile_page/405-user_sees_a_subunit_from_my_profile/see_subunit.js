@@ -7,8 +7,8 @@ Given('User opens Add Institution from My Profile', () => {
   cy.mockDepartments(MOCK_CRISTINID[0]);
   cy.mockDepartments(MOCK_CRISTINID[2]);
   cy.login(USER_ADD_INSTITUTION);
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=my-profile-link]').click({ force: true });
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
   cy.get('[data-testid=add-new-institution-button]').click();
 });

@@ -8,5 +8,5 @@ When('they look at any page in NVA', () => {
   cy.visit(`/${uuidv4()}`);
 });
 Then('they see the Log in button', () => {
-  cy.get('[data-testid=menu-login-button').should('be.visible');
+  cy.get('[data-testid=log-in-link').should('be.visible');
 });

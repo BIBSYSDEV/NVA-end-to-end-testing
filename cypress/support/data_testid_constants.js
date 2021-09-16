@@ -5,8 +5,8 @@ export const MAIN_BUTTONS = {
 };
 
 export const USER_MENU = {
-  'My user profile': 'menu-user-profile-button',
-  'Log out': 'menu-logout-button',
+  'My user profile': 'my-profile-link',
+  'Log out': 'log-out-link',
 };
 
 export const CREATOR_MENU = {
@@ -15,18 +15,18 @@ export const CREATOR_MENU = {
 
 export const CURATOR_MENU = {
   ...USER_MENU,
-  'My worklist': 'menu-my-worklist-button',
+  'My worklist': 'worklist-link',
 };
 
 export const INST_ADMIN_MENU = {
   ...USER_MENU,
-  'Users': 'menu-admin-institution-users-button',
-  'My institution': 'menu-admin-institution-button',
+  'Users': 'admin-users-link',
+  'My institution': 'admin-institution-link',
 };
 
 export const ADMIN_MENU = {
   ...USER_MENU,
-  'Institutions': 'menu-admin-institutions-button',
+  'Institutions': 'admin-institutions-link',
 };
 
 export const NEW_REGISTRATION_BUTTONS = {

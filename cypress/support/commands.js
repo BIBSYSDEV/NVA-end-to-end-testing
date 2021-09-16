@@ -49,14 +49,14 @@ Cypress.Commands.add('skipOrcid', () => {
 });
 
 Cypress.Commands.add('setLanguage', () => {
-  cy.get('[data-testid=menu]').click();
-  cy.get('[data-testid=menu-user-profile-button]').click();
+  cy.get('[data-testid=menu-button]').click();
+  cy.get('[data-testid=my-profile-link]').click();
   cy.get('[data-testid=language-selector]').click();
   cy.get('[data-testid=user-language-eng]').click();
 });
 
 Cypress.Commands.add('checkMenu', (table) => {
-  cy.get('[data-testid=menu]').click();
+  cy.get('[data-testid=menu-button]').click();
   table.forEach((row) => {
     const menuItem = row[0];
     cy.get('li').should('contain.text', menuItem);
