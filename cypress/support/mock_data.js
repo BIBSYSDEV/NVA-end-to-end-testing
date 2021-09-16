@@ -18,7 +18,6 @@ const mockPersonData = {
   'orgunitids': ['https://api.cristin.no/v2/institutions/1111111111'],
   'birthDate': '',
   'handles': ['http://hdl.handle.net/11250.1/1234567890'],
-  'mock': true,
 };
 
 export const mockPersonFeideIdSearch = (userId) => {
