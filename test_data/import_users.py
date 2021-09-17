@@ -2,7 +2,7 @@ import boto3
 import json
 import sys
 import copy
-import requests
+import time
 
 ROLE_TABLENAME = 'nva-users-and-roles-nva-identity-service-nva-identity-service'
 CUSTOMER_TABLENAME = 'nva_customers'
@@ -63,12 +63,16 @@ def createRole(test_user):
         for user_role in role:
             new_role['roles']['L'].append(roles[user_role])
         new_role['username']['S'] = username
-
-        response = DB_CLIENT.put_item(TableName=ROLE_TABLENAME, Item=new_role)
-
+        try:
+            response = DB_CLIENT.put_item(TableName=ROLE_TABLENAME, Item=new_role)
+            print(response)
+        except:
+            print(sys.exc_info()[0])
+            pass
 
 def deleteRole(username):
-    response = DB_CLIENT.delete_item(TableName=ROLE_TABLENAME,
+    try:
+        response = DB_CLIENT.delete_item(TableName=ROLE_TABLENAME,
                                      Key={
                                          'PrimaryKeyHashKey': {
                                              'S': f'USER#{username}'
@@ -77,8 +81,9 @@ def deleteRole(username):
                                              'S': 'USER'
                                          }
                                      })
-    return
-
+    except:
+        print(sys.exc_info()[0])
+        pass
 
 def run():
     print('users...')

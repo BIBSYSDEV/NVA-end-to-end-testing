@@ -35,7 +35,9 @@ And('they can change the number of items viewed per page', () => {
 });
 And('they see the number of items viewed of the total amount of items', () => {
   cy.get('@expectedUserNumbers').then((expectedUserNumbers) => {
-    cy.get('@listControls').contains(expectedUserNumbers);
+    cy.get('@listControls').within(() => {
+      cy.get('div > p').contains(expectedUserNumbers);
+    });
   });
 });
 And('they see that previous page of items is disabled', () => {
