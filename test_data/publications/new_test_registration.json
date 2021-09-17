@@ -36,7 +36,7 @@
       "type": "Reference",
       "doi": "https://testdoi.org/test",
       "publicationContext": {
-        "type": "Journal",
+        "type": "UnconfirmedJournal",
         "title": "International Journal of Human-Computer Interaction",
         "level": "LEVEL_1",
         "openAccess": false,
