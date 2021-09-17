@@ -5,8 +5,8 @@ import { MOCK_CRISTINID, MOCK_DEPARTMENT, MOCK_INSTITUTION } from '../../../supp
 Given('user sees a Subsubsubunit from My Profile', () => {
   cy.login(USER_INSTITUTION_SUBSUBSUBUNIT);
   cy.mockInstitution();
-  cy.mockDepartments(MOCK_CRISTINID[0]);
-  cy.mockDepartments(MOCK_CRISTINID[2]);
+  cy.mockDepartments();
+  cy.mockDepartments();
   cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=my-profile-link]').click({ force: true });
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');

@@ -64,6 +64,7 @@ And('they have the "Creator" role', () => {
 // @347
 // Scenario: User sees the menu for Curator
 And('they have the "Curator" Role', () => {
+  cy.mockPersonSearch(USER_CURATOR_WITH_AUTHOR);
   cy.login(USER_CURATOR_WITH_AUTHOR);
   cy.wrap(CURATOR_MENU).as('MENU');
 });

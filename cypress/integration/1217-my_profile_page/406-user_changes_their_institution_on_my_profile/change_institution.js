@@ -7,7 +7,7 @@ Given('that a User is logged in', () => {
 });
 And('they open My Profile', () => {
   cy.mockInstitution();
-  cy.mockDepartments(MOCK_CRISTINID[0]);
+  cy.mockDepartments();
   cy.get('[data-testid=menu-button]').click({ force: true });
   cy.changeUserInstitution(MOCK_CRISTINID[0]);
   cy.get('[data-testid=my-profile-link]').click({ force: true });

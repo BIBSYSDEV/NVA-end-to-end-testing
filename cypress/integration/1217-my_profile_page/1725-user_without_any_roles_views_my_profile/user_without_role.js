@@ -4,7 +4,7 @@ import { MOCK_CRISTINID } from '../../../support/mock_data';
 Given('that a User is logged in with Feide', () => {
   cy.login(USER_NO_ROLE);
   cy.mockInstitution();
-  cy.mockDepartments(MOCK_CRISTINID[0]);
+  cy.mockDepartments();
 });
 And('their Institution is a Customer of NVA', () => {});
 And('their Administrator has not assigned any roles to them', () => {});
