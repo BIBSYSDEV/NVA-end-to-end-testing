@@ -65,7 +65,6 @@ def createRole(test_user):
         new_role['username']['S'] = username
         try:
             response = DB_CLIENT.put_item(TableName=ROLE_TABLENAME, Item=new_role)
-            print(response)
         except:
             print(sys.exc_info()[0])
             pass
@@ -78,7 +77,7 @@ def deleteRole(username):
                                              'S': f'USER#{username}'
                                          },
                                          'PrimaryKeyRangeKey': {
-                                             'S': 'USER'
+                                             'S': f'USER#{username}'
                                          }
                                      })
     except:
