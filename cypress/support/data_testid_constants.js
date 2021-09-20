@@ -189,6 +189,7 @@ export const STUDENT_THESIS_FIELDS = {
   'Search box for Series': 'series-search-field',
   'Series number': 'series-number-field',
   'Total pages': 'pages-field',
+  'ISBN':'isbn-field',
 };
 
 export const CHAPTER_SUBTYPES = {

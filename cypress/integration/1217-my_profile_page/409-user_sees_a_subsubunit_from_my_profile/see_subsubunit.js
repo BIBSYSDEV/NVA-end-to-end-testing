@@ -10,7 +10,7 @@ Given('they see a Subunit from My Profile', () => {
   cy.get('[data-testid=my-profile-link]').click({ force: true });
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
   cy.get('[data-testid=add-new-institution-button]').click();
-  cy.get('[data-testid=autocomplete-institution]').type('ntnu');
+  cy.get('[data-testid=autocomplete-institution]').type(MOCK_INSTITUTION[2]);
   cy.contains(MOCK_INSTITUTION[2]).click({ force: true });
   cy.contains('Department').should('be.visible');
 });

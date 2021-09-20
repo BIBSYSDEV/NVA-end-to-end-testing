@@ -34,6 +34,7 @@ export const mockPerson = (userId) => {
     name: user[userId].name,
     feideids: user[userId].feideid ? [userId] : [],
     orcids: user[userId].orcid ? [userId] : [],
+    orgunitids: user[userId].orgunitids,
   };
 };
 

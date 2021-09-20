@@ -122,7 +122,7 @@ Given('Administrator opens User Administration', () => {
   cy.get('[data-testid=admin-users-link]').click({ force: true });
 });
 Then('they see the Add Role Dialog', () => {
-  cy.wrap('1-5 of 18').as('expectedUserNumbers');
+  cy.wrap('1-5 of 19').as('expectedUserNumbers');
   cy.get('[data-testid=add-role-modal]').as('roleModal');
   cy.get('@roleModal').within(() => {
     cy.get('[class=MuiTablePagination-root]').as('listControls');
