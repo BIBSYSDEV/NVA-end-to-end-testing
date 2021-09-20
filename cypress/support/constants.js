@@ -59,7 +59,7 @@ export const user = {
   [USER_CONNECT_ARP]: { ...userData, name: 'TestUser, Connect ARP', feideid: false, orcid: false },
   [USER_NO_ORCID]: { ...userData, name: 'TestUser, No ORCID', orcid: false },
   [USER_CONNECT_ORCID]: { ...userData, name: 'TestUser, Connect ORCID', feideid: false, orcid: false },
-  [USER_WITH_AUTHOR]: { ...userData, name: 'TestUser, WithAuthor' },
+  [USER_WITH_AUTHOR]: { ...userData, name: 'TestUser, Withauthor' },
   [USER_SAVE_REGISTRATION]: { ...userData, name: 'TestUser, Save Registration' },
   [USER_ADD_INSTITUTION]: { ...userData, name: 'TestUser, Add institution' },
   [USER_CHANGE_INSTITUTION]: { ...userData, name: 'TestUser, Change institution' },

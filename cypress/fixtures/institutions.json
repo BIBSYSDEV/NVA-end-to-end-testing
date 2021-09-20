@@ -1,13 +1,13 @@
 [ {
     "id" : "https://api.cristin.no/v2/institutions/1111111111",
     "name" : "Mock institution 1",
-    "acronym" : "NTNU"
+    "acronym" : "MOCK"
 }, {
     "id" : "https://api.cristin.no/v2/institutions/2222222222",
     "name" : "Mock institution 2",
-    "acronym" : "NTNU"
+    "acronym" : "MOCK"
 }, {
     "id" : "https://api.cristin.no/v2/institutions/3333333333",
     "name" : "Mock institution 3",
-    "acronym" : "NTNU"
+    "acronym" : "MOCK"
 } ]

@@ -240,7 +240,7 @@ Cypress.Commands.add('mockPersonSearch', (userId) => {
 
 Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
   cy.fixture(PROJECT_SEARCH_MOCK_FILE).then((searchResult) => {
-    cy.intercept(PROJECT_API_PATH, searchResult);
+    cy.intercept(`${PROJECT_API_PATH}?query=*`, searchResult);
   });
 });
 
@@ -289,8 +289,27 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
 
 Cypress.Commands.add('mockUpdatePerson', (userId) => {
   const author = { ...mockPerson(userId), feideids: [userId] };
-  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/feideid/add', author);
-  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/add', author);
+  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/feideid/add', (req) => {
+    author['feideids'].push(req.body['identifier']);
+  });
+  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/add', (req) => {
+    author['orgunitids'].push(req.body['identifier']);
+    req.reply(author);
+  });
+  cy.intercept('DELETE', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/delete', (req) => {
+    author['orgunitids'] = author['orgunitids'].filter((item) => {
+      return item !== req.body['identifier'];
+    });
+    console.log(author);
+    req.reply(author);
+  });
+  cy.intercept('DELETE', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/feideid/delete', (req) => {
+    author['feideid'] = author['feideid'].filter((item) => {
+      return item !== req.body['identifier'];
+    });
+    console.log(author);
+    req.reply(author);
+  });
 });
 
 Cypress.Commands.add('mockCreatePerson', (userId) => {

@@ -36,10 +36,8 @@
       "type": "Reference",
       "doi": "https://testdoi.org/test",
       "publicationContext": {
-        "type": "UnconfirmedJournal",
-        "title": "International Journal of Human-Computer Interaction",
-        "onlineIssn": "1044-7318",
-        "printIssn": "1044-7318"
+        "id": "https://api.dev.nva.aws.unit.no/publication-channels/journal/446050/1999",
+        "type": "Journal"
       },
       "publicationInstance": {
         "type": "JournalArticle",

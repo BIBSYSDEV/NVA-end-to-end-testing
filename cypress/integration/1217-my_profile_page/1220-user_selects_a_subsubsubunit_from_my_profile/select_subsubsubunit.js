@@ -1,11 +1,10 @@
-import { After, And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_INSTITUTION_SUBSUBSUBUNIT } from '../../../support/constants';
-import { MOCK_CRISTINID, MOCK_DEPARTMENT, MOCK_INSTITUTION } from '../../../support/mock_data';
+import { MOCK_DEPARTMENT, MOCK_INSTITUTION } from '../../../support/mock_data';
 
 Given('user sees a Subsubsubunit from My Profile', () => {
   cy.login(USER_INSTITUTION_SUBSUBSUBUNIT);
   cy.mockInstitution();
-  cy.mockDepartments();
   cy.mockDepartments();
   cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=my-profile-link]').click({ force: true });
@@ -38,12 +37,4 @@ Then('they see the new Institution and Subunit and Subsubunit and Subsubsubunit 
   cy.contains(MOCK_DEPARTMENT[0]);
   cy.contains(MOCK_DEPARTMENT[1]);
   cy.contains(MOCK_DEPARTMENT[2]);
-});
-
-After(() => {
-  // remove institution to reset test user
-  cy.get(`[data-testid="button-delete-institution-https://api.cristin.no/v2/units/${MOCK_CRISTINID[2]}.3.0.0"]`).click({
-    force: true,
-  });
-  cy.get('[data-testid=accept-button]').click({ force: true });
 });

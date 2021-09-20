@@ -2,7 +2,7 @@ import boto3
 import json
 import sys
 import copy
-import time
+import common
 
 ROLE_TABLENAME = 'nva-users-and-roles-nva-identity-service-nva-identity-service'
 CUSTOMER_TABLENAME = 'nva_customers'
@@ -30,7 +30,7 @@ def findCustomer(org_number):
             }},
             KeyConditionExpression="feideOrganizationId = :v1",
             ProjectionExpression="identifier",
-            TableName=CUSTOMER_TABLENAME,
+            TableName=common.customer_tablename,
             IndexName='byOrgNumber')
         return response['Items'][0]['identifier']['S']
     except:

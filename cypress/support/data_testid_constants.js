@@ -128,7 +128,7 @@ export const JOURNAL_FIELDS = {
   'Journal': 'journal-search-field',
   'Search-box for Journal': 'journal-search-field',
   'Search box for Journal': 'journal-search-field',
-  'Search box for "Journal article"': 'article-search-field',
+  'Search box for "Journal article"': 'corrigendum-for-field',
   'DOI': 'doi-field',
   'Volume': 'volume-field',
   'Issue': 'issue-field',
@@ -188,6 +188,7 @@ export const STUDENT_THESIS_FIELDS = {
   'DOI': 'doi-field',
   'Search box for Series': 'series-search-field',
   'Series number': 'series-number-field',
+  'Total pages': 'pages-field',
 };
 
 export const CHAPTER_SUBTYPES = {
@@ -213,7 +214,7 @@ export const DESCRIPTION_FIELDS = {
   'Description': 'registration-description-field',
   'Date published': 'date-published-field',
   'Keywords': 'registration-tag-field',
-  'Vocabularies': 'search_npi',
+  'Vocabularies': 'add-vocabulary-button',
   'Primary language for content': 'registration-language-field',
   'Project association': 'project-search-field',
 };
