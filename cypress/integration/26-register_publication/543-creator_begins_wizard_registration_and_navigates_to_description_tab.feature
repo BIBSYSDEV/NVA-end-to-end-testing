@@ -9,14 +9,12 @@ Feature: Creator begins Wizard registration and navigates to Description tab
       | Abstract                     |
       | Description                  |
       | Date published               |
-      | NPI disciplines              |
       | Keywords                     |
       | Primary language for content |
       | Project association          |
     And they see the tab Reference is clickable
     And they see the tab Contributors is clickable
     And they see the tab Files and License is clickable
-    And they see the tab Summary is clickable
     And they see Next is enabled
     And they see Save is enabled
 

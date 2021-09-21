@@ -1,13 +1,13 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { REPORT_SUBTYPES } from '../../../support/data_test_id_constants';
-import 'cypress-localstorage-commands';
+import { REPORT_SUBTYPES } from '../../../support/data_testid_constants';
 
 const testFile = 'example.txt';
 
 Given('Creator begins registering a Publication in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startRegistrationWithFile(testFile);
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
 });
 When('they navigate to the Reference tab', () => {

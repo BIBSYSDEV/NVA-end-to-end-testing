@@ -1,6 +1,6 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import 'cypress-localstorage-commands';
+import { REFERENCE_FIELDS } from '../../../support/data_testid_constants';
 
 const testFile = 'example.txt';
 
@@ -15,6 +15,7 @@ Given('Creator begins registering a Registration in the Wizard', () => {
   });
 });
 When('they navigate to the Reference tab', () => {
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
   cy.get('[data-testid=registration-file-start-button]').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-reference').click({ force: true });
 });
@@ -55,11 +56,9 @@ And('they see Save is enabled', () => {
 And('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
 });
-Then('they can see "Required field" error messages for fields:', (dataTable) => {
+Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
-    cy.contains(`${value[0]}`).within(($field) => {
-      cy.wrap($field).parent().contains('Mandatory');
-    });
+    cy.get(`[data-testid=${REFERENCE_FIELDS[value[0]]}]`).contains('Mandatory');
   });
 });
 // | Type |

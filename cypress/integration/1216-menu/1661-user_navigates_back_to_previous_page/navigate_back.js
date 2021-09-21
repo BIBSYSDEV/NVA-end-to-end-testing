@@ -1,7 +1,5 @@
 import { Given, And, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { v4 as uuidv4 } from 'uuid';
-import 'cypress-localstorage-commands';
 
 Given('the user has navigated to any other page than Start Page', () => {
   cy.login(USER_WITH_AUTHOR);
@@ -14,5 +12,5 @@ When('they click "Back"', () => {
   cy.get('[data-testid=navigate-back-button]').click({ force: true });
 });
 Then('they see the previous page', () => {
-  cy.contains('Recently added');
+  cy.get('[data-testid=button-read-more]').should('exist');
 });
