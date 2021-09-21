@@ -1,11 +1,10 @@
-import { After, And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_INSTITUTION_SUBSUBSUBUNIT } from '../../../support/constants';
-import { MOCK_CRISTINID, MOCK_DEPARTMENT, MOCK_INSTITUTION } from '../../../support/mock_data';
+import { MOCK_DEPARTMENT, MOCK_INSTITUTION } from '../../../support/mock_data';
 
 Given('they see a Subsubunit from My Profile', () => {
   cy.login(USER_INSTITUTION_SUBSUBSUBUNIT);
   cy.mockInstitution();
-  cy.mockDepartments();
   cy.mockDepartments();
   cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=my-profile-link]').click({ force: true });
@@ -36,9 +35,4 @@ When('they click the Subsubsubunit dropdown', () => {
 
 Then('they see a Subsubsubunit dropdown containing all the Subsubsubunits at their Subsubunit', () => {
   cy.contains(MOCK_DEPARTMENT[2]);
-});
-
-After(() => {
-  // cancel select institution to reset test user
-  cy.get('[data-testid=institution-cancel-button]').click({ force: true });
 });

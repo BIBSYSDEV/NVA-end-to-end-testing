@@ -106,11 +106,11 @@ Then('they see that the Peer Review Details are hidden', () => {
 // @1625
 // Scenario: Creator sees fields for Resource subtype "Corrigendum"
 And('they see a disabled field for Journal based on selected Journal article', () => {
-  cy.get('[data-testid=article-search-field]').within(() => {
+  cy.get('[data-testid=corrigendum-for-field]').within(() => {
     cy.get('input').type('Test article corrigendum');
   });
   cy.contains('Test article corrigendum').click({ force: true });
-  cy.get('[data-testid=article-search-field] > p').first().contains('International Journal of Human-Computer Interaction');
+  cy.contains('International Journal of Human-Computer Interaction');
 });
 
 // TODO Article number is not being validated

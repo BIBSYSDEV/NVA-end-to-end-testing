@@ -6,7 +6,6 @@ Given('User sees an Institution from My Profile', () => {
   cy.login(USER_WITH_INSTITUTION_REMOVE_INSTITUTION);
   cy.mockInstitution();
   cy.mockDepartments();
-  cy.mockDepartments();
   cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=my-profile-link]').click({ force: true });
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');

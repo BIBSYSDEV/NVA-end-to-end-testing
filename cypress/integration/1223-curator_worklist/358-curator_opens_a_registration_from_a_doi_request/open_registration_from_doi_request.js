@@ -6,7 +6,7 @@ import { USER_CURATOR_WITH_AUTHOR } from '../../../support/constants';
 Given('that a Curator views their Worklist', () => {
   cy.login(USER_CURATOR_WITH_AUTHOR);
   cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=menu-my-worklist-button]').click({ force: true });
+  cy.get('[data-testid=worklist-link]').click({ force: true });
 });
 And('they have selected the DOI Requests tab', () => {});
 And('they have expanded an Message', () => {

@@ -7,7 +7,7 @@ Given('that the User is logged in as Administrator', () => {
 });
 And('they are on the User Administration Page', () => {
   cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
+  cy.get('[data-testid=admin-users-link]').click({ force: true });
 });
 When('they click {string} under {string}', (button, section) => {
   cy.contains(USER_ADMINISTRATION_HEADINGS[section])

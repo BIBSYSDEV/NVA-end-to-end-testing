@@ -47,6 +47,7 @@ export const USER_VIEW_REGISTRATION = 'test-user-view-registration@test.no';
 
 const userData = {
   name: '',
+  orgunitids: ['https://api.cristin.no/v2/institutions/1111111111'],
   feideid: true,
   orcid: true,
   inArp: true,
@@ -55,11 +56,11 @@ const userData = {
 export const user = {
   [USER_NO_ARP]: { ...userData, name: 'TestUser, No ARP', feideid: false, orcid: false },
   [USER_NAME_IN_ARP]: { ...userData, name: 'TestUser, Name in ARP', feideid: false, orcid: false },
-  [USER_NO_NAME_IN_ARP]: { ...userData, name: '', feideid: false, orcid: false, inArp: false },
+  [USER_NO_NAME_IN_ARP]: { ...userData, name: '', orgunitids: [], feideid: false, orcid: false, inArp: false },
   [USER_CONNECT_ARP]: { ...userData, name: 'TestUser, Connect ARP', feideid: false, orcid: false },
   [USER_NO_ORCID]: { ...userData, name: 'TestUser, No ORCID', orcid: false },
   [USER_CONNECT_ORCID]: { ...userData, name: 'TestUser, Connect ORCID', feideid: false, orcid: false },
-  [USER_WITH_AUTHOR]: { ...userData, name: 'TestUser, WithAuthor' },
+  [USER_WITH_AUTHOR]: { ...userData, name: 'TestUser, Withauthor' },
   [USER_SAVE_REGISTRATION]: { ...userData, name: 'TestUser, Save Registration' },
   [USER_ADD_INSTITUTION]: { ...userData, name: 'TestUser, Add institution' },
   [USER_CHANGE_INSTITUTION]: { ...userData, name: 'TestUser, Change institution' },
