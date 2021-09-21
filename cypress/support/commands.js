@@ -3,12 +3,19 @@ import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import 'cypress-file-upload';
+import {
+  mockPersonFeideIdSearch,
+  mockPersonNameSearch,
+  mockPerson,
+  PROJECT_SEARCH_MOCK_FILE,
+  PROJECT_API_PATH,
+  JOURNAL_SEARCH_MOCK_FILE,
+} from './mock_data';
 
 const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
 const AWS_SESSION_TOKEN = Cypress.env('AWS_SESSION_TOKEN');
 const REGION = Cypress.env('AWS_REGION');
-const IDENTITY_POOL_ID = Cypress.env('AWS_IDENTITY_POOL_ID');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
 
@@ -23,7 +30,6 @@ AWS.config = new AWS.Config({
 
 const amplifyConfig = {
   Auth: {
-    identityPoolId: IDENTITY_POOL_ID,
     region: REGION,
     userPoolId: USER_POOL_ID,
     userPoolWebClientId: CLIENT_ID,
@@ -44,17 +50,16 @@ Cypress.Commands.add('skipOrcid', () => {
 });
 
 Cypress.Commands.add('setLanguage', () => {
-  cy.get('[data-testid=menu]').click();
-  cy.get('[data-testid=menu-user-profile-button]').click();
+  cy.get('[data-testid=menu-button]').click();
+  cy.get('[data-testid=my-profile-link]').click();
   cy.get('[data-testid=language-selector]').click();
   cy.get('[data-testid=user-language-eng]').click();
 });
 
 Cypress.Commands.add('checkMenu', (table) => {
-  cy.get('[data-testid=menu]').click();
+  cy.get('[data-testid=menu-button]').click();
   table.forEach((row) => {
     const menuItem = row[0];
-    cy.log(menuItem);
     cy.get('li').should('contain.text', menuItem);
   });
 });
@@ -105,6 +110,10 @@ Cypress.Commands.add('login', (userId) => {
     cy.wrap(idToken).as('idToken');
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
+    cy.mockPersonSearch(userId);
+    cy.mockCreatePerson(userId);
+    cy.mockUpdatePerson(userId);
+    cy.mockDepartments();
     cy.visit('/');
   });
 });
@@ -115,11 +124,25 @@ Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
   cy.get('input[type=file]').attachFile(fileName);
 });
 
+Cypress.Commands.add('startWizardWithFile', (fileName) => {
+  cy.startRegistrationWithFile(fileName);
+  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
+  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+});
+
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
   cy.get('[data-testid=new-registration]').click({ force: true });
   cy.get('[data-testid=new-registration-link]').click({ force: true });
-  cy.get('[data-testid=new-registration-link-input]').type(doiLink);
+  cy.get('[data-testid=new-registration-link-field]').within((linkField) => {
+    cy.wrap(linkField).get('input').type(doiLink);
+  });
   cy.get('[data-testid=doi-search-button]').click({ force: true });
+});
+
+Cypress.Commands.add('startWizardWithLink', (doiLink) => {
+  cy.startRegistrationWithLink(doiLink);
+  cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
+  cy.get('[data-testid=registration-link-next-button]').click({ force: true });
 });
 
 Cypress.Commands.add('logoutCognito', () => {
@@ -129,11 +152,11 @@ Cypress.Commands.add('logoutCognito', () => {
 Cypress.Commands.add('createValidRegistration', () => {
   // Description
   cy.get('[data-testid=nav-tabpanel-description').click({ force: true });
-  cy.get('[data-testid=registration-title-input]').type('Title');
+  cy.get('[data-testid=registration-title-field]').type('Title');
   cy.get('[data-testid=date-published-field]').type('01.01.2020');
 
   // Reference
-  cy.get('[data-testid=nav-tabpanel-reference').click({ force: true });
+  cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
 
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
@@ -141,15 +164,18 @@ Cypress.Commands.add('createValidRegistration', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
 
-  cy.get('[data-testid=publisher-search-input]').click({ force: true }).type('Norges');
+  cy.get('[data-testid=publisher-search-field]').click({ force: true }).type('Norges');
   cy.contains('Norges forskningsråd').click({ force: true });
 
-  cy.get('[data-testid=peer_review-true]').click({ force: true });
+  cy.get('[data-testid=content-field]').click();
+  cy.get('[data-testid=content-value-academic-monograph]').click();
+
+  cy.get('[data-testid=peer-review-field] > div > label > span').first().click({ force: true });
 
   // Contributors
   cy.get('[data-testid=nav-tabpanel-contributors').click({ force: true });
-  cy.get('[data-testid=add-contributor]').click({ force: true });
-  cy.get('[data-testid=search-input]').type('Testuser Withauthor{enter}');
+  cy.get('[data-testid=Creator] > button').click({ force: true });
+  cy.get('[data-testid=search-field]').type('Testuser Withauthor{enter}');
   cy.get('[data-testid=author-radio-button]').click({ force: true });
   cy.get('[data-testid=connect-author-button]').click({ force: true });
 
@@ -165,6 +191,136 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   });
 });
 
-Cypress.Commands.add('addMockOrcid', () => {
-  cy.window().its('store').invoke('dispatch', { type: SET_EXTERNAL_ORCID, orcid: 'test_orcid' });
+Cypress.Commands.add('addMockOrcid', (username) => {
+  cy.window()
+    .its('store')
+    .invoke('getState')
+    .then((state) => {
+      const { authority } = state.user;
+      authority.orcids.push('test_orcid');
+      cy.window().its('store').invoke('dispatch', {
+        type: 'set authority data',
+        authority: authority,
+      });
+    });
+});
+
+Cypress.Commands.add('addFeideId', (username) => {
+  cy.window()
+    .its('store')
+    .invoke('getState')
+    .then((state) => {
+      const { authority } = state.user;
+      authority.feideids.push(username);
+      cy.window().its('store').invoke('dispatch', {
+        type: 'set authority data',
+        authority: authority,
+      });
+    });
+});
+
+Cypress.Commands.add('findScenario', () => {
+  let scenario = '';
+  if (window.testState.currentScenario.tags && window.testState.currentScenario.tags.length > 0) {
+    scenario = window.testState.currentScenario.tags[0].name;
+  } else {
+    scenario = window.testState.currentScenario.name;
+    if (scenario.includes('(example')) {
+      scenario = scenario.substring(0, scenario.indexOf('(example')).trim();
+    }
+  }
+  cy.wrap(scenario).as('scenario');
+});
+
+Cypress.Commands.add('mockPersonSearch', (userId) => {
+  cy.intercept(
+    `https://api.dev.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
+    mockPersonFeideIdSearch(userId)
+  );
+  cy.intercept(`https://api.dev.nva.aws.unit.no/person?name=*`, mockPersonNameSearch(userId));
+});
+
+Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
+  cy.fixture(PROJECT_SEARCH_MOCK_FILE).then((searchResult) => {
+    cy.intercept(`${PROJECT_API_PATH}?query=*`, searchResult);
+  });
+});
+
+Cypress.Commands.add('mockInstitution', (cristinId) => {
+  cy.fixture('institutions.json').then((institutions) => {
+    cy.intercept('https://api.dev.nva.aws.unit.no/institution/institutions*', institutions);
+  });
+});
+
+Cypress.Commands.add('mockDepartments', () => {
+  const institutionIds = ['1111111111', '2222222222', '3333333333'];
+  institutionIds.forEach((cristinId) => {
+    const departments_file = `departments_${cristinId}.json`;
+    cy.fixture(departments_file).then((departments) => {
+      cy.intercept(
+        `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
+        departments
+      );
+      cy.intercept(
+        `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Funits%2F${cristinId}*&language=en`,
+        departments
+      );
+    });
+  });
+});
+
+Cypress.Commands.add('mockJournalSearch', () => {
+  cy.fixture(JOURNAL_SEARCH_MOCK_FILE).then((journals) => {
+    cy.intercept('https://api.dev.nva.aws.unit.no/publication-channels/journal*', journals);
+  });
+});
+
+Cypress.Commands.add('changeUserInstitution', (institution) => {
+  cy.window()
+    .its('store')
+    .invoke('getState')
+    .then((state) => {
+      const { authority } = state.user;
+      authority.orgunitids = [`https://api.cristin.no/v2/institutions/${institution}`];
+      cy.window().its('store').invoke('dispatch', {
+        type: 'set authority data',
+        authority: authority,
+      });
+    });
+});
+
+Cypress.Commands.add('mockUpdatePerson', (userId) => {
+  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/feideid/add', (req) => {
+    const author = { ...mockPerson(userId), feideids: [userId] };
+    req.reply(author);
+  });
+  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/add', (req) => {
+    const author = { ...mockPerson(userId), feideids: [userId] };
+    const orgunitids = [...mockPerson(userId).orgunitids];
+    orgunitids.push(req.body['identifier']);
+    author.orgunitids = [...orgunitids];
+    req.reply(author);
+  });
+  cy.intercept('DELETE', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/delete', (req) => {
+    const author = { ...mockPerson(userId), feideids: [userId] };
+    author['orgunitids'] = author['orgunitids'].filter((item) => {
+      return item !== req.body['identifier'];
+    });
+    req.reply(author);
+  });
+  cy.intercept('DELETE', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/feideid/delete', (req) => {
+    const author = { ...mockPerson(userId), feideids: [userId] };
+    author['feideid'] = author['feideid'].filter((item) => {
+      return item !== req.body['identifier'];
+    });
+    req.reply(author);
+  });
+});
+
+Cypress.Commands.add('mockCreatePerson', (userId) => {
+  const author = { ...mockPerson(userId), feideids: [userId] };
+  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person', {
+    statusCode: 200,
+    body: author,
+  });
 });

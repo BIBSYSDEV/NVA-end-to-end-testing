@@ -1,0 +1,62 @@
+[
+  {
+    "Name": "custom:application",
+    "Value": "NVA"
+  },
+  {
+    "Name": "custom:identifiers",
+    "Value": "feide:###################"
+  },
+  {
+    "Name": "custom:applicationRoles",
+    "Value": "Publisher"
+  },
+  {
+    "Name": "custom:orgLegalName",
+    "Value": "TestOrg"
+  },
+  {
+    "Name": "custom:orgName",
+    "Value": "TestOrg"
+  },
+  {
+    "Name": "name",
+    "Value": "###################"
+  },
+  {
+    "Name": "given_name",
+    "Value": "###################"
+  },
+  {
+    "Name": "family_name",
+    "Value": "###################"
+  },
+  {
+    "Name": "custom:commonName",
+    "Value": "###################"
+  },
+  {
+    "Name": "custom:orgNumber",
+    "Value": "###################"
+  },
+  {
+    "Name": "custom:cristinId",
+    "Value": "###################"
+  },
+  {
+    "Name": "custom:feideId",
+    "Value": "###################"
+  },
+  {
+    "Name": "custom:feideTargetedId",
+    "Value": "###################"
+  },
+  {
+    "Name": "email",
+    "Value": "###################"
+  },
+  {
+    "Name": "custom:affiliation",
+    "Value": "[member]"
+  }
+]

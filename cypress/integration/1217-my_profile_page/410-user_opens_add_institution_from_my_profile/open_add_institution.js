@@ -1,12 +1,13 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { MOCK_CRISTINID } from '../../../support/mock_data';
 
 Given('user opens the page My Profile', () => {
-  cy.login(USER_WITH_AUTHOR).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
-    cy.get('[data-testid=menu]').click({ force: true });
-    cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
-  });
+  cy.login(USER_WITH_AUTHOR);
+  cy.mockInstitution();
+  cy.mockDepartments();
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=my-profile-link]').click({ force: true });
 });
 
 When('they click Add Institution', () => {

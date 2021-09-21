@@ -1,13 +1,16 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_NO_ROLE } from '../../../support/constants';
+import { MOCK_CRISTINID } from '../../../support/mock_data';
 Given('that a User is logged in with Feide', () => {
   cy.login(USER_NO_ROLE);
+  cy.mockInstitution();
+  cy.mockDepartments();
 });
 And('their Institution is a Customer of NVA', () => {});
 And('their Administrator has not assigned any roles to them', () => {});
 When('they navigate to My Profile', () => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=my-profile-link]').click({ force: true });
 });
 Then('they see that they have no roles', () => {
   cy.get('[data-testid^=user-role]').should('not.exist');

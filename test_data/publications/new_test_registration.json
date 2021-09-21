@@ -1,0 +1,59 @@
+{
+  "type": "Publication",
+  "status": "DRAFT",
+  "owner": "<owner_id>",
+  "projects": [
+    {
+      "id": "https://api.dev.nva.aws.unit.no/project/403669",
+      "name": "test-retest av test batteri til måling av smerte og funksjon hos personer med\r\nkne artrose: reliabilitet, validitet, sensivitet og spesifisitet",
+      "type": "ResearchProject"
+    }
+  ],
+  "publisher": {
+    "type": "Organization",
+    "id": "<nva_org_url>"
+  },
+  "createdDate": "2021-06-08T10:19:38.633284Z",
+  "fileSet": {
+    "files": [],
+    "type": "FileSet"
+  },
+  "modifiedDate": "2021-06-08T11:46:42.963805Z",
+  "entityDescription": {
+    "type": "EntityDescription",
+    "mainTitle": "Test registration",
+    "language": "http://lexvo.org/id/iso639-3/eng",
+    "date": {
+      "type": "PublicationDate",
+      "year": "2020",
+      "month": "12",
+      "day": "31"
+    },
+    "contributors": [],
+    "tags": ["keyword"],
+    "description": "Description",
+    "reference": {
+      "type": "Reference",
+      "doi": "https://testdoi.org/test",
+      "publicationContext": {
+        "id": "https://api.dev.nva.aws.unit.no/publication-channels/journal/446050/1999",
+        "type": "Journal"
+      },
+      "publicationInstance": {
+        "type": "JournalArticle",
+        "volume": "1",
+        "issue": "2",
+        "peerReviewed": true,
+        "pages": {
+          "type": "Range",
+          "begin": "3",
+          "end": "4"
+        },
+        "contentType": "Research article"
+      }
+    },
+    "npiSubjectHeading": "010",
+    "abstract": "Abstract"
+  },
+  "modelVersion": "0.13.4"
+}

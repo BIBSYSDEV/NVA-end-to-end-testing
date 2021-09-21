@@ -10,15 +10,15 @@ Given('that the user is logged in as Administrator', () => {
   cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
 });
 When('they click the menu item Users', () => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=admin-users-link]').click({ force: true });
 });
 Then('they see the User Administration page', () => {
   cy.location('pathname').should('equal', '/my-institution-users');
 });
 And('they see the Section {string}', (section) => {
   cy.wrap(section).as('section');
-  cy.get('h3').contains(USER_ADMINISTRATION_HEADINGS[section]).parent().as('roleSection');
+  cy.get('h2').contains(USER_ADMINISTRATION_HEADINGS[section]).parent().as('roleSection');
 });
 And(
   'they see the Section {string} contains a list of all users affiliated with their institution and with with role {string}',
@@ -41,7 +41,7 @@ And('they see a button Remove that is enabled for each user', () => {
   });
 });
 And('they see a section Registrator with a policy for who are able to publish', () => {
-  cy.get('h3').contains('Registrator');
+  cy.get('h2').contains('Registrator');
   cy.get('[data-testid=checkbox-assign-creators]').should('exist');
 });
 // Examples:

@@ -5,8 +5,8 @@ export const MAIN_BUTTONS = {
 };
 
 export const USER_MENU = {
-  'My user profile': 'menu-user-profile-button',
-  'Log out': 'menu-logout-button',
+  'My user profile': 'my-profile-link',
+  'Log out': 'log-out-link',
 };
 
 export const CREATOR_MENU = {
@@ -15,18 +15,18 @@ export const CREATOR_MENU = {
 
 export const CURATOR_MENU = {
   ...USER_MENU,
-  'My worklist': 'menu-my-worklist-button',
+  'My worklist': 'worklist-link',
 };
 
 export const INST_ADMIN_MENU = {
   ...USER_MENU,
-  'Users': 'menu-admin-institution-users-button',
-  'My institution': 'menu-admin-institution-button',
+  'Users': 'admin-users-link',
+  'My institution': 'admin-institution-link',
 };
 
 export const ADMIN_MENU = {
   ...USER_MENU,
-  'Institutions': 'menu-admin-institutions-button',
+  'Institutions': 'admin-institutions-link',
 };
 
 export const NEW_REGISTRATION_BUTTONS = {
@@ -43,16 +43,28 @@ export const PROFILE_PAGE_FIELDS = {
   'Real name': 'user-name',
   'Feide ID': 'user-id',
   'Email': 'user-id',
-  'ORCID': 'button-create-connect-orcid',
+  'ORCID': 'orcid-line',
   'Roles': 'user-role-creator',
   'Organizations': 'institution-presentation',
-  'Language': 'language-selector',
+  'Language': 'language-button',
 };
 
 export const USER_ADMINISTRATION_HEADINGS = {
   'Administrator': 'Administrators',
   'Curator': 'Curators',
   'Editor': 'Editor',
+};
+
+export const USER_ADMINISTRATION_PAGINATION = {
+  'Administrator': 'Institution-admin',
+  'Curator': 'Curator',
+  'Editor': 'Editor',
+};
+
+export const USER_ADMINISTRATION_SECTIONS = {
+  'Administrators': 'users-administrators',
+  'Curators': 'users-curators',
+  'Editors': 'users-editors',
 };
 
 export const USER_ADMINISTRATION_BUTTONS = {
@@ -75,9 +87,9 @@ export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
 
 export const MY_INSTITUTION_FIELDS = {
   'Name in organization registry': 'autocomplete-institution',
-  'Display name': 'customer-institution-display-name-input',
-  'Short display name': 'customer-institution-short-name-input',
-  'Archive name': 'customer-institution-archive-name-input',
+  'Display name': 'customer-institution-display-name-field',
+  'Short display name': 'customer-institution-short-name-field',
+  'Archive name': 'customer-institution-archive-name-field',
 };
 
 export const MY_INSTITUTION_FIELDS_TESTVALUE = {
@@ -86,14 +98,67 @@ export const MY_INSTITUTION_FIELDS_TESTVALUE = {
   'Archive name': 'Testarchive',
 };
 
+export const INSTITUTION_FIELDS = {
+  'Name in organization registry': 'autocomplete-institution',
+  'Display name': 'customer-institution-display-name-field',
+  'Short display name': 'customer-institution-short-name-field',
+  'Archive name': 'customer-institution-archive-name-field',
+  'Feide Organization ID': 'customer-institution-feide-organization-id-field',
+};
+
+export const RESOURCE_TYPES = {
+  'Contribution to journal': 'publication-context-type-Journal',
+  'Book': 'publication-context-type-Book',
+  'Report': 'publication-context-type-Report',
+  'Student thesis': 'publication-context-type-Degree',
+  'Part of book/report': 'publication-context-type-Chapter',
+};
+
 export const JOURNAL_SUBTYPES = {
   'Journal article': 'publication-instance-type-JournalArticle',
   'Short communication': 'publication-instance-type-JournalShortCommunication',
   'Feature article': 'publication-instance-type-FeatureArticle',
   'Letter to the Editor': 'publication-instance-type-JournalLetter',
   'Book review': 'publication-instance-type-JournalReview',
-  'Editorial': 'publication-instance-type-JournalLeader',
+  'Leader': 'publication-instance-type-JournalLeader',
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',
+};
+
+export const JOURNAL_FIELDS = {
+  'Journal': 'journal-search-field',
+  'Search-box for Journal': 'journal-search-field',
+  'Search box for Journal': 'journal-search-field',
+  'Search box for "Journal article"': 'corrigendum-for-field',
+  'DOI': 'doi-field',
+  'Volume': 'volume-field',
+  'Issue': 'issue-field',
+  'Search box for published books': '',
+  'Pages from': 'pages-from-field',
+  'Pages to': 'pages-to-field',
+  'Article number': 'article-number-field',
+  'Peer reviewed': 'peer_review-true',
+};
+
+export const BOOK_SUBTYPES = {
+  'Monograph': 'publication-instance-type-BookMonograph',
+  'Anthology': 'publication-instance-type-BookAnthology',
+};
+
+export const BOOK_FIELDS = {
+  'Publisher': 'publisher-search-field',
+  'ISBN': 'isbn-field',
+  'Total number of pages': 'pages-field',
+  'NPI discipline': 'search_npi',
+  'Series title': 'series-search-field',
+  'Series number': 'series-number-field',
+};
+
+export const CONTENT_TYPE = {
+  'Academic Monograph': 'content-value-academic-monograph',
+  'Non-fiction Monograph': 'content-value-non-fiction-monograph',
+  'Popular Science Monograph': 'content-value-popular-science-monograph',
+  'Textbook': 'content-value-textbook',
+  'Encyclopedia': 'content-value-encyclopedia',
 };
 
 export const REPORT_SUBTYPES = {
@@ -104,10 +169,11 @@ export const REPORT_SUBTYPES = {
 };
 
 export const REPORT_FIELDS = {
-  'Search box for Publisher': 'publisher-search-input',
-  'ISBN': 'isbn-input',
-  'Total number of pages': 'pages-input',
-  'Search box for Series': 'series-search-input',
+  'Search box for Publisher': 'publisher-search-field',
+  'ISBN': 'isbn-field',
+  'Total number of pages': 'pages-field',
+  'Search box for Series': 'series-search-field',
+  'Series number': 'series-number-field',
 };
 
 export const STUDENT_THESIS_SUBTYPES = {
@@ -118,22 +184,63 @@ export const STUDENT_THESIS_SUBTYPES = {
 };
 
 export const STUDENT_THESIS_FIELDS = {
-  'Search box for Publisher': 'publisher-search-input',
+  'Search box for Publisher': 'publisher-search-field',
   'DOI': 'doi-field',
-  'Search box for Series': 'series-search-input',
+  'Search box for Series': 'series-search-field',
+  'Series number': 'series-number-field',
+  'Total pages': 'pages-field',
+  'ISBN':'isbn-field',
 };
+
+export const CHAPTER_SUBTYPES = {
+  'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
+};
+
+export const CHAPTER_FIELDS = {
+  'DOI': 'doi-field',
+  'Search box for published Anthologies': 'info-anthology',
+  'Pages from': 'chapter-pages-from',
+  'Pages to': 'chapter-pages-to',
+  'Peer reviewed': 'peer-review-true',
+  'NPI discipline': 'npi-search',
+};
+
+export const OTHER_SUBTYPES = {};
+
+export const OTHER_FIELDS = {};
 
 export const DESCRIPTION_FIELDS = {
   'Title': 'registration-title-field',
   'Abstract': 'registration-abstract-field',
   'Description': 'registration-description-field',
   'Date published': 'date-published-field',
-  'NPI disciplines': 'search_npi',
   'Keywords': 'registration-tag-field',
+  'Vocabularies': 'add-vocabulary-button',
   'Primary language for content': 'registration-language-field',
-  'Project association': 'project-search-input',
+  'Project association': 'project-search-field',
 };
 
-export const REFERENCE_FIELDS = {
+export const RESOURCE_TYPE_FIELDS = {
   'Type': 'publication-context-type',
+};
+
+export const CONTRIBUTOR_CREATE_FIELDS = {
+  'First name': 'create-contributor-first-name',
+  'Last name': 'create-contributor-last-name',
+};
+
+export const LANDING_PAGE_FIELDS = {
+  'Title': 'public-registration-title',
+  'Abstract': 'abstract-accordion',
+  NPI: 'public-registration-npi',
+  Keywords: 'public-registration-keywords',
+  'Publication date': 'public-registration-publication-date',
+  'Primary language': 'public-registration-primary-language',
+  Projects: 'projects-accordion',
+  'Registration subtype': 'public-registration-registration-subtype',
+  'Fields corresponding to subtype': 'public-registration-subtype-fields',
+  Contributors: 'public-registration-contributors',
+  Files: 'files-accordion',
+  'DOI link': 'public-registration-doi-link',
+  License: 'public-registration-license',
 };

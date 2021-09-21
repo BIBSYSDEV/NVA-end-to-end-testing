@@ -1,0 +1,114 @@
+import requests
+import json
+import boto3
+import os
+import uuid
+from id_token import get_id_token
+import clear_arp
+
+ssm = boto3.client('ssm')
+USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
+                                 WithDecryption=False)['Parameter']['Value']
+CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
+                              WithDecryption=False)['Parameter']['Value']
+STAGE = ssm.get_parameter(Name='/test/STAGE',
+                          WithDecryption=False)['Parameter']['Value']
+CUSTOMER_ID = ssm.get_parameter(Name='/test/TEST_CUSTOMER',
+                                WithDecryption=False)['Parameter']['Value']
+
+person_query = 'https://api.{}.nva.aws.unit.no/person/?feideid={}'
+
+test_users_file_name = './users/test_users.json'
+
+client = boto3.client('cognito-idp')
+
+
+def connect_author(id_token, id,
+                   payload, connection_type):
+
+    if connect_author:
+        token = 'Bearer ' + id_token
+        connect_response = requests.post(
+            f'https://api.{STAGE}.nva.aws.unit.no/person/{id}/identifiers/{connection_type}/add',
+            json=payload,
+            headers={'Authorization': token})
+        if not connect_response:
+            print(f'POST /person/ {connect_response.status_code} {connect_response.reason}')
+    if not connect_author:
+        token = 'Bearer ' + id_token
+        delete_response = requests.delete(
+            f'https://api.{STAGE}.nva.aws.unit.no/person/{id}/identifiers/{connection_type}/delete',
+            json=payload,
+            headers={'Authorization': token})
+
+def create_author(family_name, given_name, id_token, has_author, has_orcid, payload):
+    inverted_name = f'{family_name}, {given_name}'
+    new_author = {'invertedname': inverted_name}
+    token = 'Bearer ' + id_token
+    if has_author:
+        create_response = requests.post(
+            f'https://api.{STAGE}.nva.aws.unit.no/person/',
+            json=new_author,
+            headers={'Authorization': token})
+        if not create_response:
+            print(f'POST /person/ {create_response.status_code} {create_response.reason}')
+        else:
+            id = create_response.json()['id'].split('/')[-1]
+            if has_author:
+                connect_author(id_token=id_token,
+                            id=id,
+                            payload=payload,
+                            connection_type='feideid')
+            if has_orcid:
+                connect_author(id_token=id_token,
+                            id=id,
+                            payload=payload,
+                            connection_type='orcid')
+
+def update_author(author, id_token, has_author, has_orcid, payload):
+    id = author['id'].split('/')[-1]
+    if has_author:
+        connection_type = 'feideid'
+        connect_author(id_token=id_token,
+                        id=id,
+                        payload=payload,
+                        connection_type=connection_type)
+    if has_orcid:
+        connection_type = 'orcid'
+        response = connect_author(id_token=id_token,
+                        id=id,
+                        payload=payload,
+                        connection_type=connection_type)
+
+
+def run():
+    clear_arp.run()
+    print('authors...')
+    with open(test_users_file_name) as test_users_file:
+
+        test_users = json.load(test_users_file)
+        for test_user in test_users:
+            given_name = test_user['givenName']
+            family_name = test_user['familyName']
+            has_author = test_user['author']
+            username = test_user['username']
+            feideid_payload = {'identifier': username}
+            has_orcid = test_user['orcid']
+
+            print(username)
+
+            id_token = get_id_token(username, client)
+
+            query_response = requests.get(
+                person_query.format(STAGE, username))
+            if query_response.status_code != 200:
+                print(f'GET /person/ {query_response.status_code}')
+            if query_response.json() == []:
+                create_author(family_name=family_name,
+                    given_name=given_name, id_token=id_token, has_author=has_author, has_orcid=has_orcid, payload=feideid_payload)
+            else:
+                for author in query_response.json():
+                    update_author(author=author, id_token=id_token, has_author=has_author, has_orcid=has_orcid, payload=feideid_payload)
+
+if __name__ == '__main__':
+    run()
