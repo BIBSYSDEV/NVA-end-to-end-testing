@@ -6,8 +6,9 @@ Given('that the user is logged in', () => {
   cy.login(USER_WITH_AUTHOR);
 });
 When('they click the menu item My user profile', () => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-user-profile-button]').click({ force: true });
+  cy.mockInstitution();
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=my-profile-link]').click({ force: true });
 });
 Then('they see My Profile', () => {});
 And('they see their Profile page which includes information for', (dataTable) => {

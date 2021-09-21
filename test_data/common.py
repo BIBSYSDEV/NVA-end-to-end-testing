@@ -7,6 +7,7 @@ USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
 CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 username = 'test-user-with-author@test.no'
+customer_tablename = 'nva-customers-nva-identity-service-nva-identity-service'
 
 def login(username):
     client = boto3.client('cognito-idp')
@@ -26,3 +27,9 @@ def login(username):
             'PASSWORD': password
         })
     return response['AuthenticationResult']['IdToken']
+
+def scan_customers():
+    client = boto3.client('dynamodb')
+    response = client.scan(TableName=customer_tablename)
+
+    return response['Items']

@@ -11,26 +11,19 @@ STAGE = ssm.get_parameter(Name='/test/STAGE',
                           WithDecryption=False)['Parameter']['Value']
 customer_template_file_name = './customers/institution.json'
 test_customers_file_name = './customers/test_institutions.json'
-customer_tablename = 'nva-customers-nva-identity-service-nva-identity-service'
 customer_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/customer/'
 username = 'test-data-user@test.no'
 
 
-def scan_customers():
-    response = client.scan(TableName=customer_tablename)
-
-    return response['Items']
-
-
 def delete_customers():
-    customers = scan_customers()
+    customers = common.scan_customers()
     for customer in customers:
         if 'archiveName' in customer:
             archiveName = customer['archiveName']['S']
             if 'test' in archiveName:
                 print(f'deleting {archiveName}')
                 response = client.delete_item(
-                    TableName=customer_tablename,
+                    TableName=common.customer_tablename,
                     Key={'identifier': {
                         'S': customer['identifier']['S']
                     }})

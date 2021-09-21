@@ -167,3 +167,4 @@ __pycache__/*
 *.pyc
 mochawesome-report/
 cypress-combined-report.json
+TestReport/*

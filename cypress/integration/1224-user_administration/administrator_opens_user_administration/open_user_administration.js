@@ -35,7 +35,9 @@ And('they can change the number of items viewed per page', () => {
 });
 And('they see the number of items viewed of the total amount of items', () => {
   cy.get('@expectedUserNumbers').then((expectedUserNumbers) => {
-    cy.get('@listControls').contains(expectedUserNumbers);
+    cy.get('@listControls').within(() => {
+      cy.get('div > p').contains(expectedUserNumbers);
+    });
   });
 });
 And('they see that previous page of items is disabled', () => {
@@ -63,8 +65,8 @@ Given('that the user is logged in as Administrator', () => {
   cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
 });
 When('they click the menu item Users', () => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=admin-users-link]').click({ force: true });
 });
 Then('they see the User Administration page', () => {
   cy.location('pathname').should('equal', '/my-institution-users');
@@ -116,8 +118,8 @@ And('they see a section Registrator with a policy for who are able to publish', 
 // Scenario Outline: Administrator opens the Add Role Dialog
 Given('Administrator opens User Administration', () => {
   cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=admin-users-link]').click({ force: true });
 });
 Then('they see the Add Role Dialog', () => {
   cy.wrap('1-5 of 18').as('expectedUserNumbers');
@@ -153,8 +155,8 @@ And('they see a "Close" button', () => {
 // Scenario: Administrator searches for User
 Given('Administrator opens the Add Role Dialog', () => {
   cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=admin-users-link]').click({ force: true });
 });
 When('they enter text into the Search field', () => {
   cy.get('@section').then((section) => {

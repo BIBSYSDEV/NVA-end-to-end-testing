@@ -10,8 +10,8 @@ Given('that the user is logged in as Administrator', () => {
   cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
 });
 When('they click the menu item Users', () => {
-  cy.get('[data-testid=menu]').click({ force: true });
-  cy.get('[data-testid=menu-admin-institution-users-button]').click({ force: true });
+  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get('[data-testid=admin-users-link]').click({ force: true });
 });
 Then('they see the User Administration page', () => {
   cy.location('pathname').should('equal', '/my-institution-users');

@@ -22,7 +22,7 @@
   "entityDescription": {
     "type": "EntityDescription",
     "mainTitle": "Test registration",
-    "language" : "http://lexvo.org/id/iso639-3/eng",
+    "language": "http://lexvo.org/id/iso639-3/eng",
     "date": {
       "type": "PublicationDate",
       "year": "2020",
@@ -36,13 +36,8 @@
       "type": "Reference",
       "doi": "https://testdoi.org/test",
       "publicationContext": {
-        "type": "UnconfirmedJournal",
-        "title": "International Journal of Human-Computer Interaction",
-        "level": "LEVEL_1",
-        "openAccess": false,
-        "peerReviewed": false,
-        "onlineIssn": "1044-7318",
-        "url": "http://www.erlbaum.com/Journals/journals/IJHCI/ijhci.htm"
+        "id": "https://api.dev.nva.aws.unit.no/publication-channels/journal/446050/1999",
+        "type": "Journal"
       },
       "publicationInstance": {
         "type": "JournalArticle",
@@ -57,8 +52,8 @@
         "contentType": "Research article"
       }
     },
-    "npiSubjectHeading" : "010",
+    "npiSubjectHeading": "010",
     "abstract": "Abstract"
   },
-  "modelVersion": "0.11.14"
+  "modelVersion": "0.13.4"
 }
