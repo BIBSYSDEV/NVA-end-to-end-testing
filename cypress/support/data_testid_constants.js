@@ -148,7 +148,7 @@ export const BOOK_FIELDS = {
   'Publisher': 'publisher-search-field',
   'ISBN': 'isbn-field',
   'Total number of pages': 'pages-field',
-  'NPI discipline': 'search_npi',
+  'NPI discipline': 'scientific-subject-field',
   'Series title': 'series-search-field',
   'Series number': 'series-number-field',
 };
@@ -186,11 +186,10 @@ export const STUDENT_THESIS_SUBTYPES = {
 export const STUDENT_THESIS_FIELDS = {
   'Search box for Publisher': 'publisher-search-field',
   'DOI': 'doi-field',
-  'Total pages': 'pages-field',
   'Search box for Series': 'series-search-field',
   'Series number': 'series-number-field',
   'Total pages': 'pages-field',
-  'ISBN':'isbn-field',
+  'ISBN': 'isbn-field',
 };
 
 export const CHAPTER_SUBTYPES = {
