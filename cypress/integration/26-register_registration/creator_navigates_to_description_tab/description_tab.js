@@ -34,6 +34,7 @@ And('they see fields:', (fields) => {
 // | Description                  |
 // | Date published               |
 // | Keywords                     |
+// | Vocabularies                 |
 // | Primary language for content |
 // | Project association          |
 And('they see the tab Resource Type is clickable', () => {
@@ -118,4 +119,29 @@ When('they click the Remove Project icon', () => {
 });
 Then('they see the Project is removed from the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('not.exist');
+});
+
+// Scenario: Creator opens dropdown with Allowed Vocabularies
+And('their Institution has a Vocabulary set as "Allowed"', () => {});
+When('they click "Add Vocabulary"', () => {
+  cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
+  cy.get('[data-testid=add-vocabulary-button]').click();
+});
+Then('they can see a dropdown with Allowed Vocabularies', () => {
+  cy.get('[data-testid^=vocabulary-menu-item-]').should('have.length.above', 0);
+});
+
+// @2446
+// Scenario: Creator sees input field for an Allowed Vocabulary
+Given('Creator opens dropdown with Allowed Vocabularies', () => {
+  cy.login(USER_WITH_AUTHOR);
+  cy.startWizardWithFile(filename);
+  cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
+  cy.get('[data-testid=add-vocabulary-button]').click();
+});
+When('they select an Allowed Vocabulary', () => {
+  cy.get('[data-testid^=vocabulary-menu-item]').first().click();
+});
+Then('they see an input field for the selected Vocabulary', () => {
+  cy.get('[data-testid^=vocabulary-row]').should('exist').and('be.visible');
 });
