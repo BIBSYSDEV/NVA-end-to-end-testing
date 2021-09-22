@@ -56,7 +56,7 @@
   },
   {
     "familyName": "TestUser",
-    "givenName": "Curator Requests",
+    "givenName": "Curator",
     "username": "test-user-curator@test.no",
     "role": ["CREATOR", "CURATOR"],
     "author": true,
@@ -89,8 +89,8 @@
   },
   {
     "familyName": "TestUser",
-    "givenName": "Second Institution-admin",
-    "username": "test-user-second-inst-administrator@test.no",
+    "givenName": "Second Institution-admin-1",
+    "username": "test-user-second-inst-admin-1@test.no",
     "role": ["CREATOR", "INST-ADMIN"],
     "author": true,
     "orcid": true,
@@ -386,7 +386,7 @@
   },
   {
     "familyName": "TestUser",
-    "givenName": "No ARP entry",
+    "givenName": "No name in ARP",
     "username": "test-user-no-name-in-arp@test.no",
     "role": [],
     "author": false,
