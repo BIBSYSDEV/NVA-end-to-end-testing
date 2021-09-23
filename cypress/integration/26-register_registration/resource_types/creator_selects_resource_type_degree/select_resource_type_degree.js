@@ -57,12 +57,16 @@ Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
   cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-instance-type-DegreeBachelor]').click({ force: true });
 });
 When('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
+    cy.get(`[data-testid=nav-tabpanel-description]`).click();
+    cy.get(`[data-testid=nav-tabpanel-resource-type]`).click();
     cy.get(`[data-testid=${STUDENT_THESIS_FIELDS[field[0]]}]`).within(() => {
       cy.get('p').should('have.class', 'Mui-error');
       cy.get('p').should('have.class', 'Mui-required');
