@@ -1,7 +1,9 @@
-import { user, USER_WITH_AUTHOR, USER_CURATOR_WITH_AUTHOR, USER_CONNECT_ARP, USER_ADD_INSTITUTION } from './constants';
+import { user } from './constants';
 
-export const PERSON_API_PATH = 'https://api.dev.nva.aws.unit.no/person';
-export const PROJECT_API_PATH = 'https://api.dev.nva.aws.unit.no/project';
+const stage = Cypress.env('stage');
+
+export const PERSON_API_PATH = `https://api.${stage}.nva.aws.unit.no/person`;
+export const PROJECT_API_PATH = `https://api.${stage}.nva.aws.unit.no/project`;
 
 export const PROJECT_SEARCH_MOCK_FILE = 'mock_project_search.json';
 export const JOURNAL_SEARCH_MOCK_FILE = 'mock_journals.json';
@@ -11,7 +13,7 @@ export const MOCK_INSTITUTION = ['Mock institution 1', 'Mock institution 2', 'Mo
 export const MOCK_DEPARTMENT = ['Mock department 1', 'Mock department 2', 'Mock department 3'];
 
 const mockPersonData = {
-  'id': 'https://api.dev.nva.aws.unit.no/person/1234567890',
+  'id': `https://api.${stage}.nva.aws.unit.no/person/1234567890`,
   'name': '',
   'feideids': [],
   'orcids': [],
