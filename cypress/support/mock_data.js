@@ -1,6 +1,6 @@
 import { user } from './constants';
 
-const stage = Cypress.env('stage');
+const stage = Cypress.env('STAGE');
 
 export const PERSON_API_PATH = `https://api.${stage}.nva.aws.unit.no/person`;
 export const PROJECT_API_PATH = `https://api.${stage}.nva.aws.unit.no/project`;
