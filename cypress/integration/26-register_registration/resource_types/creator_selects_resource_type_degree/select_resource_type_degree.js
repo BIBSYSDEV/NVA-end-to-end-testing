@@ -62,6 +62,7 @@ Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
 });
 When('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.get('[data-testid=button-save-registration]').should('be.enabled');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
