@@ -49,7 +49,6 @@ Feature: Owner navigates to the Landing Page for their Resource
         And an Approval Request is created
         And the User is informed that the Resource is published but a Publishing Approval is pending to allow access to the files and progress can be viwed in My Messages
         Examples:
-        Examples:
             | ResourceType |
             | NVI          |
             | none-NVI     |
