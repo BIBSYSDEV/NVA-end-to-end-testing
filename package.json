@@ -19,7 +19,7 @@
   "devDependencies": {
     "axios": "^0.21.1",
     "cucumber-html-reporter": "^5.5.0",
-    "cypress": "^8.4.0",
+    "cypress": "^8.5.0",
     "cypress-cucumber-preprocessor": "^2.5.5",
     "cypress-file-upload": "^4.1.1",
     "mocha": "^9.1.0",
