@@ -62,15 +62,16 @@ Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
 });
 When('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.get('[data-testid=button-save-registration]').should('be.enabled');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
-    cy.get(`[data-testid=nav-tabpanel-description]`).click();
-    cy.get(`[data-testid=nav-tabpanel-resource-type]`).click();
-    cy.get(`[data-testid=${STUDENT_THESIS_FIELDS[field[0]]}]`).within(() => {
-      cy.get('p').should('have.class', 'Mui-error');
-      cy.get('p').should('have.class', 'Mui-required');
-    });
+    cy.get(`[data-testid=${STUDENT_THESIS_FIELDS[field[0]]}]`)
+      .scrollIntoView()
+      .within(() => {
+        cy.get('p').should('have.class', 'Mui-error');
+        cy.get('p').should('have.class', 'Mui-required');
+      });
   });
 });
 // | Search box for Publisher |
