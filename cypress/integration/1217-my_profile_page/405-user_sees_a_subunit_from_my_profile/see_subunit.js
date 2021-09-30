@@ -1,6 +1,6 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { USER_ADD_INSTITUTION } from '../../../support/constants';
-import { MOCK_INSTITUTION } from '../../../support/mock_data';
+import { MOCK_INSTITUTION, MOCK_DEPARTMENT } from '../../../support/mock_data';
 
 Given('User opens Add Institution from My Profile', () => {
   cy.mockInstitution();
@@ -21,5 +21,5 @@ And('they select an Institution', () => {
 Then('they see Subunit dropdown containing all the subunits at their Institution', () => {
   cy.contains('Department').should('be.visible');
   cy.get('[data-testid=autocomplete-institution]').last().click();
-  cy.get('[class=MuiAutocomplete-popper]').should('be.visible');
+  cy.contains(MOCK_DEPARTMENT[0]).should('be.visible');
 });
