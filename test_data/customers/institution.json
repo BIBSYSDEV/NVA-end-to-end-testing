@@ -4,6 +4,7 @@
   "feideOrganizationId": "##########",
   "name": "######################",
   "shortName": "######################",
-  "archiveName": "######################"
+  "archiveName": "######################",
+  "type": "Customer"
 }
 
