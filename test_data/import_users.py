@@ -102,9 +102,13 @@ def run():
         response = cognito_client.list_users(UserPoolId=USER_POOL_ID)
         for cognito_user in response['Users']:
             for attribute in cognito_user['Attributes']:
-                if attribute['Name'] == 'custom:orgLegalName' and attribute[
-                        'Value'] == 'TestOrg':
-                    cognito_test_users.append(cognito_user['Username'])
+                if attribute['Name'] == 'custom:orgLegalName':
+                    if attribute['Value'] == 'TestOrg':
+                        cognito_test_users.append(cognito_user['Username'])
+                    else:
+                        username = cognito_user['Username']
+                        orgLegalName = attribute['Value']
+                        print(f'{username} : {orgLegalName}')
         for cognito_test_username in cognito_test_users:
             try:
                 response = cognito_client.admin_delete_user(

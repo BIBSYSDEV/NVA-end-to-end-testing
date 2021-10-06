@@ -155,5 +155,16 @@
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
     "title": "Test article corrigendum"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Disabled Draft DOI button"
   }
 ]

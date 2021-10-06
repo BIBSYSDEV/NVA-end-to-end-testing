@@ -1,6 +1,5 @@
 Feature: Anonymous User views Landing Page for Registration
 
-    @test
     @881
     Scenario: Anonymous User views Landing Page for Registration
         When an Anonymous user navigates to a Landing Page for a Resource
@@ -17,7 +16,7 @@ Feature: Anonymous User views Landing Page for Registration
             | Contributors                    |
             | Files                           |
             | DOI link                        |
-            # | Related Registrations           |
+            | Related Registrations           |
             | License                         |
         And they see sharing Buttons for:
             | Email    |

@@ -1,4 +1,4 @@
-import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, Then, And, Before, After } from 'cypress-cucumber-preprocessor/steps';
 import {
   USER_CONNECT_ORCID,
   USER_NO_ARP,
@@ -31,6 +31,11 @@ Given('that the user logs in with their Feide ID', () => {
   cy.get('@user').then((user) => {
     cy.login(user);
   });
+});
+
+After(() => {
+  cy.logoutCognito();
+  cy.log('Logging out');
 });
 
 // Common steps for @217 and @219

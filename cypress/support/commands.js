@@ -1,4 +1,11 @@
+import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+
 import AWS from 'aws-sdk';
+import {
+  CognitoIdentityProviderClient,
+  AdminInitiateAuthCommand,
+  AdminSetUserPasswordCommand,
+} from '@aws-sdk/client-cognito-identity-provider';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
@@ -35,6 +42,13 @@ const amplifyConfig = {
   },
 };
 
+const credentials = {
+  accessKeyId: AWS_ACCESS_KEY_ID,
+  secretAccessKey: AWS_SECRET_ACCESS_KEY,
+  sessionToken: AWS_SESSION_TOKEN,
+};
+
+const client = new CognitoIdentityProviderClient({ region: REGION, credentials: credentials });
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
 const AUTH_FLOW = 'ADMIN_USER_PASSWORD_AUTH';
@@ -85,22 +99,24 @@ Cypress.Commands.add('loginCognito', (userId) => {
       Permanent: true,
     };
 
-    identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
-      if (data) {
-        identityServiceProvider.adminInitiateAuth(authorizeUser, async (err, data) => {
-          if (data) {
-            if (!data.ChallengeName) {
-              await Auth.signIn(userId, RANDOM_PASSWORD);
-              resolve(data.AuthenticationResult.IdToken);
-            }
-          } else {
-            reject(err);
+    const passwordCommand = new AdminSetUserPasswordCommand(passwordParams);
+    client.send(passwordCommand).then(
+      (data) => {
+        const authCommand = new AdminInitiateAuthCommand(authorizeUser);
+        client.send(authCommand).then(
+          (data) => {
+            Auth.signIn(userId, RANDOM_PASSWORD);
+            resolve(data.AuthenticationResult.IdToken);
+          },
+          (error) => {
+            reject(error);
           }
-        });
-      } else {
-        reject(err);
+        );
+      },
+      (error) => {
+        reject(error);
       }
-    });
+    );
   });
 });
 

@@ -1,6 +1,6 @@
 Feature: User sees menu
 
-    @test
+    # @test
     @344
     Scenario: Unauthenticated User sees menu
         Given that the User is not logged in

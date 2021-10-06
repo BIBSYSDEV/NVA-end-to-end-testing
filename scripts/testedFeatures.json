@@ -42,6 +42,7 @@
   "1218-user_selects_a_subsubunit_from_my_profile",
   "1219-user_sees_a_subsubsubunit_from_my_profile",
   "1220-user_selects_a_subsubsubunit_from_my_profile",
+  "1242-request_draft_doi_button_is_disabled_for_publication_with_existing_doi",
   "1232-owner_navigate_to_the_public_page_for_publication_and_requests_a_doi",
   "1231-owner_navigates_to_the_public_page_for_publication_for_published_publication_without_doi",
   "1233-owner_navigates_to_the_landing_page_of_a_drafted_publication_without_doi",
