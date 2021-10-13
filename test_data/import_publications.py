@@ -237,7 +237,7 @@ def create_publication_data(publication_template, test_publication, location, us
 
 def create_test_publication(publication_template, test_publication, location, bearer_token):
     customer = get_customer(test_publication['owner'], bearer_token=bearer_token).replace(
-        'https://api.dev.nva.aws.unit.no/customer/', '')
+        f'https://api.{STAGE}.nva.aws.unit.no/customer/', '')
     username = test_publication['owner']
     status = test_publication['status']
 
