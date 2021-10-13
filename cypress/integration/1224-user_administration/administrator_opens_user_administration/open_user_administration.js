@@ -18,20 +18,20 @@ const roleSearchTerms = {
 // Common steps
 And('they see the number of items viewed per page', () => {
   cy.get('@listControls').within(() => {
-    cy.get('[class^=MuiSelect-root]').contains('5');
+    cy.get('[class^=MuiTablePagination-select]').contains('5');
   });
 });
 And('they can change the number of items viewed per page', () => {
   cy.get('@listControls').within(() => {
-    cy.get('[class^=MuiSelect-root]').click();
+    cy.get('[class^=MuiTablePagination-select]').last().click();
   });
-  cy.get('[class^=MuiList-root]')
+  cy.get('[role=listbox]')
     .contains('25')
     .parent()
     .within(() => {
       cy.get('li').should('have.length', 3);
     });
-  cy.get('[class^=MuiList-root]').contains('5').click();
+  cy.get('[role=listbox]').contains('5').click();
 });
 And('they see the number of items viewed of the total amount of items', () => {
   cy.get('@expectedUserNumbers').then((expectedUserNumbers) => {
@@ -125,7 +125,7 @@ Then('they see the Add Role Dialog', () => {
   cy.wrap('1-5 of 18').as('expectedUserNumbers');
   cy.get('[data-testid=add-role-modal]').as('roleModal');
   cy.get('@roleModal').within(() => {
-    cy.get('[class=MuiTablePagination-root]').as('listControls');
+    cy.get('[data-testid^=user-pagination]').as('listControls');
   });
 });
 And('they see an Information box', () => {
