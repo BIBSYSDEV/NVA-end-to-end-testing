@@ -4,7 +4,6 @@
   },
   "testFiles": "**/*.feature",
   "defaultCommandTimeout": 30000,
-  "baseUrl": "https://frontend.dev.nva.aws.unit.no",
   "reporter": "../node_modules/mochawesome/src/mochawesome.js",
   "reporterOptions": {
     "overwrite": false,
