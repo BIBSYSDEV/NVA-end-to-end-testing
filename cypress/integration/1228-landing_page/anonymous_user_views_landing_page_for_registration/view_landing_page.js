@@ -3,17 +3,15 @@ import { LANDING_PAGE_FIELDS } from '../../../support/data_testid_constants';
 
 // @881
 // Scenario: Anonymous User views Landing Page for Registration
-Given('the Anonymous User has opened NVA', () => {
+When('an Anonymous user navigates to a Landing Page for a Resource', () => {
   cy.visit('/');
-});
-When('they navigate to Landing Page for a Registration', () => {
   cy.get('[data-testid=search-button]').click();
   cy.get('[data-testid=search-field]').type('View Landing Page{enter}');
-  cy.get('[data-testid=result-list-item]').within((result) => {
+  cy.get('[data-testid=result-list-item]').first().within((result) => {
     cy.wrap(result).get('a').filter(':contains("View Landing Page")').click();
   });
 });
-Then('they see page fields for', (dataTable) => {
+Then('they see', (dataTable) => {
   cy.testDataTestidList(dataTable, LANDING_PAGE_FIELDS);
 });
 // | Title                           |
@@ -28,4 +26,10 @@ Then('they see page fields for', (dataTable) => {
 // | Contributors                    |
 // | Files                           |
 // | DOI link                        |
+// | Related Registrations           |
 // | License                         |
+And('they see sharing Buttons for:', () => {});
+// | Email    |
+// | LinkedIn |
+// | Facebook |
+// | Twitter  |
