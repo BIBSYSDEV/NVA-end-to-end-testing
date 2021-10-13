@@ -3,7 +3,7 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { mockPerson } from '../../../support/mock_data';
 
 const testFile = 'example.txt';
-const stage = Cypress.env('STAGE');
+const stage = Cypress.env('STAGE') ?? 'dev';
 
 Given('the Creator publishes Publication', () => {
   cy.login(USER_WITH_AUTHOR);

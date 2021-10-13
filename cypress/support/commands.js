@@ -18,7 +18,7 @@ const AWS_SESSION_TOKEN = Cypress.env('AWS_SESSION_TOKEN');
 const REGION = Cypress.env('AWS_REGION');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
-const stage = Cypress.env('STAGE');
+const stage = Cypress.env('STAGE') ?? 'dev';
 
 AWS.config = new AWS.Config({
   accessKeyId: AWS_ACCESS_KEY_ID,

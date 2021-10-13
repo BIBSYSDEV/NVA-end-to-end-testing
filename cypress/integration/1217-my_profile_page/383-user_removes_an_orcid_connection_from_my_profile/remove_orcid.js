@@ -2,7 +2,7 @@ import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { USER_REMOVE_ORCID } from '../../../support/constants';
 import { mockPerson } from '../../../support/mock_data';
 
-const stage = Cypress.env('STAGE');
+const stage = Cypress.env('STAGE') ?? 'dev';
 
 Given('user opens the page My Profile', () => {
   cy.login(USER_REMOVE_ORCID);
