@@ -97,6 +97,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
           }
         });
       } else {
+        console.log(`setUserPassword ${userId}`);
         reject(err);
       }
     });

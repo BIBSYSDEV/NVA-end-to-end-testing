@@ -7,8 +7,8 @@
   "baseUrl": "https://frontend.dev.nva.aws.unit.no",
   "reporter": "../node_modules/mochawesome/src/mochawesome.js",
   "reporterOptions": {
-      "overwrite": false,
-      "html": false,
-      "json": true
-  }  
+    "overwrite": false,
+    "html": false,
+    "json": true
+  }
 }
