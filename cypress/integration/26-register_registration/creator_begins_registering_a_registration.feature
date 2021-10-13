@@ -34,7 +34,7 @@ Feature: Creator begins registering a Registration
     And they see the Remove button
     And they see the Start button is enabled
 
-  # @test
+  @test
   @228/439/440/441/441/442/2208/2370
   Scenario Outline: Creator begins registering with a Link from a Source
     Given Creator begins registering a Registration

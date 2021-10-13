@@ -25,6 +25,7 @@ export const USER_NO_NAME_IN_ARP = 'test-user-no-name-in-arp@test.no';
 export const USER_CONNECT_ARP = 'test-user-connect-arp@test.no';
 export const USER_NO_ORCID = 'test-user-no-orcid@test.no';
 export const USER_CONNECT_ORCID = 'test-user-connect-orcid@test.no';
+export const USER_CONNECT_AUTHOR = 'test-user-connect-author@test.no';
 export const USER_WITH_AUTHOR = 'test-user-with-author@test.no';
 export const USER_SAVE_REGISTRATION = 'test-user-save-registration@test.no';
 export const USER_ADD_INSTITUTION = 'test-user-add-institution@test.no';
@@ -59,6 +60,14 @@ export const user = {
   [USER_NO_NAME_IN_ARP]: { ...userData, name: '', orgunitids: [], feideid: false, orcid: false, inArp: false },
   [USER_CONNECT_ARP]: { ...userData, name: 'TestUser, Connect ARP', feideid: false, orcid: false },
   [USER_NO_ORCID]: { ...userData, name: 'TestUser, No ORCID', orcid: false },
+  [USER_CONNECT_AUTHOR]: {
+    ...userData,
+    name: 'TestUser, Connect Author',
+    orgunitids: [],
+    feideid: false,
+    orcid: false,
+    inArp: false,
+  },
   [USER_CONNECT_ORCID]: { ...userData, name: 'TestUser, Connect ORCID', feideid: false, orcid: false },
   [USER_WITH_AUTHOR]: { ...userData, name: 'TestUser, Withauthor' },
   [USER_SAVE_REGISTRATION]: { ...userData, name: 'TestUser, Save Registration' },
