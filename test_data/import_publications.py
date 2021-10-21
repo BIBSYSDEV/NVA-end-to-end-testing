@@ -289,7 +289,6 @@ def create_publications(location):
 
 def publish_publication(identifier, bearer_token):
     headers['Authorization'] = f'Bearer {bearer_token}'
-    print(publish_endpoint.format(STAGE, identifier))
     response = requests.put(publish_endpoint.format(
         STAGE, identifier), headers=headers)
     print(response.json())
