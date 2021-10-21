@@ -68,7 +68,7 @@ def put_item(new_customer, bearer_token):
 
 
 def run():
-    print('customers...')
+    print(f'customers...{STAGE}')
     bearer_token = common.login(username=username)
     delete_customers()
     create_customers(bearer_token)

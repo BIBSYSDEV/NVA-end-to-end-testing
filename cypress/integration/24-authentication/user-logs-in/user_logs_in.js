@@ -5,6 +5,7 @@ import {
   USER_NO_NAME_IN_ARP,
   USER_WITH_AUTHOR,
   USER_NAME_IN_ARP,
+  USER_CONNECT_AUTHOR,
 } from '../../../support/constants';
 
 Before({ tags: '@217' }, () => {
@@ -141,4 +142,36 @@ And('they see their ORCID on My Profile', () => {
   cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=my-profile-link]').click({ force: true });
   cy.get('[data-testid=orcid-line]').contains('test_orcid');
+});
+
+// @1205
+// Scenario: User connects Author
+Given('that the user logs in with Feide for the first time', () => {
+  cy.login(USER_CONNECT_AUTHOR);
+});
+When('they click OK in the Connect Author dialog', () => {
+  cy.get('[data-testid=connect-authority-heading]').should('be.visible');
+  cy.get('[data-testid=create-author-button]').click();
+});
+Then('the Connect Author dialog closes', () => {});
+And('they see a confirmation dialog', () => {
+  cy.get('[data-testid=connected-authority-heading]').should('be.visible');
+});
+
+// @353
+// Scenario: A user logs out
+Given('that the user is already logged in', () => {
+  cy.login(USER_WITH_AUTHOR);
+});
+When('they click on the Menu', () => {
+  cy.get('[data-testid=menu-button]').click();
+});
+And('they click Log out', () => {
+  cy.get('[data-testid=log-out-link]').should('be.visible');
+  cy.window().its('store').invoke('dispatch', {
+    type: 'logout success',
+  });
+});
+Then('they are logged out of the NVA application', () => {
+  cy.get('[data-testid=log-in-link]').should('be.visible');
 });

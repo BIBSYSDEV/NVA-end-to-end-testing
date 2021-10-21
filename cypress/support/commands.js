@@ -18,6 +18,7 @@ const AWS_SESSION_TOKEN = Cypress.env('AWS_SESSION_TOKEN');
 const REGION = Cypress.env('AWS_REGION');
 const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
 const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
+const stage = Cypress.env('STAGE') ?? 'dev';
 
 AWS.config = new AWS.Config({
   accessKeyId: AWS_ACCESS_KEY_ID,
@@ -232,10 +233,10 @@ Cypress.Commands.add('findScenario', () => {
 
 Cypress.Commands.add('mockPersonSearch', (userId) => {
   cy.intercept(
-    `https://api.dev.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
+    `https://api.${stage}.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
     mockPersonFeideIdSearch(userId)
   );
-  cy.intercept(`https://api.dev.nva.aws.unit.no/person?name=*`, mockPersonNameSearch(userId));
+  cy.intercept(`https://api.${stage}.nva.aws.unit.no/person?name=*`, mockPersonNameSearch(userId));
 });
 
 Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
@@ -246,7 +247,7 @@ Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
 
 Cypress.Commands.add('mockInstitution', (cristinId) => {
   cy.fixture('institutions.json').then((institutions) => {
-    cy.intercept('https://api.dev.nva.aws.unit.no/institution/institutions*', institutions);
+    cy.intercept(`https://api.${stage}.nva.aws.unit.no/institution/institutions*`, institutions);
   });
 });
 
@@ -256,11 +257,11 @@ Cypress.Commands.add('mockDepartments', () => {
     const departments_file = `departments_${cristinId}.json`;
     cy.fixture(departments_file).then((departments) => {
       cy.intercept(
-        `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
+        `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
         departments
       );
       cy.intercept(
-        `https://api.dev.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Funits%2F${cristinId}*&language=en`,
+        `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Funits%2F${cristinId}*&language=en`,
         departments
       );
     });
@@ -269,7 +270,7 @@ Cypress.Commands.add('mockDepartments', () => {
 
 Cypress.Commands.add('mockJournalSearch', () => {
   cy.fixture(JOURNAL_SEARCH_MOCK_FILE).then((journals) => {
-    cy.intercept('https://api.dev.nva.aws.unit.no/publication-channels/journal*', journals);
+    cy.intercept(`https://api.${stage}.nva.aws.unit.no/publication-channels/journal*`, journals);
   });
 });
 
@@ -288,25 +289,29 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
 });
 
 Cypress.Commands.add('mockUpdatePerson', (userId) => {
-  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/feideid/add', (req) => {
+  cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/feideid/add`, (req) => {
     const author = { ...mockPerson(userId), feideids: [userId] };
     req.reply(author);
   });
-  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/add', (req) => {
+  cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/add`, (req) => {
     const author = { ...mockPerson(userId), feideids: [userId] };
     const orgunitids = [...mockPerson(userId).orgunitids];
     orgunitids.push(req.body['identifier']);
     author.orgunitids = [...orgunitids];
     req.reply(author);
   });
-  cy.intercept('DELETE', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/delete', (req) => {
-    const author = { ...mockPerson(userId), feideids: [userId] };
-    author['orgunitids'] = author['orgunitids'].filter((item) => {
-      return item !== req.body['identifier'];
-    });
-    req.reply(author);
-  });
-  cy.intercept('DELETE', 'https://api.dev.nva.aws.unit.no/person/1234567890/identifiers/feideid/delete', (req) => {
+  cy.intercept(
+    'DELETE',
+    `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/delete`,
+    (req) => {
+      const author = { ...mockPerson(userId), feideids: [userId] };
+      author['orgunitids'] = author['orgunitids'].filter((item) => {
+        return item !== req.body['identifier'];
+      });
+      req.reply(author);
+    }
+  );
+  cy.intercept('DELETE', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/feideid/delete`, (req) => {
     const author = { ...mockPerson(userId), feideids: [userId] };
     author['feideid'] = author['feideid'].filter((item) => {
       return item !== req.body['identifier'];
@@ -317,7 +322,7 @@ Cypress.Commands.add('mockUpdatePerson', (userId) => {
 
 Cypress.Commands.add('mockCreatePerson', (userId) => {
   const author = { ...mockPerson(userId), feideids: [userId] };
-  cy.intercept('POST', 'https://api.dev.nva.aws.unit.no/person', {
+  cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person`, {
     statusCode: 200,
     body: author,
   });
