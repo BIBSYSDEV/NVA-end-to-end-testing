@@ -140,7 +140,7 @@ Given('Creator opens dropdown with Allowed Vocabularies', () => {
   cy.get('[data-testid=add-vocabulary-button]').click();
 });
 When('they select an Allowed Vocabulary', () => {
-  cy.get('[data-testid^=vocabulary-menu-item]').first().click();
+  cy.get('#hrcs-activities').click({ force: true });
 });
 Then('they see an input field for the selected Vocabulary', () => {
   cy.get('[data-testid^=vocabulary-row]').should('exist').and('be.visible');
