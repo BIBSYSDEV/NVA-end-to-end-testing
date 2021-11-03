@@ -3,7 +3,7 @@ import { user } from './constants';
 const stage = Cypress.env('STAGE') ?? 'dev';
 
 export const PERSON_API_PATH = `https://api.${stage}.nva.aws.unit.no/person`;
-export const PROJECT_API_PATH = `https://api.${stage}.nva.aws.unit.no/project`;
+export const PROJECT_API_PATH = `https://api.${stage}.nva.aws.unit.no/cristin/project`;
 
 export const PROJECT_SEARCH_MOCK_FILE = 'mock_project_search.json';
 export const JOURNAL_SEARCH_MOCK_FILE = 'mock_journals.json';
