@@ -240,9 +240,7 @@ Cypress.Commands.add('mockPersonSearch', (userId) => {
 });
 
 Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
-  console.log('Mocking project');
   cy.fixture(PROJECT_SEARCH_MOCK_FILE).then((searchResult) => {
-    console.log(PROJECT_API_PATH);
     cy.intercept(`${PROJECT_API_PATH}?query=*`, searchResult);
   });
 });
