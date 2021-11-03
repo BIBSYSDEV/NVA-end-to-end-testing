@@ -129,9 +129,9 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
+    "owner": "test-user-registration@test.no",
     "status": "DRAFT",
-    "contributor": "test-user-view-registration@test.no",
+    "contributor": "test-user-registration@test.no",
     "title": "View registration"
   },
   {
