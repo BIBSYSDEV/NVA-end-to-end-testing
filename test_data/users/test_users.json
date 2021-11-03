@@ -486,7 +486,7 @@
   {
     "familyName": "TestUser",
     "givenName": "View registration",
-    "username": "test-user-view-registration@test.no",
+    "username": "test-user-view-reg@test.no",
     "role": ["CREATOR"],
     "author": true,
     "orcid": true,
