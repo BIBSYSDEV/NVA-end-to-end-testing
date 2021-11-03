@@ -3,8 +3,8 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
 
 const filename = 'example.txt';
-const PROJECT_NAME = 'a test battery for assessing pain';
-const INSTITUTION_NAME = 'Høgskulen på Vestlandet';
+const PROJECT_NAME = 'Test mock project';
+const INSTITUTION_NAME = 'Test institution';
 
 // Feature: Creator navigates to Description tab
 // Common steps
@@ -15,11 +15,16 @@ Given('Creator begins registering a Registration in the Wizard', () => {
 When('they navigate to the Description tab', () => {
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
+Given('Creator begins Wizard registration and navigates to Description tab', () => {
+  cy.login(USER_WITH_AUTHOR);
+  cy.startWizardWithFile(filename);
+  cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
+});
 // End common steps
 
 // Scenario: Creator begins Wizard registration and navigates to Description tab
 Then('they see the Description tab is selected', () => {
-  cy.get('[data-testid=nav-tabpanel-description]').should('have.property', 'selected').and('match', 'true');
+  cy.get('[data-testid=nav-tabpanel-description]');
 });
 And('they see fields:', (fields) => {
   cy.testDataTestidList(fields, DESCRIPTION_FIELDS);
@@ -29,6 +34,7 @@ And('they see fields:', (fields) => {
 // | Description                  |
 // | Date published               |
 // | Keywords                     |
+// | Vocabularies                 |
 // | Primary language for content |
 // | Project association          |
 And('they see the tab Resource Type is clickable', () => {
@@ -40,6 +46,7 @@ And('they see the tab Contributors is clickable', () => {
 And('they see the tab Files and License is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-files-and-license]').should('be.enabled');
 });
+And('they see a Button for creating a new Project is enabled', () => {});
 And('they see Next is enabled', () => {
   cy.get('[data-testid=button-next-tab]').should('be.enabled');
 });
@@ -55,7 +62,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${DESCRIPTION_FIELDS[field]}]`).within((descriptionField) => {
-      cy.wrap(descriptionField).contains('Mandatory');
+      cy.wrap(descriptionField).contains('required');
     });
   });
 });
@@ -64,10 +71,11 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 
 // Scenario: Creator searches for Project
 And('they see a Search box for Projects', () => {
-  cy.get('[data-testid=project-search-input]').should('be.visible');
+  cy.get('[data-testid=project-search-field] > div > div > input').should('be.visible');
 });
 And('they enter search term in the Search box', () => {
-  cy.get('[data-testid=project-search-input]').type(PROJECT_NAME);
+  cy.mockProjectSearch(PROJECT_NAME);
+  cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
 });
 Then('they see list of Projects matching the search term', () => {
   cy.get('[data-testid^=project-option]').should('have.length.above', 0);
@@ -78,18 +86,15 @@ And('they see title and associated Institutions for each Project', () => {
 });
 
 // Scenario: Creator adds a Project
-Given('Creator has searched for a Project', () => {
+Given('Creator searches for Project', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
-And('they see Search results', () => {
-  cy.get('[data-testid=project-search-input]').type(PROJECT_NAME);
-});
 When('they select a Project from the Search results', () => {
-  cy.get('[data-testid^=project-option]')
-    .filter(`:contains(${PROJECT_NAME})`)
-    .click({ force: true });
+  cy.mockProjectSearch(PROJECT_NAME);
+  cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
+  cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).first().click({ force: true });
 });
 Then('the selected Project is added to the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('have.length', 1);
@@ -97,12 +102,13 @@ Then('the selected Project is added to the list of selected Projects', () => {
 });
 
 // Scenario: Creator removes a Project
-Given('Creator has added a Project', () => {
+Given('Creator adds a Project', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.startWizardWithFile(filename);
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
-  cy.get('[data-testid=project-search-input]').type(PROJECT_NAME);
-  cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).click({ force: true });
+  cy.mockProjectSearch(PROJECT_NAME);
+  cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
+  cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).first().click({ force: true });
 });
 When('they click the Remove Project icon', () => {
   cy.get('[data-testid^=project-chip]')
@@ -113,4 +119,29 @@ When('they click the Remove Project icon', () => {
 });
 Then('they see the Project is removed from the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('not.exist');
+});
+
+// Scenario: Creator opens dropdown with Allowed Vocabularies
+And('their Institution has a Vocabulary set as "Allowed"', () => {});
+When('they click "Add Vocabulary"', () => {
+  cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
+  cy.get('[data-testid=add-vocabulary-button]').click();
+});
+Then('they can see a dropdown with Allowed Vocabularies', () => {
+  cy.get('[data-testid^=vocabulary-menu-item-]').should('have.length.above', 0);
+});
+
+// @2446
+// Scenario: Creator sees input field for an Allowed Vocabulary
+Given('Creator opens dropdown with Allowed Vocabularies', () => {
+  cy.login(USER_WITH_AUTHOR);
+  cy.startWizardWithFile(filename);
+  cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
+  cy.get('[data-testid=add-vocabulary-button]').click();
+});
+When('they select an Allowed Vocabulary', () => {
+  cy.get('#hrcs-activities').click({ force: true });
+});
+Then('they see an input field for the selected Vocabulary', () => {
+  cy.get('[data-testid^=vocabulary-row]').should('exist').and('be.visible');
 });

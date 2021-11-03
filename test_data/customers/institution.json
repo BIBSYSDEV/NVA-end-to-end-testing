@@ -2,8 +2,22 @@
   "cristinId": "####################",
   "displayName": "######################",
   "feideOrganizationId": "##########",
-  "identifier": "######################",
   "name": "######################",
   "shortName": "######################",
-  "archiveName": "######################"
+  "archiveName": "######################",
+  "vocabularies": [
+    {
+      "name": "HRCS Activity",
+      "id": "https://nva.unit.no/hrcs/activity",
+      "type": "Vocabulary",
+      "status": "Default"
+    },
+    {
+      "name": "HRCS Category",
+      "id": "https://nva.unit.no/hrcs/category",
+      "type": "Vocabulary",
+      "status": "Allowed"
+    }
+  ],
+  "type": "Customer"
 }

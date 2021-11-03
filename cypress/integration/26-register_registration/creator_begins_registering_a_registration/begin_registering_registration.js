@@ -24,7 +24,7 @@ And('they have selected {string} for starting the Wizard', (method) => {
   cy.wrap(method).as('registrationMethod');
   if (method === 'Link to registration') {
     cy.get('[data-testid=new-registration-link]').click({ force: true });
-    cy.get('[data-testid=new-registration-link-input]').type(dlrLink);
+    cy.get('[data-testid=new-registration-link-field] > div > input').type(dlrLink);
     cy.get('[data-testid=doi-search-button]').click({ force: true });
   } else if (method === 'Upload file') {
     cy.get('[data-testid=new-registration-file]').click({ force: true });
@@ -96,53 +96,17 @@ And('they expand the Expansion panel for Link to resource', () => {
   cy.get('[data-testid=new-registration-link]').click({ force: true });
 });
 When('they enter {string} from {string}', (link, source) => {
-  cy.get('[data-testid=new-registration-link-input]').type(link);
+  cy.wrap(source).as('source');
+  cy.get('[data-testid=new-registration-link-field] > div > input').type(link);
 });
 And('they click Search', () => {
   cy.get('[data-testid=doi-search-button]').click({ force: true });
 });
+// TODO Need correct link for schema.org
 Then('they see metadata about the Link in the Expansion panel', () => {
-  cy.get('[data-testid=link-metadata]').should('be.visible');
-});
-
-//   @228
-//   Scenario: Creator begins registering with a Link with direct data from Datacite/Crossref
-And('they enter a DOI or a fully qualified DOI URL', () => {
-  cy.get('[data-testid=new-registration-link-input]').type(dlrLink);
-});
-
-//   @439
-//   Scenario: Creator begins registering with a Link with data from Datacite/Crossref from citation_doi meta tag (DOI)
-And('they enter {string}', () => {
-  cy.get('[data-testid=new-registration-link-input]').type(dlrLink);
-});
-
-//   @440
-//   Scenario: Creator begins registering with a Link with data from dc:identifier meta tag
-And('they enter {string}', () => {
-  cy.get('[data-testid=new-registration-link-input]').type(dcIdentifierLink);
-});
-
-//   @441
-//   Scenario: Creator begins registering with a Link with data from DC and DCTERMS meta tags
-And('they enter {string}', () => {
-  cy.get('[data-testid=new-registration-link-input]').type(dcTermLink);
-});
-
-//   @442
-//   Scenario: Creator begins registering with a Link with data from Open Graph tag
-And('they enter {string}', () => {
-  cy.get('[data-testid=new-registration-link-input]').type(openGraphLink);
-});
-
-//   @2208
-//   Scenario: Creator begins registering with a Link with data from Highwire tag
-When('they enter {string}', () => {
-  cy.get('[data-testid=new-registration-link-input]').type(highwireLink);
-});
-
-//   @2370
-//   Scenario: Creator begins registering with a Link with data from schema.org
-When('they enter {string}', () => {
-  cy.get('[data-testid=new-registration-link-input]').type(schemaLink);
+  cy.get('@source').then((source) => {
+    if (source !== 'schema.org') {
+      cy.get('[data-testid=link-metadata]').should('be.visible');
+    }
+  });
 });

@@ -11,19 +11,19 @@ QUERY_URL = 'https://alfa-a.bibsys.no/authority/rest/functions/v2/query?q={}&sta
 DELETE_URL = 'https://alfa-a.bibsys.no/authority/rest/authorities/v2/{}'
 CREATE_URL = 'https://alfa-a.bibsys.no/authority/rest/authorities/v2'
 BARE_API_KEY = ssm.get_secret_value(SecretId='bareApiKey')['SecretString']
-BARE_HEADER = {'Authorization': 'apikey {}'.format(BARE_API_KEY)}
+BARE_HEADER = {'Authorization': f'apikey {BARE_API_KEY}'}
 
 
 def delete_authors(query):
     response = requests.get(QUERY_URL.format(query))
     searchResult = response.json()
     for auth in searchResult['results']:
-        print('deleting: {}'.format(auth['systemControlNumber']))
+        print(f'deleting: {auth["systemControlNumber"]}')
         delete_response = requests.delete(DELETE_URL.format(auth['systemControlNumber']),
                                           headers=BARE_HEADER)
         if 'feide' in auth['identifiersMap']:
             for feideId in auth['identifiersMap']['feide']:
-                print('...{}'.format(feideId))
+                print(f'...{feideId}')
 
 # create authors that should pre-exist in ARP
 
@@ -55,7 +55,6 @@ def create_authors():
 
 def run():
     delete_authors('TestUser')
-    create_authors()
 
 
 if __name__ == '__main__':

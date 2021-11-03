@@ -1,11 +1,7 @@
 {
   "affiliations": [
     {
-      "id": "https://api.sandbox.nva.aws.unit.no/customer/f54c8aa9-073a-46a1-8f7c-dde66c853934",
-      "type": "Organization"
-    },
-    {
-      "id": "20202.0.0.0",
+      "id": "https://api.cristin.no/v2/institutions/20202",
       "type": "Organization"
     }
   ],
@@ -16,6 +12,7 @@
     "name": "#####################",
     "type": "Identity"
   },
+  "role": "Creator",
   "sequence": "1",
   "type": "Contributor"
 }

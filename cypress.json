@@ -1,8 +1,13 @@
 {
   "env": {
-    "TAGS": "not @ignore"
+    "TAGS": "not @ignore and @test"
   },
   "testFiles": "**/*.feature",
   "defaultCommandTimeout": 30000,
-  "baseUrl": "https://frontend.sandbox.nva.aws.unit.no"
+  "reporter": "../node_modules/mochawesome/src/mochawesome.js",
+  "reporterOptions": {
+    "overwrite": false,
+    "html": false,
+    "json": true
+  }
 }
