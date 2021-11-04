@@ -181,6 +181,7 @@ def get_customer(username, bearer_token):
     headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
+    print(response.json())
     return response.json()['institution']
 
 
@@ -197,6 +198,7 @@ def create_contributor(contributor):
 
 
 def create_publication_data(publication_template, test_publication, location, username, customer, status):
+    print(customer)
     new_publication = copy.deepcopy(publication_template)
     new_publication['entityDescription']['mainTitle'] = test_publication['title']
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
