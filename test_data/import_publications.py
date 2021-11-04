@@ -179,7 +179,7 @@ def put_item(new_publication, bearer_token):
 
 def get_customer(username, bearer_token):
     headers['Authorization'] = f'Bearer {bearer_token}'
-    print(username)
+    print(f'username={username}')
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
     print(response.json())
@@ -265,6 +265,7 @@ def create_publications(location):
         test_publications = json.load(test_publications_file)
         for test_publication in test_publications:
             username = test_publication['owner']
+            print(f'username = {username}')
             bearer_token = ''
             if username in bearer_tokens:
                 bearer_token = bearer_tokens[username]
@@ -277,7 +278,7 @@ def create_publications(location):
                 location=location,
                 bearer_token=bearer_token
             )
-            print(test_publication['title'])
+            print(f'title = {test_publication["title"]}')
             response = put_item(
                 new_publication=new_publication, bearer_token=bearer_token)
             identifier = response['identifier']
