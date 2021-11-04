@@ -179,6 +179,7 @@ def put_item(new_publication, bearer_token):
 
 def get_customer(username, bearer_token):
     headers['Authorization'] = f'Bearer {bearer_token}'
+    print(username)
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
     print(response.json())
