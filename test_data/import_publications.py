@@ -279,6 +279,7 @@ def create_publications(location):
                 location=location,
                 bearer_token=bearer_token
             )
+            print(bearer_token)
             print(f'title = {test_publication["title"]}')
             response = put_item(
                 new_publication=new_publication, bearer_token=bearer_token)
