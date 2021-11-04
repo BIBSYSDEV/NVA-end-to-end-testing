@@ -178,8 +178,8 @@ def put_item(new_publication, bearer_token):
 
 
 def get_customer(username, bearer_token):
+    print(f'get customer for {username}')
     headers['Authorization'] = f'Bearer {bearer_token}'
-    print(f'username={username}')
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
     print(response.json())
@@ -199,7 +199,6 @@ def create_contributor(contributor):
 
 
 def create_publication_data(publication_template, test_publication, location, username, customer, status):
-    print(customer)
     new_publication = copy.deepcopy(publication_template)
     new_publication['entityDescription']['mainTitle'] = test_publication['title']
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
@@ -268,8 +267,10 @@ def create_publications(location):
             print(f'username = {username}')
             bearer_token = ''
             if username in bearer_tokens:
+                print('found bearer token')
                 bearer_token = bearer_tokens[username]
             else:
+                print(f'getting bearer token for {username}')
                 bearer_token = common.login(username=username)
                 bearer_tokens[username] = bearer_token
             new_publication = create_test_publication(
