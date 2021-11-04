@@ -5,6 +5,17 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-registration@test.no",
+    "title": "View registration"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "DRAFT",
     "contributor": "",
@@ -122,17 +133,6 @@
     "contributor": "test-user-with-author@test.no",
     "title": "Registration with validation error",
     "publication_content_type": ""
-  },
-  {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-registration@test.no",
-    "status": "DRAFT",
-    "contributor": "test-user-registration@test.no",
-    "title": "View registration"
   },
   {
     "publication_type": "JournalContent",
