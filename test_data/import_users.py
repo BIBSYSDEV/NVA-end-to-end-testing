@@ -52,6 +52,8 @@ def createRole(test_user):
         org_number = test_user['orgNumber']
         customer_iri = f'https://api.{STAGE}.nva.aws.unit.no/customer/{findCustomer(org_number)}'
 
+        print(customer_iri)
+
         new_role = copy.deepcopy(role_template)
         new_role['familyName']['S'] = family_name
         new_role['givenName']['S'] = given_name

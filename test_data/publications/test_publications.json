@@ -16,17 +16,6 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-registration@test.no",
-    "status": "DRAFT",
-    "contributor": "",
-    "title": "View registration"
-  },
-  {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "DRAFT_FOR_DELETION",
     "contributor": "test-user-with-author@test.no",
@@ -144,6 +133,17 @@
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
     "title": "View Landing Page"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "View registration"
   },
   {
     "publication_type": "JournalContent",
