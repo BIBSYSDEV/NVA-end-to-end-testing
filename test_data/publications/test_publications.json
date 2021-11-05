@@ -83,18 +83,6 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-draft-doi@test.no",
-    "status": "DRAFT",
-    "contributor": "test-user-draft-doi@test.no",
-    "title": "Draft registration requesting DOI",
-    "doi": true
-  },
-  {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "DRAFT",
     "contributor": "test-user-with-author@test.no",
@@ -144,6 +132,18 @@
     "status": "DRAFT",
     "contributor": "",
     "title": "View registration"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Draft registration requesting DOI",
+    "doi": true
   },
   {
     "publication_type": "JournalContent",
