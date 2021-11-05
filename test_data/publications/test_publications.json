@@ -5,10 +5,10 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-registration@test.no",
+    "owner": "test-user-with-author@test.no",
     "status": "DRAFT",
-    "contributor": "test-user-registration@test.no",
-    "title": "View registration"
+    "contributor": "",
+    "title": "Draft registration"
   },
   {
     "publication_type": "JournalContent",
@@ -16,10 +16,10 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
+    "owner": "test-user-registration@test.no",
     "status": "DRAFT",
-    "contributor": "",
-    "title": "Draft registration"
+    "contributor": "test-user-registration@test.no",
+    "title": "View registration"
   },
   {
     "publication_type": "JournalContent",
