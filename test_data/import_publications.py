@@ -183,6 +183,8 @@ def get_customer(username, bearer_token):
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
     print(response.json())
+    response2 = requests.get(f'https://api.dev.nva.aws.unit.no/customer/{response.json()["institution"].replace("https://api.dev.nva.aws.unit.no/customer/", "")}', headers=headers)
+    print(response2.json())
     return response.json()['institution']
 
 
@@ -279,7 +281,6 @@ def create_publications(location):
                 location=location,
                 bearer_token=bearer_token
             )
-            print(bearer_token)
             print(f'title = {test_publication["title"]}')
             response = put_item(
                 new_publication=new_publication, bearer_token=bearer_token)
