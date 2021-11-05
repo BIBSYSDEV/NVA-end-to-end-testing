@@ -169,6 +169,7 @@ def delete_publications():
 
 
 def put_item(new_publication, bearer_token):
+    print(new_publication)
     headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.post(publication_endpoint,
                              json=new_publication, headers=headers)
@@ -182,9 +183,9 @@ def get_customer(username, bearer_token):
     headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
-    print(response.json())
-    response2 = requests.get(f'https://api.dev.nva.aws.unit.no/customer/{response.json()["institution"].replace("https://api.dev.nva.aws.unit.no/customer/", "")}', headers=headers)
-    print(response2.json())
+    # print(response.json())
+    # response2 = requests.get(f'https://api.dev.nva.aws.unit.no/customer/{response.json()["institution"].replace("https://api.dev.nva.aws.unit.no/customer/", "")}', headers=headers)
+    # print(response2.json())
     return response.json()['institution']
 
 
