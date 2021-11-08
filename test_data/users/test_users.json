@@ -18,8 +18,8 @@
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
-    "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "orgNumber": "2222222222",
+    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
   },
   {
     "familyName": "TestUser",
