@@ -168,16 +168,26 @@ def delete_publications():
     return
 
 
-def put_item(new_publication, bearer_token):
-    headers['Authorization'] = f'Bearer {bearer_token}'
-    response = requests.post(publication_endpoint,
+def put_item(new_publication, username):
+    trying = True
+    count = 0
+    while trying:
+        bearer_token = common.login(username=username)
+        headers['Authorization'] = f'Bearer {bearer_token}'
+        response = requests.post(publication_endpoint,
                              json=new_publication, headers=headers)
-    if response.status_code != 201:
-        print(response.json())
+        if response.status_code == 201:
+            trying = False
+        count = count + 1
+        if count == 3:
+            trying = False
+            print(response.json())
+            raise RuntimeError('Failed to create Registration')
     return response.json()
 
 
 def get_customer(username, bearer_token):
+    print(f'get customer for {username}')
     headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
@@ -262,10 +272,13 @@ def create_publications(location):
         test_publications = json.load(test_publications_file)
         for test_publication in test_publications:
             username = test_publication['owner']
+            print(f'username = {username}')
             bearer_token = ''
             if username in bearer_tokens:
+                print('found bearer token')
                 bearer_token = bearer_tokens[username]
             else:
+                print(f'getting bearer token for {username}')
                 bearer_token = common.login(username=username)
                 bearer_tokens[username] = bearer_token
             new_publication = create_test_publication(
@@ -274,9 +287,9 @@ def create_publications(location):
                 location=location,
                 bearer_token=bearer_token
             )
-            print(test_publication['title'])
+            print(f'title = {test_publication["title"]}')
             response = put_item(
-                new_publication=new_publication, bearer_token=bearer_token)
+                new_publication=new_publication, username=username)
             identifier = response['identifier']
             if test_publication['status'] == 'PUBLISHED':
                 print(f'publishing...{identifier}')
