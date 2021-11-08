@@ -18,8 +18,8 @@
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
-    "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "orgNumber": "1111111111",
+    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -486,7 +486,7 @@
   {
     "familyName": "TestUser",
     "givenName": "View registration",
-    "username": "test-user-registration@test.no",
+    "username": "test-user-view-registration@test.no",
     "role": ["CREATOR"],
     "author": true,
     "orcid": true,
