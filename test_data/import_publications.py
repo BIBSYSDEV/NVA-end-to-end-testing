@@ -168,13 +168,21 @@ def delete_publications():
     return
 
 
-def put_item(new_publication, bearer_token):
-    print(new_publication)
-    headers['Authorization'] = f'Bearer {bearer_token}'
-    response = requests.post(publication_endpoint,
+def put_item(new_publication, username):
+    trying = True
+    count = 0
+    while trying:
+        bearer_token = common.login(username=username)
+        headers['Authorization'] = f'Bearer {bearer_token}'
+        response = requests.post(publication_endpoint,
                              json=new_publication, headers=headers)
-    if response.status_code != 201:
-        print(response.json())
+        if response.status_code == 201:
+            trying = False
+        count = count + 1
+        if count == 3:
+            trying = False
+            print(response.json())
+            raise RuntimeError('Failed to create Registration')
     return response.json()
 
 
@@ -183,9 +191,6 @@ def get_customer(username, bearer_token):
     headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
-    # print(response.json())
-    # response2 = requests.get(f'https://api.dev.nva.aws.unit.no/customer/{response.json()["institution"].replace("https://api.dev.nva.aws.unit.no/customer/", "")}', headers=headers)
-    # print(response2.json())
     return response.json()['institution']
 
 
@@ -284,7 +289,7 @@ def create_publications(location):
             )
             print(f'title = {test_publication["title"]}')
             response = put_item(
-                new_publication=new_publication, bearer_token=bearer_token)
+                new_publication=new_publication, username=username)
             identifier = response['identifier']
             if test_publication['status'] == 'PUBLISHED':
                 print(f'publishing...{identifier}')
