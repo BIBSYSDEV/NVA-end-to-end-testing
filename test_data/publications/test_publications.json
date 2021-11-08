@@ -72,32 +72,10 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-draft-doi@test.no",
-    "status": "DRAFT",
-    "contributor": "test-user-draft-doi@test.no",
-    "title": "Draft registration without DOI"
-  },
-  {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "DRAFT",
     "contributor": "test-user-with-author@test.no",
     "title": "Delete Draft registration"
-  },
-  {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-resource-type@test.no",
-    "status": "DRAFT",
-    "contributor": "test-user-resource-type@test.no",
-    "title": "Test Resource type"
   },
   {
     "publication_type": "JournalContent",
@@ -128,10 +106,32 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-registration@test.no",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Test article corrigendum"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-type@test.no",
     "status": "DRAFT",
-    "contributor": "",
-    "title": "View registration"
+    "contributor": "test-user-resource-type@test.no",
+    "title": "Test Resource type"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Draft registration without DOI"
   },
   {
     "publication_type": "JournalContent",
@@ -151,9 +151,9 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "title": "Test article corrigendum"
+    "owner": "test-user-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "View registration"
   }
 ]
