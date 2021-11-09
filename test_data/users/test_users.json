@@ -491,7 +491,7 @@
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
-    "orgNumber": "2222222222",
+    "orgNumber": "1111111111",
     "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
   }
 ]
