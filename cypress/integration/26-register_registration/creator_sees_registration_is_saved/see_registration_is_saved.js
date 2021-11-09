@@ -3,7 +3,7 @@ import { USER_SAVE_REGISTRATION } from '../../../support/constants';
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 const doiTitle =
-  'The Structure of Ordinary Water: New data and interpretations are yielding new insights into this fascinating substance';
+  'The Structure of Ordinary Water';
 const filename = 'example.txt';
 const fileTitle = '[Missing title]';
 
