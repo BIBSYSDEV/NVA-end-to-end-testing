@@ -110,7 +110,7 @@ And('they see a disabled field for Journal based on selected Journal article', (
     cy.get('input').type('Test article corrigendum');
   });
   cy.contains('Test article corrigendum').click({ force: true });
-  cy.contains('International Journal of Human-Computer Interaction');
+  cy.get('[data-testid=journal-chip]').contains('Test article corrigendum');
 });
 
 // TODO Article number is not being validated
