@@ -272,13 +272,10 @@ def create_publications(location):
         test_publications = json.load(test_publications_file)
         for test_publication in test_publications:
             username = test_publication['owner']
-            print(f'username = {username}')
             bearer_token = ''
             if username in bearer_tokens:
-                print('found bearer token')
                 bearer_token = bearer_tokens[username]
             else:
-                print(f'getting bearer token for {username}')
                 bearer_token = common.login(username=username)
                 bearer_tokens[username] = bearer_token
             new_publication = create_test_publication(
