@@ -11,6 +11,7 @@ import {
   PROJECT_API_PATH,
   JOURNAL_SEARCH_MOCK_FILE,
 } from './mock_data';
+import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 
 const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
