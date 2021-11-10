@@ -244,3 +244,10 @@ export const LANDING_PAGE_FIELDS = {
   'DOI link': 'public-registration-doi-link',
   License: 'public-registration-license',
 };
+
+export const LANDING_PAGE_SHARE_BUTTONS = {
+  Email: 'email-button',
+  Facebook: 'facebook-button',
+  LinkedIn: 'linkedin-button',
+  Twitter: 'twitter-button',
+};
