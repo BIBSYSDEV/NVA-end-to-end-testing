@@ -1,15 +1,17 @@
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import { LANDING_PAGE_FIELDS } from '../../../support/data_testid_constants';
+import { LANDING_PAGE_FIELDS, LANDING_PAGE_SHARE_BUTTONS } from '../../../support/data_testid_constants';
 
 // @881
 // Scenario: Anonymous User views Landing Page for Registration
 When('an Anonymous user navigates to a Landing Page for a Resource', () => {
   cy.visit('/');
+  cy.setLocalStorage('beta', true); // TODO remove when sharing buttons are out of beta
   cy.get('[data-testid=search-button]').click();
   cy.get('[data-testid=search-field]').type('View Landing Page{enter}');
-  cy.get('[data-testid=result-list-item]').first().within((result) => {
-    cy.wrap(result).get('a').filter(':contains("View Landing Page")').click();
-  });
+  cy.get('[data-testid=result-list-item]')
+    .first()
+    .within((result) => {
+      cy.wrap(result).get('a').filter(':contains("View Landing Page")').click();
+    });
 });
 Then('they see', (dataTable) => {
   cy.testDataTestidList(dataTable, LANDING_PAGE_FIELDS);
@@ -28,7 +30,9 @@ Then('they see', (dataTable) => {
 // | DOI link                        |
 // | Related Registrations           |
 // | License                         |
-And('they see sharing Buttons for:', () => {});
+And('they see sharing Buttons for:', (dataTable) => {
+  cy.testDataTestidList(dataTable, LANDING_PAGE_SHARE_BUTTONS);
+});
 // | Email    |
 // | LinkedIn |
 // | Facebook |
