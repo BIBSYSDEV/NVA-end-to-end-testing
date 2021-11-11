@@ -126,8 +126,8 @@ Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
 
 Cypress.Commands.add('startWizardWithFile', (fileName) => {
   cy.startRegistrationWithFile(fileName);
-  cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-  cy.get('[data-testid=registration-file-start-button]').click({ force: true });
+  cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled');
+  cy.get('[data-testid=registration-start-button]').filter(':visible').click({ force: true });
 });
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {

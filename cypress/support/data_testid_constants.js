@@ -35,8 +35,8 @@ export const NEW_REGISTRATION_BUTTONS = {
 };
 
 export const NEW_REGISTRATION_START_BUTTONS = {
-  'Link to registration': 'registration-link-next-button',
-  'Upload file': 'registration-file-start-button',
+  'Link to registration': 'registration-start-button',
+  'Upload file': 'registration-start-button',
 };
 
 export const PROFILE_PAGE_FIELDS = {
