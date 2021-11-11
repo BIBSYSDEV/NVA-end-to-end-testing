@@ -141,8 +141,8 @@ Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
 
 Cypress.Commands.add('startWizardWithLink', (doiLink) => {
   cy.startRegistrationWithLink(doiLink);
-  cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
-  cy.get('[data-testid=registration-link-next-button]').click({ force: true });
+  cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled');
+  cy.get('[data-testid=registration-start-button]').filter(':visible').click({ force: true });
 });
 
 Cypress.Commands.add('logoutCognito', () => {
