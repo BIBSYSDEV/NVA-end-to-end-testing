@@ -16,7 +16,7 @@ Feature: Anonymous User views Landing Page for Registration
             | Contributors                    |
             | Files                           |
             | DOI link                        |
-            | Related Registrations           |
+            # | Related Registrations           |
             | License                         |
         And they see sharing Buttons for:
             | Email    |
