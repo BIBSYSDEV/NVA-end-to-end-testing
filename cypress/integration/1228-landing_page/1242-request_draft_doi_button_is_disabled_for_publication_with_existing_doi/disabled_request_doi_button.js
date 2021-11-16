@@ -4,6 +4,7 @@ import { USER_DRAFT_DOI } from '../../../support/constants';
 import { myRegistrationsTabs, landingPageButtons } from '../../../support/data_testid_constants';
 
 const registrationTitles = {
+
   'Draft': 'Draft registration with DOI',
   'Published': 'Published registration with DOI',
 };
