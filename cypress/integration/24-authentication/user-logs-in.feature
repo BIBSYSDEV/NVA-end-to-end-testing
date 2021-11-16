@@ -56,7 +56,7 @@ Feature: User logs in
     And their ORCID is added to their Author identity
     And they see their ORCID on My Profile
 
-      @351
+  @351
   Scenario: A user logs in with Feide for the first time
     Given that the user has valid Feide credentials
     And they have NOT logged in with Feide before
