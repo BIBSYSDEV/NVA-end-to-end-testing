@@ -252,7 +252,7 @@ export const LANDING_PAGE_FIELDS = {
 
 export const landing_page_buttons = {
   'Request a DOI': 'button-toggle-request-doi',
-  'Reserve a DOI': 'button-toggle-request-doi',
+  'Reserve a DOI': 'button-toggle-reserve-doi',
 };
 
 export const LANDING_PAGE_SHARE_BUTTONS = {
