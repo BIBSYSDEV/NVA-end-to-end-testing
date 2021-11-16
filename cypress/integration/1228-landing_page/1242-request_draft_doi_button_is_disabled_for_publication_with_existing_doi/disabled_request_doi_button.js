@@ -1,9 +1,9 @@
 // Feature: Request/Draft DOI button is disabled for Publications with existing DOI
 
 import { USER_DRAFT_DOI } from '../../../support/constants';
-import { my_registrations_tabs, landing_page_buttons } from '../../../support/data_testid_constants';
+import { myRegistrationsTabs, landingPageButtons } from '../../../support/data_testid_constants';
 
-const registration_titles = {
+const registrationTitles = {
   'Draft': 'Draft registration with DOI',
   'Published': 'Published registration with DOI',
 };
@@ -16,9 +16,9 @@ Given('that a Creator views the Landing Page for a Registration', () => {
 });
 And('they are the Owner of this Registration', () => {});
 And('the Registration has status {string}', (status) => {
-  cy.get(`[data-testid=${my_registrations_tabs[status]}]`).click();
+  cy.get(`[data-testid=${myRegistrationsTabs[status]}]`).click();
   cy.get('[data-testid^=registration-title]')
-    .filter(`:contains(${registration_titles[status]})`)
+    .filter(`:contains(${registrationTitles[status]})`)
     .parent()
     .within(() => {
       cy.get('[data-testid^=open-registration]').click();
@@ -31,7 +31,7 @@ When('they see the Status Bar', () => {
   cy.get('[data-testid=public-registration-status]').should('be.visible');
 });
 Then('they see that the {string} button is not visible', (button) => {
-  cy.get(`[data-testid=${landing_page_buttons[button]}]`).should('not.exist');
+  cy.get(`[data-testid=${landingPageButtons[button]}]`).should('not.exist');
 });
 // Examples:
 // | Status    | Button      |

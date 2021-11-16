@@ -9,7 +9,7 @@ export const USER_MENU = {
   'Log out': 'log-out-link',
 };
 
-export const my_registrations_tabs = {
+export const myRegistrationsTabs = {
   'Draft': 'unpublished-button',
   'Published': 'published-button',
 };
@@ -250,7 +250,7 @@ export const LANDING_PAGE_FIELDS = {
   License: 'public-registration-license',
 };
 
-export const landing_page_buttons = {
+export const landingPageButtons = {
   'Request a DOI': 'button-toggle-request-doi',
   'Reserve a DOI': 'button-toggle-reserve-doi',
 };
