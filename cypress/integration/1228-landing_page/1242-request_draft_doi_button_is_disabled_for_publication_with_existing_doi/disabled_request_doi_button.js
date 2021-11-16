@@ -1,9 +1,10 @@
 // Feature: Request/Draft DOI button is disabled for Publications with existing DOI
 
 import { USER_DRAFT_DOI } from '../../../support/constants';
-import { my_registrations_tabs, landing_page_buttons } from '../../../support/data_testid_constants';
+import { myRegistrationsTabs, landingPageButtons } from '../../../support/data_testid_constants';
 
-const registration_titles = {
+const registrationTitles = {
+
   'Draft': 'Draft registration with DOI',
   'Published': 'Published registration with DOI',
 };
