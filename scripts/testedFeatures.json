@@ -46,6 +46,7 @@
   "1231-owner_navigates_to_the_public_page_for_publication_for_published_publication_without_doi",
   "1233-owner_navigates_to_the_landing_page_of_a_drafted_publication_without_doi",
   "1234-owner_drafts_a_doi_for_a_draft_publication",
+  "1242-request_draft_doi_button_is_disabled_for_publication_with_existing_doi",
   "1362-administrator_searches_for_user",
   "1531-creator_previews_registration",
   "1409-creator_selects_publication_in_journal_and_peer_review_details_are_hidden",

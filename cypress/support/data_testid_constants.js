@@ -9,6 +9,11 @@ export const USER_MENU = {
   'Log out': 'log-out-link',
 };
 
+export const myRegistrationsTabs = {
+  'Draft': 'unpublished-button',
+  'Published': 'published-button',
+};
+
 export const CREATOR_MENU = {
   ...USER_MENU,
 };
@@ -35,8 +40,8 @@ export const NEW_REGISTRATION_BUTTONS = {
 };
 
 export const NEW_REGISTRATION_START_BUTTONS = {
-  'Link to registration': 'registration-link-next-button',
-  'Upload file': 'registration-file-start-button',
+  'Link to registration': 'registration-start-button',
+  'Upload file': 'registration-start-button',
 };
 
 export const PROFILE_PAGE_FIELDS = {
@@ -243,6 +248,11 @@ export const LANDING_PAGE_FIELDS = {
   Files: 'files-accordion',
   'DOI link': 'public-registration-doi-link',
   License: 'public-registration-license',
+};
+
+export const landingPageButtons = {
+  'Request a DOI': 'button-toggle-request-doi',
+  'Reserve a DOI': 'button-toggle-reserve-doi',
 };
 
 export const LANDING_PAGE_SHARE_BUTTONS = {

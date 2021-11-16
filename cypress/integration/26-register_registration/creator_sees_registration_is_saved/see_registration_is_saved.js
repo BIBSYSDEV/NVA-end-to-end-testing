@@ -2,8 +2,7 @@ import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_SAVE_REGISTRATION } from '../../../support/constants';
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
-const doiTitle =
-  'The Structure of Ordinary Water: New data and interpretations are yielding new insights into this fascinating substance';
+const doiTitle = 'The Structure of Ordinary Water';
 const filename = 'example.txt';
 const fileTitle = '[Missing title]';
 
@@ -11,29 +10,18 @@ const fileTitle = '[Missing title]';
 
 // common steps
 When('they click Start', () => {
-  cy.get('@registrationMethod').then((registrationMethod) => {
-    switch (registrationMethod) {
-      case 'link':
-        cy.get('[data-testid=registration-link-next-button]').should('be.enabled');
-        cy.intercept('/doi-fetch', {
-          'identifier': '',
-          'title':
-            'Mock DOI fetch',
-          'creatorName': null,
-          'date': {
-            'year': '1970',
-            'month': '8',
-            'day': '14',
-          },
-        });
-        cy.get('[data-testid=registration-link-next-button]').click({ force: true });
-        break;
-      case 'file':
-        cy.get('[data-testid=registration-file-start-button]').should('be.enabled');
-        cy.get('[data-testid=registration-file-start-button]').click({ force: true });
-        break;
-    }
+  cy.intercept('/doi-fetch', {
+    'identifier': '',
+    'title': 'Mock DOI fetch',
+    'creatorName': null,
+    'date': {
+      'year': '1970',
+      'month': '8',
+      'day': '14',
+    },
   });
+  cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled');
+  cy.get('[data-testid=registration-start-button]').filter(':visible').click({ force: true });
   cy.get('[data-testid=nav-tabpanel-description]').should('be.visible');
 });
 And('they click My Registrations', () => {
