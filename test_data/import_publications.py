@@ -274,17 +274,16 @@ def create_publications(location):
             username = test_publication['owner']
             bearer_token = ''
             bearer_token = common.login(username=username)
-            if username in bearer_tokens:
-                bearer_token = bearer_tokens[username]
-            else:
-                bearer_tokens[username] = bearer_token
+            # if username in bearer_tokens:
+            #     bearer_token = bearer_tokens[username]
+            # else:
+            #     bearer_tokens[username] = bearer_token
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
                 location=location,
                 bearer_token=bearer_token
             )
-            print(type(bearer_token))
             response = put_item(
                 new_publication=new_publication, username=username)
             identifier = response['identifier']
@@ -298,6 +297,7 @@ def create_publications(location):
 
 
 def publish_publication(identifier, bearer_token):
+    type(bearer_token)
     headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.put(publish_endpoint.format(
         STAGE, identifier), headers=headers)
