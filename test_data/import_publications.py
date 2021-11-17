@@ -284,7 +284,7 @@ def create_publications(location):
                 location=location,
                 bearer_token=bearer_token
             )
-            print(bearer_tokens)
+            print(type(bearer_token))
             response = put_item(
                 new_publication=new_publication, username=username)
             identifier = response['identifier']
