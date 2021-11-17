@@ -273,18 +273,13 @@ def create_publications(location):
         for test_publication in test_publications:
             username = test_publication['owner']
             bearer_token = ''
-            if username in bearer_tokens:
-                bearer_token = bearer_tokens[username]
-            else:
-                bearer_token = common.login(username=username)
-                bearer_tokens[username] = bearer_token
+            bearer_token = common.login(username=username)
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
                 location=location,
                 bearer_token=bearer_token
             )
-            print(f'title = {test_publication["title"]}')
             response = put_item(
                 new_publication=new_publication, username=username)
             identifier = response['identifier']
