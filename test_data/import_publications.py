@@ -187,7 +187,6 @@ def put_item(new_publication, username):
 
 
 def get_customer(username, bearer_token):
-    print(f'get customer for {username}')
     headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
@@ -290,15 +289,15 @@ def create_publications(location):
             if test_publication['status'] == 'PUBLISHED':
                 print(f'publishing...{identifier}')
                 response = publish_publication(identifier=identifier,
-                                               bearer_token=bearer_token)
+                                               username=username)
             if 'doi' in test_publication:
                 print('requesting doi...')
                 request_doi(identifier=identifier, bearer_token=bearer_token)
 
 
-def publish_publication(identifier, bearer_token):
-    type(bearer_token)
-    headers['Authorization'] = f'Bearer {bearer_token}'
+def publish_publication(identifier, username):
+    publish_bearer_token = common.login(username=username)
+    headers['Authorization'] = f'Bearer {publish_bearer_token}'
     response = requests.put(publish_endpoint.format(
         STAGE, identifier), headers=headers)
     print(response.json())
