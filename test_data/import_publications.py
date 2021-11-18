@@ -274,10 +274,10 @@ def create_publications(location):
             username = test_publication['owner']
             bearer_token = ''
             bearer_token = common.login(username=username)
-            # if username in bearer_tokens:
-            #     bearer_token = bearer_tokens[username]
-            # else:
-            #     bearer_tokens[username] = bearer_token
+            if username in bearer_tokens:
+                bearer_token = bearer_tokens[username]
+            else:
+                bearer_tokens[username] = bearer_token
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
