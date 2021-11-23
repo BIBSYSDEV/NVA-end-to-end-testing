@@ -187,7 +187,6 @@ def put_item(new_publication, username):
 
 
 def get_customer(username, bearer_token):
-    print(f'get customer for {username}')
     headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
@@ -273,46 +272,42 @@ def create_publications(location):
         for test_publication in test_publications:
             username = test_publication['owner']
             bearer_token = ''
-            if username in bearer_tokens:
-                bearer_token = bearer_tokens[username]
-            else:
-                bearer_token = common.login(username=username)
-                bearer_tokens[username] = bearer_token
+            bearer_token = common.login(username=username)
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
                 location=location,
                 bearer_token=bearer_token
             )
-            print(f'title = {test_publication["title"]}')
             response = put_item(
                 new_publication=new_publication, username=username)
             identifier = response['identifier']
             if test_publication['status'] == 'PUBLISHED':
                 print(f'publishing...{identifier}')
                 response = publish_publication(identifier=identifier,
-                                               bearer_token=bearer_token)
+                                               username=username)
             if 'doi' in test_publication:
                 print('requesting doi...')
-                request_doi(identifier=identifier, bearer_token=bearer_token)
+                request_doi(identifier=identifier, username=username)
 
 
-def publish_publication(identifier, bearer_token):
-    headers['Authorization'] = f'Bearer {bearer_token}'
+def publish_publication(identifier, username):
+    publish_bearer_token = common.login(username=username)
+    headers['Authorization'] = f'Bearer {publish_bearer_token}'
     response = requests.put(publish_endpoint.format(
         STAGE, identifier), headers=headers)
     print(response.json())
 
 
-def request_doi(identifier, bearer_token):
-    headers['Authorization'] = f'Bearer {bearer_token}'
+def request_doi(identifier, username):
+    request_bearer_token = common.login(username=username)
+    headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
         "identifier": identifier,
         "message": "Test"
     }
-    requests.post(request_doi_endpoint,
+    response = requests.post(request_doi_endpoint,
                   json=doi_request_payload, headers=headers)
-
 
 def run():
     print('publications...')
