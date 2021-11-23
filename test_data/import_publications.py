@@ -273,10 +273,6 @@ def create_publications(location):
             username = test_publication['owner']
             bearer_token = ''
             bearer_token = common.login(username=username)
-            if username in bearer_tokens:
-                bearer_token = bearer_tokens[username]
-            else:
-                bearer_tokens[username] = bearer_token
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
@@ -292,7 +288,7 @@ def create_publications(location):
                                                username=username)
             if 'doi' in test_publication:
                 print('requesting doi...')
-                request_doi(identifier=identifier, bearer_token=bearer_token)
+                request_doi(identifier=identifier, username=username)
 
 
 def publish_publication(identifier, username):
@@ -303,7 +299,7 @@ def publish_publication(identifier, username):
     print(response.json())
 
 
-def request_doi(identifier, bearer_token):
+def request_doi(identifier, username):
     request_bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
