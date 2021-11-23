@@ -308,9 +308,6 @@ def request_doi(identifier, username):
     }
     response = requests.post(request_doi_endpoint,
                   json=doi_request_payload, headers=headers)
-    print(response.status_code)
-    print(response.json())
-
 
 def run():
     print('publications...')
