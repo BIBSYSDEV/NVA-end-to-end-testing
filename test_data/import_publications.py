@@ -304,13 +304,16 @@ def publish_publication(identifier, username):
 
 
 def request_doi(identifier, bearer_token):
-    headers['Authorization'] = f'Bearer {bearer_token}'
+    request_bearer_token = common.login(username=username)
+    headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
         "identifier": identifier,
         "message": "Test"
     }
-    requests.post(request_doi_endpoint,
+    response = requests.post(request_doi_endpoint,
                   json=doi_request_payload, headers=headers)
+    print(response.status_code)
+    print(response.json())
 
 
 def run():
