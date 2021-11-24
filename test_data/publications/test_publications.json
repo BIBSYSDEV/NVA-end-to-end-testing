@@ -188,7 +188,8 @@
     "status": "DRAFT",
     "contributor": "test-user-draft-doi@test.no",
     "title": "Draft registration with DOI",
-    "doi": true
+    "doi": true,
+    "message": "DoiRequest"
   },
   {
     "publication_type": "JournalContent",
