@@ -151,7 +151,7 @@ And('the request is listed in Curator Worklist', () => {
 
 //   @1233
 //   Scenario: Owner navigates to the Landing Page for Registration for unpublished Registration without DOI
-Given('that an Owner views the Landing Page for their Registration', () => {
+Given('that the Owner view Landing Page for Registration', () => {
   cy.login(USER_WITH_AUTHOR);
   cy.get('[data-testid=my-registrations]').click({ force: true });
 });
@@ -224,10 +224,21 @@ And('the DOI request is listed in the Curators work list', () => {});
 
 //   @358
 //   Scenario: Curator opens a Registration from a DOI Request Worklist Item
-Given('that a Curator views details of a Worklist item', () => {});
-And('the item is a DOI request', () => {});
-When('they click "Go to Registration"', () => {});
-Then('they see the Registration is opened in the Wizard', () => {});
+Given('that a Curator views details of a Worklist item', () => {
+  cy.login(USER_CURATOR_WITH_AUTHOR);
+  cy.get('[data-testid="menu-button"]').click();
+  cy.get('[data-testid="worklist-link"]').click();
+  cy.get('[data-testid^=message-type]').last().click();
+});
+And('the item is a DOI request', () => {
+  cy.get('[data-testid^=message-type]').last().contains('DOI Request');
+});
+When('they click "Go to Registration"', () => {
+  cy.get('[data-testid^=go-to-registration]').last().click();
+});
+Then('they see the Registration is opened in the Wizard', () => {
+  cy.get('[data-testid=public-registration-status]').should('be.visible');
+});
 And('they see the Submission tab', () => {});
 And('they see the Create DOI button is enabled', () => {});
 And('they see the Decline DOI button is enabled', () => {});
@@ -238,11 +249,27 @@ Given('that a Curator opens a Registration from a DOI Request Worklist Item', ()
   cy.login(USER_CURATOR_WITH_AUTHOR);
   cy.get('[data-testid="menu-button"]').click();
   cy.get('[data-testid="worklist-link"]').click();
+  cy.get('[data-testid^=message]').first().click();
+  cy.get('[data-testid^=message]')
+    .first()
+    .within(() => {
+      cy.get('[data-testid^=go-to-registration]').click();
+    });
 });
-When('they click Create DOI', () => {});
-Then('they see the Landing Page for Registration', () => {});
-And('the Registration has a DOI Link', () => {});
-And('the Request DOI item is marked as Approved in their Worklist', () => {});
+When('they click Create DOI', () => {
+  cy.get('[data-testid=button-create-doi]').click();
+});
+Then('they see the Landing Page for Registration', () => {
+  cy.get('[data-testid=public-registration-status]').should('be.visible');
+});
+And('the Registration has a DOI Link', () => {
+  cy.get('[data-testid=public-registration-doi-link]').should('be.visible');
+});
+
+And('the Request DOI item is marked as Approved in their Worklist', () => {
+  cy.get('[data-testid="menu-button"]').click();
+  cy.get('[data-testid="worklist-link"]').click();
+});
 
 //   @1243
 //   Scenario: A Curator enter a decline-comment on a DOI request
@@ -253,7 +280,17 @@ Then('they may enter a decline-comment', () => {});
 
 //   @1244
 //   Scenario: A Curator declines a DOI request
-Given('that a Curator enters a decline comment on a DOI request', () => {});
+Given('that a Curator enters a decline comment on a DOI request', () => {
+  cy.login(USER_CURATOR_WITH_AUTHOR);
+  cy.get('[data-testid="menu-button"]').click();
+  cy.get('[data-testid="worklist-link"]').click();
+  cy.get('[data-testid^=message]').first().click();
+  cy.get('[data-testid^=message]')
+    .first()
+    .within(() => {
+      cy.get('[data-testid^=message-type]').contains('DOI Request');
+    });
+});
 When('they click Save', () => {});
 Then('the DOI request is marked as "Declined"', () => {});
 And('the request in the User\'s Worklist is updated to "Declined"', () => {});

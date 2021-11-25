@@ -37,7 +37,7 @@ Feature: DOI related scenarios moved from MVP feature
     And the request is deleted from the Worklist of their Curator
     And the Landing Page for Registration has an enabled "Request a DOI" button
 
-  # @test
+  @test
   @511
   Scenario: Owner opens the "Request a DOI" dialog
     Given that a Creator navigates to the Landing Page for Registration for published Registration without DOI
@@ -47,7 +47,7 @@ Feature: DOI related scenarios moved from MVP feature
     And they see fields for Message
     And they see a "Send Request" button
 
-  # @test
+  @test
   @1232
   Scenario: Owner navigates to the Landing Page for Registration and requests a DOI
     Given that the Creator navigates to the Landing Page for Registration for published Registration without DOI
@@ -60,7 +60,7 @@ Feature: DOI related scenarios moved from MVP feature
     And the request is listed in User Worklist
     And the request is listed in Curator Worklist
 
-  # @test
+  @test
   @1233
   Scenario: Owner navigates to the Landing Page for Registration for unpublished Registration without DOI
     Given that the Owner view Landing Page for Registration
@@ -69,7 +69,7 @@ Feature: DOI related scenarios moved from MVP feature
     When they look at the Status Bar
     Then they see buttons for Draft a DOI and Edit Registration
 
-  # @test
+  @test
   @1234
   Scenario: Owner drafts a DOI for an unpublished Registration
     Given that the Owner View Landing Page for Registration for unpublished Registration without DOI
@@ -82,7 +82,7 @@ Feature: DOI related scenarios moved from MVP feature
     And the Draft DOI is not a link
   #Draft DOIs are not acknowledged by the resolving mechanisms (Handle-system)
 
-  # @test
+  @test
   @1235
   Scenario: Owner navigates to the submission tab and publish a Registration with a drafted DOI
     Given that the Owner navigates to Submission tab
@@ -96,7 +96,7 @@ Feature: DOI related scenarios moved from MVP feature
     And the DOI request is listed in the Owners work list
     And the DOI request is listed in the Curators work list
 
-  # @test
+  @test
   @358
   Scenario: Curator opens a Registration from a DOI Request Worklist Item
     Given that a Curator views details of a Worklist item
