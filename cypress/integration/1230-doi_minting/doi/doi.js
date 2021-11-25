@@ -1,5 +1,5 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR, USER_DRAFT_DOI } from '../../../support/constants';
+import { USER_CURATOR_WITH_AUTHOR, USER_DRAFT_DOI, USER_WITH_AUTHOR } from '../../../support/constants';
 
 // Feature: DOI related scenarios moved from MVP feature
 
@@ -25,9 +25,14 @@ Before({ tags: '@1234' }, () => {
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.login(USER_DRAFT_DOI);
   cy.get('[data-testid=my-messages]').click();
+  cy.get('[data-testid^=message]')
+    .first()
+    .within(() => {
+      cy.get('[data-testid="ExpandMoreIcon"]').click();
+    });
 });
 
-// end common steps
+// End common steps
 
 //   @1247
 //   Scenario: Creator Edits a comment on a DOI request
@@ -51,8 +56,16 @@ Then('they see the Worklist', () => {});
 
 //   @1251
 //   Scenario: Creator opens a Registration with a DOI request
-When('they click the Edit Registration button', () => {});
-Then('the Registration is opened in the Wizard on the first tab', () => {});
+When('they click the Edit Registration button', () => {
+  cy.get('[data-testid^=message]')
+    .first()
+    .within(() => {
+      cy.get('[data-testid^=go-to-registration]').click();
+    });
+});
+Then('the Registration is opened in the Wizard on the first tab', () => {
+  cy.get('[data-testid="public-registration-status"]').should('be.visible');
+});
 
 //   @1240
 //   Scenario: Creator deletes a DOI request
@@ -221,7 +234,11 @@ And('they see the Decline DOI button is enabled', () => {});
 
 //   @512
 //   Scenario: A Curator approves a DOI request
-Given('that a Curator opens a Registration from a DOI Request Worklist Item', () => {});
+Given('that a Curator opens a Registration from a DOI Request Worklist Item', () => {
+  cy.login(USER_CURATOR_WITH_AUTHOR);
+  cy.get('[data-testid="menu-button"]').click();
+  cy.get('[data-testid="worklist-link"]').click();
+});
 When('they click Create DOI', () => {});
 Then('they see the Landing Page for Registration', () => {});
 And('the Registration has a DOI Link', () => {});
