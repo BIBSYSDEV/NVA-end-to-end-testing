@@ -166,6 +166,9 @@ def delete_publications():
                         STRING: primary_sort_key
                     }
                 })
+            print(response)
+            # if(response.status != 200):
+            #     print(f'{response.status} - {response.json()}')
     return
 
 
@@ -182,7 +185,7 @@ def put_item(new_publication, username):
         count = count + 1
         if count == 3:
             trying = False
-            print(response.json())
+            print(f'{response.status_code} - {response.json()}')
             raise RuntimeError('Failed to create Registration')
     return response.json()
 

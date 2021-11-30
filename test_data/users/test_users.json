@@ -18,8 +18,19 @@
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
-    "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "orgNumber": "919477822",
+    "cristinId": "https://api.cristin.no/v2/institutions/20202"
+  },
+  {
+    "familyName": "TestUser",
+    "givenName": "Draft DOI",
+    "username": "test-user-curator-draft-doi@test.no",
+    "role": ["CREATOR", "CURATOR"],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "919477822",
+    "cristinId": "https://api.cristin.no/v2/institutions/20202"
   },
   {
     "familyName": "TestUser",
