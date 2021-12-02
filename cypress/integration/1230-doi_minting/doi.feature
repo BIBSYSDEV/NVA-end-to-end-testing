@@ -22,7 +22,7 @@ Feature: DOI related scenarios moved from MVP feature
     When they click the Close button
     Then they see the Worklist
 
-  @test
+  # @test
   @1251
   Scenario: Creator opens a Registration with a DOI request
     Given that the Creator Opens a DOI request entry from My Worklist
@@ -37,7 +37,7 @@ Feature: DOI related scenarios moved from MVP feature
     And the request is deleted from the Worklist of their Curator
     And the Landing Page for Registration has an enabled "Request a DOI" button
 
-  @test
+  # @test
   @511
   Scenario: Owner opens the "Request a DOI" dialog
     Given that a Creator navigates to the Landing Page for Registration for published Registration without DOI
@@ -47,7 +47,7 @@ Feature: DOI related scenarios moved from MVP feature
     And they see fields for Message
     And they see a "Send Request" button
 
-  @test
+  # @test
   @1232
   Scenario: Owner navigates to the Landing Page for Registration and requests a DOI
     Given that the Creator navigates to the Landing Page for Registration for published Registration without DOI
@@ -107,7 +107,7 @@ Feature: DOI related scenarios moved from MVP feature
     And they see the Create DOI button is enabled
     And they see the Decline DOI button is enabled
 
-  # @test
+  @test
   @512
   Scenario: A Curator approves a DOI request
     Given that a Curator opens a Registration from a DOI Request Worklist Item

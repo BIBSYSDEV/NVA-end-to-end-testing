@@ -191,17 +191,14 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   });
 });
 
-Cypress.Commands.add('addMockOrcid', (username) => {
-  cy.window()
-    .its('store')
-    .invoke('getState')
-    .then((state) => {
-      const { authority } = state.user;
-      authority.orcids.push('test_orcid');
-      cy.window().its('store').invoke('dispatch', {
-        type: 'set authority data',
-        authority: authority,
-      });
+Cypress.Commands.add('selectRegistration', (title, type) => {
+  cy.get('[data-testid=my-registrations]').click();
+  cy.get(`[data-testid=${type}-button]`).click();
+  cy.get('[data-testid^=registration-title]')
+    .filter(`:contains(${title})`)
+    .parent()
+    .within(() => {
+      cy.get('[data-testid^=open-registration]').click();
     });
 });
 
@@ -230,6 +227,22 @@ Cypress.Commands.add('findScenario', () => {
     }
   }
   cy.wrap(scenario).as('scenario');
+});
+
+// Commands for mocking
+
+Cypress.Commands.add('addMockOrcid', (username) => {
+  cy.window()
+    .its('store')
+    .invoke('getState')
+    .then((state) => {
+      const { authority } = state.user;
+      authority.orcids.push('test_orcid');
+      cy.window().its('store').invoke('dispatch', {
+        type: 'set authority data',
+        authority: authority,
+      });
+    });
 });
 
 Cypress.Commands.add('mockPersonSearch', (userId) => {

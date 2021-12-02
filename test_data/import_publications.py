@@ -166,9 +166,6 @@ def delete_publications():
                         STRING: primary_sort_key
                     }
                 })
-            print(response)
-            # if(response.status != 200):
-            #     print(f'{response.status} - {response.json()}')
     return
 
 

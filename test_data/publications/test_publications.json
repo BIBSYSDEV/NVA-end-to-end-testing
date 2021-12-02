@@ -198,8 +198,20 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
     "status": "DRAFT",
-    "contributor": "test-user-curator@test.no",
+    "contributor": "test-user-draft-doi@test.no",
     "title": "Draft registration requesting DOI"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Draft registration publish with requested DOI",
+    "doi": true
   },
   {
     "publication_type": "JournalContent",
