@@ -8,18 +8,18 @@ import common
 dynamodb_client = boto3.client('dynamodb')
 s3_client = boto3.client('s3')
 ssm = boto3.client('ssm')
-publications_tablename = ssm.get_parameter(Name='/test/RESOURCE_TABLE',
+publications_tablename = ssm.get_parameter(Name='/test/ResourceTable',
                                            WithDecryption=False)['Parameter']['Value']
-s3_bucket_name = ssm.get_parameter(Name='/test/RESOURCE_S3_BUCKET',
+s3_bucket_name = ssm.get_parameter(Name='/test/ResourceS3Bucket',
                                    WithDecryption=False)['Parameter']['Value']
-STAGE = ssm.get_parameter(Name='/test/STAGE',
+STAGE = ssm.get_parameter(Name='/test/Stage',
                           WithDecryption=False)['Parameter']['Value']
+user_tablename = ssm.get_parameter(Name='/test/UserTable',
+                                   WithDecryption=False)['Parameter']['Value']
 USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
 CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
-user_tablename = ssm.get_parameter(Name='/test/USER_TABLE',
-                                   WithDecryption=False)['Parameter']['Value']
 publication_template_file_name = './publications/new_test_registration.json'
 test_publications_file_name = './publications/test_publications.json'
 person_query = 'https://api.{}.nva.aws.unit.no/person/?name={} {}'
