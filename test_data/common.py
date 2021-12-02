@@ -6,8 +6,9 @@ USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
 CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
+customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
+                                       WithDecryption=False)['Parameter']['Value']
 username = 'test-user-with-author@test.no'
-customer_tablename = 'nva-customers-nva-identity-service-nva-identity-service'
 
 def login(username):
     client = boto3.client('cognito-idp')

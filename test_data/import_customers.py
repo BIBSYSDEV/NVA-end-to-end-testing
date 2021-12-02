@@ -7,7 +7,7 @@ import common
 
 client = boto3.client('dynamodb')
 ssm = boto3.client('ssm')
-STAGE = ssm.get_parameter(Name='/test/STAGE',
+STAGE = ssm.get_parameter(Name='/test/Stage',
                           WithDecryption=False)['Parameter']['Value']
 customer_template_file_name = './customers/institution.json'
 test_customers_file_name = './customers/test_institutions.json'
