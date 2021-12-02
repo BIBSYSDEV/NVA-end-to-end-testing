@@ -4,7 +4,6 @@ import sys
 import copy
 import common
 
-ROLE_TABLENAME = 'nva-users-and-roles-nva-identity-service-nva-identity-service'
 CUSTOMER_TABLENAME = 'nva_customers'
 
 ssm = boto3.client('ssm')
@@ -12,10 +11,12 @@ USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
 CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
-STAGE = ssm.get_parameter(Name='/test/STAGE',
+STAGE = ssm.get_parameter(Name='/test/Stage',
                           WithDecryption=False)['Parameter']['Value']
-CUSTOMER_ID = ssm.get_parameter(Name='/test/TEST_CUSTOMER',
-                                WithDecryption=False)['Parameter']['Value']
+ROLE_TABLENAME = ssm.get_parameter(Name='/test/UsersAndRolesTable',
+                          WithDecryption=False)['Parameter']['Value']
+# CUSTOMER_ID = ssm.get_parameter(Name='/test/TEST_CUSTOMER',
+#                                 WithDecryption=False)['Parameter']['Value']
 
 ROLE_TEMPLATE_FILE_NAME = './users/role.json'
 ROLES_FILE = './users/roles.json'
@@ -38,7 +39,7 @@ def findCustomer(org_number):
         pass
 
 
-def createRole(test_user):
+def createRole(test_user, customer_iri):
 
     with open(ROLE_TEMPLATE_FILE_NAME) as role_template_file:
         role_template = json.load(role_template_file)
@@ -50,7 +51,6 @@ def createRole(test_user):
         username = test_user['username']
         role = test_user['role']
         org_number = test_user['orgNumber']
-        customer_iri = f'https://api.{STAGE}.nva.aws.unit.no/customer/{findCustomer(org_number)}'
 
         print(customer_iri)
 
@@ -66,25 +66,28 @@ def createRole(test_user):
             new_role['roles']['L'].append(roles[user_role])
         new_role['username']['S'] = username
         try:
-            response = DB_CLIENT.put_item(TableName=ROLE_TABLENAME, Item=new_role)
+            response = DB_CLIENT.put_item(
+                TableName=ROLE_TABLENAME, Item=new_role)
         except:
             print(sys.exc_info()[0])
             pass
 
+
 def deleteRole(username):
     try:
         response = DB_CLIENT.delete_item(TableName=ROLE_TABLENAME,
-                                     Key={
-                                         'PrimaryKeyHashKey': {
-                                             'S': f'USER#{username}'
-                                         },
-                                         'PrimaryKeyRangeKey': {
-                                             'S': f'USER#{username}'
-                                         }
-                                     })
+                                         Key={
+                                             'PrimaryKeyHashKey': {
+                                                 'S': f'USER#{username}'
+                                             },
+                                             'PrimaryKeyRangeKey': {
+                                                 'S': f'USER#{username}'
+                                             }
+                                         })
     except:
         print(sys.exc_info()[0])
         pass
+
 
 def run():
     print('users...')
@@ -127,6 +130,7 @@ def run():
                 affiliation = test_user['affiliation']
                 cristinId = test_user['cristinId']
                 user_attributes = copy.deepcopy(user)
+                customer_iri = f'https://api.{STAGE}.nva.aws.unit.no/customer/{findCustomer(org_number)}'
 
                 for attribute in user_attributes:
                     if attribute['Name'] == 'custom:identifiers':
@@ -149,7 +153,7 @@ def run():
                         attribute['Value'] = f'feide:{affiliation}'
                     if attribute['Name'] == 'custom:customerId':
                         attribute['Value'] = attribute['Value'].format(
-                            STAGE, CUSTOMER_ID)
+                            STAGE, customer_iri)
 
                 try:
                     print(f'Creating {username}')
@@ -164,7 +168,7 @@ def run():
 
                 role = test_user['role']
                 deleteRole(username)
-                createRole(test_user)
+                createRole(test_user, customer_iri)
 
 
 if __name__ == '__main__':
