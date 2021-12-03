@@ -7,6 +7,7 @@ const publicRegistrationWithoutDoi = 'Published registration without DOI';
 const draftRegistrationWithoutDoi = 'Draft registration without DOI';
 const registrationTitle = 'Draft registration requesting DOI';
 const draftRegistrationPublishWithRequestedDoi = 'Draft registration publish with requested DOI';
+const publishedRegistrationWithDoi = 'Published registration with DOI';
 
 const published = 'published';
 const unpublished = 'unpublished';
@@ -218,9 +219,9 @@ Given('that a Curator opens a Registration from a DOI Request Worklist Item', ()
   cy.login(USER_CURATOR_DRAFT_DOI);
   cy.get('[data-testid="menu-button"]').click();
   cy.get('[data-testid="worklist-link"]').click();
-  cy.get('[data-testid^=message-title]').filter(`:contains('Published registration with DOI')`).click();
+  cy.get('[data-testid^=message-title]').filter(`:contains(${publishedRegistrationWithDoi})`).click();
   cy.get('[data-testid^=message-title]')
-    .filter(`:contains('Published registration with DOI)`)
+    .filter(`:contains(${publishedRegistrationWithDoi})`)
     .parent()
     .within(() => {
       cy.get('[data-testid^=go-to-registration]').click();
@@ -229,9 +230,9 @@ Given('that a Curator opens a Registration from a DOI Request Worklist Item', ()
 When('they click Create DOI', () => {
   cy.get('[data-testid^=button-toggle-]').first().click();
   cy.get('[data-testid=button-send-doi-request]');
+  cy.selectRegistration(publishedRegistrationWithDoi, published);
 });
 Then('they see the Landing Page for Registration', () => {
-  cy.selectRegistration('Published registration with DOI', published);
   cy.get('[data-testid=public-registration-status]').should('be.visible');
 });
 And('the Registration has a DOI Link', () => {
