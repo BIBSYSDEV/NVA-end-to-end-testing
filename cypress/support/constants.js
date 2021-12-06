@@ -43,6 +43,7 @@ export const USER_NO_ROLE = 'test-user-with-no-role@test.no';
 export const USER_REMOVE_ORCID = 'test-user-remove-existing-orcid@test.no';
 export const USER_NON_CUSTOMER = 'test-user-not-customer@test.no';
 export const USER_DRAFT_DOI = 'test-user-draft-doi@test.no';
+export const USER_CURATOR_DRAFT_DOI = 'test-user-curator-draft-doi@test.no';
 export const USER_RESOURCE_TYPE = 'test-user-resource-type@test.no';
 export const USER_VIEW_REGISTRATION = 'test-user-view-registration@test.no';
 
@@ -88,6 +89,7 @@ export const user = {
   [USER_REMOVE_ORCID]: { ...userData, name: 'TestUser, Remove orcid' },
   [USER_NON_CUSTOMER]: { ...userData, name: 'TestUser, Not customer' },
   [USER_DRAFT_DOI]: { ...userData, name: 'TestUser, Draft DOI' },
+  [USER_CURATOR_DRAFT_DOI]: { ...userData, name: 'TestUser, Curator Draft DOI' },
   [USER_RESOURCE_TYPE]: { ...userData, name: 'TestUser, Resource type' },
   [USER_VIEW_REGISTRATION]: { ...userData, name: 'TestUser, View registration' },
 };

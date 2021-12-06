@@ -38,9 +38,9 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
+    "owner": "test-user-draft-doi@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
+    "contributor": "test-user-draft-doi@test.no",
     "title": "Published registration without DOI"
   },
   {
@@ -49,11 +49,10 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
+    "owner": "test-user-draft-doi@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "title": "Published registration requesting DOI",
-    "doi": true
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Published registration requesting DOI"
   },
   {
     "publication_type": "JournalContent",
@@ -188,6 +187,30 @@
     "status": "DRAFT",
     "contributor": "test-user-draft-doi@test.no",
     "title": "Draft registration with DOI",
+    "doi": true,
+    "message": "DoiRequest"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Draft registration requesting DOI"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Draft registration publish with requested DOI",
     "doi": true
   },
   {

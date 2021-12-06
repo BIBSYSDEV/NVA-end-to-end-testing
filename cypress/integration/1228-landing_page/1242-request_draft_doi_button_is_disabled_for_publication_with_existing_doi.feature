@@ -13,4 +13,4 @@ Feature: Request/Draft DOI button is disabled for Registrations with existing DO
         | Status    | Button        |
         | Draft     | Reserve a DOI |
         | Published | Request a DOI |
-    # A Publication may have more than one DOI, but NVA is only source for one DOI for each Publication
+# A Publication may have more than one DOI, but NVA is only source for one DOI for each Publication
