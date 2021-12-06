@@ -192,6 +192,7 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 });
 
 Cypress.Commands.add('selectRegistration', (title, type) => {
+  cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click();
   cy.get(`[data-testid=${type}-button]`).click();
   cy.get('[data-testid^=registration-title]')

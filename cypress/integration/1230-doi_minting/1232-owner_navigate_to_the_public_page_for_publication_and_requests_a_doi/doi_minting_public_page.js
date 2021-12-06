@@ -5,6 +5,7 @@ const PUBLIC_REGISTRATION_REQUESTING_DOI = 'Published registration requesting DO
 
 Given('that the Creator navigates to the Landing page for published Registration without DOI', () => {
   cy.login(USER_WITH_AUTHOR);
+  cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid=published-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
