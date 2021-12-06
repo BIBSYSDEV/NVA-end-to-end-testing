@@ -152,7 +152,8 @@
     "owner": "test-user-resource-type@test.no",
     "status": "DRAFT",
     "contributor": "test-user-resource-type@test.no",
-    "title": "Test Resource type"
+    "title": "Test Resource type",
+    "doi": true
   },
   {
     "publication_type": "JournalContent",

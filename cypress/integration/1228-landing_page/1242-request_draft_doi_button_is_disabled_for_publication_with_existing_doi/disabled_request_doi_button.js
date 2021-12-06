@@ -12,6 +12,7 @@ const registrationTitles = {
 // Scenario Outline: Request/Draft DOI button is disabled for Registrations with existing DOI
 Given('that a Creator views the Landing Page for a Registration', () => {
   cy.login(USER_DRAFT_DOI);
+  cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click();
 });
 And('they are the Owner of this Registration', () => {});

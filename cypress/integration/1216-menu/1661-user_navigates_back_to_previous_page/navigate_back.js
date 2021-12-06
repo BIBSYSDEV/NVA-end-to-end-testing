@@ -3,6 +3,7 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 
 Given('the user has navigated to any other page than Start Page', () => {
   cy.login(USER_WITH_AUTHOR);
+  cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });
 And('they see a "Back" button', () => {
