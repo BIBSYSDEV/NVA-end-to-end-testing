@@ -17,7 +17,7 @@ const filename = 'example.txt';
 
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.login(USER_DRAFT_DOI);
-  cy.get('[data-testid=my-messages]').click();
+  cy.get('[data-testid=messages-link]').click();
   cy.get('[data-testid^=message]')
     .first()
     .within(() => {
@@ -83,7 +83,7 @@ And('the "Request a DOI" button is renamed to "DOI pending" and is disabled', ()
   cy.get('[data-testid=button-send-doi-request]').should('not.exist');
 });
 And('the request is listed in User Worklist', () => {
-  cy.get('[data-testid=my-messages]').click();
+  cy.get('[data-testid=messages-link]').click();
   cy.get('[data-testid^=message]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
 });
 And('the request is listed in Curator Worklist', () => {
@@ -91,7 +91,6 @@ And('the request is listed in Curator Worklist', () => {
   cy.get('[data-testid=log-out-link]').click();
   cy.login(USER_CURATOR_DRAFT_DOI);
   cy.visit('/');
-  cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=worklist-link]').click();
   cy.get('[data-testid^=message]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
 });
@@ -180,7 +179,7 @@ And('the Draft DOI is still not a link', () => {
     });
 });
 And('the DOI request is listed in the Owners work list', () => {
-  cy.get('[data-testid=my-messages]').click();
+  cy.get('[data-testid=messages-link]').click();
   cy.get('[data-testid^=message-title]').filter(`:contains(${draftRegistrationPublishWithRequestedDoi})`);
 });
 And('the DOI request is listed in the Curators work list', () => {

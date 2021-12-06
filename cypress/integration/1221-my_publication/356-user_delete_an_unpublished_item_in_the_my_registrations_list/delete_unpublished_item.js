@@ -3,7 +3,7 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 
 Given('Creator opens My Registrations', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });
 When('they click Delete on an item', () => {
   cy.get('[data-testid^=registration-title]')

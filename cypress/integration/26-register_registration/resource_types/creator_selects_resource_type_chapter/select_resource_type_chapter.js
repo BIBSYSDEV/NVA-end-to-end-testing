@@ -6,7 +6,7 @@ import { CHAPTER_SUBTYPES, CHAPTER_FIELDS } from '../../../../support/data_testi
 
 Before(() => {
   cy.login(USER_RESOURCE_TYPE);
-  cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 
@@ -27,4 +27,3 @@ Then('they see a list of subtypes:', (dataTable) => {
 // | Chapter of Report                  |
 // | Introduction                       |
 // | Summary of conference presentation |
-

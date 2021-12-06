@@ -3,7 +3,7 @@ import { USER_VIEW_REGISTRATION } from '../../../support/constants';
 
 Given('that a Creator views a Registration', () => {
   cy.login(USER_VIEW_REGISTRATION);
-  cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 And('they navigate to the Files and License tab', () => {

@@ -5,7 +5,8 @@ Given('the user is logged in as Creator', () => {
   cy.login(USER_WITH_AUTHOR);
 });
 When('they click the button My Registrations', () => {
-  cy.get('[data-testid=my-registrations').click({ force: true });
+  cy.get('[data-testid=menu-button]').click();
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });
 Then('they see My Registrations', () => {
   cy.location('pathname').should('eq', '/my-registrations');

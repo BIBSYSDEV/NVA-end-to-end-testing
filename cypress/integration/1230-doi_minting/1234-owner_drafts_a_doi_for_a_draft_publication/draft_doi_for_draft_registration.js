@@ -19,7 +19,7 @@ Before(() => {
 });
 
 Given('that an Owner views the Landing Page for their Registration', () => {
-  cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });
 And('the Registration has status Draft', () => {
   cy.get('[data-testid=unpublished-button]').click({ force: true });
