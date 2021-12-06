@@ -21,7 +21,7 @@ import { v4 as uuidV4 } from 'uuid';
 // Common steps
 Given('that the user is logged in', () => {});
 When('they look at any page in NVA', () => {
-  cy.visit(`/${uuidV4()}`);
+  cy.visit(`/`);
 });
 Then('they see a Dropdown Menu with items:', (dataTable) => {
   cy.get('[data-testid=menu-button]').should('exist');
