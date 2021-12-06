@@ -1,7 +1,7 @@
 export const MAIN_BUTTONS = {
   'New Registration': 'new-registration',
-  'My Registrations': 'my-registrations',
-  'My Messages': 'my-messages',
+  'My Registrations': 'my-registrations-link',
+  'My Messages': 'messages-link',
 };
 
 export const USER_MENU = {

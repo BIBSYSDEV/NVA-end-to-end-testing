@@ -25,7 +25,7 @@ When('they click Start', () => {
   cy.get('[data-testid=nav-tabpanel-description]').should('be.visible');
 });
 And('they click My Registrations', () => {
-  cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });
 And('they see that Edit is enabled', () => {
   cy.get('@registration').within((registration) => {

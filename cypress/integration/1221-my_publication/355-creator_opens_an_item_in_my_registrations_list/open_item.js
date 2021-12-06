@@ -9,7 +9,7 @@ Given('that the user is logged in as Creator', () => {
 // end common step
 
 And('is on the page My Registrations', () => {
-  cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });
 When('they click Edit on an item', () => {
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
@@ -29,7 +29,7 @@ And('they see fields:', (dataTable) => {
 // | Primary language for content |
 
 And('they are on the page My Registrations', () => {
-  cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });
 And('they see a List of Registrations', () => {
   cy.get('[data-testid^=edit-registration]').should('have.length.above', 1);
@@ -53,8 +53,8 @@ Then('they see a List of all Validation Errors', () => {
 And('they see that tabs with Validation Errors are marked with an Error Icon', () => {
   cy.get('[data-testid=nav-tabpanel-contributors]').within(() => {
     cy.get('[data-testid=error-tab]');
-  })
+  });
   cy.get('[data-testid=nav-tabpanel-files-and-license]').within(() => {
     cy.get('[data-testid=error-tab]');
-  })
+  });
 });

@@ -5,7 +5,7 @@ const PUBLIC_REGISTRATION_REQUESTING_DOI = 'Published registration requesting DO
 
 Given('that the Creator navigates to the Landing page for published Registration without DOI', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid=published-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
     .filter(`:contains(${PUBLIC_REGISTRATION_REQUESTING_DOI})`)
@@ -31,7 +31,7 @@ And('the "Request a DOI" button is no longer visible', () => {
   cy.get('[data-testid=button-send-doi-request]').should('not.exist');
 });
 And('the request is listed in My Messages', () => {
-  cy.get('[data-testid=my-messages]').click({ force: true });
+  cy.get('[data-testid=messages-link]').click({ force: true });
   cy.get('[data-testid^=title-doi-request]')
     .filter(`:contains(${PUBLIC_REGISTRATION_REQUESTING_DOI})`)
     .should('be.visible');
@@ -41,7 +41,6 @@ And('the request is listed in Curator Worklist', () => {
   cy.get('[data-testid=log-out-link]').click({ force: true });
   cy.login(USER_CURATOR_WITH_AUTHOR);
   cy.visit('/');
-  cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=worklist-link]').click({ force: true });
   cy.get('[data-testid^=title-doi-request]')
     .filter(`:contains(${PUBLIC_REGISTRATION_REQUESTING_DOI})`)

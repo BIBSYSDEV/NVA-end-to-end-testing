@@ -6,7 +6,7 @@ import { REPORT_SUBTYPES, REPORT_FIELDS } from '../../../../support/data_testid_
 
 Before(() => {
   cy.login(USER_RESOURCE_TYPE);
-  cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 

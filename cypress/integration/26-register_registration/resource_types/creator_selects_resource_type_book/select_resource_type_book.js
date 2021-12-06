@@ -5,7 +5,7 @@ import { BOOK_SUBTYPES, BOOK_FIELDS, CONTENT_TYPE } from '../../../../support/da
 // Feature: Creator selects Resource type Book
 Before(() => {
   cy.login(USER_RESOURCE_TYPE);
-  cy.get('[data-testid=my-registrations]').click({ force: true });
+  cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 
