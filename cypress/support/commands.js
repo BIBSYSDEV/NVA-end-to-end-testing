@@ -11,7 +11,7 @@ import {
   PROJECT_API_PATH,
   JOURNAL_SEARCH_MOCK_FILE,
 } from './mock_data';
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 
 const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
 const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -191,17 +191,14 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   });
 });
 
-Cypress.Commands.add('addMockOrcid', (username) => {
-  cy.window()
-    .its('store')
-    .invoke('getState')
-    .then((state) => {
-      const { authority } = state.user;
-      authority.orcids.push('test_orcid');
-      cy.window().its('store').invoke('dispatch', {
-        type: 'set authority data',
-        authority: authority,
-      });
+Cypress.Commands.add('selectRegistration', (title, type) => {
+  cy.get('[data-testid=my-registrations]').click();
+  cy.get(`[data-testid=${type}-button]`).click();
+  cy.get('[data-testid^=registration-title]')
+    .filter(`:contains(${title})`)
+    .parent()
+    .within(() => {
+      cy.get('[data-testid^=open-registration]').click();
     });
 });
 
@@ -230,6 +227,22 @@ Cypress.Commands.add('findScenario', () => {
     }
   }
   cy.wrap(scenario).as('scenario');
+});
+
+// Commands for mocking
+
+Cypress.Commands.add('addMockOrcid', (username) => {
+  cy.window()
+    .its('store')
+    .invoke('getState')
+    .then((state) => {
+      const { authority } = state.user;
+      authority.orcids.push('test_orcid');
+      cy.window().its('store').invoke('dispatch', {
+        type: 'set authority data',
+        authority: authority,
+      });
+    });
 });
 
 Cypress.Commands.add('mockPersonSearch', (userId) => {

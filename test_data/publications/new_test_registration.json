@@ -34,7 +34,6 @@
     "description": "Description",
     "reference": {
       "type": "Reference",
-      "doi": "https://testdoi.org/test",
       "publicationContext": {
         "id": "https://api.dev.nva.aws.unit.no/publication-channels/journal/446050/1999",
         "type": "Journal"

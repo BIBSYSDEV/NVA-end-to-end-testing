@@ -28,6 +28,7 @@ upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/publish'
 request_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/doirequest'
+message_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/messages'
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
@@ -175,13 +176,13 @@ def put_item(new_publication, username):
         bearer_token = common.login(username=username)
         headers['Authorization'] = f'Bearer {bearer_token}'
         response = requests.post(publication_endpoint,
-                             json=new_publication, headers=headers)
+                                 json=new_publication, headers=headers)
         if response.status_code == 201:
             trying = False
         count = count + 1
         if count == 3:
             trying = False
-            print(response.json())
+            print(f'{response.status_code} - {response.json()}')
             raise RuntimeError('Failed to create Registration')
     return response.json()
 
@@ -210,8 +211,9 @@ def create_publication_data(publication_template, test_publication, location, us
     new_publication['entityDescription']['mainTitle'] = test_publication['title']
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
-    if 'publication_content_type' in test_publication:    
-        new_publication['entityDescription']['reference']['publicationInstance']['contentType'] = test_publication['publication_content_type']
+    if 'publication_content_type' in test_publication:
+        new_publication['entityDescription']['reference']['publicationInstance'][
+            'contentType'] = test_publication['publication_content_type']
     new_publication['owner'] = username
     new_publication['publisher']['id'] = customer
     new_publication['status'] = status
@@ -279,6 +281,7 @@ def create_publications(location):
                 location=location,
                 bearer_token=bearer_token
             )
+            print(f'creating publication: {test_publication["title"]}')
             response = put_item(
                 new_publication=new_publication, username=username)
             identifier = response['identifier']
@@ -289,10 +292,14 @@ def create_publications(location):
             if 'doi' in test_publication:
                 print('requesting doi...')
                 request_doi(identifier=identifier, username=username)
+            if 'message' in test_publication:
+                print('creating message...')
+                create_message(identifier=identifier, username=username,
+                               message_type=test_publication['message'])
 
 
 def publish_publication(identifier, username):
-    publish_bearer_token = common.login(username=username)
+    publish_bearer_token = common.login(username)
     headers['Authorization'] = f'Bearer {publish_bearer_token}'
     response = requests.put(publish_endpoint.format(
         STAGE, identifier), headers=headers)
@@ -300,7 +307,7 @@ def publish_publication(identifier, username):
 
 
 def request_doi(identifier, username):
-    request_bearer_token = common.login(username=username)
+    request_bearer_token = common.login(username)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
         "identifier": identifier,
@@ -308,6 +315,19 @@ def request_doi(identifier, username):
     }
     response = requests.post(request_doi_endpoint,
                   json=doi_request_payload, headers=headers)
+
+def create_message(identifier, username, message_type):
+    message_payload = {
+        "messageType": message_type,
+        "publicationIdentifier": identifier,
+        "message": "Test message"
+    }
+    message_bearer_token = common.login(username)
+    headers['Authorization'] = f'Bearer {message_bearer_token}'
+    message_response = requests.post(
+        message_endpoint, json=message_payload, headers=headers)
+    print(f'{message_response.status_code} {message_response.json()}')
+
 
 def run():
     print('publications...')
