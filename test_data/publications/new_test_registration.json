@@ -19,6 +19,7 @@
     "type": "FileSet"
   },
   "modifiedDate": "2021-06-08T11:46:42.963805Z",
+  "doi": "https://doi.org/testdoi",
   "entityDescription": {
     "type": "EntityDescription",
     "mainTitle": "Test registration",

@@ -6,6 +6,7 @@ import { REPORT_SUBTYPES, REPORT_FIELDS } from '../../../../support/data_testid_
 
 Before(() => {
   cy.login(USER_RESOURCE_TYPE);
+  cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
@@ -77,7 +78,6 @@ Then('they can see the "Invalid ISBN" error message', () => {
   cy.get(`[data-testid=${REPORT_FIELDS['ISBN']}]`).within(() => {
     cy.get('p').should('have.class', 'Mui-error');
   });
-  cy.get('[data-testid=error-list-div]').contains('ISBN has invalid format');
 });
 When('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click();

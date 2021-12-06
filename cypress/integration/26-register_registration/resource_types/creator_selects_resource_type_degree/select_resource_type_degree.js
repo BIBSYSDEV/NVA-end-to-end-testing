@@ -6,6 +6,7 @@ import { STUDENT_THESIS_SUBTYPES, STUDENT_THESIS_FIELDS } from '../../../../supp
 
 Before(() => {
   cy.login(USER_RESOURCE_TYPE);
+  cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
