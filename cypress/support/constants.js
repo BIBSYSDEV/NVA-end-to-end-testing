@@ -46,6 +46,7 @@ export const USER_DRAFT_DOI = 'test-user-draft-doi@test.no';
 export const USER_CURATOR_DRAFT_DOI = 'test-user-curator-draft-doi@test.no';
 export const USER_RESOURCE_TYPE = 'test-user-resource-type@test.no';
 export const USER_VIEW_REGISTRATION = 'test-user-view-registration@test.no';
+export const USER_EDITOR = 'test-user-editor@test.no';
 
 const userData = {
   name: '',
@@ -92,4 +93,5 @@ export const user = {
   [USER_CURATOR_DRAFT_DOI]: { ...userData, name: 'TestUser, Curator Draft DOI' },
   [USER_RESOURCE_TYPE]: { ...userData, name: 'TestUser, Resource type' },
   [USER_VIEW_REGISTRATION]: { ...userData, name: 'TestUser, View registration' },
+  [USER_EDITOR]: { ...userData, name: 'TestUser, Editor' },
 };
