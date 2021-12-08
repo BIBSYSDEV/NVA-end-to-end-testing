@@ -1,5 +1,6 @@
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
-import { USER_EDITOR, USER_INST_ADMIN_WITH_AUTHOR, USER_WITH_AUTHOR } from '../../../support/constants';
+import { USER_WITH_AUTHOR } from '../../../support/constants';
+
 import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
 
 const filename = 'example.txt';
