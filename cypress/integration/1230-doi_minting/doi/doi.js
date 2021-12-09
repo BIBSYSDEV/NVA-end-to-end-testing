@@ -18,8 +18,10 @@ const filename = 'example.txt';
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.login(USER_DRAFT_DOI);
   cy.get('[data-testid=messages-link]').click();
-  cy.get('[data-testid^=message]')
+  cy.get('[data-testid^=message-title]')
     .first()
+    .parent()
+    .parent()
     .within(() => {
       cy.get('[data-testid="ExpandMoreIcon"]').click();
     });
@@ -30,11 +32,7 @@ Given('that the Creator Opens a DOI request entry from My Worklist', () => {
 //   @1251
 //   Scenario: Creator opens a Registration with a DOI request
 When('they click the Edit Registration button', () => {
-  cy.get('[data-testid^=message]')
-    .first()
-    .within(() => {
-      cy.get('[data-testid^=go-to-registration]').click();
-    });
+  cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
 });
 Then('the Registration is opened in the Wizard on the first tab', () => {
   cy.get('[data-testid="public-registration-status"]').should('be.visible');
@@ -84,7 +82,7 @@ And('the "Request a DOI" button is renamed to "DOI pending" and is disabled', ()
 });
 And('the request is listed in User Worklist', () => {
   cy.get('[data-testid=messages-link]').click();
-  cy.get('[data-testid^=message]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
+  cy.get('[data-testid^=message-title]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
 });
 And('the request is listed in Curator Worklist', () => {
   cy.get('[data-testid=menu-button]').click();
@@ -92,7 +90,7 @@ And('the request is listed in Curator Worklist', () => {
   cy.login(USER_CURATOR_DRAFT_DOI);
   cy.visit('/');
   cy.get('[data-testid=worklist-link]').click();
-  cy.get('[data-testid^=message]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
+  cy.get('[data-testid^=message-title]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
 });
 
 //   @1233
@@ -132,8 +130,7 @@ And('the "Draft a DOI" button is renamed to "DOI pending" and is disabled', () =
   cy.get('[data-testid=button-toggle-reserve-doi]').should('not.exist');
 });
 And('the Draft DOI is added to the metadata', () => {
-  cy.reload();
-  cy.wait(30000);
+  cy.wait(5000);
   cy.reload();
 });
 And('the Landing Page for Registration contains the Draft DOI', () => {
@@ -166,7 +163,7 @@ When('the Owner clicks the publish button', () => {
 });
 Then('the Landing Page for Registration is displayed', () => {});
 And('the "Request a DOI" button is still named "DOI pending" and is disabled', () => {
-  cy.get('[data-testid=button-toggle-reserve-doi]').should('not.be.visible');
+  cy.get('[data-testid=button-toggle-reserve-doi]').should('not.exist');
 });
 And('the Landing Page for Registration lists the Draft DOI', () => {
   cy.get('[data-testid=public-registration-doi-link]').should('be.visible');
@@ -184,10 +181,9 @@ And('the DOI request is listed in the Owners work list', () => {
 });
 And('the DOI request is listed in the Curators work list', () => {
   cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-tesid=log-out-link]').click();
+  cy.get('[data-testid=log-out-link]').click();
   cy.login(USER_CURATOR_DRAFT_DOI);
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-tesid=worklist-link]').click();
+  cy.get('[data-testid=worklist-link]').click();
   cy.get('[data-testid^=message-title]').filter(`:contains(${draftRegistrationPublishWithRequestedDoi})`);
 });
 
@@ -195,7 +191,6 @@ And('the DOI request is listed in the Curators work list', () => {
 //   Scenario: Curator opens a Registration from a DOI Request Worklist Item
 Given('that a Curator views details of a Worklist item', () => {
   cy.login(USER_CURATOR_DRAFT_DOI);
-  cy.get('[data-testid="menu-button"]').click();
   cy.get('[data-testid="worklist-link"]').click();
   cy.get('[data-testid^=message-type]').last().click();
 });
@@ -216,20 +211,13 @@ And('they see the Decline DOI button is enabled', () => {});
 //   Scenario: A Curator approves a DOI request
 Given('that a Curator opens a Registration from a DOI Request Worklist Item', () => {
   cy.login(USER_CURATOR_DRAFT_DOI);
-  cy.get('[data-testid="menu-button"]').click();
   cy.get('[data-testid="worklist-link"]').click();
   cy.get('[data-testid^=message-title]').filter(`:contains(${publishedRegistrationWithDoi})`).click();
-  cy.get('[data-testid^=message-title]')
-    .filter(`:contains(${publishedRegistrationWithDoi})`)
-    .parent()
-    .within(() => {
-      cy.get('[data-testid^=go-to-registration]').click();
-    });
+  cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
 });
 When('they click Create DOI', () => {
-  cy.get('[data-testid^=button-toggle-]').first().click();
-  cy.get('[data-testid=button-send-doi-request]');
-  cy.selectRegistration(publishedRegistrationWithDoi, published);
+  cy.get('[data-testid=button-create-doi]').first().click();
+  cy.reload();
 });
 Then('they see the Landing Page for Registration', () => {
   cy.get('[data-testid=public-registration-status]').should('be.visible');
@@ -239,7 +227,6 @@ And('the Registration has a DOI Link', () => {
 });
 
 And('the Request DOI item is marked as Approved in their Worklist', () => {
-  cy.get('[data-testid="menu-button"]').click();
   cy.get('[data-testid="worklist-link"]').click();
 });
 
