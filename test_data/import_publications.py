@@ -28,10 +28,12 @@ upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/publish'
 request_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/doirequest'
+approve_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/update-doi-request'
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
 username = 'test-data-user@test.no'
+username_curator = 'test-user-curator@test.no'
 test_file_name = 'test_file.pdf'
 test_file_path = f'publications/files/{test_file_name}'
 test_file_size = os.stat(test_file_path).st_size
@@ -175,7 +177,7 @@ def put_item(new_publication, username):
         bearer_token = common.login(username=username)
         headers['Authorization'] = f'Bearer {bearer_token}'
         response = requests.post(publication_endpoint,
-                             json=new_publication, headers=headers)
+                                 json=new_publication, headers=headers)
         if response.status_code == 201:
             trying = False
         count = count + 1
@@ -210,8 +212,9 @@ def create_publication_data(publication_template, test_publication, location, us
     new_publication['entityDescription']['mainTitle'] = test_publication['title']
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
-    if 'publication_content_type' in test_publication:    
-        new_publication['entityDescription']['reference']['publicationInstance']['contentType'] = test_publication['publication_content_type']
+    if 'publication_content_type' in test_publication:
+        new_publication['entityDescription']['reference']['publicationInstance'][
+            'contentType'] = test_publication['publication_content_type']
     new_publication['owner'] = username
     new_publication['publisher']['id'] = customer
     new_publication['status'] = status
@@ -273,6 +276,7 @@ def create_publications(location):
             username = test_publication['owner']
             bearer_token = ''
             bearer_token = common.login(username=username)
+            print(f'Creating {test_publication["title"]}')
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
@@ -289,6 +293,9 @@ def create_publications(location):
             if 'doi' in test_publication:
                 print('requesting doi...')
                 request_doi(identifier=identifier, username=username)
+                if test_publication['doi'] == 'created':
+                    print('approving doi...')
+                    approve_doi(identifier=identifier)
 
 
 def publish_publication(identifier, username):
@@ -307,7 +314,18 @@ def request_doi(identifier, username):
         "message": "Test"
     }
     response = requests.post(request_doi_endpoint,
-                  json=doi_request_payload, headers=headers)
+                             json=doi_request_payload, headers=headers)
+
+
+def approve_doi(identifier):
+    request_bearer_token = common.login(username=username_curator)
+    headers['Authorization'] = f'Bearer {request_bearer_token}'
+    doi_request_payload = {
+        "doiRequestStatus": "APPROVED"
+    }
+    response = requests.post(f'{approve_doi_endpoint}/{identifier}',
+                             json=doi_request_payload, headers=headers)
+
 
 def run():
     print('publications...')

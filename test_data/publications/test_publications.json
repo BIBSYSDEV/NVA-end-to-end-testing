@@ -94,10 +94,11 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
+    "owner": "test-user-draft-doi@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "title": "View Landing Page"
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "View Landing Page",
+    "doi": "created"
   },
   {
     "publication_type": "JournalContent",
@@ -153,7 +154,7 @@
     "status": "DRAFT",
     "contributor": "test-user-resource-type@test.no",
     "title": "Test Resource type",
-    "doi": true
+    "doi": "requested"
   },
   {
     "publication_type": "JournalContent",
@@ -176,7 +177,7 @@
     "status": "PUBLISHED",
     "contributor": "test-user-draft-doi@test.no",
     "title": "Published registration with DOI",
-    "doi": true
+    "doi": "requested"
   },
   {
     "publication_type": "JournalContent",
@@ -188,7 +189,7 @@
     "status": "DRAFT",
     "contributor": "test-user-draft-doi@test.no",
     "title": "Draft registration with DOI",
-    "doi": true,
+    "doi": "requested",
     "message": "DoiRequest"
   },
   {
@@ -212,7 +213,7 @@
     "status": "DRAFT",
     "contributor": "test-user-draft-doi@test.no",
     "title": "Draft registration publish with requested DOI",
-    "doi": true
+    "doi": "requested"
   },
   {
     "publication_type": "JournalContent",
