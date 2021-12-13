@@ -19,7 +19,7 @@ And('they are the Owner of the Resource', () => {
 And('the Resource has no DOI', () => {
   cy.get('[data-testid=published-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
-    .filter(':contains("Published registration without DOI")') // need to use text search to find correct registration
+    .filter(':contains("Published registration no DOI")') // need to use text search to find correct registration
     .parent()
     .within((publicationLine) => {
       cy.wrap(publicationLine).get('[data-testid^=open-registration]').click({ force: true });

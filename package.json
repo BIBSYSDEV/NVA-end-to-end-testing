@@ -8,7 +8,8 @@
     "aws-amplify": "^4.3.2",
     "aws-sdk": "^2.1007.0",
     "cosmiconfig": "^6.0.0",
-    "cypress-localstorage-commands": "^1.5.0",
+    "cypress": "^9.1.0",
+    "cypress-localstorage-commands": "^1.6.1",
     "cypress-promise": "^1.1.0",
     "cypress-tags": "^0.3.0",
     "uuid": "^8.3.2"
@@ -16,9 +17,8 @@
   "devDependencies": {
     "axios": "^0.21.4",
     "cucumber-html-reporter": "^5.5.0",
-    "cypress": "^8.7.0",
-    "cypress-cucumber-preprocessor": "^4.3.0",
-    "cypress-file-upload": "^4.1.1",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-file-upload": "^5.0.8",
     "mocha": "^9.1.2",
     "mochawesome": "^7.0.1",
     "mochawesome-merge": "^4.2.0",
