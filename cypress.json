@@ -3,7 +3,7 @@
     "TAGS": "not @ignore and @test"
   },
   "testFiles": "**/*.feature",
-  "defaultCommandTimeout": 60000,
+  "defaultCommandTimeout": 30000,
   "reporter": "../node_modules/mochawesome/src/mochawesome.js",
   "reporterOptions": {
     "overwrite": false,
