@@ -154,7 +154,7 @@
     "status": "DRAFT",
     "contributor": "test-user-resource-type@test.no",
     "title": "Test Resource type",
-    "doi": "requested"
+    "doi": "created"
   },
   {
     "publication_type": "JournalContent",
