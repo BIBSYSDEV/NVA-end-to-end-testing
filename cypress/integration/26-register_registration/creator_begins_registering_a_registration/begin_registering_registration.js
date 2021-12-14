@@ -29,6 +29,8 @@ And('they have selected {string} for starting the Wizard', (method) => {
   } else if (method === 'Upload file') {
     cy.get('[data-testid=new-registration-file]').click({ force: true });
     cy.get('input[type=file]').attachFile(fileName);
+  } else if (method === 'Empty Registration') {
+    cy.get('[data-testid=new-registration-empty]').click({ force: true });
   }
 });
 When('they click Start', () => {
