@@ -3,9 +3,7 @@
     "familyName": "TestUser",
     "givenName": "Withauthor",
     "username": "test-user-with-author@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -16,9 +14,7 @@
     "familyName": "TestUser",
     "givenName": "Draft DOI",
     "username": "test-user-draft-doi@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -29,10 +25,7 @@
     "familyName": "TestUser",
     "givenName": "Draft DOI",
     "username": "test-user-curator-draft-doi@test.no",
-    "role": [
-      "CREATOR",
-      "CURATOR"
-    ],
+    "role": ["CREATOR", "CURATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -43,9 +36,7 @@
     "familyName": "TestUser",
     "givenName": "Save Registration",
     "username": "test-user-save-registration@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -56,9 +47,7 @@
     "familyName": "TestUser",
     "givenName": "Kari",
     "username": "test-user-kari@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -69,10 +58,7 @@
     "familyName": "TestUser",
     "givenName": "App-admin",
     "username": "test-user-app-admin@test.no",
-    "role": [
-      "CREATOR",
-      "APP-ADMIN"
-    ],
+    "role": ["CREATOR", "APP-ADMIN"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -83,10 +69,7 @@
     "familyName": "TestUser",
     "givenName": "Curator",
     "username": "test-user-curator@test.no",
-    "role": [
-      "CREATOR",
-      "CURATOR"
-    ],
+    "role": ["CREATOR", "CURATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -97,11 +80,7 @@
     "familyName": "TestUser",
     "givenName": "Editor",
     "username": "test-user-editor@test.no",
-    "role": [
-      "CREATOR",
-      "EDITOR",
-      "INST-ADMIN"
-    ],
+    "role": ["CREATOR", "EDITOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -112,10 +91,7 @@
     "familyName": "TestUser",
     "givenName": "Institution-admin",
     "username": "test-user-first-inst-admin@test.no",
-    "role": [
-      "CREATOR",
-      "INST-ADMIN"
-    ],
+    "role": ["CREATOR", "INST-ADMIN"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -126,10 +102,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution-admin-1",
     "username": "test-user-second-inst-admin-1@test.no",
-    "role": [
-      "CREATOR",
-      "INST-ADMIN"
-    ],
+    "role": ["CREATOR", "INST-ADMIN"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -140,10 +113,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution-admin-2",
     "username": "test-user-second-inst-admin-2@test.no",
-    "role": [
-      "CREATOR",
-      "INST-ADMIN"
-    ],
+    "role": ["CREATOR", "INST-ADMIN"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -154,10 +124,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution-admin-3",
     "username": "test-user-second-inst-admin-3@test.no",
-    "role": [
-      "CREATOR",
-      "INST-ADMIN"
-    ],
+    "role": ["CREATOR", "INST-ADMIN"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -168,10 +135,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution-admin-4",
     "username": "test-user-second-inst-admin-4@test.no",
-    "role": [
-      "CREATOR",
-      "INST-ADMIN"
-    ],
+    "role": ["CREATOR", "INST-ADMIN"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -182,10 +146,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution-admin-5",
     "username": "test-user-second-inst-admin-5@test.no",
-    "role": [
-      "CREATOR",
-      "INST-ADMIN"
-    ],
+    "role": ["CREATOR", "INST-ADMIN"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -196,10 +157,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution-admin-6",
     "username": "test-user-second-inst-admin-6@test.no",
-    "role": [
-      "CREATOR",
-      "INST-ADMIN"
-    ],
+    "role": ["CREATOR", "INST-ADMIN"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -210,10 +168,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Curator 1",
     "username": "test-user-second-inst-curator-1@test.no",
-    "role": [
-      "CREATOR",
-      "CURATOR"
-    ],
+    "role": ["CREATOR", "CURATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -224,10 +179,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Curator 2",
     "username": "test-user-second-inst-curator-2@test.no",
-    "role": [
-      "CREATOR",
-      "CURATOR"
-    ],
+    "role": ["CREATOR", "CURATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -238,10 +190,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Curator 3",
     "username": "test-user-second-inst-curator-3@test.no",
-    "role": [
-      "CREATOR",
-      "CURATOR"
-    ],
+    "role": ["CREATOR", "CURATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -252,10 +201,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Curator 4",
     "username": "test-user-second-inst-curator-4@test.no",
-    "role": [
-      "CREATOR",
-      "CURATOR"
-    ],
+    "role": ["CREATOR", "CURATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -266,10 +212,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Curator 5",
     "username": "test-user-second-inst-curator-5@test.no",
-    "role": [
-      "CREATOR",
-      "CURATOR"
-    ],
+    "role": ["CREATOR", "CURATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -280,10 +223,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Curator 6",
     "username": "test-user-second-inst-curator-6@test.no",
-    "role": [
-      "CREATOR",
-      "CURATOR"
-    ],
+    "role": ["CREATOR", "CURATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -294,10 +234,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Editor 1",
     "username": "test-user-second-inst-editor-1@test.no",
-    "role": [
-      "CREATOR",
-      "EDITOR"
-    ],
+    "role": ["CREATOR", "EDITOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -308,10 +245,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Editor 2",
     "username": "test-user-second-inst-editor-2@test.no",
-    "role": [
-      "CREATOR",
-      "EDITOR"
-    ],
+    "role": ["CREATOR", "EDITOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -322,10 +256,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Editor 3",
     "username": "test-user-second-inst-editor-3@test.no",
-    "role": [
-      "CREATOR",
-      "EDITOR"
-    ],
+    "role": ["CREATOR", "EDITOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -336,10 +267,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Editor 4",
     "username": "test-user-second-inst-editor-4@test.no",
-    "role": [
-      "CREATOR",
-      "EDITOR"
-    ],
+    "role": ["CREATOR", "EDITOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -350,10 +278,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Editor 5",
     "username": "test-user-second-inst-editor-5@test.no",
-    "role": [
-      "CREATOR",
-      "EDITOR"
-    ],
+    "role": ["CREATOR", "EDITOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -364,10 +289,7 @@
     "familyName": "TestUser",
     "givenName": "Second Institution Editor 6",
     "username": "test-user-second-inst-editor-6@test.no",
-    "role": [
-      "CREATOR",
-      "EDITOR"
-    ],
+    "role": ["CREATOR", "EDITOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -378,9 +300,7 @@
     "familyName": "TestUser",
     "givenName": "Add institution",
     "username": "test-user-add-institution@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -391,9 +311,7 @@
     "familyName": "TestUser",
     "givenName": "Change institution",
     "username": "test-user-change-institution@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -404,9 +322,7 @@
     "familyName": "TestUser",
     "givenName": "Remove institution",
     "username": "test-user-with-institution-remove-institution@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -417,9 +333,7 @@
     "familyName": "TestUser",
     "givenName": "Subunit",
     "username": "test-user-subunit@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -430,9 +344,7 @@
     "familyName": "TestUser",
     "givenName": "Subsubunit",
     "username": "test-user-subsubunit@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -443,9 +355,7 @@
     "familyName": "TestUser",
     "givenName": "Subsubsubunit",
     "username": "test-user-subsubsubunit@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -467,9 +377,7 @@
     "familyName": "TestUser",
     "givenName": "Remove orcid",
     "username": "test-user-remove-existing-orcid@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -546,9 +454,7 @@
     "familyName": "TestUser",
     "givenName": "Connect ORCID",
     "username": "test-user-connect-orcid@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": false,
     "orcid": false,
     "affiliation": "[member, employee, staff]",
@@ -559,9 +465,7 @@
     "familyName": "TestUser",
     "givenName": "Connect Author",
     "username": "test-user-connect-author@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": false,
     "orcid": false,
     "affiliation": "[member, employee, staff]",
@@ -572,9 +476,7 @@
     "familyName": "TestUser",
     "givenName": "Siri",
     "username": "test-user-siri@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -585,9 +487,7 @@
     "familyName": "TestUser",
     "givenName": "Resource type",
     "username": "test-user-resource-type@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
@@ -598,9 +498,7 @@
     "familyName": "TestUser",
     "givenName": "View registration",
     "username": "test-user-view-registration@test.no",
-    "role": [
-      "CREATOR"
-    ],
+    "role": ["CREATOR"],
     "author": true,
     "orcid": true,
     "affiliation": "[member, employee, staff]",
