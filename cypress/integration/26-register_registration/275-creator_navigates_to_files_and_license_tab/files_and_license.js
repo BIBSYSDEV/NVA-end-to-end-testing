@@ -24,7 +24,7 @@ And('they see the tab Contributors is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-contributors]').should('be.visible');
 });
 And('they see the tab Files and License is selected', () => {
-  cy.get('[data-testid=nav-tabpanel-files-and-license][aria-selected=true]');
+  cy.get('span').filter(':contains("Files and License")').should('have.class', 'Mui-active');
 });
 And('they see the tab Summary is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-submission]').should('be.visible');

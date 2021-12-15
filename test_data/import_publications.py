@@ -28,11 +28,12 @@ upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/publish'
 request_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/doirequest'
-message_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/messages'
+approve_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/update-doi-request'
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
 username = 'test-data-user@test.no'
+username_curator = 'test-user-curator@test.no'
 test_file_name = 'test_file.pdf'
 test_file_path = f'publications/files/{test_file_name}'
 test_file_size = os.stat(test_file_path).st_size
@@ -182,7 +183,7 @@ def put_item(new_publication, username):
         count = count + 1
         if count == 3:
             trying = False
-            print(f'{response.status_code} - {response.json()}')
+            print(response.json())
             raise RuntimeError('Failed to create Registration')
     return response.json()
 
@@ -275,13 +276,13 @@ def create_publications(location):
             username = test_publication['owner']
             bearer_token = ''
             bearer_token = common.login(username=username)
+            print(f'Creating {test_publication["title"]}')
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
                 location=location,
                 bearer_token=bearer_token
             )
-            print(f'creating publication: {test_publication["title"]}')
             response = put_item(
                 new_publication=new_publication, username=username)
             identifier = response['identifier']
@@ -292,14 +293,13 @@ def create_publications(location):
             if 'doi' in test_publication:
                 print('requesting doi...')
                 request_doi(identifier=identifier, username=username)
-            if 'message' in test_publication:
-                print('creating message...')
-                create_message(identifier=identifier, username=username,
-                               message_type=test_publication['message'])
+                if test_publication['doi'] == 'created':
+                    print('approving doi...')
+                    approve_doi(identifier=identifier)
 
 
 def publish_publication(identifier, username):
-    publish_bearer_token = common.login(username)
+    publish_bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {publish_bearer_token}'
     response = requests.put(publish_endpoint.format(
         STAGE, identifier), headers=headers)
@@ -307,26 +307,24 @@ def publish_publication(identifier, username):
 
 
 def request_doi(identifier, username):
-    request_bearer_token = common.login(username)
+    request_bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
         "identifier": identifier,
         "message": "Test"
     }
     response = requests.post(request_doi_endpoint,
-                  json=doi_request_payload, headers=headers)
+                             json=doi_request_payload, headers=headers)
 
-def create_message(identifier, username, message_type):
-    message_payload = {
-        "messageType": message_type,
-        "publicationIdentifier": identifier,
-        "message": "Test message"
+
+def approve_doi(identifier):
+    request_bearer_token = common.login(username=username_curator)
+    headers['Authorization'] = f'Bearer {request_bearer_token}'
+    doi_request_payload = {
+        "doiRequestStatus": "APPROVED"
     }
-    message_bearer_token = common.login(username)
-    headers['Authorization'] = f'Bearer {message_bearer_token}'
-    message_response = requests.post(
-        message_endpoint, json=message_payload, headers=headers)
-    print(f'{message_response.status_code} {message_response.json()}')
+    response = requests.post(f'{approve_doi_endpoint}/{identifier}',
+                             json=doi_request_payload, headers=headers)
 
 
 def run():
