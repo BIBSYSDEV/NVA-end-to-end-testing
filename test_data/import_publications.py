@@ -33,7 +33,7 @@ upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
 username = 'test-data-user@test.no'
-username_curator = 'test-user-curator@test.no'
+username_curator = 'test-user-curator-draft-doi@test.no'
 test_file_name = 'test_file.pdf'
 test_file_path = f'publications/files/{test_file_name}'
 test_file_size = os.stat(test_file_path).st_size
@@ -325,7 +325,7 @@ def approve_doi(identifier):
     }
     response = requests.post(f'{approve_doi_endpoint}/{identifier}',
                              json=doi_request_payload, headers=headers)
-
+    print(response.json())
 
 def run():
     print('publications...')
