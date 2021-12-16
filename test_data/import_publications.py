@@ -323,7 +323,6 @@ def approve_doi(identifier):
     doi_request_payload = {
         "doiRequestStatus": "APPROVED"
     }
-    print(f'{approve_doi_endpoint}/{identifier}')
     response = requests.post(f'{approve_doi_endpoint}/{identifier}',
                              json=doi_request_payload, headers=headers)
 
