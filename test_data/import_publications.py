@@ -4,6 +4,7 @@ import copy
 import requests
 import os
 import common
+import time
 
 dynamodb_client = boto3.client('dynamodb')
 s3_client = boto3.client('s3')
@@ -295,6 +296,7 @@ def create_publications(location):
                 request_doi(identifier=identifier, username=username)
                 if test_publication['doi'] == 'created':
                     print('approving doi...')
+                    time.sleep(30)
                     approve_doi(identifier=identifier)
 
 
@@ -315,6 +317,7 @@ def request_doi(identifier, username):
     }
     response = requests.post(request_doi_endpoint,
                              json=doi_request_payload, headers=headers)
+    print(response.json())
 
 
 def approve_doi(identifier):
@@ -323,8 +326,10 @@ def approve_doi(identifier):
     doi_request_payload = {
         "doiRequestStatus": "APPROVED"
     }
+    print(f'{approve_doi_endpoint}/{identifier}')
     response = requests.post(f'{approve_doi_endpoint}/{identifier}',
                              json=doi_request_payload, headers=headers)
+    print(response.json())
 
 
 def run():

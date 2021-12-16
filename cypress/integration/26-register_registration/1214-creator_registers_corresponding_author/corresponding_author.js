@@ -1,11 +1,9 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 
-const testFile = 'example.txt';
-
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithFile(testFile);
+  cy.startWizardWithNothing();
 });
 And('they navigate to the Contributors tab', () => {
   cy.get('[data-testid=nav-tabpanel-contributors').click({ force: true });

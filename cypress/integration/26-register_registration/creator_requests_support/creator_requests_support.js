@@ -1,11 +1,9 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 
-const filename = 'example.txt';
-
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithFile(filename);
+  cy.startWizardWithNothing();
 });
 When('they click the "Request support" button', () => {
   cy.get('[data-testid=open-support-button]').click({ force: true });

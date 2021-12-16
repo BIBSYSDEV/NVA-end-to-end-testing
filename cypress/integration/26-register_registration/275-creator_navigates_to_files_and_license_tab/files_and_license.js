@@ -1,17 +1,15 @@
 import { Given, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 
-const testFile = 'example.txt';
-
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithFile(testFile);
+  cy.startWizardWithNothing();
 });
 When('they navigate to the Files and License tab', () => {
   cy.get('[data-testid=nav-tabpanel-files-and-license').click({ force: true });
 });
 And('they see the File upload widget', () => {
-  // cy.contains('Drag files here');
+  cy.contains('Drop files here');
 });
 And('they see an Input Field for Linked Resources', () => {});
 And('they see the tab Description is clickable', () => {

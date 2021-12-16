@@ -1,29 +1,13 @@
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import {
-  JOURNAL_SUBTYPES,
-  JOURNAL_FIELDS,
-  BOOK_SUBTYPES,
-  BOOK_FIELDS,
-  REPORT_SUBTYPES,
-  REPORT_FIELDS,
-  CHAPTER_SUBTYPES,
-  CHAPTER_FIELDS,
-  STUDENT_THESIS_SUBTYPES,
-  STUDENT_THESIS_FIELDS,
-  RESOURCE_TYPES,
-  RESOURCE_TYPE_FIELDS,
-} from '../../../support/data_testid_constants';
-
-const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
-const filename = 'example.txt';
+import { RESOURCE_TYPE_FIELDS } from '../../../support/data_testid_constants';
 
 // Feature: Creator navigates to Resource Type tab
 
 // Common steps
 Given('Creator begins registering a Registration in the Wizard with a File', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithFile(filename);
+  cy.startWizardWithNothing();
 });
 When('they navigate to the Resource Type tab', () => {
   cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
@@ -60,11 +44,9 @@ And('they see Save is enabled', () => {
 
 //   Scenario: Creator sees that fields are validated on Resource Type tab
 
-And ('they click the Save button', () => {
+And('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
-})
-Then ('they can see "Mandatory" error messages for fields:', (dataTable) => {
-  
-})
-  // | Type |
+});
+Then('they can see "Mandatory" error messages for fields:', (dataTable) => {});
+// | Type |

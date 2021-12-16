@@ -2,14 +2,14 @@ import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { mockPerson } from '../../../support/mock_data';
 
-const testFile = 'example.txt';
 const stage = Cypress.env('STAGE') ?? 'dev';
+const fileName = 'example.txt';
 
 Given('the Creator publishes Publication', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithFile(testFile);
+  cy.startWizardWithNothing();
 
-  cy.createValidRegistration();
+  cy.createValidRegistration(fileName);
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
   cy.get('[data-testid=button-save-registration]').click({ force: true });
   cy.get('[data-testid=button-save-registration]').should('not.exist');

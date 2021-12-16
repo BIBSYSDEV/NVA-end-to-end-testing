@@ -2,13 +2,11 @@ import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { USER_WITH_AUTHOR } from '../../../support/constants';
 import { CONTRIBUTOR_CREATE_FIELDS, RESOURCE_TYPES } from '../../../support/data_testid_constants';
 
-const filename = 'example.txt';
-
 // Feature: Creator navigates to Contributors tab
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithFile(filename);
+  cy.startWizardWithNothing();
 });
 When('they navigate to the Contributors tab', () => {
   cy.get('[data-testid=nav-tabpanel-contributors]').click({ force: true });

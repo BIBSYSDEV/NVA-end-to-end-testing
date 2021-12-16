@@ -3,7 +3,6 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 
 import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
 
-const filename = 'example.txt';
 const PROJECT_NAME = 'Test mock project';
 const INSTITUTION_NAME = 'Test institution';
 
@@ -14,13 +13,13 @@ Before(() => {
 // Feature: Creator navigates to Description tab
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.startWizardWithFile(filename);
+  cy.startWizardWithNothing();
 });
 When('they navigate to the Description tab', () => {
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
 Given('Creator begins Wizard registration and navigates to Description tab', () => {
-  cy.startWizardWithFile(filename);
+  cy.startWizardWithNothing();
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
 // End common steps
@@ -90,7 +89,7 @@ And('they see title and associated Institutions for each Project', () => {
 
 // Scenario: Creator adds a Project
 Given('Creator searches for Project', () => {
-  cy.startWizardWithFile(filename);
+  cy.startWizardWithNothing();
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
 When('they select a Project from the Search results', () => {
@@ -105,7 +104,7 @@ Then('the selected Project is added to the list of selected Projects', () => {
 
 // Scenario: Creator removes a Project
 Given('Creator adds a Project', () => {
-  cy.startWizardWithFile(filename);
+  cy.startWizardWithNothing();
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
   cy.mockProjectSearch(PROJECT_NAME);
   cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
@@ -135,7 +134,7 @@ Then('they can see a dropdown with Allowed Vocabularies', () => {
 // @2446
 // Scenario: Creator sees input field for an Allowed Vocabulary
 Given('Creator opens dropdown with Allowed Vocabularies', () => {
-  cy.startWizardWithFile(filename);
+  cy.startWizardWithNothing();
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
   cy.get('[data-testid=add-vocabulary-button]').click();
 });
