@@ -317,7 +317,6 @@ def request_doi(identifier, username):
     }
     response = requests.post(request_doi_endpoint,
                              json=doi_request_payload, headers=headers)
-    print(response.json())
 
 
 def approve_doi(identifier):
@@ -329,7 +328,6 @@ def approve_doi(identifier):
     print(f'{approve_doi_endpoint}/{identifier}')
     response = requests.post(f'{approve_doi_endpoint}/{identifier}',
                              json=doi_request_payload, headers=headers)
-    print(response.json())
 
 
 def run():
