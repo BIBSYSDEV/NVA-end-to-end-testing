@@ -6,7 +6,7 @@ const registrationTitle = 'Draft registration requesting DOI';
 
 Before(() => {
   cy.login(USER_DRAFT_DOI);
-  cy.startWizardWithNothing();
+  cy.startWizardWithEmptyRegistration();
   cy.get('[data-testid=registration-title-field]').type(registrationTitle);
   cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');

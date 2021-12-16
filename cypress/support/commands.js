@@ -145,7 +145,7 @@ Cypress.Commands.add('startWizardWithLink', (doiLink) => {
   cy.get('[data-testid=registration-start-button]').filter(':visible').click({ force: true });
 });
 
-Cypress.Commands.add('startWizardWithNothing', (doiLink) => {
+Cypress.Commands.add('startWizardWithEmptyRegistration', (doiLink) => {
   cy.get('[data-testid=new-registration]').click({ force: true });
   cy.get('[data-testid=new-registration-empty]').click();
   cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled');

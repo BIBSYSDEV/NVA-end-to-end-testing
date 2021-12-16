@@ -3,7 +3,7 @@ import { USER_WITH_AUTHOR } from '../../../support/constants';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithNothing();
+  cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Files and License tab', () => {
   cy.get('[data-testid=nav-tabpanel-files-and-license').click({ force: true });

@@ -6,7 +6,7 @@ import { CONTRIBUTOR_CREATE_FIELDS, RESOURCE_TYPES } from '../../../support/data
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithNothing();
+  cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Contributors tab', () => {
   cy.get('[data-testid=nav-tabpanel-contributors]').click({ force: true });

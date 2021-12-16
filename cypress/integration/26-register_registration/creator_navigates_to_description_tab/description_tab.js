@@ -8,18 +8,18 @@ const INSTITUTION_NAME = 'Test institution';
 
 Before(() => {
   cy.login(USER_WITH_AUTHOR);
-})
+});
 
 // Feature: Creator navigates to Description tab
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.startWizardWithNothing();
+  cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Description tab', () => {
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
 Given('Creator begins Wizard registration and navigates to Description tab', () => {
-  cy.startWizardWithNothing();
+  cy.startWizardWithEmptyRegistration();
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
 // End common steps
@@ -48,7 +48,7 @@ And('they see the tab Contributors is clickable', () => {
 And('they see the tab Files and License is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-files-and-license]').should('be.enabled');
 });
-And('they see a Button for creating a new Project is enabled', () => { });
+And('they see a Button for creating a new Project is enabled', () => {});
 And('they see Next is enabled', () => {
   cy.get('[data-testid=button-next-tab]').should('be.enabled');
 });
@@ -89,7 +89,7 @@ And('they see title and associated Institutions for each Project', () => {
 
 // Scenario: Creator adds a Project
 Given('Creator searches for Project', () => {
-  cy.startWizardWithNothing();
+  cy.startWizardWithEmptyRegistration();
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
 When('they select a Project from the Search results', () => {
@@ -104,7 +104,7 @@ Then('the selected Project is added to the list of selected Projects', () => {
 
 // Scenario: Creator removes a Project
 Given('Creator adds a Project', () => {
-  cy.startWizardWithNothing();
+  cy.startWizardWithEmptyRegistration();
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
   cy.mockProjectSearch(PROJECT_NAME);
   cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
@@ -122,7 +122,7 @@ Then('they see the Project is removed from the list of selected Projects', () =>
 });
 
 // Scenario: Creator opens dropdown with Allowed Vocabularies
-And('their Institution has a Vocabulary set as "Allowed"', () => { });
+And('their Institution has a Vocabulary set as "Allowed"', () => {});
 When('they click "Add Vocabulary"', () => {
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
   cy.get('[data-testid=add-vocabulary-button]').click();
@@ -134,7 +134,7 @@ Then('they can see a dropdown with Allowed Vocabularies', () => {
 // @2446
 // Scenario: Creator sees input field for an Allowed Vocabulary
 Given('Creator opens dropdown with Allowed Vocabularies', () => {
-  cy.startWizardWithNothing();
+  cy.startWizardWithEmptyRegistration();
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
   cy.get('[data-testid=add-vocabulary-button]').click();
 });
@@ -148,12 +148,12 @@ Then('they see an input field for the selected Vocabulary', () => {
 // @2448
 // Scenario: Creator sees input field for a Default Vocabulary
 Given('Creator begins Wizard registration', () => {
-  cy.startWizardWithNothing();
-})
-And('their Institution has a Vocabulary set as "Default"', () => { })
+  cy.startWizardWithEmptyRegistration();
+});
+And('their Institution has a Vocabulary set as "Default"', () => {});
 When('the User navigates to Description tab', () => {
   cy.get('[data-testid=nav-tabpanel-description]').click();
-})
+});
 Then('they can see an input field for the Default Vocabulary', () => {
   cy.get('[data-testid^=vocabulary-row-]').should('have.length.above', 0);
 });

@@ -7,7 +7,7 @@ const fileName = 'example.txt';
 
 Given('the Creator publishes Publication', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithNothing();
+  cy.startWizardWithEmptyRegistration();
 
   cy.createValidRegistration(fileName);
   cy.get('[data-testid=button-save-registration]').should('be.enabled');

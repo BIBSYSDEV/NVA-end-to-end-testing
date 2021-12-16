@@ -7,7 +7,7 @@ import { RESOURCE_TYPE_FIELDS } from '../../../support/data_testid_constants';
 // Common steps
 Given('Creator begins registering a Registration in the Wizard with a File', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithNothing();
+  cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Resource Type tab', () => {
   cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
