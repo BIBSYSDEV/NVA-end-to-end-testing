@@ -1,5 +1,7 @@
 import { LANDING_PAGE_FIELDS, LANDING_PAGE_SHARE_BUTTONS } from '../../../support/data_testid_constants';
 
+const landing_page_registration_title = 'View Landing Page';
+
 // @881
 // Scenario: Anonymous User views Landing Page for Registration
 When('an Anonymous user navigates to a Landing Page for a Resource', () => {
@@ -8,9 +10,10 @@ When('an Anonymous user navigates to a Landing Page for a Resource', () => {
   cy.get('[data-testid=search-button]').click();
   cy.get('[data-testid=search-field]').type('View Landing Page{enter}');
   cy.get('[data-testid=result-list-item]')
+    .filter(`:contains(${landing_page_registration_title})`)
     .first()
     .within((result) => {
-      cy.wrap(result).get('a').filter(':contains("View Landing Page")').click();
+      cy.wrap(result).get('a').filter(`:contains(${landing_page_registration_title})`).click();
     });
 });
 Then('they see', (dataTable) => {
