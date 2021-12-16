@@ -65,6 +65,9 @@ And('they see an Expansion panel for Upload file', () => {
 And('they see an Expansion panel for Link to resource', () => {
   cy.get('[data-testid=new-registration-link]').should('be.visible');
 });
+And('they see an Expansion panel for Empty Registration', () => {
+  cy.get('[data-testid=new-registration-empty]').should('be.visible');
+});
 
 //   @385
 //   Scenario: Creator begins registration by uploading a file

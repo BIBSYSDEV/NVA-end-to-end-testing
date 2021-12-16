@@ -145,7 +145,7 @@ Cypress.Commands.add('startWizardWithLink', (doiLink) => {
   cy.get('[data-testid=registration-start-button]').filter(':visible').click({ force: true });
 });
 
-Cypress.Commands.add('startWizardWithNothing', (doiLink) => {
+Cypress.Commands.add('startWizardWithEmptyRegistration', (doiLink) => {
   cy.get('[data-testid=new-registration]').click({ force: true });
   cy.get('[data-testid=new-registration-empty]').click();
   cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled');
@@ -156,7 +156,7 @@ Cypress.Commands.add('logoutCognito', () => {
   Auth.signOut();
 });
 
-Cypress.Commands.add('createValidRegistration', () => {
+Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Description
   cy.get('[data-testid=nav-tabpanel-description').click({ force: true });
   cy.get('[data-testid=registration-title-field]').type('Title');
@@ -188,6 +188,10 @@ Cypress.Commands.add('createValidRegistration', () => {
 
   // Files and reference
   cy.get('[data-testid=nav-tabpanel-files-and-license').click({ force: true });
+  cy.get('input[type=file]').attachFile(fileName);
+  cy.get('[data-testid=version-radios]').within(() => {
+    cy.get('input[type=radio]').first().click();
+  });
   cy.get('[data-testid=uploaded-file-select-license]').click({ force: true }).type(' ');
   cy.get('[data-testid=license-item]').first().click({ force: true });
 });

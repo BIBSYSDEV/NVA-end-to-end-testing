@@ -5,7 +5,6 @@ import { JOURNAL_SUBTYPES, JOURNAL_FIELDS } from '../../../../support/data_testi
 // Feature: Creator selects Resource type Contribution to journal
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
-const filename = 'example.txt';
 
 // Common steps
 Given('Creator begins registering a Registration in the Wizard with a Link', () => {
@@ -14,7 +13,7 @@ Given('Creator begins registering a Registration in the Wizard with a Link', () 
 });
 Given('Creator begins registering a Registration in the Wizard with a File', () => {
   cy.login(USER_WITH_AUTHOR);
-  cy.startWizardWithFile(filename);
+  cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Resource Type tab', () => {
   cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
