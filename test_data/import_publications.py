@@ -4,6 +4,7 @@ import copy
 import requests
 import os
 import common
+import time
 
 dynamodb_client = boto3.client('dynamodb')
 s3_client = boto3.client('s3')
@@ -277,7 +278,6 @@ def create_publications(location):
             bearer_token = ''
             bearer_token = common.login(username=username)
             print(f'Creating {test_publication["title"]}')
-            print(f'user = {username}')
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
@@ -319,7 +319,7 @@ def request_doi(identifier, username):
 
 
 def approve_doi(identifier):
-    print(f'user = {username_curator}')
+    time.sleep(5)
     request_bearer_token = common.login(username=username_curator)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
@@ -328,7 +328,6 @@ def approve_doi(identifier):
     response = requests.post(f'{approve_doi_endpoint}/{identifier}',
                              json=doi_request_payload, headers=headers)
     print(response.json())
-
 
 def run():
     print('publications...')
