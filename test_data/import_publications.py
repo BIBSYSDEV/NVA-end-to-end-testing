@@ -4,6 +4,7 @@ import copy
 import requests
 import os
 import common
+import time
 
 dynamodb_client = boto3.client('dynamodb')
 s3_client = boto3.client('s3')
@@ -318,6 +319,7 @@ def request_doi(identifier, username):
 
 
 def approve_doi(identifier):
+    time.sleep(5)
     request_bearer_token = common.login(username=username_curator)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
