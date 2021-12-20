@@ -17,7 +17,7 @@ And('they see an Author', () => {
   cy.get('[data-testid=connect-author-button]').click({ force: true });
 });
 When('they check the Corresponding checkbox', () => {
-  cy.get('[data-testid=author-corresponding-checkbox]').click({ force: true });
+  cy.get('[data-testid=author-corresponding-checkbox] > input').click({ force: true });
 });
 Then('they see the Corresponding Author checkbox is checked', () => {
   cy.get('[data-testid=author-corresponding-checkbox]').within((checkbox) => {
