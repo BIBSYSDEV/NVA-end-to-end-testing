@@ -272,9 +272,13 @@ Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
 });
 
 Cypress.Commands.add('mockInstitution', (cristinId) => {
-  cy.fixture('institutions.json').then((institutions) => {
-    cy.intercept(`https://api.${stage}.nva.aws.unit.no/institution/institutions*`, institutions);
+  cy.fixture('org_query.json').then((organizations) => {
+    cy.log(`mocking https://api.${stage}.nva.aws.unit.no/cristin/organization*`);
+    cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/?query=*`, organizations);
   });
+  // cy.fixture('institutions.json').then((institutions) => {
+  //   cy.intercept(`https://api.${stage}.nva.aws.unit.no/institution/institutions*`, institutions);
+  // });
 });
 
 Cypress.Commands.add('mockDepartments', () => {
