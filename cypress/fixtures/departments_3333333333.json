@@ -10,25 +10,19 @@
     },
     "name": "https://nva.unit.no/ontology#name"
   },
-  "id": "https://api.cristin.no/v2/institutions/3333333333",
-  "type": "Institution",
-  "name": "Mock institution 3",
-  "subunits": [
+  "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.1.0.0",
+  "name": {
+    "en": "Mock department 1",
+    "nb": "Mock department 1"
+  },
+  "partOf": [
     {
-      "id": "https://api.cristin.no/v2/units/3333333333.1.0.0",
-      "name": "Mock department 1",
-      "subunits": [
-        {
-          "id": "https://api.cristin.no/v2/units/3333333333.2.0.0",
-          "name": "Mock department 2",
-          "subunits": [
-            {
-              "id": "https://api.cristin.no/v2/units/3333333333.3.0.0",
-              "name": "Mock department 3"
-            }
-          ]
-        }
-      ]
+      "type": "Organization",
+      "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.0.0.0",
+      "name": {
+        "en": "Mock institution 3",
+        "nb": "Mock institution 3"
+      }
     }
   ]
 }
