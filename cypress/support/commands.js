@@ -272,9 +272,13 @@ Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
 });
 
 Cypress.Commands.add('mockInstitution', (cristinId) => {
-  cy.fixture('institutions.json').then((institutions) => {
-    cy.intercept(`https://api.${stage}.nva.aws.unit.no/institution/institutions*`, institutions);
+  cy.fixture('org_query.json').then((organizations) => {
+    cy.log(`mocking https://api.${stage}.nva.aws.unit.no/cristin/organization*`);
+    cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/?query=*`, organizations);
   });
+  // cy.fixture('institutions.json').then((institutions) => {
+  //   cy.intercept(`https://api.${stage}.nva.aws.unit.no/institution/institutions*`, institutions);
+  // });
 });
 
 Cypress.Commands.add('mockDepartments', () => {
@@ -284,6 +288,22 @@ Cypress.Commands.add('mockDepartments', () => {
     cy.fixture(departments_file).then((departments) => {
       cy.intercept(
         `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
+        departments
+      );
+      cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.0.0.0`, departments);
+      cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.1.0.0`, departments);
+      cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.2.0.0`, departments);
+      cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.3.0.0`, departments);
+      cy.intercept(
+        `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}.1.0.0*&language=en`,
+        departments
+      );
+      cy.intercept(
+        `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}.2.0.0*&language=en`,
+        departments
+      );
+      cy.intercept(
+        `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}.3.0.0*&language=en`,
         departments
       );
       cy.intercept(

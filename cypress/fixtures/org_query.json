@@ -1,0 +1,96 @@
+{
+  "@context": "https://api.dev.nva.aws.unit.no/cristin/organization",
+  "id": "https://api.dev.nva.aws.unit.no/cristin/organization?query=ntnu&page=1&results=20",
+  "size": 6,
+  "searchString": "query=ntnu&page=1&results=20",
+  "processingTime": 6630,
+  "firstRecord": 1,
+  "nextResults": null,
+  "previousResults": null,
+  "hits": [
+    {
+      "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.1.0.0",
+      "name": {
+        "en": "Mock department 1",
+        "nb": "Mock department 1"
+      },
+      "partOf": [
+        {
+          "type": "Organization",
+          "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.0.0.0",
+          "name": {
+            "en": "Mock institution 3",
+            "nb": "Mock institution 3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.2.0.0",
+      "name": {
+        "en": "Mock department 2",
+        "nb": "Mock department 2"
+      },
+      "partOf": [
+        {
+          "type": "Organization",
+          "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.0.0.0",
+          "name": {
+            "en": "Mock institution 3",
+            "nb": "Mock institution 3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.3.0.0",
+      "name": {
+        "en": "Mock department 3",
+        "nb": "Mock department 3"
+      },
+      "partOf": [
+        {
+          "type": "Organization",
+          "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.0.0.0",
+          "name": {
+            "en": "Mock institution 3",
+            "nb": "Mock institution 3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.0.0.0",
+      "name": {
+        "en": "Mock institution 3",
+        "nb": "Mock institution 3"
+      },
+      "hasPart": [
+        {
+          "type": "Organization",
+          "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.1.0.0",
+          "name": {
+            "en": "Mock department 1",
+            "nb": "Mock department 1"
+          }
+        },
+        {
+          "type": "Organization",
+          "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.2.0.0",
+          "name": {
+            "en": "Mock department 2",
+            "nb": "Mock department 2"
+          }
+        },
+        {
+          "type": "Organization",
+          "id": "https://api.dev.nva.aws.unit.no/cristin/organization/3333333333.3.0.0",
+          "name": {
+            "en": "Mock department 3",
+            "nb": "Mock department 3"
+          }
+        }
+      ]
+    }
+  ]
+}
