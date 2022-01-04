@@ -104,11 +104,8 @@ export const MY_INSTITUTION_FIELDS_TESTVALUE = {
 };
 
 export const INSTITUTION_FIELDS = {
-  'Name in organization registry': 'organization-search-field',
-  'Display name': 'customer-institution-display-name-field',
-  'Short display name': 'customer-institution-short-name-field',
-  'Archive name': 'customer-institution-archive-name-field',
-  'Feide Organization ID': 'customer-institution-feide-organization-id-field',
+  ...MY_INSTITUTION_FIELDS,
+  'Feide Organization ID': 'feide-field',
 };
 
 export const RESOURCE_TYPES = {

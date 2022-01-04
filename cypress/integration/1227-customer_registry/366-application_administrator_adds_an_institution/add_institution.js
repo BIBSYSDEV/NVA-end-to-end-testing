@@ -31,5 +31,5 @@ And('they see fields:', (dataTable) => {
 //   | Archive name                  |
 //   | Feide Organization ID         |
 And('a button Create that is enabled', () => {
-  cy.get('[data-testid=customer-institution-save-button]').should('be.enabled');
+  cy.get('[data-testid=save-button]').should('be.enabled');
 });
