@@ -28,7 +28,7 @@ And('they see fields:', (dataTable) => {
 // | Short display name            |
 // | Archive name                  |
 And('they see the Save button', () => {
-  cy.get('[data-testid=customer-institution-save-button]').should('be.visible');
+  cy.get('[data-testid=save-button]').should('be.visible');
 });
 
 // Institution Administrator edits My Institution
@@ -45,7 +45,7 @@ When('they edit fields:', (dataTable) => {
 // | Short display name            |
 // | Archive name                  |
 And('they click Save', () => {
-  cy.get('[data-testid=customer-institution-save-button]').click({ force: true });
+  cy.get('[data-testid=save-button]').click({ force: true });
 });
 Then('they see a Notification that the changes were saved', () => {
   cy.get('[data-testid=snackbar-success]').should('be.visible');

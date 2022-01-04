@@ -92,9 +92,9 @@ export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
 
 export const MY_INSTITUTION_FIELDS = {
   'Name in organization registry': 'organization-search-field',
-  'Display name': 'customer-institution-display-name-field',
-  'Short display name': 'customer-institution-short-name-field',
-  'Archive name': 'customer-institution-archive-name-field',
+  'Display name': 'display-name-field',
+  'Short display name': 'short-name-field',
+  'Archive name': 'archive-field',
 };
 
 export const MY_INSTITUTION_FIELDS_TESTVALUE = {
