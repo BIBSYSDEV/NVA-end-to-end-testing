@@ -25,7 +25,7 @@ Then('they see fields:', (dataTable) => {
 // | Archive name                  |
 // | Feide Organization ID         |
 And('they see the Save button', () => {
-  cy.get('[data-testid=customer-institution-save-button]').should('be.visible');
+  cy.get('[data-testid=save-button]').should('be.visible');
 });
 And('they see the list of current Institution Administrators', () => {
   cy.get('[data-testid^=button-remove-role-]').should('have.length.above', 0);
