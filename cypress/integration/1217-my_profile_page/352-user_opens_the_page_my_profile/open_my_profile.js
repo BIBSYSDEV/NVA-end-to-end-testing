@@ -1,9 +1,8 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { PROFILE_PAGE_FIELDS } from '../../../support/data_testid_constants';
+import { userWithAuthor } from '../../../support/constants';
+import { profilePageFields } from '../../../support/data_testid_constants';
 
 Given('that the user is logged in', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
 });
 When('they click the menu item My user profile', () => {
   cy.mockInstitution();
@@ -12,7 +11,7 @@ When('they click the menu item My user profile', () => {
 });
 Then('they see My Profile', () => {});
 And('they see their Profile page which includes information for', (dataTable) => {
-  cy.testDataTestidList(dataTable, PROFILE_PAGE_FIELDS);
+  cy.testDataTestidList(dataTable, profilePageFields);
 });
 // | Real name          |
 // | Feide ID           |

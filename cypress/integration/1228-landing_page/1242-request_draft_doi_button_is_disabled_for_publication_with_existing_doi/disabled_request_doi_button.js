@@ -1,6 +1,6 @@
 // Feature: Request/Draft DOI button is disabled for Publications with existing DOI
 
-import { USER_DRAFT_DOI } from '../../../support/constants';
+import { userDraftDoi } from '../../../support/constants';
 import { myRegistrationsTabs, landingPageButtons } from '../../../support/data_testid_constants';
 
 const registrationTitles = {
@@ -11,7 +11,7 @@ const registrationTitles = {
 // @1242
 // Scenario Outline: Request/Draft DOI button is disabled for Registrations with existing DOI
 Given('that a Creator views the Landing Page for a Registration', () => {
-  cy.login(USER_DRAFT_DOI);
+  cy.login(userDraftDoi);
   cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click();
 });

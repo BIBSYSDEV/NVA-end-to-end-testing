@@ -1,12 +1,11 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { userWithAuthor } from '../../../support/constants';
 
 // Feature: Creator cancels deletion of an item in My Registrations list
 
 // @576
 // Scenario: Creator cancels deletion of an item in My Registrations list
 Given('that the user is logged in as Creator', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
 });
 And('is on the My Registrations page', () => {
   cy.get('[data-testid=menu-button]').click();

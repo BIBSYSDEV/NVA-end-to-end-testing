@@ -7,38 +7,38 @@ import {
   mockPersonFeideIdSearch,
   mockPersonNameSearch,
   mockPerson,
-  PROJECT_SEARCH_MOCK_FILE,
-  PROJECT_API_PATH,
-  JOURNAL_SEARCH_MOCK_FILE,
+  projectSearchMockFile,
+  projectApiPath,
+  journalSearchMockFile,
 } from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 
-const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
-const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
-const AWS_SESSION_TOKEN = Cypress.env('AWS_SESSION_TOKEN');
-const REGION = Cypress.env('AWS_REGION');
-const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
-const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
+const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
+const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
+const awsSessionToken = Cypress.env('AWS_SESSION_TOKEN');
+const region = Cypress.env('AWS_REGION');
+const userPoolId = Cypress.env('AWS_USER_POOL_ID');
+const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'dev';
 
 AWS.config = new AWS.Config({
-  accessKeyId: AWS_ACCESS_KEY_ID,
-  secretAccessKey: AWS_SECRET_ACCESS_KEY,
-  sessionToken: AWS_SESSION_TOKEN,
-  region: REGION,
+  accessKeyId: awsAccessKeyId,
+  secretAccessKey: awsSecretAccessKey,
+  sessionToken: awsSessionToken,
+  region: region,
 });
 
 const amplifyConfig = {
   Auth: {
-    region: REGION,
-    userPoolId: USER_POOL_ID,
-    userPoolWebClientId: CLIENT_ID,
+    region: region,
+    userPoolId: userPoolId,
+    userPoolWebClientId: clientId,
   },
 };
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
-const AUTH_FLOW = 'ADMIN_USER_PASSWORD_AUTH';
+const authFlow = 'ADMIN_USER_PASSWORD_AUTH';
 
 Cypress.Commands.add('connectAuthor', () => {
   cy.get('[data-testid=create-author-button]').click();
@@ -67,21 +67,21 @@ Cypress.Commands.add('checkMenu', (table) => {
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
-    const RANDOM_PASSWORD = `P%${uuidv4()}`;
+    const randomPassword = `P%${uuidv4()}`;
 
     const authorizeUser = {
-      AuthFlow: AUTH_FLOW,
-      ClientId: CLIENT_ID,
-      UserPoolId: USER_POOL_ID,
+      AuthFlow: authFlow,
+      ClientId: clientId,
+      UserPoolId: userPoolId,
       AuthParameters: {
         USERNAME: userId,
-        PASSWORD: RANDOM_PASSWORD,
+        PASSWORD: randomPassword,
       },
     };
 
     const passwordParams = {
-      Password: RANDOM_PASSWORD,
-      UserPoolId: USER_POOL_ID,
+      Password: randomPassword,
+      UserPoolId: userPoolId,
       Username: userId,
       Permanent: true,
     };
@@ -91,7 +91,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
         identityServiceProvider.adminInitiateAuth(authorizeUser, async (err, data) => {
           if (data) {
             if (!data.ChallengeName) {
-              await Auth.signIn(userId, RANDOM_PASSWORD);
+              await Auth.signIn(userId, randomPassword);
               resolve(data.AuthenticationResult.IdToken);
             }
           } else {
@@ -266,8 +266,8 @@ Cypress.Commands.add('mockPersonSearch', (userId) => {
 });
 
 Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
-  cy.fixture(PROJECT_SEARCH_MOCK_FILE).then((searchResult) => {
-    cy.intercept(`${PROJECT_API_PATH}?query=*`, searchResult);
+  cy.fixture(projectSearchMockFile).then((searchResult) => {
+    cy.intercept(`${projectApiPath}?query=*`, searchResult);
   });
 });
 
@@ -315,7 +315,7 @@ Cypress.Commands.add('mockDepartments', () => {
 });
 
 Cypress.Commands.add('mockJournalSearch', () => {
-  cy.fixture(JOURNAL_SEARCH_MOCK_FILE).then((journals) => {
+  cy.fixture(journalSearchMockFile).then((journals) => {
     cy.intercept(`https://api.${stage}.nva.aws.unit.no/publication-channels/journal*`, journals);
   });
 });

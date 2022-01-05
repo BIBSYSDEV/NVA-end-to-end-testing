@@ -1,8 +1,8 @@
-import { Given, When, Then, Before, After, And } from 'cypress-cucumber-preprocessor/steps';
-import { ADMIN_USER } from '../../support/constants';
+import { Before, After } from 'cypress-cucumber-preprocessor/steps';
+import { adminUser } from '../../support/constants';
 
 Before(() => {
-  cy.loginCognito(ADMIN_USER).then((idToken) => cy.wrap(idToken).as('idToken'));
+  cy.loginCognito(adminUser).then((idToken) => cy.wrap(idToken).as('idToken'));
   cy.visit('/');
 
   cy.get('[data-testid=create-author-button]', { timeout: 10000 }).click();
@@ -30,5 +30,5 @@ Then('they see a menu containing', (tableData) => {
 });
 
 After(() => {
-  cy.deleteCognitoUser(ADMIN_USER);
+  cy.deleteCognitoUser(adminUser);
 });

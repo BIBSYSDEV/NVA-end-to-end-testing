@@ -1,18 +1,17 @@
-import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import {
-  USER_CURATOR_WITH_AUTHOR,
-  USER_NO_ROLE,
-  USER_WITH_AUTHOR,
-  ADMIN_USER,
-  USER_INST_ADMIN_WITH_AUTHOR,
+  userCuratorWithAuthor,
+  userNoRole,
+  userWithAuthor,
+  adminUser,
+  userInstAdminWithAuthor,
 } from '../../../support/constants';
 import {
-  ADMIN_MENU,
-  CREATOR_MENU,
-  CURATOR_MENU,
-  INST_ADMIN_MENU,
-  MAIN_BUTTONS,
-  USER_MENU,
+  adminMenu,
+  creatorMenu,
+  curatorMenu,
+  instAdminMenu,
+  mainButtons,
+  userMenu,
 } from '../../../support/data_testid_constants';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -31,7 +30,7 @@ Then('they see a Dropdown Menu with items:', (dataTable) => {
   });
 });
 And('they see Menu items:', (dataTable) => {
-  cy.testDataTestidList(dataTable, MAIN_BUTTONS);
+  cy.testDataTestidList(dataTable, mainButtons);
 });
 And('they see the Language selector', () => {
   cy.get('[data-testid=language-button]').should('be.visible');
@@ -50,35 +49,35 @@ Then('they see the Log in Button', () => {
 // @345
 // Scenario: User without any role sees menu
 And('they have no NVA role', () => {
-  cy.login(USER_NO_ROLE);
-  cy.wrap(USER_MENU).as('MENU');
+  cy.login(userNoRole);
+  cy.wrap(userMenu).as('MENU');
 });
 
 // @346
 // Scenario: User sees the menu for Creator
 And('they have the "Creator" role', () => {
-  cy.login(USER_WITH_AUTHOR);
-  cy.wrap(CREATOR_MENU).as('MENU');
+  cy.login(userWithAuthor);
+  cy.wrap(creatorMenu).as('MENU');
 });
 
 // @347
 // Scenario: User sees the menu for Curator
 And('they have the "Curator" Role', () => {
-  cy.mockPersonSearch(USER_CURATOR_WITH_AUTHOR);
-  cy.login(USER_CURATOR_WITH_AUTHOR);
-  cy.wrap(CURATOR_MENU).as('MENU');
+  cy.mockPersonSearch(userCuratorWithAuthor);
+  cy.login(userCuratorWithAuthor);
+  cy.wrap(curatorMenu).as('MENU');
 });
 
 // @348
 // Scenario: User sees the menu for Institution-admin
 And('they have the "Institution-admin" role', () => {
-  cy.login(USER_INST_ADMIN_WITH_AUTHOR);
-  cy.wrap(INST_ADMIN_MENU).as('MENU');
+  cy.login(userInstAdminWithAuthor);
+  cy.wrap(instAdminMenu).as('MENU');
 });
 
 // @350
 // Scenario: User sees the menu for Application administrator
 And('they have the "App-admin" role', () => {
-  cy.login(ADMIN_USER);
-  cy.wrap(ADMIN_MENU).as('MENU');
+  cy.login(adminUser);
+  cy.wrap(adminMenu).as('MENU');
 });

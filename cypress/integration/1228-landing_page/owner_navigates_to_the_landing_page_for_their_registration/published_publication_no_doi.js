@@ -1,11 +1,10 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { userWithAuthor } from '../../../support/constants';
 
 // Feature: Owner navigates to the Landing Page for their Registration
 
 // Common steps
 Given('that the Creator navigates to the Landing Page for a Resource', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
 });
 And('they are the Owner of the Resource', () => {
   cy.get('[data-testid=menu-button]').click();
@@ -36,7 +35,7 @@ Then('they see buttons for "Request a DOI" and "Edit Resource"', () => {
 
 // Scenario: Owner navigates to the Landing Page for their Registration with Validation Errors
 When('the Creator navigates to the Landing Page', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
   cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });

@@ -1,8 +1,7 @@
-import { Given, And, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { userWithAuthor } from '../../../support/constants';
 
 Given('the user has navigated to any other page than Start Page', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
   cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });
