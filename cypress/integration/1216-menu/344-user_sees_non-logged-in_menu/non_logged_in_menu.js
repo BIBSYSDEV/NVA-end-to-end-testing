@@ -1,4 +1,3 @@
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { v4 as uuidv4 } from 'uuid';
 
 Given('that the user is not logged in', () => {

@@ -1,11 +1,10 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_SECOND_INST_ADMIN_WITH_AUTHOR } from '../../../support/constants';
+import { userSecondInstAdminWithAuthor } from '../../../support/constants';
 import {
-  USER_ADMINISTRATION_BUTTONS,
-  USER_ADMINISTRATION_SECTIONS,
-  USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS,
-  USER_ADMINISTRATION_ADD_ROLE_BUTTONS,
-  USER_ADMINISTRATION_PAGINATION,
+  userAdministrationButtons,
+  userAdministrationSections,
+  userAdministrationRemoveRoleButtons,
+  userAdministrationAddRoleButtons,
+  userAdministrationPagination,
 } from '../../../support/data_testid_constants';
 
 const roleSearchTerms = {
@@ -53,7 +52,7 @@ And('they can select next page of items', () => {
 When('they click {string} under {string}', (button, section) => {
   cy.wrap(button).as('button');
   cy.wrap(section).as('section');
-  cy.get(`[data-testid=${USER_ADMINISTRATION_BUTTONS[button]}]`).click();
+  cy.get(`[data-testid=${userAdministrationButtons[button]}]`).click();
 });
 
 // End common steps
@@ -62,7 +61,7 @@ When('they click {string} under {string}', (button, section) => {
 // @359
 // Scenario Outline: Administrator opens User Administration
 Given('that the user is logged in as Administrator', () => {
-  cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
+  cy.login(userSecondInstAdminWithAuthor);
 });
 When('they click the menu item Users', () => {
   cy.get('[data-testid=menu-button]').click({ force: true });
@@ -77,19 +76,19 @@ And(
     cy.wrap(section).as('section');
     cy.wrap(role).as('role');
     cy.wrap('1-5 of').as('expectedUserNumbers');
-    cy.get(`[data-testid=${USER_ADMINISTRATION_SECTIONS[section]}]`).should('exist').and('be.visible');
-    cy.get(`[data-testid=${USER_ADMINISTRATION_SECTIONS[section]}]`).within(() => {
+    cy.get(`[data-testid=${userAdministrationSections[section]}]`).should('exist').and('be.visible');
+    cy.get(`[data-testid=${userAdministrationSections[section]}]`).within(() => {
       cy.get('tbody > tr').should('have.length', 5);
-      cy.get(`[data-testid=user-pagination-${USER_ADMINISTRATION_PAGINATION[role]}]`).as('listControls');
+      cy.get(`[data-testid=user-pagination-${userAdministrationPagination[role]}]`).as('listControls');
     });
   }
 );
 And('they see a Button {string}', (button) => {
-  cy.get(`[data-testid=${USER_ADMINISTRATION_BUTTONS[button]}]`).should('exist').and('be.visible');
+  cy.get(`[data-testid=${userAdministrationButtons[button]}]`).should('exist').and('be.visible');
 });
 And('they see that the list has the fields "Username" and "Name" for each user', () => {
   cy.get('@section').then((section) => {
-    cy.get(`[data-testid=${USER_ADMINISTRATION_SECTIONS[section]}]`).within(() => {
+    cy.get(`[data-testid=${userAdministrationSections[section]}]`).within(() => {
       cy.get('tbody > tr').each((user_line) => {
         cy.wrap(user_line).within(() => {
           cy.get('td').should('have.length', 3);
@@ -100,7 +99,7 @@ And('they see that the list has the fields "Username" and "Name" for each user',
 });
 And('they see a button "Remove" that is enabled for each user', () => {
   cy.get('@role').then((role) => {
-    cy.get(`[data-testid^=${USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS[role]}]`).should('have.length', 5);
+    cy.get(`[data-testid^=${userAdministrationRemoveRoleButtons[role]}]`).should('have.length', 5);
   });
 });
 And('they see a section Registrator with a policy for who are able to publish', () => {
@@ -117,7 +116,7 @@ And('they see a section Registrator with a policy for who are able to publish', 
 // @363
 // Scenario Outline: Administrator opens the Add Role Dialog
 Given('Administrator opens User Administration', () => {
-  cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
+  cy.login(userSecondInstAdminWithAuthor);
   cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=admin-users-link]').click({ force: true });
 });
@@ -137,7 +136,7 @@ And('they see an input field to Search for employees', () => {
 And('they see a list of employees with an "Add" button', () => {
   cy.get('@roleModal').within(() => {
     cy.get('@button').then((button) => {
-      cy.get(`[data-testid^=${USER_ADMINISTRATION_ADD_ROLE_BUTTONS[button]}]`).should('have.length', 5);
+      cy.get(`[data-testid^=${userAdministrationAddRoleButtons[button]}]`).should('have.length', 5);
     });
   });
 });
@@ -154,7 +153,7 @@ And('they see a "Close" button', () => {
 // @1362
 // Scenario: Administrator searches for User
 Given('Administrator opens the Add Role Dialog', () => {
-  cy.login(USER_SECOND_INST_ADMIN_WITH_AUTHOR);
+  cy.login(userSecondInstAdminWithAuthor);
   cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=admin-users-link]').click({ force: true });
 });

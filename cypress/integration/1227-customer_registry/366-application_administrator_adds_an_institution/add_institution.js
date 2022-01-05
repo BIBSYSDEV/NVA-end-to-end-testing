@@ -1,13 +1,12 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { ADMIN_USER } from '../../../support/constants';
-import { INSTITUTION_FIELDS } from '../../../support/data_testid_constants';
+import { adminUser } from '../../../support/constants';
+import { institutionFields } from '../../../support/data_testid_constants';
 
 // Feature: Application Administrator adds an Institution
 
 //   @366
 //   Scenario: Application Administrator adds an Institution
 Given('that the user is logged in as Application Administrator', () => {
-  cy.login(ADMIN_USER);
+  cy.login(adminUser);
 });
 And('they click the menu item Institutions', () => {
   cy.get('[data-testid=menu-button]').click({ force: true });
@@ -22,7 +21,7 @@ Then('they see the Add Institution page', () => {
 });
 And('they see fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
-    cy.get(`[data-testid=${INSTITUTION_FIELDS[field[0]]}]`).should('be.visible');
+    cy.get(`[data-testid=${institutionFields[field[0]]}]`).should('be.visible');
   });
 });
 //   | Name in organization registry |

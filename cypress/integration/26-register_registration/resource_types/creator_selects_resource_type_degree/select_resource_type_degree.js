@@ -1,11 +1,11 @@
-import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
-import { USER_RESOURCE_TYPE } from '../../../../support/constants';
-import { STUDENT_THESIS_SUBTYPES, STUDENT_THESIS_FIELDS } from '../../../../support/data_testid_constants';
+import { userResourceType } from '../../../../support/constants';
+import { studentThesisSubtypes, studentThesisFields } from '../../../../support/data_testid_constants';
+import { Before } from 'cypress-cucumber-preprocessor/steps';
 
 // Feature: Creator selects Resource type Degree
 
 Before(() => {
-  cy.login(USER_RESOURCE_TYPE);
+  cy.login(userResourceType);
   cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
@@ -18,7 +18,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Stu
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
 });
 Then('they see fields:', (dataTable) => {
-  cy.testDataTestidList(dataTable, STUDENT_THESIS_FIELDS);
+  cy.testDataTestidList(dataTable, studentThesisFields);
 });
 // End common steps
 
@@ -33,7 +33,7 @@ When('they select the Resource type "Student thesis"', () => {
 });
 Then('they see a list of subtypes:', (dataTable) => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.testDataTestidList(dataTable, STUDENT_THESIS_SUBTYPES);
+  cy.testDataTestidList(dataTable, studentThesisSubtypes);
 });
 // | Bachelor thesis      |
 // | Master thesis        |
@@ -44,7 +44,7 @@ Then('they see a list of subtypes:', (dataTable) => {
 // Scenario Outline: Creator sees fields for Resource subtypes for "Student thesis"
 When('they select the Subtype {string}', (subtype) => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get(`[data-testid=${STUDENT_THESIS_SUBTYPES[subtype]}]`).click({ force: true });
+  cy.get(`[data-testid=${studentThesisSubtypes[subtype]}]`).click({ force: true });
 });
 // Examples:
 //     | Subtype              |
@@ -67,7 +67,7 @@ When('they click the Save button', () => {
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
-    cy.get(`[data-testid=${STUDENT_THESIS_FIELDS[field[0]]}]`)
+    cy.get(`[data-testid=${studentThesisFields[field[0]]}]`)
       .scrollIntoView()
       .within(() => {
         cy.get('p').should('have.class', 'Mui-error');
@@ -81,5 +81,5 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 // Scenario: Creator sees series fields for Resource subtypes "Doctoral thesis"
 When('they select the Subtype "Doctoral thesis"', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.get(`[data-testid=${STUDENT_THESIS_SUBTYPES['Doctoral thesis']}]`).click({ force: true });
+  cy.get(`[data-testid=${studentThesisSubtypes['Doctoral thesis']}]`).click({ force: true });
 });

@@ -1,9 +1,7 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_NON_CUSTOMER } from '../../../support/constants';
-import { MOCK_CRISTINID } from '../../../support/mock_data';
+import { userNonCustomer } from '../../../support/constants';
 
 Given('that a User is logged in with Feide', () => {
-  cy.login(USER_NON_CUSTOMER);
+  cy.login(userNonCustomer);
 });
 And('their Institution is not a Customer of NVA', () => {});
 When('they navigate to My Profile', () => {

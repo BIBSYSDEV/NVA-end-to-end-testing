@@ -1,8 +1,7 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { ADMIN_USER } from '../../../support/constants';
+import { adminUser } from '../../../support/constants';
 
 Given('that the user is logged in as Application Administrator', () => {
-  cy.login(ADMIN_USER);
+  cy.login(adminUser);
 });
 When('they click the menu item Institutions', () => {
   cy.get('[data-testid=menu-button]').click({ force: true });

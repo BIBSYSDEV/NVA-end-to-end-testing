@@ -1,17 +1,16 @@
-import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { RESOURCE_TYPE_FIELDS } from '../../../support/data_testid_constants';
+import { userWithAuthor } from '../../../support/constants';
+import { resourceTypeFields } from '../../../support/data_testid_constants';
 
 // Feature: Creator navigates to Resource Type tab
 
 // Common steps
 Given('Creator begins registering a Registration in the Wizard with a File', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
   cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Resource Type tab', () => {
   cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
-  cy.wrap(RESOURCE_TYPE_FIELDS).as('fields');
+  cy.wrap(resourceTypeFields).as('fields');
 });
 // end common steps
 

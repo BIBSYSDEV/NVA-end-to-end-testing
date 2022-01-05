@@ -1,9 +1,9 @@
 import { Given, And, When, Then, Before, After } from 'cypress-cucumber-preprocessor/steps';
-import { NAME_WITH_AUTHOR, USER_WITH_AUTHOR } from '../../support/constants';
+import { NAME_WITH_AUTHOR, userWithAuthor } from '../../support/constants';
 import { createUser, formatName } from '../../support/users';
 
 Given('that a User has a valid Feide ID and password', () => {
-  cy.loginCognito(USER_WITH_AUTHOR).then((idToken) => cy.wrap(idToken).as('idToken'));
+  cy.loginCognito(userWithAuthor).then((idToken) => cy.wrap(idToken).as('idToken'));
 });
 And('they do not have a Feide ID in their ARP entry', () => {});
 And('there are entries in ARP', () => {});

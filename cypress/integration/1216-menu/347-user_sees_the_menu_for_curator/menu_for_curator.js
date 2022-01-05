@@ -1,10 +1,9 @@
-import { Given, And, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import { USER_CURATOR_WITH_AUTHOR } from '../../../support/constants';
-import { CURATOR_MENU } from '../../../support/data_testid_constants';
+import { userCuratorWithAuthor } from '../../../support/constants';
+import { curatorMenu } from '../../../support/data_testid_constants';
 import { v4 as uuidv4 } from 'uuid';
 
 Given('that the user is logged in', () => {
-  cy.login(USER_CURATOR_WITH_AUTHOR);
+  cy.login(userCuratorWithAuthor);
 });
 And('they have the role of Curator', () => {});
 When('they look at any page in NVA', () => {
@@ -12,7 +11,7 @@ When('they look at any page in NVA', () => {
 });
 Then('they see a menu containing', (dataTable) => {
   cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.testDataTestidList(dataTable, CURATOR_MENU);
+  cy.testDataTestidList(dataTable, curatorMenu);
 });
 // | My profile  |
 // | My worklist |
