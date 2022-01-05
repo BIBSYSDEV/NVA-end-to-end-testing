@@ -1,10 +1,10 @@
-export const MAIN_BUTTONS = {
+export const mainButtons = {
   'New Registration': 'new-registration',
   'My Registrations': 'my-registrations-link',
   'My Messages': 'messages-link',
 };
 
-export const USER_MENU = {
+export const userMenu = {
   'My user profile': 'my-profile-link',
   'Log out': 'log-out-link',
 };
@@ -14,23 +14,23 @@ export const myRegistrationsTabs = {
   'Published': 'published-button',
 };
 
-export const CREATOR_MENU = {
-  ...USER_MENU,
+export const creatorMenu = {
+  ...userMenu,
 };
 
-export const CURATOR_MENU = {
-  ...USER_MENU,
+export const curatorMenu = {
+  ...userMenu,
   'My worklist': 'worklist-link',
 };
 
-export const INST_ADMIN_MENU = {
-  ...USER_MENU,
+export const instAdminMenu = {
+  ...userMenu,
   'Users': 'admin-users-link',
   'My institution': 'admin-institution-link',
 };
 
-export const ADMIN_MENU = {
-  ...USER_MENU,
+export const adminMenu = {
+  ...userMenu,
   'Institutions': 'admin-institutions-link',
 };
 
@@ -44,7 +44,7 @@ export const NEW_REGISTRATION_START_BUTTONS = {
   'Upload file': 'registration-start-button',
 };
 
-export const PROFILE_PAGE_FIELDS = {
+export const profilePageFields = {
   'Real name': 'user-name',
   'Feide ID': 'user-id',
   'Email': 'user-id',
@@ -60,55 +60,55 @@ export const USER_ADMINISTRATION_HEADINGS = {
   'Editor': 'Editor',
 };
 
-export const USER_ADMINISTRATION_PAGINATION = {
+export const userAdministrationPagination = {
   'Administrator': 'Institution-admin',
   'Curator': 'Curator',
   'Editor': 'Editor',
 };
 
-export const USER_ADMINISTRATION_SECTIONS = {
+export const userAdministrationSections = {
   'Administrators': 'users-administrators',
   'Curators': 'users-curators',
   'Editors': 'users-editors',
 };
 
-export const USER_ADMINISTRATION_BUTTONS = {
+export const userAdministrationButtons = {
   'Add Administrator': 'button-add-institution-admin',
   'Add Curator': 'button-add-curator',
   'Add Editor': 'button-add-editor',
 };
 
-export const USER_ADMINISTRATION_ADD_ROLE_BUTTONS = {
+export const userAdministrationAddRoleButtons = {
   'Add Administrator': 'button-add-role-Institution-admin',
   'Add Curator': 'button-add-role-Curator',
   'Add Editor': 'button-add-role-Editor',
 };
 
-export const USER_ADMINISTRATION_REMOVE_ROLE_BUTTONS = {
+export const userAdministrationRemoveRoleButtons = {
   'Administrator': 'button-remove-role-Institution-admin',
   'Curator': 'button-remove-role-Curator',
   'Editor': 'button-remove-role-Editor',
 };
 
-export const MY_INSTITUTION_FIELDS = {
+export const myInstitutionFields = {
   'Name in organization registry': 'organization-search-field',
   'Display name': 'display-name-field',
   'Short display name': 'short-name-field',
   'Archive name': 'archive-field',
 };
 
-export const MY_INSTITUTION_FIELDS_TESTVALUE = {
+export const myinstitutionfieldsTestvalue = {
   'Display name': 'Testinstitusjon',
   'Short display name': 'Testinst',
   'Archive name': 'Testarchive',
 };
 
-export const INSTITUTION_FIELDS = {
-  ...MY_INSTITUTION_FIELDS,
+export const institutionFields = {
+  ...myInstitutionFields,
   'Feide Organization ID': 'feide-field',
 };
 
-export const RESOURCE_TYPES = {
+export const resourceTypes = {
   'Contribution to journal': 'publication-context-type-Journal',
   'Book': 'publication-context-type-Book',
   'Report': 'publication-context-type-Report',
@@ -116,7 +116,7 @@ export const RESOURCE_TYPES = {
   'Part of book/report': 'publication-context-type-Chapter',
 };
 
-export const JOURNAL_SUBTYPES = {
+export const journalSubtypes = {
   'Journal article': 'publication-instance-type-JournalArticle',
   'Short communication': 'publication-instance-type-JournalShortCommunication',
   'Feature article': 'publication-instance-type-FeatureArticle',
@@ -126,7 +126,7 @@ export const JOURNAL_SUBTYPES = {
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',
 };
 
-export const JOURNAL_FIELDS = {
+export const journalFields = {
   'Journal': 'journal-search-field',
   'Search-box for Journal': 'journal-search-field',
   'Search box for Journal': 'journal-search-field',
@@ -141,12 +141,12 @@ export const JOURNAL_FIELDS = {
   'Peer reviewed': 'peer_review-true',
 };
 
-export const BOOK_SUBTYPES = {
+export const bookSubtypes = {
   'Monograph': 'publication-instance-type-BookMonograph',
   'Anthology': 'publication-instance-type-BookAnthology',
 };
 
-export const BOOK_FIELDS = {
+export const bookFields = {
   'Publisher': 'publisher-search-field',
   'ISBN': 'isbn-field',
   'Total number of pages': 'pages-field',
@@ -155,7 +155,7 @@ export const BOOK_FIELDS = {
   'Series number': 'series-number-field',
 };
 
-export const CONTENT_TYPE = {
+export const contentType = {
   'Academic Monograph': 'content-value-academic-monograph',
   'Non-fiction Monograph': 'content-value-non-fiction-monograph',
   'Popular Science Monograph': 'content-value-popular-science-monograph',
@@ -163,14 +163,14 @@ export const CONTENT_TYPE = {
   'Encyclopedia': 'content-value-encyclopedia',
 };
 
-export const REPORT_SUBTYPES = {
+export const reportSubtypes = {
   'Research report': 'publication-instance-type-ReportResearch',
   'Policy report': 'publication-instance-type-ReportPolicy',
   'Working paper': 'publication-instance-type-ReportWorkingPaper',
   'Other type of report': 'publication-instance-type-ReportBasic',
 };
 
-export const REPORT_FIELDS = {
+export const reportFields = {
   'Search box for Publisher': 'publisher-search-field',
   'ISBN': 'isbn-field',
   'Total number of pages': 'pages-field',
@@ -178,14 +178,14 @@ export const REPORT_FIELDS = {
   'Series number': 'series-number-field',
 };
 
-export const STUDENT_THESIS_SUBTYPES = {
+export const studentThesisSubtypes = {
   'Bachelor thesis': 'publication-instance-type-DegreeBachelor',
   'Master thesis': 'publication-instance-type-DegreeMaster',
   'Doctoral thesis': 'publication-instance-type-DegreePhd',
   'Other student thesis': 'publication-instance-type-OtherStudentWork',
 };
 
-export const STUDENT_THESIS_FIELDS = {
+export const studentThesisFields = {
   'Search box for Publisher': 'publisher-search-field',
   'DOI': 'doi-field',
   'Search box for Series': 'series-search-field',
@@ -194,7 +194,7 @@ export const STUDENT_THESIS_FIELDS = {
   'ISBN': 'isbn-field',
 };
 
-export const CHAPTER_SUBTYPES = {
+export const chapterSubtypes = {
   'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
 };
 
@@ -211,7 +211,7 @@ export const OTHER_SUBTYPES = {};
 
 export const OTHER_FIELDS = {};
 
-export const DESCRIPTION_FIELDS = {
+export const descriptionFields = {
   'Title': 'registration-title-field',
   'Abstract': 'registration-abstract-field',
   'Description': 'registration-description-field',
@@ -222,16 +222,16 @@ export const DESCRIPTION_FIELDS = {
   'Project association': 'project-search-field',
 };
 
-export const RESOURCE_TYPE_FIELDS = {
+export const resourceTypeFields = {
   'Type': 'publication-context-type',
 };
 
-export const CONTRIBUTOR_CREATE_FIELDS = {
+export const contributorCreateFields = {
   'First name': 'create-contributor-first-name',
   'Last name': 'create-contributor-last-name',
 };
 
-export const LANDING_PAGE_FIELDS = {
+export const landingPageFields = {
   'Title': 'public-registration-title',
   'Abstract': 'abstract-accordion',
   NPI: 'public-registration-npi',
@@ -252,7 +252,7 @@ export const landingPageButtons = {
   'Reserve a DOI': 'button-toggle-reserve-doi',
 };
 
-export const LANDING_PAGE_SHARE_BUTTONS = {
+export const landingPageShareButtons = {
   Email: 'email-button',
   Facebook: 'facebook-button',
   LinkedIn: 'linkedin-button',

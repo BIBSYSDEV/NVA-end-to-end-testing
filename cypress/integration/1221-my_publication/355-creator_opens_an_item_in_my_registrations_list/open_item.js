@@ -1,10 +1,9 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
+import { userWithAuthor } from '../../../support/constants';
+import { descriptionFields } from '../../../support/data_testid_constants';
 
 // Common step
 Given('that the user is logged in as Creator', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
 });
 // end common step
 
@@ -20,7 +19,7 @@ And('they see the Description tab', () => {
   cy.get('[data-testid=nav-tabpanel-description');
 });
 And('they see fields:', (dataTable) => {
-  cy.testDataTestidList(dataTable, DESCRIPTION_FIELDS);
+  cy.testDataTestidList(dataTable, descriptionFields);
 });
 
 // | Title                        |

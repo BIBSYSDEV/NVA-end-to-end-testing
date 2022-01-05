@@ -1,13 +1,13 @@
-import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { userWithAuthor } from '../../../support/constants';
 
-import { DESCRIPTION_FIELDS } from '../../../support/data_testid_constants';
+import { descriptionFields } from '../../../support/data_testid_constants';
 
-const PROJECT_NAME = 'Test mock project';
-const INSTITUTION_NAME = 'Test institution';
+const projectName = 'Test mock project';
+const institutionName = 'Test institution';
 
 Before(() => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
 });
 
 // Feature: Creator navigates to Description tab
@@ -29,7 +29,7 @@ Then('they see the Description tab is selected', () => {
   cy.get('[data-testid=nav-tabpanel-description]');
 });
 And('they see fields:', (fields) => {
-  cy.testDataTestidList(fields, DESCRIPTION_FIELDS);
+  cy.testDataTestidList(fields, descriptionFields);
 });
 // | Title                        |
 // | Abstract                     |
@@ -63,7 +63,7 @@ And('they click the Save button', () => {
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
   dataTable.rawTable.forEach((field) => {
-    cy.get(`[data-testid=${DESCRIPTION_FIELDS[field]}]`).within((descriptionField) => {
+    cy.get(`[data-testid=${descriptionFields[field]}]`).within((descriptionField) => {
       cy.wrap(descriptionField).contains('required');
     });
   });
@@ -76,15 +76,15 @@ And('they see a Search box for Projects', () => {
   cy.get('[data-testid=project-search-field] > div > div > input').should('be.visible');
 });
 And('they enter search term in the Search box', () => {
-  cy.mockProjectSearch(PROJECT_NAME);
-  cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
+  cy.mockProjectSearch(projectName);
+  cy.get('[data-testid=project-search-field] > div > div > input').type(projectName);
 });
 Then('they see list of Projects matching the search term', () => {
   cy.get('[data-testid^=project-option]').should('have.length.above', 0);
 });
 And('they see title and associated Institutions for each Project', () => {
-  cy.get('[data-testid^=project-option]').contains(PROJECT_NAME);
-  cy.get('[data-testid^=project-option]').contains(INSTITUTION_NAME);
+  cy.get('[data-testid^=project-option]').contains(projectName);
+  cy.get('[data-testid^=project-option]').contains(institutionName);
 });
 
 // Scenario: Creator adds a Project
@@ -93,26 +93,26 @@ Given('Creator searches for Project', () => {
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
 });
 When('they select a Project from the Search results', () => {
-  cy.mockProjectSearch(PROJECT_NAME);
-  cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
-  cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).first().click({ force: true });
+  cy.mockProjectSearch(projectName);
+  cy.get('[data-testid=project-search-field] > div > div > input').type(projectName);
+  cy.get('[data-testid^=project-option]').filter(`:contains(${projectName})`).first().click({ force: true });
 });
 Then('the selected Project is added to the list of selected Projects', () => {
   cy.get('[data-testid^=project-chip]').should('have.length', 1);
-  cy.get('[data-testid^=project-chip]').contains(PROJECT_NAME);
+  cy.get('[data-testid^=project-chip]').contains(projectName);
 });
 
 // Scenario: Creator removes a Project
 Given('Creator adds a Project', () => {
   cy.startWizardWithEmptyRegistration();
   cy.get('[data-testid=nav-tabpanel-description]').click({ force: true });
-  cy.mockProjectSearch(PROJECT_NAME);
-  cy.get('[data-testid=project-search-field] > div > div > input').type(PROJECT_NAME);
-  cy.get('[data-testid^=project-option]').filter(`:contains(${PROJECT_NAME})`).first().click({ force: true });
+  cy.mockProjectSearch(projectName);
+  cy.get('[data-testid=project-search-field] > div > div > input').type(projectName);
+  cy.get('[data-testid^=project-option]').filter(`:contains(${projectName})`).first().click({ force: true });
 });
 When('they click the Remove Project icon', () => {
   cy.get('[data-testid^=project-chip]')
-    .filter(`:contains(${PROJECT_NAME})`)
+    .filter(`:contains(${projectName})`)
     .within((project) => {
       cy.wrap(project).get('svg').click({ force: true });
     });

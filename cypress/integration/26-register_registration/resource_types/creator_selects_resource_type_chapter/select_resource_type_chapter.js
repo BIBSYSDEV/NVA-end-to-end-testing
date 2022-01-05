@@ -1,11 +1,11 @@
-import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
-import { USER_RESOURCE_TYPE } from '../../../../support/constants';
-import { CHAPTER_SUBTYPES, CHAPTER_FIELDS } from '../../../../support/data_testid_constants';
+import { userResourceType } from '../../../../support/constants';
+import { chapterSubtypes } from '../../../../support/data_testid_constants';
+import { Before } from 'cypress-cucumber-preprocessor/steps';
 
 // Feature: Creator selects Resource type Chapter
 
 Before(() => {
-  cy.login(USER_RESOURCE_TYPE);
+  cy.login(userResourceType);
   cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
@@ -22,7 +22,7 @@ When('they select the Resource type "Chapter"', () => {
 });
 Then('they see a list of subtypes:', (dataTable) => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.testDataTestidList(dataTable, CHAPTER_SUBTYPES);
+  cy.testDataTestidList(dataTable, chapterSubtypes);
 });
 // | Chapter of Anthology               |
 // | Chapter of Report                  |

@@ -1,11 +1,10 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { CONTRIBUTOR_CREATE_FIELDS, RESOURCE_TYPES } from '../../../support/data_testid_constants';
+import { userWithAuthor } from '../../../support/constants';
+import { contributorCreateFields, resourceTypes } from '../../../support/data_testid_constants';
 
 // Feature: Creator navigates to Contributors tab
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
   cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Contributors tab', () => {
@@ -16,7 +15,7 @@ And('they see the "Add Author" Button', () => {
   cy.get('[data-testid=add-Creator]').should('be.visible');
 });
 And('they click "Add Author"', () => {
-  cy.mockPersonSearch(USER_WITH_AUTHOR);
+  cy.mockPersonSearch(userWithAuthor);
   cy.get('[data-testid=add-Creator]').click({ force: true });
 });
 // End common steps
@@ -95,7 +94,7 @@ And('they select Registration Subtype "Monograph"', () => {
 //   Scenario: Creator adds an Author to the list of Authors for Resource Type Chapter
 And('they select the Resource Type', (dataTable) => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get(`[data-testid=${RESOURCE_TYPES[dataTable.rawTable[0]]}]`).click({ force: true });
+  cy.get(`[data-testid=${resourceTypes[dataTable.rawTable[0]]}]`).click({ force: true });
 });
 And('they select the Registration Subtype "Chapter in anthology"', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
@@ -159,7 +158,7 @@ When('they click "Create new Author"', () => {
 Then('they see fields:', (dataTable) => {
   cy.get('[data-testid=contributor-modal]').within((contributerModal) => {
     dataTable.rawTable.forEach((field) => {
-      cy.wrap(contributerModal).get(`[data-testid=${CONTRIBUTOR_CREATE_FIELDS[field[0]]}]`);
+      cy.wrap(contributerModal).get(`[data-testid=${contributorCreateFields[field[0]]}]`);
     });
   });
 });

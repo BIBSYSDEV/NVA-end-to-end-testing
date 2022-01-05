@@ -1,12 +1,11 @@
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { userWithAuthor } from '../../../support/constants';
 import { mockPerson } from '../../../support/mock_data';
 
 const stage = Cypress.env('STAGE') ?? 'dev';
 const fileName = 'example.txt';
 
 Given('the Creator publishes Publication', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
   cy.startWizardWithEmptyRegistration();
 
   cy.createValidRegistration(fileName);
@@ -15,7 +14,7 @@ Given('the Creator publishes Publication', () => {
   cy.get('[data-testid=button-save-registration]').should('not.exist');
 });
 When('they click a Contributor', () => {
-  cy.intercept('GET', `https://api.${stage}.nva.aws.unit.no/person/1234567890`, mockPerson(USER_WITH_AUTHOR));
+  cy.intercept('GET', `https://api.${stage}.nva.aws.unit.no/person/1234567890`, mockPerson(userWithAuthor));
   cy.get('[data-testid^=presentation-author-link]').first().click({ force: true });
 });
 Then("they see the Contributor's public profile page", () => {

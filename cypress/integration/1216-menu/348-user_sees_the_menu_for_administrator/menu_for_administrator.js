@@ -1,10 +1,9 @@
-import { Given, And, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import { USER_INST_ADMIN_WITH_AUTHOR } from '../../../support/constants';
-import { INST_ADMIN_MENU } from '../../../support/data_testid_constants';
+import { userInstAdminWithAuthor } from '../../../support/constants';
+import { instAdminMenu } from '../../../support/data_testid_constants';
 import { v4 as uuidv4 } from 'uuid';
 
 Given('that the user is logged in', () => {
-  cy.login(USER_INST_ADMIN_WITH_AUTHOR);
+  cy.login(userInstAdminWithAuthor);
 });
 And('they have the role of Institution-admin', () => {});
 When('they look at any page in NVA', () => {
@@ -12,7 +11,7 @@ When('they look at any page in NVA', () => {
 });
 Then('they see a menu containing', (dataTable) => {
   cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.testDataTestidList(dataTable, INST_ADMIN_MENU);
+  cy.testDataTestidList(dataTable, instAdminMenu);
 });
 // | My profile     |
 // | Users          |

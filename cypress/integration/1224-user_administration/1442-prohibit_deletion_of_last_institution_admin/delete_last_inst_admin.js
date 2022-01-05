@@ -1,8 +1,7 @@
-import { Given, And, Then } from 'cypress-cucumber-preprocessor/steps';
-import { USER_INST_ADMIN_WITH_AUTHOR } from '../../../support/constants';
+import { userInstAdminWithAuthor } from '../../../support/constants';
 
 Given('that an App Admin or Institution Admin opens User Administration', () => {
-  cy.login(USER_INST_ADMIN_WITH_AUTHOR);
+  cy.login(userInstAdminWithAuthor);
   cy.get('[data-testid=menu-button]').click({ force: true });
   cy.get('[data-testid=admin-users-link]').click({ force: true });
 });

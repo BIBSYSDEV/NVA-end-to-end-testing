@@ -1,19 +1,13 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { userWithAuthor } from '../../../support/constants';
 
 const fileName = 'example.txt';
 const dlrLink = 'https://dlr.unit.no/resources/66888570-3504-4d12-81a4-c3ffe0605945';
-const dcIdentifierLink = 'https://loar.kb.dk/handle/1902/1674?show=full';
-const dcTermLink = 'https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2638973';
-const openGraphLink = 'https://www.nrk.no/norge/klimakur-2030_-mer-strom-og-mindre-kjott-kan-fa-norge-i-mal-1.14883788';
-const highwireLink = 'https://link.springer.com/article/10.1007/s13201-020-01350-9';
-const schemaLink = 'https://e24.no/boers-og-finans/i/AdyrPM/syv-av-tangens-11-referanser-deltok-paa-luksusseminaret';
 
 // Feature: Creator begins registering a Registration
 
 // Common steps
 Given('Creator begins registering a Registration', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
   cy.get('[data-testid=new-registration]').click({ force: true });
 });
 // End common steps
@@ -51,7 +45,7 @@ Then('they see the Wizard', () => {
 Given('that the user is logged in', () => {});
 And('they have Role Creator', () => {});
 And('they are on the Start page', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
 });
 When('they click the New Registration button', () => {
   cy.get('[data-testid=new-registration]').click({ force: true });

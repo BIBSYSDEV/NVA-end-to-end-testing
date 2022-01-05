@@ -1,4 +1,4 @@
-import { LANDING_PAGE_FIELDS, LANDING_PAGE_SHARE_BUTTONS } from '../../../support/data_testid_constants';
+import { landingPageFields, landingPageShareButtons } from '../../../support/data_testid_constants';
 
 const landing_page_registration_title = 'View Landing Page';
 
@@ -17,7 +17,7 @@ When('an Anonymous user navigates to a Landing Page for a Resource', () => {
     });
 });
 Then('they see', (dataTable) => {
-  cy.testDataTestidList(dataTable, LANDING_PAGE_FIELDS);
+  cy.testDataTestidList(dataTable, landingPageFields);
 });
 // | Title                           |
 // | Abstract                        |
@@ -34,7 +34,7 @@ Then('they see', (dataTable) => {
 // | Related Registrations           |
 // | License                         |
 And('they see sharing Buttons for:', (dataTable) => {
-  cy.testDataTestidList(dataTable, LANDING_PAGE_SHARE_BUTTONS);
+  cy.testDataTestidList(dataTable, landingPageShareButtons);
 });
 // | Email    |
 // | LinkedIn |

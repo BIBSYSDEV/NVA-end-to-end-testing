@@ -1,4 +1,4 @@
-import { USER_CURATOR_DRAFT_DOI, USER_CURATOR_WITH_AUTHOR, USER_DRAFT_DOI } from '../../../support/constants';
+import { userCuratorDraftDoi, userDraftDoi } from '../../../support/constants';
 
 // Feature: DOI related scenarios moved from MVP feature
 
@@ -16,7 +16,7 @@ const filename = 'example.txt';
 // Common steps
 
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
-  cy.login(USER_DRAFT_DOI);
+  cy.login(userDraftDoi);
   cy.get('[data-testid=messages-link]').click();
   cy.get('[data-testid^=message-title]')
     .first()
@@ -42,7 +42,7 @@ Then('the Registration is opened in the Wizard on the first tab', () => {
 //   Scenario: Owner opens the "Request a DOI" dialog
 
 Given('that a Creator navigates to the Landing Page for Registration for published Registration without DOI', () => {
-  cy.login(USER_DRAFT_DOI);
+  cy.login(userDraftDoi);
   cy.selectRegistration(publicRegistrationWithoutDoi, published);
 });
 And('they are the Owner of this Registration', () => {});
@@ -62,7 +62,7 @@ And('they see a "Send Request" button', () => {
 //   @1232
 //   Scenario: Owner navigates to the Landing Page for Registration and requests a DOI
 Given('that the Creator navigates to the Landing Page for Registration for published Registration without DOI', () => {
-  cy.login(USER_DRAFT_DOI);
+  cy.login(userDraftDoi);
   cy.selectRegistration(publicRegistrationRequestingDoi, published);
 });
 And('open "Request a DOI" dialog', () => {
@@ -87,7 +87,7 @@ And('the request is listed in User Worklist', () => {
 And('the request is listed in Curator Worklist', () => {
   cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=log-out-link]').click();
-  cy.login(USER_CURATOR_DRAFT_DOI);
+  cy.login(userCuratorDraftDoi);
   cy.visit('/');
   cy.get('[data-testid=worklist-link]').click();
   cy.get('[data-testid^=message-title]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
@@ -96,7 +96,7 @@ And('the request is listed in Curator Worklist', () => {
 //   @1233
 //   Scenario: Owner navigates to the Landing Page for Registration for unpublished Registration without DOI
 Given('that the Owner view Landing Page for Registration', () => {
-  cy.login(USER_DRAFT_DOI);
+  cy.login(userDraftDoi);
 });
 And('the Registration is not Published', () => {
   cy.selectRegistration(draftRegistrationWithoutDoi, unpublished);
@@ -117,7 +117,7 @@ Then('they see buttons for Draft a DOI and Edit Registration', () => {
 //   @1234
 //   Scenario: Owner drafts a DOI for an unpublished Registration
 Given('that the Owner View Landing Page for Registration for unpublished Registration without DOI', () => {
-  cy.login(USER_DRAFT_DOI);
+  cy.login(userDraftDoi);
   cy.selectRegistration(registrationTitle, unpublished);
 });
 And('they are the Owner of the Registration', () => {});
@@ -145,7 +145,7 @@ And('the Draft DOI is not a link', () => {
 //   @1235
 // Scenario: Owner navigates to the submission tab and publish a Registration with a drafted DOI
 Given('that the Owner navigates to Submission tab', () => {
-  cy.login(USER_DRAFT_DOI);
+  cy.login(userDraftDoi);
 });
 And('the Registration has status Draft', () => {
   cy.selectRegistration(draftRegistrationPublishWithRequestedDoi, unpublished);
@@ -182,7 +182,7 @@ And('the DOI request is listed in the Owners work list', () => {
 And('the DOI request is listed in the Curators work list', () => {
   cy.get('[data-testid=menu-button]').click();
   cy.get('[data-testid=log-out-link]').click();
-  cy.login(USER_CURATOR_DRAFT_DOI);
+  cy.login(userCuratorDraftDoi);
   cy.get('[data-testid=worklist-link]').click();
   cy.get('[data-testid^=message-title]').filter(`:contains(${draftRegistrationPublishWithRequestedDoi})`);
 });
@@ -190,7 +190,7 @@ And('the DOI request is listed in the Curators work list', () => {
 //   @358
 //   Scenario: Curator opens a Registration from a DOI Request Worklist Item
 Given('that a Curator views details of a Worklist item', () => {
-  cy.login(USER_CURATOR_DRAFT_DOI);
+  cy.login(userCuratorDraftDoi);
   cy.get('[data-testid="worklist-link"]').click();
   cy.get('[data-testid^=message-type]').last().click();
 });
@@ -210,7 +210,7 @@ And('they see the Decline DOI button is enabled', () => {});
 //   @512
 //   Scenario: A Curator approves a DOI request
 Given('that a Curator opens a Registration from a DOI Request Worklist Item', () => {
-  cy.login(USER_CURATOR_DRAFT_DOI);
+  cy.login(userCuratorDraftDoi);
   cy.get('[data-testid="worklist-link"]').click();
   cy.get('[data-testid^=message-title]').filter(`:contains(${publishedRegistrationWithDoi})`).click();
   cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();

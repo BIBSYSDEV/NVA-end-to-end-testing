@@ -1,10 +1,9 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_CURATOR_WITH_AUTHOR } from '../../../support/constants';
+import { userCuratorWithAuthor } from '../../../support/constants';
 
 // Feature: Curator opens a Registration from a DOI Request
 
 Given('that a Curator views their Worklist', () => {
-  cy.login(USER_CURATOR_WITH_AUTHOR);
+  cy.login(userCuratorWithAuthor);
   cy.get('[data-testid=worklist-link]').click({ force: true });
 });
 And('they have selected the DOI Requests tab', () => {});
