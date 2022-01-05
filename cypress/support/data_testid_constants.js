@@ -1,12 +1,14 @@
+import { dataTestId } from "./dataTestids";
+
 export const mainButtons = {
-  'New Registration': 'new-registration',
-  'My Registrations': 'my-registrations-link',
-  'My Messages': 'messages-link',
+  'New Registration': dataTestId.header.newRegistrationLink,
+  'My Registrations': dataTestId.header.myRegistrationsLink,
+  'My Messages': dataTestId.header.messagesLink,
 };
 
 export const userMenu = {
-  'My user profile': 'my-profile-link',
-  'Log out': 'log-out-link',
+  'My user profile': dataTestId.header.myProfileLink,
+  'Log out': dataTestId.header.logOutLink,
 };
 
 export const myRegistrationsTabs = {
@@ -20,28 +22,18 @@ export const creatorMenu = {
 
 export const curatorMenu = {
   ...userMenu,
-  'My worklist': 'worklist-link',
+  'My worklist': dataTestId.header.worklistLink,
 };
 
 export const instAdminMenu = {
   ...userMenu,
-  'Users': 'admin-users-link',
-  'My institution': 'admin-institution-link',
+  'Users': dataTestId.header.adminUsersLink,
+  'My institution': dataTestId.header.adminInstitutionLink,
 };
 
 export const adminMenu = {
   ...userMenu,
-  'Institutions': 'admin-institutions-link',
-};
-
-export const NEW_REGISTRATION_BUTTONS = {
-  'Link to registration': 'new-registration-link',
-  'Upload file': 'new-registration-file',
-};
-
-export const NEW_REGISTRATION_START_BUTTONS = {
-  'Link to registration': 'registration-start-button',
-  'Upload file': 'registration-start-button',
+  'Institutions': dataTestId.header.adminInstitutionsLinkLink,
 };
 
 export const profilePageFields = {
@@ -54,12 +46,6 @@ export const profilePageFields = {
   'Language': 'language-button',
 };
 
-export const USER_ADMINISTRATION_HEADINGS = {
-  'Administrator': 'Administrators',
-  'Curator': 'Curators',
-  'Editor': 'Editor',
-};
-
 export const userAdministrationPagination = {
   'Administrator': 'Institution-admin',
   'Curator': 'Curator',
@@ -67,9 +53,9 @@ export const userAdministrationPagination = {
 };
 
 export const userAdministrationSections = {
-  'Administrators': 'users-administrators',
-  'Curators': 'users-curators',
-  'Editors': 'users-editors',
+  'Administrators': dataTestId.myInstitutionUsersPage.usersAdministrators,
+  'Curators': dataTestId.myInstitutionUsersPage.usersCurators,
+  'Editors': dataTestId.myInstitutionUsersPage.usersEditors,
 };
 
 export const userAdministrationButtons = {
@@ -91,10 +77,10 @@ export const userAdministrationRemoveRoleButtons = {
 };
 
 export const myInstitutionFields = {
-  'Name in organization registry': 'organization-search-field',
-  'Display name': 'display-name-field',
-  'Short display name': 'short-name-field',
-  'Archive name': 'archive-field',
+  'Name in organization registry': dataTestId.organization.searchField,
+  'Display name': dataTestId.institutionAdmin.displayNameField,
+  'Short display name': dataTestId.institutionAdmin.shortNameField,
+  'Archive name': dataTestId.institutionAdmin.archiveNameField,
 };
 
 export const myinstitutionfieldsTestvalue = {
@@ -105,7 +91,7 @@ export const myinstitutionfieldsTestvalue = {
 
 export const institutionFields = {
   ...myInstitutionFields,
-  'Feide Organization ID': 'feide-field',
+  'Feide Organization ID': dataTestId.institutionAdmin.feideField,
 };
 
 export const resourceTypes = {
@@ -127,16 +113,16 @@ export const journalSubtypes = {
 };
 
 export const journalFields = {
-  'Journal': 'journal-search-field',
-  'Search-box for Journal': 'journal-search-field',
-  'Search box for Journal': 'journal-search-field',
-  'Search box for "Journal article"': 'corrigendum-for-field',
+  'Journal': dataTestId.registrationWizard.resourceType.journalField,
+  'Search-box for Journal': dataTestId.registrationWizard.resourceType.journalField,
+  'Search box for Journal': dataTestId.registrationWizard.resourceType.journalField,
+  'Search box for "Journal article"': dataTestId.registrationWizard.resourceType.corrigendumForField,
   'DOI': 'doi-field',
   'Volume': 'volume-field',
   'Issue': 'issue-field',
   'Search box for published books': '',
-  'Pages from': 'pages-from-field',
-  'Pages to': 'pages-to-field',
+  'Pages from': dataTestId.registrationWizard.resourceType.pagesFromField,
+  'Pages to': dataTestId.registrationWizard.resourceType.pagesToField,
   'Article number': 'article-number-field',
   'Peer reviewed': 'peer_review-true',
 };
@@ -147,20 +133,20 @@ export const bookSubtypes = {
 };
 
 export const bookFields = {
-  'Publisher': 'publisher-search-field',
-  'ISBN': 'isbn-field',
-  'Total number of pages': 'pages-field',
-  'NPI discipline': 'scientific-subject-field',
-  'Series title': 'series-search-field',
-  'Series number': 'series-number-field',
+  'Publisher': dataTestId.registrationWizard.resourceType.publisherField,
+  'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
+  'Total number of pages': dataTestId.registrationWizard.resourceType.pagesField,
+  'NPI discipline': dataTestId.registrationWizard.resourceType.scientificSubjectField,
+  'Series title': dataTestId.registrationWizard.resourceType.seriesField,
+  'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
 };
 
 export const contentType = {
-  'Academic Monograph': 'content-value-academic-monograph',
-  'Non-fiction Monograph': 'content-value-non-fiction-monograph',
-  'Popular Science Monograph': 'content-value-popular-science-monograph',
-  'Textbook': 'content-value-textbook',
-  'Encyclopedia': 'content-value-encyclopedia',
+  'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academic-monograph'),
+  'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.contentValue('non-fiction-monograph'),
+  'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popular-science-monograph'),
+  'Textbook': dataTestId.registrationWizard.resourceType.contentValue('textbook'),
+  'Encyclopedia': dataTestId.registrationWizard.resourceType.contentValue('encyclopedia'),
 };
 
 export const reportSubtypes = {
@@ -171,11 +157,11 @@ export const reportSubtypes = {
 };
 
 export const reportFields = {
-  'Search box for Publisher': 'publisher-search-field',
-  'ISBN': 'isbn-field',
-  'Total number of pages': 'pages-field',
-  'Search box for Series': 'series-search-field',
-  'Series number': 'series-number-field',
+  'Search box for Publisher': dataTestId.registrationWizard.resourceType..publisherField,
+  'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
+  'Total number of pages': dataTestId.registrationWizard.resourceType.pagesField,
+  'Search box for Series': dataTestId.registrationWizard.resourceType.seriesField,
+  'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
 };
 
 export const studentThesisSubtypes = {
@@ -186,12 +172,12 @@ export const studentThesisSubtypes = {
 };
 
 export const studentThesisFields = {
-  'Search box for Publisher': 'publisher-search-field',
+  'Search box for Publisher': dataTestId.registrationWizard.resourceType.publisherField,
   'DOI': 'doi-field',
-  'Search box for Series': 'series-search-field',
-  'Series number': 'series-number-field',
-  'Total pages': 'pages-field',
-  'ISBN': 'isbn-field',
+  'Search box for Series': dataTestId.registrationWizard.resourceType.seriesField,
+  'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
+  'Total pages': dataTestId.registrationWizard.resourceType.pagesField,
+  'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
 };
 
 export const chapterSubtypes = {
@@ -215,9 +201,9 @@ export const descriptionFields = {
   'Title': 'registration-title-field',
   'Abstract': 'registration-abstract-field',
   'Description': 'registration-description-field',
-  'Date published': 'date-published-field',
+  'Date published': dataTestId.registrationWizard.description.datePublishedField,
   'Keywords': 'registration-tag-field',
-  'Vocabularies': 'add-vocabulary-button',
+  'Vocabularies': dataTestId.registrationWizard.description.addVocabularyButton,
   'Primary language for content': 'registration-language-field',
   'Project association': 'project-search-field',
 };
@@ -232,19 +218,19 @@ export const contributorCreateFields = {
 };
 
 export const landingPageFields = {
-  'Title': 'public-registration-title',
-  'Abstract': 'abstract-accordion',
-  NPI: 'public-registration-npi',
-  Keywords: 'public-registration-keywords',
-  'Publication date': 'public-registration-publication-date',
-  'Primary language': 'public-registration-primary-language',
-  Projects: 'projects-accordion',
-  'Registration subtype': 'public-registration-registration-subtype',
-  'Fields corresponding to subtype': 'public-registration-subtype-fields',
-  Contributors: 'public-registration-contributors',
-  Files: 'files-accordion',
-  'DOI link': 'public-registration-doi-link',
-  License: 'public-registration-license',
+  'Title': dataTestId.registrationLandingPage.title,
+  'Abstract': dataTestId.registrationLandingPage.abstractAccordion,
+  'NPI': dataTestId.registrationLandingPage.npi,
+  'Keywords': dataTestId.registrationLandingPage.keywords,
+  'Publication date': dataTestId.registrationLandingPage.publicationDate,
+  'Primary language': dataTestId.registrationLandingPage.primaryLanguage,
+  'Projects': dataTestId.registrationLandingPage.projectsAccordion,
+  'Registration subtype': dataTestId.registrationLandingPage.registrationSubtype,
+  'Fields corresponding to subtype': dataTestId.registrationLandingPage.subtypeFields,
+  'Contributors': dataTestId.registrationLandingPage.contributors,
+  'Files': dataTestId.registrationLandingPage.filesAccordion,
+  'DOI link': dataTestId.registrationLandingPage.doiLink,
+  'License': dataTestId.registrationLandingPage.license,
 };
 
 export const landingPageButtons = {
@@ -253,8 +239,8 @@ export const landingPageButtons = {
 };
 
 export const landingPageShareButtons = {
-  Email: 'email-button',
-  Facebook: 'facebook-button',
-  LinkedIn: 'linkedin-button',
-  Twitter: 'twitter-button',
+  Email: dataTestId.registrationLandingPage.emailButton,
+  Facebook: dataTestId.registrationLandingPage.facebookButton,
+  LinkedIn: dataTestId.registrationLandingPage.linkedInButton,
+  Twitter: dataTestId.registrationLandingPage.twitterButton,
 };
