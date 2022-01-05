@@ -1,4 +1,4 @@
-import { dataTestId } from "./dataTestids";
+import { dataTestId } from './dataTestids';
 
 export const mainButtons = {
   'New Registration': dataTestId.header.newRegistrationLink,
@@ -33,7 +33,7 @@ export const instAdminMenu = {
 
 export const adminMenu = {
   ...userMenu,
-  'Institutions': dataTestId.header.adminInstitutionsLinkLink,
+  'Institutions': dataTestId.header.adminInstitutionsLink,
 };
 
 export const profilePageFields = {
@@ -157,7 +157,7 @@ export const reportSubtypes = {
 };
 
 export const reportFields = {
-  'Search box for Publisher': dataTestId.registrationWizard.resourceType..publisherField,
+  'Search box for Publisher': dataTestId.registrationWizard.resourceType.publisherField,
   'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
   'Total number of pages': dataTestId.registrationWizard.resourceType.pagesField,
   'Search box for Series': dataTestId.registrationWizard.resourceType.seriesField,
