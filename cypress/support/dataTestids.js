@@ -1,3 +1,8 @@
+/*
+ * This file is readonly.
+ * The contents of this file is copied from https://github.com/BIBSYSDEV/NVA-Frontend/blob/main/src/utils/dataTestIds.ts
+ */
+ 
 export const dataTestId = {
   organization: {
     searchField: 'organization-search-field',
