@@ -6,7 +6,7 @@ import {
 } from '../../../support/constants';
 import { mockInstitution, mockDepartment } from '../../../support/mock_data';
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { dataTestId } from '../../../support/dataTestids';
+import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: User adds and removes organization
 

@@ -1,5 +1,5 @@
 import { userNoRole } from '../../../support/constants';
-import { dataTestId } from '../../../support/dataTestids';
+import { dataTestId } from '../../../support/dataTestIds';
 
 Given('that a User is logged in with Feide', () => {
   cy.login(userNoRole);

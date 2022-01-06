@@ -13,7 +13,7 @@ import {
   mainButtons,
   userMenu,
 } from '../../../support/data_testid_constants';
-import { dataTestId } from '../../../support/dataTestids';
+import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: User sees menu
 

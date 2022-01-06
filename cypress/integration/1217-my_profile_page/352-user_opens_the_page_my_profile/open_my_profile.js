@@ -1,5 +1,5 @@
 import { userWithAuthor } from '../../../support/constants';
-import { dataTestId } from '../../../support/dataTestids';
+import { dataTestId } from '../../../support/dataTestIds';
 import { profilePageFields } from '../../../support/data_testid_constants';
 
 Given('that the user is logged in', () => {

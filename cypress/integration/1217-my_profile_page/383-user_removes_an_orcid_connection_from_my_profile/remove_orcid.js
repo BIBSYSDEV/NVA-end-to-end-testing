@@ -1,5 +1,5 @@
 import { userRemoveOrcid } from '../../../support/constants';
-import { dataTestId } from '../../../support/dataTestids';
+import { dataTestId } from '../../../support/dataTestIds';
 import { mockPerson } from '../../../support/mock_data';
 
 const stage = Cypress.env('STAGE') ?? 'dev';
