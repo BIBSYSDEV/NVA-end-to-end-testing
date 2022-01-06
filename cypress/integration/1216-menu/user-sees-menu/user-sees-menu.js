@@ -13,7 +13,8 @@ import {
   mainButtons,
   userMenu,
 } from '../../../support/data_testid_constants';
-import { dataTestId } from '../../../support/dataTestids';
+import { dataTestId } from '../../../support/dataTestIds';
+
 // Feature: User sees menu
 
 // Common steps
@@ -42,7 +43,7 @@ Given('that the User is not logged in', () => {
   cy.visit('/');
 });
 Then('they see the Log in Button', () => {
-  cy.get(`[data-testid=${dataTestId.header.logInButton}`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.header.logInButton}]`).should('be.visible');
 });
 
 // @345
