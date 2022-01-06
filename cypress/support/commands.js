@@ -12,7 +12,7 @@ import {
   journalSearchMockFile,
 } from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
-import { dataTestId } from './dataTestids';
+import { dataTestId } from './dataTestIds';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
