@@ -33,10 +33,8 @@ And('they can change the number of items viewed per page', () => {
   cy.get('[role=listbox]').contains('5').click();
 });
 And('they see the number of items viewed of the total amount of items', () => {
-  cy.get('@expectedUserNumbers').then((expectedUserNumbers) => {
-    cy.get('@listControls').within(() => {
-      cy.get('div > p').contains(expectedUserNumbers);
-    });
+  cy.get('@listControls').within(() => {
+    cy.get('.MuiToolbar-root > .MuiTablePagination-displayedRows').should('be.visible');
   });
 });
 And('they see that previous page of items is disabled', () => {
@@ -91,7 +89,7 @@ And('they see that the list has the fields "Username" and "Name" for each user',
     cy.get(`[data-testid=${userAdministrationSections[section]}]`).within(() => {
       cy.get('tbody > tr').each((user_line) => {
         cy.wrap(user_line).within(() => {
-          cy.get('td').should('have.length', 3);
+          cy.get('td').should('have.length.at.least', 2);
         });
       });
     });
@@ -121,7 +119,7 @@ Given('Administrator opens User Administration', () => {
   cy.get('[data-testid=admin-users-link]').click({ force: true });
 });
 Then('they see the Add Role Dialog', () => {
-  cy.wrap('1-5 of').as('expectedUserNumbers');
+  cy.wrap('1-5').as('expectedUserNumbers');
   cy.get('[data-testid=add-role-modal]').as('roleModal');
   cy.get('@roleModal').within(() => {
     cy.get('[data-testid^=user-pagination]').as('listControls');

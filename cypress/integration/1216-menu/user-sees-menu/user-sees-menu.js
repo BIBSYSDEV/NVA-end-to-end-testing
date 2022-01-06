@@ -13,8 +13,7 @@ import {
   mainButtons,
   userMenu,
 } from '../../../support/data_testid_constants';
-import { v4 as uuidV4 } from 'uuid';
-
+import { dataTestId } from '../../../support/dataTestids';
 // Feature: User sees menu
 
 // Common steps
@@ -23,8 +22,8 @@ When('they look at any page in NVA', () => {
   cy.visit(`/`);
 });
 Then('they see a Dropdown Menu with items:', (dataTable) => {
-  cy.get('[data-testid=menu-button]').should('exist');
-  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).should('exist');
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
   cy.get('@MENU').then((menu) => {
     cy.testDataTestidList(dataTable, menu);
   });
@@ -33,7 +32,7 @@ And('they see Menu items:', (dataTable) => {
   cy.testDataTestidList(dataTable, mainButtons);
 });
 And('they see the Language selector', () => {
-  cy.get('[data-testid=language-button]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.header.languageButton}]`).should('be.visible');
 });
 // End common steps
 
@@ -43,7 +42,7 @@ Given('that the User is not logged in', () => {
   cy.visit('/');
 });
 Then('they see the Log in Button', () => {
-  cy.get('[data-testid=log-in-link').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.header.logInButton}`).should('be.visible');
 });
 
 // @345
