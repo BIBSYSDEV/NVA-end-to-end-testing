@@ -1,12 +1,13 @@
 import { userRemoveOrcid } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 import { mockPerson } from '../../../support/mock_data';
 
 const stage = Cypress.env('STAGE') ?? 'dev';
 
 Given('user opens the page My Profile', () => {
   cy.login(userRemoveOrcid);
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=my-profile-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
 });
 When('they click Remove ORCID', () => {
   cy.intercept(`https://api.${stage}.nva.aws.unit.no/person/*/identifiers/orcid/delete`, {

@@ -1,4 +1,4 @@
-import { dataTestId } from './dataTestids';
+import { dataTestId } from './dataTestIds';
 
 export const mainButtons = {
   'New Registration': dataTestId.header.newRegistrationLink,
