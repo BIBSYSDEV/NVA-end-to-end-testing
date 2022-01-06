@@ -73,7 +73,6 @@ And(
   (section, role) => {
     cy.wrap(section).as('section');
     cy.wrap(role).as('role');
-    cy.wrap('1-5 of').as('expectedUserNumbers');
     cy.get(`[data-testid=${userAdministrationSections[section]}]`).should('exist').and('be.visible');
     cy.get(`[data-testid=${userAdministrationSections[section]}]`).within(() => {
       cy.get('tbody > tr').should('have.length', 5);
@@ -119,7 +118,6 @@ Given('Administrator opens User Administration', () => {
   cy.get('[data-testid=admin-users-link]').click({ force: true });
 });
 Then('they see the Add Role Dialog', () => {
-  cy.wrap('1-5').as('expectedUserNumbers');
   cy.get('[data-testid=add-role-modal]').as('roleModal');
   cy.get('@roleModal').within(() => {
     cy.get('[data-testid^=user-pagination]').as('listControls');
