@@ -1,4 +1,5 @@
 import { userWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestids';
 import { profilePageFields } from '../../../support/data_testid_constants';
 
 Given('that the user is logged in', () => {
@@ -6,8 +7,8 @@ Given('that the user is logged in', () => {
 });
 When('they click the menu item My user profile', () => {
   cy.mockInstitution();
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=my-profile-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
 });
 Then('they see My Profile', () => {});
 And('they see their Profile page which includes information for', (dataTable) => {
