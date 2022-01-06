@@ -1,4 +1,5 @@
 import { userWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 import { descriptionFields } from '../../../support/data_testid_constants';
 
 // Common step
@@ -8,15 +9,15 @@ Given('that the user is logged in as Creator', () => {
 // end common step
 
 And('is on the page My Registrations', () => {
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-registrations-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}}]`).click({ force: true });
 });
 When('they click Edit on an item', () => {
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 Then('they see the item is opened in the Wizard', () => {});
 And('they see the Description tab', () => {
-  cy.get('[data-testid=nav-tabpanel-description');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}}]`);
 });
 And('they see fields:', (dataTable) => {
   cy.testDataTestidList(dataTable, descriptionFields);
@@ -29,8 +30,8 @@ And('they see fields:', (dataTable) => {
 // | Primary language for content |
 
 And('they are on the page My Registrations', () => {
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-registrations-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}}]`).click({ force: true });
 });
 And('they see a List of Registrations', () => {
   cy.get('[data-testid^=edit-registration]').should('have.length.above', 1);
@@ -52,10 +53,10 @@ Then('they see a List of all Validation Errors', () => {
   cy.get('[data-testid=error-list-div] > dl > dd').should('have.length.above', 0);
 });
 And('they see that tabs with Validation Errors are marked with an Error Icon', () => {
-  cy.get('[data-testid=nav-tabpanel-contributors]').within(() => {
-    cy.get('[data-testid=error-tab]');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}}]`).within(() => {
+    cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.errorStep}}]`);
   });
   cy.get('[data-testid=nav-tabpanel-files-and-license]').within(() => {
-    cy.get('[data-testid=error-tab]');
+    cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.errorStep}}]`);
   });
 });
