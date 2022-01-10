@@ -6,7 +6,7 @@ import { Before } from 'cypress-cucumber-preprocessor/steps';
 
 Before(() => {
   cy.login(userResourceType);
-  cy.get('[data-testid=menu-button]').click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });

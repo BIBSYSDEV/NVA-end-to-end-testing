@@ -85,7 +85,7 @@ And('the request is listed in User Worklist', () => {
   cy.get('[data-testid^=message-title]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
 });
 And('the request is listed in Curator Worklist', () => {
-  cy.get('[data-testid=menu-button]').click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get('[data-testid=log-out-link]').click();
   cy.login(userCuratorDraftDoi);
   cy.visit('/');
@@ -180,7 +180,7 @@ And('the DOI request is listed in the Owners work list', () => {
   cy.get('[data-testid^=message-title]').filter(`:contains(${draftRegistrationPublishWithRequestedDoi})`);
 });
 And('the DOI request is listed in the Curators work list', () => {
-  cy.get('[data-testid=menu-button]').click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get('[data-testid=log-out-link]').click();
   cy.login(userCuratorDraftDoi);
   cy.get('[data-testid=worklist-link]').click();

@@ -2,7 +2,7 @@ import { userViewRegistration } from '../../../support/constants';
 
 Given('that a Creator views a Registration', () => {
   cy.login(userViewRegistration);
-  cy.get('[data-testid=menu-button]').click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });

@@ -10,7 +10,7 @@ Given('that the user is logged in as Institution Administrator', () => {
   cy.login(userInstAdminWithAuthor);
 });
 When('they click the menu item My Institution', () => {
-  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
   cy.get('[data-testid=admin-institution-link]').click({ force: true });
 });
 Then('they see the My Institution page', () => {

@@ -58,7 +58,7 @@ And('they see a Support button', () => {
 // Scenario: User with their Feide ID in ARP logs in
 And('their Feide ID is in an ARP entry', () => {});
 Then('they can see their name in the menu', () => {
-  cy.get('[data-testid=menu-button]').contains('Withauthor TestUser');
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).contains('Withauthor TestUser');
 });
 
 // Common steps for @384 and @219
@@ -139,7 +139,7 @@ And('their ORCID is added to their Author identity', () => {
 });
 And('they see their ORCID on My Profile', () => {
   cy.get('[data-testid=close-modal]').click({ force: true });
-  cy.get('[data-testid=menu-button]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
   cy.get('[data-testid=my-profile-link]').click({ force: true });
   cy.get('[data-testid=orcid-line]').contains('test_orcid');
 });
@@ -164,7 +164,7 @@ Given('that the user is already logged in', () => {
   cy.login(userWithAuthor);
 });
 When('they click on the Menu', () => {
-  cy.get('[data-testid=menu-button]').click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
 });
 And('they click Log out', () => {
   cy.get('[data-testid=log-out-link]').should('be.visible');
