@@ -1,4 +1,5 @@
 import { userSecondInstAdminWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 import {
   userAdministrationButtons,
   userAdministrationSections,
@@ -62,8 +63,8 @@ Given('that the user is logged in as Administrator', () => {
   cy.login(userSecondInstAdminWithAuthor);
 });
 When('they click the menu item Users', () => {
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=admin-users-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.adminUsersLink}]`).click({ force: true });
 });
 Then('they see the User Administration page', () => {
   cy.location('pathname').should('equal', '/my-institution-users');
@@ -100,7 +101,7 @@ And('they see a button "Remove" that is enabled for each user', () => {
   });
 });
 And('they see a section Registrator with a policy for who are able to publish', () => {
-  cy.get('[data-testid=users-creators]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.myInstitutionUsersPage.usersCreators}]`).should('be.visible');
   cy.get('[data-testid=checkbox-assign-creators]').should('be.visible');
 });
 // Examples:
@@ -114,8 +115,8 @@ And('they see a section Registrator with a policy for who are able to publish', 
 // Scenario Outline: Administrator opens the Add Role Dialog
 Given('Administrator opens User Administration', () => {
   cy.login(userSecondInstAdminWithAuthor);
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=admin-users-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.adminUsersLink}]`).click({ force: true });
 });
 Then('they see the Add Role Dialog', () => {
   cy.get('[data-testid=add-role-modal]').as('roleModal');
@@ -150,8 +151,8 @@ And('they see a "Close" button', () => {
 // Scenario: Administrator searches for User
 Given('Administrator opens the Add Role Dialog', () => {
   cy.login(userSecondInstAdminWithAuthor);
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=admin-users-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.adminUsersLink}]`).click({ force: true });
 });
 When('they enter text into the Search field', () => {
   cy.get('@section').then((section) => {

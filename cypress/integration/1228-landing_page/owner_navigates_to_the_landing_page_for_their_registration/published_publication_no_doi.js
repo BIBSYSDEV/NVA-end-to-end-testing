@@ -1,4 +1,5 @@
 import { userWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Owner navigates to the Landing Page for their Registration
 
@@ -7,7 +8,7 @@ Given('that the Creator navigates to the Landing Page for a Resource', () => {
   cy.login(userWithAuthor);
 });
 And('they are the Owner of the Resource', () => {
-  cy.get('[data-testid=menu-button]').click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });
 // End common steps
@@ -36,7 +37,7 @@ Then('they see buttons for "Request a DOI" and "Edit Resource"', () => {
 // Scenario: Owner navigates to the Landing Page for their Registration with Validation Errors
 When('the Creator navigates to the Landing Page', () => {
   cy.login(userWithAuthor);
-  cy.get('[data-testid=menu-button]').click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get('[data-testid=my-registrations-link]').click({ force: true });
 });
 And('the Resource has Validation Errors', () => {});

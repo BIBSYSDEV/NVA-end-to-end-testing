@@ -1,9 +1,10 @@
 import { userWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 Given('Creator opens My Registrations', () => {
   cy.login(userWithAuthor);
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-registrations-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}}]`).click({ force: true });
 });
 When('they click Delete on an item', () => {
   cy.get('[data-testid^=registration-title]')

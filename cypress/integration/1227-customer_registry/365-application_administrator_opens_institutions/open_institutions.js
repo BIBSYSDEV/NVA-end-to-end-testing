@@ -1,11 +1,12 @@
 import { adminUser } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 Given('that the user is logged in as Application Administrator', () => {
   cy.login(adminUser);
 });
 When('they click the menu item Institutions', () => {
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=admin-institutions-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).click({ force: true });
 });
 Then('they see the page Institutions', () => {
   cy.location('pathname').should('equal', '/admin-institutions');

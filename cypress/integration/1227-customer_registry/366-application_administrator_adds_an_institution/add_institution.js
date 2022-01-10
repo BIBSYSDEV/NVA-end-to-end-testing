@@ -1,4 +1,5 @@
 import { adminUser } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 import { institutionFields } from '../../../support/data_testid_constants';
 
 // Feature: Application Administrator adds an Institution
@@ -9,8 +10,8 @@ Given('that the user is logged in as Application Administrator', () => {
   cy.login(adminUser);
 });
 And('they click the menu item Institutions', () => {
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=admin-institutions-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).click({ force: true });
 });
 When('they click Add Institution', () => {
   cy.get('[data-testid=add-institution-button]').click({ force: true });
