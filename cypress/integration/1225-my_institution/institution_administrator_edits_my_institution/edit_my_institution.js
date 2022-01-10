@@ -12,7 +12,7 @@ Given('that the user is logged in as Institution Administrator', () => {
 });
 When('they click the menu item My Institution', () => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get('[data-testid=admin-institution-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.adminInstitutionLink}]`).click({ force: true });
 });
 Then('they see the My Institution page', () => {
   cy.location('pathname').should('equal', '/my-institution');

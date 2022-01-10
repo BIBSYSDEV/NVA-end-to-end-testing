@@ -11,7 +11,7 @@ Given('that the user is logged in as Application Administrator', () => {
 });
 And('they click the menu item Institutions', () => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get('[data-testid=admin-institutions-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).click({ force: true });
 });
 When('they click Add Institution', () => {
   cy.get('[data-testid=add-institution-button]').click({ force: true });

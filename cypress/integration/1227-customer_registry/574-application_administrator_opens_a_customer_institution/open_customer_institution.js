@@ -11,7 +11,7 @@ Given('that the user is logged in as Application Administrator', () => {
 });
 When('they open a Customer Institution', () => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get('[data-testid=admin-institutions-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).click({ force: true });
   cy.get('[data-testid="edit-institution-TestInst 2"]').first().click({ force: true });
 });
 Then('they see fields:', (dataTable) => {
