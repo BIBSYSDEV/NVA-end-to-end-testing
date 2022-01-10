@@ -1,5 +1,6 @@
 import { Given, When } from 'cypress-cucumber-preprocessor/steps';
 import { TEST_USER, TEST_USER_NAME } from '../../support/constants';
+import { dataTestId } from '../../support/dataTestIds';
 
 Given('A user have logged in using Cognito', () => {
   cy.loginCognito(TEST_USER).then((idToken) => {

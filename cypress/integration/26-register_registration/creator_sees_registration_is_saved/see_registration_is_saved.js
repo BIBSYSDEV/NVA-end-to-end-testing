@@ -1,4 +1,5 @@
 import { userSaveRegistration } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 const doiTitle = 'The Structure of Ordinary Water';

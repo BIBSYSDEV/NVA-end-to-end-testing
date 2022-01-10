@@ -1,4 +1,5 @@
 import { userViewRegistration } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 Given('that a Creator views a Registration', () => {
   cy.login(userViewRegistration);

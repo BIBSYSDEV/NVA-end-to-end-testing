@@ -1,4 +1,5 @@
 import { adminUser } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 import { institutionFields } from '../../../support/data_testid_constants';
 
 // Feature: Application Administrator adds an Institution

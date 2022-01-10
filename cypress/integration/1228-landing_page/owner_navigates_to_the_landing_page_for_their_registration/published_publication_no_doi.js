@@ -1,4 +1,5 @@
 import { userWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Owner navigates to the Landing Page for their Registration
 

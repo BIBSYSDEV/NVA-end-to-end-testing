@@ -1,4 +1,5 @@
 import { userCuratorDraftDoi, userDraftDoi } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: DOI related scenarios moved from MVP feature
 

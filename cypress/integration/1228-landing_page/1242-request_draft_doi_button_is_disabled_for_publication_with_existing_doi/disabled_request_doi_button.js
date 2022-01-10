@@ -1,6 +1,7 @@
 // Feature: Request/Draft DOI button is disabled for Publications with existing DOI
 
 import { userDraftDoi } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 import { myRegistrationsTabs, landingPageButtons } from '../../../support/data_testid_constants';
 
 const registrationTitles = {

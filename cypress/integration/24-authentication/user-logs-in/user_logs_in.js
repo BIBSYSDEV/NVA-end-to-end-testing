@@ -7,6 +7,7 @@ import {
   userConnectAuthor,
 } from '../../../support/constants';
 import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { dataTestId } from '../../../support/dataTestIds';
 
 Before({ tags: '@217' }, () => {
   cy.wrap(userNoArp).as('user');

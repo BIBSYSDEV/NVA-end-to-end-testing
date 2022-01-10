@@ -1,4 +1,5 @@
 import { adminUser } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 Given('that the user is logged in as Application Administrator', () => {
   cy.login(adminUser);

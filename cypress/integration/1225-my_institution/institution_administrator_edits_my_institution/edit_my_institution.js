@@ -1,4 +1,5 @@
 import { userInstAdminWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 import { myInstitutionFields, myinstitutionfieldsTestvalue } from '../../../support/data_testid_constants';
 
 // Common steps for scenarios:
