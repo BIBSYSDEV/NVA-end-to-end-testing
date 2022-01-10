@@ -141,7 +141,7 @@ And('their ORCID is added to their Author identity', () => {
 And('they see their ORCID on My Profile', () => {
   cy.get('[data-testid=close-modal]').click({ force: true });
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get('[data-testid=my-profile-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
   cy.get('[data-testid=orcid-line]').contains('test_orcid');
 });
 
@@ -168,11 +168,11 @@ When('they click on the Menu', () => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
 });
 And('they click Log out', () => {
-  cy.get('[data-testid=log-out-link]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.header.logOutLink}]`).should('be.visible');
   cy.window().its('store').invoke('dispatch', {
     type: 'logout success',
   });
 });
 Then('they are logged out of the NVA application', () => {
-  cy.get('[data-testid=log-in-link]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.header.logInButton}]`).should('be.visible');
 });
