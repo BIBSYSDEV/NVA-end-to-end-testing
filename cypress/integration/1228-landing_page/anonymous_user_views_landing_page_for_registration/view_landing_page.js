@@ -1,3 +1,4 @@
+import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageFields, landingPageShareButtons } from '../../../support/data_testid_constants';
 
 const landing_page_registration_title = 'View Landing Page';
@@ -7,8 +8,8 @@ const landing_page_registration_title = 'View Landing Page';
 When('an Anonymous user navigates to a Landing Page for a Resource', () => {
   cy.visit('/');
   cy.setLocalStorage('beta', true); // TODO remove when sharing buttons are out of beta
-  cy.get('[data-testid=search-button]').click();
-  cy.get('[data-testid=search-field]').type('View Landing Page{enter}');
+  cy.get(`[data-testid=${dataTestId.startPage.searchButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type('View Landing Page{enter}');
   cy.get('[data-testid=result-list-item]')
     .filter(`:contains(${landing_page_registration_title})`)
     .first()
