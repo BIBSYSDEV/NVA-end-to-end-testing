@@ -14,7 +14,7 @@ const registrationTitles = {
 Given('that a Creator views the Landing Page for a Registration', () => {
   cy.login(userDraftDoi);
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get('[data-testid=my-registrations-link]').click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click();
 });
 And('they are the Owner of this Registration', () => {});
 And('the Registration has status {string}', (status) => {
@@ -27,10 +27,10 @@ And('the Registration has status {string}', (status) => {
     });
 });
 And('the Registration has a DOI', () => {
-  cy.get('[data-testid=public-registration-doi-link]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
 });
 When('they see the Status Bar', () => {
-  cy.get('[data-testid=public-registration-status]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`).should('be.visible');
 });
 Then('they see that the {string} button is not visible', (button) => {
   cy.get(`[data-testid=${landingPageButtons[button]}]`).should('not.exist');
