@@ -89,7 +89,7 @@ And('they see the Start button is enabled', () => {
 
 // Common steps for @228, @439, @440, @441, @442, @2208, @2370
 And('they expand the Expansion panel for Link to resource', () => {
-  cy.get('[data-testid=new-registration-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).click({ force: true });
 });
 When('they enter {string} from {string}', (link, source) => {
   cy.wrap(source).as('source');
