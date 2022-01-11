@@ -1,20 +1,15 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { userWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 const fileName = 'example.txt';
 const dlrLink = 'https://dlr.unit.no/resources/66888570-3504-4d12-81a4-c3ffe0605945';
-const dcIdentifierLink = 'https://loar.kb.dk/handle/1902/1674?show=full';
-const dcTermLink = 'https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2638973';
-const openGraphLink = 'https://www.nrk.no/norge/klimakur-2030_-mer-strom-og-mindre-kjott-kan-fa-norge-i-mal-1.14883788';
-const highwireLink = 'https://link.springer.com/article/10.1007/s13201-020-01350-9';
-const schemaLink = 'https://e24.no/boers-og-finans/i/AdyrPM/syv-av-tangens-11-referanser-deltok-paa-luksusseminaret';
 
 // Feature: Creator begins registering a Registration
 
 // Common steps
 Given('Creator begins registering a Registration', () => {
-  cy.login(USER_WITH_AUTHOR);
-  cy.get('[data-testid=new-registration]').click({ force: true });
+  cy.login(userWithAuthor);
+  cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
 });
 // End common steps
 
@@ -23,23 +18,23 @@ Given('Creator begins registering a Registration', () => {
 And('they have selected {string} for starting the Wizard', (method) => {
   cy.wrap(method).as('registrationMethod');
   if (method === 'Link to registration') {
-    cy.get('[data-testid=new-registration-link]').click({ force: true });
+    cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).click({ force: true });
     cy.get('[data-testid=new-registration-link-field] > div > input').type(dlrLink);
     cy.get('[data-testid=doi-search-button]').click({ force: true });
   } else if (method === 'Upload file') {
-    cy.get('[data-testid=new-registration-file]').click({ force: true });
+    cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
     cy.get('input[type=file]').attachFile(fileName);
   } else if (method === 'Empty Registration') {
-    cy.get('[data-testid=new-registration-empty]').click({ force: true });
+    cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click({ force: true });
   }
 });
 When('they click Start', () => {
   cy.get('@registrationMethod').then((method) => {
-    cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled').click({ force: true });
+    cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).filter(':visible').should('be.enabled').click({ force: true });
   });
 });
 Then('they see the Wizard', () => {
-  cy.get('[data-testid=nav-tabpanel-description]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
 });
 // Examples:
 //   | Method               |
@@ -51,28 +46,28 @@ Then('they see the Wizard', () => {
 Given('that the user is logged in', () => {});
 And('they have Role Creator', () => {});
 And('they are on the Start page', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
 });
 When('they click the New Registration button', () => {
-  cy.get('[data-testid=new-registration]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
 });
 Then('they are redirected to the New Registration page', () => {
   cy.location('pathname').should('contain', '/registration');
 });
 And('they see an Expansion panel for Upload file', () => {
-  cy.get('[data-testid=new-registration-file]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).should('be.visible');
 });
 And('they see an Expansion panel for Link to resource', () => {
-  cy.get('[data-testid=new-registration-link]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).should('be.visible');
 });
 And('they see an Expansion panel for Empty Registration', () => {
-  cy.get('[data-testid=new-registration-empty]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).should('be.visible');
 });
 
 //   @385
 //   Scenario: Creator begins registration by uploading a file
 When('they click Upload file', () => {
-  cy.get('[data-testid=new-registration-file]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
 });
 And('they upload a file', () => {
   cy.get('input[type=file]').attachFile(fileName);
@@ -89,12 +84,12 @@ And('they see the Remove button', () => {
   cy.get('[data-testid=button-remove-file]').should('be.visible');
 });
 And('they see the Start button is enabled', () => {
-  cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).filter(':visible').should('be.enabled');
 });
 
 // Common steps for @228, @439, @440, @441, @442, @2208, @2370
 And('they expand the Expansion panel for Link to resource', () => {
-  cy.get('[data-testid=new-registration-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).click({ force: true });
 });
 When('they enter {string} from {string}', (link, source) => {
   cy.wrap(source).as('source');

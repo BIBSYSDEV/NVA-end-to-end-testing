@@ -1,12 +1,12 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { userWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 Given('the user is logged in as Creator', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
 });
 When('they click the button My Registrations', () => {
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-registrations-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
 });
 Then('they see My Registrations', () => {
   cy.location('pathname').should('eq', '/my-registrations');

@@ -1,52 +1,52 @@
-export const ORCID_BASE_URL = Cypress.env('REACT_APP_ORCID_BASE_URL');
-export const ORCID_USER_INFO_URL = `${ORCID_BASE_URL}/oauth/userinfo`;
-const ORCID_CLIENT_ID = Cypress.env('REACT_APP_ORCID_CLIENT_ID');
-export const ORCID_SIGN_IN_URL = `${ORCID_BASE_URL}/signin?oauth&client_id=${ORCID_CLIENT_ID}&response_type=token&scope=openid&redirect_uri=${process.env.REACT_APP_ORCID_REDIRECT_URI}`;
-export const FEIDE_IDENTITY_PROVIDER = 'FeideIdentityProvider';
+export const orcidBaseUrl = Cypress.env('REACT_APP_ORCID_BASE_URL');
+export const orcidUserInfoUrl = `${orcidBaseUrl}/oauth/userinfo`;
+const orcidClientId = Cypress.env('REACT_APP_ORCID_CLIENT_ID');
+export const orcidSignInUrl = `${orcidBaseUrl}/signin?oauth&client_id=${orcidClientId}&response_type=token&scope=openid&redirect_uri=${process.env.REACT_APP_ORCID_REDIRECT_URI}`;
+export const feideIdentityProvider = 'FeideIdentityProvider';
 
-export const FEIDE_ID_QUALIFIER = 'feideid';
+export const feideIdQualifier = 'feideid';
 
-export const API_URL = Cypress.env('REACT_APP_API_URL');
+export const apiUrl = Cypress.env('REACT_APP_API_URL');
 
 export const StatusCode = {
-  OK: 200,
-  CREATED: 201,
-  ACCEPTED: 202,
-  NO_CONTENT: 204,
+  ok: 200,
+  created: 201,
+  accepted: 202,
+  noContent: 204,
 };
 
 export const AuthorityPaths = {
-  PERSON: '/person',
+  person: '/person',
 };
 
-export const USER_NO_ARP = 'test-user-no-arp@test.no';
-export const USER_NAME_IN_ARP = 'test-user-name-in-arp@test.no';
-export const USER_NO_NAME_IN_ARP = 'test-user-no-name-in-arp@test.no';
-export const USER_CONNECT_ARP = 'test-user-connect-arp@test.no';
-export const USER_NO_ORCID = 'test-user-no-orcid@test.no';
-export const USER_CONNECT_ORCID = 'test-user-connect-orcid@test.no';
-export const USER_CONNECT_AUTHOR = 'test-user-connect-author@test.no';
-export const USER_WITH_AUTHOR = 'test-user-with-author@test.no';
-export const USER_SAVE_REGISTRATION = 'test-user-save-registration@test.no';
-export const USER_ADD_INSTITUTION = 'test-user-add-institution@test.no';
-export const USER_CHANGE_INSTITUTION = 'test-user-change-institution@test.no';
-export const USER_INSTITUTION_SUBUNIT = 'test-user-subunit@test.no';
-export const USER_INSTITUTION_SUBSUBUNIT = 'test-user-subsubunit@test.no';
-export const USER_INSTITUTION_SUBSUBSUBUNIT = 'test-user-subsubsubunit@test.no';
-export const USER_WITH_INSTITUTION_REMOVE_INSTITUTION = 'test-user-with-institution-remove-institution@test.no';
-export const USER_CURATOR_WITH_AUTHOR = 'test-user-curator@test.no';
-export const USER_INST_ADMIN_WITH_AUTHOR = 'test-user-first-inst-admin@test.no';
-export const USER_SECOND_INST_ADMIN_WITH_AUTHOR = 'test-user-second-inst-admin-1@test.no';
-export const ADMIN_USER = 'test-user-app-admin@test.no';
-export const TEST_USER = 'test-user-login@test.no';
-export const USER_NO_ROLE = 'test-user-with-no-role@test.no';
-export const USER_REMOVE_ORCID = 'test-user-remove-existing-orcid@test.no';
-export const USER_NON_CUSTOMER = 'test-user-not-customer@test.no';
-export const USER_DRAFT_DOI = 'test-user-draft-doi@test.no';
-export const USER_CURATOR_DRAFT_DOI = 'test-user-curator-draft-doi@test.no';
-export const USER_RESOURCE_TYPE = 'test-user-resource-type@test.no';
-export const USER_VIEW_REGISTRATION = 'test-user-view-registration@test.no';
-export const USER_EDITOR = 'test-user-editor@test.no';
+export const userNoArp = 'test-user-no-arp@test.no';
+export const userNameInArp = 'test-user-name-in-arp@test.no';
+export const userNoNameInArp = 'test-user-no-name-in-arp@test.no';
+export const userConnectArp = 'test-user-connect-arp@test.no';
+export const userNoOrcid = 'test-user-no-orcid@test.no';
+export const userConnectOrcid = 'test-user-connect-orcid@test.no';
+export const userConnectAuthor = 'test-user-connect-author@test.no';
+export const userWithAuthor = 'test-user-with-author@test.no';
+export const userSaveRegistration = 'test-user-save-registration@test.no';
+export const userAddInstitution = 'test-user-add-institution@test.no';
+export const userChangeInstitution = 'test-user-change-institution@test.no';
+export const userInstitutionSubunit = 'test-user-subunit@test.no';
+export const userInstitutionSubsubunit = 'test-user-subsubunit@test.no';
+export const userInstitutionSubsubsubunit = 'test-user-subsubsubunit@test.no';
+export const userWithInstitutionRemoveInstitution = 'test-user-with-institution-remove-institution@test.no';
+export const userCuratorWithAuthor = 'test-user-curator@test.no';
+export const userInstAdminWithAuthor = 'test-user-first-inst-admin@test.no';
+export const userSecondInstAdminWithAuthor = 'test-user-second-inst-admin-1@test.no';
+export const adminUser = 'test-user-app-admin@test.no';
+export const testUser = 'test-user-login@test.no';
+export const userNoRole = 'test-user-with-no-role@test.no';
+export const userRemoveOrcid = 'test-user-remove-existing-orcid@test.no';
+export const userNonCustomer = 'test-user-not-customer@test.no';
+export const userDraftDoi = 'test-user-draft-doi@test.no';
+export const userCuratorDraftDoi = 'test-user-curator-draft-doi@test.no';
+export const userResourceType = 'test-user-resource-type@test.no';
+export const userViewRegistration = 'test-user-view-registration@test.no';
+export const userEditor = 'test-user-editor@test.no';
 
 const userData = {
   name: '',
@@ -57,12 +57,12 @@ const userData = {
 };
 
 export const user = {
-  [USER_NO_ARP]: { ...userData, name: 'TestUser, No ARP', feideid: false, orcid: false },
-  [USER_NAME_IN_ARP]: { ...userData, name: 'TestUser, Name in ARP', feideid: false, orcid: false },
-  [USER_NO_NAME_IN_ARP]: { ...userData, name: '', orgunitids: [], feideid: false, orcid: false, inArp: false },
-  [USER_CONNECT_ARP]: { ...userData, name: 'TestUser, Connect ARP', feideid: false, orcid: false },
-  [USER_NO_ORCID]: { ...userData, name: 'TestUser, No ORCID', orcid: false },
-  [USER_CONNECT_AUTHOR]: {
+  [userNoArp]: { ...userData, name: 'TestUser, No ARP', feideid: false, orcid: false },
+  [userNameInArp]: { ...userData, name: 'TestUser, Name in ARP', feideid: false, orcid: false },
+  [userNoNameInArp]: { ...userData, name: '', orgunitids: [], feideid: false, orcid: false, inArp: false },
+  [userConnectArp]: { ...userData, name: 'TestUser, Connect ARP', feideid: false, orcid: false },
+  [userNoOrcid]: { ...userData, name: 'TestUser, No ORCID', orcid: false },
+  [userConnectAuthor]: {
     ...userData,
     name: 'TestUser, Connect Author',
     orgunitids: [],
@@ -70,28 +70,28 @@ export const user = {
     orcid: false,
     inArp: false,
   },
-  [USER_CONNECT_ORCID]: { ...userData, name: 'TestUser, Connect ORCID', feideid: false, orcid: false },
-  [USER_WITH_AUTHOR]: { ...userData, name: 'TestUser, Withauthor' },
-  [USER_SAVE_REGISTRATION]: { ...userData, name: 'TestUser, Save Registration' },
-  [USER_ADD_INSTITUTION]: { ...userData, name: 'TestUser, Add institution' },
-  [USER_CHANGE_INSTITUTION]: { ...userData, name: 'TestUser, Change institution' },
-  [USER_INSTITUTION_SUBUNIT]: { ...userData, name: 'TestUser, Subunit' },
-  [USER_INSTITUTION_SUBSUBUNIT]: { ...userData, name: 'TestUser, Subsubunit' },
-  [USER_INSTITUTION_SUBSUBSUBUNIT]: { ...userData, name: 'TestUser, Subsubsubunit' },
-  [USER_WITH_INSTITUTION_REMOVE_INSTITUTION]: {
+  [userConnectOrcid]: { ...userData, name: 'TestUser, Connect ORCID', feideid: false, orcid: false },
+  [userWithAuthor]: { ...userData, name: 'TestUser, Withauthor' },
+  [userSaveRegistration]: { ...userData, name: 'TestUser, Save Registration' },
+  [userAddInstitution]: { ...userData, name: 'TestUser, Add institution' },
+  [userChangeInstitution]: { ...userData, name: 'TestUser, Change institution' },
+  [userInstitutionSubunit]: { ...userData, name: 'TestUser, Subunit' },
+  [userInstitutionSubsubunit]: { ...userData, name: 'TestUser, Subsubunit' },
+  [userInstitutionSubsubsubunit]: { ...userData, name: 'TestUser, Subsubsubunit' },
+  [userWithInstitutionRemoveInstitution]: {
     ...userData,
     name: 'TestUser, Remove institution',
   },
-  [USER_CURATOR_WITH_AUTHOR]: { ...userData, name: 'TestUser, Curator' },
-  [USER_INST_ADMIN_WITH_AUTHOR]: { ...userData, name: 'TestUser, Institution-admin' },
-  [USER_SECOND_INST_ADMIN_WITH_AUTHOR]: { ...userData, name: 'TestUser, Second Institution-admin-1' },
-  [ADMIN_USER]: { ...userData, name: 'TestUser, App-admin' },
-  [USER_NO_ROLE]: { ...userData, name: 'TestUser, No role' },
-  [USER_REMOVE_ORCID]: { ...userData, name: 'TestUser, Remove orcid' },
-  [USER_NON_CUSTOMER]: { ...userData, name: 'TestUser, Not customer' },
-  [USER_DRAFT_DOI]: { ...userData, name: 'TestUser, Draft DOI' },
-  [USER_CURATOR_DRAFT_DOI]: { ...userData, name: 'TestUser, Curator Draft DOI' },
-  [USER_RESOURCE_TYPE]: { ...userData, name: 'TestUser, Resource type' },
-  [USER_VIEW_REGISTRATION]: { ...userData, name: 'TestUser, View registration' },
-  [USER_EDITOR]: { ...userData, name: 'TestUser, Editor' },
+  [userCuratorWithAuthor]: { ...userData, name: 'TestUser, Curator' },
+  [userInstAdminWithAuthor]: { ...userData, name: 'TestUser, Institution-admin' },
+  [userSecondInstAdminWithAuthor]: { ...userData, name: 'TestUser, Second Institution-admin-1' },
+  [adminUser]: { ...userData, name: 'TestUser, App-admin' },
+  [userNoRole]: { ...userData, name: 'TestUser, No role' },
+  [userRemoveOrcid]: { ...userData, name: 'TestUser, Remove orcid' },
+  [userNonCustomer]: { ...userData, name: 'TestUser, Not customer' },
+  [userDraftDoi]: { ...userData, name: 'TestUser, Draft DOI' },
+  [userCuratorDraftDoi]: { ...userData, name: 'TestUser, Curator Draft DOI' },
+  [userResourceType]: { ...userData, name: 'TestUser, Resource type' },
+  [userViewRegistration]: { ...userData, name: 'TestUser, View registration' },
+  [userEditor]: { ...userData, name: 'TestUser, Editor' },
 };

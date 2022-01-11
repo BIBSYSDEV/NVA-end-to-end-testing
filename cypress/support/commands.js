@@ -7,41 +7,42 @@ import {
   mockPersonFeideIdSearch,
   mockPersonNameSearch,
   mockPerson,
-  PROJECT_SEARCH_MOCK_FILE,
-  PROJECT_API_PATH,
-  JOURNAL_SEARCH_MOCK_FILE,
+  projectSearchMockFile,
+  projectApiPath,
+  journalSearchMockFile,
 } from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
+import { dataTestId } from './dataTestIds';
 
-const AWS_ACCESS_KEY_ID = Cypress.env('AWS_ACCESS_KEY_ID');
-const AWS_SECRET_ACCESS_KEY = Cypress.env('AWS_SECRET_ACCESS_KEY');
-const AWS_SESSION_TOKEN = Cypress.env('AWS_SESSION_TOKEN');
-const REGION = Cypress.env('AWS_REGION');
-const USER_POOL_ID = Cypress.env('AWS_USER_POOL_ID');
-const CLIENT_ID = Cypress.env('AWS_CLIENT_ID');
+const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
+const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
+const awsSessionToken = Cypress.env('AWS_SESSION_TOKEN');
+const region = Cypress.env('AWS_REGION');
+const userPoolId = Cypress.env('AWS_USER_POOL_ID');
+const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'dev';
 
 AWS.config = new AWS.Config({
-  accessKeyId: AWS_ACCESS_KEY_ID,
-  secretAccessKey: AWS_SECRET_ACCESS_KEY,
-  sessionToken: AWS_SESSION_TOKEN,
-  region: REGION,
+  accessKeyId: awsAccessKeyId,
+  secretAccessKey: awsSecretAccessKey,
+  sessionToken: awsSessionToken,
+  region: region,
 });
 
 const amplifyConfig = {
   Auth: {
-    region: REGION,
-    userPoolId: USER_POOL_ID,
-    userPoolWebClientId: CLIENT_ID,
+    region: region,
+    userPoolId: userPoolId,
+    userPoolWebClientId: clientId,
   },
 };
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
-const AUTH_FLOW = 'ADMIN_USER_PASSWORD_AUTH';
+const authFlow = 'ADMIN_USER_PASSWORD_AUTH';
 
 Cypress.Commands.add('connectAuthor', () => {
-  cy.get('[data-testid=create-author-button]').click();
+  cy.get(`[data-testid=create-author-button]`).click();
   cy.get('[data-testid=modal_next]').click();
 });
 
@@ -50,14 +51,14 @@ Cypress.Commands.add('skipOrcid', () => {
 });
 
 Cypress.Commands.add('setLanguage', () => {
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-profile-link]').click();
+  cy.get(`[data-testid=${dataTestId.header.generalMenuButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click();
   cy.get('[data-testid=language-selector]').click();
   cy.get('[data-testid=user-language-eng]').click();
 });
 
 Cypress.Commands.add('checkMenu', (table) => {
-  cy.get('[data-testid=menu-button]').click();
+  cy.get(`[data-testid=${dataTestId.header.generalMenuButton}]`).click();
   table.forEach((row) => {
     const menuItem = row[0];
     cy.get('li').should('contain.text', menuItem);
@@ -67,21 +68,21 @@ Cypress.Commands.add('checkMenu', (table) => {
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
-    const RANDOM_PASSWORD = `P%${uuidv4()}`;
+    const randomPassword = `P%${uuidv4()}`;
 
     const authorizeUser = {
-      AuthFlow: AUTH_FLOW,
-      ClientId: CLIENT_ID,
-      UserPoolId: USER_POOL_ID,
+      AuthFlow: authFlow,
+      ClientId: clientId,
+      UserPoolId: userPoolId,
       AuthParameters: {
         USERNAME: userId,
-        PASSWORD: RANDOM_PASSWORD,
+        PASSWORD: randomPassword,
       },
     };
 
     const passwordParams = {
-      Password: RANDOM_PASSWORD,
-      UserPoolId: USER_POOL_ID,
+      Password: randomPassword,
+      UserPoolId: userPoolId,
       Username: userId,
       Permanent: true,
     };
@@ -91,7 +92,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
         identityServiceProvider.adminInitiateAuth(authorizeUser, async (err, data) => {
           if (data) {
             if (!data.ChallengeName) {
-              await Auth.signIn(userId, RANDOM_PASSWORD);
+              await Auth.signIn(userId, randomPassword);
               resolve(data.AuthenticationResult.IdToken);
             }
           } else {
@@ -119,20 +120,24 @@ Cypress.Commands.add('login', (userId) => {
 });
 
 Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
-  cy.get('[data-testid=new-registration]').click({ force: true });
-  cy.get('[data-testid=new-registration-file]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
   cy.get('input[type=file]').attachFile(fileName);
 });
 
 Cypress.Commands.add('startWizardWithFile', (fileName) => {
   cy.startRegistrationWithFile(fileName);
-  cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled');
-  cy.get('[data-testid=registration-start-button]').filter(':visible').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .click({ force: true });
 });
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
-  cy.get('[data-testid=new-registration]').click({ force: true });
-  cy.get('[data-testid=new-registration-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).click({ force: true });
   cy.get('[data-testid=new-registration-link-field]').within((linkField) => {
     cy.wrap(linkField).get('input').type(doiLink);
   });
@@ -141,15 +146,23 @@ Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
 
 Cypress.Commands.add('startWizardWithLink', (doiLink) => {
   cy.startRegistrationWithLink(doiLink);
-  cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled');
-  cy.get('[data-testid=registration-start-button]').filter(':visible').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .click({ force: true });
 });
 
 Cypress.Commands.add('startWizardWithEmptyRegistration', (doiLink) => {
-  cy.get('[data-testid=new-registration]').click({ force: true });
-  cy.get('[data-testid=new-registration-empty]').click();
-  cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled');
-  cy.get('[data-testid=registration-start-button]').filter(':visible').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .click({ force: true });
 });
 
 Cypress.Commands.add('logoutCognito', () => {
@@ -158,12 +171,12 @@ Cypress.Commands.add('logoutCognito', () => {
 
 Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Description
-  cy.get('[data-testid=nav-tabpanel-description').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click({ force: true });
   cy.get('[data-testid=registration-title-field]').type('Title');
-  cy.get('[data-testid=date-published-field]').type('01.01.2020');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`).type('01.01.2020');
 
   // Reference
-  cy.get('[data-testid=nav-tabpanel-resource-type').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
 
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
@@ -171,25 +184,29 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
 
-  cy.get('[data-testid=publisher-search-field]').click({ force: true }).type('Norges');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.publisherField}]`)
+    .click({ force: true })
+    .type('Norges');
   cy.contains('Norges forskningsråd').click({ force: true });
 
-  cy.get('[data-testid=content-field]').click();
-  cy.get('[data-testid=content-value-academic-monograph]').click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academic-monograph')}]`).click();
 
-  cy.get('[data-testid=peer-review-field] > div > label > span').first().click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.peerReviewed}] > div > label > span`)
+    .first()
+    .click({ force: true });
 
   // Contributors
-  cy.get('[data-testid=nav-tabpanel-contributors').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click({ force: true });
   cy.get('[data-testid=Creator] > button').click({ force: true });
   cy.get('[data-testid=search-field]').type('Testuser Withauthor{enter}');
   cy.get('[data-testid=author-radio-button]').click({ force: true });
   cy.get('[data-testid=connect-author-button]').click({ force: true });
 
   // Files and reference
-  cy.get('[data-testid=nav-tabpanel-files-and-license').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
   cy.get('input[type=file]').attachFile(fileName);
-  cy.get('[data-testid=version-radios]').within(() => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`).within(() => {
     cy.get('input[type=radio]').first().click();
   });
   cy.get('[data-testid=uploaded-file-select-license]').click({ force: true }).type(' ');
@@ -203,8 +220,8 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 });
 
 Cypress.Commands.add('selectRegistration', (title, type) => {
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-registrations-link]').click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click();
   cy.get(`[data-testid=${type}-button]`).click();
   cy.get('[data-testid^=registration-title]')
     .filter(`:contains(${title})`)
@@ -265,20 +282,17 @@ Cypress.Commands.add('mockPersonSearch', (userId) => {
   cy.intercept(`https://api.${stage}.nva.aws.unit.no/person?name=*`, mockPersonNameSearch(userId));
 });
 
-Cypress.Commands.add('mockProjectSearch', (searchTerm) => {
-  cy.fixture(PROJECT_SEARCH_MOCK_FILE).then((searchResult) => {
-    cy.intercept(`${PROJECT_API_PATH}?query=*`, searchResult);
+Cypress.Commands.add('mockProjectSearch', () => {
+  cy.fixture(projectSearchMockFile).then((searchResult) => {
+    cy.intercept(`${projectApiPath}?query=*`, searchResult);
   });
 });
 
-Cypress.Commands.add('mockInstitution', (cristinId) => {
+Cypress.Commands.add('mockInstitution', () => {
   cy.fixture('org_query.json').then((organizations) => {
     cy.log(`mocking https://api.${stage}.nva.aws.unit.no/cristin/organization*`);
     cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/?query=*`, organizations);
   });
-  // cy.fixture('institutions.json').then((institutions) => {
-  //   cy.intercept(`https://api.${stage}.nva.aws.unit.no/institution/institutions*`, institutions);
-  // });
 });
 
 Cypress.Commands.add('mockDepartments', () => {
@@ -315,7 +329,7 @@ Cypress.Commands.add('mockDepartments', () => {
 });
 
 Cypress.Commands.add('mockJournalSearch', () => {
-  cy.fixture(JOURNAL_SEARCH_MOCK_FILE).then((journals) => {
+  cy.fixture(journalSearchMockFile).then((journals) => {
     cy.intercept(`https://api.${stage}.nva.aws.unit.no/publication-channels/journal*`, journals);
   });
 });

@@ -1,8 +1,7 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { userWithAuthor } from '../../../support/constants';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
   cy.startWizardWithEmptyRegistration();
 });
 When('they click the "Request support" button', () => {

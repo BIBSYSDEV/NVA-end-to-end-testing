@@ -1,11 +1,11 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
-import { CONTRIBUTOR_CREATE_FIELDS, RESOURCE_TYPES } from '../../../support/data_testid_constants';
+import { userWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
+import { contributorCreateFields, resourceTypes } from '../../../support/data_testid_constants';
 
 // Feature: Creator navigates to Contributors tab
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
   cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Contributors tab', () => {
@@ -16,7 +16,7 @@ And('they see the "Add Author" Button', () => {
   cy.get('[data-testid=add-Creator]').should('be.visible');
 });
 And('they click "Add Author"', () => {
-  cy.mockPersonSearch(USER_WITH_AUTHOR);
+  cy.mockPersonSearch(userWithAuthor);
   cy.get('[data-testid=add-Creator]').click({ force: true });
 });
 // End common steps
@@ -30,13 +30,13 @@ And('they see the tab Description is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-description]').should('be.enabled');
 });
 And('they see the tab Resource Type is clickable', () => {
-  cy.get('[data-testid=nav-tabpanel-resource-type]').should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).should('be.enabled');
 });
 And('they see the tab Contributors is selected', () => {
-  cy.get('[data-testid=nav-tabpanel-contributors][tabindex=0]');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}][tabindex=0]`);
 });
 And('they see the tab Files and License is clickable', () => {
-  cy.get('[data-testid=nav-tabpanel-files-and-license]').should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).should('be.enabled');
 });
 And('they see Previous is enabled', () => {
   cy.get('[data-testid=button-previous-tab]').should('be.enabled');
@@ -81,7 +81,7 @@ Then('the selected Author identity is added to the list of Authors', () => {
 
 //   Scenario: Creator adds an Author to the list of Authors for Resource Type Book, Monograph
 And('they navigate to the Resources tab', () => {
-  cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
 });
 And('they select Resource Type "Book"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
@@ -95,7 +95,7 @@ And('they select Registration Subtype "Monograph"', () => {
 //   Scenario: Creator adds an Author to the list of Authors for Resource Type Chapter
 And('they select the Resource Type', (dataTable) => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get(`[data-testid=${RESOURCE_TYPES[dataTable.rawTable[0]]}]`).click({ force: true });
+  cy.get(`[data-testid=${resourceTypes[dataTable.rawTable[0]]}]`).click({ force: true });
 });
 And('they select the Registration Subtype "Chapter in anthology"', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
@@ -109,10 +109,10 @@ And('they select Registration Subtype "Anthology"', () => {
   cy.get('[data-testid=publication-instance-type-BookAnthology]').click({ force: true });
 });
 And('they see the "Add Editor" Button', () => {
-  cy.get('[data-testid=add-Editor]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Editor')}]`).should('be.visible');
 });
 And('they click "Add Editor"', () => {
-  cy.get('[data-testid=add-Editor]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Editor')}]`).click({ force: true });
 });
 And('they search for Editor in the Author Search Dialog', () => {
   cy.get('[data-testid=search-field]').type('TestUser Withauthor');
@@ -134,10 +134,10 @@ And('they select any Registration Subtype', () => {
   cy.get('[data-testid=publication-instance-type-DegreeMaster]').click({ force: true });
 });
 And('they see the "Add Supervisor" Button', () => {
-  cy.get('[data-testid=add-Supervisor]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Supervisor')}]`).should('be.visible');
 });
 And('they click "Add Supervisor"', () => {
-  cy.get('[data-testid=add-Supervisor]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Supervisor')}]`).click({ force: true });
 });
 And('they search for Supervisor in the Author Search Dialog', () => {
   cy.get('[data-testid=search-field]').type('TestUser Withauthor');
@@ -159,7 +159,7 @@ When('they click "Create new Author"', () => {
 Then('they see fields:', (dataTable) => {
   cy.get('[data-testid=contributor-modal]').within((contributerModal) => {
     dataTable.rawTable.forEach((field) => {
-      cy.wrap(contributerModal).get(`[data-testid=${CONTRIBUTOR_CREATE_FIELDS[field[0]]}]`);
+      cy.wrap(contributerModal).get(`[data-testid=${contributorCreateFields[field[0]]}]`);
     });
   });
 });

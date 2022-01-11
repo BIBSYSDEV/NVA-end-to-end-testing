@@ -1,5 +1,5 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_SAVE_REGISTRATION } from '../../../support/constants';
+import { userSaveRegistration } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 const doiTitle = 'The Structure of Ordinary Water';
@@ -20,13 +20,13 @@ When('they click Start', () => {
       'day': '14',
     },
   });
-  cy.get('[data-testid=registration-start-button]').filter(':visible').should('be.enabled');
-  cy.get('[data-testid=registration-start-button]').filter(':visible').click({ force: true });
-  cy.get('[data-testid=nav-tabpanel-description]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).filter(':visible').should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).filter(':visible').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
 });
 And('they click My Registrations', () => {
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-registrations-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
 });
 And('they see that Edit is enabled', () => {
   cy.get('@registration').within((registration) => {
@@ -45,7 +45,7 @@ And('they see that Delete is enabled', () => {
 // Scenario: Creator sees Registration based on a Link is saved
 Given('Creator begins registering with a Link', () => {
   cy.wrap('link').as('registrationMethod');
-  cy.login(USER_SAVE_REGISTRATION);
+  cy.login(userSaveRegistration);
   cy.startRegistrationWithLink(doiLink);
 });
 Then('they see the Registration is saved and the title is listed and marked as Draft', () => {
@@ -66,7 +66,7 @@ Then('they see the Registration is saved and the title is listed and marked as D
 // Scenario: Creator sees Registration based on file upload is saved
 Given('Creator begins registration by uploading a file', () => {
   cy.wrap('file').as('registrationMethod');
-  cy.login(USER_SAVE_REGISTRATION);
+  cy.login(userSaveRegistration);
   cy.startRegistrationWithFile(filename);
 });
 Then('they see the Registration is saved and the title is "[Missing title]" and marked as Draft', () => {

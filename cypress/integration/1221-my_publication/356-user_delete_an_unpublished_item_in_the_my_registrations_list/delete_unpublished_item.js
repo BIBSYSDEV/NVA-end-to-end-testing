@@ -1,10 +1,10 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { userWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 Given('Creator opens My Registrations', () => {
-  cy.login(USER_WITH_AUTHOR);
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-registrations-link]').click({ force: true });
+  cy.login(userWithAuthor);
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
 });
 When('they click Delete on an item', () => {
   cy.get('[data-testid^=registration-title]')

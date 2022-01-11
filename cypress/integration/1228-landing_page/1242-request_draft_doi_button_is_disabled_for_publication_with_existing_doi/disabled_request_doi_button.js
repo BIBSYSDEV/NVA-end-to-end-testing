@@ -1,6 +1,7 @@
 // Feature: Request/Draft DOI button is disabled for Publications with existing DOI
 
-import { USER_DRAFT_DOI } from '../../../support/constants';
+import { userDraftDoi } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 import { myRegistrationsTabs, landingPageButtons } from '../../../support/data_testid_constants';
 
 const registrationTitles = {
@@ -11,9 +12,9 @@ const registrationTitles = {
 // @1242
 // Scenario Outline: Request/Draft DOI button is disabled for Registrations with existing DOI
 Given('that a Creator views the Landing Page for a Registration', () => {
-  cy.login(USER_DRAFT_DOI);
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-registrations-link]').click();
+  cy.login(userDraftDoi);
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click();
 });
 And('they are the Owner of this Registration', () => {});
 And('the Registration has status {string}', (status) => {
@@ -26,10 +27,10 @@ And('the Registration has status {string}', (status) => {
     });
 });
 And('the Registration has a DOI', () => {
-  cy.get('[data-testid=public-registration-doi-link]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
 });
 When('they see the Status Bar', () => {
-  cy.get('[data-testid=public-registration-status]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`).should('be.visible');
 });
 Then('they see that the {string} button is not visible', (button) => {
   cy.get(`[data-testid=${landingPageButtons[button]}]`).should('not.exist');

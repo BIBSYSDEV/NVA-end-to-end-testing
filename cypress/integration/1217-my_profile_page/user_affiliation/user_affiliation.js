@@ -1,11 +1,12 @@
 import {
-  USER_ADD_INSTITUTION,
-  USER_INSTITUTION_SUBUNIT,
-  USER_WITH_AUTHOR,
-  USER_WITH_INSTITUTION_REMOVE_INSTITUTION,
+  userAddInstitution,
+  userInstitutionSubunit,
+  userWithAuthor,
+  userWithInstitutionRemoveInstitution,
 } from '../../../support/constants';
-import { MOCK_INSTITUTION, MOCK_DEPARTMENT, MOCK_CRISTINID } from '../../../support/mock_data';
+import { mockInstitution, mockDepartment } from '../../../support/mock_data';
 import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: User adds and removes organization
 
@@ -17,60 +18,61 @@ Before(() => {
 // @405
 // Scenario: User sees a Subunit from My Profile
 Given('User opens Add Institution from My Profile', () => {
-  cy.login(USER_ADD_INSTITUTION);
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=my-profile-link]').click({ force: true });
+  cy.login(userAddInstitution);
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
   cy.get('[data-testid=add-new-institution-button]').click();
 });
 
 When('they enter an Institution name', () => {
-  cy.get('[data-testid=organization-search-field]').type('Mock institution');
+  cy.get(`[data-testid=${dataTestId.organization.searchField}]`).type('Mock institution');
 });
 And('they select an Institution', () => {
-  cy.contains(MOCK_INSTITUTION[2]).click();
+  cy.contains(mockInstitution[2]).click();
 });
 Then('they see Subunit dropdown containing all the subunits at their Institution', () => {
   cy.contains('Department').should('be.visible');
-  cy.get('[data-testid=sub-organization-search-field]').last().click();
-  cy.contains(MOCK_DEPARTMENT[0]).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.organization.subSearchField}]`).last().click();
+  cy.contains(mockDepartment[0]).should('be.visible');
 });
 
 // @407
 // Scenario: User selects a Subunit from My Profile
 Given('user sees a Subunit from My Profile', () => {
-  cy.login(USER_INSTITUTION_SUBUNIT);
+  cy.login(userInstitutionSubunit);
   cy.mockInstitution();
   cy.mockDepartments();
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=my-profile-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
   cy.get('[data-testid=add-new-institution-button]').click();
-  cy.get('[data-testid=organization-search-field]').type(MOCK_INSTITUTION[2]);
-  cy.contains(MOCK_INSTITUTION[2]).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.organization.searchField}]`).type(mockInstitution[2]);
+  cy.contains(mockInstitution[2]).click({ force: true });
   cy.contains('Department').should('be.visible');
 });
 
 When('they select a Subunit from the Subunit dropdown', () => {
   cy.get('[data-testid=sub-organization-search-field]').click();
-  cy.contains(MOCK_DEPARTMENT[0]).click({ force: true });
+  cy.contains(mockDepartment[0]).click({ force: true });
 });
 And('they click on a subunit', () => {
-  cy.get('[data-testid=institution-add-button]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.organization.subSearchField}]`).click({ force: true });
 });
 Then('they see the new Institution and subunit in My Profile', () => {
-  cy.contains(MOCK_INSTITUTION[2]);
-  cy.contains(MOCK_DEPARTMENT[0]);
+  // cy.get(`[data-testid=${dataTestId.organization.searchField}]`).focus()
+  cy.get(`[value="${mockInstitution[2]}"]`);
+  cy.get(`[value="${mockDepartment[0]}"]`);
 });
 
 // @410
 // Scenario: User opens Add Institution from My Profile
 Given('user opens the page My Profile', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
   cy.mockInstitution();
   cy.mockDepartments();
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=my-profile-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
 });
 
 When('they click Add Institution', () => {
@@ -79,26 +81,26 @@ When('they click Add Institution', () => {
   cy.get('[data-testid=add-new-institution-button]').click({ force: true });
 });
 Then('they see the Autosearch box for Institutions', () => {
-  cy.get('[data-testid=organization-search-field]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.organization.searchField}]`).should('be.visible');
 });
 
 // @411
 // Scenario: User adds an Institution from My Profile
 Given('User opens Add Institution from My Profile', () => {
-  cy.login(USER_ADD_INSTITUTION);
+  cy.login(userAddInstitution);
   cy.mockInstitution();
   cy.mockDepartments();
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=my-profile-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
   cy.get('[data-testid=add-new-institution-button]').click();
 });
 
 When('they enter an Institution name', () => {
-  cy.get('[data-testid=organization-search-field]').type(MOCK_INSTITUTION[2]);
+  cy.get(`[data-testid=${dataTestId.organization.searchField}]`).type(mockInstitution[2]);
 });
 And('they select an Institution', () => {
-  cy.contains(MOCK_INSTITUTION[2]).click({ force: true });
+  cy.contains(mockInstitution[2]).click({ force: true });
 });
 And('they see a button Add that is enabled for the new Institution', () => {
   cy.get('[data-testid=institution-add-button]').should('be.visible');
@@ -107,11 +109,11 @@ And('they see a button Cancel that is enabled for the new Institution', () => {
   cy.get('[data-testid=institution-cancel-button]').should('be.visible');
 });
 And('they click Add', () => {
-  cy.get('[data-testid=sub-organization-search-field]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.organization.subSearchField}]`).should('be.visible');
   cy.get('[data-testid=institution-add-button]').click({ force: true });
 });
 Then('they see the new Institution in My Profile', () => {
-  cy.contains(MOCK_INSTITUTION[2]);
+  cy.contains(mockInstitution[2]);
 });
 And('they see a button Remove that is enabled for the new Institution', () => {
   cy.get('[data-testid^=button-delete-institution]').should(($delete) => {
@@ -122,15 +124,15 @@ And('they see a button Remove that is enabled for the new Institution', () => {
 // @551
 // Scenario: User removes an Institution from My Profile
 Given('User sees an Institution from My Profile', () => {
-  cy.login(USER_WITH_INSTITUTION_REMOVE_INSTITUTION);
+  cy.login(userWithInstitutionRemoveInstitution);
   cy.mockInstitution();
   cy.mockDepartments();
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=my-profile-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');
   cy.get('[data-testid=add-new-institution-button]').click();
-  cy.get('[data-testid=organization-search-field]').type(MOCK_INSTITUTION[2]);
-  cy.contains(MOCK_INSTITUTION[2]).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.organization.searchField}]`).type(mockInstitution[2]);
+  cy.contains(mockInstitution[2]).click({ force: true });
   cy.get('[data-testid=institution-add-button]').should('not.be.disabled');
   cy.get('[data-testid=institution-add-button]').click({ force: true });
 });
@@ -148,5 +150,5 @@ And('the click on the Yes button', () => {
 });
 Then('they no longer see the institution from My Profile', () => {
   cy.get('[data-testid^=button-delete-institution]').should('have.length', 1);
-  cy.contains(MOCK_INSTITUTION[2]).should('not.exist');
+  cy.contains(mockInstitution[2]).should('not.exist');
 });

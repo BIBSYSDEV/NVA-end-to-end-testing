@@ -1,11 +1,11 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_CURATOR_WITH_AUTHOR } from '../../../support/constants';
+import { userCuratorWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Curator opens a Registration from a DOI Request
 
 Given('that a Curator views their Worklist', () => {
-  cy.login(USER_CURATOR_WITH_AUTHOR);
-  cy.get('[data-testid=worklist-link]').click({ force: true });
+  cy.login(userCuratorWithAuthor);
+  cy.get(`[data-testid=${dataTestId.header.worklistLink}]`).click({ force: true });
 });
 And('they have selected the DOI Requests tab', () => {});
 And('they have expanded an Message', () => {
@@ -14,15 +14,17 @@ And('they have expanded an Message', () => {
 });
 When('they click "Go to registration"', () => {
   cy.get('@doiRequest').within(() => {
-    cy.get('[data-testid^=go-to-registration]').first().click({ force: true });
+    cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`).first().click({ force: true });
   });
 });
 Then("they see the Landing Page for the DOI Request's Registration", () => {
-  cy.get('[data-testid=public-registration-status]').should('exist');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`).should('exist');
 });
 And('the Create DOI button is enabled', () => {
-  cy.get('[data-testid=button-create-doi]').should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.createDoiButton}]`).should('be.enabled');
 });
 And('the Decline DOI button is enabled', () => {
-  cy.get('[data-testid=button-reject-doi]').should('be.enabled');
+  cy.get('[data-testid=button-reject-doi]'`[data-testid=${dataTestId.registrationLandingPage.rejectDoiButton}]`).should(
+    'be.enabled'
+  );
 });

@@ -3,14 +3,14 @@ import { user } from './constants';
 const stage = Cypress.env('STAGE') ?? 'dev';
 
 export const PERSON_API_PATH = `https://api.${stage}.nva.aws.unit.no/person`;
-export const PROJECT_API_PATH = `https://api.${stage}.nva.aws.unit.no/cristin/project`;
+export const projectApiPath = `https://api.${stage}.nva.aws.unit.no/cristin/project`;
 
-export const PROJECT_SEARCH_MOCK_FILE = 'mock_project_search.json';
-export const JOURNAL_SEARCH_MOCK_FILE = 'mock_journals.json';
+export const projectSearchMockFile = 'mock_project_search.json';
+export const journalSearchMockFile = 'mock_journals.json';
 
-export const MOCK_CRISTINID = ['1111111111', '2222222222', '3333333333'];
-export const MOCK_INSTITUTION = ['Mock institution 1', 'Mock institution 2', 'Mock institution 3'];
-export const MOCK_DEPARTMENT = ['Mock department 1', 'Mock department 2', 'Mock department 3'];
+export const mockCristinid = ['1111111111', '2222222222', '3333333333'];
+export const mockInstitution = ['Mock institution 1', 'Mock institution 2', 'Mock institution 3'];
+export const mockDepartment = ['Mock department 1', 'Mock department 2', 'Mock department 3'];
 
 const mockPersonData = {
   'id': `https://api.${stage}.nva.aws.unit.no/person/1234567890`,

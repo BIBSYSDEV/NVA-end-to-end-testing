@@ -1,22 +1,22 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { ADMIN_USER } from '../../../support/constants';
-import { INSTITUTION_FIELDS } from '../../../support/data_testid_constants';
+import { adminUser } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
+import { institutionFields } from '../../../support/data_testid_constants';
 
 // Feature: Application Administrator opens a Customer Institution
 
 // @574
 // Scenario: Application Administrator opens a Customer Institution
 Given('that the user is logged in as Application Administrator', () => {
-  cy.login(ADMIN_USER);
+  cy.login(adminUser);
 });
 When('they open a Customer Institution', () => {
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=admin-institutions-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).click({ force: true });
   cy.get('[data-testid="edit-institution-TestInst 2"]').first().click({ force: true });
 });
 Then('they see fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
-    cy.get(`[data-testid=${INSTITUTION_FIELDS[field[0]]}]`).should('be.visible');
+    cy.get(`[data-testid=${institutionFields[field[0]]}]`).should('be.visible');
   });
 });
 // | Name in organization registry |

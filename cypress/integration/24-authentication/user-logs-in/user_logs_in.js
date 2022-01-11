@@ -1,31 +1,32 @@
-import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import {
-  USER_CONNECT_ORCID,
-  USER_NO_ARP,
-  USER_NO_NAME_IN_ARP,
-  USER_WITH_AUTHOR,
-  USER_NAME_IN_ARP,
-  USER_CONNECT_AUTHOR,
+  userConnectOrcid,
+  userNoArp,
+  userNoNameInArp,
+  userWithAuthor,
+  userNameInArp,
+  userConnectAuthor,
 } from '../../../support/constants';
+import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { dataTestId } from '../../../support/dataTestIds';
 
 Before({ tags: '@217' }, () => {
-  cy.wrap(USER_NO_ARP).as('user');
+  cy.wrap(userNoArp).as('user');
 });
 
 Before({ tags: '@219' }, () => {
-  cy.wrap(USER_NAME_IN_ARP).as('user');
+  cy.wrap(userNameInArp).as('user');
 });
 
 Before({ tags: '@222' }, () => {
-  cy.wrap(USER_CONNECT_ORCID).as('user');
+  cy.wrap(userConnectOrcid).as('user');
 });
 
 Before({ tags: '@384' }, () => {
-  cy.wrap(USER_NO_NAME_IN_ARP).as('user');
+  cy.wrap(userNoNameInArp).as('user');
 });
 
 Before({ tags: '@1206' }, () => {
-  cy.wrap(USER_WITH_AUTHOR).as('user');
+  cy.wrap(userWithAuthor).as('user');
 });
 
 Given('that the user logs in with their Feide ID', () => {
@@ -58,7 +59,7 @@ And('they see a Support button', () => {
 // Scenario: User with their Feide ID in ARP logs in
 And('their Feide ID is in an ARP entry', () => {});
 Then('they can see their name in the menu', () => {
-  cy.get('[data-testid=menu-button]').contains('Withauthor TestUser');
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).contains('Withauthor TestUser');
 });
 
 // Common steps for @384 and @219
@@ -135,19 +136,19 @@ And('they log into ORCID', () => {});
 And('they accept that NVA uses their data', () => {});
 Then('they are redirected back to NVA', () => {});
 And('their ORCID is added to their Author identity', () => {
-  cy.addMockOrcid(USER_CONNECT_ORCID);
+  cy.addMockOrcid(userConnectOrcid);
 });
 And('they see their ORCID on My Profile', () => {
   cy.get('[data-testid=close-modal]').click({ force: true });
-  cy.get('[data-testid=menu-button]').click({ force: true });
-  cy.get('[data-testid=my-profile-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
   cy.get('[data-testid=orcid-line]').contains('test_orcid');
 });
 
 // @1205
 // Scenario: User connects Author
 Given('that the user logs in with Feide for the first time', () => {
-  cy.login(USER_CONNECT_AUTHOR);
+  cy.login(userConnectAuthor);
 });
 When('they click OK in the Connect Author dialog', () => {
   cy.get('[data-testid=connect-authority-heading]').should('be.visible');
@@ -161,17 +162,17 @@ And('they see a confirmation dialog', () => {
 // @353
 // Scenario: A user logs out
 Given('that the user is already logged in', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
 });
 When('they click on the Menu', () => {
-  cy.get('[data-testid=menu-button]').click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
 });
 And('they click Log out', () => {
-  cy.get('[data-testid=log-out-link]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.header.logOutLink}]`).should('be.visible');
   cy.window().its('store').invoke('dispatch', {
     type: 'logout success',
   });
 });
 Then('they are logged out of the NVA application', () => {
-  cy.get('[data-testid=log-in-link]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.header.logInButton}]`).should('be.visible');
 });

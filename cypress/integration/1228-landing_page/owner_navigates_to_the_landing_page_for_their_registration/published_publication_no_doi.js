@@ -1,15 +1,15 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { USER_WITH_AUTHOR } from '../../../support/constants';
+import { userWithAuthor } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Owner navigates to the Landing Page for their Registration
 
 // Common steps
 Given('that the Creator navigates to the Landing Page for a Resource', () => {
-  cy.login(USER_WITH_AUTHOR);
+  cy.login(userWithAuthor);
 });
 And('they are the Owner of the Resource', () => {
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-registrations-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
 });
 // End common steps
 
@@ -27,18 +27,18 @@ And('the Resource has no DOI', () => {
   cy.get('[data-testid=doi-presentation]').should('not.exist');
 });
 When('they see the Status Bar', () => {
-  cy.get('[data-testid=public-registration-status]');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`);
 });
 Then('they see buttons for "Request a DOI" and "Edit Resource"', () => {
-  cy.get('[data-testid=button-toggle-request-doi]').should('be.visible');
-  cy.get('[data-testid=button-edit-registration]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.requestDoiButton}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.editButton}]`).should('be.visible');
 });
 
 // Scenario: Owner navigates to the Landing Page for their Registration with Validation Errors
 When('the Creator navigates to the Landing Page', () => {
-  cy.login(USER_WITH_AUTHOR);
-  cy.get('[data-testid=menu-button]').click();
-  cy.get('[data-testid=my-registrations-link]').click({ force: true });
+  cy.login(userWithAuthor);
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
 });
 And('the Resource has Validation Errors', () => {});
 And('the Resource has Validation Errors', () => {});
@@ -54,5 +54,5 @@ Then('they see a List of all Validation Errors for the Resource', () => {
   cy.get('[data-testid=error-list-div]').should('be.visible');
 });
 And('they see a "Edit registration" button', () => {
-  cy.get('[data-testid=back-to-wizard-button]').should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.backToWizard}]`).should('be.visible');
 });
