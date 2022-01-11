@@ -67,7 +67,7 @@ Given('that the Creator navigates to the Landing Page for Registration for publi
   cy.selectRegistration(publicRegistrationRequestingDoi, published);
 });
 And('open "Request a DOI" dialog', () => {
-  cy.get(`[data-testid=${dataTestId.projectLandingPage.requestDoiButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.requestDoiButton}]`).click();
 });
 And('optional add a message to the Curator', () => {
   cy.get('textarea').first().type('Optional message');
