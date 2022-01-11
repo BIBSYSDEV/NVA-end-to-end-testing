@@ -1,11 +1,11 @@
 import { userWithAuthor } from '../../../support/constants';
-import { dataTestId } from '../../../support/dataTestIds'
+import { dataTestId } from '../../../support/dataTestIds';
 
 Given('the user is logged in as Creator', () => {
   cy.login(userWithAuthor);
 });
 When('they click the button My Registrations', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}}]`).click({ force: true });
 });
 Then('they see My Registrations', () => {

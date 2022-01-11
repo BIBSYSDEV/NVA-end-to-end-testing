@@ -9,7 +9,7 @@ Given('that the user is logged in as Creator', () => {
 // end common step
 
 And('is on the page My Registrations', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}}]`).click({ force: true });
 });
 When('they click Edit on an item', () => {
@@ -30,7 +30,7 @@ And('they see fields:', (dataTable) => {
 // | Primary language for content |
 
 And('they are on the page My Registrations', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}}]`).click({ force: true });
 });
 And('they see a List of Registrations', () => {
