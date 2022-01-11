@@ -116,7 +116,7 @@ And('they see a section Registrator with a policy for who are able to publish', 
 Given('Administrator opens User Administration', () => {
   cy.login(userSecondInstAdminWithAuthor);
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.adminUsersLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.adminUsersLink}]`).click({ force: true });
 });
 Then('they see the Add Role Dialog', () => {
   cy.get('[data-testid=add-role-modal]').as('roleModal');
