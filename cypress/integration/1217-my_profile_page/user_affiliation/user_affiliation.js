@@ -60,8 +60,9 @@ And('they click on a subunit', () => {
   cy.get(`[data-testid=${dataTestId.organization.subSearchField}]`).click({ force: true });
 });
 Then('they see the new Institution and subunit in My Profile', () => {
-  cy.contains(mockInstitution[2]);
-  cy.contains(mockDepartment[0]);
+  // cy.get(`[data-testid=${dataTestId.organization.searchField}]`).focus()
+  cy.get(`[value="${mockInstitution[2]}"]`);
+  cy.get(`[value="${mockDepartment[0]}"]`);
 });
 
 // @410
