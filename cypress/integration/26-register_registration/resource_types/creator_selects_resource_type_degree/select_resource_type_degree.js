@@ -8,13 +8,13 @@ import { dataTestId } from '../../../../support/dataTestIds';
 Before(() => {
   cy.login(userResourceType);
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get('[data-testid=my-registrations-link]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 
 // Common steps
 Given('Creator navigates to the Resource Type tab and selects Resource type "Student thesis"', () => {
-  cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
 });
@@ -26,7 +26,7 @@ Then('they see fields:', (dataTable) => {
 // @394
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Student thesis"
 Given('Creator navigates to Resource Type tab', () => {
-  cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
 });
 When('they select the Resource type "Student thesis"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
@@ -56,7 +56,7 @@ When('they select the Subtype {string}', (subtype) => {
 
 // Scenario: Creator sees that fields are validated for Resource subtypes for "Student thesis"
 Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
-  cy.get('[data-testid=nav-tabpanel-resource-type]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');

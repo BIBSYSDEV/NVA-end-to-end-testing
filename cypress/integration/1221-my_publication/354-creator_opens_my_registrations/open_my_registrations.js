@@ -6,7 +6,7 @@ Given('the user is logged in as Creator', () => {
 });
 When('they click the button My Registrations', () => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
 });
 Then('they see My Registrations', () => {
   cy.location('pathname').should('eq', '/my-registrations');
