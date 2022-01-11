@@ -152,7 +152,7 @@ And('they see a "Close" button', () => {
 Given('Administrator opens the Add Role Dialog', () => {
   cy.login(userSecondInstAdminWithAuthor);
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.adminUsersLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.adminUsersLink}]`).click({ force: true });
 });
 When('they enter text into the Search field', () => {
   cy.get('@section').then((section) => {
