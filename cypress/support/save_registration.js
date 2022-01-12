@@ -54,21 +54,21 @@ const registration_fields = {
   'contributors': {
     'author': {
       type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
-      landingPageTestId: dataTestId.registrationLandingPage.contributors,
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
+      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
       value: 'Save First Testuser',
     },
     'contributors': {
       type: 'add',
-      fieldTestId: dataTestId.registrationLandingPage.title,
-      landingPageTestId: dataTestId.registrationLandingPage.title,
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Other'),
+      landingPageTestId: dataTestId.registrationLandingPage.contributors,
       value: 'Save Second Testuser',
     },
   },
   'files and license': {
     'file': {
       type: 'file',
-      fieldTestId: '',
+      fieldTestId: dataTestId.registrationWizard.files.filesAccordion,
       landingPageTestId: dataTestId.registrationLandingPage.filesAccordion,
       value: '',
     },
@@ -86,21 +86,15 @@ const registration_fields = {
     },
     'date': {
       type: 'text',
-      fieldTestId: '',
+      fieldTestId: dataTestId.registrationWizard.files.embargoDateField,
       landingPageTestId: '',
       value: '',
     },
     'terms of use': {
       type: 'select',
-      fieldTestId: '',
-      landingPageTestId: dataTestId.registrationLandingPage.title,
+      fieldTestId: dataTestId.registrationWizard.files.selectLicenseField,
+      landingPageTestId: dataTestId.registrationLandingPage.license,
       value: '',
     },
-  },
-  'resource type': {
-    type: 'text',
-    fieldTestId: dataTestId.registrationLandingPage.title,
-    landingPageTestId: dataTestId.registrationLandingPage.title,
-    value: '',
   },
 };
