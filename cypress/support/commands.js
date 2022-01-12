@@ -13,6 +13,7 @@ import {
 } from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
+import { registrationFields } from './save_registration';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -154,7 +155,7 @@ Cypress.Commands.add('startWizardWithLink', (doiLink) => {
     .click({ force: true });
 });
 
-Cypress.Commands.add('startWizardWithEmptyRegistration', (doiLink) => {
+Cypress.Commands.add('startWizardWithEmptyRegistration', () => {
   cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
@@ -385,5 +386,19 @@ Cypress.Commands.add('mockCreatePerson', (userId) => {
   cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person`, {
     statusCode: 200,
     body: author,
+  });
+});
+
+Cypress.Commands.add('fillInCommonFields', () => {
+  Object.keys(registrationFields).forEach((key) => {
+    cy.get(`[data-testid=${registrationFields[key]['tab']}]`).click();
+    Object.keys(registrationFields[key]).forEach((subkey) => {
+      const field = registrationFields[key][subkey];
+      if (field['type'] === 'text') {
+        cy.get(`[data-testid=${field['fieldTestId']}]`).type(field['value']);
+      } else if (field['type'] === 'search') {
+        cy.get(`[data-testid=${field['fieldTestId']}]`).type(field['value']);
+      }
+    });
   });
 });

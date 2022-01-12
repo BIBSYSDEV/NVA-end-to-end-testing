@@ -1,7 +1,8 @@
 import { dataTestId } from './dataTestIds';
 
-const registration_fields = {
+export const registrationFields = {
   'description': {
+    'tab': dataTestId.registrationWizard.stepper.descriptionStepButton,
     'title': {
       type: 'text',
       fieldTestId: dataTestId.registrationWizard.description.registrationTitleField,
@@ -48,10 +49,11 @@ const registration_fields = {
       type: 'search',
       fieldTestId: dataTestId.registrationWizard.description.projectSearchField,
       landingPageTestId: dataTestId.registrationLandingPage.projectsAccordion,
-      value: '',
+      value: 'test',
     },
   },
   'contributors': {
+    'tab': dataTestId.registrationWizard.stepper.contributorsStepButton,
     'author': {
       type: 'add',
       fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
@@ -66,6 +68,7 @@ const registration_fields = {
     },
   },
   'files and license': {
+    'tab': dataTestId.registrationWizard.stepper.filesStepButton,
     'file': {
       type: 'file',
       fieldTestId: dataTestId.registrationWizard.files.filesAccordion,
