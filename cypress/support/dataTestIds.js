@@ -2,7 +2,7 @@
  * This file is readonly.
  * The contents of this file is copied from https://github.com/BIBSYSDEV/NVA-Frontend/blob/main/src/utils/dataTestIds.ts
  */
- 
+
 export const dataTestId = {
   organization: {
     searchField: 'organization-search-field',
@@ -99,6 +99,12 @@ export const dataTestId = {
     description: {
       addVocabularyButton: 'add-vocabulary-button',
       datePublishedField: 'date-published-field',
+      projectSearchField: 'project-search-field',
+      registrationAbstractField: 'registration-abstract-field',
+      registrationDescriptionField: 'registration-description-field',
+      registrationLanguageField: 'registration-language-field',
+      registrationTagField: 'registration-tag-field',
+      registrationTitleField: 'registration-title-field',
       vocabularyMenuItem: (vocabulary) => `vocabulary-menu-item-${vocabulary}`,
       vocabularyRow: (vocabulary) => `vocabulary-row-${vocabulary}`,
     },
