@@ -1,7 +1,7 @@
 {
   "affiliations": [
     {
-      "id": "https://api.cristin.no/v2/institutions/20202",
+      "id": "https://api.dev.nva.aws.unit.no/cristin/organization/20202",
       "type": "Organization"
     }
   ],

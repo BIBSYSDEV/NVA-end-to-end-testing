@@ -13,7 +13,7 @@
                   {
                     "M": {
                       "id": {
-                        "S": "https://api.cristin.no/v2/institutions/20202"
+                        "S": "https://api.dev.nva.aws.unit.no/cristin/organization/20202"
                       },
                       "type": {
                         "S": "Organization"

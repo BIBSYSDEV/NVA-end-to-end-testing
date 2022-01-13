@@ -8,7 +8,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -19,7 +19,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "919477822",
-    "cristinId": "https://api.cristin.no/v2/institutions/20202"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202"
   },
   {
     "familyName": "TestUser",
@@ -30,7 +30,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "919477822",
-    "cristinId": "https://api.cristin.no/v2/institutions/20202"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202"
   },
   {
     "familyName": "TestUser",
@@ -41,7 +41,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -52,7 +52,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -63,7 +63,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -74,7 +74,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -85,7 +85,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -96,7 +96,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -107,7 +107,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -118,7 +118,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -129,7 +129,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -140,7 +140,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -151,7 +151,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -162,7 +162,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -173,7 +173,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -184,7 +184,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -195,7 +195,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -206,7 +206,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -217,7 +217,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -228,7 +228,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -239,7 +239,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -250,7 +250,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -261,7 +261,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -272,7 +272,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -283,7 +283,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -294,7 +294,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "2222222222",
-    "cristinId": "https://api.cristin.no/v2/institutions/2222222222"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222"
   },
   {
     "familyName": "TestUser",
@@ -305,7 +305,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -316,7 +316,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "914086434",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -327,7 +327,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -338,7 +338,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -349,7 +349,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -360,7 +360,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -371,7 +371,7 @@
     "orcid": true,
     "affiliation": "[member]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -382,7 +382,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -393,7 +393,7 @@
     "orcid": false,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "0987654321",
-    "cristinId": "https://api.cristin.no/v2/institutions/0987654321"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/0987654321"
   },
   {
     "familyName": "TestUser",
@@ -404,7 +404,7 @@
     "orcid": false,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -415,7 +415,7 @@
     "orcid": false,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -426,7 +426,7 @@
     "orcid": false,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -437,7 +437,7 @@
     "orcid": false,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -448,7 +448,7 @@
     "orcid": false,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -459,7 +459,7 @@
     "orcid": false,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -470,7 +470,7 @@
     "orcid": false,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -481,7 +481,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "familyName": "TestUser",
@@ -492,7 +492,7 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "919477822",
-    "cristinId": "https://api.cristin.no/v2/institutions/20202"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202"
   },
   {
     "familyName": "TestUser",
@@ -503,6 +503,6 @@
     "orcid": true,
     "affiliation": "[member, employee, staff]",
     "orgNumber": "1111111111",
-    "cristinId": "https://api.cristin.no/v2/institutions/1111111111"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   }
 ]

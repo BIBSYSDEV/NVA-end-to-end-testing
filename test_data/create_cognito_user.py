@@ -2,6 +2,7 @@ import boto3
 import json
 import uuid
 import sys
+import common
 
 ssm = boto3.client('ssm')
 client = boto3.client('cognito-idp')
@@ -12,6 +13,7 @@ CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
 secretsmanager = boto3.client('secretsmanager')
 # PASSWORD = json.loads(secretsmanager.get_secret_value(SecretId='apiTestUserPassword')['SecretString'])['password']
 COGNITO_USER_FILE_NAME = 'cognito_user.json'
+
 
 def find_user(client, username):
     user_exist = False
@@ -24,6 +26,7 @@ def find_user(client, username):
     except:
         user_exist = False
     return user_exist
+
 
 def create_user(client):
     with open(COGNITO_USER_FILE_NAME) as cognito_user_file:
@@ -57,5 +60,7 @@ def create_user(client):
 def run():
     create_user(client=client)
 
+
 if __name__ == '__main__':
     run()
+    common.login('test-data-user@test.no')

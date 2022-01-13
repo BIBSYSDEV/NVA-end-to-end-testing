@@ -37,7 +37,7 @@
   },
   {
     "Name": "custom:cristinId",
-    "Value": "1111111111"
+    "Value": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111"
   },
   {
     "Name": "custom:feideId",
