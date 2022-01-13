@@ -398,7 +398,9 @@ Cypress.Commands.add('fillInCommonFields', () => {
         cy.get(`[data-testid=${field['fieldTestId']}]`).type(field['value']);
       } else if (field['type'] === 'search') {
         cy.get(`[data-testid=${field['fieldTestId']}]`).type(field['value']);
-      }
+      } else if (field['type'] === 'file') {
+        cy.get('input[type=file]').attachFile(fileName);
+      } 
     });
   });
 });
