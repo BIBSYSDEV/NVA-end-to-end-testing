@@ -395,12 +395,12 @@ Cypress.Commands.add('fillInCommonFields', () => {
     Object.keys(registrationFields[key]).forEach((subkey) => {
       const field = registrationFields[key][subkey];
       if (field['type'] === 'text') {
-        cy.get(`[data-testid=${field['fieldTestId']}]`).type(field['value']);
+        cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value']);
       } else if (field['type'] === 'search') {
-        cy.get(`[data-testid=${field['fieldTestId']}]`).type(field['value']);
+        cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value']);
       } else if (field['type'] === 'file') {
-        cy.get('input[type=file]').attachFile(fileName);
-      } 
+        cy.get('input[type=file]').attachFile(field['value']);
+      }
     });
   });
 });

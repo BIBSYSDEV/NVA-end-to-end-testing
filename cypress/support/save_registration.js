@@ -91,7 +91,7 @@ export const registrationFields = {
       type: 'text',
       fieldTestId: dataTestId.registrationWizard.files.embargoDateField,
       landingPageTestId: '',
-      value: '',
+      value: '01.01.2022',
     },
     'terms of use': {
       type: 'select',
