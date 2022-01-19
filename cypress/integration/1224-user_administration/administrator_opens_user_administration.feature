@@ -41,7 +41,7 @@ Feature: Administrator opens user administration
     Scenario Outline: Administrator opens the Add Role Dialog
         Given Administrator opens User Administration
         When they click "<Button>" under "<Section>"
-        Then they see the Add Role Dialog 
+        Then they see the Add Role Dialog
         And they see an Information box
         And they see an input field to Search for employees
         And they see a list of employees with an "Add" button
@@ -85,10 +85,10 @@ Feature: Administrator opens user administration
             | Editor        | Add Editor        |
 
     @test
-    Scenario Outline: Administrator closes the Add Role Dialog 
+    Scenario Outline: Administrator closes the Add Role Dialog
         Given Administrator opens the Add Role Dialog
         And they click "<Button>" under "<Section>"
-        When they click the "Close" button 
+        When they click the "Close" button
         Then the Add Role Dialog is closed
         Examples:
             | Section       | Button            |

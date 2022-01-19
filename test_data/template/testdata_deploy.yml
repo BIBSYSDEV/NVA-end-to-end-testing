@@ -1,5 +1,5 @@
-AWSTemplateFormatVersion: "2010-09-09"
-Transform: "AWS::Serverless-2016-10-31"
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
 
 Description: >
   Deploy and create testdata for NVA end-to-end testing
@@ -9,7 +9,7 @@ Parameters:
     Description: OAuth token used by AWS CodePipeline to connect to GitHub
     NoEcho: true
     Type: String
-    Default: "{{resolve:secretsmanager:githubtoken:SecretString}}"
+    Default: '{{resolve:secretsmanager:githubtoken:SecretString}}'
   GitHubOwner:
     Description: GitHub username owning the repo
     Type: String
@@ -66,7 +66,7 @@ Resources:
                 Category: Source
                 Owner: ThirdParty
                 Provider: GitHub
-                Version: "1"
+                Version: '1'
               Configuration:
                 Owner: !Ref GitHubOwner
                 OAuthToken: !Ref GitHubOAuthToken
@@ -83,7 +83,7 @@ Resources:
                 Category: Build
                 Owner: AWS
                 Provider: CodeBuild
-                Version: "1"
+                Version: '1'
               Configuration:
                 ProjectName: !GetAtt CodeBuildProject.Arn
               InputArtifacts:
@@ -97,44 +97,44 @@ Resources:
     Properties:
       AssumeRolePolicyDocument:
         Statement:
-          - Action: ["sts:AssumeRole"]
+          - Action: ['sts:AssumeRole']
             Effect: Allow
             Principal:
               Service: [codepipeline.amazonaws.com]
-        Version: "2012-10-17"
+        Version: '2012-10-17'
       Path: /
       Policies:
         - PolicyName: CodePipelineAccess
           PolicyDocument:
-            Version: "2012-10-17"
+            Version: '2012-10-17'
             Statement:
               - Action:
-                  - "s3:ListBucket"
-                  - "s3:GetBucketVersioning"
-                  - "s3:PutObject"
-                  - "s3:GetObject"
-                  - "s3:GetObjectVersion"
+                  - 's3:ListBucket'
+                  - 's3:GetBucketVersioning'
+                  - 's3:PutObject'
+                  - 's3:GetObject'
+                  - 's3:GetObjectVersion'
                 Effect: Allow
                 Resource:
                   - !Sub ${ArtifactStoreBucket.Arn}/*
               - Action:
-                  - "codebuild:StartBuild"
-                  - "codebuild:BatchGetBuilds"
+                  - 'codebuild:StartBuild'
+                  - 'codebuild:BatchGetBuilds'
                 Effect: Allow
                 Resource: !GetAtt CodeBuildProject.Arn
               - Action:
-                  - "ssm:getParameters"
+                  - 'ssm:getParameters'
                 Effect: Allow
-                Resource: "*"
+                Resource: '*'
 
   CodeBuildServiceRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
-        Version: "2012-10-17"
+        Version: '2012-10-17'
         Statement:
           - Action:
-              - "sts:AssumeRole"
+              - 'sts:AssumeRole'
             Effect: Allow
             Principal:
               Service:
@@ -143,27 +143,27 @@ Resources:
       Policies:
         - PolicyName: CodeBuildLogs
           PolicyDocument:
-            Version: "2012-10-17"
+            Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action:
-                  - "logs:CreateLogGroup"
-                  - "logs:CreateLogStream"
-                  - "logs:PutLogEvents"
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
                 Resource:
-                  - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/*"
-                  - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/*:*"
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/*'
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/*:*'
         - PolicyName: BucketPolicy
           PolicyDocument:
-            Version: "2012-10-17"
+            Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action:
-                  - "s3:GetObject"
-                  - "s3:GetObjectVersion"
-                  - "s3:PutObject"
-                  - "s3:ListBucket"
-                  - "s3:DeleteObjects"
+                  - 's3:GetObject'
+                  - 's3:GetObjectVersion'
+                  - 's3:PutObject'
+                  - 's3:ListBucket'
+                  - 's3:DeleteObjects'
                 Resource:
                   - Fn::Sub:
                       - arn:aws:s3:::${ResourceBucket}
@@ -174,26 +174,26 @@ Resources:
                   - !Sub ${ArtifactStoreBucket.Arn}/*
         - PolicyName: usersPolicy
           PolicyDocument:
-            Version: "2012-10-17"
+            Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action:
-                  - "cognito-idp:AdminSetUserPassword"
-                  - "cognito-idp:AdminInitiateAuth"
-                  - "cognito-idp:AdminCreateUser"
-                  - "cognito-idp:AdminDeleteUser"
-                  - "cognito-idp:ListUsers"
-                Resource: "*"
+                  - 'cognito-idp:AdminSetUserPassword'
+                  - 'cognito-idp:AdminInitiateAuth'
+                  - 'cognito-idp:AdminCreateUser'
+                  - 'cognito-idp:AdminDeleteUser'
+                  - 'cognito-idp:ListUsers'
+                Resource: '*'
         - PolicyName: dynamoPolicy
           PolicyDocument:
-            Version: "2012-10-17"
+            Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action:
-                  - "dynamodb:scan"
-                  - "dynamodb:DeleteItem"
-                  - "dynamodb:PutItem"
-                Resource: "*"
+                  - 'dynamodb:scan'
+                  - 'dynamodb:DeleteItem'
+                  - 'dynamodb:PutItem'
+                Resource: '*'
   ArtifactStoreBucket:
     Type: AWS::S3::Bucket
     Properties:

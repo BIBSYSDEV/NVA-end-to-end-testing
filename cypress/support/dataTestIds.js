@@ -90,11 +90,15 @@ export const dataTestId = {
     contributors: {
       addAffiliationButton: 'button-add-affiliation',
       addContributorButton: (role) => `add-${role}`,
+      authorRadioButton: 'author-radio-button',
+      connectAuthorButton: 'connect-author-button',
       correspondingCheckbox: 'author-corresponding-checkbox',
       verifyAffiliationButton: 'button-set-unverified-affiliation',
       verifyContributorButton: (name) => `button-set-unverified-contributor-${name}`,
       removeAffiliationButton: 'button-remove-affiliation',
       removeContributorButton: (name) => `button-remove-contributor-${name}`,
+      searchField: 'search-field',
+      selectContributorType: 'select-contributor-type',
     },
     description: {
       addVocabularyButton: 'add-vocabulary-button',

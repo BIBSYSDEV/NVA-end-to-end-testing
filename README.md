@@ -23,6 +23,6 @@ To start creating tests create a directory with the same name as the feature fil
 
 Example: for `./cypress/integration/1221-my_publication/354-creator_opens_my_publications.feature` create the subdirectory `./cypress/integration/1221-my_publication/354-creator_opens_my_publications`
 
-Before running tests, create testdata using `https://github.com/BIBSYSDEV/NVA-test-data` and run 
+Before running tests, create testdata using `https://github.com/BIBSYSDEV/NVA-test-data` and run
 
     python create_test_data.py

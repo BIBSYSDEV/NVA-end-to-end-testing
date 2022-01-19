@@ -129,7 +129,10 @@ When('they click "Add Vocabulary"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.description.addVocabularyButton}]`).click();
 });
 Then('they can see a dropdown with Allowed Vocabularies', () => {
-  cy.get(`[data-testid^=${dataTestId.registrationWizard.description.vocabularyMenuItem('')}]`).should('have.length.above', 0);
+  cy.get(`[data-testid^=${dataTestId.registrationWizard.description.vocabularyMenuItem('')}]`).should(
+    'have.length.above',
+    0
+  );
 });
 
 // @2446
@@ -156,5 +159,8 @@ When('the User navigates to Description tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click();
 });
 Then('they can see an input field for the Default Vocabulary', () => {
-  cy.get(`[data-testid^=${dataTestId.registrationWizard.description.vocabularyRow('')}]`).should('have.length.above', 0);
+  cy.get(`[data-testid^=${dataTestId.registrationWizard.description.vocabularyRow('')}]`).should(
+    'have.length.above',
+    0
+  );
 });
