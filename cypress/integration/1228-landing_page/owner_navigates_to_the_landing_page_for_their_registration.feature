@@ -1,6 +1,6 @@
 Feature: Owner navigates to the Landing Page for their Resource
 
-    @test 
+    @test
     @1231
     Scenario: Owner navigates to the Landing Page for their Published Resource without DOI
         Given that the Creator navigates to the Landing Page for a Resource
@@ -22,7 +22,7 @@ Feature: Owner navigates to the Landing Page for their Resource
         And the Registration has "Draft" Status
         And there is a pending Approval Request on the Resource
         Then they see a "Publishing pending" notice
-        And the user is informed that progress can be viewed in My Messages 
+        And the user is informed that progress can be viewed in My Messages
 
     @3193
     Scenario: Owner wants to publish Resource, all restrictions
@@ -61,7 +61,7 @@ Feature: Owner navigates to the Landing Page for their Resource
 
     @needJiraTag
     Scenario: Owner sees the option to transfer Ownership of a Resource
-        When the Owner views the Landing Page 
+        When the Owner views the Landing Page
         Then the Owner sees a option to transfer Ownership of Resource
 
     @needJiraTag
