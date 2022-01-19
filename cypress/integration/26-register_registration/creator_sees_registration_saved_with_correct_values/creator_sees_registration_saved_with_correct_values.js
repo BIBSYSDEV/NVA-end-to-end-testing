@@ -14,6 +14,8 @@ And('fill in values for all fields', () => {});
 When('they saves registration', () => {
   cy.get('[data-testid="button-save-registration"]').click();
 });
-Then('they can see the values on the Registration Landing Page', () => {});
+Then('they can see the values on the Registration Landing Page', () => {
+  cy.checkLandingPage();
+});
 // | Resource Type           | Subtype         |
 // | Contribution to journal | Journal article |

@@ -394,12 +394,62 @@ Cypress.Commands.add('fillInCommonFields', () => {
     cy.get(`[data-testid=${registrationFields[key]['tab']}]`).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
       const field = registrationFields[key][subkey];
-      if (field['type'] === 'text') {
-        cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value']);
-      } else if (field['type'] === 'search') {
-        cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value']);
-      } else if (field['type'] === 'file') {
-        cy.get('input[type=file]').attachFile(field['value']);
+      switch (field['type']) {
+        case 'text':
+          cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value']);
+          break;
+        case 'search':
+          cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value']);
+          cy.contains(field['value']).click();
+          break;
+        case 'file':
+          cy.get('input[type=file]').attachFile(field['value']);
+          break;
+        case 'select':
+          cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ')
+          cy.contains(field['value']).click({force: true});
+          break;
+        case 'add':
+          cy.get(`[data-testid=${field['fieldTestId']}]`).click();
+          if('select' in field['add']){
+            cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click();
+            cy.contains(field['add']['select']['value']).click({force: true});
+          }
+          cy.get(`[data-testid=${field['add']['searchFieldTestId']}]`).type(field['add']['searchValue']);
+          cy.get(`[data-testid=${field['add']['resultsTestId']}]`).filter(`:contains(${field['value']})`).click();
+          cy.get(`[data-testid=${field['add']['selectButtonTestId']}]`).click();
+          break;
+        case 'checkbox':
+          switch (field['checkbox']['selected']) {
+            case 'first':
+              cy.get(`[data-testid=${field['fieldTestId']}`).within(() => {
+                cy.get('input').first().click();
+              })
+              break;
+            case 'check':
+              if(field['value']) {
+                cy.get(`[data-testid=${field['fieldTestId']}]`).click();
+              }
+              break;
+          }
+          break;
+        default:
+          break;
+      }
+    });
+  });
+});
+
+Cypress.Commands.add('checkLandingPage', () => {
+  Object.keys(registrationFields).forEach((key) => {
+    Object.keys(registrationFields[key]).forEach((subkey) => {
+      const field = registrationFields[key][subkey];
+      if(field['landingPageTestId']){
+        if(field['landingPageTestId'] === dataTestId.registrationLandingPage.license) {
+          cy.get(`[data-testid=${field['landingPageTestId']}]`).get(`[title="${field['value']}"]`);
+        } else {
+          cy.get(`[data-testid^=${field['landingPageTestId']}]`).should('contain', field['value']);
+        }
       }
     });
   });

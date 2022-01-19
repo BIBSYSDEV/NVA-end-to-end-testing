@@ -28,28 +28,29 @@ export const registrationFields = {
       value: 'Test registration keyword',
     },
     'vocabularies': {
-      type: 'select',
-      fieldTestId: dataTestId.registrationWizard.description.addVocabularyButton,
+      type: 'search',
+      fieldTestId: 'vocabulary-row-hrcsActivity',
       landingPageTestId: dataTestId.registrationLandingPage.vocabularies,
-      value: 'Underpinning research',
+      value: 'Underpinning Research',
     },
     'date': {
       type: 'text',
       fieldTestId: dataTestId.registrationWizard.description.datePublishedField,
-      landingPageTestId: dataTestId.registrationLandingPage.publicationDate,
       value: '01.01.2022',
+      landingPageTestId: '',
+      landingPageValue: '1.1.2022',
     },
     'language': {
       type: 'select',
       fieldTestId: dataTestId.registrationWizard.description.registrationLanguageField,
       landingPageTestId: dataTestId.registrationLandingPage.primaryLanguage,
-      value: 'English',
+      value: 'Spanish',
     },
     'project': {
       type: 'search',
       fieldTestId: dataTestId.registrationWizard.description.projectSearchField,
       landingPageTestId: dataTestId.registrationLandingPage.projectsAccordion,
-      value: 'test',
+      value: 'Testprosjekt NVA',
     },
   },
   'contributors': {
@@ -58,13 +59,29 @@ export const registrationFields = {
       type: 'add',
       fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
       landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
-      value: 'Save First Testuser',
+      value: 'TestUser, Withauthor',
+      add: {
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      }
     },
     'contributors': {
       type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Other'),
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
       landingPageTestId: dataTestId.registrationLandingPage.contributors,
-      value: 'Save Second Testuser',
+      value: 'TestUser, Withauthor',
+      add: {
+        select: {
+          selectTestId: 'select-contributor-type',
+          value: 'Other'
+        },
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      }
     },
   },
   'files and license': {
@@ -79,13 +96,19 @@ export const registrationFields = {
       type: 'checkbox',
       fieldTestId: dataTestId.registrationWizard.files.version,
       landingPageTestId: dataTestId.registrationLandingPage.version,
-      value: '',
+      value: 'Published version',
+      checkbox: {
+        selected: 'first',
+      }
     },
     'author agreement': {
       type: 'checkbox',
       fieldTestId: dataTestId.registrationWizard.files.administrativeAgreement,
       landingPageTestId: dataTestId.registrationLandingPage.administrativeAgreement,
-      value: '',
+      value: false,
+      checkbox: {
+        selected: 'check',
+      }
     },
     'date': {
       type: 'text',
@@ -97,7 +120,7 @@ export const registrationFields = {
       type: 'select',
       fieldTestId: dataTestId.registrationWizard.files.selectLicenseField,
       landingPageTestId: dataTestId.registrationLandingPage.license,
-      value: '',
+      value: 'CC BY',
     },
   },
 };
