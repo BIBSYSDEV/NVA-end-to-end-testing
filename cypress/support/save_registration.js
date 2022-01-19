@@ -29,7 +29,7 @@ export const registrationFields = {
     },
     'vocabularies': {
       type: 'search',
-      fieldTestId: 'vocabulary-row-hrcsActivity',
+      fieldTestId: dataTestId.registrationWizard.description.vocabularyRow('hrcsActivity'),
       landingPageTestId: dataTestId.registrationLandingPage.vocabularies,
       value: 'Underpinning Research',
     },
