@@ -1,26 +1,30 @@
 {
-    "@context" : {
-      "id" : "@id",
-      "type" : "@type",
-      "Institution" : "https://nva.unit.no/ontology#Institution",
-      "subunits" : {
-        "@id" : "https://nva.unit.no/ontology#subunits",
-        "@type" : "@id",
-        "@container" : "@set"
-      },
-      "name" : "https://nva.unit.no/ontology#name"
+  "@context": {
+    "id": "@id",
+    "type": "@type",
+    "Institution": "https://nva.unit.no/ontology#Institution",
+    "subunits": {
+      "@id": "https://nva.unit.no/ontology#subunits",
+      "@type": "@id",
+      "@container": "@set"
     },
-    "id" : "https://api.cristin.no/v2/institutions/2222222222",
-    "type" : "Institution",
-    "name" : "Mock institution 2",
-    "subunits" : [ {
-      "id" : "https://api.cristin.no/v2/units/2222222222.1.0.0",
-      "name" : "Mock department 1"
-    }, {
-        "id" : "https://api.cristin.no/v2/units/2222222222.2.0.0",
-        "name" : "Mock department 2"
-      }, {
-        "id" : "https://api.cristin.no/v2/units/2222222222.3.0.0",
-        "name" : "Mock department 3"
-      } ]
-  }
+    "name": "https://nva.unit.no/ontology#name"
+  },
+  "id": "https://api.cristin.no/v2/institutions/2222222222",
+  "type": "Institution",
+  "name": "Mock institution 2",
+  "subunits": [
+    {
+      "id": "https://api.cristin.no/v2/units/2222222222.1.0.0",
+      "name": "Mock department 1"
+    },
+    {
+      "id": "https://api.cristin.no/v2/units/2222222222.2.0.0",
+      "name": "Mock department 2"
+    },
+    {
+      "id": "https://api.cristin.no/v2/units/2222222222.3.0.0",
+      "name": "Mock department 3"
+    }
+  ]
+}

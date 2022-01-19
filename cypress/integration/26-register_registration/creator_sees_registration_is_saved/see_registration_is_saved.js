@@ -20,8 +20,12 @@ When('they click Start', () => {
       'day': '14',
     },
   });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).filter(':visible').should('be.enabled');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).filter(':visible').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
 });
 And('they click My Registrations', () => {

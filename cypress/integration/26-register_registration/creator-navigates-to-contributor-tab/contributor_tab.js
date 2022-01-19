@@ -109,10 +109,14 @@ And('they select Registration Subtype "Anthology"', () => {
   cy.get('[data-testid=publication-instance-type-BookAnthology]').click({ force: true });
 });
 And('they see the "Add Editor" Button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Editor')}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Editor')}]`).should(
+    'be.visible'
+  );
 });
 And('they click "Add Editor"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Editor')}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Editor')}]`).click({
+    force: true,
+  });
 });
 And('they search for Editor in the Author Search Dialog', () => {
   cy.get('[data-testid=search-field]').type('TestUser Withauthor');
@@ -134,10 +138,14 @@ And('they select any Registration Subtype', () => {
   cy.get('[data-testid=publication-instance-type-DegreeMaster]').click({ force: true });
 });
 And('they see the "Add Supervisor" Button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Supervisor')}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Supervisor')}]`).should(
+    'be.visible'
+  );
 });
 And('they click "Add Supervisor"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Supervisor')}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Supervisor')}]`).click({
+    force: true,
+  });
 });
 And('they search for Supervisor in the Author Search Dialog', () => {
   cy.get('[data-testid=search-field]').type('TestUser Withauthor');

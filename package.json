@@ -23,7 +23,7 @@
     "mochawesome": "^7.0.1",
     "mochawesome-merge": "^4.2.0",
     "mochawesome-report-generator": "^6.0.1",
-    "prettier": "^2.0.5"
+    "prettier": "2.5.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

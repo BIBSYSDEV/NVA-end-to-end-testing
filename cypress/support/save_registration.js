@@ -65,7 +65,7 @@ export const registrationFields = {
         searchValue: 'TestUser, Withauthor{enter}',
         resultsTestId: 'author-radio-button',
         selectButtonTestId: 'connect-author-button',
-      }
+      },
     },
     'contributors': {
       type: 'add',
@@ -75,13 +75,13 @@ export const registrationFields = {
       add: {
         select: {
           selectTestId: 'select-contributor-type',
-          value: 'Other'
+          value: 'Other',
         },
         searchFieldTestId: 'search-field',
         searchValue: 'TestUser, Withauthor{enter}',
         resultsTestId: 'author-radio-button',
         selectButtonTestId: 'connect-author-button',
-      }
+      },
     },
   },
   'files and license': {
@@ -99,7 +99,7 @@ export const registrationFields = {
       value: 'Published version',
       checkbox: {
         selected: 'first',
-      }
+      },
     },
     'author agreement': {
       type: 'checkbox',
@@ -108,7 +108,7 @@ export const registrationFields = {
       value: false,
       checkbox: {
         selected: 'check',
-      }
+      },
     },
     'date': {
       type: 'text',
