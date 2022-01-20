@@ -14,6 +14,7 @@ Before({ tags: '@217' }, () => {
 });
 
 Before({ tags: '@219' }, () => {
+  cy.wrap(2).as('orgunitcount');
   cy.wrap(userNameInArp).as('user');
 });
 
@@ -22,6 +23,7 @@ Before({ tags: '@222' }, () => {
 });
 
 Before({ tags: '@384' }, () => {
+  cy.wrap(1).as('orgunitcount');
   cy.wrap(userNoNameInArp).as('user');
 });
 
@@ -67,7 +69,9 @@ And('their Feide ID is added to their Author identity', () => {
   cy.get('@authority').its('feideids').should('have.length', 1);
 });
 And('their Organization ID \\(Cristin ID) is added to their Author identity', () => {
-  cy.get('@authority').its('orgunitids').should('have.length', 1);
+  cy.get('@orgunitcount').then((count) => {
+    cy.get('@authority').its('orgunitids').should('have.length', count);
+  });
 });
 
 // @384
