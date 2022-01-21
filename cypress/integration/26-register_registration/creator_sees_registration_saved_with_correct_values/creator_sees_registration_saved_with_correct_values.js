@@ -28,4 +28,5 @@ Then('they can see the values on the Registration Landing Page', () => {
   cy.checkLandingPage();
 });
 // | Resource Type           | Subtype         |
-// | Contribution to journal | Journal article |
+// | Book                    | BookMonograph   |
+// | Book                    | BookAnthology   |

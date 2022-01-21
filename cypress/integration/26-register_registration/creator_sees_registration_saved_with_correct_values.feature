@@ -9,4 +9,5 @@ Scenario Outline:
   Then they can see the values on the Registration Landing Page
   Examples:
     | Resource Type           | Subtype         |
-    | Book                    | BookMonograph       |
+    | Book                    | BookMonograph   |
+    | Book                    | BookAnthology   |
