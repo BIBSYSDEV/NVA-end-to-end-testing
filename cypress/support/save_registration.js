@@ -124,3 +124,59 @@ export const registrationFields = {
     },
   },
 };
+
+export const resourceTypesCommon = {
+  Book: {
+    publisher: {
+      type: 'search',
+      fieldTestId: dataTestId.registrationWizard.resourceType.publisherField,
+      landingPageTestId: '',
+      value: 'Det Kongelige Norske Videnskabers Selskab',
+    },
+    scientificField: {
+      type: 'search',
+      fieldTestId: dataTestId.registrationWizard.resourceType.scientificSubjectField,
+      landingPageTestId: dataTestId.registrationLandingPage.npi,
+      value: 'Computer engineering',
+    },
+    isbn: {
+      type: 'text',
+      fieldTestId: dataTestId.registrationWizard.resourceType.isbnField,
+      landingPageTestId: '',
+      value: '978-0-34-530005-8',
+    },
+    pages: {
+      type: 'text',
+      fieldTestId: dataTestId.registrationWizard.resourceType.pagesField,
+      landingPageTestId: '',
+      value: '123',
+    },
+    seriesTitle: {
+      type: 'search',
+      fieldTestId: dataTestId.registrationWizard.resourceType.seriesField,
+      landingPageTestId: '',
+      value: 'ACS Central Science',
+    },
+    seriesNumber: {
+      type: 'text',
+      fieldTestId: dataTestId.registrationWizard.resourceType.seriesNumber,
+      landingPageTestId: '',
+      value: '123',
+    },
+  },
+};
+
+export const resourceTypes = {
+  Book: {
+    Monograph: {
+      ...resourceTypesCommon['Book'],
+      content: {
+        type: 'select',
+        fieldTestId: dataTestId.registrationWizard.resourceType.contentField,
+        landingPageTestId: '',
+        value: 'Academic monograph',
+      },
+    },
+    Anthology: { ...resourceTypesCommon['Book'] },
+  },
+};
