@@ -445,8 +445,13 @@ Cypress.Commands.add('fillInCommonFields', () => {
 });
 
 Cypress.Commands.add('fillInResourceType', (type, subtype) => {
-  Objects.keys(resourceTypes[type][subtype]).forEach((key) => {
-    const field = resourceTypes[key];
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.get(`[data-testid=publication-context-type]`).click();
+  cy.get(`[data-testid=publication-context-type-${type.replaceAll(' ', '-')}]`).click({ force: true });
+  cy.get(`[data-testid=publication-instance-type]`).click();
+  cy.get(`[data-testid=publication-instance-type-${subtype.replaceAll(' ', '-')}]`).click();
+  Object.keys(resourceTypes[type][subtype]).forEach((key) => {
+    const field = resourceTypes[type][subtype][key];
     fillInField(field);
   });
 });

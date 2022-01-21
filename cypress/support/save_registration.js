@@ -143,7 +143,8 @@ export const resourceTypesCommon = {
       type: 'text',
       fieldTestId: dataTestId.registrationWizard.resourceType.isbnField,
       landingPageTestId: '',
-      value: '978-0-34-530005-8',
+      value: '9780345300058',
+      landingPageValue: '978-0-34-530005-8',
     },
     pages: {
       type: 'text',
@@ -168,7 +169,7 @@ export const resourceTypesCommon = {
 
 export const resourceTypes = {
   Book: {
-    Monograph: {
+    BookMonograph: {
       ...resourceTypesCommon['Book'],
       content: {
         type: 'select',
@@ -177,6 +178,6 @@ export const resourceTypes = {
         value: 'Academic monograph',
       },
     },
-    Anthology: { ...resourceTypesCommon['Book'] },
+    BookAnthology: { ...resourceTypesCommon['Book'] },
   },
 };
