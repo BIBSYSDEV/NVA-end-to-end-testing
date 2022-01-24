@@ -53,37 +53,6 @@ export const registrationFields = {
       value: 'Testprosjekt NVA',
     },
   },
-  'contributors': {
-    'tab': dataTestId.registrationWizard.stepper.contributorsStepButton,
-    'author': {
-      type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
-      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
-      value: 'TestUser, Withauthor',
-      add: {
-        searchFieldTestId: 'search-field',
-        searchValue: 'TestUser, Withauthor{enter}',
-        resultsTestId: 'author-radio-button',
-        selectButtonTestId: 'connect-author-button',
-      },
-    },
-    'contributors': {
-      type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
-      landingPageTestId: dataTestId.registrationLandingPage.contributors,
-      value: 'TestUser, Withauthor',
-      add: {
-        select: {
-          selectTestId: 'select-contributor-type',
-          value: 'Other',
-        },
-        searchFieldTestId: 'search-field',
-        searchValue: 'TestUser, Withauthor{enter}',
-        resultsTestId: 'author-radio-button',
-        selectButtonTestId: 'connect-author-button',
-      },
-    },
-  },
   'files and license': {
     'tab': dataTestId.registrationWizard.stepper.filesStepButton,
     'file': {
@@ -124,6 +93,70 @@ export const registrationFields = {
     },
   },
 };
+
+export const contributorsCommon = {
+  'author': {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
+    landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
+    value: 'TestUser, Withauthor',
+    add: {
+      searchFieldTestId: 'search-field',
+      searchValue: 'TestUser, Withauthor{enter}',
+      resultsTestId: 'author-radio-button',
+      selectButtonTestId: 'connect-author-button',
+    },
+  },
+  'contributors': {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+    landingPageTestId: dataTestId.registrationLandingPage.contributors,
+    value: 'TestUser, Withauthor',
+    add: {
+      select: {
+        selectTestId: 'select-contributor-type',
+        value: 'Other',
+      },
+      searchFieldTestId: 'search-field',
+      searchValue: 'TestUser, Withauthor{enter}',
+      resultsTestId: 'author-radio-button',
+      selectButtonTestId: 'connect-author-button',
+    },
+  },
+}
+
+export const contributors = {
+  BookAnthology: {
+    'author': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Editor'),
+      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
+      value: 'TestUser, Withauthor',
+      add: {
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
+    },
+    'contributors': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+      landingPageTestId: dataTestId.registrationLandingPage.contributors,
+      value: 'TestUser, Withauthor',
+      add: {
+        select: {
+          selectTestId: 'select-contributor-type',
+          value: 'Other',
+        },
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
+    },
+    }
+}
 
 export const resourceTypesCommon = {
   Book: {

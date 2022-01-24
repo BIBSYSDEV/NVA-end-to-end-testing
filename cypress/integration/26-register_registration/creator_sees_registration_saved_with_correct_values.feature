@@ -8,10 +8,10 @@ Feature: Creator sees registration is saved with correct values presented on lan
     When they saves registration
     Then they can see the values on the Registration Landing Page
     Examples:
-      | Resource Type | Subtype       |
-      # | Book          | BookMonograph |
-| Book          | BookAnthology      |
-# | Report        | ReportResearch     |
-# | Report        | ReportPolicy       |
-# | Report        | ReportWorkingPaper |
-# | Report        | ReportBasic        |
+      | Resource Type | Subtype            |
+      | Book          | BookMonograph      |
+      | Book          | BookAnthology      |
+      | Report        | ReportResearch     |
+      | Report        | ReportPolicy       |
+      | Report        | ReportWorkingPaper |
+      | Report        | ReportBasic        |

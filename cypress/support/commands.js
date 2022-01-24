@@ -13,7 +13,7 @@ import {
 } from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
-import { registrationFields, resourceTypes } from './save_registration';
+import { contributors, contributorsCommon, registrationFields, resourceTypes } from './save_registration';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -434,12 +434,12 @@ const fillInField = (field) => {
   }
 };
 
-Cypress.Commands.add('fillInCommonFields', () => {
+Cypress.Commands.add('fillInCommonFields', (type, subtype) => {
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key]['tab']}]`).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
       const field = registrationFields[key][subkey];
-      fillInField(field);
+      fillInField(field, type, subtype);
     });
   });
 });
@@ -461,6 +461,22 @@ Cypress.Commands.add('fillInResourceType', (type, subtype) => {
     fillInField(resourceTypes[type]['contributorType']);
 }
 });
+
+Cypress.Commands.add('fillInContributors', (type, subtype) => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
+  let fields = {};
+  if(type in contributors) {
+    fields = contributors[type];
+  } else if(subtype in contributors) {
+    fields = contributors[subtype];
+  } else {
+    fields = contributorsCommon;
+  }
+  Object.keys(fields).forEach((key) => {
+    const field = fields[key];
+    fillInField(field);
+  })
+})
 
 Cypress.Commands.add('checkLandingPage', () => {
   Object.keys(registrationFields).forEach((key) => {

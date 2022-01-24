@@ -16,6 +16,7 @@ And('fill in values for all fields', () => {
   cy.get('@type').then((type) => {
     cy.get('@subtype').then((subtype) => {
       cy.fillInResourceType(type, subtype);
+      cy.fillInContributors(type, subtype);
     });
   });
   cy.fillInCommonFields();
