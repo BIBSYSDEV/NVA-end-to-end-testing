@@ -451,13 +451,15 @@ Cypress.Commands.add('fillInResourceType', (type, subtype) => {
   cy.get(`[data-testid=publication-instance-type]`).click();
   cy.get(`[data-testid=publication-instance-type-${subtype.replaceAll(' ', '-')}]`).click();
   Object.keys(resourceTypes[type][subtype]).forEach((key) => {
-    const field = resourceTypes[type][subtype][key];
-    fillInField(field);
+    if(key !== 'contributorType') {
+      const field = resourceTypes[type][subtype][key];
+      fillInField(field);
+    }
   });
-  if('contributorType' in resourceTypes[type]){
+  if('contributorType' in resourceTypes[type]) {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
-    cy.get(`[data-testod=${dataTestId.registrationWizard.contributors.addContributorButton(resourceTypes[type]['contributorType'])}]`)
-  }
+    fillInField(resourceTypes[type]['contributorType']);
+}
 });
 
 Cypress.Commands.add('checkLandingPage', () => {

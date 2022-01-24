@@ -202,7 +202,6 @@ export const resourceTypesCommon = {
 
 export const resourceTypes = {
   Book: {
-    contributorType: 'Editor',
     BookMonograph: {
       ...resourceTypesCommon['Book'],
       content: {
