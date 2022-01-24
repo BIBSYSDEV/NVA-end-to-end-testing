@@ -165,10 +165,44 @@ export const resourceTypesCommon = {
       value: '123',
     },
   },
+  Report: {
+    publisher: {
+      type: 'search',
+      fieldTestId: dataTestId.registrationWizard.resourceType.publisherField,
+      landingPageTestId: '',
+      value: 'Det Kongelige Norske Videnskabers Selskab',
+    },
+    isbn: {
+      type: 'text',
+      fieldTestId: dataTestId.registrationWizard.resourceType.isbnField,
+      landingPageTestId: '',
+      value: '9780345300058',
+      landingPageValue: '978-0-34-530005-8',
+    },
+    pages: {
+      type: 'text',
+      fieldTestId: dataTestId.registrationWizard.resourceType.pagesField,
+      landingPageTestId: '',
+      value: '123',
+    },
+    seriesTitle: {
+      type: 'search',
+      fieldTestId: dataTestId.registrationWizard.resourceType.seriesField,
+      landingPageTestId: '',
+      value: 'ACS Central Science',
+    },
+    seriesNumber: {
+      type: 'text',
+      fieldTestId: dataTestId.registrationWizard.resourceType.seriesNumber,
+      landingPageTestId: '',
+      value: '123',
+    },
+  }
 };
 
 export const resourceTypes = {
   Book: {
+    contributorType: 'Editor',
     BookMonograph: {
       ...resourceTypesCommon['Book'],
       content: {
@@ -180,4 +214,10 @@ export const resourceTypes = {
     },
     BookAnthology: { ...resourceTypesCommon['Book'] },
   },
+  Report: {
+    ReportResearch: { ...resourceTypesCommon['Report']},
+    ReportPolicy: { ...resourceTypesCommon['Report']},
+    ReportWorkingPaper: { ...resourceTypesCommon['Report']},
+    ReportBasic:  { ...resourceTypesCommon['Report']},
+  }
 };

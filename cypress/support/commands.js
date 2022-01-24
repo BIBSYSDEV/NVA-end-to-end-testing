@@ -454,6 +454,10 @@ Cypress.Commands.add('fillInResourceType', (type, subtype) => {
     const field = resourceTypes[type][subtype][key];
     fillInField(field);
   });
+  if('contributorType' in resourceTypes[type]){
+    cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
+    cy.get(`[data-testod=${dataTestId.registrationWizard.contributors.addContributorButton(resourceTypes[type]['contributorType'])}]`)
+  }
 });
 
 Cypress.Commands.add('checkLandingPage', () => {
