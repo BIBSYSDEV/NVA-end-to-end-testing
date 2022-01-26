@@ -156,6 +156,48 @@ export const contributors = {
       },
     },
   },
+  Degree: {
+    'author': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
+      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
+      value: 'TestUser, Withauthor',
+      add: {
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
+    },
+    'supervisor': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Supervisor'),
+      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
+      value: 'TestUser, Withauthor',
+      add: {
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
+    },
+    'contributors': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+      landingPageTestId: dataTestId.registrationLandingPage.contributors,
+      value: 'TestUser, Withauthor',
+      add: {
+        select: {
+          selectTestId: 'select-contributor-type',
+          value: 'Other',
+        },
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
+    },
+  },
 };
 
 const resourceTypeFields = {
@@ -275,6 +317,11 @@ export const resourceTypesCommon = {
     to: resourceTypeFields.to,
     articleNumber: resourceTypeFields.articleNumber,
   },
+  Degree: {
+    publisher: resourceTypeFields.publisher,
+    isbn: resourceTypeFields.isbn,
+    pages: resourceTypeFields.pages,
+  },
 };
 
 export const resourceTypes = {
@@ -319,9 +366,18 @@ export const resourceTypes = {
     },
   },
   Report: {
-    ReportResearch: { ...resourceTypesCommon['Report']},
-    ReportPolicy: { ...resourceTypesCommon['Report']},
-    ReportWorkingPaper: { ...resourceTypesCommon['Report']},
-    ReportBasic:  { ...resourceTypesCommon['Report']},
-  }
+    ReportResearch: { ...resourceTypesCommon.Report},
+    ReportPolicy: { ...resourceTypesCommon.Report},
+    ReportWorkingPaper: { ...resourceTypesCommon.Report},
+    ReportBasic:  { ...resourceTypesCommon.Report},
+  },
+  Degree: {
+    DegreeBachelor: { ...resourceTypesCommon.Degree},
+    DegreeMaster: { ...resourceTypesCommon.Degree},
+    DegreePhd: {
+      ...resourceTypesCommon.Degree,
+      publisher: resourceTypeFields.publisher,
+    },
+    OtherStudentWork: { ...resourceTypesCommon.Degree},
+  },
 };
