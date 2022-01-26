@@ -15,3 +15,9 @@ Feature: Creator sees registration is saved with correct values presented on lan
       | Report        | ReportPolicy       |
       | Report        | ReportWorkingPaper |
       | Report        | ReportBasic        |
+      | Journal       | JournalArticle     |
+      | Journal       | FeatureArticle     |
+      | Journal       | JournalLetter      |
+      | Journal       | JournalReview      |
+      | Journal       | JournalLeader      |
+      | Journal       | JournalCorrigendum |

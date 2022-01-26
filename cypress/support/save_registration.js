@@ -5,25 +5,25 @@ export const registrationFields = {
     'tab': dataTestId.registrationWizard.stepper.descriptionStepButton,
     'title': {
       type: 'text',
-      fieldTestId: dataTestId.registrationWizard.description.registrationTitleField,
+      fieldTestId: dataTestId.registrationWizard.description.titleField,
       landingPageTestId: dataTestId.registrationLandingPage.title,
       value: 'Test registration title',
     },
     'abstract': {
       type: 'text',
-      fieldTestId: dataTestId.registrationWizard.description.registrationAbstractField,
+      fieldTestId: dataTestId.registrationWizard.description.abstractField,
       landingPageTestId: dataTestId.registrationLandingPage.abstractAccordion,
       value: 'Test registration abstract',
     },
     'description': {
       type: 'text',
-      fieldTestId: dataTestId.registrationWizard.description.registrationDescriptionField,
+      fieldTestId: dataTestId.registrationWizard.description.descriptionField,
       landingPageTestId: '',
       value: 'Test registration description',
     },
     'keywords': {
       type: 'text',
-      fieldTestId: dataTestId.registrationWizard.description.registrationTagField,
+      fieldTestId: dataTestId.registrationWizard.description.tagField,
       landingPageTestId: dataTestId.registrationLandingPage.keywords,
       value: 'Test registration keyword',
     },
@@ -42,7 +42,7 @@ export const registrationFields = {
     },
     'language': {
       type: 'select',
-      fieldTestId: dataTestId.registrationWizard.description.registrationLanguageField,
+      fieldTestId: dataTestId.registrationWizard.description.languageField,
       landingPageTestId: dataTestId.registrationLandingPage.primaryLanguage,
       value: 'Spanish',
     },
@@ -123,7 +123,7 @@ export const contributorsCommon = {
       selectButtonTestId: 'connect-author-button',
     },
   },
-}
+};
 
 export const contributors = {
   BookAnthology: {
@@ -155,96 +155,168 @@ export const contributors = {
         selectButtonTestId: 'connect-author-button',
       },
     },
-    }
-}
+  },
+};
+
+const resourceTypeFields = {
+  publisher: {
+    type: 'search',
+    fieldTestId: dataTestId.registrationWizard.resourceType.publisherField,
+    landingPageTestId: '',
+    value: 'Det Kongelige Norske Videnskabers Selskab',
+  },
+  scientificField: {
+    type: 'search',
+    fieldTestId: dataTestId.registrationWizard.resourceType.scientificSubjectField,
+    landingPageTestId: dataTestId.registrationLandingPage.npi,
+    value: 'Computer engineering',
+  },
+  isbn: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.isbnField,
+    landingPageTestId: '',
+    value: '9780345300058',
+    landingPageValue: '978-0-34-530005-8',
+  },
+  pages: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.pagesField,
+    landingPageTestId: '',
+    value: '123',
+  },
+  seriesTitle: {
+    type: 'search',
+    fieldTestId: dataTestId.registrationWizard.resourceType.seriesField,
+    landingPageTestId: '',
+    value: 'ACS Central Science',
+  },
+  seriesNumber: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.seriesNumber,
+    landingPageTestId: '',
+    value: '123',
+  },
+  bookContent: {
+    type: 'select',
+    fieldTestId: dataTestId.registrationWizard.resourceType.contentField,
+    landingPageTestId: '',
+    value: 'Academic monograph',
+  },
+  journalContent: {
+    type: 'select',
+    fieldTestId: dataTestId.registrationWizard.resourceType.contentField,
+    landingPageTestId: '',
+    value: 'Research article',
+  },
+  journal: {
+    type: 'search',
+    fieldTestId: dataTestId.registrationWizard.resourceType.journalField,
+    landingPageTestId: '',
+    value: 'Academic Research International',
+  },
+  articleTitle: {
+    type: 'search',
+    fieldTestId: dataTestId.registrationWizard.resourceType.corrigendumForField,
+    landingPageTestId: '',
+    value: 'Test article corrigendum',
+  },
+  volume: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.volumeField,
+    landingPageTestId: '',
+    value: '111',
+  },
+  issue: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.issueField,
+    landingPageTestId: '',
+    value: '222',
+  },
+  pagesFrom: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.pagesFromField,
+    landingPageTestId: '',
+    value: '333',
+  },
+  to: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.pagesToField,
+    landingPageTestId: '',
+    value: '444',
+  },
+  articleNumber: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.articleNumberField,
+    landingPageTestId: '',
+    value: '555',
+  },
+};
 
 export const resourceTypesCommon = {
   Book: {
-    publisher: {
-      type: 'search',
-      fieldTestId: dataTestId.registrationWizard.resourceType.publisherField,
-      landingPageTestId: '',
-      value: 'Det Kongelige Norske Videnskabers Selskab',
-    },
-    scientificField: {
-      type: 'search',
-      fieldTestId: dataTestId.registrationWizard.resourceType.scientificSubjectField,
-      landingPageTestId: dataTestId.registrationLandingPage.npi,
-      value: 'Computer engineering',
-    },
-    isbn: {
-      type: 'text',
-      fieldTestId: dataTestId.registrationWizard.resourceType.isbnField,
-      landingPageTestId: '',
-      value: '9780345300058',
-      landingPageValue: '978-0-34-530005-8',
-    },
-    pages: {
-      type: 'text',
-      fieldTestId: dataTestId.registrationWizard.resourceType.pagesField,
-      landingPageTestId: '',
-      value: '123',
-    },
-    seriesTitle: {
-      type: 'search',
-      fieldTestId: dataTestId.registrationWizard.resourceType.seriesField,
-      landingPageTestId: '',
-      value: 'ACS Central Science',
-    },
-    seriesNumber: {
-      type: 'text',
-      fieldTestId: dataTestId.registrationWizard.resourceType.seriesNumber,
-      landingPageTestId: '',
-      value: '123',
-    },
+    publisher: resourceTypeFields.publisher,
+    scientificField: resourceTypeFields.scientificField,
+    isbn: resourceTypeFields.isbn,
+    pages: resourceTypeFields.pages,
+    seriesTitle: resourceTypeFields.seriesTitle,
+    seriesNumber: resourceTypeFields.seriesNumber,
   },
   Report: {
-    publisher: {
-      type: 'search',
-      fieldTestId: dataTestId.registrationWizard.resourceType.publisherField,
-      landingPageTestId: '',
-      value: 'Det Kongelige Norske Videnskabers Selskab',
-    },
-    isbn: {
-      type: 'text',
-      fieldTestId: dataTestId.registrationWizard.resourceType.isbnField,
-      landingPageTestId: '',
-      value: '9780345300058',
-      landingPageValue: '978-0-34-530005-8',
-    },
-    pages: {
-      type: 'text',
-      fieldTestId: dataTestId.registrationWizard.resourceType.pagesField,
-      landingPageTestId: '',
-      value: '123',
-    },
-    seriesTitle: {
-      type: 'search',
-      fieldTestId: dataTestId.registrationWizard.resourceType.seriesField,
-      landingPageTestId: '',
-      value: 'ACS Central Science',
-    },
-    seriesNumber: {
-      type: 'text',
-      fieldTestId: dataTestId.registrationWizard.resourceType.seriesNumber,
-      landingPageTestId: '',
-      value: '123',
-    },
-  }
+    publisher: resourceTypeFields.publisher,
+    isbn: resourceTypeFields.isbn,
+    pages: resourceTypeFields.pages,
+    seriesTitle: resourceTypeFields.seriesTitle,
+    seriesNumber: resourceTypeFields.seriesNumber,
+  },
+  Journal: {
+    volume: resourceTypeFields.volume,
+    issue: resourceTypeFields.issue,
+    pagesFrom: resourceTypeFields.pagesFrom,
+    to: resourceTypeFields.to,
+    articleNumber: resourceTypeFields.articleNumber,
+  },
 };
 
 export const resourceTypes = {
   Book: {
     BookMonograph: {
-      ...resourceTypesCommon['Book'],
-      content: {
-        type: 'select',
-        fieldTestId: dataTestId.registrationWizard.resourceType.contentField,
-        landingPageTestId: '',
-        value: 'Academic monograph',
-      },
+      ...resourceTypesCommon.Book,
+      content: resourceTypeFields.bookContent,
     },
-    BookAnthology: { ...resourceTypesCommon['Book'] },
+    BookAnthology: { ...resourceTypesCommon.Book },
+  },
+  Report: {
+    ReportResearch: { ...resourceTypesCommon.Report },
+    ReportPolicy: { ...resourceTypesCommon.Report },
+    ReportWorkingPaper: { ...resourceTypesCommon.Report },
+    ReportBasic: { ...resourceTypesCommon.Report },
+  },
+  Journal: {
+    JournalArticle: {
+      ...resourceTypesCommon.Journal,
+      journal: resourceTypeFields.journal,
+      content: resourceTypeFields.journalContent,
+    },
+    JournalCorrigendum: {
+      ...resourceTypesCommon.Journal,
+      articleTitle: resourceTypeFields.articleTitle,
+    },
+    FeatureArticle: {
+      ...resourceTypesCommon.Journal,
+      journal: resourceTypeFields.journal,
+    },
+    JournalLetter: {
+      ...resourceTypesCommon.Journal,
+      journal: resourceTypeFields.journal,
+    },
+    JournalReview: {
+      ...resourceTypesCommon.Journal,
+      journal: resourceTypeFields.journal,
+    },
+    JournalLeader: {
+      ...resourceTypesCommon.Journal,
+      journal: resourceTypeFields.journal,
+    },
   },
   Report: {
     ReportResearch: { ...resourceTypesCommon['Report']},
