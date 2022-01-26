@@ -13,12 +13,13 @@ And('selects {string} and {string}', (type, subType) => {
   cy.wrap(subType).as('subtype');
 });
 And('fill in values for all fields', () => {
-  cy.fillInCommonFields();
   cy.get('@type').then((type) => {
     cy.get('@subtype').then((subtype) => {
       cy.fillInResourceType(type, subtype);
+      cy.fillInContributors(type, subtype);
     });
   });
+  cy.fillInCommonFields();
 });
 When('they saves registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();

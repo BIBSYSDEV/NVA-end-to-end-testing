@@ -53,37 +53,6 @@ export const registrationFields = {
       value: 'Testprosjekt NVA',
     },
   },
-  'contributors': {
-    'tab': dataTestId.registrationWizard.stepper.contributorsStepButton,
-    'author': {
-      type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
-      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
-      value: 'TestUser, Withauthor',
-      add: {
-        searchFieldTestId: 'search-field',
-        searchValue: 'TestUser, Withauthor{enter}',
-        resultsTestId: 'author-radio-button',
-        selectButtonTestId: 'connect-author-button',
-      },
-    },
-    'contributors': {
-      type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
-      landingPageTestId: dataTestId.registrationLandingPage.contributors,
-      value: 'TestUser, Withauthor',
-      add: {
-        select: {
-          selectTestId: 'select-contributor-type',
-          value: 'Other',
-        },
-        searchFieldTestId: 'search-field',
-        searchValue: 'TestUser, Withauthor{enter}',
-        resultsTestId: 'author-radio-button',
-        selectButtonTestId: 'connect-author-button',
-      },
-    },
-  },
   'files and license': {
     'tab': dataTestId.registrationWizard.stepper.filesStepButton,
     'file': {
@@ -125,6 +94,70 @@ export const registrationFields = {
   },
 };
 
+export const contributorsCommon = {
+  'author': {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
+    landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
+    value: 'TestUser, Withauthor',
+    add: {
+      searchFieldTestId: 'search-field',
+      searchValue: 'TestUser, Withauthor{enter}',
+      resultsTestId: 'author-radio-button',
+      selectButtonTestId: 'connect-author-button',
+    },
+  },
+  'contributors': {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+    landingPageTestId: dataTestId.registrationLandingPage.contributors,
+    value: 'TestUser, Withauthor',
+    add: {
+      select: {
+        selectTestId: 'select-contributor-type',
+        value: 'Other',
+      },
+      searchFieldTestId: 'search-field',
+      searchValue: 'TestUser, Withauthor{enter}',
+      resultsTestId: 'author-radio-button',
+      selectButtonTestId: 'connect-author-button',
+    },
+  },
+}
+
+export const contributors = {
+  BookAnthology: {
+    'author': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Editor'),
+      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
+      value: 'TestUser, Withauthor',
+      add: {
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
+    },
+    'contributors': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+      landingPageTestId: dataTestId.registrationLandingPage.contributors,
+      value: 'TestUser, Withauthor',
+      add: {
+        select: {
+          selectTestId: 'select-contributor-type',
+          value: 'Other',
+        },
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
+    },
+    }
+}
+
 export const resourceTypesCommon = {
   Book: {
     publisher: {
@@ -165,6 +198,39 @@ export const resourceTypesCommon = {
       value: '123',
     },
   },
+  Report: {
+    publisher: {
+      type: 'search',
+      fieldTestId: dataTestId.registrationWizard.resourceType.publisherField,
+      landingPageTestId: '',
+      value: 'Det Kongelige Norske Videnskabers Selskab',
+    },
+    isbn: {
+      type: 'text',
+      fieldTestId: dataTestId.registrationWizard.resourceType.isbnField,
+      landingPageTestId: '',
+      value: '9780345300058',
+      landingPageValue: '978-0-34-530005-8',
+    },
+    pages: {
+      type: 'text',
+      fieldTestId: dataTestId.registrationWizard.resourceType.pagesField,
+      landingPageTestId: '',
+      value: '123',
+    },
+    seriesTitle: {
+      type: 'search',
+      fieldTestId: dataTestId.registrationWizard.resourceType.seriesField,
+      landingPageTestId: '',
+      value: 'ACS Central Science',
+    },
+    seriesNumber: {
+      type: 'text',
+      fieldTestId: dataTestId.registrationWizard.resourceType.seriesNumber,
+      landingPageTestId: '',
+      value: '123',
+    },
+  }
 };
 
 export const resourceTypes = {
@@ -180,4 +246,10 @@ export const resourceTypes = {
     },
     BookAnthology: { ...resourceTypesCommon['Book'] },
   },
+  Report: {
+    ReportResearch: { ...resourceTypesCommon['Report']},
+    ReportPolicy: { ...resourceTypesCommon['Report']},
+    ReportWorkingPaper: { ...resourceTypesCommon['Report']},
+    ReportBasic:  { ...resourceTypesCommon['Report']},
+  }
 };
