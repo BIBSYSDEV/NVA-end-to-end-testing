@@ -465,9 +465,9 @@ Cypress.Commands.add('fillInResourceType', (type, subtype) => {
 Cypress.Commands.add('fillInContributors', (type, subtype) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   let fields = {};
-  if(type in contributors) {
+  if (type in contributors) {
     fields = contributors[type];
-  } else if(subtype in contributors) {
+  } else if (subtype in contributors) {
     fields = contributors[subtype];
   } else {
     fields = contributorsCommon;
