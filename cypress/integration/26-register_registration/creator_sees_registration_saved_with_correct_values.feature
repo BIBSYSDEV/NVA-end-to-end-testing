@@ -31,4 +31,3 @@ Feature: Creator sees registration is saved with correct values presented on lan
       # | Event         | Lecture           |
       # | Event         | OtherPresentation |
       | Artistic      | ArtisticDesign    |
-
