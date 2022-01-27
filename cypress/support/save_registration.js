@@ -198,6 +198,24 @@ export const contributors = {
       },
     },
   },
+  Artistic: {
+    'contributors': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+      landingPageTestId: dataTestId.registrationLandingPage.contributors,
+      value: 'TestUser, Withauthor',
+      add: {
+        select: {
+          selectTestId: 'select-contributor-type',
+          value: 'Other',
+        },
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
+    },
+  },
 };
 
 const resourceTypeFields = {
@@ -250,6 +268,12 @@ const resourceTypeFields = {
     landingPageTestId: '',
     value: 'Research article',
   },
+  chapterContent: {
+    type: 'select',
+    fieldTestId: dataTestId.registrationWizard.resourceType.contentField,
+    landingPageTestId: '',
+    value: 'Academic chapter',
+  },
   journal: {
     type: 'search',
     fieldTestId: dataTestId.registrationWizard.resourceType.journalField,
@@ -292,6 +316,51 @@ const resourceTypeFields = {
     landingPageTestId: '',
     value: '555',
   },
+  peerReview: {
+    type: 'checkbox',
+    fieldTestId: dataTestId.registrationWizard.resourceType.peerReviewed,
+    landingPageTestId: '',
+    value: true,
+    checkbox: {
+      selected: 'first',
+    },
+  },
+  partOf: {
+    type: 'search',
+    fieldTestId: dataTestId.registrationWizard.resourceType.partOfField,
+    landingPageTestId: '',
+    value: 'Antologi',
+  },
+  titleOfEvent: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.eventTitleField,
+    landingPageTestId: '',
+    value: 'Test event title',
+  },
+  eventOrganizer: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.eventOrganizerField,
+    landingPageTestId: '',
+    value: 'Test event organizer',
+  },
+  eventPlace: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.eventPlaceField,
+    landingPageTestId: '',
+    value: 'Test event place',
+  },
+  eventCountry: {
+    type: 'select',
+    fieldTestId: dataTestId.registrationWizard.resourceType.eventCountryField,
+    landingPageTestId: '',
+    value: 'American Samoa',
+  },
+  artisticDescription: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.artisticDescriptionField,
+    landingPageTestId: '',
+    value: 'Test artistic description',
+  }
 };
 
 export const resourceTypesCommon = {
@@ -321,6 +390,22 @@ export const resourceTypesCommon = {
     publisher: resourceTypeFields.publisher,
     isbn: resourceTypeFields.isbn,
     pages: resourceTypeFields.pages,
+  },
+  Chapter: {
+    partOf: resourceTypeFields.partOf,
+    pagesFrom: resourceTypeFields.pagesFrom,
+    pagesTo: resourceTypeFields.to,
+    content: resourceTypeFields.chapterContent,
+    peerReview: resourceTypeFields.peerReview,
+  },
+  Event: {
+    titleOfEvent: resourceTypeFields.titleOfEvent,
+    eventOrganizer: resourceTypeFields.eventOrganizer,
+    eventPlace: resourceTypeFields.eventPlace,
+    eventCountry: resourceTypeFields.eventCountry,
+  },
+  Artistic: {
+    artisticDescription: resourceTypeFields.artisticDescription,
   },
 };
 
@@ -379,5 +464,17 @@ export const resourceTypes = {
       publisher: resourceTypeFields.publisher,
     },
     OtherStudentWork: { ...resourceTypesCommon.Degree},
+  },
+  Chapter: {
+    ChapterArticle: { ...resourceTypesCommon.Chapter},
+  },
+  Event: {
+    ConferenceLecture: { ...resourceTypesCommon.Event},
+    ConferencePoster: { ...resourceTypesCommon.Event},
+    Lecture: { ...resourceTypesCommon.Event},
+    OtherPresentation: { ...resourceTypesCommon.Event},
+  },
+  Artistic: {
+    ArtisticDesign: { ...resourceTypesCommon.Artistic},
   },
 };
