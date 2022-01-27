@@ -10,18 +10,22 @@ const fileTitle = '[Missing title]';
 
 // common steps
 When('they click Start', () => {
-  cy.intercept('/doi-fetch', {
-    'identifier': '',
-    'title': 'Mock DOI fetch',
-    'creatorName': null,
-    'date': {
-      'year': '1970',
-      'month': '8',
-      'day': '14',
-    },
-  });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).filter(':visible').should('be.enabled');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).filter(':visible').click({ force: true });
+  // cy.intercept('/doi-fetch', {
+  //   'identifier': '',
+  //   'title': 'Mock DOI fetch',
+  //   'creatorName': null,
+  //   'date': {
+  //     'year': '1970',
+  //     'month': '8',
+  //     'day': '14',
+  //   },
+  // });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
 });
 And('they click My Registrations', () => {
