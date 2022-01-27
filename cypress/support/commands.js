@@ -451,23 +451,23 @@ Cypress.Commands.add('fillInResourceType', (type, subtype) => {
   cy.get(`[data-testid=publication-instance-type]`).click();
   cy.get(`[data-testid=publication-instance-type-${subtype.replaceAll(' ', '-')}]`).click();
   Object.keys(resourceTypes[type][subtype]).forEach((key) => {
-    if(key !== 'contributorType') {
+    if (key !== 'contributorType') {
       const field = resourceTypes[type][subtype][key];
       fillInField(field);
     }
   });
-  if('contributorType' in resourceTypes[type]) {
+  if ('contributorType' in resourceTypes[type]) {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
     fillInField(resourceTypes[type]['contributorType']);
-}
+  }
 });
 
 Cypress.Commands.add('fillInContributors', (type, subtype) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   let fields = {};
-  if(type in contributors) {
+  if (type in contributors) {
     fields = contributors[type];
-  } else if(subtype in contributors) {
+  } else if (subtype in contributors) {
     fields = contributors[subtype];
   } else {
     fields = contributorsCommon;
@@ -475,8 +475,8 @@ Cypress.Commands.add('fillInContributors', (type, subtype) => {
   Object.keys(fields).forEach((key) => {
     const field = fields[key];
     fillInField(field);
-  })
-})
+  });
+});
 
 Cypress.Commands.add('checkLandingPage', () => {
   Object.keys(registrationFields).forEach((key) => {
