@@ -156,37 +156,64 @@ export const contributors = {
       },
     },
   },
-  Report: {
-    publisher: {
-      type: 'search',
-      fieldTestId: dataTestId.registrationWizard.resourceType.publisherField,
-      landingPageTestId: '',
-      value: 'Det Kongelige Norske Videnskabers Selskab',
+  Degree: {
+    'author': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
+      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
+      value: 'TestUser, Withauthor',
+      add: {
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
     },
-    isbn: {
-      type: 'text',
-      fieldTestId: dataTestId.registrationWizard.resourceType.isbnField,
-      landingPageTestId: '',
-      value: '9780345300058',
-      landingPageValue: '978-0-34-530005-8',
+    'supervisor': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Supervisor'),
+      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
+      value: 'TestUser, Withauthor',
+      add: {
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
     },
-    pages: {
-      type: 'text',
-      fieldTestId: dataTestId.registrationWizard.resourceType.pagesField,
-      landingPageTestId: '',
-      value: '123',
+    'contributors': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+      landingPageTestId: dataTestId.registrationLandingPage.contributors,
+      value: 'TestUser, Withauthor',
+      add: {
+        select: {
+          selectTestId: 'select-contributor-type',
+          value: 'Other',
+        },
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
     },
-    seriesTitle: {
-      type: 'search',
-      fieldTestId: dataTestId.registrationWizard.resourceType.seriesField,
-      landingPageTestId: '',
-      value: 'ACS Central Science',
-    },
-    seriesNumber: {
-      type: 'text',
-      fieldTestId: dataTestId.registrationWizard.resourceType.seriesNumber,
-      landingPageTestId: '',
-      value: '123',
+  },
+  Artistic: {
+    'contributors': {
+      type: 'add',
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+      landingPageTestId: dataTestId.registrationLandingPage.contributors,
+      value: 'TestUser, Withauthor',
+      add: {
+        select: {
+          selectTestId: 'select-contributor-type',
+          value: 'Other',
+        },
+        searchFieldTestId: 'search-field',
+        searchValue: 'TestUser, Withauthor{enter}',
+        resultsTestId: 'author-radio-button',
+        selectButtonTestId: 'connect-author-button',
+      },
     },
   },
 };
@@ -241,6 +268,12 @@ const resourceTypeFields = {
     landingPageTestId: '',
     value: 'Research article',
   },
+  chapterContent: {
+    type: 'select',
+    fieldTestId: dataTestId.registrationWizard.resourceType.contentField,
+    landingPageTestId: '',
+    value: 'Academic chapter',
+  },
   journal: {
     type: 'search',
     fieldTestId: dataTestId.registrationWizard.resourceType.journalField,
@@ -283,6 +316,51 @@ const resourceTypeFields = {
     landingPageTestId: '',
     value: '555',
   },
+  peerReview: {
+    type: 'checkbox',
+    fieldTestId: dataTestId.registrationWizard.resourceType.peerReviewed,
+    landingPageTestId: '',
+    value: true,
+    checkbox: {
+      selected: 'first',
+    },
+  },
+  partOf: {
+    type: 'search',
+    fieldTestId: dataTestId.registrationWizard.resourceType.partOfField,
+    landingPageTestId: '',
+    value: 'Antologi',
+  },
+  titleOfEvent: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.eventTitleField,
+    landingPageTestId: '',
+    value: 'Test event title',
+  },
+  eventOrganizer: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.eventOrganizerField,
+    landingPageTestId: '',
+    value: 'Test event organizer',
+  },
+  eventPlace: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.eventPlaceField,
+    landingPageTestId: '',
+    value: 'Test event place',
+  },
+  eventCountry: {
+    type: 'select',
+    fieldTestId: dataTestId.registrationWizard.resourceType.eventCountryField,
+    landingPageTestId: '',
+    value: 'American Samoa',
+  },
+  artisticDescription: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.artisticDescriptionField,
+    landingPageTestId: '',
+    value: 'Test artistic description',
+  }
 };
 
 export const resourceTypesCommon = {
@@ -307,6 +385,27 @@ export const resourceTypesCommon = {
     pagesFrom: resourceTypeFields.pagesFrom,
     to: resourceTypeFields.to,
     articleNumber: resourceTypeFields.articleNumber,
+  },
+  Degree: {
+    publisher: resourceTypeFields.publisher,
+    isbn: resourceTypeFields.isbn,
+    pages: resourceTypeFields.pages,
+  },
+  Chapter: {
+    partOf: resourceTypeFields.partOf,
+    pagesFrom: resourceTypeFields.pagesFrom,
+    pagesTo: resourceTypeFields.to,
+    content: resourceTypeFields.chapterContent,
+    peerReview: resourceTypeFields.peerReview,
+  },
+  Event: {
+    titleOfEvent: resourceTypeFields.titleOfEvent,
+    eventOrganizer: resourceTypeFields.eventOrganizer,
+    eventPlace: resourceTypeFields.eventPlace,
+    eventCountry: resourceTypeFields.eventCountry,
+  },
+  Artistic: {
+    artisticDescription: resourceTypeFields.artisticDescription,
   },
 };
 
@@ -352,9 +451,30 @@ export const resourceTypes = {
     },
   },
   Report: {
-    ReportResearch: { ...resourceTypesCommon['Report'] },
-    ReportPolicy: { ...resourceTypesCommon['Report'] },
-    ReportWorkingPaper: { ...resourceTypesCommon['Report'] },
-    ReportBasic: { ...resourceTypesCommon['Report'] },
+    ReportResearch: { ...resourceTypesCommon.Report},
+    ReportPolicy: { ...resourceTypesCommon.Report},
+    ReportWorkingPaper: { ...resourceTypesCommon.Report},
+    ReportBasic:  { ...resourceTypesCommon.Report},
+  },
+  Degree: {
+    DegreeBachelor: { ...resourceTypesCommon.Degree},
+    DegreeMaster: { ...resourceTypesCommon.Degree},
+    DegreePhd: {
+      ...resourceTypesCommon.Degree,
+      publisher: resourceTypeFields.publisher,
+    },
+    OtherStudentWork: { ...resourceTypesCommon.Degree},
+  },
+  Chapter: {
+    ChapterArticle: { ...resourceTypesCommon.Chapter},
+  },
+  Event: {
+    ConferenceLecture: { ...resourceTypesCommon.Event},
+    ConferencePoster: { ...resourceTypesCommon.Event},
+    Lecture: { ...resourceTypesCommon.Event},
+    OtherPresentation: { ...resourceTypesCommon.Event},
+  },
+  Artistic: {
+    ArtisticDesign: { ...resourceTypesCommon.Artistic},
   },
 };
