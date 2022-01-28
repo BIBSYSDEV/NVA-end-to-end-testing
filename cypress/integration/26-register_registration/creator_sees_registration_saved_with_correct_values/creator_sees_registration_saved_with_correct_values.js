@@ -1,5 +1,7 @@
+import { And } from 'cypress-cucumber-preprocessor/steps';
 import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { registrationFields } from '../../../support/save_registration';
 
 // Feature: Creator sees registration is saved with correct values presented on landing page
 
@@ -27,6 +29,24 @@ When('they saves registration', () => {
 });
 Then('they can see the values on the Registration Landing Page', () => {
   cy.checkLandingPage();
+});
+And('they can see the values in the registration wizard', () => {
+  cy.get('[data-testid=button-edit-registration]').click();
+  cy.get('@type').then((type) => {
+    cy.get('@subtype').then((subtype) => {
+      Object.keys(registrationFields).forEach((key) => {
+        cy.get(`[data-testid=${registrationFields[key]['tab']}]`).click();
+        Object.keys(registrationFields[key]).forEach((subkey) => {
+          if (subkey !== 'tab') {
+            const field = registrationFields[key][subkey];
+            cy.checkField(field);
+          }
+        });
+      });
+          // cy.checkResourceFields(type, subtype);
+      // cy.checkContributors(type, subtype);
+    });
+  });
 });
 // | Resource Type           | Subtype         |
 // | Book                    | BookMonograph   |

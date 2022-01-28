@@ -434,6 +434,42 @@ const fillInField = (field) => {
   }
 };
 
+Cypress.Commands.add('checkField', (field) => {
+  switch (field['elementType']) {
+    case 'input':
+      cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', field['value']);
+      break;
+    case 'textArea':
+      cy.get(`[data-testid=${field['fieldTestId']}] textArea`).should('contain', field['value']);
+      break;
+    case 'chip':
+      cy.get(`[data-testid=${field['fieldTestId']}] span`).should('contain', field['value']);
+      break;
+    case 'search':
+      cy.get(`[data-testid=${field['fieldTestId']}] div`).should('contain', field['value']);
+      break;
+    case 'file':
+      cy.get('[data-testid=uploaded-file-card] > div > p').should('contain', field['value']);
+      break;
+    case 'radio':
+      cy.get(`[data-testid=${field['fieldTestId']}] span`)
+        .contains(field['value'])
+        .parent()
+        .within(() => {
+          cy.get('input').should('be.checked');
+        });
+      break;
+    case 'checkbox':
+      cy.get(`[data-testid=${field['fieldTestId']}] span`)
+        .contains(field['value'])
+        .parent()
+        .within(() => {
+          cy.get('input').should(field['value'] ? 'be.checked' : 'not.be.checked');
+        });
+      break;
+  }
+});
+
 Cypress.Commands.add('fillInCommonFields', (type, subtype) => {
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key]['tab']}]`).click();

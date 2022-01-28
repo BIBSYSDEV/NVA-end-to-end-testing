@@ -6,30 +6,35 @@ export const registrationFields = {
     'title': {
       type: 'text',
       fieldTestId: dataTestId.registrationWizard.description.titleField,
+      elementType: 'input',
       landingPageTestId: dataTestId.registrationLandingPage.title,
       value: 'Test registration title',
     },
     'abstract': {
       type: 'text',
       fieldTestId: dataTestId.registrationWizard.description.abstractField,
+      elementType: 'textArea',
       landingPageTestId: dataTestId.registrationLandingPage.abstractAccordion,
       value: 'Test registration abstract',
     },
     'description': {
       type: 'text',
       fieldTestId: dataTestId.registrationWizard.description.descriptionField,
+      elementType: 'textArea',
       landingPageTestId: '',
       value: 'Test registration description',
     },
     'keywords': {
       type: 'text',
       fieldTestId: dataTestId.registrationWizard.description.tagField,
+      elementType: 'chip',
       landingPageTestId: dataTestId.registrationLandingPage.keywords,
       value: 'Test registration keyword',
     },
     'vocabularies': {
       type: 'search',
       fieldTestId: dataTestId.registrationWizard.description.vocabularyRow('hrcsActivity'),
+      elementType: 'chip',
       landingPageTestId: dataTestId.registrationLandingPage.vocabularies,
       value: 'Underpinning Research',
     },
@@ -37,18 +42,21 @@ export const registrationFields = {
       type: 'text',
       fieldTestId: dataTestId.registrationWizard.description.datePublishedField,
       value: '01.01.2022',
+      elementType: 'input',
       landingPageTestId: '',
       landingPageValue: '1.1.2022',
     },
     'language': {
       type: 'select',
       fieldTestId: dataTestId.registrationWizard.description.languageField,
+      elementType: 'search',
       landingPageTestId: dataTestId.registrationLandingPage.primaryLanguage,
       value: 'Spanish',
     },
     'project': {
       type: 'search',
       fieldTestId: dataTestId.registrationWizard.description.projectSearchField,
+      elementType: 'search',
       landingPageTestId: dataTestId.registrationLandingPage.projectsAccordion,
       value: 'Testprosjekt NVA',
     },
@@ -58,14 +66,16 @@ export const registrationFields = {
     'file': {
       type: 'file',
       fieldTestId: dataTestId.registrationWizard.files.filesAccordion,
+      elementType: 'file',
       landingPageTestId: dataTestId.registrationLandingPage.filesAccordion,
       value: 'example.txt',
     },
     'version': {
       type: 'checkbox',
       fieldTestId: dataTestId.registrationWizard.files.version,
+      elementType: 'radio',
       landingPageTestId: dataTestId.registrationLandingPage.version,
-      value: 'Published version',
+      value: 'Accepted version',
       checkbox: {
         selected: 'first',
       },
@@ -73,6 +83,7 @@ export const registrationFields = {
     'author agreement': {
       type: 'checkbox',
       fieldTestId: dataTestId.registrationWizard.files.administrativeAgreement,
+      elementType: 'checkbox',
       landingPageTestId: dataTestId.registrationLandingPage.administrativeAgreement,
       value: false,
       checkbox: {
@@ -82,12 +93,14 @@ export const registrationFields = {
     'date': {
       type: 'text',
       fieldTestId: dataTestId.registrationWizard.files.embargoDateField,
+      elementType: 'input',
       landingPageTestId: '',
       value: '01.01.2022',
     },
     'terms of use': {
       type: 'select',
       fieldTestId: dataTestId.registrationWizard.files.selectLicenseField,
+      type: 'search',
       landingPageTestId: dataTestId.registrationLandingPage.license,
       value: 'CC BY',
     },
@@ -360,7 +373,7 @@ const resourceTypeFields = {
     fieldTestId: dataTestId.registrationWizard.resourceType.artisticDescriptionField,
     landingPageTestId: '',
     value: 'Test artistic description',
-  }
+  },
 };
 
 export const resourceTypesCommon = {
@@ -451,30 +464,30 @@ export const resourceTypes = {
     },
   },
   Report: {
-    ReportResearch: { ...resourceTypesCommon.Report},
-    ReportPolicy: { ...resourceTypesCommon.Report},
-    ReportWorkingPaper: { ...resourceTypesCommon.Report},
-    ReportBasic:  { ...resourceTypesCommon.Report},
+    ReportResearch: { ...resourceTypesCommon.Report },
+    ReportPolicy: { ...resourceTypesCommon.Report },
+    ReportWorkingPaper: { ...resourceTypesCommon.Report },
+    ReportBasic: { ...resourceTypesCommon.Report },
   },
   Degree: {
-    DegreeBachelor: { ...resourceTypesCommon.Degree},
-    DegreeMaster: { ...resourceTypesCommon.Degree},
+    DegreeBachelor: { ...resourceTypesCommon.Degree },
+    DegreeMaster: { ...resourceTypesCommon.Degree },
     DegreePhd: {
       ...resourceTypesCommon.Degree,
       publisher: resourceTypeFields.publisher,
     },
-    OtherStudentWork: { ...resourceTypesCommon.Degree},
+    OtherStudentWork: { ...resourceTypesCommon.Degree },
   },
   Chapter: {
-    ChapterArticle: { ...resourceTypesCommon.Chapter},
+    ChapterArticle: { ...resourceTypesCommon.Chapter },
   },
   Event: {
-    ConferenceLecture: { ...resourceTypesCommon.Event},
-    ConferencePoster: { ...resourceTypesCommon.Event},
-    Lecture: { ...resourceTypesCommon.Event},
-    OtherPresentation: { ...resourceTypesCommon.Event},
+    ConferenceLecture: { ...resourceTypesCommon.Event },
+    ConferencePoster: { ...resourceTypesCommon.Event },
+    Lecture: { ...resourceTypesCommon.Event },
+    OtherPresentation: { ...resourceTypesCommon.Event },
   },
   Artistic: {
-    ArtisticDesign: { ...resourceTypesCommon.Artistic},
+    ArtisticDesign: { ...resourceTypesCommon.Artistic },
   },
 };
