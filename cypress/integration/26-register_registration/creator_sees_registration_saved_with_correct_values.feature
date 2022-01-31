@@ -9,11 +9,11 @@ Feature: Creator sees registration is saved with correct values presented on lan
     Then they can see the values on the Registration Landing Page
     And they can see the values in the registration wizard
     Examples:
-      | Resource Type | Subtype            |
-      | Book          | BookMonograph      |
+      | Resource Type | Subtype        |
+      # | Book          | BookMonograph      |
       # | Book          | BookAnthology      |
       # | Report        | ReportResearch     |
-      # | Report        | ReportPolicy       |
+      # | Report        | ReportPolicy |
       # | Report        | ReportWorkingPaper |
       # | Report        | ReportBasic        |
       # | Journal       | JournalArticle     |
@@ -22,13 +22,13 @@ Feature: Creator sees registration is saved with correct values presented on lan
       # | Journal       | JournalReview      |
       # | Journal       | JournalLeader      |
       # | Journal       | JournalCorrigendum |
-      # | Degree        | DegreeBachelor     |
-      # | Degree        | DegreeMaster       |
-      # | Degree        | DegreePhd          |
-      # | Degree        | OtherStudentWork   |
-      # | Chapter       | ChapterArticle     |
+      # | Degree        | DegreeBachelor   |
+      # | Degree        | DegreeMaster     |
+      # | Degree        | DegreePhd        |
+      # | Degree        | OtherStudentWork |
+      # | Chapter       | ChapterArticle |
       # | Event         | ConferenceLecture |
       # | Event         | ConferencePoster  |
       # | Event         | Lecture           |
       # | Event         | OtherPresentation |
-      # | Artistic      | ArtisticDesign    |
+      | Artistic      | ArtisticDesign |
