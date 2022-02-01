@@ -460,9 +460,9 @@ Cypress.Commands.add('checkField', (field) => {
       break;
     case 'radio':
       cy.get(`[data-testid=${field['fieldTestId']}] span`)
-        .contains(value)
         .parent()
         .within(() => {
+          cy.contains(value)
           cy.get('input').should('be.checked');
         });
       break;
@@ -473,6 +473,12 @@ Cypress.Commands.add('checkField', (field) => {
           cy.get('input').should(value ? 'be.checked' : 'not.be.checked');
         });
       break;
+    case 'place':
+      cy.get(`[data-testid=${field['fieldTestId']}]`)
+        .parent()
+        .within(() => {
+          cy.contains(field['value']);
+        });
   }
 });
 

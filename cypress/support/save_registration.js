@@ -389,6 +389,20 @@ const resourceTypeFields = {
     landingPageTestId: '',
     value: 'American Samoa',
   },
+  eventDateFrom: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.dateFromField,
+    elementType: 'input',
+    landingPageTestId: '',
+    value: '11.11.2021',
+  },
+  eventDateTo: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.dateToField,
+    elementType: 'input',
+    landingPageTestId: '',
+    value: '11.11.2021',
+  },
   artisticType: {
     type: 'select',
     fieldTestId: dataTestId.registrationWizard.resourceType.artisticTypeField,
@@ -407,7 +421,7 @@ const resourceTypeFields = {
   exhibitionPlace: {
     type: 'add',
     fieldTestId: dataTestId.registrationWizard.resourceType.addVenueButton,
-    elementType: 'textArea',
+    elementType: 'place',
     landingPageTestId: '',
     value: 'Test exhibition place',
     add: {
@@ -461,6 +475,8 @@ export const resourceTypesCommon = {
     eventOrganizer: resourceTypeFields.eventOrganizer,
     eventPlace: resourceTypeFields.eventPlace,
     eventCountry: resourceTypeFields.eventCountry,
+    eventDateFrom: resourceTypeFields.eventDateFrom,
+    eventDateTo: resourceTypeFields.eventDateTo,
   },
   Artistic: {
     artisticTypeWork: resourceTypeFields.artisticType,

@@ -49,10 +49,6 @@ And('they can see the values in the registration wizard', () => {
   cy.get('@type').then((type) => {
     cy.get('@subtype').then((subtype) => {
       cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-      cy.get(`[data-testid=publication-context-type]`).click();
-      cy.get(`[data-testid=publication-context-type-${type.replaceAll(' ', '-')}]`).click({ force: true });
-      cy.get(`[data-testid=publication-instance-type]`).click();
-      cy.get(`[data-testid=publication-instance-type-${subtype.replaceAll(' ', '-')}]`).click();
       Object.keys(resourceTypes[type][subtype]).forEach((key) => {
         const field = resourceTypes[type][subtype][key];
         cy.checkField(field);
