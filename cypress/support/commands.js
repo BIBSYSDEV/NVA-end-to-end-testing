@@ -2,7 +2,6 @@ import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
-import 'cypress-file-upload';
 import {
   mockPersonFeideIdSearch,
   mockPersonNameSearch,
