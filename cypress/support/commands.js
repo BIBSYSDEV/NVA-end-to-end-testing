@@ -407,12 +407,18 @@ const fillInField = (field) => {
       break;
     case 'add':
       cy.get(`[data-testid=${field['fieldTestId']}]`).click();
-      if ('select' in field['add']) {
-        cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click();
-        cy.contains(field['add']['select']['value']).click({ force: true });
+      if ('fields' in field['add']) {
+        Object.keys(field['add']['fields']).forEach((key) => {
+          cy.get(`[data-testid=${key}]`).type(field['add']['fields'][key]);
+        });
+      } else {
+        if ('select' in field['add']) {
+          cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click();
+          cy.contains(field['add']['select']['value']).click({ force: true });
+        }
+        cy.get(`[data-testid=${field['add']['searchFieldTestId']}]`).type(field['add']['searchValue']);
+        cy.get(`[data-testid=${field['add']['resultsTestId']}]`).filter(`:contains(${field['value']})`).click();
       }
-      cy.get(`[data-testid=${field['add']['searchFieldTestId']}]`).type(field['add']['searchValue']);
-      cy.get(`[data-testid=${field['add']['resultsTestId']}]`).filter(`:contains(${field['value']})`).click();
       cy.get(`[data-testid=${field['add']['selectButtonTestId']}]`).click();
       break;
     case 'checkbox':
@@ -433,6 +439,50 @@ const fillInField = (field) => {
       break;
   }
 };
+
+Cypress.Commands.add('checkField', (field) => {
+  const value = field['landingPageValue'] ?? field['value'];
+  switch (field['elementType']) {
+    case 'input':
+      cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', value);
+      break;
+    case 'textArea':
+      cy.get(`[data-testid=${field['fieldTestId']}] textArea`).should('contain', value);
+      break;
+    case 'chip':
+      cy.get(`[data-testid=${field['fieldTestId']}] span`).should('contain', value);
+      break;
+    case 'search':
+      cy.get(`[data-testid=${field['fieldTestId']}] div`).should('contain', value);
+      break;
+    case 'file':
+      cy.get('[data-testid=uploaded-file-card] > div > p').should('contain', value);
+      break;
+    case 'radio':
+      cy.get(`[data-testid=${field['fieldTestId']}] span`)
+        .parent()
+        .within(() => {
+          cy.contains(value)
+          cy.get('input').should('be.checked');
+        });
+      break;
+    case 'checkbox':
+      cy.get(`[data-testid=${field['fieldTestId']}] span`)
+        .parent()
+        .within(() => {
+          cy.get('input').should(value ? 'be.checked' : 'not.be.checked');
+        });
+      break;
+    case 'place':
+      cy.get(`[data-testid=${field['fieldTestId']}]`)
+        .parent()
+        .within(() => {
+          cy.contains(field['value']);
+        });
+  }
+});
+
+Cypress.Commands.add('checkRsourceFields', (type, subtype) => {});
 
 Cypress.Commands.add('fillInCommonFields', (type, subtype) => {
   Object.keys(registrationFields).forEach((key) => {

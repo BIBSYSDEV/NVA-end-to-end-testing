@@ -7,8 +7,9 @@ Feature: Creator sees registration is saved with correct values presented on lan
     And fill in values for all fields
     When they saves registration
     Then they can see the values on the Registration Landing Page
+    And they can see the values in the registration wizard
     Examples:
-      | Resource Type | Subtype           |
+      | Resource Type | Subtype            |
       | Book          | BookMonograph      |
       | Book          | BookAnthology      |
       | Report        | ReportResearch     |
@@ -26,8 +27,8 @@ Feature: Creator sees registration is saved with correct values presented on lan
       | Degree        | DegreePhd          |
       | Degree        | OtherStudentWork   |
       | Chapter       | ChapterArticle     |
-      | Event         | ConferenceLecture |
-      | Event         | ConferencePoster  |
-      | Event         | Lecture           |
-      | Event         | OtherPresentation |
-      | Artistic      | ArtisticDesign    |
+      | Event         | ConferenceLecture  |
+      | Event         | ConferencePoster   |
+      | Event         | Lecture            |
+      | Event         | OtherPresentation  |
+      | Artistic      | ArtisticDesign     |
