@@ -23,7 +23,8 @@ And('they have selected {string} for starting the Wizard', (method) => {
     cy.get('[data-testid=doi-search-button]').click({ force: true });
   } else if (method === 'Upload file') {
     cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
-    cy.get('input[type=file]').attachFile(fileName);
+    cy.fixture(fileName, { encoding: null }).as('file');
+    cy.get('input[type=file]').first().selectFile('@file', { force: true });
   } else if (method === 'Empty Registration') {
     cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click({ force: true });
   }
@@ -73,7 +74,8 @@ When('they click Upload file', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
 });
 And('they upload a file', () => {
-  cy.get('input[type=file]').attachFile(fileName);
+  cy.fixture(fileName, { encoding: null }).as('file');
+  cy.get('input[type=file]').first().selectFile('@file', { force: true });
 });
 Then('they see the file name', () => {
   cy.get('[data-testid=uploaded-file]').within((fileElement) => {
