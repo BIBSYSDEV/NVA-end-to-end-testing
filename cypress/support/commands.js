@@ -400,7 +400,8 @@ const fillInField = (field) => {
       cy.contains(field['value']).click();
       break;
     case 'file':
-      cy.get('input[type=file]').attachFile(field['value']);
+      cy.fixture(field['value']).as('file');
+      cy.get('input[type=file]').first().selectFile('@file', { force: true });
       break;
     case 'select':
       cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ');
@@ -529,7 +530,7 @@ Cypress.Commands.add('fillInContributors', (type, subtype) => {
   });
 });
 
-Cypress.Commands.add('checkLandingPage', () => {
+Cypress.Commands.add('checkLandingPage', (type, subtype) => {
   Object.keys(registrationFields).forEach((key) => {
     Object.keys(registrationFields[key]).forEach((subkey) => {
       const field = registrationFields[key][subkey];
@@ -539,7 +540,15 @@ Cypress.Commands.add('checkLandingPage', () => {
         } else {
           cy.get(`[data-testid^=${field['landingPageTestId']}]`).should('contain', field['value']);
         }
+        // } else {
+        //   cy.get(`[data-testid=${dataTestId.registrationLandingPage.generalInfo}]`).contains(
+        //     field['landingPageValue'] ?? field['value']
+        //   );
       }
     });
+  });
+  Object.keys(resourceTypes[type][subtype]).forEach((key) => {
+    const field = resourceTypes[type][subtype][key];
+    cy.get(`[data-testid=${dataTestId.registrationLandingPage.subtypeFields}]`).contains(field['landingPageValue'] ?? field['value']);
   });
 });

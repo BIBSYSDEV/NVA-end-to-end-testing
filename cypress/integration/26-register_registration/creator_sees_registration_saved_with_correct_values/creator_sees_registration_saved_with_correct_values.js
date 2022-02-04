@@ -32,7 +32,11 @@ When('they saves registration', () => {
   cy.get('[data-testid="button-save-registration"]').click();
 });
 Then('they can see the values on the Registration Landing Page', () => {
-  cy.checkLandingPage();
+  cy.get('@type').then((type) => {
+    cy.get('@subtype').then((subtype) => {
+      cy.checkLandingPage(type, subtype);
+    });
+  });
 });
 And('they can see the values in the registration wizard', () => {
   cy.get('[data-testid=button-edit-registration]').click();
