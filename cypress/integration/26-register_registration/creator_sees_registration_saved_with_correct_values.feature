@@ -10,18 +10,18 @@ Feature: Creator sees registration is saved with correct values presented on lan
     And they can see the values in the registration wizard
     Examples:
       | Resource Type | Subtype            |
-      | Book          | BookMonograph      |
+      # | Book          | BookMonograph      |
       # | Book          | BookAnthology      |
       # | Report        | ReportResearch     |
       # | Report        | ReportPolicy       |
       # | Report        | ReportWorkingPaper |
       # | Report        | ReportBasic        |
-      # | Journal       | JournalArticle     |
-      # | Journal       | FeatureArticle     |
-      # | Journal       | JournalLetter      |
-      # | Journal       | JournalReview      |
-      # | Journal       | JournalLeader      |
-      # | Journal       | JournalCorrigendum |
+      | Journal       | JournalArticle     |
+      | Journal       | FeatureArticle     |
+      | Journal       | JournalLetter      |
+      | Journal       | JournalReview      |
+      | Journal       | JournalLeader      |
+      | Journal       | JournalCorrigendum |
       # | Degree        | DegreeBachelor     |
       # | Degree        | DegreeMaster       |
       # | Degree        | DegreePhd          |

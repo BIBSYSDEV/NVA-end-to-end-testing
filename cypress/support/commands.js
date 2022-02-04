@@ -400,8 +400,8 @@ const fillInField = (field) => {
       cy.contains(field['value']).click();
       break;
     case 'file':
-      cy.fixture(field['value']).as('file');
-      cy.get('input[type=file]').first().selectFile('@file', { force: true });
+      cy.fixture(field['value'], { encoding: null }).as('testfile');
+      cy.get('input[type=file]').first().selectFile('@testfile', { force: true });
       break;
     case 'select':
       cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ');
@@ -549,6 +549,8 @@ Cypress.Commands.add('checkLandingPage', (type, subtype) => {
   });
   Object.keys(resourceTypes[type][subtype]).forEach((key) => {
     const field = resourceTypes[type][subtype][key];
-    cy.get(`[data-testid=${dataTestId.registrationLandingPage.subtypeFields}]`).contains(field['landingPageValue'] ?? field['value']);
+    cy.get(`[data-testid=${dataTestId.registrationLandingPage.subtypeFields}]`)
+      .parent()
+      .contains(field['landingPageValue'] ?? field['value']);
   });
 });
