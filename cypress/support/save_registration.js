@@ -67,7 +67,7 @@ export const registrationFields = {
       fieldTestId: dataTestId.registrationWizard.files.filesAccordion,
       elementType: 'file',
       landingPageTestId: dataTestId.registrationLandingPage.filesAccordion,
-      value: 'example.txt',
+      value: 'example.json',
     },
     'version': {
       type: 'checkbox',

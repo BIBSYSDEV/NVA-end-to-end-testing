@@ -7,12 +7,14 @@ import {
   resourceTypes,
 } from '../../../support/save_registration';
 
+const filename = 'example.json';
+
 // Feature: Creator sees registration is saved with correct values presented on landing page
 
 // Scenario Outline:
 Given('Author begins registering a registration', () => {
   cy.login(userWithAuthor);
-  cy.startWizardWithEmptyRegistration();
+  cy.startWizardWithFile(filename);
 });
 And('selects {string} and {string}', (type, subType) => {
   cy.wrap(type).as('type');
