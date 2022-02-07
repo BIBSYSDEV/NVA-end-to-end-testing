@@ -398,12 +398,6 @@ const fillInField = (field) => {
       cy.contains(field['value']).click();
       break;
     case 'file':
-      // cy.get('@subtype').then((subtype) => {
-      //   cy.fixture(field['value'], { encoding: null }).as(`testfile_${subtype}`);
-      //   cy.get(`@testfile_${subtype}`).then((file) => {
-      //     cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-      //   });
-      // });
       break;
     case 'select':
       cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ');
