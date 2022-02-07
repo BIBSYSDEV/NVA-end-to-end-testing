@@ -536,10 +536,6 @@ Cypress.Commands.add('checkLandingPage', (type, subtype) => {
         } else {
           cy.get(`[data-testid^=${field['landingPageTestId']}]`).should('contain', field['value']);
         }
-        // } else {
-        //   cy.get(`[data-testid=${dataTestId.registrationLandingPage.generalInfo}]`).contains(
-        //     field['landingPageValue'] ?? field['value']
-        //   );
       }
     });
   });
