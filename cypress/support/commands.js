@@ -122,8 +122,7 @@ Cypress.Commands.add('login', (userId) => {
 Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
   cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
-  cy.fixture(fileName, { encoding: null }).as('file');
-  cy.get('input[type=file]').first().selectFile('@file', { force: true });
+  cy.get('input[type=file]').last().selectFile(`cypress/fixtures/${fileName}`, { force: true, action: 'drag-drop' });
 });
 
 Cypress.Commands.add('startWizardWithFile', (fileName) => {
@@ -206,8 +205,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 
   // Files and reference
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
-  cy.fixture(fileName, { encoding: null }).as('file');
-  cy.get('input[type=file]').first().selectFile('@file', { force: true });
+  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`).within(() => {
     cy.get('input[type=radio]').first().click();
   });
@@ -400,7 +398,6 @@ const fillInField = (field) => {
       cy.contains(field['value']).click();
       break;
     case 'file':
-      cy.get('input[type=file]').attachFile(field['value']);
       break;
     case 'select':
       cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ');
@@ -529,7 +526,7 @@ Cypress.Commands.add('fillInContributors', (type, subtype) => {
   });
 });
 
-Cypress.Commands.add('checkLandingPage', () => {
+Cypress.Commands.add('checkLandingPage', (type, subtype) => {
   Object.keys(registrationFields).forEach((key) => {
     Object.keys(registrationFields[key]).forEach((subkey) => {
       const field = registrationFields[key][subkey];
@@ -541,5 +538,11 @@ Cypress.Commands.add('checkLandingPage', () => {
         }
       }
     });
+  });
+  Object.keys(resourceTypes[type][subtype]).forEach((key) => {
+    const field = resourceTypes[type][subtype][key];
+    cy.get(`[data-testid=${dataTestId.registrationLandingPage.subtypeFields}]`)
+      .parent()
+      .contains(field['landingPageValue'] ?? field['value']);
   });
 });
