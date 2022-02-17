@@ -2,7 +2,7 @@
   "@context": "https://api.dev.nva.aws.unit.no/cristin/organization",
   "id": "https://api.dev.nva.aws.unit.no/cristin/organization?query=ntnu&page=1&results=20",
   "size": 6,
-  "searchString": "query=ntnu&page=1&results=20",
+  "searchString": "query=mock&page=1&results=20",
   "processingTime": 6630,
   "firstRecord": 1,
   "nextResults": null,

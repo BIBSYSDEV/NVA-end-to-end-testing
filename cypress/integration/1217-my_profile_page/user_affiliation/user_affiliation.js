@@ -5,19 +5,15 @@ import {
   userWithInstitutionRemoveInstitution,
 } from '../../../support/constants';
 import { mockInstitution, mockDepartment } from '../../../support/mock_data';
-import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: User adds and removes organization
 
-Before(() => {
-  cy.mockInstitution();
-  cy.mockDepartments();
-});
-
 // @405
 // Scenario: User sees a Subunit from My Profile
 Given('User opens Add Institution from My Profile', () => {
+  cy.mockInstitution();
+  cy.mockDepartments();
   cy.login(userAddInstitution);
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
@@ -40,6 +36,8 @@ Then('they see Subunit dropdown containing all the subunits at their Institution
 // @407
 // Scenario: User selects a Subunit from My Profile
 Given('user sees a Subunit from My Profile', () => {
+  cy.mockInstitution();
+  cy.mockDepartments();
   cy.login(userInstitutionSubunit);
   cy.mockInstitution();
   cy.mockDepartments();
@@ -68,6 +66,8 @@ Then('they see the new Institution and subunit in My Profile', () => {
 // @410
 // Scenario: User opens Add Institution from My Profile
 Given('user opens the page My Profile', () => {
+  cy.mockInstitution();
+  cy.mockDepartments();
   cy.login(userWithAuthor);
   cy.mockInstitution();
   cy.mockDepartments();
@@ -87,6 +87,8 @@ Then('they see the Autosearch box for Institutions', () => {
 // @411
 // Scenario: User adds an Institution from My Profile
 Given('User opens Add Institution from My Profile', () => {
+  cy.mockInstitution();
+  cy.mockDepartments();
   cy.login(userAddInstitution);
   cy.mockInstitution();
   cy.mockDepartments();
@@ -124,9 +126,9 @@ And('they see a button Remove that is enabled for the new Institution', () => {
 // @551
 // Scenario: User removes an Institution from My Profile
 Given('User sees an Institution from My Profile', () => {
-  cy.login(userWithInstitutionRemoveInstitution);
   cy.mockInstitution();
   cy.mockDepartments();
+  cy.login(userWithInstitutionRemoveInstitution);
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
   cy.get('[data-testid=add-new-institution-button]').should('not.be.disabled');

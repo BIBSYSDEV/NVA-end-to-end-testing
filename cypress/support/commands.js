@@ -291,8 +291,16 @@ Cypress.Commands.add('mockProjectSearch', () => {
 
 Cypress.Commands.add('mockInstitution', () => {
   cy.fixture('org_query.json').then((organizations) => {
-    cy.log(`mocking https://api.${stage}.nva.aws.unit.no/cristin/organization*`);
-    cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/?query=*`, organizations);
+    cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization?query=*`, organizations);
+  });
+  cy.fixture('mock_institution_1.json').then((mockInstitution1) => {
+    cy.intercept(`https://api.cristin.no/v2/institutions/1111111111`, mockInstitution1);
+  });
+  cy.fixture('mock_institution_2.json').then((mockInstitution2) => {
+    cy.intercept(`https://api.cristin.no/v2/institutions/2222222222`, mockInstitution2);
+  });
+  cy.fixture('mock_institution_3.json').then((mockInstitution3) => {
+    cy.intercept(`https://api.cristin.no/v2/institutions/3333333333`, mockInstitution3);
   });
 });
 
@@ -305,6 +313,7 @@ Cypress.Commands.add('mockDepartments', () => {
         `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
         departments
       );
+      cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}`, departments);
       cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.0.0.0`, departments);
       cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.1.0.0`, departments);
       cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.2.0.0`, departments);
