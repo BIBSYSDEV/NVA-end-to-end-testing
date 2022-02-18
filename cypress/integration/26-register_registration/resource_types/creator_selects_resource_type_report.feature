@@ -1,5 +1,6 @@
 Feature: Creator selects Resource type Report
 
+    @TEST_NP-4074
     @test
     @393
     Scenario: Creator navigates to the Resource Type tab and selects Resource type "Report"
@@ -9,8 +10,10 @@ Feature: Creator selects Resource type Report
             | Research report      |
             | Policy report        |
             | Working paper        |
+            | Abstract collection  |
             | Other type of report |
 
+    @TEST_NP-4075
     @test
     @1693
     Scenario Outline: Creator sees fields for Resource subtypes for "Report"
@@ -27,8 +30,10 @@ Feature: Creator selects Resource type Report
             | Research report      |
             | Policy report        |
             | Working paper        |
+            | Abstract collection  |
             | Other type of report |
 
+    @TEST_NP-4076
     @test
     Scenario Outline: Creator sees that fields are validated for Resource subtypes for "Report"
         Given Creator sees fields for Resource subtypes for "Report"
@@ -47,4 +52,5 @@ Feature: Creator selects Resource type Report
             | Research report      |
             | Policy report        |
             | Working paper        |
+            | Abstract collection  |
             | Other type of report |
