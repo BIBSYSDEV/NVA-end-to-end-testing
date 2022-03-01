@@ -2,7 +2,6 @@ import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
-import 'cypress-file-upload';
 import {
   mockPersonFeideIdSearch,
   mockPersonNameSearch,
@@ -216,7 +215,9 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid=${values[value[0]]}]`);
+    if(value[0] in values){
+      cy.get(`[data-testid=${values[value[0]]}]`);
+    }
   });
 });
 
@@ -409,7 +410,7 @@ Cypress.Commands.add('fillInCommonFields', () => {
         cy.get(`[data-testid=${field['fieldTestId']}]`).type(field['value']);
       } else if (field['type'] === 'file') {
         cy.get('input[type=file]').attachFile(fileName);
-      } 
+      }
     });
   });
 });

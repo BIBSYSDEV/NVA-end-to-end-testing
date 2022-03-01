@@ -45,7 +45,9 @@ Then('they see a list of subtypes:', (dataTable) => {
 // Scenario Outline: Creator sees fields for Resource subtypes for "Student thesis"
 When('they select the Subtype {string}', (subtype) => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get(`[data-testid=${studentThesisSubtypes[subtype]}]`).click({ force: true });
+  if (subtype in studentThesisSubtypes) {
+    cy.get(`[data-testid=${studentThesisSubtypes[subtype]}]`).click({ force: true });
+  }
 });
 // Examples:
 //     | Subtype              |
@@ -80,7 +82,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 
 // @2776
 // Scenario: Creator sees series fields for Resource subtypes "Doctoral thesis"
-When('they select the Subtype "Doctoral thesis"', () => {
+When('they select the Subtype "Doctoral thesis" and "Licentiate thesis"', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get(`[data-testid=${studentThesisSubtypes['Doctoral thesis']}]`).click({ force: true });
 });
