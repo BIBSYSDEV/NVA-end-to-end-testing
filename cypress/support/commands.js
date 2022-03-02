@@ -122,7 +122,7 @@ Cypress.Commands.add('login', (userId) => {
 Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
   cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
-  cy.get('input[type=file]').attachFile(fileName);
+  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });
 
 Cypress.Commands.add('startWizardWithFile', (fileName) => {
@@ -205,7 +205,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 
   // Files and reference
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
-  cy.get('input[type=file]').attachFile(fileName);
+  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`).within(() => {
     cy.get('input[type=radio]').first().click();
   });
@@ -215,7 +215,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.rawTable.forEach((value) => {
-    if(value[0] in values){
+    if (value[0] in values) {
       cy.get(`[data-testid=${values[value[0]]}]`);
     }
   });
@@ -409,7 +409,7 @@ Cypress.Commands.add('fillInCommonFields', () => {
       } else if (field['type'] === 'search') {
         cy.get(`[data-testid=${field['fieldTestId']}]`).type(field['value']);
       } else if (field['type'] === 'file') {
-        cy.get('input[type=file]').attachFile(fileName);
+        cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
       }
     });
   });
