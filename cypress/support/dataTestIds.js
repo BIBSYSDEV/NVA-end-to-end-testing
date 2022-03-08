@@ -1,8 +1,3 @@
-/*
- * This file is readonly.
- * The contents of this file is copied from https://github.com/BIBSYSDEV/NVA-Frontend/blob/main/src/utils/dataTestIds.ts
- */
-
 export const dataTestId = {
   organization: {
     searchField: 'organization-search-field',
@@ -45,6 +40,7 @@ export const dataTestId = {
     searchButton: 'search-button',
     searchField: 'search-field',
     searchPagination: 'search-pagination',
+    searchResultItem: 'result-list-item',
   },
   projectLandingPage: {
     generalInfoBox: 'general-info',
@@ -63,7 +59,12 @@ export const dataTestId = {
     editButton: 'button-edit-registration',
     emailButton: 'email-button',
     facebookButton: 'facebook-button',
+    file: 'file',
+    fileName: 'file-name',
+    fileSize: 'file-size',
+    fileVersion: 'file-version',
     filesAccordion: 'files-accordion',
+    generalInfo: 'public-registration-general-info',
     keywords: 'public-registration-keywords',
     license: 'public-registration-license',
     linkedInButton: 'linkedin-button',
@@ -90,21 +91,32 @@ export const dataTestId = {
     contributors: {
       addAffiliationButton: 'button-add-affiliation',
       addContributorButton: (role) => `add-${role}`,
+      authorRadioButton: 'author-radio-button',
+      connectAuthorButton: 'connect-author-button',
       correspondingCheckbox: 'author-corresponding-checkbox',
       verifyAffiliationButton: 'button-set-unverified-affiliation',
       verifyContributorButton: (name) => `button-set-unverified-contributor-${name}`,
       removeAffiliationButton: 'button-remove-affiliation',
       removeContributorButton: (name) => `button-remove-contributor-${name}`,
+      searchField: 'search-field',
+      selectContributorType: 'select-contributor-type',
     },
     description: {
       addVocabularyButton: 'add-vocabulary-button',
       datePublishedField: 'date-published-field',
+      projectForm: {
+        contributorsSearchField: 'project-contributors-search-field',
+        endDateField: 'project-end-date-field',
+        roleField: 'project-participant-role-field',
+        startDateField: 'project-start-date-field',
+        titleField: 'project-title-field',
+      },
       projectSearchField: 'project-search-field',
-      registrationAbstractField: 'registration-abstract-field',
-      registrationDescriptionField: 'registration-description-field',
-      registrationLanguageField: 'registration-language-field',
-      registrationTagField: 'registration-tag-field',
-      registrationTitleField: 'registration-title-field',
+      abstractField: 'registration-abstract-field',
+      descriptionField: 'registration-description-field',
+      languageField: 'registration-language-field',
+      tagField: 'registration-tag-field',
+      titleField: 'registration-title-field',
       vocabularyMenuItem: (vocabulary) => `vocabulary-menu-item-${vocabulary}`,
       vocabularyRow: (vocabulary) => `vocabulary-row-${vocabulary}`,
     },
@@ -128,6 +140,7 @@ export const dataTestId = {
     },
     resourceType: {
       addVenueButton: 'add-venue-button',
+      articleNumberField: 'article-number-field',
       artisticTypeField: 'artistic-type-field',
       artisticDescriptionField: 'artistic-description-field',
       artisticOtherTypeField: 'artistic-other-type-field',
@@ -141,6 +154,7 @@ export const dataTestId = {
       eventPlaceField: 'event-place-field',
       eventTitleField: 'event-title-field',
       isbnField: 'isbn-field',
+      issueField: 'issue-field',
       journalChip: 'journal-chip',
       journalField: 'journal-search-field',
       nviFailed: 'not-nvi-applicable',
@@ -159,6 +173,7 @@ export const dataTestId = {
       seriesField: 'series-search-field',
       seriesNumber: 'series-number-field',
       venueNameField: 'venue-name-field',
+      volumeField: 'volume-field',
     },
     stepper: {
       contributorsStepButton: 'nav-tabpanel-contributors',

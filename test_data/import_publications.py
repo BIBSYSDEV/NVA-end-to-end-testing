@@ -240,8 +240,11 @@ def create_publication_data(publication_template, test_publication, location, us
         "name": test_file_name,
         "publisherAuthority": False,
         "size": test_file_size,
-        "type": "File"
+        "type": "File",
+        "administrativeAgreement": False
     }
+    if 'administrativeAgreement' in test_publication:
+        file['administrativeAgreement'] = test_publication['administrativeAgreement']
 
     new_publication['fileSet']['files'].append(file)
 
@@ -328,6 +331,7 @@ def approve_doi(identifier):
     response = requests.post(f'{approve_doi_endpoint}/{identifier}',
                              json=doi_request_payload, headers=headers)
     print(response.json())
+
 
 def run():
     print('publications...')

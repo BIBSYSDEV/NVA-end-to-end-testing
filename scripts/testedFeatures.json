@@ -61,6 +61,7 @@
   "creator_selects_resource_type_report",
   "1230-doi_minting/doi.feature",
   "institution_administrator_edits_my_institution",
+  "user_navigates_to_landing_page_for_registration_and_can_see_files",
   "owner_navigates_to_the_landing_page_for_their_registration",
   "user_affiliation",
   "user-logs-in",
