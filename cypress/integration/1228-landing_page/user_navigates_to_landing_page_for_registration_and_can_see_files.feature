@@ -44,7 +44,7 @@ Feature: User navigates to Landing Page for Registration and can see Files
     @2158
     Scenario Outline: Files can be previewed
         Given Anonymous User views Landing Page for Registration
-        And the Registration contains Files that are not Embargoed
+        And the Registration contains Files that are not Embargoed of type "<FileType>"
         And every File has an expandable Preview panel
         When the user expands the Preview panel
         Then the selected File is downloaded

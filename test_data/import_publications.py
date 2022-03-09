@@ -35,15 +35,11 @@ upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
 username = 'test-data-user@test.no'
 username_curator = 'test-user-curator-draft-doi@test.no'
-test_file_name = 'test_file.pdf'
-test_file_path = f'publications/files/{test_file_name}'
-test_file_size = os.stat(test_file_path).st_size
-test_file_modified = os.stat(test_file_path).st_mtime
-test_file = open(test_file_path, 'rb').read()
 
 arp_dict = {}
 file_dict = {}
 bearer_tokens = {}
+locations = {}
 headers = {
     'Authorization': '',
     'accept': 'application/json'
@@ -75,55 +71,65 @@ def map_user_to_arp():
 
 def upload_file(bearer_token):
     print('upload file...')
+    files = {
+        'image/png': 'sikt.png',
+        'application/pdf': 'test_file.pdf'
+    }
     headers['Authorization'] = f'Bearer {bearer_token}'
     # create
     print('create...')
-    response = requests.post(
-        upload_create,
-        json={
-            'filename': 'test_file.pdf',
-            'size': test_file_size,
-            'lastmodified': test_file_modified,
-            'mimetype': 'application/pdf'
-        },
-        headers=headers)
-    uploadId = response.json()['uploadId']
-    key = response.json()['key']
-    # prepare
-    print('prepare...')
-    response = requests.post(
-        upload_prepare,
-        json={
-            'number': 1,
+    for filekey in files.keys():
+        test_file_name = files[filekey]
+        test_file_path = f'publications/files/{test_file_name}'
+        test_file_size = os.stat(test_file_path).st_size
+        test_file_modified = os.stat(test_file_path).st_mtime
+        test_file = open(test_file_path, 'rb').read()
+        response = requests.post(
+            upload_create,
+            json={
+                'filename': test_file_name,
+                'size': test_file_size,
+                'lastmodified': test_file_modified,
+                'mimetype': 'application/pdf'
+            },
+            headers=headers)
+        uploadId = response.json()['uploadId']
+        key = response.json()['key']
+        # prepare
+        print('prepare...')
+        response = requests.post(
+            upload_prepare,
+            json={
+                'number': 1,
+                'uploadId': uploadId,
+                'body': str(test_file),
+                'key': key
+            },
+            headers=headers)
+        print('upload...')
+        presignedUrl = response.json()['url']
+        # upload
+        response = requests.put(presignedUrl, headers={
+                                'Accept': 'appliation/pdf'}, data=test_file)
+        ETag = response.headers['ETag']
+        # complete
+        print('complete...')
+        payload = {
             'uploadId': uploadId,
-            'body': str(test_file),
-            'key': key
-        },
-        headers=headers)
-    print('upload...')
-    presignedUrl = response.json()['url']
-    # upload
-    response = requests.put(presignedUrl, headers={
-                            'Accept': 'appliation/pdf'}, data=test_file)
-    ETag = response.headers['ETag']
-    # complete
-    print('complete...')
-    payload = {
-        'uploadId': uploadId,
-        'key': key,
-        'parts': [
-            {
-                'partNumber': 1,
-                'ETag': ETag
-            }
-        ]
-    }
-    response = requests.post(
-        upload_complete,
-        json=payload,
-        headers=headers)
-    return response.json()['location']
-
+            'key': key,
+            'parts': [
+                {
+                    'partNumber': 1,
+                    'ETag': ETag
+                }
+            ]
+        }
+        response = requests.post(
+            upload_complete,
+            json=payload,
+            headers=headers)
+        locations[filekey] = response.json()['location']
+    return locations
 
 def scan_resources():
     print('scanning resources')
@@ -208,7 +214,7 @@ def create_contributor(contributor):
         return new_contributor
 
 
-def create_publication_data(publication_template, test_publication, location, username, customer, status):
+def create_publication_data(publication_template, test_publication, username, customer, status):
     new_publication = copy.deepcopy(publication_template)
     new_publication['entityDescription']['mainTitle'] = test_publication['title']
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
@@ -225,10 +231,10 @@ def create_publication_data(publication_template, test_publication, location, us
         new_contributor = create_contributor(contributor=contributor)
         new_publication['entityDescription']['contributors'].append(
             new_contributor)
-
+            
     file = {
         "administrativeAgreement": False,
-        "identifier": location,
+        "identifier": locations['application/pdf'],
         "license": {
             "identifier": "CC0",
             "labels": {
@@ -243,9 +249,13 @@ def create_publication_data(publication_template, test_publication, location, us
         "type": "File",
         "administrativeAgreement": False
     }
+    if 'file' in test_publication:
+        file['name'] = test_publication['file']
+        file['mimeType'] = test_publication['mimeType']
     if 'administrativeAgreement' in test_publication:
         file['administrativeAgreement'] = test_publication['administrativeAgreement']
 
+    print(file)
     new_publication['fileSet']['files'].append(file)
 
     return new_publication
