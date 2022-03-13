@@ -281,7 +281,6 @@
     "status": "PUBLISHED",
     "contributor": "",
     "title": "Not Embargoed Image file",
-    "file": "sikt.png",
-    "mimeType": "image/png"
+    "fileType": "image"
   }
 ]

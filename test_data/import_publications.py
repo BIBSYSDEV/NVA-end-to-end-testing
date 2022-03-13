@@ -39,7 +39,20 @@ username_curator = 'test-user-curator-draft-doi@test.no'
 arp_dict = {}
 file_dict = {}
 bearer_tokens = {}
-locations = {}
+locations = {
+    "pdf": {},
+    "image": {}
+}
+fileTypes = {
+    'pdf': {
+        'mimeType': 'application/pdf',
+        'fileName': 'test_file.pdf'
+    },
+    'image': {
+        'mimeType': 'image/png',
+        'fileName': 'sikt.png'
+    }
+}
 headers = {
     'Authorization': '',
     'accept': 'application/json'
@@ -71,15 +84,11 @@ def map_user_to_arp():
 
 def upload_file(bearer_token):
     print('upload file...')
-    files = {
-        'image/png': 'sikt.png',
-        'application/pdf': 'test_file.pdf'
-    }
     headers['Authorization'] = f'Bearer {bearer_token}'
     # create
     print('create...')
-    for filekey in files.keys():
-        test_file_name = files[filekey]
+    for filekey in fileTypes.keys():
+        test_file_name = fileTypes[filekey]['fileName']
         test_file_path = f'publications/files/{test_file_name}'
         test_file_size = os.stat(test_file_path).st_size
         test_file_modified = os.stat(test_file_path).st_mtime
@@ -90,7 +99,7 @@ def upload_file(bearer_token):
                 'filename': test_file_name,
                 'size': test_file_size,
                 'lastmodified': test_file_modified,
-                'mimetype': 'application/pdf'
+                'mimetype': fileTypes[filekey]['mimeType']
             },
             headers=headers)
         uploadId = response.json()['uploadId']
@@ -128,8 +137,8 @@ def upload_file(bearer_token):
             upload_complete,
             json=payload,
             headers=headers)
-        locations[filekey] = response.json()['location']
-    return locations
+        locations[filekey]['location'] = response.json()['location']
+        locations[filekey]['filesize'] = test_file_size
 
 def scan_resources():
     print('scanning resources')
@@ -231,29 +240,34 @@ def create_publication_data(publication_template, test_publication, username, cu
         new_contributor = create_contributor(contributor=contributor)
         new_publication['entityDescription']['contributors'].append(
             new_contributor)
-            
+
     file = {
-        "administrativeAgreement": False,
-        "identifier": locations['application/pdf'],
-        "license": {
-            "identifier": "CC0",
-            "labels": {
-                "nb": "CC0"
+        'administrativeAgreement': False,
+        'identifier': 'location',
+        'license': {
+            'identifier': 'CC0',
+            'labels': {
+                'nb': 'CC0'
             },
-            "type": "License"
+            'type': 'License'
         },
-        "mimeType": "application/pdf",
-        "name": test_file_name,
-        "publisherAuthority": False,
-        "size": test_file_size,
-        "type": "File",
-        "administrativeAgreement": False
+        'mimeType': 'application/pdf',
+        'name': 'test_file_name',
+        'publisherAuthority': False,
+        'size': 'test_file_size',
+        'type': 'File',
+        'administrativeAgreement': False
     }
-    if 'file' in test_publication:
-        file['name'] = test_publication['file']
-        file['mimeType'] = test_publication['mimeType']
+    fileType = 'pdf'
+    if 'fileType' in test_publication:
+        fileType = test_publication['fileType']
     if 'administrativeAgreement' in test_publication:
         file['administrativeAgreement'] = test_publication['administrativeAgreement']
+    
+    file['name'] = fileTypes[fileType]['fileName']
+    file['mimeType'] = fileTypes[fileType]['mimeType']
+    file['identifier'] = locations[fileType]['location']
+    file['size'] = locations[fileType]['filesize']
 
     print(file)
     new_publication['fileSet']['files'].append(file)
@@ -261,7 +275,7 @@ def create_publication_data(publication_template, test_publication, username, cu
     return new_publication
 
 
-def create_test_publication(publication_template, test_publication, location, bearer_token):
+def create_test_publication(publication_template, test_publication, bearer_token):
     customer = get_customer(test_publication['owner'], bearer_token=bearer_token).replace(
         f'https://api.{STAGE}.nva.aws.unit.no/customer/', '')
     username = test_publication['owner']
@@ -270,7 +284,6 @@ def create_test_publication(publication_template, test_publication, location, be
     new_publication = create_publication_data(
         publication_template=publication_template,
         test_publication=test_publication,
-        location=location,
         username=username,
         customer=customer,
         status=status
@@ -279,7 +292,7 @@ def create_test_publication(publication_template, test_publication, location, be
     return new_publication
 
 
-def create_publications(location):
+def create_publications():
     with open(publication_template_file_name) as publication_template_file:
         publication_template = json.load(publication_template_file)
 
@@ -294,7 +307,6 @@ def create_publications(location):
             new_publication = create_test_publication(
                 publication_template=publication_template,
                 test_publication=test_publication,
-                location=location,
                 bearer_token=bearer_token
             )
             response = put_item(
@@ -324,8 +336,8 @@ def request_doi(identifier, username):
     request_bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
-        "identifier": identifier,
-        "message": "Test"
+        'identifier': identifier,
+        'message': 'Test'
     }
     response = requests.post(request_doi_endpoint,
                              json=doi_request_payload, headers=headers)
@@ -336,7 +348,7 @@ def approve_doi(identifier):
     request_bearer_token = common.login(username=username_curator)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
-        "doiRequestStatus": "APPROVED"
+        'doiRequestStatus': 'APPROVED'
     }
     response = requests.post(f'{approve_doi_endpoint}/{identifier}',
                              json=doi_request_payload, headers=headers)
@@ -347,10 +359,11 @@ def run():
     print('publications...')
     map_user_to_arp()
     bearer_token = common.login(username='test-user-with-author@test.no')
-    location = upload_file(bearer_token=bearer_token)
+    upload_file(bearer_token=bearer_token)
+    print(locations)
 
     delete_publications()
-    create_publications(location=location)
+    create_publications()
 
 
 if __name__ == '__main__':
