@@ -44,7 +44,7 @@ Feature: DOI related scenarios moved from MVP feature
 
   @TEST_NP-4199
   @1234
-  @test
+  # @test
   Scenario: Owner drafts a DOI for an unpublished Registration
     Given that the Owner View Landing Page for Registration for unpublished Registration without DOI
     And they are the Owner of the Registration
