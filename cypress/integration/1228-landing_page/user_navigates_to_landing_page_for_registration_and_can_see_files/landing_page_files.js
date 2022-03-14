@@ -2,6 +2,12 @@
 
 import { dataTestId } from '../../../support/dataTestIds';
 
+const fileTypes = {
+  'PDF': 'test_file.pdf',
+  'Image': 'sikt.png',
+  'Microsoft Office': 'example.docx',
+};
+
 // Common steps
 Given('Anonymous User views Landing Page for Registration', () => {
   cy.visit('/');
@@ -82,8 +88,12 @@ And('every File has an expandable Preview panel', () => {
 });
 When('the user expands the Preview panel', () => {});
 Then('the selected File is downloaded', () => {});
-And('they see the downloaded File is of type {string}', () => {});
-And('they see the preview of the downloaded File', () => {});
+And('they see the downloaded File is of type {string}', (type) => {
+  cy.get('[data-testid=file-name]').contains(fileTypes[type]);
+});
+And('they see the preview of the downloaded File', () => {
+  cy.get(`[data-testid=file-preview]`).should('be.visible');
+});
 // Examples:
 //     | FileType         |
 //     | PDF              |
@@ -91,15 +101,39 @@ And('they see the preview of the downloaded File', () => {});
 //     | Microsoft Office |
 
 // Scenario: Automatically preview first File
-And('the Registration contains Files', () => {});
+And('the Registration contains Files', () => {
+  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type('Not Embargoed Image file');
+  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
+    .filter(':contains("Not Embargoed Image file")')
+    .first()
+    .click();
+});
 When('the first File is not Embargoed', () => {});
 And("the File's size is less than 10 MB", () => {});
-Then("the File's Preview panel is expanded by default", () => {});
+Then("the File's Preview panel is expanded by default", () => {
+  cy.get('[data-testid=file]').within(() => {
+    cy.get('[data-testid=ExpandMoreIcon]').parent().should('have.property', 'Mui-expanded');
+  });
+});
 And('the File is automatically downloaded', () => {});
-And('the downloaded File is displayed', () => {});
+And('the downloaded File is displayed', () => {
+  cy.get(`[data-testid=file-preview]`).should('be.visible');
+});
 
 // Scenario: Lock Embargoed Files
-And('the Registration contains a File that is Embargoed', () => {});
-Then('the Embargoed File does not have an expandable Preview panel', () => {});
-And('the Embargoed File does not have a download button', () => {});
-And('the user can see the date when the File will no longer be Embargoed', () => {});
+And('the Registration contains a File that is Embargoed', () => {
+  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type('Embargoed PDF file');
+  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
+    .filter(':contains("Embargoed PDF file")')
+    .first()
+    .click();
+});
+Then('the Embargoed File does not have an expandable Preview panel', () => {
+  cy.get('[data-testid=file]').should('not.exist');
+});
+And('the Embargoed File does not have a download button', () => {
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.openFileButton}]`).should('not.exist');
+});
+And('the user can see the date when the File will no longer be Embargoed', () => {
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.fileEmbargoDate}]`).should('be.visible');
+});

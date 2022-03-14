@@ -5,6 +5,7 @@ import requests
 import os
 import common
 import time
+from datetime import date, timedelta
 
 dynamodb_client = boto3.client('dynamodb')
 s3_client = boto3.client('s3')
@@ -40,8 +41,9 @@ arp_dict = {}
 file_dict = {}
 bearer_tokens = {}
 locations = {
-    "pdf": {},
-    "image": {}
+    'pdf': {},
+    'image': {},
+    'office': {}
 }
 fileTypes = {
     'pdf': {
@@ -51,6 +53,10 @@ fileTypes = {
     'image': {
         'mimeType': 'image/png',
         'fileName': 'sikt.png'
+    },
+    'office': {
+        'mimeType': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'fileName': 'example.docx'
     }
 }
 headers = {
@@ -199,7 +205,6 @@ def put_item(new_publication, username):
         count = count + 1
         if count == 3:
             trying = False
-            print(response.json())
             raise RuntimeError('Failed to create Registration')
     return response.json()
 
@@ -263,13 +268,16 @@ def create_publication_data(publication_template, test_publication, username, cu
         fileType = test_publication['fileType']
     if 'administrativeAgreement' in test_publication:
         file['administrativeAgreement'] = test_publication['administrativeAgreement']
-    
+    if 'embargoed' in test_publication:
+        embargoDate = date.today() + timedelta(days=2)
+        dateString = embargoDate.strftime('%Y-%m-%dT00:00:00Z')
+        file['embargoDate'] = dateString
+
     file['name'] = fileTypes[fileType]['fileName']
     file['mimeType'] = fileTypes[fileType]['mimeType']
     file['identifier'] = locations[fileType]['location']
     file['size'] = locations[fileType]['filesize']
 
-    print(file)
     new_publication['fileSet']['files'].append(file)
 
     return new_publication

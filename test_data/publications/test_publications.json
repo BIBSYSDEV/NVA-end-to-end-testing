@@ -247,7 +247,8 @@
     "status": "PUBLISHED",
     "contributor": "",
     "title": "Administrative agreement",
-    "administrativeAgreement": true
+    "administrativeAgreement": true,
+    "fileType": "image"
   },
   {
     "publication_type": "JournalContent",
@@ -282,5 +283,29 @@
     "contributor": "",
     "title": "Not Embargoed Image file",
     "fileType": "image"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "",
+    "title": "Not Embargoed Microsoft Office file",
+    "fileType": "office"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "",
+    "title": "Embargoed PDF file",
+    "embargoed": true
   }
 ]

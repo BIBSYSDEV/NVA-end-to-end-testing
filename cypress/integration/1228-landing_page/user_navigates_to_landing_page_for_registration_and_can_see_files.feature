@@ -42,6 +42,7 @@ Feature: User navigates to Landing Page for Registration and can see Files
 
     @TEST_NP-4172
     @2158
+    @test
     Scenario Outline: Files can be previewed
         Given Anonymous User views Landing Page for Registration
         And the Registration contains Files that are not Embargoed of type "<FileType>"
@@ -57,6 +58,7 @@ Feature: User navigates to Landing Page for Registration and can see Files
             | Microsoft Office |
 
     @TEST_NP-4170
+    @test
     Scenario: Automatically preview first File
         Given Anonymous User views Landing Page for Registration
         And the Registration contains Files
@@ -67,6 +69,7 @@ Feature: User navigates to Landing Page for Registration and can see Files
         And the downloaded File is displayed
 
     @TEST_NP-4175
+    @test
     Scenario: Lock Embargoed Files
         Given Anonymous User views Landing Page for Registration
         And the Registration contains a File that is Embargoed

@@ -12,7 +12,6 @@ Feature: DOI related scenarios moved from MVP feature
 
   @TEST_NP-4200
   @1235
-  @test
   Scenario: Owner navigates to the submission tab and publish a Registration with a drafted DOI
     Given that the Owner navigates to Submission tab
     And the Registration has status Draft
@@ -45,7 +44,7 @@ Feature: DOI related scenarios moved from MVP feature
 
   @TEST_NP-4199
   @1234
-  @test
+  # @test
   Scenario: Owner drafts a DOI for an unpublished Registration
     Given that the Owner View Landing Page for Registration for unpublished Registration without DOI
     And they are the Owner of the Registration
@@ -75,7 +74,6 @@ Feature: DOI related scenarios moved from MVP feature
 
   @TEST_NP-4197
   @358
-  @test
   Scenario: Curator opens a Registration from a DOI Request Worklist Item
     Given that a Curator views details of a Worklist item
     And the item is a DOI request
