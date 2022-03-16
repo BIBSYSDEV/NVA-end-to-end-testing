@@ -110,7 +110,7 @@ Feature: DOI related scenarios moved from MVP feature
 
   @TEST_NP-4184
   @1232
-  @test
+  # @test
   Scenario: Owner navigates to the Landing page and requests a DOI
     Given that the Creator navigates to the Landing page for published Registration without DOI
     And they are the Owner of the Registration

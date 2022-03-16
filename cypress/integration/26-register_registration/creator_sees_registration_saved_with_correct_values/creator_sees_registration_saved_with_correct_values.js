@@ -12,7 +12,7 @@ const filename = 'example.json';
 // Feature: Creator sees registration is saved with correct values presented on landing page
 
 // Scenario Outline:
-Given('Author begins registering a registration', () => {
+Given('Author begins registering a Registration', () => {
   cy.login(userWithAuthor);
   cy.startWizardWithFile(filename);
 });

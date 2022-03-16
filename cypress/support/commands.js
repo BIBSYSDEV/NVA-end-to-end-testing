@@ -2,6 +2,7 @@ import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
+import 'cypress-file-upload';
 import {
   mockPersonFeideIdSearch,
   mockPersonNameSearch,
@@ -122,7 +123,7 @@ Cypress.Commands.add('login', (userId) => {
 Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
   cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
-  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+  cy.get('input[type=file]').attachFile(fileName);
 });
 
 Cypress.Commands.add('startWizardWithFile', (fileName) => {
@@ -205,7 +206,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 
   // Files and reference
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
-  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+  cy.get('input[type=file]').attachFile(fileName);
   cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`).within(() => {
     cy.get('input[type=radio]').first().click();
   });
@@ -215,9 +216,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.rawTable.forEach((value) => {
-    if (value[0] in values) {
-      cy.get(`[data-testid=${values[value[0]]}]`);
-    }
+    cy.get(`[data-testid=${values[value[0]]}]`);
   });
 });
 
@@ -292,16 +291,8 @@ Cypress.Commands.add('mockProjectSearch', () => {
 
 Cypress.Commands.add('mockInstitution', () => {
   cy.fixture('org_query.json').then((organizations) => {
-    cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization?query=*`, organizations);
-  });
-  cy.fixture('mock_institution_1.json').then((mockInstitution1) => {
-    cy.intercept(`https://api.cristin.no/v2/institutions/1111111111`, mockInstitution1);
-  });
-  cy.fixture('mock_institution_2.json').then((mockInstitution2) => {
-    cy.intercept(`https://api.cristin.no/v2/institutions/2222222222`, mockInstitution2);
-  });
-  cy.fixture('mock_institution_3.json').then((mockInstitution3) => {
-    cy.intercept(`https://api.cristin.no/v2/institutions/3333333333`, mockInstitution3);
+    cy.log(`mocking https://api.${stage}.nva.aws.unit.no/cristin/organization*`);
+    cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/?query=*`, organizations);
   });
 });
 
@@ -314,7 +305,6 @@ Cypress.Commands.add('mockDepartments', () => {
         `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
         departments
       );
-      cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}`, departments);
       cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.0.0.0`, departments);
       cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.1.0.0`, departments);
       cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.2.0.0`, departments);
@@ -409,6 +399,7 @@ const fillInField = (field) => {
       cy.contains(field['value']).click();
       break;
     case 'file':
+      cy.get('input[type=file]').attachFile(field['value']);
       break;
     case 'select':
       cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ');
@@ -498,19 +489,56 @@ Cypress.Commands.add('fillInCommonFields', (type, subtype) => {
     cy.get(`[data-testid=${registrationFields[key]['tab']}]`).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
       const field = registrationFields[key][subkey];
-      if (field['type'] === 'text') {
-        cy.get(`[data-testid=${field['fieldTestId']}]`).type(field['value']);
-      } else if (field['type'] === 'search') {
-        cy.get(`[data-testid=${field['fieldTestId']}]`).type(field['value']);
-      } else if (field['type'] === 'file') {
-        cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-      }
+      fillInField(field, type, subtype);
     });
   });
+});
+
+Cypress.Commands.add('fillInResourceType', (type, subtype) => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.get(`[data-testid=publication-context-type]`).click();
+  cy.get(`[data-testid=publication-context-type-${type.replaceAll(' ', '-')}]`).click({ force: true });
+  cy.get(`[data-testid=publication-instance-type]`).click();
+  cy.get(`[data-testid=publication-instance-type-${subtype.replaceAll(' ', '-')}]`).click();
   Object.keys(resourceTypes[type][subtype]).forEach((key) => {
-    const field = resourceTypes[type][subtype][key];
-    cy.get(`[data-testid=${dataTestId.registrationLandingPage.subtypeFields}]`)
-      .parent()
-      .contains(field['landingPageValue'] ?? field['value']);
+    if (key !== 'contributorType') {
+      const field = resourceTypes[type][subtype][key];
+      fillInField(field);
+    }
+  });
+  if ('contributorType' in resourceTypes[type]) {
+    cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
+    fillInField(resourceTypes[type]['contributorType']);
+  }
+});
+
+Cypress.Commands.add('fillInContributors', (type, subtype) => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
+  let fields = {};
+  if (type in contributors) {
+    fields = contributors[type];
+  } else if (subtype in contributors) {
+    fields = contributors[subtype];
+  } else {
+    fields = contributorsCommon;
+  }
+  Object.keys(fields).forEach((key) => {
+    const field = fields[key];
+    fillInField(field);
+  });
+});
+
+Cypress.Commands.add('checkLandingPage', () => {
+  Object.keys(registrationFields).forEach((key) => {
+    Object.keys(registrationFields[key]).forEach((subkey) => {
+      const field = registrationFields[key][subkey];
+      if (field['landingPageTestId']) {
+        if (field['landingPageTestId'] === dataTestId.registrationLandingPage.license) {
+          cy.get(`[data-testid=${field['landingPageTestId']}]`).get(`[title="${field['value']}"]`);
+        } else {
+          cy.get(`[data-testid^=${field['landingPageTestId']}]`).should('contain', field['value']);
+        }
+      }
+    });
   });
 });
