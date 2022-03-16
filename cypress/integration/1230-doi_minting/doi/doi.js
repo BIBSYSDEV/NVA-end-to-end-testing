@@ -131,7 +131,7 @@ And('the "Draft a DOI" button is renamed to "DOI pending" and is disabled', () =
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.reserveDoiButton}]`).should('not.exist');
 });
 And('the Draft DOI is added to the metadata', () => {
-  cy.wait(10000);
+  cy.wait(5000);
   cy.reload();
 });
 And('the Landing Page for Registration contains the Draft DOI', () => {

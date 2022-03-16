@@ -12,7 +12,7 @@ import {
 } from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
-import { registrationFields } from './save_registration';
+import { contributors, contributorsCommon, registrationFields, resourceTypes } from './save_registration';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -399,7 +399,101 @@ Cypress.Commands.add('mockCreatePerson', (userId) => {
   });
 });
 
-Cypress.Commands.add('fillInCommonFields', () => {
+const fillInField = (field) => {
+  switch (field['type']) {
+    case 'text':
+      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value']);
+      break;
+    case 'search':
+      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value']);
+      cy.contains(field['value']).click();
+      break;
+    case 'file':
+      break;
+    case 'select':
+      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ');
+      cy.contains(field['value']).click({ force: true });
+      break;
+    case 'add':
+      cy.get(`[data-testid=${field['fieldTestId']}]`).click();
+      if ('fields' in field['add']) {
+        Object.keys(field['add']['fields']).forEach((key) => {
+          cy.get(`[data-testid=${key}]`).type(field['add']['fields'][key]);
+        });
+      } else {
+        if ('select' in field['add']) {
+          cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click();
+          cy.contains(field['add']['select']['value']).click({ force: true });
+        }
+        cy.get(`[data-testid=${field['add']['searchFieldTestId']}]`).type(field['add']['searchValue']);
+        cy.get(`[data-testid=${field['add']['resultsTestId']}]`).filter(`:contains(${field['value']})`).click();
+      }
+      cy.get(`[data-testid=${field['add']['selectButtonTestId']}]`).click();
+      break;
+    case 'checkbox':
+      switch (field['checkbox']['selected']) {
+        case 'first':
+          cy.get(`[data-testid=${field['fieldTestId']}`).within(() => {
+            cy.get('input').first().click();
+          });
+          break;
+        case 'check':
+          if (field['value']) {
+            cy.get(`[data-testid=${field['fieldTestId']}]`).click();
+          }
+          break;
+      }
+      break;
+    default:
+      break;
+  }
+};
+
+Cypress.Commands.add('checkField', (field) => {
+  const value = field['landingPageValue'] ?? field['value'];
+  switch (field['elementType']) {
+    case 'input':
+      cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', value);
+      break;
+    case 'textArea':
+      cy.get(`[data-testid=${field['fieldTestId']}] textArea`).should('contain', value);
+      break;
+    case 'chip':
+      cy.get(`[data-testid=${field['fieldTestId']}] span`).should('contain', value);
+      break;
+    case 'search':
+      cy.get(`[data-testid=${field['fieldTestId']}] div`).should('contain', value);
+      break;
+    case 'file':
+      cy.get('[data-testid=uploaded-file-card] > div > p').should('contain', value);
+      break;
+    case 'radio':
+      cy.get(`[data-testid=${field['fieldTestId']}] span`)
+        .parent()
+        .within(() => {
+          cy.contains(value);
+          cy.get('input').should('be.checked');
+        });
+      break;
+    case 'checkbox':
+      cy.get(`[data-testid=${field['fieldTestId']}] span`)
+        .parent()
+        .within(() => {
+          cy.get('input').should(value ? 'be.checked' : 'not.be.checked');
+        });
+      break;
+    case 'place':
+      cy.get(`[data-testid=${field['fieldTestId']}]`)
+        .parent()
+        .within(() => {
+          cy.contains(field['value']);
+        });
+  }
+});
+
+Cypress.Commands.add('checkRsourceFields', (type, subtype) => {});
+
+Cypress.Commands.add('fillInCommonFields', (type, subtype) => {
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key]['tab']}]`).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
@@ -412,5 +506,11 @@ Cypress.Commands.add('fillInCommonFields', () => {
         cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
       }
     });
+  });
+  Object.keys(resourceTypes[type][subtype]).forEach((key) => {
+    const field = resourceTypes[type][subtype][key];
+    cy.get(`[data-testid=${dataTestId.registrationLandingPage.subtypeFields}]`)
+      .parent()
+      .contains(field['landingPageValue'] ?? field['value']);
   });
 });

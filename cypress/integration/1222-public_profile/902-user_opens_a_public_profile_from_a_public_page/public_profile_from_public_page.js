@@ -16,7 +16,9 @@ Given('the Creator publishes Publication', () => {
 });
 When('they click a Contributor', () => {
   cy.intercept('GET', `https://api.${stage}.nva.aws.unit.no/person/1234567890`, mockPerson(userWithAuthor));
-  cy.get(`[data-testid^=${dataTestId.registrationLandingPage.authorLink('')}]`).first().click({ force: true });
+  cy.get(`[data-testid^=${dataTestId.registrationLandingPage.authorLink('')}]`)
+    .first()
+    .click({ force: true });
 });
 Then("they see the Contributor's public profile page", () => {
   cy.location('pathname').should('equal', '/user');

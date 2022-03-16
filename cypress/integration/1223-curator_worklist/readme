@@ -20,5 +20,5 @@ The Worklist may contain Requests of four types:
         - See doi_requests.features for details
     Ownership:
         - Each Resource is owned by a User and the Users (IDP) affiliation decides the owning institution.
-        - Curator at the current owning institution decides on disputed ownership 
+        - Curator at the current owning institution decides on disputed ownership
         - See ownership_requests.features for details
