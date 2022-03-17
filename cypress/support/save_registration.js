@@ -250,8 +250,8 @@ const resourceTypeFields = {
     fieldTestId: dataTestId.registrationWizard.resourceType.isbnField,
     elementType: 'input',
     landingPageTestId: '',
-    value: '9780345300058',
-    landingPageValue: '978-0-34-530005-8',
+    value: '9781234567897',
+    landingPageValue: '978-12-345-6789-7',
   },
   pages: {
     type: 'text',

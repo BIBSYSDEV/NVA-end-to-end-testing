@@ -11,7 +11,8 @@ When('an Anonymous user navigates to a Landing Page for a Resource', () => {
   cy.get(`[data-testid=${dataTestId.startPage.searchButton}]`).click();
   cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(landing_page_registration_title);
   cy.get(`[data-testid=${dataTestId.startPage.searchButton}]`).click();
-  cy.wait(1000);
+  cy.wait(2000);
+  cy.get('[data-testid=result-list-item]').filter(`:contains(${landing_page_registration_title})`).should('be.visible');
   cy.get('[data-testid=result-list-item]')
     .filter(`:contains(${landing_page_registration_title})`)
     .first()

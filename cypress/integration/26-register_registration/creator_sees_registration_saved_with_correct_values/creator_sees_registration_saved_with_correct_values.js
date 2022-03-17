@@ -29,7 +29,7 @@ And('fill in values for all fields', () => {
   });
   cy.fillInCommonFields();
 });
-When('they saves registration', () => {
+When('they saves Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
   cy.get('[data-testid="button-save-registration"]').click();
 });
@@ -40,7 +40,7 @@ Then('they can see the values on the Registration Landing Page', () => {
     });
   });
 });
-And('they can see the values in the registration wizard', () => {
+And('they can see the values in the Registration Wizard', () => {
   cy.get('[data-testid=button-edit-registration]').click();
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key]['tab']}]`).click();
