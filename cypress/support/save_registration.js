@@ -359,7 +359,7 @@ const resourceTypeFields = {
     fieldTestId: dataTestId.registrationWizard.resourceType.partOfField,
     elementType: 'search',
     landingPageTestId: '',
-    value: 'Anthology',
+    value: 'Antologi',
   },
   titleOfEvent: {
     type: 'text',
