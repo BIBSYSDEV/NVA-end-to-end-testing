@@ -286,7 +286,7 @@ const resourceTypeFields = {
     fieldTestId: dataTestId.registrationWizard.resourceType.contentField,
     elementType: 'search',
     landingPageTestId: '',
-    value: 'Research article',
+    value: 'Academic article',
   },
   chapterContent: {
     type: 'select',
@@ -359,7 +359,7 @@ const resourceTypeFields = {
     fieldTestId: dataTestId.registrationWizard.resourceType.partOfField,
     elementType: 'search',
     landingPageTestId: '',
-    value: 'Antologi',
+    value: 'Anthology',
   },
   titleOfEvent: {
     type: 'text',
