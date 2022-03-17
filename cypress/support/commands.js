@@ -2,7 +2,6 @@ import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import Amplify, { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
-import 'cypress-file-upload';
 import {
   mockPersonFeideIdSearch,
   mockPersonNameSearch,
@@ -123,7 +122,7 @@ Cypress.Commands.add('login', (userId) => {
 Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
   cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
-  cy.get('input[type=file]').attachFile(fileName);
+  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });
 
 Cypress.Commands.add('startWizardWithFile', (fileName) => {
@@ -206,7 +205,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 
   // Files and reference
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
-  cy.get('input[type=file]').attachFile(fileName);
+  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`).within(() => {
     cy.get('input[type=radio]').first().click();
   });
@@ -399,7 +398,7 @@ const fillInField = (field) => {
       cy.contains(field['value']).click();
       break;
     case 'file':
-      cy.get('input[type=file]').attachFile(field['value']);
+      cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true });
       break;
     case 'select':
       cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ');
