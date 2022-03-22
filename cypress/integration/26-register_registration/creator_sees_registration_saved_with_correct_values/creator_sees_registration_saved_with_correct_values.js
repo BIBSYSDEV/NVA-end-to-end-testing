@@ -15,6 +15,7 @@ const filename = 'example.json';
 Given('Author begins registering a Registration', () => {
   cy.login(userWithAuthor);
   cy.startWizardWithFile(filename);
+  cy.mockPersonSearch(userWithAuthor);
 });
 And('selects {string} and {string}', (type, subType) => {
   cy.wrap(type).as('type');

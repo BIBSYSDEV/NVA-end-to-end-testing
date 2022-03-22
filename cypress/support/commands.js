@@ -279,7 +279,7 @@ Cypress.Commands.add('mockPersonSearch', (userId) => {
     `https://api.${stage}.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
     mockPersonFeideIdSearch(userId)
   );
-  cy.intercept(`https://api.${stage}.nva.aws.unit.no/person?name=*`, mockPersonNameSearch(userId));
+  cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?query=*`, mockPersonNameSearch(userId));
 });
 
 Cypress.Commands.add('mockProjectSearch', () => {
@@ -391,10 +391,10 @@ Cypress.Commands.add('mockCreatePerson', (userId) => {
 const fillInField = (field) => {
   switch (field['type']) {
     case 'text':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value']);
+      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], {delay: 1});
       break;
     case 'search':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value']);
+      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], {delay: 1});
       cy.contains(field['value']).click();
       break;
     case 'file':

@@ -62,6 +62,7 @@ export const dataTestId = {
     file: 'file',
     fileEmbargoDate: 'file-embargo-date',
     fileName: 'file-name',
+    filePreview: 'file-preview',
     fileSize: 'file-size',
     fileVersion: 'file-version',
     filesAccordion: 'files-accordion',
@@ -92,8 +93,9 @@ export const dataTestId = {
     contributors: {
       addAffiliationButton: 'button-add-affiliation',
       addContributorButton: (role) => `add-${role}`,
+      addSelfButton: 'add-self-button',
+      addUnverifiedContributorButton: 'add-unverified-contributor-button',
       authorRadioButton: 'author-radio-button',
-      connectAuthorButton: 'connect-author-button',
       correspondingCheckbox: 'author-corresponding-checkbox',
       verifyAffiliationButton: 'button-set-unverified-affiliation',
       verifyContributorButton: (name) => `button-set-unverified-contributor-${name}`,
@@ -101,6 +103,7 @@ export const dataTestId = {
       removeContributorButton: (name) => `button-remove-contributor-${name}`,
       searchField: 'search-field',
       selectContributorType: 'select-contributor-type',
+      selectUserButton: 'select-user-button',
     },
     description: {
       addVocabularyButton: 'add-vocabulary-button',
@@ -140,6 +143,10 @@ export const dataTestId = {
       startRegistrationButton: 'registration-start-button',
     },
     resourceType: {
+      addCompetitionButton: 'add-competition-button',
+      addExhibitionButton: 'add-exhibition-button',
+      addMentionInPublicationButton: 'add-mention-in-publication-button',
+      addAwardButton: 'add-award-button',
       addVenueButton: 'add-venue-button',
       articleNumberField: 'article-number-field',
       artisticTypeField: 'artistic-type-field',
