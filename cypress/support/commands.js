@@ -391,45 +391,49 @@ Cypress.Commands.add('mockCreatePerson', (userId) => {
 const fillInField = (field) => {
   switch (field['type']) {
     case 'text':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], {delay: 1});
+      cy.get(`[data-testid=${field['fieldTestId']}]`)
+        .should('be.visible')
+        .type(field['value'], { delay: 1, force: true });
       break;
     case 'search':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], {delay: 1});
+      cy.get(`[data-testid=${field['fieldTestId']}]`)
+        .should('be.visible')
+        .type(field['value'], { delay: 1, force: true });
       cy.contains(field['value']).click();
       break;
     case 'file':
-      cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true });
+      cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true, force: true });
       break;
     case 'select':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ');
+      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ', { force: true });
       cy.contains(field['value']).click({ force: true });
       break;
     case 'add':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).click();
+      cy.get(`[data-testid=${field['fieldTestId']}]`).click({ force: true });
       if ('fields' in field['add']) {
         Object.keys(field['add']['fields']).forEach((key) => {
-          cy.get(`[data-testid=${key}]`).type(field['add']['fields'][key]);
+          cy.get(`[data-testid=${key}]`).type(field['add']['fields'][key], { force: true });
         });
       } else {
         if ('select' in field['add']) {
-          cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click();
+          cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click({force: true});
           cy.contains(field['add']['select']['value']).click({ force: true });
         }
-        cy.get(`[data-testid=${field['add']['searchFieldTestId']}]`).type(field['add']['searchValue']);
-        cy.get(`[data-testid=${field['add']['resultsTestId']}]`).filter(`:contains(${field['value']})`).click();
+        cy.get(`[data-testid=${field['add']['searchFieldTestId']}]`).type(field['add']['searchValue'], {force: true});
+        cy.get(`[data-testid=${field['add']['resultsTestId']}]`).filter(`:contains(${field['value']})`).click({force: true});
       }
-      cy.get(`[data-testid=${field['add']['selectButtonTestId']}]`).click();
+      cy.get(`[data-testid=${field['add']['selectButtonTestId']}]`).click({force: true});
       break;
     case 'checkbox':
       switch (field['checkbox']['selected']) {
         case 'first':
           cy.get(`[data-testid=${field['fieldTestId']}`).within(() => {
-            cy.get('input').first().click();
+            cy.get('input').first().click({force: true});
           });
           break;
         case 'check':
           if (field['value']) {
-            cy.get(`[data-testid=${field['fieldTestId']}]`).click();
+            cy.get(`[data-testid=${field['fieldTestId']}]`).click({force: true});
           }
           break;
       }
@@ -498,7 +502,7 @@ Cypress.Commands.add('fillInResourceType', (type, subtype) => {
   cy.get(`[data-testid=publication-context-type]`).click();
   cy.get(`[data-testid=publication-context-type-${type.replaceAll(' ', '-')}]`).click({ force: true });
   cy.get(`[data-testid=publication-instance-type]`).click();
-  cy.get(`[data-testid=publication-instance-type-${subtype.replaceAll(' ', '-')}]`).click();
+  cy.get(`[data-testid=publication-instance-type-${subtype.replaceAll(' ', '-')}]`).click({ force: true });
   Object.keys(resourceTypes[type][subtype]).forEach((key) => {
     if (key !== 'contributorType') {
       const field = resourceTypes[type][subtype][key];
