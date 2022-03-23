@@ -279,7 +279,7 @@ Cypress.Commands.add('mockPersonSearch', (userId) => {
     `https://api.${stage}.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
     mockPersonFeideIdSearch(userId)
   );
-  cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?query=*`, mockPersonNameSearch(userId));
+  cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?name=*`, mockPersonNameSearch(userId));
 });
 
 Cypress.Commands.add('mockProjectSearch', () => {
@@ -416,24 +416,26 @@ const fillInField = (field) => {
         });
       } else {
         if ('select' in field['add']) {
-          cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click({force: true});
+          cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click({ force: true });
           cy.contains(field['add']['select']['value']).click({ force: true });
         }
-        cy.get(`[data-testid=${field['add']['searchFieldTestId']}]`).type(field['add']['searchValue'], {force: true});
-        cy.get(`[data-testid=${field['add']['resultsTestId']}]`).filter(`:contains(${field['value']})`).click({force: true});
+        cy.get(`[data-testid=${field['add']['searchFieldTestId']}]`).type(field['add']['searchValue'], { force: true });
+        cy.get(`[data-testid=${field['add']['resultsTestId']}]`)
+          .filter(`:contains(${field['value']})`)
+          .click({ force: true });
       }
-      cy.get(`[data-testid=${field['add']['selectButtonTestId']}]`).click({force: true});
+      cy.get(`[data-testid=${field['add']['selectButtonTestId']}]`).click({ force: true });
       break;
     case 'checkbox':
       switch (field['checkbox']['selected']) {
         case 'first':
           cy.get(`[data-testid=${field['fieldTestId']}`).within(() => {
-            cy.get('input').first().click({force: true});
+            cy.get('input').first().click({ force: true });
           });
           break;
         case 'check':
           if (field['value']) {
-            cy.get(`[data-testid=${field['fieldTestId']}]`).click({force: true});
+            cy.get(`[data-testid=${field['fieldTestId']}]`).click({ force: true });
           }
           break;
       }

@@ -103,6 +103,7 @@ export const resourceTypes = {
   'Degree': 'publication-context-type-Degree',
   'Chapter': 'publication-context-type-Chapter',
   'Part of book or report': 'publication-context-type-Chapter',
+  'Part of book/report': 'publication-context-type-Chapter',
   'Presentation': 'publication-context-type-Event',
   'Artistic': 'publication-context-type-Artistic',
 };
