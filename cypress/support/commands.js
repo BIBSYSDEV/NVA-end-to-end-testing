@@ -199,9 +199,9 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Contributors
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click({ force: true });
   cy.get('[data-testid=Creator] > button').click({ force: true });
-  cy.get('[data-testid=search-field]').type('Testuser Withauthor{enter}');
-  cy.get('[data-testid=author-radio-button]').click({ force: true });
-  cy.get('[data-testid=connect-author-button]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('Testuser Withauthor{enter}');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
 
   // Files and reference
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });

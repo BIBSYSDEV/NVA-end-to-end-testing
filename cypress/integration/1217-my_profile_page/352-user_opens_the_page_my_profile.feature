@@ -11,7 +11,7 @@ Feature: User opens the page My Profile
             | Real name     |
             | Feide ID      |
             | Email         |
-            | ORCID         |
+            # | ORCID         |
             | Roles         |
             | Organizations |
             | Language      |

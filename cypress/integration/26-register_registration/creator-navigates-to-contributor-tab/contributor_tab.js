@@ -65,13 +65,13 @@ And('their current Affiliations are listed', () => {});
 //   @419
 //   Scenario: Creator adds an Author to the list of Authors
 And('they search for Author in the Author Search Dialog', () => {
-  cy.get('[data-testid=search-field]').type('TestUser, Withauthor');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('TestUser, Withauthor');
 });
 And('they select an Author identity', () => {
-  cy.get('[data-testid=author-radio-button]').first().click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).first().click({ force: true });
 });
 And('they click "Add"', () => {
-  cy.get('[data-testid=connect-author-button]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
 });
 Then('the selected Author identity is added to the list of Authors', () => {
   cy.get('[data-testid=Creator]').within((authors) => {

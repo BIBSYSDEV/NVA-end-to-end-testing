@@ -11,9 +11,11 @@ And('they navigate to the Contributors tab', () => {
 And('they see an Author', () => {
   cy.get('[data-testid=add-Creator]').click({ force: true });
   cy.mockPersonSearch(userWithAuthor);
-  cy.get('[data-testid=search-field] > div > input').type('Testuser Withauthor{enter}');
-  cy.get('[data-testid=author-radio-button]').click({ force: true });
-  cy.get('[data-testid=connect-author-button]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}] > div > input`).type(
+    'Testuser Withauthor{enter}'
+  );
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
 });
 When('they check the Corresponding checkbox', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.correspondingCheckbox}] > input`).click({
