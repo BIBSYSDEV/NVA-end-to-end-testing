@@ -100,8 +100,8 @@ When('they select an Author identity', () => {
     .click({ force: true });
 });
 And('they click Connect Author identity', () => {
-  cy.get('[data-testid=connect-author-button]').should('be.enabled');
-  cy.get('[data-testid=connect-author-button]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
   cy.get('[data-testid=modal_next]').should('be.visible'); // Wait until next modal is visible to avoid race condition
   cy.window().its('store').invoke('getState').its('user').its('authority').as('authority');
 });
@@ -120,7 +120,7 @@ Given('that the user has just connected to an Author identity', () => {
     .get('input[type=radio]')
     .first()
     .click({ force: true });
-  cy.get('[data-testid=connect-author-button]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
 });
 And('they can see confirmation message that they have connected an Author identity', () => {
   cy.get('[data-testid=connected-authority-heading]').should('be.visible');

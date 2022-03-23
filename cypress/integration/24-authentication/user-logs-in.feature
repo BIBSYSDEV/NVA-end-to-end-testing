@@ -32,7 +32,7 @@ Feature: User logs in
     And they can see confirmation message that they have connected an Author identity
 
   @TEST_NP-4228
-  @test
+  # @test
   @219
   Scenario: User updates an Author identity
     Given that the user logs in with their Feide ID
