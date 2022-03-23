@@ -1,6 +1,11 @@
 import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { contributorCreateFields, resourceTypes } from '../../../support/data_testid_constants';
+import {
+  contributorButtons,
+  contributorCreateFields,
+  resourceTypes,
+  resourceSubTypes,
+} from '../../../support/data_testid_constants';
 
 // Feature: Creator navigates to Contributors tab
 // Common steps
@@ -62,13 +67,72 @@ Then('their Author identity is added to the list of Authors', () => {
   });
 });
 And('their current Affiliations are listed', () => {});
+
+// Scenario Outline: Creator see buttons to add Contributors
+Given('Creator navigates to Contributors tab', () => {
+  cy.login(userWithAuthor);
+  cy.startWizardWithEmptyRegistration();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+});
+When('the Registration has Registration Type {string}', (type) => {
+  cy.get('[data-testid=publication-context-type]').click();
+  cy.get(`[data-testid=${resourceTypes[type]}]`).click();
+});
+And('the Registration has Registration Subtype {string}', (subtype) => {
+  cy.get('[data-testid=publication-instance-type]').click();
+  cy.get(`[data-testid=publication-instance-type-${subtype}]`).click();
+});
+Then('they see buttons {string}', (button) => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
+  const buttons = button.split(', ');
+  buttons.forEach((contributorButton) => {
+    cy.get(`[data-testid=${contributorButtons[contributorButton]}]`).should('be.visible');
+  });
+});
+// Examples:
+//   | RegistrationType | RegistrationSubtype       | AddContributorButtons                       |
+//   | Book             | BookAnthology             | Add Editor, Add Contributor                 |
+//   | Book             | BookMonograph             | Add Author, Add Contributor                 |
+//   | Chapter          | ChapterArticle            | Add Author, Add Contributor                 |
+//   | Chapter          | ChapterConferenceAbstract | Add Author, Add Contributor                 |
+//   | Degree           | DegreeBachelor            | Add Author, Add Supervisor, Add Contributor |
+//   | Degree           | DegreeMaster              | Add Author, Add Supervisor, Add Contributor |
+//   | Degree           | DegreePhd                 | Add Author, Add Supervisor, Add Contributor |
+//   | Degree           | DegreeLicentiate          | Add Author, Add Supervisor, Add Contributor |
+//   | Degree           | OtherStudentWork          | Add Author, Add Supervisor, Add Contributor |
+//   | Journal          | FeatureArticle            | Add Author, Add Contributor                 |
+//   | Journal          | JournalArticle            | Add Author, Add Contributor                 |
+//   | Journal          | JournalCorrigendum        | Add Author, Add Contributor                 |
+//   | Journal          | JournalLeader             | Add Author, Add Contributor                 |
+//   | Journal          | JournalLetter             | Add Author, Add Contributor                 |
+//   | Journal          | JournalReview             | Add Author, Add Contributor                 |
+//   | Journal          | JournalBooklet            | Add Author, Add Contributor                 |
+//   | Journal          | JournalConferenceAbstract | Add Author, Add Contributor                 |
+//   | Report           | ReportBasic               | Add Author, Add Contributor                 |
+//   | Report           | ReportPolicy              | Add Author, Add Contributor                 |
+//   | Report           | ReportResearch            | Add Author, Add Contributor                 |
+//   | Report           | ReportAbstractCollection  | Add Author, Add Contributor                 |
+//   | Report           | ReportWorkingPaper        | Add Author, Add Contributor                 |
+//   | Presentation     | ConferenceLecture         | Add Author, Add Contributor                 |
+//   | Presentation     | ConferencePoster          | Add Author, Add Contributor                 |
+//   | Presentation     | Lecture                   | Add Author, Add Contributor                 |
+//   | Presentation     | OtherPresentation         | Add Author, Add Contributor                 |
+//   | Artistic         | ArtisticDesign            | Add Contributor                             |
+//   | Media            | Interview                 | Add Author, Add Contributor                 |
+//   | Media            | Blog                      | Add Author, Add Contributor                 |
+//   | Media            | Podcast                   | Add Contributor                             |
+//   | Media            | ProgrammeManagement       | Add Contributor                             |
+//   | Media            | ProgrammeParticipation    | Add Contributor                             |
+
 //   @419
 //   Scenario: Creator adds an Author to the list of Authors
 And('they search for Author in the Author Search Dialog', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('TestUser, Withauthor');
 });
 And('they select an Author identity', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).first().click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`)
+    .first()
+    .click({ force: true });
 });
 And('they click "Add"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });

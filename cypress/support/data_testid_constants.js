@@ -96,10 +96,15 @@ export const institutionFields = {
 
 export const resourceTypes = {
   'Contribution to journal': 'publication-context-type-Journal',
+  'Journal': 'publication-context-type-Journal',
   'Book': 'publication-context-type-Book',
   'Report': 'publication-context-type-Report',
   'Student thesis': 'publication-context-type-Degree',
-  'Part of book/report': 'publication-context-type-Chapter',
+  'Degree': 'publication-context-type-Degree',
+  'Chapter': 'publication-context-type-Chapter',
+  'Part of book or report': 'publication-context-type-Chapter',
+  'Presentation': 'publication-context-type-Event',
+  'Artistic': 'publication-context-type-Artistic',
 };
 
 export const journalSubtypes = {
@@ -195,6 +200,14 @@ export const CHAPTER_FIELDS = {
 
 export const OTHER_SUBTYPES = {};
 
+export const resourceSubTypes = {
+  ...bookSubtypes,
+  ...chapterSubtypes,
+  ...journalSubtypes,
+  ...reportSubtypes,
+  ...studentThesisSubtypes,
+};
+
 export const OTHER_FIELDS = {};
 
 export const descriptionFields = {
@@ -215,6 +228,13 @@ export const resourceTypeFields = {
 export const contributorCreateFields = {
   'First name': 'create-contributor-first-name',
   'Last name': 'create-contributor-last-name',
+};
+
+export const contributorButtons = {
+  'Add Author': 'Creator',
+  'Add Contributor': 'OtherContributor',
+  'Add Supervisor': 'Supervisor',
+  'Add Editor': 'Editor',
 };
 
 export const landingPageFields = {

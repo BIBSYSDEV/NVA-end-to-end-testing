@@ -14,6 +14,7 @@ Feature: Creator navigates to Contributors tab
     And they see Next is enabled
     And they see Save is enabled
 
+  @test
   @TEST_NP-4002
   Scenario Outline: Creator see buttons to add Contributors
     Given Creator navigates to Contributors tab
@@ -25,11 +26,11 @@ Feature: Creator navigates to Contributors tab
       | Book             | BookAnthology             | Add Editor, Add Contributor                 |
       | Book             | BookMonograph             | Add Author, Add Contributor                 |
       | Chapter          | ChapterArticle            | Add Author, Add Contributor                 |
-      | Chapter          | ChapterConferenceAbstract | Add Author, Add Contributor                 |
+      # | Chapter          | ChapterConferenceAbstract | Add Author, Add Contributor                 |
       | Degree           | DegreeBachelor            | Add Author, Add Supervisor, Add Contributor |
       | Degree           | DegreeMaster              | Add Author, Add Supervisor, Add Contributor |
       | Degree           | DegreePhd                 | Add Author, Add Supervisor, Add Contributor |
-      | Degree           | DegreeLicentiate          | Add Author, Add Supervisor, Add Contributor |
+      # | Degree           | DegreeLicentiate          | Add Author, Add Supervisor, Add Contributor |
       | Degree           | OtherStudentWork          | Add Author, Add Supervisor, Add Contributor |
       | Journal          | FeatureArticle            | Add Author, Add Contributor                 |
       | Journal          | JournalArticle            | Add Author, Add Contributor                 |
@@ -37,23 +38,23 @@ Feature: Creator navigates to Contributors tab
       | Journal          | JournalLeader             | Add Author, Add Contributor                 |
       | Journal          | JournalLetter             | Add Author, Add Contributor                 |
       | Journal          | JournalReview             | Add Author, Add Contributor                 |
-      | Journal          | JournalBooklet            | Add Author, Add Contributor                 |
-      | Journal          | JournalConferenceAbstract | Add Author, Add Contributor                 |
+      # | Journal          | JournalBooklet            | Add Author, Add Contributor                 |
+      # | Journal          | JournalConferenceAbstract | Add Author, Add Contributor                 |
       | Report           | ReportBasic               | Add Author, Add Contributor                 |
       | Report           | ReportPolicy              | Add Author, Add Contributor                 |
       | Report           | ReportResearch            | Add Author, Add Contributor                 |
-      | Report           | ReportAbstractCollection  | Add Author, Add Contributor                 |
+      # | Report           | ReportAbstractCollection  | Add Author, Add Contributor                 |
       | Report           | ReportWorkingPaper        | Add Author, Add Contributor                 |
       | Presentation     | ConferenceLecture         | Add Author, Add Contributor                 |
       | Presentation     | ConferencePoster          | Add Author, Add Contributor                 |
       | Presentation     | Lecture                   | Add Author, Add Contributor                 |
       | Presentation     | OtherPresentation         | Add Author, Add Contributor                 |
       | Artistic         | ArtisticDesign            | Add Contributor                             |
-      | Media            | Interview                 | Add Author, Add Contributor                 |
-      | Media            | Blog                      | Add Author, Add Contributor                 |
-      | Media            | Podcast                   | Add Contributor                             |
-      | Media            | ProgrammeManagement       | Add Contributor                             |
-      | Media            | ProgrammeParticipation    | Add Contributor                             |
+      # | Media            | Interview                 | Add Author, Add Contributor                 |
+      # | Media            | Blog                      | Add Author, Add Contributor                 |
+      # | Media            | Podcast                   | Add Contributor                             |
+      # | Media            | ProgrammeManagement       | Add Contributor                             |
+      # | Media            | ProgrammeParticipation    | Add Contributor                             |
 
   @TEST_NP-4005
   # @test
