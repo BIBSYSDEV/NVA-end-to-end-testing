@@ -58,7 +58,7 @@ And('they click "Add me as Author"', () => {
 });
 Then('their Author identity is added to the list of Authors', () => {
   cy.get('[data-testid=Creator]').within((authors) => {
-    cy.wrap(authors).contains('TestUser, Withauthor');
+    cy.wrap(authors).contains('Withauthor TestUser');
   });
 });
 And('their current Affiliations are listed', () => {});
@@ -75,7 +75,7 @@ And('they click "Add"', () => {
 });
 Then('the selected Author identity is added to the list of Authors', () => {
   cy.get('[data-testid=Creator]').within((authors) => {
-    cy.wrap(authors).contains('TestUser, Withauthor');
+    cy.wrap(authors).contains('Withauthor TestUser');
   });
 });
 
@@ -123,7 +123,7 @@ And('they search for Editor in the Author Search Dialog', () => {
 });
 Then('the selected Author identity is added to the list of Editors', () => {
   cy.get('[data-testid=Editor]').within((editors) => {
-    cy.wrap(editors).contains('TestUser, Withauthor');
+    cy.wrap(editors).contains('Withauthor TestUser');
   });
 });
 
@@ -152,7 +152,7 @@ And('they search for Supervisor in the Author Search Dialog', () => {
 });
 Then('the selected Author identity is added to the list of Supervisors', () => {
   cy.get('[data-testid=Supervisor]').within((editors) => {
-    cy.wrap(editors).contains('TestUser, Withauthor');
+    cy.wrap(editors).contains('Withauthor TestUser');
   });
 });
 

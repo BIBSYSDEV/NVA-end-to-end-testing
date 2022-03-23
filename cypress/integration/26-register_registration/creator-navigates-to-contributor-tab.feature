@@ -56,7 +56,7 @@ Feature: Creator navigates to Contributors tab
       | Media            | ProgrammeParticipation    | Add Contributor                             |
 
   @TEST_NP-4005
-  @test
+  # @test
   @1837
   Scenario: Creator adds themselves to the list of Authors
     Given Creator begins registering a Registration in the Wizard
@@ -151,7 +151,7 @@ Feature: Creator navigates to Contributors tab
     And their current Affiliations are listed
 
   @TEST_NP-4006
-  @test
+  # @test
   @788
   Scenario: Creator creates a new Author in the Author dialog
     Given Creator begins registering a Registration in the Wizard
