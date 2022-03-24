@@ -13,5 +13,5 @@ Feature: User opens the page My Profile
             | Email         |
             # | ORCID         |
             | Roles         |
-            | Organizations |
+            # | Organizations |
             | Language      |
