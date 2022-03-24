@@ -10,6 +10,7 @@ const fileTypes = {
 
 // Common steps
 Given('Anonymous User views Landing Page for Registration', () => {
+  cy.setLocalStorage('i18nextLng', 'eng');
   cy.visit('/');
 });
 
@@ -112,11 +113,11 @@ When('the first File is not Embargoed', () => {});
 And("the File's size is less than 10 MB", () => {});
 Then("the File's Preview panel is expanded by default", () => {
   cy.get('[data-testid=file]').within(() => {
-    cy.get('[data-testid=ExpandMoreIcon]').parent().should('have.property', 'Mui-expanded');
+    cy.get(`[data-testid=${dataTestId.registrationLandingPage.filePreviewHeader}]`).should('be.visible');
   });
 });
 And('the File is automatically downloaded', () => {});
-And('the downloaded File is displayed', () => {
+And('the downloaded File is displayed', (file) => {
   cy.get(`[data-testid=file-preview]`).should('be.visible');
 });
 
