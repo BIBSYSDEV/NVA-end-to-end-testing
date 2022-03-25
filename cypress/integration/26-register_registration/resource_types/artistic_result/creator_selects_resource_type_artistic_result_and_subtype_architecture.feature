@@ -1,5 +1,6 @@
 Feature: Creator selects Resource type Artistic Result and subtype Architecture
 
+  @test
   @TEST_NP-4036
   @3413
   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Architecture"

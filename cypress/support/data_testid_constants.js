@@ -1,228 +1,292 @@
-export const dataTestId = {
-  organization: {
-    searchField: 'organization-search-field',
-    subSearchField: 'sub-organization-search-field',
-  },
-  editor: {
-    hrcsActivityButtonGroup: 'hrcs-activity-button-group',
-    hrcsCategoryButtonGroup: 'hrcs-category-button-group',
-  },
-  header: {
-    aboutLink: 'about-link',
-    adminUsersLink: 'admin-users-link',
-    adminInstitutionLink: 'admin-institution-link',
-    adminInstitutionsLink: 'admin-institutions-link',
-    editorLink: 'editor-link',
-    generalMenuButton: 'general-menu-button',
-    languageButton: 'language-button',
-    languageMenu: 'language-menu',
-    logInButton: 'log-in-link',
-    logOutLink: 'log-out-link',
-    menuButton: 'menu-button',
-    messagesLink: 'messages-link',
-    myProfileLink: 'my-profile-link',
-    myRegistrationsLink: 'my-registrations-link',
-    newRegistrationLink: 'new-registration',
-    privacyLink: 'privacy-link',
-    worklistLink: 'worklist-link',
-  },
-  institutionAdmin: {
-    archiveNameField: 'archive-field',
-    displayNameField: 'display-name-field',
-    feideField: 'feide-field',
-    nameField: 'institution-name-field',
-    saveButton: 'save-button',
-    shortNameField: 'short-name-field',
-  },
-  startPage: {
-    orderBySelect: 'order-by-select',
-    readMoreButton: 'button-read-more',
-    searchButton: 'search-button',
-    searchField: 'search-field',
-    searchPagination: 'search-pagination',
-    searchResultItem: 'result-list-item',
-  },
-  projectLandingPage: {
-    generalInfoBox: 'general-info',
-    participantsAccordion: 'participants-accordion',
-    resultsAccordion: 'results-accordion',
-    scientificSummaryAccordion: 'scientific-summary-accordion',
-  },
-  registrationLandingPage: {
-    abstractAccordion: 'abstract-accordion',
-    authorLink: (id) => `presentation-author-link-${id}`,
-    backToWizard: 'back-to-wizard-button',
-    contributors: 'public-registration-contributors',
-    createDoiButton: 'button-create-doi',
-    doiLink: 'public-registration-doi-link',
-    doiMessageField: 'request-doi-message',
-    editButton: 'button-edit-registration',
-    emailButton: 'email-button',
-    facebookButton: 'facebook-button',
-    file: 'file',
-    fileEmbargoDate: 'file-embargo-date',
-    fileName: 'file-name',
-    filePreview: 'file-preview',
-    filePreviewHeader: 'file-preview-header',
-    fileSize: 'file-size',
-    fileVersion: 'file-version',
-    filesAccordion: 'files-accordion',
-    generalInfo: 'public-registration-general-info',
-    keywords: 'public-registration-keywords',
-    license: 'public-registration-license',
-    linkedInButton: 'linkedin-button',
-    npi: 'public-registration-npi',
-    openFileButton: 'open-file-button',
-    primaryLanguage: 'public-registration-primary-language',
-    projectsAccordion: 'projects-accordion',
-    projectTitle: 'project-title',
-    publicationDate: 'public-registration-publication-date',
-    publishButton: 'button-publish-registration',
-    registrationSubtype: 'public-registration-registration-subtype',
-    rejectDoiButton: 'button-reject-doi',
-    relatedRegistrationsAccordion: 'related-registrations-accordion',
-    requestDoiButton: 'button-toggle-request-doi',
-    reserveDoiButton: 'button-toggle-reserve-doi',
-    requestDoiModal: 'request-doi-modal',
-    sendDoiButton: 'button-send-doi-request',
-    status: 'public-registration-status',
-    subtypeFields: 'public-registration-subtype-fields',
-    title: 'public-registration-title',
-    twitterButton: 'twitter-button',
-  },
-  registrationWizard: {
-    contributors: {
-      addAffiliationButton: 'button-add-affiliation',
-      addContributorButton: (role) => `add-${role}`,
-      addSelfButton: 'add-self-button',
-      addUnverifiedContributorButton: 'add-unverified-contributor-button',
-      authorRadioButton: 'author-radio-button',
-      correspondingCheckbox: 'author-corresponding-checkbox',
-      verifyAffiliationButton: 'button-set-unverified-affiliation',
-      verifyContributorButton: (name) => `button-set-unverified-contributor-${name}`,
-      removeAffiliationButton: 'button-remove-affiliation',
-      removeContributorButton: (name) => `button-remove-contributor-${name}`,
-      searchField: 'search-field',
-      selectContributorType: 'select-contributor-type',
-      selectUserButton: 'select-user-button',
-    },
-    description: {
-      addVocabularyButton: 'add-vocabulary-button',
-      datePublishedField: 'date-published-field',
-      projectForm: {
-        contributorsSearchField: 'project-contributors-search-field',
-        endDateField: 'project-end-date-field',
-        roleField: 'project-participant-role-field',
-        startDateField: 'project-start-date-field',
-        titleField: 'project-title-field',
-      },
-      projectSearchField: 'project-search-field',
-      abstractField: 'registration-abstract-field',
-      descriptionField: 'registration-description-field',
-      languageField: 'registration-language-field',
-      tagField: 'registration-tag-field',
-      titleField: 'registration-title-field',
-      vocabularyMenuItem: (vocabulary) => `vocabulary-menu-item-${vocabulary}`,
-      vocabularyRow: (vocabulary) => `vocabulary-row-${vocabulary}`,
-    },
-    files: {
-      administrativeAgreement: 'administrative-agreement-checkbox',
-      embargoDateField: 'embargo-date-field',
-      fileCard: 'uploaded-file-card',
-      licenseHelpButton: 'license-help-button',
-      licenseItem: 'license-item',
-      licenseModal: 'license-modal',
-      removeFileButton: 'button-remove-file',
-      selectLicenseField: 'uploaded-file-select-license',
-      version: 'version-radios',
-    },
-    new: {
-      emptyRegistrationAccordion: 'new-registration-empty',
-      fileAccordion: 'new-registration-file',
-      linkAccordion: 'new-registration-link',
-      linkMetadata: 'link-metadata',
-      startRegistrationButton: 'registration-start-button',
-    },
-    resourceType: {
-      addCompetitionButton: 'add-competition-button',
-      addExhibitionButton: 'add-exhibition-button',
-      addMentionInPublicationButton: 'add-mention-in-publication-button',
-      addAwardButton: 'add-award-button',
-      addVenueButton: 'add-venue-button',
-      articleNumberField: 'article-number-field',
-      artisticTypeField: 'artistic-type-field',
-      artisticDescriptionField: 'artistic-description-field',
-      artisticOtherTypeField: 'artistic-other-type-field',
-      awardDate: 'artistic-award-date',
-      awardName: 'artistic-award-name',
-      awardOrganizer: 'artistic-award-organizer',
-      awardOther: 'artistic-award-other',
-      awardRanking: 'artistic-award-ranking',
-      awardSaveButton: 'artistic-award-save-button',
-      awardCancelButton: 'artistic-award-cancel-button',
-      competitionName: 'artistic-competition-name',
-      competitionDate: 'artistic-competition-date',
-      competitionDescription: 'artistic-competition-description',
-      competitionSaveButton: 'artistic-competition-save-button',
-      competitionCancelButton: 'artistic-competition-cancel-button',
-      contentField: 'content-field',
-      contentValue: (value) => `content-value-${value.toLowerCase().replaceAll(' ', '-')}`,
-      corrigendumForField: 'corrigendum-for-field',
-      eventCountryField: 'event-country-field',
-      exhibitionName: 'artistic-exhibition-name',
-      exhibitionPlace: 'artistic-exhibition-place',
-      exhibitionOrganizer: 'artistic-exhibition-organizer',
-      exhibitionOther: 'artistic-exhibition-other',
-      exhibitionSaveButton: 'artistic-exhibition-save-button',
-      exhibitionCancelButton: 'artistic-exhibition-cancel-button',
-      dateFromField: 'date-from-field',
-      dateToField: 'date-to-field',
-      eventOrganizerField: 'event-organizer-field',
-      eventPlaceField: 'event-place-field',
-      eventTitleField: 'event-title-field',
-      eventSaveButton: 'artistic-event-save-button',
-      eventCancelButton: 'artistic-event-cancel-button',
-      isbnField: 'isbn-field',
-      issueField: 'issue-field',
-      journalChip: 'journal-chip',
-      journalField: 'journal-search-field',
-      nviFailed: 'not-nvi-applicable',
-      nviSuccess: 'nvi-applicable',
-      pagesField: 'pages-field',
-      pagesFromField: 'pages-from-field',
-      pagesToField: 'pages-to-field',
-      partOfField: 'part-of-field',
-      peerReviewed: 'peer-review-field',
-      publicationMentionTitle: 'artistic-publication-mention-title',
-      publicationMentionIssue: 'artistic-publication-mention-issue',
-      publicationMentionDate: 'artistic-publication-mention-date',
-      publicationMentionOther: 'artistic-publication-mention-other',
-      publicationMentionSaveButton: 'artistic-publicition-mention-save-button',
-      publicationMentionCancelButton: 'artistic-publicition-mention-cancel-button',
-      publisherChip: 'publisher-chip',
-      publisherField: 'publisher-search-field',
-      removePublisherButton: 'remove-publisher-button',
-      saveVenueButton: 'save-venue-button',
-      scientificSubjectField: 'scientific-subject-field',
-      seriesChip: 'series-chip',
-      seriesField: 'series-search-field',
-      seriesNumber: 'series-number-field',
-      venueNameField: 'venue-name-field',
-      volumeField: 'volume-field',
-    },
-    stepper: {
-      contributorsStepButton: 'nav-tabpanel-contributors',
-      descriptionStepButton: 'nav-tabpanel-description',
-      errorStep: 'error-tab',
-      filesStepButton: 'nav-tabpanel-files-and-license',
-      resourceStepButton: 'nav-tabpanel-resource-type',
-    },
-  },
-  myInstitutionUsersPage: {
-    areaOfResponsibilityField: 'area-of-responsibility-field',
-    usersAdministrators: 'users-administrators',
-    usersCurators: 'users-curators',
-    usersEditors: 'users-editors',
-    usersCreators: 'users-creators',
-  },
+import { dataTestId } from './dataTestIds';
+
+export const mainButtons = {
+  'New Registration': dataTestId.header.newRegistrationLink,
+  'My Registrations': dataTestId.header.myRegistrationsLink,
+  'My Messages': dataTestId.header.messagesLink,
+};
+
+export const userMenu = {
+  'My user profile': dataTestId.header.myProfileLink,
+  'Log out': dataTestId.header.logOutLink,
+};
+
+export const myRegistrationsTabs = {
+  'Draft': 'unpublished-button',
+  'Published': 'published-button',
+};
+
+export const creatorMenu = {
+  ...userMenu,
+};
+
+export const curatorMenu = {
+  ...userMenu,
+  'My worklist': dataTestId.header.worklistLink,
+};
+
+export const instAdminMenu = {
+  ...userMenu,
+  'Users': dataTestId.header.adminUsersLink,
+  'My institution': dataTestId.header.adminInstitutionLink,
+};
+
+export const adminMenu = {
+  ...userMenu,
+  'Institutions': dataTestId.header.adminInstitutionsLink,
+};
+
+export const profilePageFields = {
+  'Real name': 'user-name',
+  'Feide ID': 'user-id',
+  'Email': 'user-id',
+  'ORCID': 'orcid-line',
+  'Roles': 'user-role-creator',
+  'Organizations': 'institution-presentation',
+  'Language': 'language-button',
+};
+
+export const userAdministrationPagination = {
+  'Administrator': 'Institution-admin',
+  'Curator': 'Curator',
+  'Editor': 'Editor',
+};
+
+export const userAdministrationSections = {
+  'Administrators': dataTestId.myInstitutionUsersPage.usersAdministrators,
+  'Curators': dataTestId.myInstitutionUsersPage.usersCurators,
+  'Editors': dataTestId.myInstitutionUsersPage.usersEditors,
+};
+
+export const userAdministrationButtons = {
+  'Add Administrator': 'button-add-institution-admin',
+  'Add Curator': 'button-add-curator',
+  'Add Editor': 'button-add-editor',
+};
+
+export const userAdministrationAddRoleButtons = {
+  'Add Administrator': 'button-add-role-Institution-admin',
+  'Add Curator': 'button-add-role-Curator',
+  'Add Editor': 'button-add-role-Editor',
+};
+
+export const userAdministrationRemoveRoleButtons = {
+  'Administrator': 'button-remove-role-Institution-admin',
+  'Curator': 'button-remove-role-Curator',
+  'Editor': 'button-remove-role-Editor',
+};
+
+export const myInstitutionFields = {
+  'Name in organization registry': dataTestId.organization.searchField,
+  'Display name': dataTestId.institutionAdmin.displayNameField,
+  'Short display name': dataTestId.institutionAdmin.shortNameField,
+  'Archive name': dataTestId.institutionAdmin.archiveNameField,
+};
+
+export const myinstitutionfieldsTestvalue = {
+  'Display name': 'Testinstitusjon',
+  'Short display name': 'Testinst',
+  'Archive name': 'Testarchive',
+};
+
+export const institutionFields = {
+  ...myInstitutionFields,
+  'Feide Organization ID': dataTestId.institutionAdmin.feideField,
+};
+
+export const resourceTypes = {
+  'Contribution to journal': 'publication-context-type-Journal',
+  'Journal': 'publication-context-type-Journal',
+  'Book': 'publication-context-type-Book',
+  'Report': 'publication-context-type-Report',
+  'Student thesis': 'publication-context-type-Degree',
+  'Degree': 'publication-context-type-Degree',
+  'Chapter': 'publication-context-type-Chapter',
+  'Part of book or report': 'publication-context-type-Chapter',
+  'Part of book/report': 'publication-context-type-Chapter',
+  'Presentation': 'publication-context-type-Event',
+  'Artistic': 'publication-context-type-Artistic',
+};
+
+export const journalSubtypes = {
+  'Journal article': 'publication-instance-type-JournalArticle',
+  'Short communication': 'publication-instance-type-JournalShortCommunication',
+  'Feature article': 'publication-instance-type-FeatureArticle',
+  'Letter to the Editor': 'publication-instance-type-JournalLetter',
+  'Book review': 'publication-instance-type-JournalReview',
+  'Leader': 'publication-instance-type-JournalLeader',
+  'Corrigendum': 'publication-instance-type-JournalCorrigendum',
+};
+
+export const journalFields = {
+  'Journal': dataTestId.registrationWizard.resourceType.journalField,
+  'Search-box for Journal': dataTestId.registrationWizard.resourceType.journalField,
+  'Search box for Journal': dataTestId.registrationWizard.resourceType.journalField,
+  'Search box for "Journal article"': dataTestId.registrationWizard.resourceType.corrigendumForField,
+  'DOI': 'doi-field',
+  'Volume': 'volume-field',
+  'Issue': 'issue-field',
+  'Search box for published books': '',
+  'Pages from': dataTestId.registrationWizard.resourceType.pagesFromField,
+  'Pages to': dataTestId.registrationWizard.resourceType.pagesToField,
+  'Article number': 'article-number-field',
+  'Peer reviewed': 'peer_review-true',
+};
+
+export const bookSubtypes = {
+  'Monograph': 'publication-instance-type-BookMonograph',
+  'Anthology': 'publication-instance-type-BookAnthology',
+};
+
+export const bookFields = {
+  'Publisher': dataTestId.registrationWizard.resourceType.publisherField,
+  'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
+  'Total number of pages': dataTestId.registrationWizard.resourceType.pagesField,
+  'NPI discipline': dataTestId.registrationWizard.resourceType.scientificSubjectField,
+  'Series title': dataTestId.registrationWizard.resourceType.seriesField,
+  'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
+};
+
+export const contentType = {
+  'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academic-monograph'),
+  'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.contentValue('non-fiction-monograph'),
+  'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popular-science-monograph'),
+  'Textbook': dataTestId.registrationWizard.resourceType.contentValue('textbook'),
+  'Encyclopedia': dataTestId.registrationWizard.resourceType.contentValue('encyclopedia'),
+};
+
+export const reportSubtypes = {
+  'Research report': 'publication-instance-type-ReportResearch',
+  'Policy report': 'publication-instance-type-ReportPolicy',
+  'Working paper': 'publication-instance-type-ReportWorkingPaper',
+  'Other type of report': 'publication-instance-type-ReportBasic',
+};
+
+export const reportFields = {
+  'Search box for Publisher': dataTestId.registrationWizard.resourceType.publisherField,
+  'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
+  'Total number of pages': dataTestId.registrationWizard.resourceType.pagesField,
+  'Search box for Series': dataTestId.registrationWizard.resourceType.seriesField,
+  'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
+};
+
+export const studentThesisSubtypes = {
+  'Bachelor thesis': 'publication-instance-type-DegreeBachelor',
+  'Master thesis': 'publication-instance-type-DegreeMaster',
+  'Doctoral thesis': 'publication-instance-type-DegreePhd',
+  'Other student thesis': 'publication-instance-type-OtherStudentWork',
+};
+
+export const studentThesisFields = {
+  'Search box for Publisher': dataTestId.registrationWizard.resourceType.publisherField,
+  'DOI': 'doi-field',
+  'Search box for Series': dataTestId.registrationWizard.resourceType.seriesField,
+  'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
+  'Total pages': dataTestId.registrationWizard.resourceType.pagesField,
+  'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
+};
+
+export const chapterSubtypes = {
+  'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
+};
+
+export const CHAPTER_FIELDS = {
+  'DOI': 'doi-field',
+  'Search box for published Anthologies': 'info-anthology',
+  'Pages from': 'chapter-pages-from',
+  'Pages to': 'chapter-pages-to',
+  'Peer reviewed': 'peer-review-true',
+  'NPI discipline': 'npi-search',
+};
+
+export const artisticSubtypes = {
+  'Artistic result - Design': 'publication-instance-type-ArtisticDesign',
+  'Artistic result - Architecture': 'publication-instance-type-Architecture',
+  'Artistic result - Film': 'publication-instance-type-Film',
+  'Artistic result - Music': 'publication-instance-type-Music',
+  'Artistic result - Performing art': 'publication-instance-type-PerformingArt',
+  'Artistic result - Writing art': 'publication-instance-type-WritingArt',
+  'Artistic result - Visual art': 'publication-instance-type-VisualArt',
+};
+
+export const architectureTypes = {
+  'Construction': 'Building',
+  'Plan proposal': 'PlanningProposal',
+  'Landscape architecture': 'LandscapeArchitecture',
+  'Interior': 'Interior',
+  'Other': 'Other',
+};
+
+export const exhibitionTypes = {
+  'Competition': 'add-competition-button',
+  'Publication or Mention': 'add-mention-in-publication-button',
+  'Prize or Award': 'add-award-button',
+  'Exhibition': 'add-exhibition-button',
+};
+
+export const OTHER_SUBTYPES = {};
+
+export const resourceSubTypes = {
+  ...bookSubtypes,
+  ...chapterSubtypes,
+  ...journalSubtypes,
+  ...reportSubtypes,
+  ...studentThesisSubtypes,
+};
+
+export const OTHER_FIELDS = {};
+
+export const descriptionFields = {
+  'Title': 'registration-title-field',
+  'Abstract': 'registration-abstract-field',
+  'Description': 'registration-description-field',
+  'Date published': dataTestId.registrationWizard.description.datePublishedField,
+  'Keywords': 'registration-tag-field',
+  'Vocabularies': dataTestId.registrationWizard.description.addVocabularyButton,
+  'Primary language for content': 'registration-language-field',
+  'Project association': 'project-search-field',
+};
+
+export const resourceTypeFields = {
+  'Type': 'publication-context-type',
+};
+
+export const contributorCreateFields = {
+  'First name': 'create-contributor-first-name',
+  'Last name': 'create-contributor-last-name',
+};
+
+export const contributorButtons = {
+  'Add Author': 'Creator',
+  'Add Contributor': 'OtherContributor',
+  'Add Supervisor': 'Supervisor',
+  'Add Editor': 'Editor',
+};
+
+export const landingPageFields = {
+  'Title': dataTestId.registrationLandingPage.title,
+  'Abstract': dataTestId.registrationLandingPage.abstractAccordion,
+  'NPI': dataTestId.registrationLandingPage.npi,
+  'Keywords': dataTestId.registrationLandingPage.keywords,
+  'Publication date': dataTestId.registrationLandingPage.publicationDate,
+  'Primary language': dataTestId.registrationLandingPage.primaryLanguage,
+  'Projects': dataTestId.registrationLandingPage.projectsAccordion,
+  'Registration subtype': dataTestId.registrationLandingPage.registrationSubtype,
+  'Fields corresponding to subtype': dataTestId.registrationLandingPage.subtypeFields,
+  'Contributors': dataTestId.registrationLandingPage.contributors,
+  'Files': dataTestId.registrationLandingPage.filesAccordion,
+  'DOI link': dataTestId.registrationLandingPage.doiLink,
+  'License': dataTestId.registrationLandingPage.license,
+};
+
+export const landingPageButtons = {
+  'Request a DOI': 'button-toggle-request-doi',
+  'Reserve a DOI': 'button-toggle-reserve-doi',
+};
+
+export const landingPageShareButtons = {
+  Email: dataTestId.registrationLandingPage.emailButton,
+  Facebook: dataTestId.registrationLandingPage.facebookButton,
+  LinkedIn: dataTestId.registrationLandingPage.linkedInButton,
+  Twitter: dataTestId.registrationLandingPage.twitterButton,
 };
