@@ -20,6 +20,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Architecture
     And they can delete existing Exhibitions
 
 
+  @test
   @TEST_NP-4040
   @3414
   Scenario: Creator adds an Competition
@@ -30,6 +31,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Architecture
       | Date        |
     Then the Competition is listed under Exhibitions
 
+  @test
   @TEST_NP-4035
   @3415
   Scenario: Creator adds an Publication or Mention
@@ -37,12 +39,13 @@ Feature: Creator selects Resource type Artistic Result and subtype Architecture
     When they add a Publication or Mention with details for:
       | Name        |
       | Issue       |
-      | Page from   |
-      | Page to     |
+      # | Page from   |
+      # | Page to     |
       | Date        |
       | Description |
     Then the Publication or Mention is listed under Exhibitions
 
+  @test
   @TEST_NP-4037
   @3416
   Scenario: Creator adds an Prize or Award
@@ -55,6 +58,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Architecture
       | Description |
     Then the Prize or Award is listed under Exhibitions
 
+  @test
   @TEST_NP-4038
   @3417
   Scenario: Creator adds an Exhibition

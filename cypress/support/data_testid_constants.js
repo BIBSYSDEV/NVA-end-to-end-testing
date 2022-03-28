@@ -224,6 +224,36 @@ export const exhibitionTypes = {
   'Exhibition': 'add-exhibition-button',
 };
 
+export const competitionFields = {
+  'Name': dataTestId.registrationWizard.resourceType.competitionName,
+  'Description': dataTestId.registrationWizard.resourceType.competitionDescription,
+  'Date': dataTestId.registrationWizard.resourceType.competitionDate,
+};
+
+export const publicationMentionFields = {
+  'Name': dataTestId.registrationWizard.resourceType.publicationMentionTitle,
+  'Issue': dataTestId.registrationWizard.resourceType.publicationMentionIssue,
+  'Date': dataTestId.registrationWizard.resourceType.publicationMentionDate,
+  'Description': dataTestId.registrationWizard.resourceType.publicationMentionOther,
+};
+
+export const awardFields = {
+  'Name': dataTestId.registrationWizard.resourceType.awardName,
+  'Organizer': dataTestId.registrationWizard.resourceType.awardOrganizer,
+  'Year': dataTestId.registrationWizard.resourceType.awardDate,
+  'Ranking': dataTestId.registrationWizard.resourceType.awardRanking,
+  'Description': dataTestId.registrationWizard.resourceType.awardOther,
+};
+
+export const exhibitionFields = {
+  'Name': dataTestId.registrationWizard.resourceType.exhibitionName,
+  'Place': dataTestId.registrationWizard.resourceType.exhibitionPlace,
+  'Organizer': dataTestId.registrationWizard.resourceType.exhibitionOrganizer,
+  'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
+  'Date to': dataTestId.registrationWizard.resourceType.dateToField,
+  'Description': dataTestId.registrationWizard.resourceType.exhibitionOther,
+};
+
 export const OTHER_SUBTYPES = {};
 
 export const resourceSubTypes = {
