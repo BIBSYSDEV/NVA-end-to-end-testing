@@ -217,6 +217,20 @@ export const architectureTypes = {
   'Other': 'Other',
 };
 
+export const designTypes = {
+  'Product': 'ProductDesign',
+  'Interior Architecture': 'InteriorDesign',
+  'Clothing Design': 'ClothingDesign',
+  'Lighting Design': 'LightDesign',
+  'Exhibition': 'Exhibition',
+  'Graphical Design': 'GraphicDesign',
+  'Illustration': 'Illustration',
+  'Interaction Design': 'InteractionDesign',
+  'Web Design': 'WebDesign',
+  'Service Design': 'ServiceDesign',
+  'Other': 'Other',
+};
+
 export const exhibitionTypes = {
   'Competition': 'add-competition-button',
   'Publication or Mention': 'add-mention-in-publication-button',
@@ -252,6 +266,13 @@ export const exhibitionFields = {
   'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
   'Date to': dataTestId.registrationWizard.resourceType.dateToField,
   'Description': dataTestId.registrationWizard.resourceType.exhibitionOther,
+};
+
+export const designFields = {
+  'More information': dataTestId.registrationWizard.resourceType.artisticDescriptionField,
+  'Exhibition place': dataTestId.registrationWizard.resourceType.venueNameField,
+  'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
+  'Date to': dataTestId.registrationWizard.resourceType.dateToField,
 };
 
 export const OTHER_SUBTYPES = {};

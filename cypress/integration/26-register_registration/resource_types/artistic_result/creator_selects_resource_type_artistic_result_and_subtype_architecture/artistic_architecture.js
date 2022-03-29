@@ -40,7 +40,7 @@ Then('they can add information about:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
     cy.get(`[data-value=${architectureTypes[value]}]`).should('be.visible');
   });
-  cy.get(`[data-value=${architectureTypes['Construction']}]`).click();
+  cy.get(`[data-value=${architectureTypes[Object.keys(architectureTypes)[0]]}]`).click();
 });
 //   | Construction           |
 //   | Plan proposal          |
