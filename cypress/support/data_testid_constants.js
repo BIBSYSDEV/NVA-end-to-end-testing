@@ -199,6 +199,82 @@ export const CHAPTER_FIELDS = {
   'NPI discipline': 'npi-search',
 };
 
+export const artisticSubtypes = {
+  'Artistic result - Design': 'publication-instance-type-ArtisticDesign',
+  'Artistic result - Architecture': 'publication-instance-type-Architecture',
+  'Artistic result - Film': 'publication-instance-type-Film',
+  'Artistic result - Music': 'publication-instance-type-Music',
+  'Artistic result - Performing art': 'publication-instance-type-PerformingArt',
+  'Artistic result - Writing art': 'publication-instance-type-WritingArt',
+  'Artistic result - Visual art': 'publication-instance-type-VisualArt',
+};
+
+export const architectureTypes = {
+  'Construction': 'Building',
+  'Plan proposal': 'PlanningProposal',
+  'Landscape architecture': 'LandscapeArchitecture',
+  'Interior': 'Interior',
+  'Other': 'Other',
+};
+
+export const designTypes = {
+  'Product': 'ProductDesign',
+  'Interior Architecture': 'InteriorDesign',
+  'Clothing Design': 'ClothingDesign',
+  'Lighting Design': 'LightDesign',
+  'Exhibition': 'Exhibition',
+  'Graphical Design': 'GraphicDesign',
+  'Illustration': 'Illustration',
+  'Interaction Design': 'InteractionDesign',
+  'Web Design': 'WebDesign',
+  'Service Design': 'ServiceDesign',
+  'Other': 'Other',
+};
+
+export const exhibitionTypes = {
+  'Competition': 'add-competition-button',
+  'Publication or Mention': 'add-mention-in-publication-button',
+  'Prize or Award': 'add-award-button',
+  'Exhibition': 'add-exhibition-button',
+};
+
+export const competitionFields = {
+  'Name': dataTestId.registrationWizard.resourceType.competitionName,
+  'Description': dataTestId.registrationWizard.resourceType.competitionDescription,
+  'Date': dataTestId.registrationWizard.resourceType.competitionDate,
+};
+
+export const publicationMentionFields = {
+  'Name': dataTestId.registrationWizard.resourceType.publicationMentionTitle,
+  'Issue': dataTestId.registrationWizard.resourceType.publicationMentionIssue,
+  'Date': dataTestId.registrationWizard.resourceType.publicationMentionDate,
+  'Description': dataTestId.registrationWizard.resourceType.publicationMentionOther,
+};
+
+export const awardFields = {
+  'Name': dataTestId.registrationWizard.resourceType.awardName,
+  'Organizer': dataTestId.registrationWizard.resourceType.awardOrganizer,
+  'Year': dataTestId.registrationWizard.resourceType.awardDate,
+  'Ranking': dataTestId.registrationWizard.resourceType.awardRanking,
+  'Description': dataTestId.registrationWizard.resourceType.awardOther,
+};
+
+export const exhibitionFields = {
+  'Name': dataTestId.registrationWizard.resourceType.exhibitionName,
+  'Place': dataTestId.registrationWizard.resourceType.exhibitionPlace,
+  'Organizer': dataTestId.registrationWizard.resourceType.exhibitionOrganizer,
+  'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
+  'Date to': dataTestId.registrationWizard.resourceType.dateToField,
+  'Description': dataTestId.registrationWizard.resourceType.exhibitionOther,
+};
+
+export const designFields = {
+  'More information': dataTestId.registrationWizard.resourceType.artisticDescriptionField,
+  'Exhibition place': dataTestId.registrationWizard.resourceType.venueNameField,
+  'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
+  'Date to': dataTestId.registrationWizard.resourceType.dateToField,
+};
+
 export const OTHER_SUBTYPES = {};
 
 export const resourceSubTypes = {
