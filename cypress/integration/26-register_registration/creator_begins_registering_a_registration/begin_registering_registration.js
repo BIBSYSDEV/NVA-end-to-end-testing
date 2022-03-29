@@ -111,3 +111,15 @@ Then('they see metadata about the Link in the Expansion panel', () => {
     }
   });
 });
+
+// Scenario: Creator begins registration with an empty Registration
+Given('Creator begins registering a Registration', () => {
+  cy.login(userWithAuthor);
+  cy.get(`[data-testid=${dataTestId.header.startRegistrationButton}]`).click();
+});
+When('they expand the Expansion panel for Empty Registration', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click();
+});
+Then('they see a button to start registration', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).should('be.visible');
+});

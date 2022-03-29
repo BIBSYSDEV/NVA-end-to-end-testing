@@ -58,6 +58,7 @@ Feature: Creator begins registering a Registration
       | Highwire tag                                       | https://link.springer.com/article/10.1007/s13201-020-01350-9                                    |
       | schema.org                                         | https://e24.no/boers-og-finans/i/AdyrPM/syv-av-tangens-11-referanser-deltok-paa-luksusseminaret |
 
+  @test
   @TEST_NP-4015
   @3393
   Scenario: Creator begins registration with an empty Registration
