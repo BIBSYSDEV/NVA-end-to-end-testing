@@ -557,9 +557,17 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       // be opened and clicked on edit so its inputs can be edited
       cy.get(mobilePickerSelector).click();
       cy.get('[role="dialog"] [aria-label="calendar view is open, go to text input view"]').click();
+      cy.get(`[role="dialog"] ${selector}`).then((dialog) => {
+        cy.log(dialog);
+      });
       cy.get(`[role="dialog"] ${selector}`).find('input').clear().type(value);
       cy.contains('[role="dialog"] button', 'OK').click();
     } else {
+      cy.get(selector)
+        .find('input')
+        .then((input) => {
+          cy.log(input);
+        });
       cy.get(selector).find('input').clear().type(value);
     }
   });

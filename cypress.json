@@ -9,5 +9,7 @@
     "overwrite": false,
     "html": false,
     "json": true
-  }
+  },
+  "viewportWidth": 400,
+  "viewportHeight": 600
 }

@@ -8,8 +8,10 @@ const venueName = 'Test Venue name';
 const addVenue = () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.venueNameField}]`).type(venueName);
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`).type('11.11.2011');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`,'11.11.2011')
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`,'11.11.2011')
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`).type('11.11.2011');
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).should('not.exist');
 };
@@ -97,8 +99,10 @@ And('they see an Add Button', () => {
 When('they fill the fields with input data', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`);
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.venueNameField}]`).type('Test Add Venue name');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`).type('11.11.2011');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`,'11.11.2011')
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`,'11.11.2011')
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`).type('11.11.2011');
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
 });
 And('they click the Add Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).click();
