@@ -39,7 +39,7 @@ export const registrationFields = {
       value: 'Underpinning Research',
     },
     'date': {
-      type: 'text',
+      type: 'date',
       fieldTestId: dataTestId.registrationWizard.description.datePublishedField,
       value: '11.11.2021',
       elementType: 'input',
@@ -390,14 +390,14 @@ const resourceTypeFields = {
     value: 'American Samoa',
   },
   eventDateFrom: {
-    type: 'text',
+    type: 'date',
     fieldTestId: dataTestId.registrationWizard.resourceType.dateFromField,
     elementType: 'input',
     landingPageTestId: '',
     value: '11.11.2021',
   },
   eventDateTo: {
-    type: 'text',
+    type: 'date',
     fieldTestId: dataTestId.registrationWizard.resourceType.dateToField,
     elementType: 'input',
     landingPageTestId: '',

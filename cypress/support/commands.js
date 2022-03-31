@@ -391,40 +391,39 @@ Cypress.Commands.add('mockCreatePerson', (userId) => {
 const fillInField = (field) => {
   switch (field['type']) {
     case 'text':
-      cy.get(`[data-testid=${field['fieldTestId']}]`)
-        .should('be.visible')
-        .type(field['value'], { delay: 1, force: true });
+      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], { delay: 1 });
+      break;
+    case 'date':
+      cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, field['value']);
       break;
     case 'search':
-      cy.get(`[data-testid=${field['fieldTestId']}]`)
-        .should('be.visible')
-        .type(field['value'], { delay: 1, force: true });
+      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], { delay: 1 });
       cy.contains(field['value']).click();
       break;
     case 'file':
-      cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true, force: true });
+      cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true });
       break;
     case 'select':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(' ', { force: true });
+      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').click();
       cy.contains(field['value']).click({ force: true });
       break;
     case 'add':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).click({ force: true });
+      cy.get(`[data-testid=${field['fieldTestId']}]`).click();
       if ('fields' in field['add']) {
         Object.keys(field['add']['fields']).forEach((key) => {
-          cy.get(`[data-testid=${key}]`).type(field['add']['fields'][key], { force: true });
+          cy.get(`[data-testid=${key}]`).type(field['add']['fields'][key]);
         });
       } else {
         if ('select' in field['add']) {
-          cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click({ force: true });
-          cy.contains(field['add']['select']['value']).click({ force: true });
+          cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click();
+          cy.contains(field['add']['select']['value']).click();
         }
-        cy.get(`[data-testid=${field['add']['searchFieldTestId']}]`).type(field['add']['searchValue'], { force: true });
+        cy.get(`[data-testid=${field['add']['searchFieldTestId']}]`).type(field['add']['searchValue']);
         cy.get(`[data-testid=${field['add']['resultsTestId']}]`)
           .filter(`:contains(${field['value']})`)
           .click({ force: true });
       }
-      cy.get(`[data-testid=${field['add']['selectButtonTestId']}]`).click({ force: true });
+      cy.get(`[data-testid=${field['add']['selectButtonTestId']}]`).click();
       break;
     case 'checkbox':
       switch (field['checkbox']['selected']) {
@@ -557,9 +556,11 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       // be opened and clicked on edit so its inputs can be edited
       cy.get(mobilePickerSelector).click();
       cy.get('[role="dialog"] [aria-label="calendar view is open, go to text input view"]').click();
-      cy.get(`[role="dialog"] ${selector}`).last().then((dialog) => {
-        cy.log(dialog);
-      });
+      cy.get(`[role="dialog"] ${selector}`)
+        .last()
+        .then((dialog) => {
+          cy.log(dialog);
+        });
       cy.get(`[role="dialog"] ${selector}`).last().find('input').clear().type(value);
       cy.contains('[role="dialog"] button', 'OK').click();
     } else {
