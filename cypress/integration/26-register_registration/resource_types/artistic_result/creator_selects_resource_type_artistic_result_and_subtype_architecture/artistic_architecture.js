@@ -58,19 +58,19 @@ And('they can add Exhibitions of type:', (dataTable) => {
 //   | Exhibition             |
 And('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${exhibitionTypes['Exhibition']}]`).click();
-  cy.get('[role=dialog').within(() => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionName}]`).type('Exhibition name');
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionPlace}]`).type('Exhibition place');
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionOrganizer}]`).type(
-      'Exhibition organizer'
-    );
-    cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2011');
-    cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2011');
-    // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`).type('11.11.2011');
-    // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionOther}]`).type('Exhibition other');
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionSaveButton}]`).click();
-  });
+  //   cy.get('[role=dialog').within(() => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionName}]`).type('Exhibition name');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionPlace}]`).type('Exhibition place');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionOrganizer}]`).type(
+    'Exhibition organizer'
+  );
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2011');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2011');
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`).type('11.11.2011');
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionOther}]`).type('Exhibition other');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionSaveButton}]`).click();
+  //   });
   cy.get('[data-testid=EditIcon]').should('be.visible');
 });
 And('they can delete existing Exhibitions', () => {
