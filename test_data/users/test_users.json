@@ -12,6 +12,17 @@
   },
   {
     "familyName": "TestUser",
+    "givenName": "MyRegistrations",
+    "username": "test-user-my-registrations@test.no",
+    "role": ["CREATOR"],
+    "author": true,
+    "orcid": true,
+    "affiliation": "[member, employee, staff]",
+    "orgNumber": "1111111111",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111.0.0.0"
+  },
+  {
+    "familyName": "TestUser",
     "givenName": "Draft DOI",
     "username": "test-user-draft-doi@test.no",
     "role": ["CREATOR"],

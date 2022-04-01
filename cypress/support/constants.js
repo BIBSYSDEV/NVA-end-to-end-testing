@@ -47,6 +47,7 @@ export const userCuratorDraftDoi = 'test-user-curator-draft-doi@test.no';
 export const userResourceType = 'test-user-resource-type@test.no';
 export const userViewRegistration = 'test-user-view-registration@test.no';
 export const userEditor = 'test-user-editor@test.no';
+export const userMyRegistrations = 'test-user-my-registrations@test.no';
 
 const userData = {
   name: '',
@@ -94,4 +95,5 @@ export const user = {
   [userResourceType]: { ...userData, name: 'TestUser, Resource type' },
   [userViewRegistration]: { ...userData, name: 'TestUser, View registration' },
   [userEditor]: { ...userData, name: 'TestUser, Editor' },
+  [userMyRegistrations]: { ...userData, name: 'TestUser, MyRegistrations' },
 };

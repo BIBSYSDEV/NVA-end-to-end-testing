@@ -1,10 +1,10 @@
-import { userWithAuthor } from '../../../support/constants';
+import { userMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { descriptionFields } from '../../../support/data_testid_constants';
 
 // Common step
 Given('that the user is logged in as Creator', () => {
-  cy.login(userWithAuthor);
+  cy.login(userMyRegistrations);
 });
 // end common step
 
@@ -29,12 +29,13 @@ And('they see fields:', (dataTable) => {
 // | Date published               |
 // | Primary language for content |
 
+// Scenario: Creator sees Validation Errors for Registration
 And('they are on the page My Registrations', () => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
 });
 And('they see a List of Registrations', () => {
-  cy.get('[data-testid^=edit-registration]').should('have.length.above', 1);
+  cy.get('[data-testid^=edit-registration]').should('have.length', 1);
 });
 When('they click Edit on a Registration', () => {
   cy.get('tr')
@@ -47,16 +48,12 @@ And('they see the Registration is opened in Edit Mode', () => {
   cy.get('[data-testid=registration-title-field]').should('exist');
 });
 And('they see the Registration has Validation Errors', () => {
-  cy.get('[data-testid=error-list-div]').should('exist');
+  cy.get('[data-testid=error-tab]').should('exist');
 });
 Then('they see a List of all Validation Errors', () => {
-  cy.get('[data-testid=error-list-div] > dl > dd').should('have.length.above', 0);
 });
 And('they see that tabs with Validation Errors are marked with an Error Icon', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).within(() => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.errorStep}]`);
-  });
-  cy.get('[data-testid=nav-tabpanel-files-and-license]').within(() => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).within(() => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.errorStep}]`);
   });
 });
