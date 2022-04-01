@@ -5,11 +5,12 @@ Given('that the user is logged in as Application Administrator', () => {
   cy.login(adminUser);
 });
 When('they click the menu item Institutions', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=basic-data-link]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).should('be.visible');
   cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).click({ force: true });
 });
 Then('they see the page Institutions', () => {
-  cy.location('pathname').should('equal', '/admin-institutions');
+  cy.location('pathname').should('equal', '/basic-data/institutions');
 });
 And('they see a table of all Institutions \\(customers)', () => {
   cy.get('[data-testid=customer-institutions-list]').should('be.visible');

@@ -86,7 +86,7 @@ Feature: User sees menu
         And they have the "App-admin" role
         When they look at any page in NVA
         Then they see a Dropdown Menu with items:
-            | Institutions    |
+            # | Institutions    |
             | My user profile |
             | Log out         |
         And they see the Language selector
