@@ -1,7 +1,7 @@
 Feature: Administrator opens user administration
 
     @TEST_NP-4141
-    @test
+    # @test
     @359
     Scenario Outline: Administrator opens User Administration
         Given that the user is logged in as Administrator
@@ -23,6 +23,7 @@ Feature: Administrator opens user administration
             | Curators       | Curator       | Add Curator       |
             | Editors        | Editor        | Add Editor        |
 
+    @test
     @TEST_NP-4142
     Scenario: Administrator inspect a Curators scope
         Given Administrator opens User Administration
@@ -30,17 +31,18 @@ Feature: Administrator opens user administration
         Then they see that each Curator has a "Scope" field
         And the "Scope" field is a dropdown containing all levels of their Institution
 
+    @test
     @TEST_NP-4139
     @2841
     Scenario: Administrator define a Curators scope
         Given Administrator opens User Administration
         When they click on the Scope dropdown for a Curator
-        And they select an Institution (or subunit)
+        And they select an Institution or subunit
         Then the dropdown is closed
         And they see a confirmation message that the Scope was updated
 
     @TEST_NP-4143
-    @test
+    # @test
     @363
     Scenario Outline: Administrator opens the Add Role Dialog
         Given Administrator opens User Administration
@@ -62,7 +64,7 @@ Feature: Administrator opens user administration
             | Editor        | Add Editor        |
 
     @TEST_NP-4144
-    @test
+    # @test
     @1362
     Scenario Outline: Administrator searches for User
         Given Administrator opens the Add Role Dialog
@@ -76,7 +78,7 @@ Feature: Administrator opens user administration
             | Editor        | Add Editor        |
 
     @TEST_NP-4145
-    @test
+    # @test
     @1363
     Scenario Outline: Administrator grants an Employee a role
         Given Administrator opens the Add Role Dialog
@@ -91,7 +93,7 @@ Feature: Administrator opens user administration
             | Editor        | Add Editor        |
 
     @TEST_NP-4140
-    @test
+    # @test
     Scenario Outline: Administrator closes the Add Role Dialog
         Given Administrator opens the Add Role Dialog
         And they click "<Button>" under "<Section>"

@@ -157,6 +157,8 @@ def run():
 
                 try:
                     print(f'Creating {username}')
+                    if username == 'test-user-second-inst-admin-1@test.no':
+                        print(user_attributes)
                     response = cognito_client.admin_create_user(
                         UserPoolId=USER_POOL_ID,
                         Username=username,

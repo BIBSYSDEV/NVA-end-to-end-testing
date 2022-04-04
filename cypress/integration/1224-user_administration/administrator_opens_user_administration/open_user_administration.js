@@ -229,3 +229,45 @@ Then('the Add Role Dialog is closed', () => {
 // | Administrator | Add Administrator |
 // | Curator       | Add Curator       |
 // | Editor        | Add Editor        |
+
+// Scenario: Administrator inspect a Curators scope
+When('they see on the Curator section of the User Administration', () => {
+  cy.get(`[data-testid=${dataTestId.myInstitutionUsersPage.usersCurators}]`).should('be.visible');
+});
+Then('they see that each Curator has a "Scope" field', () => {
+  cy.get(`[data-testid=${dataTestId.myInstitutionUsersPage.usersCurators}] > table > tbody > tr`).each((row) => {
+    cy.wrap(row).within(() => {
+      cy.get('[data-testid=area-of-responsibility-field]').should('exist');
+    });
+  });
+});
+And('the "Scope" field is a dropdown containing all levels of their Institution', () => {
+  cy.get(`[data-testid=${dataTestId.myInstitutionUsersPage.usersCurators}] > table > tbody > tr`).each((row) => {
+    cy.wrap(row).within(() => {
+      cy.get('[data-testid=area-of-responsibility-field]').click();
+    });
+    cy.contains('Mock department 1');
+    cy.contains('Mock department 2');
+    cy.contains('Mock department 3');
+    cy.contains('Mock institution 2');
+    cy.contains('Mock institution 2').click();
+  });
+});
+
+// Scenario: Administrator define a Curators scope
+When('they click on the Scope dropdown for a Curator', () => {
+  cy.get(`[data-testid=${dataTestId.myInstitutionUsersPage.usersCurators}] > table > tbody > tr`)
+    .first()
+    .within(() => {
+      cy.get('[data-testid=area-of-responsibility-field]').click();
+    });
+});
+And('they select an Institution or subunit', () => {
+  cy.contains('Mock department 1').click();
+});
+Then('the dropdown is closed', () => {
+  cy.contains('Mock department 2').should('not.exist');
+});
+And('they see a confirmation message that the Scope was updated', () => {
+  cy.contains('Updated user');
+});
