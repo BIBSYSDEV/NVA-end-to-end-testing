@@ -188,15 +188,29 @@ export const studentThesisFields = {
 
 export const chapterSubtypes = {
   'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
+  'Chapter in Anthology': 'publication-instance-type-ChapterArticle',
 };
 
-export const CHAPTER_FIELDS = {
+export const chapterFields = {
   'DOI': 'doi-field',
   'Search box for published Anthologies': 'info-anthology',
-  'Pages from': 'chapter-pages-from',
-  'Pages to': 'chapter-pages-to',
+  'Pages from': dataTestId.registrationWizard.resourceType.pagesFromField,
+  'Pages to': dataTestId.registrationWizard.resourceType.pagesToField,
+  'Peer reviewed and presents new research': 'peer-review-field',
   'Peer reviewed': 'peer-review-true',
   'NPI discipline': 'npi-search',
+};
+
+export const chapterContainerField = {
+  'Search box for published Anthologies': dataTestId.registrationWizard.resourceType.partOfField,
+};
+
+export const chapterContentTypes = {
+  'Academic Chapter': 'content-value-academic-chapter',
+  'Non-fiction Chapter': 'content-value-non-fiction-chapter',
+  'Popular Science Chapter': 'content-value-popular-science-chapter',
+  'Textbook Chapter': 'content-value-textbook-chapter',
+  'Encyclopedia Chapter': 'content-value-encyclopedia-chapter',
 };
 
 export const artisticSubtypes = {

@@ -1,5 +1,6 @@
 Feature: Creator selects Resource type Chapter
 
+    @test
     @TEST_NP-4049
     @3453
     Scenario: Creator navigates to the Resource Type tab and selects Resource type "Chapter"
@@ -7,8 +8,9 @@ Feature: Creator selects Resource type Chapter
         When they select the Resource type "Chapter"
         Then they see a list of subtypes:
             | Chapter in Anthology |
-            | Conference abstract  |
+    # | Conference abstract  |
 
+    @test
     @TEST_NP-4048
     @2021
     Scenario Outline: Creator sees fields for Chapter subtypes
@@ -17,14 +19,15 @@ Feature: Creator selects Resource type Chapter
         Then they see an information box describing that a Container report must be published first
         And they see a field "<ContainerField>"
         And they see fields:
-            | DOI        |
+            # | DOI        |
             | Pages from |
             | Pages to   |
         Examples:
-            | ChapterType          | ContainerField                                |
-            | Chapter of Anthology | Search box for published Anthologies          |
-            | Conference abstract  | Search box for published Abstract collections |
+            | ChapterType          | ContainerField                       |
+            | Chapter of Anthology | Search box for published Anthologies |
+    # | Conference abstract  | Search box for published Abstract collections |
 
+    @test
     @TEST_NP-4051
     @395
     Scenario: Creator sees fields for Resource subtype "Chapter in Anthology"
@@ -36,9 +39,10 @@ Feature: Creator selects Resource type Chapter
             | Popular Science Chapter    |
             | Textbook Chapter           |
             | Encyclopedia Chapter       |
-            | Introduction               |
-            | Exhibition Catalog Chapter |
+            # | Introduction               |
+            # | Exhibition Catalog Chapter |
 
+    @test
     @TEST_NP-4050
     @2785
     Scenario: Creator selects Resource subtype "Chapter in Anthology" and Content type "Academic chapter"
