@@ -12,6 +12,7 @@ export const dataTestId = {
     adminUsersLink: 'admin-users-link',
     adminInstitutionLink: 'admin-institution-link',
     adminInstitutionsLink: 'admin-institutions-link',
+    basicDataLink: 'basic-data-link',
     editorLink: 'editor-link',
     generalMenuButton: 'general-menu-button',
     languageButton: 'language-button',
@@ -105,6 +106,7 @@ export const dataTestId = {
       searchField: 'search-field',
       selectContributorType: 'select-contributor-type',
       selectUserButton: 'select-user-button',
+      unverifiedContributorName: 'unverified-contributor-name',
     },
     description: {
       addVocabularyButton: 'add-vocabulary-button',

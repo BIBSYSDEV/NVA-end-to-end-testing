@@ -64,7 +64,21 @@ export const mockPersonSearch = (userId) => {
             value: 'Withauthor',
           },
         ],
-        affiliations: [],
+        affiliations: [
+          {
+            'type': 'Affiliation',
+            'organization': 'https://api.dev.nva.aws.unit.no/cristin/organization/186.32.16.0',
+            'active': true,
+            'role': {
+              'type': 'Role',
+              'id': 'https://example.org/link/to/ontology#1026',
+              'labels': {
+                'en': 'Research fellow',
+                'nb': 'Stipendiat',
+              },
+            },
+          },
+        ],
       },
     ],
   };

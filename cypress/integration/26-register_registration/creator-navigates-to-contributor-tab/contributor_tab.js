@@ -1,3 +1,4 @@
+import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import {
@@ -6,6 +7,13 @@ import {
   resourceTypes,
   resourceSubTypes,
 } from '../../../support/data_testid_constants';
+
+Before({ tags: '@TEST_NP-4008' }, () => {
+  cy.wrap('button-set-unverified-contributor-').as('button');
+});
+Before({ tags: '@TEST_NP-4009' }, () => {
+  cy.wrap(dataTestId.registrationWizard.contributors.selectUserButton).as('button');
+});
 
 // Feature: Creator navigates to Contributors tab
 // Common steps
@@ -222,21 +230,88 @@ Then('the selected Author identity is added to the list of Supervisors', () => {
 
 //   @788
 //   Scenario: Creator creates a new Author in the Author dialog
-And('they see the "Create new Author" Button', () => {
-  cy.get('[data-testid=button-create-new-author]').should('be.visible');
+And('they see a button for creating a new Author', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).should(
+    'be.visible'
+  );
 });
-When('they click "Create new Author"', () => {
-  cy.get('[data-testid=button-create-new-author]').click({ force: true });
+When('they click the button for creating a new Author', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
 });
-Then('they see fields:', (dataTable) => {
-  cy.get('[data-testid=contributor-modal]').within((contributerModal) => {
-    dataTable.rawTable.forEach((field) => {
-      cy.wrap(contributerModal).get(`[data-testid=${contributorCreateFields[field[0]]}]`);
-    });
+Then('they see field for Author name', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).should('be.visible');
+});
+And('they see the a button for adding a new Author in the Create new Author Dialog', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).should('be.visible');
+});
+
+// Scenario: Creator sees Button to Verify Contributor
+When('the Registration has an Unverified Contributor', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
+  cy.get('[data-testid=add-Creator]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
+    'Unverified Author'
+  );
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
+});
+Then('they see a Button to Verify the Contributor', () => {
+  cy.get(`[data-testid^=button-set-unverified-contributor-]`).should('be.visible');
+});
+
+// Scenario: Creator opens Dialog to Verify Contributor
+Given('Creator sees Button to Verify Contributor', () => {
+  cy.login(userWithAuthor);
+  cy.startWizardWithEmptyRegistration();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
+  cy.get('[data-testid=add-Creator]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
+    'Unverified Author'
+  );
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
+  cy.get(`[data-testid^=button-set-unverified-contributor-]`).should('be.visible');
+});
+When('they click the Button to Verify Contributor', () => {
+  cy.get('@button').then((button) => {
+    cy.get(`[data-testid^=${button}]`).first().click();
   });
 });
-//       | First name |
-//       | Last name  |
-And('they see the "Create new Author" Button in the Create new Author Dialog', () => {
-  cy.get('[data-testid=button-create-authority]').should('be.visible');
+Then('they see the Verify Contributor Dialog', () => {
+  cy.get(`[data-testid=contributor-modal]`).should('be.visible');
+});
+And("they see a search field prefilled with the selected Contributor's name", () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).should('be.visible');
+});
+And('they see a list of Persons matching the search', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).should('be.visible');
+});
+
+// Scenario: Creator verifies Contributor
+Given('Creator opens Dialog to Verify Contributor', () => {
+  cy.login(userWithAuthor);
+  cy.startWizardWithEmptyRegistration();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
+  cy.get('[data-testid=add-Creator]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
+    'Unverified Author'
+  );
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
+  cy.get(`[data-testid^=button-set-unverified-contributor-]`).first().click();
+});
+When('they select a Person from the Search Results', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).first().click();
+});
+And('they click the Button to Verify Contributor', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
+});
+Then('the Dialog is closed', () => {
+  cy.get(`[data-testid=contributor-modal]`).should('not.exist');
+});
+And('they see the Contributor is now verified', () => {
+  cy.get('[data-testid=CheckCircleSharpIcon]').should('be.visible');
+});
+And('all current Affiliations are listed for the Contributor', () => {
+  cy.contains('UiT The Arctic University of Norway');
 });

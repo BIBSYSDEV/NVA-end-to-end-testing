@@ -22,39 +22,39 @@ Feature: Creator navigates to Contributors tab
     And the Registration has Registration Subtype "<RegistrationSubtype>"
     Then they see buttons "<AddContributorButtons>"
     Examples:
-      | RegistrationType | RegistrationSubtype       | AddContributorButtons                       |
-      | Book             | BookAnthology             | Add Editor, Add Contributor                 |
-      | Book             | BookMonograph             | Add Author, Add Contributor                 |
-      | Chapter          | ChapterArticle            | Add Author, Add Contributor                 |
+      | RegistrationType | RegistrationSubtype | AddContributorButtons                       |
+      | Book             | BookAnthology       | Add Editor, Add Contributor                 |
+      | Book             | BookMonograph       | Add Author, Add Contributor                 |
+      | Chapter          | ChapterArticle      | Add Author, Add Contributor                 |
       # | Chapter          | ChapterConferenceAbstract | Add Author, Add Contributor                 |
-      | Degree           | DegreeBachelor            | Add Author, Add Supervisor, Add Contributor |
-      | Degree           | DegreeMaster              | Add Author, Add Supervisor, Add Contributor |
-      | Degree           | DegreePhd                 | Add Author, Add Supervisor, Add Contributor |
+      | Degree           | DegreeBachelor      | Add Author, Add Supervisor, Add Contributor |
+      | Degree           | DegreeMaster        | Add Author, Add Supervisor, Add Contributor |
+      | Degree           | DegreePhd           | Add Author, Add Supervisor, Add Contributor |
       # | Degree           | DegreeLicentiate          | Add Author, Add Supervisor, Add Contributor |
-      | Degree           | OtherStudentWork          | Add Author, Add Supervisor, Add Contributor |
-      | Journal          | FeatureArticle            | Add Author, Add Contributor                 |
-      | Journal          | JournalArticle            | Add Author, Add Contributor                 |
-      | Journal          | JournalCorrigendum        | Add Author, Add Contributor                 |
-      | Journal          | JournalLeader             | Add Author, Add Contributor                 |
-      | Journal          | JournalLetter             | Add Author, Add Contributor                 |
-      | Journal          | JournalReview             | Add Author, Add Contributor                 |
+      | Degree           | OtherStudentWork    | Add Author, Add Supervisor, Add Contributor |
+      | Journal          | FeatureArticle      | Add Author, Add Contributor                 |
+      | Journal          | JournalArticle      | Add Author, Add Contributor                 |
+      | Journal          | JournalCorrigendum  | Add Author, Add Contributor                 |
+      | Journal          | JournalLeader       | Add Author, Add Contributor                 |
+      | Journal          | JournalLetter       | Add Author, Add Contributor                 |
+      | Journal          | JournalReview       | Add Author, Add Contributor                 |
       # | Journal          | JournalBooklet            | Add Author, Add Contributor                 |
       # | Journal          | JournalConferenceAbstract | Add Author, Add Contributor                 |
-      | Report           | ReportBasic               | Add Author, Add Contributor                 |
-      | Report           | ReportPolicy              | Add Author, Add Contributor                 |
-      | Report           | ReportResearch            | Add Author, Add Contributor                 |
+      | Report           | ReportBasic         | Add Author, Add Contributor                 |
+      | Report           | ReportPolicy        | Add Author, Add Contributor                 |
+      | Report           | ReportResearch      | Add Author, Add Contributor                 |
       # | Report           | ReportAbstractCollection  | Add Author, Add Contributor                 |
-      | Report           | ReportWorkingPaper        | Add Author, Add Contributor                 |
-      | Presentation     | ConferenceLecture         | Add Author, Add Contributor                 |
-      | Presentation     | ConferencePoster          | Add Author, Add Contributor                 |
-      | Presentation     | Lecture                   | Add Author, Add Contributor                 |
-      | Presentation     | OtherPresentation         | Add Author, Add Contributor                 |
-      | Artistic         | ArtisticDesign            | Add Contributor                             |
-      # | Media            | Interview                 | Add Author, Add Contributor                 |
-      # | Media            | Blog                      | Add Author, Add Contributor                 |
-      # | Media            | Podcast                   | Add Contributor                             |
-      # | Media            | ProgrammeManagement       | Add Contributor                             |
-      # | Media            | ProgrammeParticipation    | Add Contributor                             |
+      | Report           | ReportWorkingPaper  | Add Author, Add Contributor                 |
+      | Presentation     | ConferenceLecture   | Add Author, Add Contributor                 |
+      | Presentation     | ConferencePoster    | Add Author, Add Contributor                 |
+      | Presentation     | Lecture             | Add Author, Add Contributor                 |
+      | Presentation     | OtherPresentation   | Add Author, Add Contributor                 |
+      | Artistic         | ArtisticDesign      | Add Contributor                             |
+  # | Media            | Interview                 | Add Author, Add Contributor                 |
+  # | Media            | Blog                      | Add Author, Add Contributor                 |
+  # | Media            | Podcast                   | Add Contributor                             |
+  # | Media            | ProgrammeManagement       | Add Contributor                             |
+  # | Media            | ProgrammeParticipation    | Add Contributor                             |
 
   @TEST_NP-4005
   # @test
@@ -152,26 +152,26 @@ Feature: Creator navigates to Contributors tab
     And their current Affiliations are listed
 
   @TEST_NP-4006
-  # @test
+  @test
   @788
   Scenario: Creator creates a new Author in the Author dialog
     Given Creator begins registering a Registration in the Wizard
     And they navigate to the Contributors tab
     And they see the "Add Author" Button
     And they click "Add Author"
-    And they see the "Create new Author" Button
-    When they click "Create new Author"
-    Then they see fields:
-      | First name |
-      | Last name  |
-    And they see the "Create new Author" Button in the Create new Author Dialog
+    And they see a button for creating a new Author
+    When they click the button for creating a new Author
+    Then they see field for Author name
+    And they see the a button for adding a new Author in the Create new Author Dialog
 
+  @test
   @TEST_NP-4001
   Scenario: Creator sees Button to Verify Contributor
     Given Creator navigates to Contributors tab
     When the Registration has an Unverified Contributor
     Then they see a Button to Verify the Contributor
 
+  @test
   @TEST_NP-4008
   Scenario: Creator opens Dialog to Verify Contributor
     Given Creator sees Button to Verify Contributor
@@ -180,6 +180,7 @@ Feature: Creator navigates to Contributors tab
     And they see a search field prefilled with the selected Contributor's name
     And they see a list of Persons matching the search
 
+  @test
   @TEST_NP-4009
   @2467
   Scenario: Creator verifies Contributor
