@@ -14,7 +14,7 @@ CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
 STAGE = ssm.get_parameter(Name='/test/Stage',
                           WithDecryption=False)['Parameter']['Value']
 ROLE_TABLENAME = ssm.get_parameter(Name='/test/UsersAndRolesTable',
-                                   WithDecryption=False)['Parameter']['Value']
+                          WithDecryption=False)['Parameter']['Value']
 # CUSTOMER_ID = ssm.get_parameter(Name='/test/TEST_CUSTOMER',
 #                                 WithDecryption=False)['Parameter']['Value']
 
@@ -39,10 +39,55 @@ def findCustomer(org_number):
         pass
 
 
-def createRole(roles, customer_iri):
-    roleString = roles.replace(', ', f'@{customer_iri}')
-    roleString = f'{roleString}@{customer_iri}'
-    return roleString
+def createRole(test_user, customer_iri):
+
+    with open(ROLE_TEMPLATE_FILE_NAME) as role_template_file:
+        role_template = json.load(role_template_file)
+
+        roles = json.load(open(ROLES_FILE))
+
+        given_name = test_user['givenName']
+        family_name = test_user['familyName']
+        username = test_user['username']
+        role = test_user['role']
+        org_number = test_user['orgNumber']
+
+        print(customer_iri)
+
+        new_role = copy.deepcopy(role_template)
+        new_role['familyName']['S'] = family_name
+        new_role['givenName']['S'] = given_name
+        new_role['institution']['S'] = customer_iri
+        new_role['PrimaryKeyHashKey']['S'] = f'USER#{username}'
+        new_role['PrimaryKeyRangeKey']['S'] = f'USER#{username}'
+        new_role['SecondaryIndex1HashKey']['S'] = customer_iri
+        new_role['SecondaryIndex1RangeKey']['S'] = username
+        for user_role in role:
+            new_role['roles']['L'].append(roles[user_role])
+        new_role['username']['S'] = username
+        try:
+            response = DB_CLIENT.put_item(
+                TableName=ROLE_TABLENAME, Item=new_role)
+        except:
+            print(sys.exc_info()[0])
+            pass
+
+
+def deleteRole(username):
+    try:
+        response = DB_CLIENT.delete_item(TableName=ROLE_TABLENAME,
+                                         Key={
+                                             'PrimaryKeyHashKey': {
+                                                 'S': f'USER#{username}'
+                                             },
+                                             'PrimaryKeyRangeKey': {
+                                                 'S': f'USER#{username}'
+                                             }
+                                         })
+    except:
+        print(sys.exc_info()[0])
+        pass
+
 
 def run():
     print('users...')
