@@ -1,0 +1,587 @@
+[
+  {
+    "lastName": "TestUser",
+    "firstName": "Draft DOI",
+    "nin": "28048135511",
+    "username": "test-user-curator-draft-doi@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Withauthor",
+    "nin": "04010479644",
+    "username": "test-user-with-author@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "MyRegistrations",
+    "nin": "25029623492",
+    "username": "test-user-my-registrations@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Draft DOI",
+    "nin": "11023237689",
+    "username": "test-user-draft-doi@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Save Registration",
+    "nin": "26023204419",
+    "username": "test-user-save-registration@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Kari",
+    "nin": "18084535652",
+    "username": "test-user-kari@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "App-admin",
+    "nin": "02107313772",
+    "username": "test-user-app-admin@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "App-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Curator",
+    "nin": "18030340139",
+    "username": "test-user-curator@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Editor",
+    "nin": "10033820866",
+    "username": "test-user-editor@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Institution-admin",
+    "nin": "19073313867",
+    "username": "test-user-first-inst-admin@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Inst-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution-admin-1",
+    "nin": "30037921625",
+    "username": "test-user-second-inst-admin-1@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Inst-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution-admin-2",
+    "nin": "05020806046",
+    "username": "test-user-second-inst-admin-2@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Inst-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution-admin-3",
+    "nin": "02044417319",
+    "username": "test-user-second-inst-admin-3@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Inst-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution-admin-4",
+    "nin": "24090959251",
+    "username": "test-user-second-inst-admin-4@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Inst-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution-admin-5",
+    "nin": "28057340500",
+    "username": "test-user-second-inst-admin-5@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Inst-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution-admin-6",
+    "nin": "19121271691",
+    "username": "test-user-second-inst-admin-6@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Inst-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Curator 1",
+    "nin": "14050627188",
+    "username": "test-user-second-inst-curator-1@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Curator 2",
+    "nin": "31076248683",
+    "username": "test-user-second-inst-curator-2@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Curator 3",
+    "nin": "31083221847",
+    "username": "test-user-second-inst-curator-3@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Curator 4",
+    "nin": "09019618916",
+    "username": "test-user-second-inst-curator-4@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Curator 5",
+    "nin": "30067414019",
+    "username": "test-user-second-inst-curator-5@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Curator 6",
+    "nin": "29066106975",
+    "username": "test-user-second-inst-curator-6@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Editor 1",
+    "nin": "25105948231",
+    "username": "test-user-second-inst-editor-1@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Editor 2",
+    "nin": "12125445444",
+    "username": "test-user-second-inst-editor-2@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Editor 3",
+    "nin": "20114222071",
+    "username": "test-user-second-inst-editor-3@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Editor 4",
+    "nin": "25073803228",
+    "username": "test-user-second-inst-editor-4@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Editor 5",
+    "nin": "05121270538",
+    "username": "test-user-second-inst-editor-5@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Second Institution Editor 6",
+    "nin": "08123035071",
+    "username": "test-user-second-inst-editor-6@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Add institution",
+    "nin": "03046207733",
+    "username": "test-user-add-institution@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Change institution",
+    "nin": "22049516367",
+    "username": "test-user-change-institution@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Remove institution",
+    "nin": "03072702556",
+    "username": "test-user-with-institution-remove-institution@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Subunit",
+    "nin": "21095937834",
+    "username": "test-user-subunit@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Subsubunit",
+    "nin": "18072516202",
+    "username": "test-user-subsubunit@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Subsubsubunit",
+    "nin": "27090440212",
+    "username": "test-user-subsubsubunit@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "No role",
+    "nin": "05104045237",
+    "username": "test-user-with-no-role@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Remove orcid",
+    "nin": "18061620830",
+    "username": "test-user-remove-existing-orcid@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Not customer",
+    "nin": "14122534864",
+    "username": "test-user-not-customer@test.no",
+    "role": [],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "No name in ARP",
+    "nin": "19107300859",
+    "username": "test-user-no-name-in-arp@test.no",
+    "role": [],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Name in ARP",
+    "nin": "27010258257",
+    "username": "test-user-name-in-arp@test.no",
+    "role": [],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "No ARP",
+    "nin": "22096020388",
+    "username": "test-user-no-arp@test.no",
+    "role": [],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Connect ARP",
+    "nin": "11070963819",
+    "username": "test-user-connect-arp@test.no",
+    "role": [],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "No ORCID",
+    "nin": "23026209382",
+    "username": "test-user-no-orcid@test.no",
+    "role": [],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Connect ORCID",
+    "nin": "10121318682",
+    "username": "test-user-connect-orcid@test.no",
+    "role": [],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Connect Author",
+    "nin": "31129522308",
+    "username": "test-user-connect-author@test.no",
+    "role": [],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Siri",
+    "nin": "26109343977",
+    "username": "test-user-siri@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Resource type",
+    "nin": "19074818776",
+    "username": "test-user-resource-type@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "View registration",
+    "nin": "06047543094",
+    "username": "test-user-view-registration@test.no",
+    "role": [],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  }
+]

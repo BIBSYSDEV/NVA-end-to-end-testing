@@ -39,7 +39,7 @@ const amplifyConfig = {
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
-const authFlow = 'ADMIN_USER_PASSWORD_AUTH';
+const authFlow = 'USER_PASSWORD_AUTH';
 
 Cypress.Commands.add('connectAuthor', () => {
   cy.get(`[data-testid=create-author-button]`).click();
@@ -73,7 +73,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
     const authorizeUser = {
       AuthFlow: authFlow,
       ClientId: clientId,
-      UserPoolId: userPoolId,
+      // UserPoolId: userPoolId,
       AuthParameters: {
         USERNAME: userId,
         PASSWORD: randomPassword,
@@ -89,7 +89,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
 
     identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
       if (data) {
-        identityServiceProvider.adminInitiateAuth(authorizeUser, async (err, data) => {
+        identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
           if (data) {
             if (!data.ChallengeName) {
               await Auth.signIn(userId, randomPassword);
