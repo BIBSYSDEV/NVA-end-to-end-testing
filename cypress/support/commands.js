@@ -1,6 +1,7 @@
-import AWS from 'aws-sdk';
+import * as AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify from 'aws-amplify'
+import { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import {
   mockPersonFeideIdSearch,
@@ -22,7 +23,7 @@ const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'dev';
 
-AWS.config = new AWS.Config({
+AWS.config.update({
   accessKeyId: awsAccessKeyId,
   secretAccessKey: awsSecretAccessKey,
   sessionToken: awsSessionToken,
@@ -33,7 +34,7 @@ const amplifyConfig = {
   Auth: {
     region: region,
     userPoolId: userPoolId,
-    userPoolWebClientId: clientId,
+    userPoolWebClientId: '3rls7ad53ldmjvdbj7p8fii18q',
   },
 };
 
@@ -91,6 +92,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
       if (data) {
         identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
           if (data) {
+            console.log(data)
             if (!data.ChallengeName) {
               await Auth.signIn(userId, randomPassword);
               resolve(data.AuthenticationResult.IdToken);
@@ -486,7 +488,7 @@ Cypress.Commands.add('checkField', (field) => {
   }
 });
 
-Cypress.Commands.add('checkRsourceFields', (type, subtype) => {});
+Cypress.Commands.add('checkRsourceFields', (type, subtype) => { });
 
 Cypress.Commands.add('fillInCommonFields', (type, subtype) => {
   Object.keys(registrationFields).forEach((key) => {
