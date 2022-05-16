@@ -5,19 +5,11 @@ import uuid
 import common
 import time
 
-clientId = '4tsmoeohlrbofg8spgjck6e42m'
-secret = 'ffr3hslpkvfem4475hccsra1hhk4q9r6h72aeu6ti7usde3aqp9'
+clientId = '7vt27od1nkei5mepcv3df98c5k'
+secret = '3looqcjbolfvue8flaajrjbnqu3l9v6u1sibmp58n8og9v6gers'
 
 apiUrl = 'https://api.dev.nva.aws.unit.no/'
-USER_POOL_ID = 'eu-west-1_PUxnN82Fi'
-# cristinOrgId = '20202'
-# nin = '09121318633'
-# customer = 'https://api.dev.nva.aws.unit.no/customer/363ba4d0-741a-449d-bd8b-ef67ab0edd5a'
-# roles = [
-#     {"type":"Role", "rolename":"Curator"},
-#     {"type":"Role", "rolename":"Institution-admin"},
-#     {"type":"Role", "rolename":"App-admin"}
-# ]
+USER_POOL_ID = 'eu-west-1_nLV9i5X5D'
 
 def getBackendAccessToken():
     url = "https://nva-dev.auth.eu-west-1.amazoncognito.com/oauth2/token"
@@ -200,7 +192,7 @@ def deleteUsers():
         UserPoolId=USER_POOL_ID
     )
     for user in response['Users']:
-        if '20202.0.0.0' in user['Username']:
+        if 'test-user-' in user['Username']:
             client.admin_delete_user(
                 Username=user['Username'],
                 UserPoolId=USER_POOL_ID
@@ -211,13 +203,13 @@ def deleteUsers():
         UserPoolId=USER_POOL_ID
     )
     for user in response['Users']:
-        if not '20202.0.0.0' in user['Username']:
+        if not 'test-user-' in user['Username']:
             print(user['Username'])
 
 def run():
+    importUsers()
     # createNin()
-    # importUsers()
-    deleteUsers()
+    # deleteUsers()
 
 if __name__ == '__main__':
     run()
