@@ -1,3 +1,4 @@
+from logging import Filter
 import boto3
 import json
 import copy
@@ -10,6 +11,7 @@ from datetime import date, timedelta
 dynamodb_client = boto3.client('dynamodb')
 s3_client = boto3.client('s3')
 ssm = boto3.client('ssm')
+cognito_client = boto3.client('cognito-idp')
 publications_tablename = ssm.get_parameter(Name='/test/ResourceTable',
                                            WithDecryption=False)['Parameter']['Value']
 s3_bucket_name = ssm.get_parameter(Name='/test/ResourceS3Bucket',
@@ -74,22 +76,19 @@ def map_user_to_arp():
         users = json.load(user_file)
         for user in users:
             arp_dict[user['username']] = {
-                'lastName': user['lastName'],
-                'firstName': user['firstName']
+                'username': ''
             }
-            if (user['author']):
-                query_response = requests.get(
-                    person_query.format(STAGE, user['firstName'],
-                                        user['lastName']), headers=headers)
-                if query_response.status_code != 200:
-                    print(f'GET /person/ {query_response.status_code}')
-                if query_response.json() != []:
-                    try:
-                        arp_dict[user['username']]['scn'] = query_response.json(
-                        )['hits'][0]['id']
-                    except:
-                        print(query_response.json())
-                        print(f'{user["firstName"]} - {user["lastName"]}')
+            query_response = requests.get(
+                person_query.format(STAGE, user['firstName'],
+                                    user['lastName']), headers=headers)
+            if query_response.status_code != 200:
+                print(f'GET /person/ {query_response.status_code}')
+            if query_response.json() != []:
+                try:
+                    user_id = f"{query_response.json()['hits'][0]['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')}@{user['orgNumber']}.0.0.0"
+                    arp_dict[user['username']]['username'] = user_id
+                except:
+                    print(query_response.json())
 
 
 def upload_file():
@@ -214,9 +213,9 @@ def put_item(new_publication, username):
     return response.json()
 
 
-def get_customer(username, bearer_token):
+def get_customer(username):
     response = requests.get(user_endpoint.format(
-        STAGE, username), headers=headers)
+        STAGE, arp_dict[username]['username']), headers=headers)
     print(response.json())
     return response.json()['institution']
 
@@ -289,7 +288,7 @@ def create_publication_data(publication_template, test_publication, username, cu
 
 
 def create_test_publication(publication_template, test_publication, bearer_token):
-    customer = get_customer(test_publication['owner'], bearer_token=bearer_token).replace(
+    customer = get_customer(test_publication['owner']).replace(
         f'https://api.{STAGE}.nva.aws.unit.no/customer/', '')
     username = test_publication['owner']
     status = test_publication['status']
@@ -372,10 +371,8 @@ def run():
     print('publications...')
     bearer_token = common.login(username='test-user-with-author@test.no')
     headers['Authorization'] = f'Bearer {bearer_token}'
-    # map_user_to_arp()
+    map_user_to_arp()
     upload_file()
-    print(locations)
-
     delete_publications()
     create_publications()
 
