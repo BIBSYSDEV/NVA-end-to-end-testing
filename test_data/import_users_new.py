@@ -208,8 +208,6 @@ def deleteUsers():
 
 def run():
     importUsers()
-    # createNin()
-    # deleteUsers()
 
 if __name__ == '__main__':
     run()

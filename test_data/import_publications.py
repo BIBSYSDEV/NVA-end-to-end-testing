@@ -24,7 +24,7 @@ CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 publication_template_file_name = './publications/new_test_registration.json'
 test_publications_file_name = './publications/test_publications.json'
-person_query = 'https://api.{}.nva.aws.unit.no/person/?name={} {}'
+person_query = 'https://api.{}.nva.aws.unit.no/cristin/person/?name={} {}'
 user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
@@ -70,27 +70,30 @@ MAP = 'M'
 
 
 def map_user_to_arp():
-    with open('./users/test_users.json') as user_file:
+    with open('./users/test_users_new.json') as user_file:
         users = json.load(user_file)
         for user in users:
             arp_dict[user['username']] = {
-                'familyName': user['familyName'],
-                'givenName': user['givenName']
+                'lastName': user['lastName'],
+                'firstName': user['firstName']
             }
             if (user['author']):
                 query_response = requests.get(
-                    person_query.format(STAGE, user['givenName'],
-                                        user['familyName']))
+                    person_query.format(STAGE, user['firstName'],
+                                        user['lastName']), headers=headers)
                 if query_response.status_code != 200:
                     print(f'GET /person/ {query_response.status_code}')
                 if query_response.json() != []:
-                    arp_dict[user['username']]['scn'] = query_response.json(
-                    )[0]['id']
+                    try:
+                        arp_dict[user['username']]['scn'] = query_response.json(
+                        )['hits'][0]['id']
+                    except:
+                        print(query_response.json())
+                        print(f'{user["firstName"]} - {user["lastName"]}')
 
 
-def upload_file(bearer_token):
+def upload_file():
     print('upload file...')
-    headers['Authorization'] = f'Bearer {bearer_token}'
     # create
     print('create...')
     for filekey in fileTypes.keys():
@@ -108,6 +111,8 @@ def upload_file(bearer_token):
                 'mimetype': fileTypes[filekey]['mimeType']
             },
             headers=headers)
+        print(response.json())
+        print(response.status_code)
         uploadId = response.json()['uploadId']
         key = response.json()['key']
         # prepare
@@ -210,9 +215,9 @@ def put_item(new_publication, username):
 
 
 def get_customer(username, bearer_token):
-    headers['Authorization'] = f'Bearer {bearer_token}'
     response = requests.get(user_endpoint.format(
         STAGE, username), headers=headers)
+    print(response.json())
     return response.json()['institution']
 
 
@@ -224,7 +229,7 @@ def create_contributor(contributor):
         new_contributor = copy.deepcopy(contributor_template)
         new_contributor['email'] = contributor
         new_contributor['identity']['id'] = arp_dict[contributor]['scn']
-        new_contributor['identity']['name'] = f'{arp_dict[contributor]["familyName"]},{arp_dict[contributor]["givenName"]}'
+        new_contributor['identity']['name'] = f'{arp_dict[contributor]["lastName"]},{arp_dict[contributor]["firstName"]}'
         return new_contributor
 
 
@@ -365,9 +370,10 @@ def approve_doi(identifier):
 
 def run():
     print('publications...')
-    map_user_to_arp()
     bearer_token = common.login(username='test-user-with-author@test.no')
-    upload_file(bearer_token=bearer_token)
+    headers['Authorization'] = f'Bearer {bearer_token}'
+    # map_user_to_arp()
+    upload_file()
     print(locations)
 
     delete_publications()

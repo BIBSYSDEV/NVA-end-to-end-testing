@@ -22,7 +22,7 @@ def login(username):
 
     response = client.initiate_auth(
         AuthFlow='USER_PASSWORD_AUTH',
-        ClientId='49pjmu0bmfluk4bvcsnljnblub',
+        ClientId=CLIENT_ID,
         AuthParameters={
             'USERNAME': username,
             'PASSWORD': password

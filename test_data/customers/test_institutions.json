@@ -2,8 +2,8 @@
   {
     "administrationId": "test-user-admin@test.no",
     "archiveName": "test 1",
-    "feideOrganizationId": "1111111111",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/1111111111.0.0.0",
+    "feideOrganizationId": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "displayName": "Test Institution",
     "name": "Test Institution",
     "shortName": "TestInst"
@@ -11,8 +11,8 @@
   {
     "administrationId": "test-user-second-inst-admin@test.no",
     "archiveName": "test 2",
-    "feideOrganizationId": "2222222222",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/2222222222.0.0.0",
+    "feideOrganizationId": "5991",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "displayName": "Test Institution 2",
     "name": "Test Institution 2",
     "shortName": "TestInst 2"
