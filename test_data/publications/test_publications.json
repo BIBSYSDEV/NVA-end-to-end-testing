@@ -96,8 +96,7 @@
     "owner": "test-user-my-registrations@test.no",
     "status": "DRAFT",
     "contributor": "test-user-with-author@test.no",
-    "title": "Registration with validation error",
-    "publication_content_type": ""
+    "title": "Registration with validation error"
   },
   {
     "publication_type": "JournalContent",
@@ -108,8 +107,7 @@
     "owner": "test-user-with-author@test.no",
     "status": "DRAFT",
     "contributor": "test-user-with-author@test.no",
-    "title": "Registration with validation error",
-    "publication_content_type": ""
+    "title": "Registration with validation error"
   },
   {
     "publication_type": "JournalContent",
@@ -246,7 +244,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-view-registration@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-view-registration@test.no",
     "title": "View registration"
   },
   {
@@ -257,7 +255,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
-    "contributor": "",
+    "contributor": "test-user-with-author@test.no",
     "title": "Administrative agreement",
     "administrativeAgreement": true,
     "fileType": "image"
@@ -270,7 +268,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
-    "contributor": "",
+    "contributor": "test-user-with-author@test.no",
     "title": "No administrative agreement"
   },
   {
@@ -281,7 +279,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
-    "contributor": "",
+    "contributor": "test-user-with-author@test.no",
     "title": "Not Embargoed PDF file"
   },
   {
@@ -292,7 +290,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
-    "contributor": "",
+    "contributor": "test-user-with-author@test.no",
     "title": "Not Embargoed Image file",
     "fileType": "image"
   },
@@ -304,7 +302,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
-    "contributor": "",
+    "contributor": "test-user-with-author@test.no",
     "title": "Not Embargoed Microsoft Office file",
     "fileType": "office"
   },
@@ -316,7 +314,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
-    "contributor": "",
+    "contributor": "test-user-with-author@test.no",
     "title": "Embargoed PDF file",
     "embargoed": true
   },
@@ -328,7 +326,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
-    "contributor": "",
+    "contributor": "test-user-with-author@test.no",
     "title": "Antologi"
   }
 ]

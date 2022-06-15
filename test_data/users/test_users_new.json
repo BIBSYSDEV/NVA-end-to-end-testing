@@ -577,7 +577,7 @@
   {
     "lastName": "TestUser",
     "firstName": "View registration",
-    "nin": "06047543094",
+    "nin": "06075146505",
     "username": "test-user-view-registration@test.no",
     "role": [{"type": "Role", "rolename": "Creator"}],
     "orcid": true,

@@ -109,8 +109,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
 });
 
 Cypress.Commands.add('login', (userId) => {
-  cy.loginCognito(userId).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
+  cy.loginCognito(userId).then(() => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.mockPersonSearch(userId);

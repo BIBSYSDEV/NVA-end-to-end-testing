@@ -85,8 +85,14 @@ def map_user_to_arp():
                 print(f'GET /person/ {query_response.status_code}')
             if query_response.json() != []:
                 try:
-                    user_id = f"{query_response.json()['hits'][0]['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')}@{user['orgNumber']}.0.0.0"
+                    cristin_id = query_response.json()['hits'][0]['id']
+                    user_id = f"{cristin_id.replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')}@{user['orgNumber']}.0.0.0"
+                    name = f'{query_response.json()["hits"][0]["names"][1]["value"]} {query_response.json()["hits"][0]["names"][0]["value"]}'
+                    if query_response.json()["hits"][0]["names"][0]["type"] == 'FirstName':
+                        name = f'{query_response.json()["hits"][0]["names"][0]["value"]} {query_response.json()["hits"][0]["names"][1]["value"]}'
                     arp_dict[user['username']]['username'] = user_id
+                    arp_dict[user['username']]['cristinid'] = cristin_id
+                    arp_dict[user['username']]['name'] = name
                 except:
                     print(query_response.json())
 
@@ -203,12 +209,15 @@ def put_item(new_publication, username):
         bearer_token = common.login(username=username)
         headers['Authorization'] = f'Bearer {bearer_token}'
         response = requests.post(publication_endpoint,
-                                 json=new_publication, headers=headers)
+                                 json=new_publication,
+                                 headers=headers)
         if response.status_code == 201:
             trying = False
         count = count + 1
         if count == 3:
             trying = False
+            print('Too many tries...')
+            print(response.json())
             raise RuntimeError('Failed to create Registration')
     return response.json()
 
@@ -216,7 +225,6 @@ def put_item(new_publication, username):
 def get_customer(username):
     response = requests.get(user_endpoint.format(
         STAGE, arp_dict[username]['username']), headers=headers)
-    print(response.json())
     return response.json()['institution']
 
 
@@ -227,8 +235,8 @@ def create_contributor(contributor):
 
         new_contributor = copy.deepcopy(contributor_template)
         new_contributor['email'] = contributor
-        new_contributor['identity']['id'] = arp_dict[contributor]['scn']
-        new_contributor['identity']['name'] = f'{arp_dict[contributor]["lastName"]},{arp_dict[contributor]["firstName"]}'
+        new_contributor['identity']['id'] = arp_dict[contributor]["cristinid"]
+        new_contributor['identity']['name'] = arp_dict[contributor]["name"]
         return new_contributor
 
 

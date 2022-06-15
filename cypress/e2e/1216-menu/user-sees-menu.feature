@@ -60,8 +60,8 @@ Feature: User sees menu
         And they have the "Institution-admin" role
         When they look at any page in NVA
         Then they see a Dropdown Menu with items:
-            | My institution  |
-            | Users           |
+            # | My institution  |
+            # | Users           |
             | My user profile |
             | Log out         |
         And they see the Language selector
