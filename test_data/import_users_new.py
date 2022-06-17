@@ -207,6 +207,7 @@ def deleteUsers():
             print(user['Username'])
 
 def run():
+    deleteUsers()
     importUsers()
 
 if __name__ == '__main__':
