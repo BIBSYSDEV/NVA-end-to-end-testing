@@ -1,9 +1,8 @@
-import import_users
+import import_users_new
 import import_customers
 import import_publications
 import create_cognito_user
 
-create_cognito_user.run()
 import_customers.run()
-import_users.run()
+import_users_new.run()
 import_publications.run()
