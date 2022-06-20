@@ -3,8 +3,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 
 Given('that a Creator views a Registration', () => {
   cy.login(userViewRegistration);
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
+  cy.openMyRegistrations();
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 And('they navigate to the Files and License tab', () => {

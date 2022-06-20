@@ -9,8 +9,7 @@ Given('that the user is logged in as Creator', () => {
   cy.login(userWithAuthor);
 });
 And('is on the My Registrations page', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
+  cy.openMyRegistrations();
 });
 When('they click Delete on an item', () => {
   cy.get('[data-testid^=delete-registration]').first().as('registration');

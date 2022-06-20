@@ -170,6 +170,11 @@ Cypress.Commands.add('logoutCognito', () => {
   Auth.signOut();
 });
 
+Cypress.Commands.add('openMyRegistrations', () => {
+  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
+  cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsLink}]`).click();
+})
+
 Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Description
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click({ force: true });

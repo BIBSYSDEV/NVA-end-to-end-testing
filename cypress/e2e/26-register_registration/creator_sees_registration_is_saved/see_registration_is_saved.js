@@ -29,8 +29,7 @@ When('they click Start', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
 });
 And('they click My Registrations', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
+  cy.openMyRegistrations();
 });
 And('they see that Edit is enabled', () => {
   cy.get('@registration').within((registration) => {

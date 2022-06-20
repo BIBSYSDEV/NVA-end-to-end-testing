@@ -9,8 +9,7 @@ Given('that the user is logged in as Creator', () => {
 // end common step
 
 And('is on the page My Registrations', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
+  cy.openMyRegistrations();
 });
 When('they click Edit on an item', () => {
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
@@ -31,8 +30,7 @@ And('they see fields:', (dataTable) => {
 
 // Scenario: Creator sees Validation Errors for Registration
 And('they are on the page My Registrations', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
+  cy.openMyRegistrations();
 });
 And('they see a List of Registrations', () => {
   cy.get('[data-testid^=edit-registration]').should('have.length', 1);

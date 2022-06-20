@@ -7,8 +7,7 @@ import { dataTestId } from '../../../../support/dataTestIds';
 
 Before(() => {
   cy.login(userResourceType);
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
+  cy.openMyRegistrations();
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 

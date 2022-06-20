@@ -5,11 +5,10 @@ Given('the user is logged in as Creator', () => {
   cy.login(userWithAuthor);
 });
 When('they click the button My Registrations', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click({ force: true });
+  cy.openMyRegistrations();
 });
 Then('they see My Registrations', () => {
-  cy.location('pathname').should('eq', '/my-registrations');
+  cy.location('pathname').should('eq', '/my-page/registrations');
 });
 And('they see a list of all unpublished Registrations with the fields', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
