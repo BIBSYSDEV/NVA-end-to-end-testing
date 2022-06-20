@@ -26,7 +26,7 @@ CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 publication_template_file_name = './publications/new_test_registration.json'
 test_publications_file_name = './publications/test_publications.json'
-person_query = 'https://api.{}.nva.aws.unit.no/cristin/person/?name={} {}'
+person_query = 'https://api.{}.nva.aws.unit.no/cristin/person/identityNumber'
 user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
@@ -36,7 +36,7 @@ approve_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/update-
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
-username = 'test-data-user@test.no'
+username = 'test-user-first-inst-admin@test.no'
 username_curator = 'test-user-curator-draft-doi@test.no'
 
 arp_dict = {}
@@ -78,23 +78,25 @@ def map_user_to_arp():
             arp_dict[user['username']] = {
                 'username': ''
             }
-            query_response = requests.get(
-                person_query.format(STAGE, user['firstName'],
-                                    user['lastName']), headers=headers)
+            query_response = requests.post(
+                person_query.format(STAGE, headers=headers),
+                json = {
+                   "type": "NationalIdentificationNumber",
+                    "value": user['nin']
+                },
+                headers=headers)
             if query_response.status_code != 200:
                 print(f'GET /person/ {query_response.status_code}')
             if query_response.json() != []:
-                try:
-                    cristin_id = query_response.json()['hits'][0]['id']
-                    user_id = f"{cristin_id.replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')}@{user['orgNumber']}.0.0.0"
-                    name = f'{query_response.json()["hits"][0]["names"][1]["value"]} {query_response.json()["hits"][0]["names"][0]["value"]}'
-                    if query_response.json()["hits"][0]["names"][0]["type"] == 'FirstName':
-                        name = f'{query_response.json()["hits"][0]["names"][0]["value"]} {query_response.json()["hits"][0]["names"][1]["value"]}'
-                    arp_dict[user['username']]['username'] = user_id
-                    arp_dict[user['username']]['cristinid'] = cristin_id
-                    arp_dict[user['username']]['name'] = name
-                except:
-                    print(query_response.json())
+                person = query_response.json()
+                cristin_id = person['id']
+                user_id = f"{cristin_id.replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')}@{user['orgNumber']}.0.0.0"
+                name = f'{person["names"][1]["value"]} {person["names"][0]["value"]}'
+                if person["names"][0]["type"] == 'FirstName':
+                    name = f'{person["names"][0]["value"]} {person["names"][1]["value"]}'
+                arp_dict[user['username']]['username'] = user_id
+                arp_dict[user['username']]['cristinid'] = cristin_id
+                arp_dict[user['username']]['name'] = name
 
 
 def upload_file():
@@ -116,8 +118,6 @@ def upload_file():
                 'mimetype': fileTypes[filekey]['mimeType']
             },
             headers=headers)
-        print(response.json())
-        print(response.status_code)
         uploadId = response.json()['uploadId']
         key = response.json()['key']
         # prepare
@@ -225,7 +225,9 @@ def put_item(new_publication, username):
 def get_customer(username):
     response = requests.get(user_endpoint.format(
         STAGE, arp_dict[username]['username']), headers=headers)
-    return response.json()['institution']
+    if response.status_code == 200:
+        return response.json()['institution']
+    return ''
 
 
 def create_contributor(contributor):
@@ -298,7 +300,7 @@ def create_publication_data(publication_template, test_publication, username, cu
 def create_test_publication(publication_template, test_publication, bearer_token):
     customer = get_customer(test_publication['owner']).replace(
         f'https://api.{STAGE}.nva.aws.unit.no/customer/', '')
-    username = test_publication['owner']
+    username = arp_dict[test_publication['owner']]['username']
     status = test_publication['status']
 
     new_publication = create_publication_data(
@@ -349,7 +351,6 @@ def publish_publication(identifier, username):
     headers['Authorization'] = f'Bearer {publish_bearer_token}'
     response = requests.put(publish_endpoint.format(
         STAGE, identifier), headers=headers)
-    print(response.json())
 
 
 def request_doi(identifier, username):
@@ -372,12 +373,11 @@ def approve_doi(identifier):
     }
     response = requests.post(f'{approve_doi_endpoint}/{identifier}',
                              json=doi_request_payload, headers=headers)
-    print(response.json())
 
 
 def run():
     print('publications...')
-    bearer_token = common.login(username='test-user-with-author@test.no')
+    bearer_token = common.login(username='test-user-second-inst-admin-1@test.no')
     headers['Authorization'] = f'Bearer {bearer_token}'
     map_user_to_arp()
     upload_file()

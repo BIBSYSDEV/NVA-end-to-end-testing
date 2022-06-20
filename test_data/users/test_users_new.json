@@ -37,7 +37,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Draft DOI",
-    "nin": "06083242033",
+    "nin": "30061453055",
     "username": "test-user-draft-doi@test.no",
     "role": [{"type": "Role", "rolename": "Creator"}],
     "orcid": true,
