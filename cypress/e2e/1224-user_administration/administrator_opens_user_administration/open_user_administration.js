@@ -63,11 +63,10 @@ Given('that the user is logged in as Administrator', () => {
   cy.login(userSecondInstAdminWithAuthor);
 });
 When('they click the menu item Users', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.header.adminUsersLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
 });
 Then('they see the User Administration page', () => {
-  cy.location('pathname').should('equal', '/my-institution-users');
+  cy.location('pathname').should('equal', '/basic-data/users');
 });
 And(
   'they see that Section {string} lists all users affiliated with their institution with role {string}',
@@ -115,8 +114,7 @@ And('they see a section Registrator with a policy for who are able to publish', 
 // Scenario Outline: Administrator opens the Add Role Dialog
 Given('Administrator opens User Administration', () => {
   cy.login(userSecondInstAdminWithAuthor);
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.header.adminUsersLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
 });
 Then('they see the Add Role Dialog', () => {
   cy.get('[data-testid=add-role-modal]').as('roleModal');
@@ -151,8 +149,7 @@ And('they see a "Close" button', () => {
 // Scenario: Administrator searches for User
 Given('Administrator opens the Add Role Dialog', () => {
   cy.login(userSecondInstAdminWithAuthor);
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.header.adminUsersLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
 });
 When('they enter text into the Search field', () => {
   cy.get('@section').then((section) => {

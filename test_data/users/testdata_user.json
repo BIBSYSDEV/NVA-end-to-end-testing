@@ -1,0 +1,23 @@
+[
+  {
+    "lastName": "TestUser",
+    "firstName": "Create testdata",
+    "nin": "16027427999",
+    "username": "admin-user-testdata@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "App-admin"
+      },{
+        "type": "Role",
+        "rolename": "Creator"
+      },{
+        "type": "Role",
+        "rolename": "Institution-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20754",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20754.0.0.0"
+  }
+]

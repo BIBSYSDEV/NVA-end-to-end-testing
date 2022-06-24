@@ -12,7 +12,7 @@ STAGE = ssm.get_parameter(Name='/test/Stage',
 customer_template_file_name = './customers/institution.json'
 test_customers_file_name = './customers/test_institutions.json'
 customer_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/customer/'
-username = 'test-user-with-author@test.no'
+username = 'admin-user-testdata@test.no'
 
 
 def delete_customers():

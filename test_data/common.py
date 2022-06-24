@@ -1,5 +1,6 @@
 import boto3
 import uuid
+import requests
 
 ssm = boto3.client('ssm')
 USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
@@ -9,6 +10,9 @@ CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
 customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
                                        WithDecryption=False)['Parameter']['Value']
 username = 'test-user-with-author@test.no'
+
+clientId = '7vt27od1nkei5mepcv3df98c5k'
+secret = '3looqcjbolfvue8flaajrjbnqu3l9v6u1sibmp58n8og9v6gers'
 
 def login(username):
     client = boto3.client('cognito-idp')
@@ -35,3 +39,15 @@ def scan_customers():
     response = client.scan(TableName=customer_tablename)
 
     return response['Items']
+
+def getBackendAccessToken():
+    url = "https://nva-dev.auth.eu-west-1.amazoncognito.com/oauth2/token"
+
+    payload='grant_type=client_credentials'
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    response = requests.post(url, headers=headers, data=payload, auth=(clientId, secret))
+
+    return response.json()['access_token']

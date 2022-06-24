@@ -1,27 +1,12 @@
 import json
 import requests
 import boto3
-import uuid
 import common
 import time
-
-clientId = '7vt27od1nkei5mepcv3df98c5k'
-secret = '3looqcjbolfvue8flaajrjbnqu3l9v6u1sibmp58n8og9v6gers'
+import sys
 
 apiUrl = 'https://api.dev.nva.aws.unit.no/'
 USER_POOL_ID = 'eu-west-1_nLV9i5X5D'
-
-def getBackendAccessToken():
-    url = "https://nva-dev.auth.eu-west-1.amazoncognito.com/oauth2/token"
-
-    payload='grant_type=client_credentials'
-    headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-
-    response = requests.post(url, headers=headers, data=payload, auth=(clientId, secret))
-
-    return response.json()['access_token']
 
 def createHeaders(accessToken):
     return {
@@ -131,30 +116,9 @@ def createNvaUser(accessToken, nin, customer, roles, username):
             MessageAction='SUPPRESS'
         )
 
-
-def login(username):
-    client = boto3.client('cognito-idp')
-    password = f'P_{str(uuid.uuid4())}'
-    client.admin_set_user_password(
-        Password=password,
-        UserPoolId=USER_POOL_ID,
-        Username=username,
-        Permanent=True,
-    )
-
-    response = client.initiate_auth(
-        AuthFlow='USER_PASSWORD_AUTH',
-        ClientId='49pjmu0bmfluk4bvcsnljnblub',
-        AuthParameters={
-            'USERNAME': username,
-            'PASSWORD': password
-        }
-    )
-    print(response['AuthenticationResult']['AccessToken'])
-
-def importUsers():
+def importUsers(test_users_file_name):
     print('Importing users...')
-    accessToken = getBackendAccessToken()
+    accessToken = common.getBackendAccessToken()
 
     customersScan = common.scan_customers()
     customers = {}
@@ -162,7 +126,6 @@ def importUsers():
         cristinOrgId = customer['cristinId']['S'].replace('https://api.dev.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
         customers[cristinOrgId] = f'https://api.dev.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
 
-    test_users_file_name = './users/test_users_new.json'
     with open(test_users_file_name) as test_users_file:
 
         test_users = json.load(test_users_file)
@@ -205,10 +168,15 @@ def deleteUsers():
     for user in response['Users']:
         if not 'test-user-' in user['Username']:
             print(user['Username'])
+    client = boto3.client('dynamodb')
 
-def run():
+def run(user_file):
     deleteUsers()
-    importUsers()
+    importUsers(test_users_file_name=user_file)
 
 if __name__ == '__main__':
-    run()
+    if len(sys.argv) > 1:
+        test_users_file_name = sys.argv[1]
+    else:
+        test_users_file_name = './users/test_users_new.json'
+    run(test_users_file_name)

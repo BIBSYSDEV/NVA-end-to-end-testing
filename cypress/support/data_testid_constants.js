@@ -2,8 +2,10 @@ import { dataTestId } from './dataTestIds';
 
 export const mainButtons = {
   'New Registration': dataTestId.header.newRegistrationLink,
-  'My Registrations': dataTestId.header.myRegistrationsLink,
-  'My Messages': dataTestId.header.messagesLink,
+  'My Registrations': dataTestId.header.myPageLink,
+  'My page': dataTestId.header.myPageLink,
+  'Worklist': dataTestId.header.worklistLink,
+  'Basic data': dataTestId.header.basicDataLink,
 };
 
 export const userMenu = {
@@ -22,7 +24,6 @@ export const creatorMenu = {
 
 export const curatorMenu = {
   ...userMenu,
-  'My worklist': dataTestId.header.worklistLink,
 };
 
 export const instAdminMenu = {

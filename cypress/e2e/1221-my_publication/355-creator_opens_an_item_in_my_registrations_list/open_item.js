@@ -33,13 +33,13 @@ And('they are on the page My Registrations', () => {
   cy.openMyRegistrations();
 });
 And('they see a List of Registrations', () => {
-  cy.get('[data-testid^=edit-registration]').should('have.length', 1);
+  cy.get('[data-testid^=edit-registration]').should('have.length.above', 0);
 });
 When('they click Edit on a Registration', () => {
   cy.get('tr')
     .filter(':contains("Registration with validation error")')
     .within(() => {
-      cy.get('[data-testid^=edit-registration]').click({ force: true });
+      cy.get('[data-testid^=edit-registration]').first().click({ force: true });
     });
 });
 And('they see the Registration is opened in Edit Mode', () => {

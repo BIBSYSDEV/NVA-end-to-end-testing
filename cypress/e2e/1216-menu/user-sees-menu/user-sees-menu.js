@@ -18,7 +18,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 // Feature: User sees menu
 
 // Common steps
-Given('that the user is logged in', () => {});
+Given('that the user is logged in', () => { });
 When('they look at any page in NVA', () => {
   cy.visit(`/`);
 });

@@ -1,4 +1,3 @@
-from logging import Filter
 import boto3
 import json
 import copy
@@ -36,7 +35,7 @@ approve_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/update-
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
-username = 'test-user-first-inst-admin@test.no'
+username = 'admin-user-testdata@test.no'
 username_curator = 'test-user-curator-draft-doi@test.no'
 
 arp_dict = {}
@@ -323,6 +322,7 @@ def create_publications():
         test_publications = json.load(test_publications_file)
         for test_publication in test_publications:
             username = test_publication['owner']
+            print(username)
             bearer_token = ''
             bearer_token = common.login(username=username)
             print(f'Creating {test_publication["title"]}')
@@ -377,7 +377,7 @@ def approve_doi(identifier):
 
 def run():
     print('publications...')
-    bearer_token = common.login(username='test-user-second-inst-admin-1@test.no')
+    bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
     map_user_to_arp()
     upload_file()
