@@ -18,7 +18,8 @@ const filename = 'example.txt';
 
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.login(userDraftDoi);
-  cy.get(`[data-testid=${dataTestId.header.messagesLink}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
+  cy.get(`[data-testid=${dataTestId.myPage.messagesLink}]`).click();
   cy.get('[data-testid^=message-title]')
     .first()
     .parent()

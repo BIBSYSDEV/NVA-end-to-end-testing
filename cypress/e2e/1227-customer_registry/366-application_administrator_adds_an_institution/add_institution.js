@@ -10,9 +10,8 @@ Given('that the user is logged in as Application Administrator', () => {
   cy.login(adminUser);
 });
 And('they click the menu item Institutions', () => {
-  cy.get(`[data-testid=basic-data-link]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).should('be.visible');
-  cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.basicData.adminInstitutionsLink}]`).click({ force: true });
 });
 When('they click Add Institution', () => {
   cy.get('[data-testid=add-institution-button]').click({ force: true });

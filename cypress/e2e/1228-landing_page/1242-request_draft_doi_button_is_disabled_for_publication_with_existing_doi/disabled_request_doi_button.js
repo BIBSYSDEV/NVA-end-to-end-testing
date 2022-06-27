@@ -22,7 +22,7 @@ And('the Registration has status {string}', (status) => {
     .filter(`:contains(${registrationTitles[status]})`)
     .parent()
     .within(() => {
-      cy.get('[data-testid^=open-registration]').click();
+      cy.get('[data-testid^=open-registration]').first().click();
     });
 });
 And('the Registration has a DOI', () => {

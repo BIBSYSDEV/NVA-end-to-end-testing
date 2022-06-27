@@ -228,14 +228,14 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 });
 
 Cypress.Commands.add('selectRegistration', (title, type) => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
+  cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsLink}]`).click();
   cy.get(`[data-testid=${type}-button]`).click();
   cy.get('[data-testid^=registration-title]')
     .filter(`:contains(${title})`)
     .parent()
     .within(() => {
-      cy.get('[data-testid^=open-registration]').click();
+      cy.get('[data-testid^=open-registration]').first().click();
     });
 });
 

@@ -46,7 +46,7 @@ Then('they do not see the File that is an Administrative Agreement', () => {
 
 // Scenario: Files that are part of Registration are listed
 And('the Registration contains Files', () => {
-  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type('No dministrative agreement');
+  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type('No administrative agreement');
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(':contains("No administrative agreement")')
     .first()

@@ -45,7 +45,7 @@ And('the Resource is a draft', () => {
     .filter(':contains("Registration with validation error")') // need to use text search to find correct registration
     .parent()
     .within((publicationLine) => {
-      cy.wrap(publicationLine).get('[data-testid^=open-registration]').click({ force: true });
+      cy.wrap(publicationLine).get('[data-testid^=open-registration]').first().click({ force: true });
     });
 });
 Then('they see a List of all Validation Errors for the Resource', () => {

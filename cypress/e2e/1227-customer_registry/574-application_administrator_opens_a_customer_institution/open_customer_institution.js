@@ -10,10 +10,9 @@ Given('that the user is logged in as Application Administrator', () => {
   cy.login(adminUser);
 });
 When('they open a Customer Institution', () => {
-  cy.get(`[data-testid=basic-data-link]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).should('be.visible');
-  cy.get(`[data-testid=${dataTestId.header.adminInstitutionsLink}]`).click({ force: true });
-  cy.get('[data-testid="edit-institution-TestInst 2"]').first().click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.basicData.adminInstitutionsLink}]`).click({ force: true });
+  cy.get('[data-testid="edit-institution-button-test-institution"]').first().click({ force: true });
 });
 Then('they see fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
