@@ -34,13 +34,13 @@ Feature: Creator selects Resource type Chapter
         Given Creator navigates to the Resource Type tab and selects Resource type "Chapter"
         When they select the Resource Subtype "Chapter in Anthology"
         Then they see Content type field with options:
-            | Academic Chapter           |
-            | Non-fiction Chapter        |
-            | Popular Science Chapter    |
-            | Textbook Chapter           |
-            | Encyclopedia Chapter       |
-            # | Introduction               |
-            # | Exhibition Catalog Chapter |
+            | Academic Chapter        |
+            | Non-fiction Chapter     |
+            | Popular Science Chapter |
+            | Textbook Chapter        |
+            | Encyclopedia Chapter    |
+    # | Introduction               |
+    # | Exhibition Catalog Chapter |
 
     @test
     @TEST_NP-4050

@@ -22,7 +22,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Cha
   selectChapter();
 });
 When('they select the Resource Subtype {string}', (chapterType) => {
-  cy.get(`[data-testid=publication-instance-type]`).click();
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get(`[data-testid=${chapterSubtypes[chapterType]}]`).click();
 });
 // end common steps
@@ -45,7 +45,7 @@ When('they select the Resource type "Chapter"', () => {
   selectChapter();
 });
 Then('they see a list of subtypes:', (dataTable) => {
-  cy.get('[data-testid=publication-instance-type]').click({ force: true });
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.testDataTestidList(dataTable, chapterSubtypes);
 });
 // | Chapter of Anthology               |
@@ -53,7 +53,7 @@ Then('they see a list of subtypes:', (dataTable) => {
 
 // Scenario Outline: Creator sees fields for Chapter subtypes
 Then('they see an information box describing that a Container report must be published first', () => {
-  cy.get('[data-testid=info-anthology]').should('be.visible');
+  cy.contains('The anthology where this chapter is published in must be published in advance')
 });
 And('they see a field {string}', (containerField) => {
   cy.get(`[data-testid=${chapterContainerField[containerField]}]`);

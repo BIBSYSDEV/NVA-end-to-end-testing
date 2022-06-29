@@ -32,7 +32,7 @@ Feature: Creator navigates to Contributors tab
       | Degree           | DegreePhd           | Add Author, Add Supervisor, Add Contributor |
       # | Degree           | DegreeLicentiate          | Add Author, Add Supervisor, Add Contributor |
       | Degree           | OtherStudentWork    | Add Author, Add Supervisor, Add Contributor |
-      | Journal          | FeatureArticle      | Add Author, Add Contributor                 |
+      # | Journal          | FeatureArticle      | Add Author, Add Contributor                 |
       | Journal          | JournalArticle      | Add Author, Add Contributor                 |
       | Journal          | JournalCorrigendum  | Add Author, Add Contributor                 |
       | Journal          | JournalLeader       | Add Author, Add Contributor                 |
