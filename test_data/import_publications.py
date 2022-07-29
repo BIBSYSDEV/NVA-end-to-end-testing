@@ -77,7 +77,6 @@ def map_user_to_arp():
             arp_dict[user['username']] = {
                 'username': ''
             }
-            print(person_query.format(STAGE))
             query_response = requests.post(
                 person_query.format(STAGE),
                 json = {
@@ -85,12 +84,10 @@ def map_user_to_arp():
                     "value": user['nin']
                 },
                 headers=headers)
-            print(user['nin'])
             if query_response.status_code != 200:
                 print(f'GET /person/ {query_response.status_code}')
             if query_response.json() != []:
                 person = query_response.json()
-                print(person)
                 cristin_id = person['id']
                 user_id = f"{cristin_id.replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')}@{user['orgNumber']}.0.0.0"
                 name = f'{person["names"][1]["value"]} {person["names"][0]["value"]}'

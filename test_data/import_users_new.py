@@ -7,6 +7,7 @@ import sys
 
 apiUrl = 'https://api.dev.nva.aws.unit.no/'
 USER_POOL_ID = 'eu-west-1_nLV9i5X5D'
+USERS_ROLES_TABLE_NAME = 'nva-users-and-roles-master-pipelines-NvaIdentityService-WLJCBMUDMRYZ-nva-identity-service'
 
 def createHeaders(accessToken):
     return {
@@ -149,7 +150,8 @@ def createNin():
             nin = nin.replace('\n', '')
             print(f'    "nin": "{nin}",')
 
-def deleteUsers():
+def deleteUsers(admin):
+    print('deleting from Cognito...')
     client = boto3.client('cognito-idp')
     response = client.list_users(
         UserPoolId=USER_POOL_ID
@@ -161,22 +163,38 @@ def deleteUsers():
                 UserPoolId=USER_POOL_ID
             )
 
-    client = boto3.client('cognito-idp')
-    response = client.list_users(
-        UserPoolId=USER_POOL_ID
-    )
-    for user in response['Users']:
-        if not 'test-user-' in user['Username']:
-            print(user['Username'])
+    print('deleting from DynamoDb...')
     client = boto3.client('dynamodb')
+    users = client.scan(TableName=USERS_ROLES_TABLE_NAME)['Items']
+    for user in users:
+        if 'familyName' in user:
+            familyName = user['familyName']['S']
+            givenName = user['givenName']['S']
+            if not admin and givenName == 'Create testdata':
+                print(f'Not deleting {givenName} {familyName}')
+            else:
+              if 'TestUser' in familyName:
+                print(f'deleting {givenName} {familyName}')
+                response = client.delete_item(
+                    TableName=USERS_ROLES_TABLE_NAME,
+                    Key={'PrimaryKeyHashKey': {
+                            'S': user['PrimaryKeyHashKey']['S']
+                        },
+                        'PrimaryKeyRangeKey': {
+                            'S': user['PrimaryKeyRangeKey']['S']
+                        }
+                    })
 
-def run(user_file):
-    deleteUsers()
+def run(user_file, admin):
+    deleteUsers(admin=admin)
     importUsers(test_users_file_name=user_file)
 
 if __name__ == '__main__':
+    admin = False
     if len(sys.argv) > 1:
         test_users_file_name = sys.argv[1]
+        if len(sys.argv) > 2:
+            admin = sys.argv[2]
     else:
         test_users_file_name = './users/test_users_new.json'
-    run(test_users_file_name)
+    run(test_users_file_name, admin)
