@@ -196,7 +196,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   cy.contains('Norges forskningsråd').click({ force: true });
 
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academic-monograph')}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academicmonograph')}]`).click();
 
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.peerReviewed}] > div > label > span`)
     .first()
@@ -212,7 +212,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Files and reference
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`).within(() => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`, {timeout: 30000}).within(() => {
     cy.get('input[type=radio]').first().click();
   });
   cy.get('[data-testid=uploaded-file-select-license]').click({ force: true }).type(' ');

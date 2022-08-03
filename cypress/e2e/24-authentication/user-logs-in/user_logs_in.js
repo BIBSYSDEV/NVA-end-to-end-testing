@@ -12,7 +12,7 @@ And('they click Log out', () => {
   cy.get(`[data-testid=${dataTestId.header.logOutLink}]`).click();
 })
 Then('they are logged out of the NVA application', () => {
-  cy.contains('Withauthor TestUser').should('not.exist');
+  cy.contains('Withauthor TestUser', { timeout: 30000 }).should('not.exist');
 })
 
 

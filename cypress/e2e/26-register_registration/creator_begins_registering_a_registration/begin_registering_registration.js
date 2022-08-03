@@ -20,7 +20,7 @@ And('they have selected {string} for starting the Wizard', (method) => {
   if (method === 'Link to registration') {
     cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).click({ force: true });
     cy.get('[data-testid=new-registration-link-field] > div > input').type(dlrLink);
-    cy.get('[data-testid=doi-search-button]').click({ force: true });
+    cy.get(`[data-testid=doi-search-button]`).click({ force: true });
   } else if (method === 'Upload file') {
     cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
     cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
@@ -32,7 +32,7 @@ When('they click Start', () => {
   cy.get('@registrationMethod').then((method) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
       .filter(':visible')
-      .should('be.enabled')
+      .should('be.enabled', { timeout: 30000 })
       .click({ force: true });
   });
 });
@@ -46,8 +46,8 @@ Then('they see the Wizard', () => {
 
 //   @226
 //   Scenario: Creator begins registering a Registration
-Given('that the user is logged in', () => {});
-And('they have Role Creator', () => {});
+Given('that the user is logged in', () => { });
+And('they have Role Creator', () => { });
 And('they are on the Start page', () => {
   cy.login(userWithAuthor);
 });
@@ -87,7 +87,7 @@ And('they see the Remove button', () => {
   cy.get('[data-testid=button-remove-file]').should('be.visible');
 });
 And('they see the Start button is enabled', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`, { timeout: 30000 })
     .filter(':visible')
     .should('be.enabled');
 });

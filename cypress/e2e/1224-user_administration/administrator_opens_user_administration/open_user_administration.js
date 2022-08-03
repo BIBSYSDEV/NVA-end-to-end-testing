@@ -66,7 +66,7 @@ When('they click the menu item Users', () => {
   cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
 });
 Then('they see the User Administration page', () => {
-  cy.location('pathname').should('equal', '/basic-data/users');
+  cy.location('pathname').should('equal', '/basic-data/person-register');
 });
 And(
   'they see that Section {string} lists all users affiliated with their institution with role {string}',

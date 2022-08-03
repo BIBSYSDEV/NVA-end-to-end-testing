@@ -149,7 +149,7 @@ export const bookFields = {
 };
 
 export const contentType = {
-  'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academic-monograph'),
+  'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academicmonograph'),
   'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.contentValue('non-fiction-monograph'),
   'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popular-science-monograph'),
   'Textbook': dataTestId.registrationWizard.resourceType.contentValue('textbook'),
