@@ -11,7 +11,7 @@ When('they navigate to the Files and License tab', () => {
 And('they see the File upload widget', () => {
   cy.contains('Drop files here');
 });
-And('they see an Input Field for Linked Resources', () => {});
+And('they see an Input Field for Linked Resources', () => { });
 And('they see the tab Description is clickable', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
 });
@@ -22,7 +22,7 @@ And('they see the tab Contributors is clickable', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).should('be.visible');
 });
 And('they see the tab Files and License is selected', () => {
-  cy.get('span').filter(':contains("Files and License")').should('have.class', 'Mui-active');
+  cy.get('span').filter(':contains("Files and License")', { timeout: 30000 }).should('have.class', 'Mui-active');
 });
 And('they see the tab Summary is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-submission]').should('be.visible');

@@ -6,7 +6,7 @@ import { designTypes, designFields } from '../../../../../support/data_testid_co
 
 const venueName = 'Test Venue name';
 const addVenue = () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.venueNameField}]`).type(venueName);
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2011')
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2011')
@@ -84,7 +84,7 @@ And('they see an Add Exhibition Place Button', () => {
 
 // Scenario: Creator adds an Exhibition Place
 When('they click the Add Exhibition Place Button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click({ force: true });
 });
 Then('they see the Add Exhibition Place Dialog', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).should('be.visible');

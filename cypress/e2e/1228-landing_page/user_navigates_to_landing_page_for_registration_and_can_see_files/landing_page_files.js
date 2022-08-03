@@ -36,12 +36,9 @@ And('the Registration contains a File, which is an Administrative Agreement', ()
     .click();
 });
 When('they view the Files section', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.filesAccordion}]`).as('files');
 });
 Then('they do not see the File that is an Administrative Agreement', () => {
-  cy.get('@files').within(() => {
-    cy.contains('Preview').should('not.exist');
-  });
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.filesAccordion}]`).should('not.exist');
 });
 
 // Scenario: Files that are part of Registration are listed

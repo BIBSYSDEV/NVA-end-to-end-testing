@@ -21,6 +21,6 @@ When('they click a Contributor', () => {
     .click({ force: true });
 });
 Then("they see the Contributor's public profile page", () => {
-  cy.location('pathname').should('equal', '/user');
+  cy.location('pathname').should('equal', '/research-profile');
   cy.contains('Withauthor TestUser');
 });
