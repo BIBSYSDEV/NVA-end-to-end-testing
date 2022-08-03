@@ -207,11 +207,11 @@ export const chapterContainerField = {
 };
 
 export const chapterContentTypes = {
-  'Academic Chapter': 'content-value-academic-chapter',
-  'Non-fiction Chapter': 'content-value-non-fiction-chapter',
-  'Popular Science Chapter': 'content-value-popular-science-chapter',
-  'Textbook Chapter': 'content-value-textbook-chapter',
-  'Encyclopedia Chapter': 'content-value-encyclopedia-chapter',
+  'Academic Chapter': 'content-value-academicchapter',
+  'Non-fiction Chapter': 'content-value-nonfictionchapter',
+  'Popular Science Chapter': 'content-value-popularsciencechapter',
+  'Textbook Chapter': 'content-value-textbookchapter',
+  'Encyclopedia Chapter': 'content-value-encyclopediachapter',
 };
 
 export const artisticSubtypes = {
