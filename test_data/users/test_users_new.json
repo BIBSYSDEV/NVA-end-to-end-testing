@@ -127,7 +127,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution-admin-1",
-    "nin": "19046937905",
+    "nin": "09043726657",
     "username": "test-user-second-inst-admin-1@test.no",
     "role": [
       {
@@ -142,7 +142,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution-admin-2",
-    "nin": "26089218917",
+    "nin": "05075214407",
     "username": "test-user-second-inst-admin-2@test.no",
     "role": [
       {
@@ -157,7 +157,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution-admin-3",
-    "nin": "29047426306",
+    "nin": "27018638725",
     "username": "test-user-second-inst-admin-3@test.no",
     "role": [
       {
@@ -172,7 +172,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution-admin-4",
-    "nin": "01098929068",
+    "nin": "20112088092",
     "username": "test-user-second-inst-admin-4@test.no",
     "role": [
       {
@@ -187,7 +187,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution-admin-5",
-    "nin": "01019703904",
+    "nin": "06022435424",
     "username": "test-user-second-inst-admin-5@test.no",
     "role": [
       {
@@ -202,7 +202,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution-admin-6",
-    "nin": "31011405536",
+    "nin": "05021770746",
     "username": "test-user-second-inst-admin-6@test.no",
     "role": [
       {
@@ -232,7 +232,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Curator 2",
-    "nin": "16012022089",
+    "nin": "12041839587",
     "username": "test-user-second-inst-curator-2@test.no",
     "role": [
       {
@@ -247,7 +247,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Curator 3",
-    "nin": "13116238483",
+    "nin": "18031702867",
     "username": "test-user-second-inst-curator-3@test.no",
     "role": [
       {
@@ -257,12 +257,12 @@
     ],
     "orcid": true,
     "orgNumber": "5991",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/202599102.0.0.0"
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
   },
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Curator 4",
-    "nin": "28052119105",
+    "nin": "13025938342",
     "username": "test-user-second-inst-curator-4@test.no",
     "role": [
       {
@@ -277,7 +277,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Curator 5",
-    "nin": "19099816352",
+    "nin": "11021679668",
     "username": "test-user-second-inst-curator-5@test.no",
     "role": [
       {
@@ -292,7 +292,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Curator 6",
-    "nin": "23057207612",
+    "nin": "16044732347",
     "username": "test-user-second-inst-curator-6@test.no",
     "role": [
       {
@@ -307,7 +307,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Editor 1",
-    "nin": "31054704901",
+    "nin": "08099013924",
     "username": "test-user-second-inst-editor-1@test.no",
     "role": [
       {
@@ -322,7 +322,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Editor 2",
-    "nin": "26079734682",
+    "nin": "07061211335",
     "username": "test-user-second-inst-editor-2@test.no",
     "role": [
       {
@@ -337,7 +337,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Editor 3",
-    "nin": "25060223516",
+    "nin": "21090999971",
     "username": "test-user-second-inst-editor-3@test.no",
     "role": [
       {
@@ -352,7 +352,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Editor 4",
-    "nin": "15112171239",
+    "nin": "27104000733",
     "username": "test-user-second-inst-editor-4@test.no",
     "role": [
       {
@@ -367,7 +367,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Editor 5",
-    "nin": "13068737642",
+    "nin": "12015305000",
     "username": "test-user-second-inst-editor-5@test.no",
     "role": [
       {
@@ -382,7 +382,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution Editor 6",
-    "nin": "03081441056",
+    "nin": "15021089904",
     "username": "test-user-second-inst-editor-6@test.no",
     "role": [
       {

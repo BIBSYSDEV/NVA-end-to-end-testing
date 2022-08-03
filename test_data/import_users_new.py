@@ -88,7 +88,8 @@ def createNvaUser(accessToken, nin, customer, roles, username):
     payload = {
         "nationalIdentityNumber": nin,
         "customerId": customer,
-        "roles": roles
+        "roles": roles,
+        "feideId": username
     }
     headers = createHeaders(accessToken=accessToken)
     response = requests.post(url=url, json=payload, headers=headers)
@@ -112,6 +113,10 @@ def createNvaUser(accessToken, nin, customer, roles, username):
                 {
                     'Name': 'custom:feideIdNin',
                     'Value': nin
+                },
+                {
+                    'Name': 'custom:feideId',
+                    'Value': username
                 }
             ],
             MessageAction='SUPPRESS'
