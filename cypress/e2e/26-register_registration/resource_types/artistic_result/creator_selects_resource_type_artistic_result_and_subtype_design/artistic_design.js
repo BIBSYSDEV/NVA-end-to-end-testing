@@ -8,8 +8,8 @@ const venueName = 'Test Venue name';
 const addVenue = () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.venueNameField}]`).type(venueName);
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`,'11.11.2011')
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`,'11.11.2011')
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2011')
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2011')
   // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`).type('11.11.2011');
   // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).click();
@@ -89,7 +89,7 @@ When('they click the Add Exhibition Place Button', () => {
 Then('they see the Add Exhibition Place Dialog', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).should('be.visible');
 });
-And('they see fields:', (dataTable) => {});
+And('they see fields:', (dataTable) => { });
 // | Exhibition place |
 // | Date from        |
 // | Date to          |
@@ -97,10 +97,10 @@ And('they see an Add Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).should('be.visible');
 });
 When('they fill the fields with input data', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`);
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.venueNameField}]`).type('Test Add Venue name');
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`,'11.11.2011')
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`,'11.11.2011')
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2011')
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2011')
   // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`).type('11.11.2011');
   // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
 });
