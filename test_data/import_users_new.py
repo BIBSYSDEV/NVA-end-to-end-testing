@@ -128,9 +128,11 @@ def importUsers(test_users_file_name):
 
     customersScan = common.scan_customers()
     customers = {}
+    cristinOrgId = ''
     for customer in customersScan:
-        cristinOrgId = customer['cristinId']['S'].replace('https://api.dev.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
-        customers[cristinOrgId] = f'https://api.dev.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
+        if not customer['cristinId']['S'] == '':
+            cristinOrgId = customer['cristinId']['S'].replace('https://api.dev.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
+            customers[cristinOrgId] = f'https://api.dev.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
 
     with open(test_users_file_name) as test_users_file:
 
@@ -140,8 +142,10 @@ def importUsers(test_users_file_name):
             lastName = test_user['lastName']
             nin = test_user['nin']
             roles = test_user['role']
-            cristinOrgId = test_user['cristinId']
-            customer = customers[test_user['orgNumber']]
+            if not test_user['cristinId'] == '':
+                cristinOrgId = test_user['cristinId']
+            if not test_user['orgNumber'] == '':
+                customer = customers[test_user['orgNumber']]
             username = test_user['username']
             print(f'Creating {firstName} {lastName}')
 

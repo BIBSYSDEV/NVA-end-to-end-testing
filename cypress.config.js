@@ -1,6 +1,7 @@
 const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
+  projectId: "a6w1e7",
   env: {
     TAGS: 'not @ignore and @test',
   },

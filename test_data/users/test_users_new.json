@@ -447,12 +447,12 @@
   {
     "lastName": "TestUser",
     "firstName": "Not customer",
-    "nin": "28035540182",
+    "nin": "11043726635",
     "username": "test-user-not-customer@test.no",
     "role": [{"type": "Role", "rolename": "Creator"}],
     "orcid": false,
-    "orgNumber": "20202",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+    "orgNumber": "",
+    "cristinId": ""
   },
   {
     "lastName": "TestUser",
