@@ -1,6 +1,7 @@
-import AWS from 'aws-sdk';
+import * as AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify from 'aws-amplify'
+import { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import {
   mockPersonFeideIdSearch,
@@ -22,7 +23,7 @@ const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'dev';
 
-AWS.config = new AWS.Config({
+AWS.config.update({
   accessKeyId: awsAccessKeyId,
   secretAccessKey: awsSecretAccessKey,
   sessionToken: awsSessionToken,
@@ -33,13 +34,13 @@ const amplifyConfig = {
   Auth: {
     region: region,
     userPoolId: userPoolId,
-    userPoolWebClientId: clientId,
+    userPoolWebClientId: '3rls7ad53ldmjvdbj7p8fii18q',
   },
 };
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
-const authFlow = 'ADMIN_USER_PASSWORD_AUTH';
+const authFlow = 'USER_PASSWORD_AUTH';
 
 Cypress.Commands.add('connectAuthor', () => {
   cy.get(`[data-testid=create-author-button]`).click();
@@ -73,7 +74,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
     const authorizeUser = {
       AuthFlow: authFlow,
       ClientId: clientId,
-      UserPoolId: userPoolId,
+      // UserPoolId: userPoolId,
       AuthParameters: {
         USERNAME: userId,
         PASSWORD: randomPassword,
@@ -89,8 +90,9 @@ Cypress.Commands.add('loginCognito', (userId) => {
 
     identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
       if (data) {
-        identityServiceProvider.adminInitiateAuth(authorizeUser, async (err, data) => {
+        identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
           if (data) {
+            console.log(data)
             if (!data.ChallengeName) {
               await Auth.signIn(userId, randomPassword);
               resolve(data.AuthenticationResult.IdToken);
@@ -107,8 +109,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
 });
 
 Cypress.Commands.add('login', (userId) => {
-  cy.loginCognito(userId).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
+  cy.loginCognito(userId).then(() => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.mockPersonSearch(userId);
@@ -169,6 +170,11 @@ Cypress.Commands.add('logoutCognito', () => {
   Auth.signOut();
 });
 
+Cypress.Commands.add('openMyRegistrations', () => {
+  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
+  cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsLink}]`).click();
+})
+
 Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Description
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click({ force: true });
@@ -190,7 +196,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   cy.contains('Norges forskningsråd').click({ force: true });
 
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academic-monograph')}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academicmonograph')}]`).click();
 
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.peerReviewed}] > div > label > span`)
     .first()
@@ -206,7 +212,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Files and reference
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`).within(() => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`, {timeout: 30000}).within(() => {
     cy.get('input[type=radio]').first().click();
   });
   cy.get('[data-testid=uploaded-file-select-license]').click({ force: true }).type(' ');
@@ -214,20 +220,22 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 });
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
+  cy.log(values);
   dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid=${values[value[0]]}]`);
+    cy.log(value);
+    cy.get(`[data-testid=${values[value[0]]}]`, {timeout: 30000});
   });
 });
 
 Cypress.Commands.add('selectRegistration', (title, type) => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myRegistrationsLink}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
+  cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsLink}]`).click();
   cy.get(`[data-testid=${type}-button]`).click();
   cy.get('[data-testid^=registration-title]')
     .filter(`:contains(${title})`)
     .parent()
     .within(() => {
-      cy.get('[data-testid^=open-registration]').click();
+      cy.get('[data-testid^=open-registration]').first().click();
     });
 });
 
@@ -486,7 +494,7 @@ Cypress.Commands.add('checkField', (field) => {
   }
 });
 
-Cypress.Commands.add('checkRsourceFields', (type, subtype) => {});
+Cypress.Commands.add('checkRsourceFields', (type, subtype) => { });
 
 Cypress.Commands.add('fillInCommonFields', (type, subtype) => {
   Object.keys(registrationFields).forEach((key) => {
@@ -561,7 +569,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
         .then((dialog) => {
           cy.log(dialog);
         });
-      cy.get(`[role="dialog"] ${selector}`).last().find('input').clear().type(value);
+      cy.get(`[role="dialog"] ${selector}`, { force: true }).last().find('input').clear().type(value);
       cy.contains('[role="dialog"] button', 'OK').click();
     } else {
       cy.get(selector)

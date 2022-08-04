@@ -12,7 +12,7 @@ STAGE = ssm.get_parameter(Name='/test/Stage',
 customer_template_file_name = './customers/institution.json'
 test_customers_file_name = './customers/test_institutions.json'
 customer_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/customer/'
-username = 'test-data-user@test.no'
+username = 'admin-user-testdata@test.no'
 
 
 def delete_customers():
@@ -49,7 +49,7 @@ def create_customers(bearer_token):
                 print(f'Creating customer: {test_customer["name"]}')
                 response = put_item(new_customer=new_customer,
                                     bearer_token=bearer_token)
-                
+
                 if response.status_code != 201:
                     print(
                         f'Error creating customer with name {test_customer["name"]}')

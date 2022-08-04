@@ -2,8 +2,10 @@ import { dataTestId } from './dataTestIds';
 
 export const mainButtons = {
   'New Registration': dataTestId.header.newRegistrationLink,
-  'My Registrations': dataTestId.header.myRegistrationsLink,
-  'My Messages': dataTestId.header.messagesLink,
+  'My Registrations': dataTestId.header.myPageLink,
+  'My page': dataTestId.header.myPageLink,
+  'Worklist': dataTestId.header.worklistLink,
+  'Basic data': dataTestId.header.basicDataLink,
 };
 
 export const userMenu = {
@@ -22,7 +24,6 @@ export const creatorMenu = {
 
 export const curatorMenu = {
   ...userMenu,
-  'My worklist': dataTestId.header.worklistLink,
 };
 
 export const instAdminMenu = {
@@ -148,9 +149,9 @@ export const bookFields = {
 };
 
 export const contentType = {
-  'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academic-monograph'),
-  'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.contentValue('non-fiction-monograph'),
-  'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popular-science-monograph'),
+  'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academicmonograph'),
+  'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.contentValue('nonfictionmonograph'),
+  'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popularsciencemonograph'),
   'Textbook': dataTestId.registrationWizard.resourceType.contentValue('textbook'),
   'Encyclopedia': dataTestId.registrationWizard.resourceType.contentValue('encyclopedia'),
 };
@@ -188,15 +189,29 @@ export const studentThesisFields = {
 
 export const chapterSubtypes = {
   'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
+  'Chapter in Anthology': 'publication-instance-type-ChapterArticle',
 };
 
-export const CHAPTER_FIELDS = {
+export const chapterFields = {
   'DOI': 'doi-field',
   'Search box for published Anthologies': 'info-anthology',
-  'Pages from': 'chapter-pages-from',
-  'Pages to': 'chapter-pages-to',
+  'Pages from': dataTestId.registrationWizard.resourceType.pagesFromField,
+  'Pages to': dataTestId.registrationWizard.resourceType.pagesToField,
+  'Peer reviewed and presents new research': 'peer-review-field',
   'Peer reviewed': 'peer-review-true',
   'NPI discipline': 'npi-search',
+};
+
+export const chapterContainerField = {
+  'Search box for published Anthologies': dataTestId.registrationWizard.resourceType.partOfField,
+};
+
+export const chapterContentTypes = {
+  'Academic Chapter': 'content-value-academicchapter',
+  'Non-fiction Chapter': 'content-value-nonfictionchapter',
+  'Popular Science Chapter': 'content-value-popularsciencechapter',
+  'Textbook Chapter': 'content-value-textbookchapter',
+  'Encyclopedia Chapter': 'content-value-encyclopediachapter',
 };
 
 export const artisticSubtypes = {

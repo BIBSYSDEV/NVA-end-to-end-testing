@@ -1,9 +1,9 @@
-import import_users
+import import_users_new
 import import_customers
 import import_publications
 import create_cognito_user
 
-create_cognito_user.run()
+import_users_new.run('./users/testdata_user.json', True)
 import_customers.run()
-import_users.run()
+import_users_new.run('./users/test_users_new.json', False)
 import_publications.run()

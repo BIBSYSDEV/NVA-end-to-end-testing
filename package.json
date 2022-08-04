@@ -8,7 +8,6 @@
     "aws-amplify": "^4.3.2",
     "aws-sdk": "^2.1007.0",
     "cosmiconfig": "^6.0.0",
-    "cypress": "^9.5.1",
     "cypress-localstorage-commands": "^1.6.1",
     "cypress-promise": "^1.1.0",
     "cypress-tags": "^0.3.0",
@@ -17,6 +16,7 @@
   "devDependencies": {
     "axios": "^0.21.4",
     "cucumber-html-reporter": "^5.5.0",
+    "cypress": "^10.1.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "mocha": "^9.1.2",
     "mochawesome": "^7.0.1",
@@ -43,7 +43,7 @@
       "filePrefix": "",
       "fileSuffix": ".cucumber"
     },
-    "step_definitions": "cypress/integration"
+    "step_definitions": "cypress/e2e"
   },
   "author": "",
   "license": "ISC"
