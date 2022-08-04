@@ -19,6 +19,7 @@ Given('Creator navigates to Resource Type tab', () => {
 When('they select the Resource type "Report"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Report]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 Then('they see a list of subtypes:', (dataTable) => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
@@ -35,6 +36,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Rep
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Report]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 When('they select the Subtype {string}', (subtype) => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
@@ -60,6 +62,7 @@ Given('Creator sees fields for Resource subtypes for "Report"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Report]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 And('they have selected the Subtype {string}', (subtype) => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });

@@ -27,6 +27,10 @@ export const dataTestId = {
     },
     personRegisterLink: 'person-register-link',
   },
+  confirmDialog: {
+    acceptButton: 'accept-button',
+    cancelButton: 'cancel-button',
+  },
   organization: {
     searchField: 'organization-search-field',
     subSearchField: 'sub-organization-search-field',
@@ -192,7 +196,7 @@ export const dataTestId = {
       competitionSaveButton: 'artistic-competition-save-button',
       competitionCancelButton: 'artistic-competition-cancel-button',
       contentField: 'content-field',
-      contentValue: (value) => `content-value-${value.toLowerCase().replaceAll(' ', '-')}`,
+      contentValue: (value) => `content-value-${value.toLowerCase()}`,
       corrigendumForField: 'corrigendum-for-field',
       eventCountryField: 'event-country-field',
       exhibitionName: 'artistic-exhibition-name',
