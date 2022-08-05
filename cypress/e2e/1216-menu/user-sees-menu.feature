@@ -17,8 +17,9 @@ Feature: User sees menu
         And they have no NVA role
         When they look at any page in NVA
         Then they see a Dropdown Menu with items:
-            | My user profile |
             | Log out         |
+        And they see Menu items:
+            | My page |
         And they see the Language selector
 
     @TEST_NP-4103
@@ -29,8 +30,6 @@ Feature: User sees menu
         And they have the "Creator" role
         When they look at any page in NVA
         Then they see a Dropdown Menu with items:
-            # | My Registrations |
-            | My user profile |
             | Log out         |
         And they see Menu items:
             | My page |
@@ -44,7 +43,6 @@ Feature: User sees menu
         And they have the "Curator" Role
         When they look at any page in NVA
         Then they see a Dropdown Menu with items:
-            | My user profile |
             | Log out         |
         And they see Menu items:
             | Worklist |
@@ -58,7 +56,6 @@ Feature: User sees menu
         And they have the "Institution-admin" role
         When they look at any page in NVA
         Then they see a Dropdown Menu with items:
-            | My user profile |
             | Log out         |
         And they see Menu items:
             | Basic data |
@@ -71,9 +68,11 @@ Feature: User sees menu
         And they have the "Editor" role
         When they look at any page in NVA
         Then they see a Dropdown Menu with items:
-            | Editor          |
-            | My user profile |
             | Log out         |
+        And they see Menu items:
+            | Basic data |
+            | My page    |
+        And they see the Language selector
         And they see the Language selector
 
     @TEST_NP-4104
@@ -83,7 +82,6 @@ Feature: User sees menu
         And they have the "App-admin" role
         When they look at any page in NVA
         Then they see a Dropdown Menu with items:
-            | My user profile |
             | Log out         |
         And they see Menu items:
             | Basic data |
