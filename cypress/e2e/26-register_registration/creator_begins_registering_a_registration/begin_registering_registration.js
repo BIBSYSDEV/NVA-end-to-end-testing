@@ -37,7 +37,7 @@ When('they click Start', () => {
   });
 });
 Then('they see the Wizard', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`, { timeout: 30000 }).should('be.visible');
 });
 // Examples:
 //   | Method               |
