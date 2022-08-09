@@ -6,11 +6,11 @@ Given('that a User is logged in with Feide', () => {
   cy.mockInstitution();
   cy.mockDepartments();
 });
-And('their Institution is a Customer of NVA', () => {});
-And('their Administrator has not assigned any roles to them', () => {});
+And('their Institution is a Customer of NVA', () => { });
+And('their Administrator has not assigned any roles to them', () => { });
 When('they navigate to My Profile', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.myPage.myProfileLink}]`).click({ force: true });
 });
 Then('they see that they have no roles', () => {
   cy.get('[data-testid^=user-role]').should('not.exist');

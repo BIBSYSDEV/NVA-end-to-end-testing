@@ -447,7 +447,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Not customer",
-    "nin": "11043726635",
+    "nin": "01022427063",
     "username": "test-user-not-customer@test.no",
     "role": [{"type": "Role", "rolename": "Creator"}],
     "orcid": false,
@@ -553,5 +553,15 @@
     "orcid": true,
     "orgNumber": "20202",
     "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Doi fetch",
+    "nin": "10073808915",
+    "username": "test-user-doi-fetch@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20754",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20754.0.0.0"
   }
 ]

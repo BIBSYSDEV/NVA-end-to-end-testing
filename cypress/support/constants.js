@@ -48,6 +48,7 @@ export const userResourceType = 'test-user-resource-type@test.no';
 export const userViewRegistration = 'test-user-view-registration@test.no';
 export const userEditor = 'test-user-editor@test.no';
 export const userMyRegistrations = 'test-user-my-registrations@test.no';
+export const userFetchDoi = "test-user-doi-fetch@test.no";
 
 const userData = {
   name: '',
@@ -96,4 +97,5 @@ export const user = {
   [userViewRegistration]: { ...userData, name: 'TestUser, View registration' },
   [userEditor]: { ...userData, name: 'TestUser, Editor' },
   [userMyRegistrations]: { ...userData, name: 'TestUser, MyRegistrations' },
+  [userFetchDoi]: { ...userData, name: 'TestUser, Fetch Doi' },
 };
