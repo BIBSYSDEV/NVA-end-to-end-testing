@@ -4,11 +4,14 @@ import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from '../../../../support/dataTestIds';
 
 // Feature: Creator selects Resource type Degree
+const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 
 Before(() => {
   cy.login(userResourceType);
-  cy.openMyRegistrations();
-  cy.get('[data-testid^=edit-registration]').first().click({ force: true });
+  cy.startRegistrationWithLink(doiLink);
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+    .filter(':visible')
+    .click();
 });
 
 // Common steps
@@ -16,6 +19,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Stu
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 Then('they see fields:', (dataTable) => {
   cy.testDataTestidList(dataTable, studentThesisFields);
@@ -30,6 +34,7 @@ Given('Creator navigates to Resource Type tab', () => {
 When('they select the Resource type "Student thesis"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 Then('they see a list of subtypes:', (dataTable) => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
@@ -60,6 +65,7 @@ Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-instance-type-DegreeBachelor]').click({ force: true });
 });
