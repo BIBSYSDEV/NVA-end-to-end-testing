@@ -22,10 +22,10 @@ When('they click Start', () => {
   // });
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
     .filter(':visible')
-    .should('be.enabled');
+    .should('be.enabled', {timeout: 30000});
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
     .filter(':visible')
-    .click({ force: true });
+    .click({ force: true }, {timeout: 30000});
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
 });
 And('they click My Registrations', () => {

@@ -96,8 +96,6 @@ def createNvaUser(accessToken, nin, customer, roles, username):
     if not response.status_code == 200:
         print(response.json())
 
-    # username = response.json()['username']
-
     client = boto3.client('cognito-idp')
 
     try:
