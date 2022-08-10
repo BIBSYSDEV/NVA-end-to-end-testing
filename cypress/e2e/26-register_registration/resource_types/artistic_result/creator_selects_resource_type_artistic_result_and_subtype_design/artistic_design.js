@@ -12,8 +12,8 @@ const addVenue = () => {
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2011')
   // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`).type('11.11.2011');
   // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).should('not.exist');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).should('not.exist');
 };
 
 // Common steps:
@@ -87,7 +87,7 @@ When('they click the Add Exhibition Place Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click({ force: true });
 });
 Then('they see the Add Exhibition Place Dialog', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).should('be.visible');
 });
 And('they see fields:', (dataTable) => { });
 // | Exhibition place |
@@ -105,10 +105,10 @@ When('they fill the fields with input data', () => {
   // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
 });
 And('they click the Add Button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
 Then('the new Exhibition Place is listed under Exhibition places', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.saveVenueButton}]`).should('not.exist');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).should('not.exist');
   cy.contains('Test Add Venue name');
 });
 

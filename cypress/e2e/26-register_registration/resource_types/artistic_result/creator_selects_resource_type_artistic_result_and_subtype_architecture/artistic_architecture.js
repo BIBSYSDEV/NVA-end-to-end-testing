@@ -65,7 +65,7 @@ And('they can edit existing Exhibitions', () => {
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2011');
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2011');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionOther}]`).type('Exhibition other');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionSaveButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
   //   });
   cy.get('[data-testid=EditIcon]').should('be.visible');
 });
@@ -82,7 +82,7 @@ When('they add a Competition with details for:', (dataTable) => {
       : // ? cy.get(`[data-testid=${competitionFields[field[0]]}]`).type('11.11.2011')
       cy.get(`[data-testid=${competitionFields[field[0]]}]`).type(`Test Competition ${field[0]}`);
   });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.competitionSaveButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
 //   | Name        |
 //   | Description |
@@ -100,7 +100,7 @@ When('they add a Publication or Mention with details for:', (dataTable) => {
       : // ? cy.get(`[data-testid=${publicationMentionFields[field[0]]}]`).type('11.11.2011')
       cy.get(`[data-testid=${publicationMentionFields[field[0]]}]`).type(`Test Publication Mention ${field[0]}`);
   });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.publicationMentionSaveButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
 //   | Name        |
 //   | Issue       |
@@ -121,7 +121,7 @@ When('they add a Prize or Award with details for:', (dataTable) => {
       : // ? cy.get(`[data-testid=${awardFields[field[0]]}]`).type('2011')
       cy.get(`[data-testid=${awardFields[field[0]]}]`).type(`Test Prize Award ${field[0]}`);
   });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.awardSaveButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
 //   | Name        |
 //   | Organizer   |
@@ -141,7 +141,7 @@ When('they add an Exhibition with details for:', (dataTable) => {
       cy.chooseDatePicker(`[data-testid=${exhibitionFields[field[0]]}]`, '11.11.2011')
       : cy.get(`[data-testid=${exhibitionFields[field[0]]}]`).type(`Test Exhibition ${field[0]}`);
   });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionSaveButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
 //   | Name        |
 //   | Place       |
