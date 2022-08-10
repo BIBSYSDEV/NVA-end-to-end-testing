@@ -62,6 +62,7 @@ And('they see fields:', (dataTable) => {
 And('they select the Resource subtype "Corrigendum"', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get(`[data-testid=${journalSubtypes['Corrigendum']}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 // End common steps
 
