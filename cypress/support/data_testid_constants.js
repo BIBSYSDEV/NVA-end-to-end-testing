@@ -120,19 +120,26 @@ export const journalSubtypes = {
 };
 
 export const journalFields = {
-  'Journal': dataTestId.registrationWizard.resourceType.journalField,
-  'Search-box for Journal': dataTestId.registrationWizard.resourceType.journalField,
-  'Search box for Journal': dataTestId.registrationWizard.resourceType.journalField,
-  'Search box for "Journal article"': dataTestId.registrationWizard.resourceType.corrigendumForField,
+  'Article number': 'article-number-field',
+  'Content': dataTestId.registrationWizard.resourceType.contentField,
   'DOI': 'doi-field',
-  'Volume': 'volume-field',
   'Issue': 'issue-field',
-  'Search box for published books': '',
+  'Journal': dataTestId.registrationWizard.resourceType.journalField,
   'Pages from': dataTestId.registrationWizard.resourceType.pagesFromField,
   'Pages to': dataTestId.registrationWizard.resourceType.pagesToField,
-  'Article number': 'article-number-field',
   'Peer reviewed': 'peer_review-true',
+  'Peer reviewed and presents new research': 'peer-review-field',
+  'Search box for Journal': dataTestId.registrationWizard.resourceType.journalField,
+  'Search-box for Journal': dataTestId.registrationWizard.resourceType.journalField,
+  'Search box for "Journal article"': dataTestId.registrationWizard.resourceType.corrigendumForField,
+  'Search box for published books': '',
+  'Volume': 'volume-field',
 };
+
+export const journalContentTypes = {
+  'Academic article': dataTestId.registrationWizard.resourceType.contentValue('academicarticle'),
+  'Academic literature review': dataTestId.registrationWizard.resourceType.contentValue('academicliteraturereview'),
+}
 
 export const bookSubtypes = {
   'Monograph': 'publication-instance-type-BookMonograph',

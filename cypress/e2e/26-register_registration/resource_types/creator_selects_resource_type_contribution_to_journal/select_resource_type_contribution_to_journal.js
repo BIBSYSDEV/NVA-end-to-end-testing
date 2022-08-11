@@ -1,15 +1,22 @@
+import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { userWithAuthor } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
-import { journalSubtypes, journalFields } from '../../../../support/data_testid_constants';
+import { journalSubtypes, journalFields, journalContentTypes } from '../../../../support/data_testid_constants';
 
 // Feature: Creator selects Resource type Contribution to journal
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 
+Before(() => {
+  cy.wrap('').as('subtype');
+  cy.wrap(false).as('link');
+})
+
 // Common steps
 Given('Creator begins registering a Registration in the Wizard with a Link', () => {
   cy.login(userWithAuthor);
   cy.startWizardWithLink(doiLink);
+  cy.wrap(true).as('link');
 });
 Given('Creator begins registering a Registration in the Wizard with a File', () => {
   cy.login(userWithAuthor);
@@ -31,6 +38,9 @@ And('they select the Resource type "Contribution to journal"', () => {
 And('they select Resource subtype Journal article', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get('[data-testid=publication-instance-type-JournalArticle]').click({ force: true });
+  // cy.get('@link').then((link) => {
+  //   link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+  // })
 });
 And('they enter an invalid value in fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
@@ -41,10 +51,16 @@ When('they click the Save button', () => {
   cy.get('[data-testid=save-publication-button]').click({ force: true });
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
-  dataTable.rawTable.forEach((field) => {
-    cy.get(`[data-testid=${journalFields[field[0]]}]`).within(() => {
-      cy.get('p').should('have.class', 'Mui-error');
-      cy.get('p').should('have.class', 'Mui-required');
+  const fields = { ...journalFields }
+  cy.get('@subtype').then((subtype) => {
+    if (subtype === 'Corrigendum') {
+      fields['Search box for Journal'] = dataTestId.registrationWizard.resourceType.corrigendumForField;
+    }
+    dataTable.rawTable.forEach((field) => {
+      cy.get(`[data-testid=${fields[field[0]]}]`).within(() => {
+        cy.get('p').should('have.class', 'Mui-error');
+        cy.get('p').should('have.class', 'Mui-required');
+      });
     });
   });
 });
@@ -57,12 +73,20 @@ And('they can see "Invalid format" error messages for fields:', (dataTable) => {
   });
 });
 And('they see fields:', (dataTable) => {
-  cy.testDataTestidList(dataTable, journalFields);
+  const fields = { ...journalFields };
+  cy.get('@subtype').then((subtype) => {
+    if (subtype === 'Corrigendum') {
+      fields['Search box for Journal'] = dataTestId.registrationWizard.resourceType.corrigendumForField;
+    }
+    cy.testDataTestidList(dataTable, fields);
+  })
 });
 And('they select the Resource subtype "Corrigendum"', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get(`[data-testid=${journalSubtypes['Corrigendum']}]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+  cy.get('@link').then((link) => {
+    link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+  })
 });
 // End common steps
 
@@ -83,7 +107,7 @@ Then('they see a list of subtypes:', (dataTable) => {
 // @1656
 // Scenario: Creator sees fields for Journal article
 And('they see a dropdown for Content Type with options:', (dataTable) => {
-  
+
 });
 //     // | Academic article           |
 //     // | Academic literature review |
@@ -91,17 +115,18 @@ And('they see a dropdown for Content Type with options:', (dataTable) => {
 //     // | Study protocol             |
 //     // | Professional article       |
 //     // | Popular science article    |
-// And they see the Norwegian Science Index (NVI) evaluation status
+And('they see the Norwegian Science Index \\(NVI) evaluation status', () => { })
 
-// TODO Article number is not being validated
 // Scenario: Creator sees that fields for Journal article are validated
 
-// TODO Booklet, Comment missing
 // @1409
 // Scenario Outline: Creator selects Contribution to Journal and Peer Review Details are hidden
 When('they select the Subtype {string}', (subtype) => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get(`[data-testid=${journalSubtypes[subtype]}]`).click({ force: true });
+  cy.get('@link').then((link) => {
+    link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+  })
 });
 Then('they see that the Peer Review Details are hidden', () => {
   cy.get('[data-testid=peer-review-field]').should('not.exist');
@@ -127,11 +152,36 @@ And('they see a disabled field for Journal based on selected Journal article', (
 
 // Scenario: Creator sees that fields for Resource subtype "Corrigendum" are validated
 
+// Scenario: Creator sees extra fields for Norwegian Science Index (NVI) compatible Journal article
+Given('Creator sees fields for Journal article', () => {
+  cy.login(userWithAuthor);
+  cy.startWizardWithEmptyRegistration();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Journal]').click({ force: true });
+  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.get('[data-testid=publication-instance-type-JournalArticle]').click({ force: true });
+});
+When('they set Content Type to {string}:', (contentType) => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
+  cy.get(`[data-testid=${journalContentTypes[contentType]}]`).click({ force: true });
+})
+// | Academic article           |
+// | Academic literature review |
+// Then they see fields:
+//     | Peer reviewed and presents new research |
+// And they see the Norwegian Science Index (NVI) evaluation status
+
+
 // @1659
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype
 And('they select Resource subtype {string}', (subtype) => {
+  cy.wrap(subtype).as('subtype');
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get(`[data-testid=${journalSubtypes[subtype]}]`).click({ force: true });
+  cy.get('@link').then((link) => {
+    link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+  })
 });
 // Examples:
 //     | Subtype         |
