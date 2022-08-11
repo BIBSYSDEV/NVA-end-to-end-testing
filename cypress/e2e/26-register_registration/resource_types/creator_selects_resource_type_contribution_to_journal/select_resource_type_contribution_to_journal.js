@@ -23,24 +23,21 @@ Given('Creator begins registering a Registration in the Wizard with a File', () 
   cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Resource Type tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
 And('they click the Save button', () => {
-  cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.get('[data-testid=button-save-registration]').click();
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
-  cy.get('[data-testid=button-next-tab]').click({ force: true });
-  cy.get('[data-testid=button-previous-tab]').click({ force: true });
+  cy.get('[data-testid=button-next-tab]').click();
+  cy.get('[data-testid=button-previous-tab]').click();
 });
 And('they select the Resource type "Contribution to journal"', () => {
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Journal]').click({ force: true });
+  cy.get('[data-testid=publication-context-type]').type(' ').click({ force: true });
+  cy.get('[data-testid=publication-context-type-Journal]').click();
 });
 And('they select Resource subtype Journal article', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.get('[data-testid=publication-instance-type-JournalArticle]').click({ force: true });
-  // cy.get('@link').then((link) => {
-  //   link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
-  // })
+  cy.get('[data-testid=publication-instance-type-JournalArticle]').click();
 });
 And('they enter an invalid value in fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
@@ -48,7 +45,7 @@ And('they enter an invalid value in fields:', (dataTable) => {
   });
 });
 When('they click the Save button', () => {
-  cy.get('[data-testid=save-publication-button]').click({ force: true });
+  cy.get('[data-testid=save-publication-button]').click();
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   const fields = { ...journalFields }
@@ -107,7 +104,8 @@ Then('they see a list of subtypes:', (dataTable) => {
 // @1656
 // Scenario: Creator sees fields for Journal article
 And('they see a dropdown for Content Type with options:', (dataTable) => {
-
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click();
+  cy.testDataTestidList(dataTable, journalContentTypes);
 });
 //     // | Academic article           |
 //     // | Academic literature review |
