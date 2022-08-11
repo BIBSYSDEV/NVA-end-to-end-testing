@@ -111,12 +111,12 @@ export const resourceTypes = {
 
 export const journalSubtypes = {
   'Journal article': 'publication-instance-type-JournalArticle',
-  'Short communication': 'publication-instance-type-JournalShortCommunication',
-  'Feature article': 'publication-instance-type-FeatureArticle',
-  'Letter to the Editor': 'publication-instance-type-JournalLetter',
+  'Commentary': 'publication-instance-type-JournalLetter',
   'Book review': 'publication-instance-type-JournalReview',
-  'Leader': 'publication-instance-type-JournalLeader',
+  'Editorial': 'publication-instance-type-JournalLeader',
   'Corrigendum': 'publication-instance-type-JournalCorrigendum',
+  'Journal issue': 'publication-instance-type-JournalIssue',
+  'Conference abstract': 'publication-instance-type-ConferenceAbstract',
 };
 
 export const journalFields = {

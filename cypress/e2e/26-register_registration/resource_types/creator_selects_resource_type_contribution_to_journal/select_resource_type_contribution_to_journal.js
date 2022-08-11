@@ -66,7 +66,6 @@ And('they select the Resource subtype "Corrigendum"', () => {
 });
 // End common steps
 
-// TODO Booklet, Comment missing
 // @274
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Contribution to journal"
 Then('they see a list of subtypes:', (dataTable) => {
@@ -80,6 +79,19 @@ Then('they see a list of subtypes:', (dataTable) => {
 // | Leader          |
 // | Corrigendum     |
 // | Booklet         |
+
+// @1656
+// Scenario: Creator sees fields for Journal article
+And('they see a dropdown for Content Type with options:', (dataTable) => {
+  
+});
+//     // | Academic article           |
+//     // | Academic literature review |
+//     // | Case report                |
+//     // | Study protocol             |
+//     // | Professional article       |
+//     // | Popular science article    |
+// And they see the Norwegian Science Index (NVI) evaluation status
 
 // TODO Article number is not being validated
 // Scenario: Creator sees that fields for Journal article are validated
@@ -113,10 +125,8 @@ And('they see a disabled field for Journal based on selected Journal article', (
   cy.get('[data-testid=journal-chip]').contains('Test article corrigendum');
 });
 
-// TODO Article number is not being validated
 // Scenario: Creator sees that fields for Resource subtype "Corrigendum" are validated
 
-// TODO Booklet, Comment missing
 // @1659
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype
 And('they select Resource subtype {string}', (subtype) => {
@@ -132,6 +142,4 @@ And('they select Resource subtype {string}', (subtype) => {
 //     | Corrigendum     |
 //     | Booklet         |
 
-// TODO Booklet, Comment missing
-// TODO Article number is not being validated
 // Scenario Outline: Creator sees that fields for Norwegian Science Index (NVI) incompatible Resource subtype are validated

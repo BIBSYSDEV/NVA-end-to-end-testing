@@ -36,7 +36,7 @@ Feature: DOI related scenarios moved from MVP feature
 
   @TEST_NP-4193
   @1251
-  # @test
+  @test
   Scenario: Creator opens a Registration with a DOI request
     Given that the Creator Opens a DOI request entry from My Worklist
     When they click the Edit Registration button
@@ -93,7 +93,7 @@ Feature: DOI related scenarios moved from MVP feature
 
   @TEST_NP-4191
   @1233
-  # @test
+  @test
   Scenario: Owner navigates to the Landing Page for Registration for unpublished Registration without DOI
     Given that the Owner view Landing Page for Registration
     And the Registration is not Published
