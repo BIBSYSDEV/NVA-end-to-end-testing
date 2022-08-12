@@ -139,6 +139,10 @@ export const journalFields = {
 export const journalContentTypes = {
   'Academic article': dataTestId.registrationWizard.resourceType.contentValue('academicarticle'),
   'Academic literature review': dataTestId.registrationWizard.resourceType.contentValue('academicliteraturereview'),
+  'Case report': dataTestId.registrationWizard.resourceType.contentValue('casereport'),
+  'Study protocol': dataTestId.registrationWizard.resourceType.contentValue('studyprotocol'),
+  'Professional article': dataTestId.registrationWizard.resourceType.contentValue('professionalarticle'),
+  'Popular science article': dataTestId.registrationWizard.resourceType.contentValue('popularsciencearticle'),
 }
 
 export const bookSubtypes = {
