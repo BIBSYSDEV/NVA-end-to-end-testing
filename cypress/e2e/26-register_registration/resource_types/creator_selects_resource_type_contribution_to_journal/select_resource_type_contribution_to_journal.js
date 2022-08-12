@@ -44,10 +44,8 @@ And('they enter an invalid value in fields:', (dataTable) => {
     cy.get(`[data-testid=${journalFields[field]}]`).type('{selectall}{del}invalid');
   });
 });
-When('they click the Save button', () => {
-  cy.get('[data-testid=save-publication-button]').click();
-});
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
+  cy.get('[data-testid^=snackbar]').should('not.exist');
   const fields = { ...journalFields }
   cy.get('@subtype').then((subtype) => {
     if (subtype === 'Corrigendum') {

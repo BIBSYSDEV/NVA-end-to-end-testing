@@ -157,6 +157,7 @@ export const bookFields = {
   'NPI discipline': dataTestId.registrationWizard.resourceType.scientificSubjectField,
   'Series title': dataTestId.registrationWizard.resourceType.seriesField,
   'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
+  'Peer reviewed and presents new research': dataTestId.registrationWizard.resourceType.peerReviewed,
 };
 
 export const contentType = {
@@ -165,6 +166,7 @@ export const contentType = {
   'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popularsciencemonograph'),
   'Textbook': dataTestId.registrationWizard.resourceType.contentValue('textbook'),
   'Encyclopedia': dataTestId.registrationWizard.resourceType.contentValue('encyclopedia'),
+  'Exhibition catalog': dataTestId.registrationWizard.resourceType.contentValue('exhibitioncatalog'),
 };
 
 export const reportSubtypes = {

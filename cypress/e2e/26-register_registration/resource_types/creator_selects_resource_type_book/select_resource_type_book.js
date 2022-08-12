@@ -6,8 +6,7 @@ import { dataTestId } from '../../../../support/dataTestIds';
 // Feature: Creator selects Resource type Book
 Before(() => {
   cy.login(userResourceType);
-  cy.openMyRegistrations();
-  cy.get('[data-testid^=edit-registration]').first().click({ force: true });
+  cy.startWizardWithEmptyRegistration();
 });
 
 // Common steps
@@ -15,7 +14,6 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Boo
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
-  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 When('they select Resource subtype {string}', (subtype) => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
@@ -23,7 +21,6 @@ When('they select Resource subtype {string}', (subtype) => {
 });
 // end Common steps
 
-// TODO Missing subtypes Abstract collection, Exhibition catalog
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Book"
 Given('Creator navigates to Resource Type tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
@@ -31,7 +28,6 @@ Given('Creator navigates to Resource Type tab', () => {
 When('they select the Resource type "Book"', () => {
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
   cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
-  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 Then('they see a list of subtypes:', (dataTable) => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
@@ -42,7 +38,6 @@ Then('they see a list of subtypes:', (dataTable) => {
 // | Abstract collection |
 // | Exhibition catalog  |
 
-// TODO Missing subtypes Abstract collection, Exhibition catalog
 // @392
 // Scenario Outline: Creator navigates to the Resource Type tab and selects Resource subtype
 And('they see fields:', (dataTable) => {
@@ -65,21 +60,20 @@ And('they see a field Content Type with options:', (dataTable) => {
   cy.testDataTestidList(dataTable, contentType);
 });
 // | Academic Monograph        |
-// | Non-fiction Monograph     |
-// | Popular Science Monograph |
-// | Textbook                  |
-// | Encyclopedia              |
 
-// TODO Missing subtypes Abstract collection, Exhibition catalog
 // @2229
 // Scenario Outline: Creator sees that fields for Book are validated on Resource Type tab
 And('they click the Save button', () => {
-  cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.get('[data-testid=button-save-registration]').click();
+  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.get('[data-testid=button-next-tab]').click();
+  cy.get('[data-testid=button-previous-tab]').click();
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${bookFields[field[0]]}]`).within(() => {
-      cy.wrap(field).get('p').should('have.class', 'Mui-error');
+      cy.get('p').should('have.class', 'Mui-error');
+      cy.get('p').should('have.class', 'Mui-required');
     });
   });
 });
@@ -88,5 +82,21 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 //     | BookType            |
 //     | Anthology           |
 //     | Monograph           |
-//     | Abstract collection |
-//     | Exhibition catalog  |
+
+// Scenario: Creator selects Resource subtype "Monograph" and Content type Academic Monograph
+Given('Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
+})
+When('they select Content type "Academic Monograph"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academicmonograph')}]`).click({ force: true });
+})
+// Then they see fields:
+//     | Peer reviewed and presents new research |
+And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
+})

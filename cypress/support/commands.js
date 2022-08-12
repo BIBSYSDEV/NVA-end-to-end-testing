@@ -220,9 +220,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 });
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
-  cy.log(values);
   dataTable.rawTable.forEach((value) => {
-    cy.log(value);
     cy.get(`[data-testid=${values[value[0]]}]`, {timeout: 30000});
   });
 });
