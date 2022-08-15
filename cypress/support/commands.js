@@ -112,9 +112,9 @@ Cypress.Commands.add('login', (userId) => {
   cy.loginCognito(userId).then(() => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.mockPersonSearch(userId);
-    cy.mockCreatePerson(userId);
-    cy.mockUpdatePerson(userId);
+    // cy.mockPersonSearch(userId);
+    // cy.mockCreatePerson(userId);
+    // cy.mockUpdatePerson(userId);
     cy.mockDepartments();
     cy.visit('/');
   });
@@ -212,7 +212,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Files and reference
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`, {timeout: 30000}).within(() => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.files.version}]`, { timeout: 30000 }).within(() => {
     cy.get('input[type=radio]').first().click();
   });
   cy.get('[data-testid=uploaded-file-select-license]').click({ force: true }).type(' ');
@@ -221,7 +221,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid=${values[value[0]]}]`, {timeout: 30000});
+    cy.get(`[data-testid=${values[value[0]]}]`, { timeout: 30000 });
   });
 });
 

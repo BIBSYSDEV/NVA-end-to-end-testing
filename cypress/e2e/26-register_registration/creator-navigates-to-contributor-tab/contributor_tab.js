@@ -3,9 +3,7 @@ import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import {
   contributorButtons,
-  contributorCreateFields,
   resourceTypes,
-  resourceSubTypes,
 } from '../../../support/data_testid_constants';
 
 Before({ tags: '@TEST_NP-4008' }, () => {
@@ -37,7 +35,7 @@ And('they see the "Add Author" Button', () => {
   cy.get('[data-testid=add-Creator]').should('be.visible');
 });
 And('they click "Add Author"', () => {
-  cy.mockPersonSearch(userWithAuthor);
+  // cy.mockPersonSearch(userWithAuthor);
   cy.get('[data-testid=add-Creator]').click({ force: true });
 });
 // End common steps
@@ -83,7 +81,7 @@ Then('their Author identity is added to the list of Authors', () => {
   });
 });
 And('their current Affiliations are listed', () => {
-  cy.contains('Unit – The Norwegian Directorate for ICT and Joint Services in Higher Education and Research');
+  cy.contains('Unit');
 });
 
 // Scenario Outline: Creator see buttons to add Contributors
@@ -153,7 +151,7 @@ Then('they see buttons {string}', (button) => {
 //   @419
 //   Scenario: Creator adds an Author to the list of Authors
 And('they search for Author in the Author Search Dialog', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('TestUser, Withauthor');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('TestUser, Contributor');
 });
 And('they select an Author identity', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`)
@@ -165,7 +163,7 @@ And('they click "Add"', () => {
 });
 Then('the selected Author identity is added to the list of Authors', () => {
   cy.get('[data-testid=Creator]').within((authors) => {
-    cy.wrap(authors).contains('Withauthor TestUser');
+    cy.wrap(authors).contains('Contributor TestUser');
   });
 });
 
@@ -211,11 +209,11 @@ And('they click "Add Editor"', () => {
   });
 });
 And('they search for Editor in the Author Search Dialog', () => {
-  cy.get('[data-testid=search-field]').type('TestUser Withauthor');
+  cy.get('[data-testid=search-field]').type('TestUser Contributor');
 });
 Then('the selected Author identity is added to the list of Editors', () => {
   cy.get('[data-testid=Editor]').within((editors) => {
-    cy.wrap(editors).contains('Withauthor TestUser');
+    cy.wrap(editors).contains('Contributor TestUser');
   });
 });
 
@@ -241,11 +239,11 @@ And('they click "Add Supervisor"', () => {
   });
 });
 And('they search for Supervisor in the Author Search Dialog', () => {
-  cy.get('[data-testid=search-field]').type('TestUser Withauthor');
+  cy.get('[data-testid=search-field]').type('TestUser Contributor');
 });
 Then('the selected Author identity is added to the list of Supervisors', () => {
   cy.get('[data-testid=Supervisor]').within((editors) => {
-    cy.wrap(editors).contains('Withauthor TestUser');
+    cy.wrap(editors).contains('Contributor TestUser');
   });
 });
 
@@ -330,5 +328,5 @@ And('they see the Contributor is now verified', () => {
   cy.get('[data-testid=CheckCircleSharpIcon]').should('be.visible');
 });
 And('all current Affiliations are listed for the Contributor', () => {
-  cy.contains('UiT The Arctic University of Norway');
+  cy.contains('Unit');
 });
