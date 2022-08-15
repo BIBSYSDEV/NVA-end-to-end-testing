@@ -67,7 +67,7 @@ export const mockPersonSearch = (userId) => {
         affiliations: [
           {
             'type': 'Affiliation',
-            'organization': 'https://api.dev.nva.aws.unit.no/cristin/organization/186.32.16.0',
+            'organization': 'https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0',
             'active': true,
             'role': {
               'type': 'Role',

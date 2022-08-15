@@ -1,7 +1,7 @@
 Feature: Creator navigates to Contributors tab
 
   @TEST_NP-4003
-  # @test
+  @test
   @417
   Scenario: Creator navigates to Contributors tab
     Given Creator begins registering a Registration in the Wizard
@@ -14,7 +14,7 @@ Feature: Creator navigates to Contributors tab
     And they see Next is enabled
     And they see Save is enabled
 
-  # @test
+  @test
   @TEST_NP-4002
   Scenario Outline: Creator see buttons to add Contributors
     Given Creator navigates to Contributors tab

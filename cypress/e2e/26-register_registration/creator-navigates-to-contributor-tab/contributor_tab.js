@@ -1,5 +1,5 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userWithAuthor } from '../../../support/constants';
+import { userContributor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import {
   contributorButtons,
@@ -14,7 +14,7 @@ Before({ tags: '@TEST_NP-4009' }, () => {
 });
 
 Before(() => {
-  cy.login(userWithAuthor);
+  cy.login(userContributor);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
@@ -77,7 +77,7 @@ And('they click "Add me as Author"', () => {
 });
 Then('their Author identity is added to the list of Authors', () => {
   cy.get('[data-testid=Creator]').within((authors) => {
-    cy.wrap(authors).contains('Withauthor TestUser');
+    cy.wrap(authors).contains('Contributor TestUser');
   });
 });
 And('their current Affiliations are listed', () => {
