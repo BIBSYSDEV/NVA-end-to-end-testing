@@ -41,6 +41,9 @@ export const mockPerson = (userId) => {
 };
 
 export const mockPersonSearch = (userId) => {
+  const firstName = user[userId].name.split(', ')[1];
+  const lastName = user[userId].name.split(', ')[0];
+
   return {
     id: 'https://api.dev.nva.aws.unit.no/cristin/person?name=TestUser&page=1&results=1',
     processingTime: 10,
@@ -57,11 +60,11 @@ export const mockPersonSearch = (userId) => {
         names: [
           {
             type: 'LastName',
-            value: 'TestUser',
+            value: lastName,
           },
           {
             type: 'FirstName',
-            value: 'Withauthor',
+            value: firstName,
           },
         ],
         affiliations: [
