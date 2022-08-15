@@ -4,6 +4,11 @@ import { dataTestId } from '../../../support/dataTestIds';
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(userWithAuthor);
   cy.startWizardWithEmptyRegistration();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
+  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
+  cy.get('[data-testid=publication-instance-type-BookMonograph]').click();
 });
 And('they navigate to the Contributors tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click({ force: true });
