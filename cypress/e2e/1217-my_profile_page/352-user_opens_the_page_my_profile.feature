@@ -8,10 +8,10 @@ Feature: User opens the page My Profile
         When they click the menu item My user profile
         Then they see My Profile
         And they see their Profile page which includes information for
-            | Real name     |
-            | Feide ID      |
-            | Email         |
+            | Real name |
+            | Feide ID  |
+            | Email     |
             # | ORCID         |
-            | Roles         |
+            | Roles     |
             # | Organizations |
-            | Language      |
+            | Language  |

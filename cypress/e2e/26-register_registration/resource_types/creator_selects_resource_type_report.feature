@@ -10,7 +10,7 @@ Feature: Creator selects Resource type Report
             | Research report      |
             | Policy report        |
             | Working paper        |
-            # | Abstract collection  |
+            | Abstract collection  |
             | Other type of report |
 
     @TEST_NP-4075
@@ -30,7 +30,7 @@ Feature: Creator selects Resource type Report
             | Research report      |
             | Policy report        |
             | Working paper        |
-            # | Abstract collection  |
+            | Abstract collection  |
             | Other type of report |
 
     @TEST_NP-4076
@@ -52,5 +52,5 @@ Feature: Creator selects Resource type Report
             | Research report      |
             | Policy report        |
             | Working paper        |
-            # | Abstract collection  |
+            | Abstract collection  |
             | Other type of report |

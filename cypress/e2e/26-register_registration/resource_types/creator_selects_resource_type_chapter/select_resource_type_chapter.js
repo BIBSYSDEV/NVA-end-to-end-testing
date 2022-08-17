@@ -24,6 +24,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Cha
 When('they select the Resource Subtype {string}', (chapterType) => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get(`[data-testid=${chapterSubtypes[chapterType]}]`).click();
+  cy.wrap(chapterType).as('chapterType');
 });
 // end common steps
 
@@ -53,7 +54,9 @@ Then('they see a list of subtypes:', (dataTable) => {
 
 // Scenario Outline: Creator sees fields for Chapter subtypes
 Then('they see an information box describing that a Container report must be published first', () => {
-  cy.contains('The anthology where this chapter is published in must be published in advance')
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.partOfField}]`).parent().within(() => {
+    cy.get('[data-testid=InfoIcon]').should('be.visible');
+  });
 });
 And('they see a field {string}', (containerField) => {
   cy.get(`[data-testid=${chapterContainerField[containerField]}]`);

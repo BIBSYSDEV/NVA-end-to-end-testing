@@ -8,7 +8,8 @@ Feature: Creator selects Resource type Chapter
         When they select the Resource type "Chapter"
         Then they see a list of subtypes:
             | Chapter in Anthology |
-    # | Conference abstract  |
+            | Chapter in Report    |
+            | Conference abstract  |
 
     @test
     @TEST_NP-4048
@@ -23,9 +24,10 @@ Feature: Creator selects Resource type Chapter
             | Pages from |
             | Pages to   |
         Examples:
-            | ChapterType          | ContainerField                       |
-            | Chapter of Anthology | Search box for published Anthologies |
-    # | Conference abstract  | Search box for published Abstract collections |
+            | ChapterType          | ContainerField                                |
+            | Chapter of Anthology | Search box for published Anthologies          |
+            | Chapter in Report    | Search box for published Reports              |
+            | Conference abstract  | Search box for published Abstract Collections |
 
     @test
     @TEST_NP-4051
@@ -34,13 +36,13 @@ Feature: Creator selects Resource type Chapter
         Given Creator navigates to the Resource Type tab and selects Resource type "Chapter"
         When they select the Resource Subtype "Chapter in Anthology"
         Then they see Content type field with options:
-            | Academic Chapter        |
-            | Non-fiction Chapter     |
-            | Popular Science Chapter |
-            | Textbook Chapter        |
-            | Encyclopedia Chapter    |
-    # | Introduction               |
-    # | Exhibition Catalog Chapter |
+            | Academic Chapter           |
+            | Non-fiction Chapter        |
+            | Popular Science Chapter    |
+            | Textbook Chapter           |
+            | Encyclopedia Chapter       |
+            | Introduction               |
+            | Exhibition Catalog Chapter |
 
     @test
     @TEST_NP-4050

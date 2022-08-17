@@ -10,7 +10,7 @@ Feature: Creator selects Resource type Degree
             | Bachelor thesis      |
             | Master thesis        |
             | Doctoral thesis      |
-            # | Licentiate thesis    |
+            | Licentiate thesis    |
             | Other student thesis |
 
     @TEST_NP-4064
@@ -51,4 +51,4 @@ Feature: Creator selects Resource type Degree
         Examples:
             | DegreeType        |
             | Doctoral thesis   |
-            # | Licentiate thesis |
+            | Licentiate thesis |

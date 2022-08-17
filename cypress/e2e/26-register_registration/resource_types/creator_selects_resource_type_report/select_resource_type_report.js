@@ -28,6 +28,7 @@ Then('they see a list of subtypes:', (dataTable) => {
 // | Research report      |
 // | Policy report        |
 // | Working paper        |
+// | Abstract collection  |
 // | Other type of report |
 
 // @1693

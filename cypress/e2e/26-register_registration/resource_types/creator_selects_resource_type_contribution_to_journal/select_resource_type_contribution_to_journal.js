@@ -104,6 +104,7 @@ Then('they see a list of subtypes:', (dataTable) => {
 And('they see a dropdown for Content Type with options:', (dataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
   cy.testDataTestidList(dataTable, journalContentTypes);
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academicarticle')}]`).click();
 });
 //     // | Academic article           |
 //     // | Academic literature review |
@@ -112,11 +113,9 @@ And('they see a dropdown for Content Type with options:', (dataTable) => {
 //     // | Professional article       |
 //     // | Popular science article    |
 And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academicarticle')}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.journalField}]`).type('nature');
-  cy.contains('Nature').first().click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviSuccess}]`).should('be.visible');
-})
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.peerReviewed}] > div > label > span > input`).first().click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
+});
 
 // Scenario: Creator sees that fields for Journal article are validated
 

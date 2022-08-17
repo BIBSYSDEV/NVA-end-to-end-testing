@@ -173,6 +173,7 @@ export const reportSubtypes = {
   'Research report': 'publication-instance-type-ReportResearch',
   'Policy report': 'publication-instance-type-ReportPolicy',
   'Working paper': 'publication-instance-type-ReportWorkingPaper',
+  'Abstract collection': 'publication-instance-type-ReportBookOfAbstract',
   'Other type of report': 'publication-instance-type-ReportBasic',
 };
 
@@ -188,6 +189,7 @@ export const studentThesisSubtypes = {
   'Bachelor thesis': 'publication-instance-type-DegreeBachelor',
   'Master thesis': 'publication-instance-type-DegreeMaster',
   'Doctoral thesis': 'publication-instance-type-DegreePhd',
+  'Licentiate thesis': 'publication-instance-type-DegreeLicentiate',
   'Other student thesis': 'publication-instance-type-OtherStudentWork',
 };
 
@@ -203,11 +205,15 @@ export const studentThesisFields = {
 export const chapterSubtypes = {
   'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
   'Chapter in Anthology': 'publication-instance-type-ChapterArticle',
+  'Chapter in Report': 'publication-instance-type-ChapterInReport',
+  'Conference abstract': 'publication-instance-type-ChapterConferenceAbstract',
 };
 
 export const chapterFields = {
   'DOI': 'doi-field',
   'Search box for published Anthologies': 'info-anthology',
+  'Search box for published Reports': 'info-anthology',
+  'Search box for published Abstract Collections': 'info-anthology',
   'Pages from': dataTestId.registrationWizard.resourceType.pagesFromField,
   'Pages to': dataTestId.registrationWizard.resourceType.pagesToField,
   'Peer reviewed and presents new research': 'peer-review-field',
@@ -217,6 +223,8 @@ export const chapterFields = {
 
 export const chapterContainerField = {
   'Search box for published Anthologies': dataTestId.registrationWizard.resourceType.partOfField,
+  'Search box for published Reports': dataTestId.registrationWizard.resourceType.partOfField,
+  'Search box for published Abstract Collections': dataTestId.registrationWizard.resourceType.partOfField,
 };
 
 export const chapterContentTypes = {
@@ -225,6 +233,9 @@ export const chapterContentTypes = {
   'Popular Science Chapter': 'content-value-popularsciencechapter',
   'Textbook Chapter': 'content-value-textbookchapter',
   'Encyclopedia Chapter': 'content-value-encyclopediachapter',
+  'Introduction': 'content-value-introduction',
+  'Exhibition Catalog Chapter': 'content-value-exhibitioncatalogchapter',
+
 };
 
 export const artisticSubtypes = {

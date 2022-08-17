@@ -2,7 +2,7 @@ const glob = require('glob');
 const fs = require('fs');
 const testedFeatures = require('./testedFeatures.json');
 
-const CYPRESS_DIR = 'cypress/integration';
+const CYPRESS_DIR = 'cypress/e2e';
 const GHERKIN_DIR = 'features';
 
 const getDirectories = (src, callback) => {

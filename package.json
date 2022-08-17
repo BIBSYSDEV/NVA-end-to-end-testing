@@ -26,8 +26,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:pull-features": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features.js",
-    "test:pull-features_deploy": "git submodule update --remote features && cp -rf features/* cypress/integration && node ./scripts/remove-old-features_deploy.js",
+    "test:pull-features": "git submodule update --remote features && cp -rf features/* cypress/e2e && node ./scripts/remove-old-features.js",
+    "test:pull-features_deploy": "git submodule update --remote features && cp -rf features/* cypress/e2e && node ./scripts/remove-old-features_deploy.js",
     "delete:reportFolder": "rm -rf mochawesome-report/*",
     "merge:reports": "mochawesome-merge mochawesome-report/*.json > cypress-combined-report.json",
     "create:cucumber:report": "node scripts/cucumber_report.js",
