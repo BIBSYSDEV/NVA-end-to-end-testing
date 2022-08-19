@@ -19,11 +19,12 @@ Scenario Outline: Creator sees registration is saved with correct values present
     | Report        | ReportWorkingPaper |
     | Report        | ReportBasic        |
     | Journal       | JournalArticle     |
-    | Journal       | FeatureArticle     |
     | Journal       | JournalLetter      |
     | Journal       | JournalReview      |
     | Journal       | JournalLeader      |
     | Journal       | JournalCorrigendum |
+    | Journal       | JournalIssue       |
+    | Journal       | ConferenceAbstract |
     | Degree        | DegreeBachelor     |
     | Degree        | DegreeMaster       |
     | Degree        | DegreePhd          |

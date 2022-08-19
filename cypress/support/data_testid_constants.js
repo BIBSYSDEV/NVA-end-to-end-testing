@@ -314,6 +314,22 @@ export const designFields = {
   'Date to': dataTestId.registrationWizard.resourceType.dateToField,
 };
 
+export const presentationSubtypes = {
+  'Conference lecture': 'publication-instance-type-ConferenceLecture',
+  'Conference poster': 'publication-instance-type-ConferencePoster',
+  'Lecture': 'publication-instance-type-Lecture',
+  'Other presentation': 'publication-instance-type-OtherPresentation',
+}
+
+export const persentationFields = {
+  'Title of event': dataTestId.registrationWizard.resourceType.eventTitleField,
+  'Place of event': dataTestId.registrationWizard.resourceType.eventPlaceField,
+  'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
+  'Date to': dataTestId.registrationWizard.resourceType.dateToField,
+  'Organizer': dataTestId.registrationWizard.resourceType.eventOrganizerField,
+  'Country': dataTestId.registrationWizard.resourceType.eventCountryField,
+}
+
 export const OTHER_SUBTYPES = {};
 
 export const resourceSubTypes = {
