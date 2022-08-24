@@ -96,6 +96,9 @@ def createNvaUser(accessToken, nin, customer, roles, username):
     if not response.status_code == 200:
         print(response.json())
 
+    secretsManager = boto3.client('secretsmanager')
+    password = secretsManager.get_secret_value(SecretId='E2ETestUserPassword')['SecretString']
+
     client = boto3.client('cognito-idp')
 
     try:
@@ -118,6 +121,12 @@ def createNvaUser(accessToken, nin, customer, roles, username):
                 }
             ],
             MessageAction='SUPPRESS'
+        )
+        client.admin_set_user_password(
+            UserPoolId=USER_POOL_ID,
+            Username=username,
+            Password=password,
+            Permanent=True
         )
 
 def importUsers(test_users_file_name):
@@ -165,6 +174,7 @@ def deleteUsers(admin):
     )
     for user in response['Users']:
         if 'test-user-' in user['Username']:
+            print(f'Found {user["Username"]}')
             client.admin_delete_user(
                 Username=user['Username'],
                 UserPoolId=USER_POOL_ID

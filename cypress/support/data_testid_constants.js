@@ -330,6 +330,23 @@ export const persentationFields = {
   'Country': dataTestId.registrationWizard.resourceType.eventCountryField,
 }
 
+export const mediaSubtypes = {
+  'Feature Article': 'publication-instance-type-MediaFeatureArticle',
+  'Reader Opinion': 'publication-instance-type-MediaReaderOpinion',
+  'Interview': 'publication-instance-type-MediaInterview',
+  'Blog post': 'publication-instance-type-MediaBlogPost',
+  'Podcast': 'publication-instance-type-MediaPodcast',
+  'Participation in Radio or TV': 'publication-instance-type-MediaParticipationInRadioOrTv',
+}
+
+export const mediaMediumTypes = {
+  'Newspaper or Journal': 'Journal',
+  'Internet': 'Internet',
+  'Radio': 'Radio',
+  'TV': 'TV',
+  'Other': 'Other',
+}
+
 export const OTHER_SUBTYPES = {};
 
 export const resourceSubTypes = {

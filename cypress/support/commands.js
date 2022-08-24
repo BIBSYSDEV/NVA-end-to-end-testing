@@ -69,7 +69,8 @@ Cypress.Commands.add('checkMenu', (table) => {
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
-    const randomPassword = `P%${uuidv4()}`;
+    // const randomPassword = `P%${uuidv4()}`;
+    const randomPassword = `P%403f577d-edda-468c-ae77-c8e1a79cd665`;
 
     const authorizeUser = {
       AuthFlow: authFlow,
