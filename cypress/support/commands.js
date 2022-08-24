@@ -39,6 +39,7 @@ const amplifyConfig = {
 };
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
+const secretsManager = new AWS.SecretsManager();
 
 const authFlow = 'USER_PASSWORD_AUTH';
 
@@ -69,43 +70,45 @@ Cypress.Commands.add('checkMenu', (table) => {
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
-    // const randomPassword = `P%${uuidv4()}`;
-    const randomPassword = `P%403f577d-edda-468c-ae77-c8e1a79cd665`;
+    const randomPassword = `P%${uuidv4()}`;
+    let password = ''
 
-    const authorizeUser = {
-      AuthFlow: authFlow,
-      ClientId: clientId,
-      // UserPoolId: userPoolId,
-      AuthParameters: {
-        USERNAME: userId,
-        PASSWORD: randomPassword,
+    secretsManager.getSecretValue(
+      {
+        SecretId: 'E2ETestUserPassword',
       },
-    };
+      (err, data) => {
+        if (data) {
+          password = data['SecretString'];
+          console.log(userId)
+          console.log(password);
+          const authorizeUser = {
+            AuthFlow: authFlow,
+            ClientId: clientId,
+            AuthParameters: {
+              USERNAME: userId,
+              PASSWORD: password,
+            },
+          };
 
-    const passwordParams = {
-      Password: randomPassword,
-      UserPoolId: userPoolId,
-      Username: userId,
-      Permanent: true,
-    };
-
-    identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
-      if (data) {
-        identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-          if (data) {
-            console.log(data)
-            if (!data.ChallengeName) {
-              await Auth.signIn(userId, randomPassword);
-              resolve(data.AuthenticationResult.IdToken);
+          identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+            if (data) {
+              if (!data.ChallengeName) {
+                await Auth.signIn(userId, password);
+                resolve(data.AuthenticationResult.IdToken);
+              }
+            } else {
+              console.log(err)
+              reject(err);
             }
-          } else {
-            reject(err);
-          }
-        });
-      } else {
-        reject(err);
+          });
+        } else {
+          console.log(err)
+          reject(err);
+        }
       }
-    });
+    );
+
   });
 });
 
