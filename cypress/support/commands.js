@@ -71,45 +71,45 @@ Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
     const randomPassword = `P%${uuidv4()}`;
-    let password = ''
+    let password = 'P%403f577d-edda-468c-ae77-c8e1a79cd665'
 
-    secretsManager.getSecretValue(
-      {
-        SecretId: 'E2ETestUserPassword',
+    // secretsManager.getSecretValue(
+    //   {
+    //     SecretId: 'E2ETestUserPassword',
+    //   },
+    //   (err, data) => {
+    //     if (data) {
+    // password = data['SecretString'];
+    // console.log(userId)
+    // console.log(password);
+    const authorizeUser = {
+      AuthFlow: authFlow,
+      ClientId: clientId,
+      AuthParameters: {
+        USERNAME: userId,
+        PASSWORD: password,
       },
-      (err, data) => {
-        if (data) {
-          password = data['SecretString'];
-          console.log(userId)
-          console.log(password);
-          const authorizeUser = {
-            AuthFlow: authFlow,
-            ClientId: clientId,
-            AuthParameters: {
-              USERNAME: userId,
-              PASSWORD: password,
-            },
-          };
+    };
 
-          identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-            if (data) {
-              if (!data.ChallengeName) {
-                await Auth.signIn(userId, password);
-                resolve(data.AuthenticationResult.IdToken);
-              }
-            } else {
-              console.log(err)
-              reject(err);
-            }
-          });
-        } else {
-          console.log(err)
-          reject(err);
+    identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+      if (data) {
+        if (!data.ChallengeName) {
+          await Auth.signIn(userId, password);
+          resolve(data.AuthenticationResult.IdToken);
         }
+      } else {
+        console.log(err)
+        reject(err);
       }
-    );
+    });
+    // } else {
+    //   console.log(err)
+    //   reject(err);
+    // }
+  }
+  );
 
-  });
+  // });
 });
 
 Cypress.Commands.add('login', (userId) => {
