@@ -169,16 +169,22 @@ def createNin():
 def deleteUsers(admin):
     print('deleting from Cognito...')
     client = boto3.client('cognito-idp')
-    response = client.list_users(
-        UserPoolId=USER_POOL_ID
-    )
-    for user in response['Users']:
-        if 'test-user-' in user['Username']:
-            print(f'Found {user["Username"]}')
-            client.admin_delete_user(
-                Username=user['Username'],
-                UserPoolId=USER_POOL_ID
-            )
+    paginator = client.get_paginator('list_users')
+    operation_parameters = {
+        'UserPoolId': USER_POOL_ID
+    }
+    users = []
+    for response in paginator.paginate(**operation_parameters):
+        users.append(response['Users'])
+
+    for userlist in users:
+        for user in userlist:
+            if 'test-user-' in user['Username']:
+                print(f'Found {user["Username"]}')
+                client.admin_delete_user(
+                    Username=user['Username'],
+                    UserPoolId=USER_POOL_ID
+                )
 
     print('deleting from DynamoDb...')
     client = boto3.client('dynamodb')
