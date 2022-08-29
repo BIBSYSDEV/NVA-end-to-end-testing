@@ -91,14 +91,28 @@ Cypress.Commands.add('loginCognito', (userId) => {
       },
     };
 
-    identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+    const passwordParams = {
+      Password: password,
+      UserPoolId: userPoolId,
+      Username: userId,
+      Permanent: true,
+    };
+
+
+    identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
       if (data) {
-        if (!data.ChallengeName) {
-          await Auth.signIn(userId, password);
-          resolve(data.AuthenticationResult.IdToken);
-        }
+        identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+          if (data) {
+            console.log(data)
+            if (!data.ChallengeName) {
+              await Auth.signIn(userId, password);
+              resolve(data.AuthenticationResult.IdToken);
+            }
+          } else {
+            reject(err);
+          }
+        });
       } else {
-        console.log(err)
         reject(err);
       }
     });
@@ -106,9 +120,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
     //   console.log(err)
     //   reject(err);
     // }
-  }
-  );
-
+  });
   // });
 });
 

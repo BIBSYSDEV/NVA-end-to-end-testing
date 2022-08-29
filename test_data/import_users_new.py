@@ -126,8 +126,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
         client.admin_set_user_password(
             UserPoolId=USER_POOL_ID,
             Username=username,
-            Password=tempPassword,
-            Permanent=True
+            Password=tempPassword
         )
 
 
