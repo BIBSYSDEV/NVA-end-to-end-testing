@@ -98,6 +98,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
 
     secretsManager = boto3.client('secretsmanager')
     password = secretsManager.get_secret_value(SecretId='E2ETestUserPassword')['SecretString']
+    tempPassword = 'P%temp123'
 
     client = boto3.client('cognito-idp')
 
@@ -125,9 +126,9 @@ def createNvaUser(accessToken, nin, customer, roles, username):
         client.admin_set_user_password(
             UserPoolId=USER_POOL_ID,
             Username=username,
-            Password=password,
-            Permanent=True
+            Password=tempPassword
         )
+        
 
 def importUsers(test_users_file_name):
     print('Importing users...')
