@@ -175,24 +175,7 @@ def scan_resources():
             scanned_publications.append(item)
 
     print(len(scanned_publications))
-    # response = dynamodb_client.scan(TableName=publications_tablename,
-    #                                 FilterExpression='contains(#PK0, :val)',
-    #                                 ExpressionAttributeNames={'#PK0': 'PK0'},
-    #                                 ExpressionAttributeValues={':val': {STRING: 'test.no'}})
 
-    # scanned_publications = response['Items']
-    # more_items = 'LastEvaluatedKey' in response
-    # while more_items:
-    #     start_key = response['LastEvaluatedKey']
-    #     response = dynamodb_client.scan(TableName=publications_tablename,
-    #                                     FilterExpression='contains(#PK0, :val)',
-    #                                     ExpressionAttributeNames={
-    #                                         '#PK0': 'PK0'},
-    #                                     ExpressionAttributeValues={
-    #                                         ':val': {STRING: 'test.no'}},
-    #                                     ExclusiveStartKey=start_key)
-    #     scanned_publications.extend(response['Items'])
-    #     more_items = 'LastEvaluatedKey' in response
     return scanned_publications
 
 
@@ -403,10 +386,10 @@ def run():
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
-    # map_user_to_arp()
-    # upload_file()
+    map_user_to_arp()
+    upload_file()
     delete_publications()
-    # create_publications()
+    create_publications()
 
 
 if __name__ == '__main__':
