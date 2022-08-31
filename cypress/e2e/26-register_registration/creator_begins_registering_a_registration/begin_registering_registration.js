@@ -1,4 +1,4 @@
-import { userWithAuthor } from '../../../support/constants';
+import { userWithAuthor3 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 const fileName = 'example.txt';
@@ -8,7 +8,7 @@ const dlrLink = 'https://dlr.unit.no/resources/66888570-3504-4d12-81a4-c3ffe0605
 
 // Common steps
 Given('Creator begins registering a Registration', () => {
-  cy.login(userWithAuthor);
+  cy.login(userWithAuthor3);
   cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
 });
 // End common steps
@@ -49,7 +49,7 @@ Then('they see the Wizard', () => {
 Given('that the user is logged in', () => { });
 And('they have Role Creator', () => { });
 And('they are on the Start page', () => {
-  cy.login(userWithAuthor);
+  cy.login(userWithAuthor3);
 });
 When('they click the New Registration button', () => {
   cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
@@ -114,7 +114,7 @@ Then('they see metadata about the Link in the Expansion panel', () => {
 
 // Scenario: Creator begins registration with an empty Registration
 Given('Creator begins registering a Registration', () => {
-  cy.login(userWithAuthor);
+  cy.login(userWithAuthor3);
   cy.get(`[data-testid=${dataTestId.header.startRegistrationButton}]`).click();
 });
 When('they expand the Expansion panel for Empty Registration', () => {
