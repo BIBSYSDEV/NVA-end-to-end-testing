@@ -157,35 +157,59 @@ def upload_file():
 
 def scan_resources():
     print('scanning resources')
-    response = dynamodb_client.scan(TableName=publications_tablename,
-                                    FilterExpression='contains(#PK0, :val)',
-                                    ExpressionAttributeNames={'#PK0': 'PK0'},
-                                    ExpressionAttributeValues={':val': {STRING: 'test.no'}})
-    scanned_publications = response['Items']
-    more_items = 'LastEvaluatedKey' in response
-    while more_items:
-        start_key = response['LastEvaluatedKey']
-        response = dynamodb_client.scan(TableName=publications_tablename,
-                                        FilterExpression='contains(#PK0, :val)',
-                                        ExpressionAttributeNames={
-                                            '#PK0': 'PK0'},
-                                        ExpressionAttributeValues={
-                                            ':val': {STRING: 'test.no'}},
-                                        ExclusiveStartKey=start_key)
-        scanned_publications.extend(response['Items'])
-        more_items = 'LastEvaluatedKey' in response
+    paginator = dynamodb_client.get_paginator('scan')
+    operation_parameters = {
+        'TableName':publications_tablename,
+        'FilterExpression': 'contains(#PK0, :val)',
+        'ExpressionAttributeNames': {'#PK0': 'PK0'},
+        'ExpressionAttributeValues':{':val': {STRING: '20202.0.0.0'}}
+    }
+    publications = []
+    for response in paginator.paginate(**operation_parameters):
+        publications.append(response['Items'])
+    print(len(publications))
+
+    scanned_publications = []
+    for publicationlist in publications:
+        for item in publicationlist:
+            scanned_publications.append(item)
+
+    print(len(scanned_publications))
+    # response = dynamodb_client.scan(TableName=publications_tablename,
+    #                                 FilterExpression='contains(#PK0, :val)',
+    #                                 ExpressionAttributeNames={'#PK0': 'PK0'},
+    #                                 ExpressionAttributeValues={':val': {STRING: 'test.no'}})
+
+    # scanned_publications = response['Items']
+    # more_items = 'LastEvaluatedKey' in response
+    # while more_items:
+    #     start_key = response['LastEvaluatedKey']
+    #     response = dynamodb_client.scan(TableName=publications_tablename,
+    #                                     FilterExpression='contains(#PK0, :val)',
+    #                                     ExpressionAttributeNames={
+    #                                         '#PK0': 'PK0'},
+    #                                     ExpressionAttributeValues={
+    #                                         ':val': {STRING: 'test.no'}},
+    #                                     ExclusiveStartKey=start_key)
+    #     scanned_publications.extend(response['Items'])
+    #     more_items = 'LastEvaluatedKey' in response
     return scanned_publications
 
 
 def delete_publications():
     resources = scan_resources()
+    print(len(resources))
     for resource in resources:
         publication = resource['data'][MAP]
         primary_partition_key = resource['PK0'][STRING]
         primary_sort_key = resource['SK0'][STRING]
         identifier = publication['identifier'][STRING]
-        owner = publication['owner'][STRING]
-        if 'test.no' in owner:
+        owner = ''
+        if 'resourceOwner' in publication:
+            owner = publication['resourceOwner'][MAP]['owner'][STRING]
+        if 'owner' in publication:
+            owner = publication['owner'][STRING]
+        if '20202.0.0.0' in owner:
             print(
                 f'Deleting {identifier} - {owner}')
             response = dynamodb_client.delete_item(
@@ -379,11 +403,10 @@ def run():
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
-    print(headers['Authorization'])
-    map_user_to_arp()
-    upload_file()
+    # map_user_to_arp()
+    # upload_file()
     delete_publications()
-    create_publications()
+    # create_publications()
 
 
 if __name__ == '__main__':
