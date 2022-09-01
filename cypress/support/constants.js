@@ -29,6 +29,9 @@ export const userConnectAuthor = 'test-user-connect-author@test.no';
 export const userWithAuthor = 'test-user-with-author@test.no';
 export const userWithAuthor2 = 'test-user-with-author-2@test.no';
 export const userWithAuthor3 = 'test-user-with-author-3@test.no';
+export const userWithAuthor4 = 'test-user-with-author-4@test.no';
+export const userWithAuthor5 = 'test-user-with-author-5@test.no';
+export const userWithAuthor6 = 'test-user-with-author-6@test.no';
 export const userSaveRegistration = 'test-user-save-registration@test.no';
 export const userAddInstitution = 'test-user-add-institution@test.no';
 export const userChangeInstitution = 'test-user-change-institution@test.no';
@@ -79,6 +82,9 @@ export const user = {
   [userWithAuthor]: { ...userData, name: 'TestUser, Withauthor' },
   [userWithAuthor2]: { ...userData, name: 'TestUser, Withauthor 2' },
   [userWithAuthor3]: { ...userData, name: 'TestUser, Withauthor 3' },
+  [userWithAuthor4]: { ...userData, name: 'TestUser, Withauthor 4' },
+  [userWithAuthor5]: { ...userData, name: 'TestUser, Withauthor 5' },
+  [userWithAuthor6]: { ...userData, name: 'TestUser, Withauthor 6' },
   [userSaveRegistration]: { ...userData, name: 'TestUser, Save Registration' },
   [userAddInstitution]: { ...userData, name: 'TestUser, Add institution' },
   [userChangeInstitution]: { ...userData, name: 'TestUser, Change institution' },

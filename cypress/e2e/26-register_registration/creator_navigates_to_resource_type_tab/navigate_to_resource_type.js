@@ -1,4 +1,4 @@
-import { userWithAuthor } from '../../../support/constants';
+import { userWithAuthor5 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { resourceTypeFields } from '../../../support/data_testid_constants';
 
@@ -6,7 +6,7 @@ import { resourceTypeFields } from '../../../support/data_testid_constants';
 
 // Common steps
 Given('Creator begins registering a Registration in the Wizard with a File', () => {
-  cy.login(userWithAuthor);
+  cy.login(userWithAuthor5);
   cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Resource Type tab', () => {

@@ -1,5 +1,5 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userWithAuthor } from '../../../support/constants';
+import { userWithAuthor4 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 import { descriptionFields } from '../../../support/data_testid_constants';
@@ -8,7 +8,7 @@ const projectName = 'Test mock project';
 const institutionName = 'Test institution';
 
 Before(() => {
-  cy.login(userWithAuthor);
+  cy.login(userWithAuthor4);
 });
 
 // Feature: Creator navigates to Description tab
