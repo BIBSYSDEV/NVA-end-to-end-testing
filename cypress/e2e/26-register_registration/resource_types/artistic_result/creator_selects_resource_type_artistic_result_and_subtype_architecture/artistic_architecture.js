@@ -1,4 +1,4 @@
-import { userWithAuthor } from '../../../../../support/constants';
+import { userResourceTypeArchitecture } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import {
   architectureTypes,
@@ -14,7 +14,7 @@ import {
 // Common steps:
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Architecture"', () => {
   cy.setLocalStorage('beta', true);
-  cy.login(userWithAuthor);
+  cy.login(userResourceTypeArchitecture);
   cy.startWizardWithEmptyRegistration();
   cy.get('[data-testid=button-next-tab]').click();
   cy.get(`[data-testid=publication-context-type]`).click();
@@ -27,7 +27,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 //   Scenario: Creator navigates to the Resource Type tab And('selects Resource subtype "Architecture"
 Given('the creator wants to add an Artistic Result - Architecture', () => {
   cy.setLocalStorage('beta', true);
-  cy.login(userWithAuthor);
+  cy.login(userResourceTypeArchitecture);
   cy.startWizardWithEmptyRegistration();
   cy.get('[data-testid=button-next-tab]').click();
   cy.get(`[data-testid=publication-context-type]`).click();

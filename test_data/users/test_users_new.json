@@ -63,7 +63,17 @@
     "lastName": "TestUser",
     "firstName": "Resource type report",
     "nin": "29067826440",
-    "username": "test-user-resource-type@test.no",
+    "username": "test-user-resource-type-report@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Resource type architecture",
+    "nin": "07077748002",
+    "username": "test-user-resource-type-architecture@test.no",
     "role": [{"type": "Role", "rolename": "Creator"}],
     "orcid": true,
     "orgNumber": "20202",

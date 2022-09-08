@@ -167,21 +167,18 @@ def scan_resources():
     publications = []
     for response in paginator.paginate(**operation_parameters):
         publications.append(response['Items'])
-    print(len(publications))
 
     scanned_publications = []
     for publicationlist in publications:
         for item in publicationlist:
             scanned_publications.append(item)
 
-    print(len(scanned_publications))
 
     return scanned_publications
 
 
 def delete_publications():
     resources = scan_resources()
-    print(len(resources))
     for resource in resources:
         publication = resource['data'][MAP]
         primary_partition_key = resource['PK0'][STRING]

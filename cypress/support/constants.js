@@ -58,6 +58,7 @@ export const userResourceTypeDegree = 'test-user-resource-type-degree@test.no';
 export const userResourceTypeMedia = 'test-user-resource-type-media@test.no';
 export const userResourceTypePresentation = 'test-user-resource-type-presentation@test.no';
 export const userResourceTypeReport = 'test-user-resource-type-report@test.no';
+export const userResourceTypeArchitecture = 'test-user-resource-type-architecture@test.no'
 export const userViewRegistration = 'test-user-view-registration@test.no';
 export const userEditor = 'test-user-editor@test.no';
 export const userMyRegistrations = 'test-user-my-registrations@test.no';
@@ -121,6 +122,7 @@ export const user = {
   [userResourceTypeMedia]: { ...userData, name: 'TestUser, Resource type media' },
   [userResourceTypePresentation]: { ...userData, name: 'TestUser, Resource type presentation' },
   [userResourceTypeReport]: { ...userData, name: 'TestUser, Resource type report' },
+  [userResourceTypeArchitecture]: { ...userData, name: 'TestUser, Resource type architecture' },
   [userViewRegistration]: { ...userData, name: 'TestUser, View registration' },
   [userEditor]: { ...userData, name: 'TestUser, Editor' },
   [userMyRegistrations]: { ...userData, name: 'TestUser, MyRegistrations' },
