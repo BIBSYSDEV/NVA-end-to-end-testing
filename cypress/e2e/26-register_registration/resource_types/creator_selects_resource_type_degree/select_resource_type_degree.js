@@ -1,4 +1,4 @@
-import { userResourceType } from '../../../../support/constants';
+import { userResourceTypeDegree } from '../../../../support/constants';
 import { studentThesisSubtypes, studentThesisFields } from '../../../../support/data_testid_constants';
 import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from '../../../../support/dataTestIds';
@@ -7,7 +7,7 @@ import { dataTestId } from '../../../../support/dataTestIds';
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 
 Before(() => {
-  cy.login(userResourceType);
+  cy.login(userResourceTypeDegree);
   cy.startRegistrationWithLink(doiLink);
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
     .filter(':visible')

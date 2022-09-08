@@ -1,5 +1,5 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userWithAuthor2 } from '../../../../support/constants';
+import { userResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { journalSubtypes, journalFields, journalContentTypes } from '../../../../support/data_testid_constants';
 
@@ -14,12 +14,12 @@ Before(() => {
 
 // Common steps
 Given('Creator begins registering a Registration in the Wizard with a Link', () => {
-  cy.login(userWithAuthor2);
+  cy.login(userResourceTypeJournal);
   cy.startWizardWithLink(doiLink);
   cy.wrap(true).as('link');
 });
 Given('Creator begins registering a Registration in the Wizard with a File', () => {
-  cy.login(userWithAuthor2);
+  cy.login(userResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Resource Type tab', () => {
@@ -154,7 +154,7 @@ And('they see a disabled field for Journal based on selected Journal article', (
 
 // Scenario: Creator sees extra fields for Norwegian Science Index (NVI) compatible Journal article
 Given('Creator sees fields for Journal article', () => {
-  cy.login(userWithAuthor2);
+  cy.login(userResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');

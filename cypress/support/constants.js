@@ -32,6 +32,8 @@ export const userWithAuthor3 = 'test-user-with-author-3@test.no';
 export const userWithAuthor4 = 'test-user-with-author-4@test.no';
 export const userWithAuthor5 = 'test-user-with-author-5@test.no';
 export const userWithAuthor6 = 'test-user-with-author-6@test.no';
+export const userWithAuthor7 = 'test-user-with-author-7@test.no';
+export const userWithAuthor8 = 'test-user-with-author-8@test.no';
 export const userSaveRegistration = 'test-user-save-registration@test.no';
 export const userAddInstitution = 'test-user-add-institution@test.no';
 export const userChangeInstitution = 'test-user-change-institution@test.no';
@@ -49,7 +51,13 @@ export const userRemoveOrcid = 'test-user-remove-existing-orcid@test.no';
 export const userNonCustomer = 'test-user-not-customer@test.no';
 export const userDraftDoi = 'test-user-draft-doi@test.no';
 export const userCuratorDraftDoi = 'test-user-curator-draft-doi@test.no';
-export const userResourceType = 'test-user-resource-type@test.no';
+export const userResourceTypeBook = 'test-user-resource-type-book@test.no';
+export const userResourceTypeChapter = 'test-user-resource-type-chapter@test.no';
+export const userResourceTypeJournal = 'test-user-resource-type-journal@test.no';
+export const userResourceTypeDegree = 'test-user-resource-type-degree@test.no';
+export const userResourceTypeMedia = 'test-user-resource-type-media@test.no';
+export const userResourceTypePresentation = 'test-user-resource-type-presentation@test.no';
+export const userResourceTypeReport = 'test-user-resource-type-report@test.no';
 export const userViewRegistration = 'test-user-view-registration@test.no';
 export const userEditor = 'test-user-editor@test.no';
 export const userMyRegistrations = 'test-user-my-registrations@test.no';
@@ -85,6 +93,8 @@ export const user = {
   [userWithAuthor4]: { ...userData, name: 'TestUser, Withauthor 4' },
   [userWithAuthor5]: { ...userData, name: 'TestUser, Withauthor 5' },
   [userWithAuthor6]: { ...userData, name: 'TestUser, Withauthor 6' },
+  [userWithAuthor5]: { ...userData, name: 'TestUser, Withauthor 7' },
+  [userWithAuthor6]: { ...userData, name: 'TestUser, Withauthor 8' },
   [userSaveRegistration]: { ...userData, name: 'TestUser, Save Registration' },
   [userAddInstitution]: { ...userData, name: 'TestUser, Add institution' },
   [userChangeInstitution]: { ...userData, name: 'TestUser, Change institution' },
@@ -104,7 +114,13 @@ export const user = {
   [userNonCustomer]: { ...userData, name: 'TestUser, Not customer' },
   [userDraftDoi]: { ...userData, name: 'TestUser, Draft DOI' },
   [userCuratorDraftDoi]: { ...userData, name: 'TestUser, Curator Draft DOI' },
-  [userResourceType]: { ...userData, name: 'TestUser, Resource type' },
+  [userResourceTypeBook]: { ...userData, name: 'TestUser, Resource type book' },
+  [userResourceTypeChapter]: { ...userData, name: 'TestUser, Resource type chapter' },
+  [userResourceTypeJournal]: { ...userData, name: 'TestUser, Resource type journal' },
+  [userResourceTypeDegree]: { ...userData, name: 'TestUser, Resource type degree' },
+  [userResourceTypeMedia]: { ...userData, name: 'TestUser, Resource type media' },
+  [userResourceTypePresentation]: { ...userData, name: 'TestUser, Resource type presentation' },
+  [userResourceTypeReport]: { ...userData, name: 'TestUser, Resource type report' },
   [userViewRegistration]: { ...userData, name: 'TestUser, View registration' },
   [userEditor]: { ...userData, name: 'TestUser, Editor' },
   [userMyRegistrations]: { ...userData, name: 'TestUser, MyRegistrations' },

@@ -1,4 +1,4 @@
-import { userResourceType } from '../../../../support/constants';
+import { userResourceTypeChapter } from '../../../../support/constants';
 import {
   chapterContainerField,
   chapterContentTypes,
@@ -12,7 +12,7 @@ import { dataTestId } from '../../../../support/dataTestIds';
 // Feature: Creator selects Resource type Chapter
 
 Before(() => {
-  cy.login(userResourceType);
+  cy.login(userResourceTypeChapter);
   cy.startWizardWithEmptyRegistration();
 });
 

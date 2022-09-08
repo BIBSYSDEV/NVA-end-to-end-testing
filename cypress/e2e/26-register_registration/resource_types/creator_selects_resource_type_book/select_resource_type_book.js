@@ -1,11 +1,11 @@
-import { userResourceType } from '../../../../support/constants';
+import { userResourceTypeBook } from '../../../../support/constants';
 import { bookSubtypes, bookFields, contentType } from '../../../../support/data_testid_constants';
 import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from '../../../../support/dataTestIds';
 
 // Feature: Creator selects Resource type Book
 Before(() => {
-  cy.login(userResourceType);
+  cy.login(userResourceTypeBook);
   cy.startWizardWithEmptyRegistration();
 });
 

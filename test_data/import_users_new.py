@@ -60,12 +60,15 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
     existingPerson = findCristinPerson(accessToken=accessToken, nin=nin)
     cristinPersonId = ''
     if existingPerson.status_code == 404:
+        print(existingPerson.__dict__)
         print('Creating Cristin person...')
         payload = createCristinPayload(nin=nin, firstName=firstName, lastName=lastName)
         response = requests.post(url=createUrl, headers=headers, json=payload)
         if response.status_code != 201:
+            print(payload)
             print(response.text)
         cristinPersonId = response.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
+        print(cristinPersonId)
     else:
         print('Updating Cristin person')
         cristinPersonId = existingPerson.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
@@ -94,6 +97,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
     headers = createHeaders(accessToken=accessToken)
     response = requests.post(url=url, json=payload, headers=headers)
     if not response.status_code == 200:
+        print(payload)
         print(response.json())
 
     secretsManager = boto3.client('secretsmanager')

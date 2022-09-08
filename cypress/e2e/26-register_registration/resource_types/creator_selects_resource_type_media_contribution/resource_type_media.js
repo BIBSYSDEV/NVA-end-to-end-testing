@@ -1,5 +1,5 @@
 import { Before } from "cypress-cucumber-preprocessor/steps";
-import { userWithAuthor } from "../../../../support/constants";
+import { userResourceTypeMedia } from "../../../../support/constants";
 import { dataTestId } from "../../../../support/dataTestIds";
 import { mediaSubtypes } from "../../../../support/data_testid_constants";
 
@@ -8,7 +8,7 @@ const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 // Feature: Creator selects Resource type Media Contribution
 
 Before(() => {
-    cy.login(userWithAuthor);
+    cy.login(userResourceTypeMedia);
     cy.startWizardWithLink(doiLink);
 });
 

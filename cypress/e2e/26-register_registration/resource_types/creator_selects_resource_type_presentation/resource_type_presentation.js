@@ -1,12 +1,12 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userWithAuthor } from '../../../../support/constants';
+import { userResourceTypePresentation } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { persentationFields, presentationSubtypes } from '../../../../support/data_testid_constants';
 
 // Feature: Creator selects Resource type Presentation
 
 Before(() => {
-    cy.login(userWithAuthor);
+    cy.login(userResourceTypePresentation);
     cy.startWizardWithEmptyRegistration();
 });
 
