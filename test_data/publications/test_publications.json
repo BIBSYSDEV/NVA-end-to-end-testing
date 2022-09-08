@@ -171,18 +171,6 @@
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-resource-type@test.no",
-    "status": "DRAFT",
-    "contributor": "test-user-resource-type@test.no",
-    "title": "Test Resource type",
-    "doi": "created"
-  },
-  {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
     "status": "DRAFT",
     "contributor": "test-user-draft-doi@test.no",

@@ -60,7 +60,6 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
     existingPerson = findCristinPerson(accessToken=accessToken, nin=nin)
     cristinPersonId = ''
     if existingPerson.status_code == 404:
-        print(existingPerson.__dict__)
         print('Creating Cristin person...')
         payload = createCristinPayload(nin=nin, firstName=firstName, lastName=lastName)
         response = requests.post(url=createUrl, headers=headers, json=payload)
