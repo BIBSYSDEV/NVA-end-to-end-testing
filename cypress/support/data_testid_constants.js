@@ -277,6 +277,15 @@ export const exhibitionTypes = {
   'Exhibition': 'add-exhibition-button',
 };
 
+export const filmTypes = {
+  'Film': 'Film',
+  'Short film': 'ShortFilm',
+  'Serial film': 'SerialFilmProduction',
+  'Interactive film': 'InteractiveFilm',
+  'AR/VR film': 'AugmentedVirtualRealityFilm',
+  'Other': 'Other',
+}
+
 export const competitionFields = {
   'Name': dataTestId.registrationWizard.resourceType.competitionName,
   'Description': dataTestId.registrationWizard.resourceType.competitionDescription,
