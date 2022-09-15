@@ -143,7 +143,7 @@ export const journalContentTypes = {
   'Study protocol': dataTestId.registrationWizard.resourceType.contentValue('studyprotocol'),
   'Professional article': dataTestId.registrationWizard.resourceType.contentValue('professionalarticle'),
   'Popular science article': dataTestId.registrationWizard.resourceType.contentValue('popularsciencearticle'),
-}
+};
 
 export const bookSubtypes = {
   'Monograph': 'publication-instance-type-BookMonograph',
@@ -235,7 +235,6 @@ export const chapterContentTypes = {
   'Encyclopedia Chapter': 'content-value-encyclopediachapter',
   'Introduction': 'content-value-introduction',
   'Exhibition Catalog Chapter': 'content-value-exhibitioncatalogchapter',
-
 };
 
 export const artisticSubtypes = {
@@ -275,6 +274,13 @@ export const exhibitionTypes = {
   'Publication or Mention': 'add-mention-in-publication-button',
   'Prize or Award': 'add-award-button',
   'Exhibition': 'add-exhibition-button',
+};
+
+export const musicAwards = {
+  'Concert': 'add-concert-show-button',
+  'Audio/visual publication': 'add-audio-video-publication-button',
+  'Music score': 'add-score-manuscript-button',
+  'Other performance': 'add-other-button',
 };
 
 export const competitionFields = {
@@ -319,7 +325,7 @@ export const presentationSubtypes = {
   'Conference poster': 'publication-instance-type-ConferencePoster',
   'Lecture': 'publication-instance-type-Lecture',
   'Other presentation': 'publication-instance-type-OtherPresentation',
-}
+};
 
 export const persentationFields = {
   'Title of event': dataTestId.registrationWizard.resourceType.eventTitleField,
@@ -328,7 +334,7 @@ export const persentationFields = {
   'Date to': dataTestId.registrationWizard.resourceType.dateToField,
   'Organizer': dataTestId.registrationWizard.resourceType.eventOrganizerField,
   'Country': dataTestId.registrationWizard.resourceType.eventCountryField,
-}
+};
 
 export const mediaSubtypes = {
   'Feature Article': 'publication-instance-type-MediaFeatureArticle',
@@ -337,7 +343,7 @@ export const mediaSubtypes = {
   'Blog post': 'publication-instance-type-MediaBlogPost',
   'Podcast': 'publication-instance-type-MediaPodcast',
   'Participation in Radio or TV': 'publication-instance-type-MediaParticipationInRadioOrTv',
-}
+};
 
 export const mediaMediumTypes = {
   'Newspaper or Journal': 'Journal',
@@ -345,7 +351,7 @@ export const mediaMediumTypes = {
   'Radio': 'Radio',
   'TV': 'TV',
   'Other': 'Other',
-}
+};
 
 export const OTHER_SUBTYPES = {};
 
