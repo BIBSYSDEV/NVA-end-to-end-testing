@@ -286,6 +286,12 @@ export const filmTypes = {
   'Other': 'Other',
 }
 
+export const filmAnnouncements = {
+  'Broadcast': 'add-tv-web-streaming-button',
+  'Cinematic release': 'add-festival-cinema-button',
+  'Other release': 'add-other-button',
+}
+
 export const competitionFields = {
   'Name': dataTestId.registrationWizard.resourceType.competitionName,
   'Description': dataTestId.registrationWizard.resourceType.competitionDescription,
