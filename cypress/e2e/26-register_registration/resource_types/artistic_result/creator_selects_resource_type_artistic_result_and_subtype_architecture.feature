@@ -39,8 +39,8 @@ Feature: Creator selects Resource type Artistic Result and subtype Architecture
     When they add a Publication or Mention with details for:
       | Name        |
       | Issue       |
-      | Page from   |
-      | Page to     |
+      # | Page from   |
+      # | Page to     |
       | Date        |
       | Description |
     Then the Publication or Mention is listed under Exhibitions
