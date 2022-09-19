@@ -717,8 +717,28 @@
   {
     "lastName": "TestUser",
     "firstName": "Film",
-    "nin": "19021241736",
+    "nin": "12110718282",
     "username": "test-user-film@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Artistic",
+    "nin": "21035938335",
+    "username": "test-user-artistic@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Design",
+    "nin": "19031679640",
+    "username": "test-user-design@test.no",
     "role": [{"type": "Role", "rolename": "Creator"}],
     "orcid": true,
     "orgNumber": "20202",

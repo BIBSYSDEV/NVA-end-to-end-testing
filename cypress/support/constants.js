@@ -65,6 +65,8 @@ export const userMyRegistrations = 'test-user-my-registrations@test.no';
 export const userFetchDoi = "test-user-doi-fetch@test.no";
 export const userContributor = "test-user-contributor@test.no";
 export const userFilm = "test-user-film@test.no";
+export const userArtistic = "test-user-artistic@test.no";
+export const userDesign = "test-user-design@test.no";
 
 const userData = {
   name: '',
@@ -130,4 +132,6 @@ export const user = {
   [userFetchDoi]: { ...userData, name: 'TestUser, Fetch Doi' },
   [userContributor]: { ...userData, name: 'TestUser, Contributor' },
   [userFilm]: { ...userData, name: 'TestUser, Film' },
+  [userArtistic]: { ...userData, name: 'TestUser, Artistic' },
+  [userDesign]: { ...userData, name: 'TestUser, Design' },
 };

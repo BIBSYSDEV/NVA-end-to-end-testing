@@ -1,6 +1,6 @@
 // Feature: Creator selects Resource type Artistic Result and subtype Design
 
-import { userWithAuthor } from '../../../../../support/constants';
+import { userDesign } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import { designTypes, designFields } from '../../../../../support/data_testid_constants';
 
@@ -19,7 +19,7 @@ const addVenue = () => {
 // Common steps:
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Design"', () => {
   cy.setLocalStorage('beta', true);
-  cy.login(userWithAuthor);
+  cy.login(userDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get(`[data-testid=publication-context-type]`).click();
@@ -31,7 +31,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Design"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
   cy.setLocalStorage('beta', true);
-  cy.login(userWithAuthor);
+  cy.login(userDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get(`[data-testid=publication-context-type]`).click();
