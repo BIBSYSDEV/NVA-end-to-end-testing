@@ -242,8 +242,8 @@ export const artisticSubtypes = {
   'Artistic result - Design': 'publication-instance-type-ArtisticDesign',
   'Artistic result - Architecture': 'publication-instance-type-Architecture',
   'Artistic result - Film': 'publication-instance-type-MovingPicture',
-  'Artistic result - Music': 'publication-instance-type-Music',
-  'Artistic result - Performing art': 'publication-instance-type-PerformingArt',
+  'Artistic result - Music': 'publication-instance-type-MusicPerformance',
+  'Artistic result - Performing art': 'publication-instance-type-PerformingArts',
   'Artistic result - Writing art': 'publication-instance-type-WritingArt',
   'Artistic result - Visual art': 'publication-instance-type-VisualArt',
 };
