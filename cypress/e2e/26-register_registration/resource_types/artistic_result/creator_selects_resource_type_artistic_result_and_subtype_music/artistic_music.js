@@ -27,6 +27,7 @@ And('they can add Exhibitions of type:', (dataTable) => {
 // | Other performance        |
 And('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${musicAwards['Concert']}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.concertPlace}]`).type('Test music award name');
 
 });
 And('they can delete existing Exhibitions', () => {});
