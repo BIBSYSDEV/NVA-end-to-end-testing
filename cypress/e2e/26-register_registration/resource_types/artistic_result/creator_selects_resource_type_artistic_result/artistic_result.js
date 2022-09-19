@@ -1,12 +1,12 @@
 // Feature: Creator selects Resource type Artistic Result
 
-import { userWithAuthor } from '../../../../../support/constants';
+import { userArtistic } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import { artisticSubtypes } from '../../../../../support/data_testid_constants';
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"
 Given('Creator begins registering a Registration in the Wizard with a File', () => {
-  cy.login(userWithAuthor);
+  cy.login(userArtistic);
   cy.startWizardWithEmptyRegistration();
 });
 When('Creator navigates to Resource Type tab', () => {
@@ -30,7 +30,7 @@ Then('they see a list of subtypes:', (dataTable) => {
 
 // Scenario: Creator selects Other type of work for Resource Type "Artistic result"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
-  cy.login(userWithAuthor);
+  cy.login(userArtistic);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get(`[data-testid=publication-context-type]`).click();

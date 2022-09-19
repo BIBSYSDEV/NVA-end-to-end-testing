@@ -1,6 +1,6 @@
 // Feature: Creator selects Resource type Artistic Result and subtype Design
 
-import { userWithAuthor } from '../../../../../support/constants';
+import { userDesign } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import { designTypes, designFields } from '../../../../../support/data_testid_constants';
 
@@ -17,7 +17,7 @@ const addVenue = () => {
 // Common steps:
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Design"', () => {
   cy.setLocalStorage('beta', true);
-  cy.login(userWithAuthor);
+  cy.login(userDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get(`[data-testid=publication-context-type]`).click();
@@ -29,7 +29,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Design"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
   cy.setLocalStorage('beta', true);
-  cy.login(userWithAuthor);
+  cy.login(userDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get(`[data-testid=publication-context-type]`).click();
@@ -99,8 +99,6 @@ When('they fill the fields with input data', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.venueNameField}]`).type('Test Add Venue name');
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2011')
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2011')
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`).type('11.11.2011');
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`).type('11.11.2011');
 });
 And('they click the Add Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();

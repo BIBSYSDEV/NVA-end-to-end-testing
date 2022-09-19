@@ -240,9 +240,9 @@ export const chapterContentTypes = {
 export const artisticSubtypes = {
   'Artistic result - Design': 'publication-instance-type-ArtisticDesign',
   'Artistic result - Architecture': 'publication-instance-type-Architecture',
-  'Artistic result - Film': 'publication-instance-type-Film',
-  'Artistic result - Music': 'publication-instance-type-Music',
-  'Artistic result - Performing art': 'publication-instance-type-PerformingArt',
+  'Artistic result - Film': 'publication-instance-type-MovingPicture',
+  'Artistic result - Music': 'publication-instance-type-MusicPerformance',
+  'Artistic result - Performing art': 'publication-instance-type-PerformingArts',
   'Artistic result - Writing art': 'publication-instance-type-WritingArt',
   'Artistic result - Visual art': 'publication-instance-type-VisualArt',
 };
@@ -275,6 +275,21 @@ export const exhibitionTypes = {
   'Prize or Award': 'add-award-button',
   'Exhibition': 'add-exhibition-button',
 };
+
+export const filmTypes = {
+  'Film': 'Film',
+  'Short film': 'ShortFilm',
+  'Serial film': 'SerialFilmProduction',
+  'Interactive film': 'InteractiveFilm',
+  'AR/VR film': 'AugmentedVirtualRealityFilm',
+  'Other': 'Other',
+}
+
+export const filmAnnouncements = {
+  'Broadcast': 'add-tv-web-streaming-button',
+  'Cinematic release': 'add-festival-cinema-button',
+  'Other release': 'add-other-button',
+}
 
 export const musicAwards = {
   'Concert': 'add-concert-show-button',

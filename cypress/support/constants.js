@@ -64,6 +64,9 @@ export const userEditor = 'test-user-editor@test.no';
 export const userMyRegistrations = 'test-user-my-registrations@test.no';
 export const userFetchDoi = "test-user-doi-fetch@test.no";
 export const userContributor = "test-user-contributor@test.no";
+export const userFilm = "test-user-film@test.no";
+export const userArtistic = "test-user-artistic@test.no";
+export const userDesign = "test-user-design@test.no";
 export const userMusic = "test-user-music@test.no";
 
 const userData = {
@@ -129,5 +132,8 @@ export const user = {
   [userMyRegistrations]: { ...userData, name: 'TestUser, MyRegistrations' },
   [userFetchDoi]: { ...userData, name: 'TestUser, Fetch Doi' },
   [userContributor]: { ...userData, name: 'TestUser, Contributor' },
+  [userFilm]: { ...userData, name: 'TestUser, Film' },
+  [userArtistic]: { ...userData, name: 'TestUser, Artistic' },
+  [userDesign]: { ...userData, name: 'TestUser, Design' },
   [userMusic]: { ...userData, name: 'TestUser, Music' },
 };
