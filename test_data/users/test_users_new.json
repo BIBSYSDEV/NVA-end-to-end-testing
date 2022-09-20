@@ -753,5 +753,15 @@
     "orcid": true,
     "orgNumber": "20202",
     "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Log out",
+    "nin": "22054732361",
+    "username": "test-user-logout@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
   }
 ]
