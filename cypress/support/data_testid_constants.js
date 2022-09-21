@@ -291,12 +291,69 @@ export const filmAnnouncements = {
   'Other release': 'add-other-button',
 }
 
-export const musicAwards = {
+export const musicConcertFields = {
   'Concert': 'add-concert-show-button',
   'Audio/visual publication': 'add-audio-video-publication-button',
   'Music score': 'add-score-manuscript-button',
   'Other performance': 'add-other-button',
 };
+
+export const musicConcertProgramFields = {
+  'Title': dataTestId.registrationWizard.resourceType.concertProgramTitle,
+  'Composer': dataTestId.registrationWizard.resourceType.concertProgramComposer,
+  'Premiere': dataTestId.registrationWizard.resourceType.concertProgramIsPremiere,
+}
+
+export const musicAudioVideoFields = {
+  'Format': dataTestId.registrationWizard.resourceType.audioVideoType,
+  'Publisher': dataTestId.registrationWizard.resourceType.audioVideoPublisher,
+  'Catalogue number': dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber,
+  'Track list': dataTestId.registrationWizard.resourceType.concertAddTrack,
+}
+
+export const musicAudioVideoTrackTypes = {
+  'CD': 'CompactDisc',
+  'DVD': 'DVD',
+  'Streaming': 'Streaming',
+  'Download': 'DigitalFile',
+  'LP/EP': 'Vinyl',
+  'Other': 'Other',
+}
+
+export const musicAudioVideoTrackFields = {
+  'Title': dataTestId.registrationWizard.resourceType.audioVideoContentTitle,
+  'Composer': dataTestId.registrationWizard.resourceType.audioVideoContentComposer,
+  'Extent': dataTestId.registrationWizard.resourceType.audioVideoContentDuration,
+}
+
+export const musicScoreFields = {
+  'Ensemble': dataTestId.registrationWizard.resourceType.scoreEnsemble,
+  'Movements': dataTestId.registrationWizard.resourceType.scoreMovements,
+  'Extent': dataTestId.registrationWizard.resourceType.scoreDuration,
+  'Publisher': dataTestId.registrationWizard.resourceType.scorePublisher,
+  'ISMN': dataTestId.registrationWizard.resourceType.scoreIsmn,
+  'ISRC': dataTestId.registrationWizard.resourceType.scoreIsrc,
+}
+
+export const musicOtherFields = {
+  'Type': dataTestId.registrationWizard.resourceType.otherPerformanceType,
+  'Place': dataTestId.registrationWizard.resourceType.otherPerformancePlace,
+  'Extent': dataTestId.registrationWizard.resourceType.otherPerformanceDuration,
+  'Works': dataTestId.registrationWizard.resourceType.otherPerfomanceAddWork,
+}
+
+export const musicOtjerWorksField = {
+  'Title': dataTestId.registrationWizard.resourceType.otherPerformanceWorkTitle,
+  'Composer': dataTestId.registrationWizard.resourceType.otherPerformanceWorkComposer,
+}
+
+export const musicConcertDetails = {
+  // 'Part of a series/tour': dataTestId.registrationWizard.resourceType.concertProgramTour,
+  'Place': dataTestId.registrationWizard.resourceType.concertPlace,
+  'Date': dataTestId.registrationWizard.resourceType.concertDate,
+  'Extent': dataTestId.registrationWizard.resourceType.concertDuration,
+  'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
+}
 
 export const competitionFields = {
   'Name': dataTestId.registrationWizard.resourceType.competitionName,
