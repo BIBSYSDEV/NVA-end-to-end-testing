@@ -2,7 +2,7 @@
 
 import { userMusic } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
-import { musicAudioVideoFields, musicAudioVideoTrackFields, musicAwards, musicConcertProgramFields, musicOtherFields, musicOtjerWorksField } from '../../../../../support/data_testid_constants';
+import { musicAudioVideoFields, musicAudioVideoTrackFields, musicAwards, musicConcertFields, musicConcertProgramFields, musicOtherFields, musicOtjerWorksField, musicScoreFields } from '../../../../../support/data_testid_constants';
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Music"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
@@ -167,7 +167,7 @@ When('they add a Other performance with details for:', (dataTable) => {
 // | Works  |
 And('each Work has details for:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid=${musicOtjerWorksField[value[0]]}]`).type(`Test other ${field[0]}`);
+    cy.get(`[data-testid=${musicOtherWorksField[value[0]]}]`).type(`Test other ${field[0]}`);
   });
 });
 // | Title    |
