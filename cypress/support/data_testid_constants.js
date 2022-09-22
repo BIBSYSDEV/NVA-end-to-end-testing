@@ -291,6 +291,13 @@ export const filmAnnouncements = {
   'Other release': 'add-other-button',
 }
 
+export const musicAwards = {
+  'Concert': dataTestId.registrationWizard.resourceType.addConcertShowButton,
+  'Audio/visual publication': dataTestId.registrationWizard.resourceType.addAudioVideoPublicationButton,
+  'Music score': dataTestId.registrationWizard.resourceType.addScoreManuscriptButton,
+  'Other performance': dataTestId.registrationWizard.resourceType.addOtherButton,
+}
+
 export const musicConcertFields = {
   'Concert': 'add-concert-show-button',
   'Audio/visual publication': 'add-audio-video-publication-button',

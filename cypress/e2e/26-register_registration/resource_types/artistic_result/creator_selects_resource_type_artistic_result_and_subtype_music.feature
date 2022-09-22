@@ -14,7 +14,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
     And they can delete existing Exhibitions
 
   @TEST_NP-13242
-  # @test
+  @test
   Scenario: Creator adds a Concert to a Music result
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
     When they add a Concert with details for:
@@ -30,7 +30,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
     Then the Concert is listed under Exhibitions
 
   @TEST_NP-13243
-  # @test
+  @test
   Scenario: Creator selects that a Concert is part of a series/tour
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
     When they select "Part of a series/tour"
@@ -39,7 +39,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
       | Date end  |
 
   @TEST_NP-13244
-  # @test
+  @test
   Scenario: Creator adds a Audio/visual publication to a Music result
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
     When they add a Audio/visual publication with details for:
@@ -61,7 +61,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
     Then the Audio/visual publication is listed under Exhibitions
 
   @TEST_NP-13245
-  # @test
+  @test
   Scenario: Creator adds a Music score to a Music result
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
     When they add a Music score with details for:
@@ -74,7 +74,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
     Then the Music score is listed under Exhibitions
 
   @TEST_NP-13246
-  # @test
+  @test
   Scenario: Creator adds a Other performance to a Music result
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
     When they add a Other performance with details for:
