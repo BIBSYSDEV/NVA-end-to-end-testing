@@ -27,8 +27,8 @@ And('they can add Exhibitions of type:', (dataTable) => {
 // | Other performance        |
 And('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${musicAwards['Concert']}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.concertPlace}]`).type('Test concert plasce');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.concertDurationPlace}]`).type('Test concert duration');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.concertPlace}]`).type('Test concert place');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.concertDuration}]`).type('Test concert duration');
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.concertDate}]`, '11.11.2011');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
   cy.contains('Show/Edit');
