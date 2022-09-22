@@ -2,7 +2,7 @@
 
 import { userMusic } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
-import { musicAudioVideoFields, musicAudioVideoTrackFields, musicAwards, musicConcertFields, musicConcertProgramFields, musicOtherFields, musicOtjerWorksField, musicScoreFields } from '../../../../../support/data_testid_constants';
+import { musicAudioVideoFields, musicAudioVideoTrackFields, musicAudioVideoTrackTypes, musicAwards, musicConcertFields, musicConcertProgramFields, musicOtherFields, musicOtherWorksField, musicScoreFields } from '../../../../../support/data_testid_constants';
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Music"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
@@ -30,11 +30,14 @@ And('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.concertPlace}]`).type('Test concert place');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.concertDuration}]`).type('Test concert duration');
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.concertDate}]`, '11.11.2011');
+  cy.get(`[data-testid=${musicConcertProgramFields['Works']}]`).click();
+  cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`).type('Title');
+  cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramComposer}]`).type('Composer');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
   cy.contains('Show/Edit');
 });
 And('they can delete existing Exhibitions', () => {
-  cy.contains('Delete');
+  cy.contains('Remove');
 });
 
 // Scenario: Creator adds a Concert to a Music result
@@ -50,7 +53,9 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 When('they add a Concert with details for:', (dataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addConcertShowButton}]`).click();
   dataTable.rawTable.forEach(value => {
-    if (value[0] !== 'Works') {
+    if (value[0] === 'Date') {
+      cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.concertDate}]`, '11.11.2011');
+    } else if (value[0] !== 'Works') {
       cy.get(`[data-testid=${musicConcertFields[value[0]]}]`).type(`Test ${value[0]}`);
     }
   })
@@ -61,14 +66,14 @@ When('they add a Concert with details for:', (dataTable) => {
 // | Extent                |
 // | Works                 |
 And('each Work has details for:', (dataTable) => {
-  cy.get(`[data-testid=${musciConcertFields['Works']}]`).click();
+  cy.get(`[data-testid=${musicConcertFields['Works']}]`).click();
   dataTable.rawTable.forEach((value) => {
     if (value[0 === 'Premiere']) {
-      cy.get(`[data-test^=${musicConcertProgramFields[value[0]]}]`).first().within(() => {
+      cy.get(`[data-testid^=${musicConcertProgramFields[value[0]]}]`).first().within(() => {
         cy.get('input').click();
       })
     } else {
-      cy.get(`[data-test^=${musicConcertProgramFields[value[0]]}]`).first().type(`Test ${value[0]}`);
+      cy.get(`[data-testid^=${musicConcertProgramFields[value[0]]}]`).first().type(`Test ${value[0]}`);
     }
   });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
@@ -87,11 +92,14 @@ Then('they see field:', () => { });
 // | Date end  |
 
 // Scenario: Creator adds a Audio/visual publication to a Music result
-When('they add a Audio/visual publication with details for:', (dataTable) => {
+When('they add a Audiovisual publication with details for:', (dataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addAudioVideoPublicationButton}]`).click();
   dataTable.rawTable.forEach((value) => {
-    if (value[0] === 'Track list') {
-      cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.audioVideoAddTrack}]`).click();
+    if (value[0] === 'Format') {
+      cy.get(`[data-testid=${musicAudioVideoFields[value[0]]}]`).click();
+      cy.get(`[data-value=${musicAudioVideoTrackTypes['CD']}]`).click();
+    } else if (value[0] === 'Track list') {
+      cy.get(`[data-testid=${musicAudioVideoFields[value[0]]}]`).click()
     } else {
       cy.get(`[data-testid=${musicAudioVideoFields[value[0]]}]`).type(`Test audio/video ${value[0]}`);
     }
@@ -102,6 +110,7 @@ When('they add a Audio/visual publication with details for:', (dataTable) => {
 // | Catalogue number |
 // | Track list       |
 And('Format can be any of:', (dataTable) => {
+  cy.get(`[data-testid=${musicAudioVideoFields['Format']}]`).click();
   dataTable.rawTable.forEach((value) => {
     cy.get(`[data-value=${musicAudioVideoTrackTypes[value[0]]}]`)
   })
@@ -115,13 +124,18 @@ And('Format can be any of:', (dataTable) => {
 // | Other     |
 And('each Track list item has details for:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
-    cy.get`[data-testid=${musicAudioVideoTrackFields[value[0]]}]`.type(value[0])
-  })
+    if (value[0] === 'Extent') {
+      cy.get(`[data-testid^=${musicAudioVideoTrackFields[value[0]]}]`).first().type(10);
+
+    } else {
+      cy.get(`[data-testid^=${musicAudioVideoTrackFields[value[0]]}]`).first().type(`Test audio/video ${value[0]}`);
+    }
+  });
 });
 // | Title    |
 // | Composer |
 // | Extent   |
-Then('the Audio/visual publication is listed under Exhibitions', () => {
+Then('the Audiovisual publication is listed under Exhibitions', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
   cy.contains('Test audio/video Publisher');
 });
@@ -132,7 +146,7 @@ When('they add a Music score with details for:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
     if (value[0] === 'ISMN') {
       cy.get(`[data-testid=${musicScoreFields[value[0]]}]`).type(`9790230671187`);
-    } else if (value === 'ISRC') {
+    } else if (value[0] === 'ISRC') {
       cy.get(`[data-testid=${musicScoreFields[value[0]]}]`).type(`AA6Q72000047`);
     } else {
       cy.get(`[data-testid=${musicScoreFields[value[0]]}]`).type(`Test score ${value[0]}`);
@@ -152,9 +166,9 @@ Then('the Music score is listed under Exhibitions', () => {
 
 // Scenario: Creator adds a Other performance to a Music result
 When('they add a Other performance with details for:', (dataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addOtherButton}]`);
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addOtherButton}]`).click();
   dataTable.rawTable.forEach((value) => {
-    if (value[0] === 'Works') {
+    if (value[0] === 'Other performance') {
       cy.get(`[data-testid=${musicOtherFields[value[0]]}]`).click();
     } else {
       cy.get(`[data-testid=${musicOtherFields[value[0]]}]`).type(`Test other ${value[0]}`);
@@ -165,13 +179,14 @@ When('they add a Other performance with details for:', (dataTable) => {
 // | Place  |
 // | Extent |
 // | Works  |
-And('each Work has details for:', (dataTable) => {
+And('each Other performance has details for:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid=${musicOtherWorksField[value[0]]}]`).type(`Test other ${field[0]}`);
+    cy.get(`[data-testid=${musicOtherWorksField[value[0]]}]`).type(`Test other ${value[0]}`);
   });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
 // | Title    |
 // | Composer |
 Then('the Other performance is listed under Exhibitions', () => {
-  cy.contains('Test other Title');
+  cy.contains('Test other Place');
 });

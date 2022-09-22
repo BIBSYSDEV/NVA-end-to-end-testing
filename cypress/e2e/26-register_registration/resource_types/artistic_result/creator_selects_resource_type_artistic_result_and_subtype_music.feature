@@ -18,11 +18,11 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
   Scenario: Creator adds a Concert to a Music result
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
     When they add a Concert with details for:
-      | Part of a series/tour |
-      | Place                 |
-      | Date                  |
-      | Extent                |
-      | Works                 |
+      # | Part of a series/tour |
+      | Place  |
+      | Date   |
+      | Extent |
+      | Works  |
     And each Work has details for:
       | Title    |
       | Composer |
@@ -30,7 +30,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
     Then the Concert is listed under Exhibitions
 
   @TEST_NP-13243
-  @test
+  # @test
   Scenario: Creator selects that a Concert is part of a series/tour
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
     When they select "Part of a series/tour"
@@ -42,7 +42,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
   @test
   Scenario: Creator adds a Audio/visual publication to a Music result
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
-    When they add a Audio/visual publication with details for:
+    When they add a Audiovisual publication with details for:
       | Format           |
       | Publisher        |
       | Catalogue number |
@@ -58,7 +58,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
       | Title    |
       | Composer |
       | Extent   |
-    Then the Audio/visual publication is listed under Exhibitions
+    Then the Audiovisual publication is listed under Exhibitions
 
   @TEST_NP-13245
   @test
@@ -78,11 +78,11 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
   Scenario: Creator adds a Other performance to a Music result
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
     When they add a Other performance with details for:
-      | Type   |
-      | Place  |
-      | Extent |
-      | Works  |
-    And each Work has details for:
+      | Type              |
+      | Place             |
+      | Extent            |
+      | Other performance |
+    And each Other performance has details for:
       | Title    |
       | Composer |
     Then the Other performance is listed under Exhibitions

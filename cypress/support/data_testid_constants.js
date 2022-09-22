@@ -299,23 +299,24 @@ export const musicAwards = {
 }
 
 export const musicConcertFields = {
-  'Concert': 'add-concert-show-button',
-  'Audio/visual publication': 'add-audio-video-publication-button',
-  'Music score': 'add-score-manuscript-button',
-  'Other performance': 'add-other-button',
+  'Place': dataTestId.registrationWizard.resourceType.concertPlace,
+  'Date': dataTestId.registrationWizard.resourceType.concertDate,
+  'Extent': dataTestId.registrationWizard.resourceType.concertDuration,
+  'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
 };
 
 export const musicConcertProgramFields = {
   'Title': dataTestId.registrationWizard.resourceType.concertProgramTitle,
   'Composer': dataTestId.registrationWizard.resourceType.concertProgramComposer,
   'Premiere': dataTestId.registrationWizard.resourceType.concertProgramIsPremiere,
+  'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
 }
 
 export const musicAudioVideoFields = {
   'Format': dataTestId.registrationWizard.resourceType.audioVideoType,
   'Publisher': dataTestId.registrationWizard.resourceType.audioVideoPublisher,
   'Catalogue number': dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber,
-  'Track list': dataTestId.registrationWizard.resourceType.concertAddTrack,
+  'Track list': dataTestId.registrationWizard.resourceType.audioVideoAddTrack,
 }
 
 export const musicAudioVideoTrackTypes = {
@@ -346,10 +347,10 @@ export const musicOtherFields = {
   'Type': dataTestId.registrationWizard.resourceType.otherPerformanceType,
   'Place': dataTestId.registrationWizard.resourceType.otherPerformancePlace,
   'Extent': dataTestId.registrationWizard.resourceType.otherPerformanceDuration,
-  'Works': dataTestId.registrationWizard.resourceType.otherPerfomanceAddWork,
+  'Other performance': dataTestId.registrationWizard.resourceType.otherPerfomanceAddWork,
 }
 
-export const musicOtjerWorksField = {
+export const musicOtherWorksField = {
   'Title': dataTestId.registrationWizard.resourceType.otherPerformanceWorkTitle,
   'Composer': dataTestId.registrationWizard.resourceType.otherPerformanceWorkComposer,
 }
