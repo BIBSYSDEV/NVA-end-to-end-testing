@@ -2,7 +2,7 @@
 
 import { userMusic } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
-import { musicAudioVideoFields, musicAudioVideoTrackFields, musicAwards, musicConcertProgramFields, musicOtherFields } from '../../../../../support/data_testid_constants';
+import { musicAudioVideoFields, musicAudioVideoTrackFields, musicAwards, musicConcertProgramFields, musicOtherFields, musicOtjerWorksField } from '../../../../../support/data_testid_constants';
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Music"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
@@ -154,18 +154,24 @@ Then('the Music score is listed under Exhibitions', () => {
 When('they add a Other performance with details for:', (dataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addOtherButton}]`);
   dataTable.rawTable.forEach((value) => {
-    if(value[0] === 'Works') {
+    if (value[0] === 'Works') {
       cy.get(`[data-testid=${musicOtherFields[value[0]]}]`).click();
     } else {
       cy.get(`[data-testid=${musicOtherFields[value[0]]}]`).type(`Test other ${value[0]}`);
     }
   })
- });
+});
 // | Type   |
 // | Place  |
 // | Extent |
 // | Works  |
-And('each Work has details for:', () => { });
+And('each Work has details for:', (dataTable) => {
+  dataTable.rawTable.forEach((value) => {
+    cy.get(`[data-testid=${musicOtjerWorksField[value[0]]}]`).type(`Test other ${field[0]}`);
+  });
+});
 // | Title    |
 // | Composer |
-Then('the Other performance is listed under Exhibitions', () => { });
+Then('the Other performance is listed under Exhibitions', () => {
+  cy.contains('Test other Title');
+});
