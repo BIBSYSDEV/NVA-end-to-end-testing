@@ -509,8 +509,6 @@ Cypress.Commands.add('checkField', (field) => {
   }
 });
 
-Cypress.Commands.add('checkRsourceFields', (type, subtype) => { });
-
 Cypress.Commands.add('fillInCommonFields', (type, subtype) => {
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key]['tab']}]`).click();

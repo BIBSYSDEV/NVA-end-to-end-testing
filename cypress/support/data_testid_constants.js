@@ -400,6 +400,19 @@ export const designFields = {
   'Date to': dataTestId.registrationWizard.resourceType.dateToField,
 };
 
+export const performingArtsFields = {
+  'More information': dataTestId.registrationWizard.resourceType.artisticDescriptionField,
+  'Name': dataTestId.registrationWizard.resourceType.venueNameField,
+  'Date start': dataTestId.registrationWizard.resourceType.dateFromField,
+  'Date end': dataTestId.registrationWizard.resourceType.dateToField,
+};
+
+export const performingArtsWorkTypes = {
+  'Theater/show': 'TheatricalProduction',
+  'TV/film/radio': 'Broadcast',
+  'Other': 'Other',
+}
+
 export const presentationSubtypes = {
   'Conference lecture': 'publication-instance-type-ConferenceLecture',
   'Conference poster': 'publication-instance-type-ConferencePoster',
