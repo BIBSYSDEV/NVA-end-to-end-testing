@@ -44,7 +44,7 @@ And('they can add Exhibitions of type:', (dataTable) => {
 And('they can edit existing Exhibitions', () => {
     cy.get(`[data-testid=${filmAnnouncements['Broadcast']}]`).click();
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.broadcastPublisher}]`).type('Broadcast publisher');
-    cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.broadcastDate}]`, '11.11.2011');
+    cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDate}]`, '11.11.2011');
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
     cy.contains('Show/Edit');
 })
@@ -94,7 +94,7 @@ When('they add a Other release with details for:', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.otherReleaseType}]`).type('Test Other release type');
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.otherReleasePlace}]`).type('Test Other release place');
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.otherReleasePublisher}]`).type('Test Other release publisher');
-    cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.otherReleaseDate}]`, '11.11.2011')
+    cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDate}]`, '11.11.2011')
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 })
 //   | Type of release     |

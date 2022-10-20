@@ -300,8 +300,8 @@ export const musicAwards = {
 
 export const musicConcertFields = {
   'Place': dataTestId.registrationWizard.resourceType.concertPlace,
-  'Date': dataTestId.registrationWizard.resourceType.concertDate,
-  'Extent': dataTestId.registrationWizard.resourceType.concertDuration,
+  'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+  'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
 };
 
@@ -313,7 +313,7 @@ export const musicConcertProgramFields = {
 }
 
 export const musicAudioVideoFields = {
-  'Format': dataTestId.registrationWizard.resourceType.audioVideoType,
+  'Format': dataTestId.registrationWizard.resourceType.artisticSubtype,
   'Publisher': dataTestId.registrationWizard.resourceType.audioVideoPublisher,
   'Catalogue number': dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber,
   'Track list': dataTestId.registrationWizard.resourceType.audioVideoAddTrack,
@@ -331,13 +331,13 @@ export const musicAudioVideoTrackTypes = {
 export const musicAudioVideoTrackFields = {
   'Title': dataTestId.registrationWizard.resourceType.audioVideoContentTitle,
   'Composer': dataTestId.registrationWizard.resourceType.audioVideoContentComposer,
-  'Extent': dataTestId.registrationWizard.resourceType.audioVideoContentDuration,
+  'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
 }
 
 export const musicScoreFields = {
   'Ensemble': dataTestId.registrationWizard.resourceType.scoreEnsemble,
   'Movements': dataTestId.registrationWizard.resourceType.scoreMovements,
-  'Extent': dataTestId.registrationWizard.resourceType.scoreDuration,
+  'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Publisher': dataTestId.registrationWizard.resourceType.scorePublisher,
   'ISMN': dataTestId.registrationWizard.resourceType.scoreIsmn,
   'ISRC': dataTestId.registrationWizard.resourceType.scoreIsrc,
@@ -346,7 +346,7 @@ export const musicScoreFields = {
 export const musicOtherFields = {
   'Type': dataTestId.registrationWizard.resourceType.otherPerformanceType,
   'Place': dataTestId.registrationWizard.resourceType.otherPerformancePlace,
-  'Extent': dataTestId.registrationWizard.resourceType.otherPerformanceDuration,
+  'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Other performance': dataTestId.registrationWizard.resourceType.otherPerfomanceAddWork,
 }
 
@@ -359,27 +359,27 @@ export const musicConcertDetails = {
   // 'Part of a series/tour': dataTestId.registrationWizard.resourceType.concertProgramTour,
   'Place': dataTestId.registrationWizard.resourceType.concertPlace,
   'Date': dataTestId.registrationWizard.resourceType.concertDate,
-  'Extent': dataTestId.registrationWizard.resourceType.concertDuration,
+  'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
 }
 
 export const competitionFields = {
   'Name': dataTestId.registrationWizard.resourceType.competitionName,
   'Description': dataTestId.registrationWizard.resourceType.competitionDescription,
-  'Date': dataTestId.registrationWizard.resourceType.competitionDate,
+  'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
 };
 
 export const publicationMentionFields = {
   'Name': dataTestId.registrationWizard.resourceType.publicationMentionTitle,
   'Issue': dataTestId.registrationWizard.resourceType.publicationMentionIssue,
-  'Date': dataTestId.registrationWizard.resourceType.publicationMentionDate,
+  'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
   'Description': dataTestId.registrationWizard.resourceType.publicationMentionOther,
 };
 
 export const awardFields = {
   'Name': dataTestId.registrationWizard.resourceType.awardName,
   'Organizer': dataTestId.registrationWizard.resourceType.awardOrganizer,
-  'Year': dataTestId.registrationWizard.resourceType.awardDate,
+  'Year': dataTestId.registrationWizard.resourceType.artisticOutputDate,
   'Ranking': dataTestId.registrationWizard.resourceType.awardRanking,
   'Description': dataTestId.registrationWizard.resourceType.awardOther,
 };
