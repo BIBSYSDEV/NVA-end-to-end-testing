@@ -378,15 +378,21 @@ def approve_doi(identifier):
     response = requests.post(f'{approve_doi_endpoint}/{identifier}',
                              json=doi_request_payload, headers=headers)
 
+def find_caller_identity():
+    client = boto3.client('sts')
+    response = client.get_caller_identity()
+    print(response)
+
 
 def run():
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
-    map_user_to_arp()
-    upload_file()
-    delete_publications()
-    create_publications()
+    # map_user_to_arp()
+    # upload_file()
+    find_caller_identity()
+    # delete_publications()
+    # create_publications()
 
 
 if __name__ == '__main__':
