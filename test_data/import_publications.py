@@ -388,7 +388,7 @@ def run():
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
-    # map_user_to_arp()
+    map_user_to_arp()
     upload_file()
     find_caller_identity()
     delete_publications()
