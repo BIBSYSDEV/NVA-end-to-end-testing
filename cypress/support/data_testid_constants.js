@@ -422,7 +422,7 @@ export const presentationSubtypes = {
 
 export const persentationFields = {
   'Title of event': dataTestId.registrationWizard.resourceType.eventTitleField,
-  'Place of event': dataTestId.registrationWizard.resourceType.eventPlaceField,
+  'Place of event': dataTestId.registrationWizard.resourceType.placeField,
   'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
   'Date to': dataTestId.registrationWizard.resourceType.dateToField,
   'Organizer': dataTestId.registrationWizard.resourceType.eventOrganizerField,
