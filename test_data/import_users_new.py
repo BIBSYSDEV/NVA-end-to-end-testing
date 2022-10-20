@@ -8,6 +8,18 @@ import sys
 apiUrl = 'https://api.dev.nva.aws.unit.no/'
 USER_POOL_ID = 'eu-west-1_nLV9i5X5D'
 USERS_ROLES_TABLE_NAME = 'nva-users-and-roles-master-pipelines-NvaIdentityService-WLJCBMUDMRYZ-nva-identity-service'
+users_dict = {}
+
+def createUsersDict():
+    print('Reading test users file')
+
+    with open(test_users_file_name) as test_users_file:
+
+        test_users = json.load(test_users_file)
+        for test_user in test_users:
+            users_dict[test_user['username']] = test_user
+    # print(users_dict['test-user-with-author@test.no'])
+
 
 def createHeaders(accessToken):
     return {
@@ -184,11 +196,14 @@ def deleteUsers(admin):
     for userlist in users:
         for user in userlist:
             if 'test-user-' in user['Username']:
-                print(f'Found {user["Username"]}')
-                client.admin_delete_user(
-                    Username=user['Username'],
-                    UserPoolId=USER_POOL_ID
-                )
+                if(user['Username']) in users_dict:
+                    print(f'Found {user["Username"]}')
+                else:
+                    print(f'User {user["Username"]} not found, deleting...')
+                    client.admin_delete_user(
+                        Username=user['Username'],
+                        UserPoolId=USER_POOL_ID
+                    )
 
     print('deleting from DynamoDb...')
     client = boto3.client('dynamodb')
@@ -197,24 +212,27 @@ def deleteUsers(admin):
         if 'familyName' in user:
             familyName = user['familyName']['S']
             givenName = user['givenName']['S']
-            if not admin and givenName == 'Create testdata':
-                print(f'Not deleting {givenName} {familyName}')
-            else:
-              if 'TestUser' in familyName:
-                print(f'deleting {givenName} {familyName}')
-                response = client.delete_item(
-                    TableName=USERS_ROLES_TABLE_NAME,
-                    Key={'PrimaryKeyHashKey': {
-                            'S': user['PrimaryKeyHashKey']['S']
-                        },
-                        'PrimaryKeyRangeKey': {
-                            'S': user['PrimaryKeyRangeKey']['S']
-                        }
-                    })
+    #         if not admin and givenName == 'Create testdata':
+    #             print(f'Not deleting {givenName} {familyName}')
+    #         else:
+            if 'TestUser' in familyName:
+                print(user)
+
+    #             print(f'deleting {givenName} {familyName}')
+    #             response = client.delete_item(
+    #                 TableName=USERS_ROLES_TABLE_NAME,
+    #                 Key={'PrimaryKeyHashKey': {
+    #                         'S': user['PrimaryKeyHashKey']['S']
+    #                     },
+    #                     'PrimaryKeyRangeKey': {
+    #                         'S': user['PrimaryKeyRangeKey']['S']
+    #                     }
+    #                 })
 
 def run(user_file, admin):
+    createUsersDict()
     deleteUsers(admin=admin)
-    importUsers(test_users_file_name=user_file)
+    # importUsers(test_users_file_name=user_file)
 
 if __name__ == '__main__':
     admin = False
