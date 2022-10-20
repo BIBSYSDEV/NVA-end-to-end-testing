@@ -1,7 +1,7 @@
-import { userWithAuthor } from '../../../support/constants';
+import { userRequestSupport } from '../../../support/constants';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(userWithAuthor);
+  cy.login(userRequestSupport);
   cy.startWizardWithEmptyRegistration();
 });
 When('they click the "Request support" button', () => {
