@@ -66,7 +66,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 When('they add a Broadcast with details for:', () => {
     cy.get(`[data-testid=${filmAnnouncements['Broadcast']}]`).click();
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.broadcastPublisher}]`).type('Test Broadcast Publisher');
-    cy.chooseDatePicker(`[data-testid=artistic-broadcast-date]`, '11.11.2011')
+    cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDate}]`, '11.11.2011')
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 })
 //   | Publisher |
@@ -79,7 +79,7 @@ Then('the Broadcast is listed under Exhibitions', () => {
 When('they add a Cinematic release with details for:', () => {
     cy.get(`[data-testid=${filmAnnouncements['Cinematic release']}]`).click();
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.cinemaPlace}]`).type('Test Cinematic release Place');
-    cy.chooseDatePicker(`[data-testid=artistic-broadcast-date]`, '11.11.2011')
+    cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDate}]`, '11.11.2011')
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 })
 //   | Place |
