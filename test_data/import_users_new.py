@@ -80,9 +80,9 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
             print(response.text)
         cristinPersonId = response.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
         print(cristinPersonId)
-    else:
-        print('Updating Cristin person')
-        cristinPersonId = existingPerson.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
+    # else:
+    #     print('Updating Cristin person')
+    #     cristinPersonId = existingPerson.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
     if not cristinPersonId == '':
         updateAffiliations = True
         if 'affiliations' in existingPerson.json():
@@ -212,27 +212,26 @@ def deleteUsers(admin):
         if 'familyName' in user:
             familyName = user['familyName']['S']
             givenName = user['givenName']['S']
+            affiliation = user['affiliation']['S']
     #         if not admin and givenName == 'Create testdata':
     #             print(f'Not deleting {givenName} {familyName}')
     #         else:
-            if 'TestUser' in familyName:
-                print(user)
-
-    #             print(f'deleting {givenName} {familyName}')
-    #             response = client.delete_item(
-    #                 TableName=USERS_ROLES_TABLE_NAME,
-    #                 Key={'PrimaryKeyHashKey': {
-    #                         'S': user['PrimaryKeyHashKey']['S']
-    #                     },
-    #                     'PrimaryKeyRangeKey': {
-    #                         'S': user['PrimaryKeyRangeKey']['S']
-    #                     }
-    #                 })
+            if 'TestUser' in familyName and '5991' in affiliation:
+                print(f'deleting {givenName} {familyName} - {affiliation}')
+                response = client.delete_item(
+                    TableName=USERS_ROLES_TABLE_NAME,
+                    Key={'PrimaryKeyHashKey': {
+                            'S': user['PrimaryKeyHashKey']['S']
+                        },
+                        'PrimaryKeyRangeKey': {
+                            'S': user['PrimaryKeyRangeKey']['S']
+                        }
+                    })
 
 def run(user_file, admin):
     createUsersDict()
     deleteUsers(admin=admin)
-    # importUsers(test_users_file_name=user_file)
+    importUsers(test_users_file_name=user_file)
 
 if __name__ == '__main__':
     admin = False
