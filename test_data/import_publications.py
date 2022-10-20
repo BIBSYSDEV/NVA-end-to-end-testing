@@ -389,10 +389,10 @@ def run():
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
     # map_user_to_arp()
-    # upload_file()
+    upload_file()
     find_caller_identity()
-    # delete_publications()
-    # create_publications()
+    delete_publications()
+    create_publications()
 
 
 if __name__ == '__main__':
