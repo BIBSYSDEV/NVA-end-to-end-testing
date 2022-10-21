@@ -18,7 +18,11 @@ def createUsersDict():
         test_users = json.load(test_users_file)
         for test_user in test_users:
             users_dict[test_user['username']] = test_user
-    # print(users_dict['test-user-with-author@test.no'])
+    client = boto3.client('dynamodb')
+    users = client.scan(TableName=USERS_ROLES_TABLE_NAME)['Items']
+    for user in users:
+        if user['custom:feideid'] in user and user['custom:feideid'] in users_dict:
+            users_dict[user['custom:feideid']]['cognitoId'] = user['custom:nvaUsername']
 
 
 def createHeaders(accessToken):
