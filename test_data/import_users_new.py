@@ -14,15 +14,20 @@ def createUsersDict():
     print('Reading test users file')
 
     with open(test_users_file_name) as test_users_file:
-
         test_users = json.load(test_users_file)
         for test_user in test_users:
             users_dict[test_user['username']] = test_user
+
     client = boto3.client('dynamodb')
     users = client.scan(TableName=USERS_ROLES_TABLE_NAME)['Items']
     for user in users:
-        if user['custom:feideid'] in user and user['custom:feideid'] in users_dict:
-            users_dict[user['custom:feideid']]['cognitoId'] = user['custom:nvaUsername']
+        if 'feideId' in user:
+            print(user['feideId']['S'])
+            if user['custom:feideId']['S'] in users_dict:
+                users_dict[user['custom:feideId']['S']]['cognitoId'] = user['custom:nvaUsername']['S']
+                print(users_dict[user['custom:feideId']['S']])
+                print('-------------------------------------------')
+
 
 
 def createHeaders(accessToken):
@@ -234,8 +239,8 @@ def deleteUsers(admin):
 
 def run(user_file, admin):
     createUsersDict()
-    deleteUsers(admin=admin)
-    importUsers(test_users_file_name=user_file)
+    # deleteUsers(admin=admin)
+    # importUsers(test_users_file_name=user_file)
 
 if __name__ == '__main__':
     admin = False
