@@ -353,9 +353,11 @@ def create_publications():
 def publish_publication(identifier, username):
     publish_bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {publish_bearer_token}'
-    response = requests.put(publish_endpoint.format(
-        STAGE, identifier), headers=headers)
-
+    payload = {
+        'type': 'PublishingRequest'
+    }
+    response = requests.post(publish_endpoint.format(
+        STAGE, identifier), json=payload, headers=headers)
 
 def request_doi(identifier, username):
     request_bearer_token = common.login(username=username)
