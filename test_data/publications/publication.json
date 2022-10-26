@@ -134,7 +134,7 @@
   "owner": {
     "S": "####################"
   },
-  "fileSet": {
+  "associatedArtifacts": {
     "M": {
       "files": {
         "L": [

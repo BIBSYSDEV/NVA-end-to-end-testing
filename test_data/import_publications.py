@@ -29,7 +29,7 @@ person_query = 'https://api.{}.nva.aws.unit.no/cristin/person/identityNumber'
 user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
-publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/publish'
+publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
 request_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/doirequest'
 approve_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/update-doi-request'
 upload_create = upload_endpoint.format(STAGE, 'create')
@@ -295,7 +295,7 @@ def create_publication_data(publication_template, test_publication, username, cu
     file['identifier'] = locations[fileType]['location']
     file['size'] = locations[fileType]['filesize']
 
-    new_publication['fileSet']['files'].append(file)
+    new_publication['associatedArtifacts'].append(file)
 
     return new_publication
 
@@ -358,6 +358,9 @@ def publish_publication(identifier, username):
     }
     response = requests.post(publish_endpoint.format(
         STAGE, identifier), json=payload, headers=headers)
+    if response.status_code != 200:
+        print(response.status_code)
+        print(response.json())
 
 def request_doi(identifier, username):
     request_bearer_token = common.login(username=username)
@@ -392,7 +395,6 @@ def run():
     headers['Authorization'] = f'Bearer {bearer_token}'
     map_user_to_arp()
     upload_file()
-    find_caller_identity()
     delete_publications()
     create_publications()
 
