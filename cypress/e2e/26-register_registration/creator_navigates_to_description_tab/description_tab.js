@@ -49,7 +49,7 @@ And('they see the tab Contributors is clickable', () => {
 And('they see the tab Files and License is clickable', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).should('be.enabled');
 });
-And('they see a Button for creating a new Project is enabled', () => {});
+And('they see a Button for creating a new Project is enabled', () => { });
 And('they see Next is enabled', () => {
   cy.get('[data-testid=button-next-tab]').should('be.enabled');
 });
@@ -64,8 +64,8 @@ And('they click the Save button', () => {
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
   dataTable.rawTable.forEach((field) => {
-    cy.get(`[data-testid=${descriptionFields[field]}]`).within((descriptionField) => {
-      cy.wrap(descriptionField).contains('required');
+    cy.get(`[data-testid=${descriptionFields[field]}]`).within(() => {
+      cy.get('[Mui-error]');
     });
   });
 });
@@ -123,7 +123,7 @@ Then('they see the Project is removed from the list of selected Projects', () =>
 });
 
 // Scenario: Creator opens dropdown with Allowed Vocabularies
-And('their Institution has a Vocabulary set as "Allowed"', () => {});
+And('their Institution has a Vocabulary set as "Allowed"', () => { });
 When('they click "Add Vocabulary"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.description.addVocabularyButton}]`).click();
@@ -154,7 +154,7 @@ Then('they see an input field for the selected Vocabulary', () => {
 Given('Creator begins Wizard registration', () => {
   cy.startWizardWithEmptyRegistration();
 });
-And('their Institution has a Vocabulary set as "Default"', () => {});
+And('their Institution has a Vocabulary set as "Default"', () => { });
 When('the User navigates to Description tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click();
 });

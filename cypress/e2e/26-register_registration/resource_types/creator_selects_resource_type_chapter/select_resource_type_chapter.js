@@ -96,10 +96,6 @@ When('they select Content type "Academic chapter"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();
   cy.get(`[data-testid=${chapterContentTypes['Academic Chapter']}]`).click();
 });
-Then('they see fields:', (dataTable) => {
-  cy.testDataTestidList(dataTable, chapterFields);
-});
-// | Peer reviewed and presents new research |
 And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
 });

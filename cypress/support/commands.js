@@ -214,10 +214,6 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academicmonograph')}]`).click();
 
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.peerReviewed}] > div > label > span`)
-    .first()
-    .click({ force: true });
-
   // Contributors
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click({ force: true });
   cy.get('[data-testid=Creator] > button').click({ force: true });

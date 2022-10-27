@@ -157,7 +157,6 @@ export const bookFields = {
   'NPI discipline': dataTestId.registrationWizard.resourceType.scientificSubjectField,
   'Series title': dataTestId.registrationWizard.resourceType.seriesField,
   'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
-  'Peer reviewed and presents new research': dataTestId.registrationWizard.resourceType.peerReviewed,
 };
 
 export const contentType = {
