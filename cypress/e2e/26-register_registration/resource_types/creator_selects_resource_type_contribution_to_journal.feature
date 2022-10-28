@@ -55,21 +55,21 @@ Feature: Creator selects Resource type Contribution to journal
         And they navigate to the Resource Type tab
         And they select the Resource type "Contribution to journal"
         And they select Resource subtype Journal article
-        And they enter an invalid value in fields:
-            | Volume         |
-            | Issue          |
-            | Pages from     |
-            | Pages to       |
-            | Article number |
+        # And they enter an invalid value in fields:
+        #     | Volume         |
+        #     | Issue          |
+        #     | Pages from     |
+        #     | Pages to       |
+        #     | Article number |
         When they click the Save button
         Then they can see "Mandatory" error messages for fields:
             | Search box for Journal |
-        And they can see "Invalid format" error messages for fields:
-            | Volume         |
-            | Issue          |
-            | Pages from     |
-            | Pages to       |
-            | Article number |
+        # And they can see "Invalid format" error messages for fields:
+        #     | Volume         |
+        #     | Issue          |
+        #     | Pages from     |
+        #     | Pages to       |
+        #     | Article number |
 
     @TEST_NP-4059
     @test

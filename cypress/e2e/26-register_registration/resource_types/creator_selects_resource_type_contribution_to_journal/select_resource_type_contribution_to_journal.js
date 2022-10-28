@@ -140,9 +140,11 @@ Given('Creator sees fields for Journal article', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get('[data-testid=publication-instance-type-JournalArticle]').click({ force: true });
 });
-When('they set Content Type to one of:', (contentType) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
-  cy.get(`[data-testid=${journalContentTypes[contentType]}]`).click({ force: true });
+When('they set Content Type to one of:', (dataTable) => {
+  dataTable.rawTable.forEach(value => {
+    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
+    cy.get(`[data-testid=${journalContentTypes[value[0]]}]`).click({ force: true });
+  })
 })
 // | Academic article           |
 // | Academic literature review |
