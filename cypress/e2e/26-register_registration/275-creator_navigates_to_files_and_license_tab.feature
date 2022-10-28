@@ -8,7 +8,7 @@ Feature: Creator navigates to Files and License tab
     When they navigate to the Files and License tab
     Then they see the File upload widget
     And they see an Input Field for Linked Resources
-    And they have the option to mark that the Resource has no File or Linked Resource
+    # And they have the option to mark that the Resource has no File or Linked Resource
     And they see the tab Description is clickable
     And they see the tab Resource Type is clickable
     And they see the tab Contributors is clickable
