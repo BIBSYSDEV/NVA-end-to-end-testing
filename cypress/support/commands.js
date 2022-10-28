@@ -128,9 +128,8 @@ Cypress.Commands.add('login', (userId) => {
   cy.loginCognito(userId).then(() => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
+    cy.setLocalStorage('beta', 'true');
     cy.mockPersonSearch(userId);
-    // cy.mockCreatePerson(userId);
-    // cy.mockUpdatePerson(userId);
     cy.mockDepartments();
     cy.visit('/');
   });

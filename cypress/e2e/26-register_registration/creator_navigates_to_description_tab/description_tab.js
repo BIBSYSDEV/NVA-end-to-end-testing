@@ -67,7 +67,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${descriptionFields[field]}]`).within(() => {
-      cy.get('[Mui-error]');
+      cy.contains('is required');
     });
   });
 });
@@ -166,3 +166,27 @@ Then('they can see an input field for the Default Vocabulary', () => {
     0
   );
 });
+
+// TODO implement when project fully implemented
+
+// Scenario: Creator opens Dialog for creating a new Project
+When('they click Button for creating a new Project', () => { })
+Then('they see a Dialog with input fields:', () => { })
+// | Project Title            |
+// | Coordinating Institution |
+// | Project Manager          |
+// | Start Date               |
+// | Internal reference       |
+And('they see a Cancel Button', () => { })
+And('they see a Save Button', () => { })
+
+// Scenario: Creator creates a new Project
+Given('Creator opens Dialog for creating a new Project', () => { })
+When('they enter a Project Title', () => { })
+And('they select a Coordinating Institution', () => { })
+And('​they select a Project Manager', () => { })
+And('they set a Start Date', () => { })
+And('they click Save', () => { })
+Then('the Dialog is closed', () => { })
+And('they see a confirmation message that the Project was created', () => { })
+And('they see the Project is listed under Project Associations', () => { })
