@@ -60,6 +60,8 @@ And('they see Save is enabled', () => {
 // Scenario: Creator sees that fields are validated on Description tab
 And('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.get('[data-testid=snackbar-success]');
+  cy.get('[data-testid=snackbar-success]').should('not.exist');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
