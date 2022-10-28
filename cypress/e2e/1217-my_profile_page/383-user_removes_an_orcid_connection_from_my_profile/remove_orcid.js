@@ -6,8 +6,8 @@ const stage = Cypress.env('STAGE') ?? 'dev';
 
 Given('user opens the page My Profile', () => {
   cy.login(userRemoveOrcid);
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
+  cy.get(`[data-testid=${dataTestId.myPage.myProfileLink}]`).click();
 });
 When('they click Remove ORCID', () => {
   cy.intercept(`https://api.${stage}.nva.aws.unit.no/person/*/identifiers/orcid/delete`, {
