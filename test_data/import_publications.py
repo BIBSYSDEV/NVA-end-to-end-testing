@@ -296,8 +296,9 @@ def create_publication_data(publication_template, test_publication, username, cu
     new_publication['associatedArtifacts'].append(file)
     if 'administrativeAgreement' in test_publication:
         file['administrativeAgreement'] = test_publication['administrativeAgreement']
+        file['mimeType'] = fileTypes['pdf']['mimeType']
+        file['name'] = fileTypes['pdf']['fileName']
         new_publication['associatedArtifacts'].append(file)
-
 
     return new_publication
 

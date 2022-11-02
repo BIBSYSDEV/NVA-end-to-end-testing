@@ -29,7 +29,7 @@ And('the User is notified that progress on this claim can be viewed in My Messag
 // @1530
 // Scenario: Files that are Administrative Agreements are hidden
 And('the Registration contains a File, which is an Administrative Agreement', () => {
-  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type('File with Administrative agreement');
+  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type('File with Administrative agreement{enter}');
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(':contains("File with Administrative agreement")')
     .first()
