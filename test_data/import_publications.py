@@ -283,8 +283,6 @@ def create_publication_data(publication_template, test_publication, username, cu
     fileType = 'pdf'
     if 'fileType' in test_publication:
         fileType = test_publication['fileType']
-    if 'administrativeAgreement' in test_publication:
-        file['administrativeAgreement'] = test_publication['administrativeAgreement']
     if 'embargoed' in test_publication:
         embargoDate = date.today() + timedelta(days=2)
         dateString = embargoDate.strftime('%Y-%m-%dT00:00:00Z')
@@ -296,6 +294,10 @@ def create_publication_data(publication_template, test_publication, username, cu
     file['size'] = locations[fileType]['filesize']
 
     new_publication['associatedArtifacts'].append(file)
+    if 'administrativeAgreement' in test_publication:
+        file['administrativeAgreement'] = test_publication['administrativeAgreement']
+        new_publication['associatedArtifacts'].append(file)
+
 
     return new_publication
 
@@ -347,7 +349,6 @@ def create_publications():
                 if test_publication['doi'] == 'created':
                     print('approving doi...')
                     approve_doi(identifier=identifier)
-
 
 def publish_publication(identifier, username):
     publish_bearer_token = common.login(username=username)

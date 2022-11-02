@@ -17,21 +17,21 @@ Given('Anonymous User views Landing Page for Registration', () => {
 // End common steps
 
 // Scenario: User sees the option to claim Ownership of a Resource
-When('the User views the Landing Page', () => {});
-Then('the User sees a option to claim Ownership of current Resource', () => {});
+When('the User views the Landing Page', () => { });
+Then('the User sees a option to claim Ownership of current Resource', () => { });
 
 // Scenario: User uses the option to claim Ownership of current Resource
-When('the User uses the option to claim Ownership of current Resource', () => {});
-Then('the User must write a claim', () => {});
-And('a Ownership Request is sent to the Owners Curator', () => {});
-And('the User is notified that progress on this claim can be viewed in My Messages', () => {});
+When('the User uses the option to claim Ownership of current Resource', () => { });
+Then('the User must write a claim', () => { });
+And('a Ownership Request is sent to the Owners Curator', () => { });
+And('the User is notified that progress on this claim can be viewed in My Messages', () => { });
 
 // @1530
 // Scenario: Files that are Administrative Agreements are hidden
 And('the Registration contains a File, which is an Administrative Agreement', () => {
-  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type('Administrative agreement');
+  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type('File with Administrative agreement');
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
-    .filter(':contains("Administrative agreement")')
+    .filter(':contains("File with Administrative agreement")')
     .first()
     .click();
 });
@@ -84,8 +84,8 @@ And('the Registration contains Files that are not Embargoed of type {string}', (
 And('every File has an expandable Preview panel', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.filesAccordion}]`).should('have.length', 1);
 });
-When('the user expands the Preview panel', () => {});
-Then('the selected File is downloaded', () => {});
+When('the user expands the Preview panel', () => { });
+Then('the selected File is downloaded', () => { });
 And('they see the downloaded File is of type {string}', (type) => {
   cy.get('[data-testid=file-name]').contains(fileTypes[type]);
 });
@@ -106,14 +106,14 @@ And('the Registration contains Files', () => {
     .first()
     .click();
 });
-When('the first File is not Embargoed', () => {});
-And("the File's size is less than 10 MB", () => {});
+When('the first File is not Embargoed', () => { });
+And("the File's size is less than 10 MB", () => { });
 Then("the File's Preview panel is expanded by default", () => {
   cy.get('[data-testid=file]').within(() => {
     cy.get(`[data-testid=${dataTestId.registrationLandingPage.filePreviewHeader}]`).should('be.visible');
   });
 });
-And('the File is automatically downloaded', () => {});
+And('the File is automatically downloaded', () => { });
 And('the downloaded File is displayed', (file) => {
   cy.get(`[data-testid=file-preview]`).should('be.visible');
 });

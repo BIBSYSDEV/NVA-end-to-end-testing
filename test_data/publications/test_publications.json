@@ -253,10 +253,10 @@
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
-    "status": "DRAFT",
+    "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
-    "title": "Administrative agreement",
-    "administrativeAgreement": false,
+    "title": "File with Administrative agreement",
+    "administrativeAgreement": true,
     "fileType": "image"
   },
   {
