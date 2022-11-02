@@ -68,6 +68,7 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
             print(response.text)
         cristinPersonId = response.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
         print(cristinPersonId)
+        time.sleep(10)
     if not cristinPersonId == '':
         updateAffiliations = True
         if 'affiliations' in existingPerson.json():
@@ -158,7 +159,6 @@ def importUsers(test_users_file_name):
             print(f'Creating {firstName} {lastName}')
 
             createCristinPerson(accessToken=accessToken, nin=nin, firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId)
-            # time.sleep(10)
             createNvaUser(accessToken=accessToken, nin=nin, customer=customer, roles=roles, username=username)
 
 def createNin():
