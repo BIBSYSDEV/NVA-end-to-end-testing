@@ -113,32 +113,10 @@ And('they see a dropdown for Content Type with options:', (dataTable) => {
 //     // | Professional article       |
 //     // | Popular science article    |
 And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.peerReviewed}] > div > label > span > input`).first().click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
 });
 
 // Scenario: Creator sees that fields for Journal article are validated
-
-// @1409
-// Scenario Outline: Creator selects Contribution to Journal and Peer Review Details are hidden
-When('they select the Subtype {string}', (subtype) => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.get(`[data-testid=${journalSubtypes[subtype]}]`).click({ force: true });
-  cy.get('@link').then((link) => {
-    link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
-  })
-});
-Then('they see that the Peer Review Details are hidden', () => {
-  cy.get('[data-testid=peer-review-field]').should('not.exist');
-});
-// Examples:
-//     | Subtype         |
-//     | Feature article |
-//     | Comment         |
-//     | Book review     |
-//     | Leader          |
-//     | Corrigendum     |
-//     | Booklet         |
 
 // @1625
 // Scenario: Creator sees fields for Resource subtype "Corrigendum"
@@ -162,14 +140,14 @@ Given('Creator sees fields for Journal article', () => {
   cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get('[data-testid=publication-instance-type-JournalArticle]').click({ force: true });
 });
-When('they set Content Type to {string}:', (contentType) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
-  cy.get(`[data-testid=${journalContentTypes[contentType]}]`).click({ force: true });
+When('they set Content Type to one of:', (dataTable) => {
+  dataTable.rawTable.forEach(value => {
+    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
+    cy.get(`[data-testid=${journalContentTypes[value[0]]}]`).click({ force: true });
+  })
 })
 // | Academic article           |
 // | Academic literature review |
-// Then they see fields:
-//     | Peer reviewed and presents new research |
 // And they see the Norwegian Science Index (NVI) evaluation status
 
 

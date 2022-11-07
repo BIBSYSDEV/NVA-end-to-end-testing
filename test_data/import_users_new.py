@@ -68,9 +68,7 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
             print(response.text)
         cristinPersonId = response.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
         print(cristinPersonId)
-    else:
-        print('Updating Cristin person')
-        cristinPersonId = existingPerson.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
+        time.sleep(10)
     if not cristinPersonId == '':
         updateAffiliations = True
         if 'affiliations' in existingPerson.json():
@@ -161,7 +159,6 @@ def importUsers(test_users_file_name):
             print(f'Creating {firstName} {lastName}')
 
             createCristinPerson(accessToken=accessToken, nin=nin, firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId)
-            time.sleep(10)
             createNvaUser(accessToken=accessToken, nin=nin, customer=customer, roles=roles, username=username)
 
 def createNin():
@@ -171,46 +168,48 @@ def createNin():
             print(f'    "nin": "{nin}",')
 
 def deleteUsers(admin):
-    print('deleting from Cognito...')
-    client = boto3.client('cognito-idp')
-    paginator = client.get_paginator('list_users')
-    operation_parameters = {
-        'UserPoolId': USER_POOL_ID
-    }
-    users = []
-    for response in paginator.paginate(**operation_parameters):
-        users.append(response['Users'])
+    # print('deleting from Cognito...')
+    # client = boto3.client('cognito-idp')
+    # paginator = client.get_paginator('list_users')
+    # operation_parameters = {
+    #     'UserPoolId': USER_POOL_ID
+    # }
+    # users = []
+    # for response in paginator.paginate(**operation_parameters):
+    #     users.append(response['Users'])
 
-    for userlist in users:
-        for user in userlist:
-            if 'test-user-' in user['Username']:
-                print(f'Found {user["Username"]}')
-                client.admin_delete_user(
-                    Username=user['Username'],
-                    UserPoolId=USER_POOL_ID
-                )
+    # for userlist in users:
+    #     for user in userlist:
+    #         if 'test-user-' in user['Username']:
+    #             print(f'Found {user["Username"]}')
+    #             client.admin_delete_user(
+    #                 Username=user['Username'],
+    #                 UserPoolId=USER_POOL_ID
+    #             )
 
     print('deleting from DynamoDb...')
     client = boto3.client('dynamodb')
     users = client.scan(TableName=USERS_ROLES_TABLE_NAME)['Items']
     for user in users:
-        if 'familyName' in user:
+        if 'affiliation' in user:
+            affiliation = user['affiliation']['S']
+            # if 'familyName' in user and '5991' in affiliation:
             familyName = user['familyName']['S']
             givenName = user['givenName']['S']
             if not admin and givenName == 'Create testdata':
                 print(f'Not deleting {givenName} {familyName}')
             else:
-              if 'TestUser' in familyName:
-                print(f'deleting {givenName} {familyName}')
-                response = client.delete_item(
-                    TableName=USERS_ROLES_TABLE_NAME,
-                    Key={'PrimaryKeyHashKey': {
-                            'S': user['PrimaryKeyHashKey']['S']
-                        },
-                        'PrimaryKeyRangeKey': {
-                            'S': user['PrimaryKeyRangeKey']['S']
-                        }
-                    })
+                if 'TestUser' in familyName:
+                    print(f'deleting {givenName} {familyName}')
+                    response = client.delete_item(
+                        TableName=USERS_ROLES_TABLE_NAME,
+                        Key={'PrimaryKeyHashKey': {
+                                'S': user['PrimaryKeyHashKey']['S']
+                            },
+                            'PrimaryKeyRangeKey': {
+                                'S': user['PrimaryKeyRangeKey']['S']
+                            }
+                        })
 
 def run(user_file, admin):
     deleteUsers(admin=admin)

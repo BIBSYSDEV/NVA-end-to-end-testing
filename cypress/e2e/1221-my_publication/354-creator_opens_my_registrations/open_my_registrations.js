@@ -1,8 +1,8 @@
-import { userWithAuthor } from '../../../support/constants';
+import { userOpenMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 Given('the user is logged in as Creator', () => {
-  cy.login(userWithAuthor);
+  cy.login(userOpenMyRegistrations);
 });
 When('they click the button My Registrations', () => {
   cy.openMyRegistrations();

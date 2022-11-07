@@ -128,9 +128,8 @@ Cypress.Commands.add('login', (userId) => {
   cy.loginCognito(userId).then(() => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
+    cy.setLocalStorage('beta', 'true');
     cy.mockPersonSearch(userId);
-    // cy.mockCreatePerson(userId);
-    // cy.mockUpdatePerson(userId);
     cy.mockDepartments();
     cy.visit('/');
   });
@@ -213,10 +212,6 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academicmonograph')}]`).click();
-
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.peerReviewed}] > div > label > span`)
-    .first()
-    .click({ force: true });
 
   // Contributors
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click({ force: true });

@@ -70,6 +70,8 @@ export const userDesign = "test-user-design@test.no";
 export const userMusic = "test-user-music@test.no";
 export const userLogout = "test-user-logout@test.no";
 export const userPerformingArts = "test-user-performing-arts@test.no";
+export const userRequestSupport = "test-user-open-request-support@test.no";
+export const userOpenMyRegistrations = "test-user-open-my-registrations@test.no";
 export const userResearchDataDmp = "test-user-research-data-dmp@test.no";
 
 const userData = {
@@ -141,5 +143,7 @@ export const user = {
   [userMusic]: { ...userData, name: 'TestUser, Music' },
   [userLogout]: { ...userData, name: 'TestUser, Log out' },
   [userPerformingArts]: { ...userData, name: 'TestUser, Performing arts' },
+  [userRequestSupport]: { ...userData, name: 'TestUser, Request support' },
+  [userOpenMyRegistrations]: { ...userData, name: 'TestUser, Open my registrations' },
   [userResearchDataDmp]: { ...userData, name: 'TestUser, Research data dmp' },
 };

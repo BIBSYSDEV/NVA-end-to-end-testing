@@ -157,7 +157,6 @@ export const bookFields = {
   'NPI discipline': dataTestId.registrationWizard.resourceType.scientificSubjectField,
   'Series title': dataTestId.registrationWizard.resourceType.seriesField,
   'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
-  'Peer reviewed and presents new research': dataTestId.registrationWizard.resourceType.peerReviewed,
 };
 
 export const contentType = {
@@ -283,25 +282,25 @@ export const filmTypes = {
   'Interactive film': 'InteractiveFilm',
   'AR/VR film': 'AugmentedVirtualRealityFilm',
   'Other': 'Other',
-}
+};
 
 export const filmAnnouncements = {
   'Broadcast': 'add-tv-web-streaming-button',
   'Cinematic release': 'add-festival-cinema-button',
   'Other release': 'add-other-button',
-}
+};
 
 export const musicAwards = {
   'Concert': dataTestId.registrationWizard.resourceType.addConcertShowButton,
   'Audio/visual publication': dataTestId.registrationWizard.resourceType.addAudioVideoPublicationButton,
   'Music score': dataTestId.registrationWizard.resourceType.addScoreManuscriptButton,
   'Other performance': dataTestId.registrationWizard.resourceType.addOtherButton,
-}
+};
 
 export const musicConcertFields = {
   'Place': dataTestId.registrationWizard.resourceType.concertPlace,
-  'Date': dataTestId.registrationWizard.resourceType.concertDate,
-  'Extent': dataTestId.registrationWizard.resourceType.concertDuration,
+  'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+  'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
 };
 
@@ -310,14 +309,14 @@ export const musicConcertProgramFields = {
   'Composer': dataTestId.registrationWizard.resourceType.concertProgramComposer,
   'Premiere': dataTestId.registrationWizard.resourceType.concertProgramIsPremiere,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
-}
+};
 
 export const musicAudioVideoFields = {
-  'Format': dataTestId.registrationWizard.resourceType.audioVideoType,
+  'Format': dataTestId.registrationWizard.resourceType.artisticSubtype,
   'Publisher': dataTestId.registrationWizard.resourceType.audioVideoPublisher,
   'Catalogue number': dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber,
   'Track list': dataTestId.registrationWizard.resourceType.audioVideoAddTrack,
-}
+};
 
 export const musicAudioVideoTrackTypes = {
   'CD': 'CompactDisc',
@@ -326,60 +325,60 @@ export const musicAudioVideoTrackTypes = {
   'Download': 'DigitalFile',
   'LP/EP': 'Vinyl',
   'Other': 'Other',
-}
+};
 
 export const musicAudioVideoTrackFields = {
   'Title': dataTestId.registrationWizard.resourceType.audioVideoContentTitle,
   'Composer': dataTestId.registrationWizard.resourceType.audioVideoContentComposer,
-  'Extent': dataTestId.registrationWizard.resourceType.audioVideoContentDuration,
-}
+  'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
+};
 
 export const musicScoreFields = {
   'Ensemble': dataTestId.registrationWizard.resourceType.scoreEnsemble,
   'Movements': dataTestId.registrationWizard.resourceType.scoreMovements,
-  'Extent': dataTestId.registrationWizard.resourceType.scoreDuration,
+  'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Publisher': dataTestId.registrationWizard.resourceType.scorePublisher,
   'ISMN': dataTestId.registrationWizard.resourceType.scoreIsmn,
   'ISRC': dataTestId.registrationWizard.resourceType.scoreIsrc,
-}
+};
 
 export const musicOtherFields = {
   'Type': dataTestId.registrationWizard.resourceType.otherPerformanceType,
   'Place': dataTestId.registrationWizard.resourceType.otherPerformancePlace,
-  'Extent': dataTestId.registrationWizard.resourceType.otherPerformanceDuration,
+  'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Other performance': dataTestId.registrationWizard.resourceType.otherPerfomanceAddWork,
-}
+};
 
 export const musicOtherWorksField = {
   'Title': dataTestId.registrationWizard.resourceType.otherPerformanceWorkTitle,
   'Composer': dataTestId.registrationWizard.resourceType.otherPerformanceWorkComposer,
-}
+};
 
 export const musicConcertDetails = {
   // 'Part of a series/tour': dataTestId.registrationWizard.resourceType.concertProgramTour,
   'Place': dataTestId.registrationWizard.resourceType.concertPlace,
   'Date': dataTestId.registrationWizard.resourceType.concertDate,
-  'Extent': dataTestId.registrationWizard.resourceType.concertDuration,
+  'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
-}
+};
 
 export const competitionFields = {
   'Name': dataTestId.registrationWizard.resourceType.competitionName,
   'Description': dataTestId.registrationWizard.resourceType.competitionDescription,
-  'Date': dataTestId.registrationWizard.resourceType.competitionDate,
+  'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
 };
 
 export const publicationMentionFields = {
   'Name': dataTestId.registrationWizard.resourceType.publicationMentionTitle,
   'Issue': dataTestId.registrationWizard.resourceType.publicationMentionIssue,
-  'Date': dataTestId.registrationWizard.resourceType.publicationMentionDate,
+  'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
   'Description': dataTestId.registrationWizard.resourceType.publicationMentionOther,
 };
 
 export const awardFields = {
   'Name': dataTestId.registrationWizard.resourceType.awardName,
   'Organizer': dataTestId.registrationWizard.resourceType.awardOrganizer,
-  'Year': dataTestId.registrationWizard.resourceType.awardDate,
+  'Year': dataTestId.registrationWizard.resourceType.artisticOutputDate,
   'Ranking': dataTestId.registrationWizard.resourceType.awardRanking,
   'Description': dataTestId.registrationWizard.resourceType.awardOther,
 };
@@ -411,7 +410,7 @@ export const performingArtsWorkTypes = {
   'Theater/show': 'TheatricalProduction',
   'TV/film/radio': 'Broadcast',
   'Other': 'Other',
-}
+};
 
 export const presentationSubtypes = {
   'Conference lecture': 'publication-instance-type-ConferenceLecture',
@@ -422,7 +421,7 @@ export const presentationSubtypes = {
 
 export const persentationFields = {
   'Title of event': dataTestId.registrationWizard.resourceType.eventTitleField,
-  'Place of event': dataTestId.registrationWizard.resourceType.eventPlaceField,
+  'Place of event': dataTestId.registrationWizard.resourceType.placeField,
   'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
   'Date to': dataTestId.registrationWizard.resourceType.dateToField,
   'Organizer': dataTestId.registrationWizard.resourceType.eventOrganizerField,
@@ -486,7 +485,7 @@ export const contributorButtons = {
 };
 
 export const landingPageFields = {
-  'Title': dataTestId.registrationLandingPage.title,
+  'Title': dataTestId.registrationLandingPage.registrationSubtype,
   'Abstract': dataTestId.registrationLandingPage.abstractAccordion,
   'NPI': dataTestId.registrationLandingPage.npi,
   'Keywords': dataTestId.registrationLandingPage.keywords,

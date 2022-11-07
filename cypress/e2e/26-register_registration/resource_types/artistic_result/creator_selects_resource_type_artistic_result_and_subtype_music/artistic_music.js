@@ -28,8 +28,8 @@ And('they can add Exhibitions of type:', (dataTable) => {
 And('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${musicAwards['Concert']}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.concertPlace}]`).type('Test concert place');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.concertDuration}]`).type('Test concert duration');
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.concertDate}]`, '11.11.2011');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDuration}]`).type('Test concert duration');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDate}]`, '11.11.2011');
   cy.get(`[data-testid=${musicConcertProgramFields['Works']}]`).click();
   cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`).type('Title');
   cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramComposer}]`).type('Composer');
@@ -54,7 +54,7 @@ When('they add a Concert with details for:', (dataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addConcertShowButton}]`).click();
   dataTable.rawTable.forEach(value => {
     if (value[0] === 'Date') {
-      cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.concertDate}]`, '11.11.2011');
+      cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDate}]`, '11.11.2011');
     } else if (value[0] !== 'Works') {
       cy.get(`[data-testid=${musicConcertFields[value[0]]}]`).type(`Test ${value[0]}`);
     }

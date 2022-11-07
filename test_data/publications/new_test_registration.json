@@ -14,10 +14,7 @@
     "id": "<nva_org_url>"
   },
   "createdDate": "2021-06-08T10:19:38.633284Z",
-  "fileSet": {
-    "files": [],
-    "type": "FileSet"
-  },
+  "associatedArtifacts": [],
   "modifiedDate": "2021-06-08T11:46:42.963805Z",
   "doi": "https://doi.org/testdoi",
   "entityDescription": {
