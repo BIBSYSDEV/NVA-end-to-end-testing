@@ -1,0 +1,52 @@
+
+
+Pensumlistesystemet
+
+
+
+
+
+Dette mener Team Rosa er minstekravene for pensumlistesystemet:
+
+
+Testområde
+
+* Alma sandbox for minst en av de 9 institusjonene (de 9 kundene som skal ta i bruk Leganto)
+  - vi har tilgang til HIOA sandbox, men vi mangler en tilsvarende Leganto-instans
+  - vi har fått tilgang til en Leganto-instans, men den er ikke konfigurert på den måten utviklingsteamet har behov for
+  - noen må konfigurere instansen slik at vi kan benytte den
+
+
+--> Vi trenger en leganto-instans som kan brukes mot HIOA. Vi vet ikke hva eller hvordan dette skal konfigureres, men vi må kunne bruke systemet.
+
+
+
+
+
+* tilgang til ftp-område hvor filer lastes opp
+
+* mulighet til å starte Alma-admin jobb
+  - noen må vise oss hvor og hvordan, vi må vite hvordan vi starter jobben og hvordan vi kan sjekke loggene
+
+
+Design
+* vi må kunne administrere passord og brukernavn til FS-instansene der vi henter filene fra (sikkerhetsaspekt)
+
+
+Institusjonregisteret 
+* user story for å utvide institusjonregisteret med nye atributter i forhold til Leganto slik at vi slipper hardkoding som igjen medfører vedlikeholdskostnader
+
+
+
+
+Utviklerne påpeker at pensumlistesystemet vil forholde seg ulikt brukerhåndtering i forhold til å motta data fra FS. Brukerhåndtering skal få tilsendt data fra FS, mens pensumlistesystemer vil hente data selv. Vi mener at dette bør gjøres på samme måte.
+FS vil levere data til Brage. Dette er implementert, men ikke satt i drift enda.
+Derfor mener vi at det er best at FS leverer data, og at vi ikke henter.
+
+--> Så lenge det ikke er tatt en avgjørelse om FS skal levere eller om vi skal hente data, så mener vi at dette må gjøres på samme måte av våre produkter.
+
+
+
+
+
+

@@ -1,0 +1,56 @@
+Email-filer i versjon 5
+
+dspace – config – emails
+
+bte_batch_import_error		- org. dspace-fil, samme som i versjon 4
+bte_batch_import_success	- org. dspace-fil, samme som i versjon 4
+change_password			- org. dspace-fil, samme som i versjon 4
+doi_maintenance_error		- org. dspace-fil, samme som i versjon 4
+export_error			- kopiert endringene fra versjon 4
+export_success			- kopiert endringene fra versjon 4
+feedback			- org. dspace-fil, samme som i versjon 4
+flowtask_notify			- org. dspace-fil, samme som i versjon 4
+harvesting_error		- org. dspace-fil, samme som i versjon 4
+internal_error			- org. dspace-fil, samme som i versjon 4
+register			- org. dspace-fil, samme som i versjon 4
+registration_notify		- org. dspace-fil, samme som i versjon 4
+request_item.admin		- org. dspace-fil, samme som i versjon 4
+request_item.author		- org. dspace-fil, samme som i versjon 4
+submit_archive			- kopiert endringene fra versjon 4
+submit_item			- ikke i versjon 5, kopiert fra versjon 4
+submit_reject			- kopiert endringene fra versjon 4
+submit_task			- kopiert endringene fra versjon 4
+subscription			- org. dspace-fil, samme som i versjon 4
+suggest				- org. dspace-fil, samme som i versjon 4
+unitcodes			- ikke i versjon 5, kopiert fra versjon 4
+
+
+
+
+
+
+Email-filer i versjon 4
+
+dspace – config – emails
+
+bte_batch_import_error		- ingen endringer fra orginal dspace-fil
+bte_batch_import_success	- ingen endringer fra orginal dspace-fil
+change_password			- ingen endringer fra orginal dspace-fil
+doi_maintenance_error		- ingen endringer fra orginal dspace-fil
+export_error			- vi har lagt til norsk tekst
+export_success			- vi har lagt til norsk tekst
+feedback			- ingen endringer fra orginal dspace-fil
+flowtask_notify			- ingen endringer fra orginal dspace-fil
+harvesting_error		- ingen endringer fra orginal dspace-fil
+internal_error			- ingen endringer fra orginal dspace-fil
+register			- ingen endringer fra orginal dspace-fil
+registration_notify		- ingen endringer fra orginal dspace-fil
+request_item.admin		- ingen endringer fra orginal dspace-fil
+request_item.author		- ingen endringer fra orginal dspace-fil
+submit_archive			- vi har lagt til norsk tekst
+submit_item			- dette er en epost vi har lagt til
+submit_reject			- vi har lagt til norsk tekst
+submit_task			- vi har lagt til norsk tekst
+subscription			- ingen endringer fra orginal dspace-fil
+suggest				- ingen endringer fra orginal dspace-fil
+unitcodes			- mail i forbindelse med Cristin ?

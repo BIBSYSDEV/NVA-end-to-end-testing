@@ -1,0 +1,5 @@
+Hvis en innførsel er lagret i samling A og i tillegg koblet til samling B kan den enkelt "frakobles" samling B. Ved å gjøre en slik "frakobling" får du "tømt" samling B for alle innførsler som er lagret i annen samling. Og det vil også gi deg oversikt over ev. innførsler som faktisk er lagret i samling B. Slik går du fram:
+- gå til startsiden til samling B:
+- gå til KONTEKST > Koble innførsler
+- klikk BLA GJENNOM KOBLEDE INNFØRSLER
+- merk koblede innførsler og klikk FJERN KOBLING AV VALGTE INNFØRSLER

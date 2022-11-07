@@ -1,0 +1,188 @@
+
+header .navbar-default .navbar-brand {
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0) url("HVL-logo_1200x410.png") no-repeat scroll 24px 8px ;
+    background-size: 180px;
+    min-width:350px;
+    height:75px;
+
+}
+.navbar-default {
+    background: #eaeff1 !important;
+}
+header ul {
+    font-family: Arial,sans-serif;
+}
+
+body {
+    font-family: Georgia;
+    line-height: 1.6em;
+    color: #2b2f2f;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Arial;
+    font-weight: normal;
+    color: #004357;
+    margin: 1.6rem 0 0.6rem 0;
+}
+h1, h2 {
+    color: #eb6851;
+}
+h3 {
+    padding-bottom: 0.4rem;
+    border-bottom: solid 1px #9fe2eb;
+}
+h2.ds-option-set-head {
+    font-family: Arial;
+    font-weight: normal;
+    color: #707b7b;
+}
+.list-group-item-heading {
+    font-family: Arial;
+    font-weight: normal;
+}
+a, a:focus {
+    color: #008a8f;
+}
+
+a.list-group-item {
+    color: #008a8f;
+}
+
+a:hover {
+    color: #eb6851;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background-color: #004357;
+    border-color: #618b97;
+    color: #ffffff;
+    z-index: 2;
+}
+.list-group-item {
+    border-color: #618b97;
+}
+
+.btn-primary {
+    background-color: #004357;
+    border-color: #618b97;
+    color: #ffffff;
+}
+
+.form-control {
+    border: 1px solid #618b97;
+}
+
+header .navbar-default {
+    background-color: #ffffff;
+}
+
+header .navbar {
+    border: medium none;
+    color: #004357;
+    margin-bottom: 0;
+}
+
+header .navbar-default .navbar-toggle > li > a, header .navbar-default .navbar-nav > li > a {
+    color: #004357;
+}
+
+header .navbar-default .navbar-toggle > li > a:focus, header .navbar-default .navbar-nav > li > a:focus, header .navbar-default .navbar-toggle > li > a:hover, header .navbar-default .navbar-nav > li > a:hover {
+    color: #004357;
+    background-color: #fdf2b8;
+    text-decoration: underline;
+}
+
+header .navbar-brand img {
+    display: none;
+}
+
+
+header .navbar-default {
+    background-color: #fdf2b8;
+}
+
+header .navbar-default .navbar-toggle, header .navbar-default .navbar-nav {
+    border-color: transparent;
+    color: #004357;
+}
+
+header .navbar-default .navbar-toggle:hover, header .navbar-default .navbar-toggle:focus, header .navbar-default .navbar-nav:hover, header .navbar-default .navbar-nav:focus {
+    background-color: #004357;
+    color: #fff;
+}
+
+header .navbar-default .navbar-toggle .icon-bar, header .navbar-default .navbar-nav .icon-bar {
+    background-color: #888888;
+}
+
+header .navbar-default .navbar-toggle:hover .icon-bar, header .navbar-default .navbar-nav:hover .icon-bar {
+    background-color: #888888;
+}
+
+header .navbar-brand {
+    height: 60px;
+}
+
+header .navbar-brand:hover {
+    color: #ffffff;
+}
+
+header .navbar-brand:focus {
+    color: #ffffff;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #004357;
+}
+
+.btn-success {
+    background-color: #004357;
+    border-color: #618b97;
+    color: #ffffff;
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success.focus, .btn-success:active, .btn-success.active, .open > .btn-success.dropdown-toggle {
+    background-color: #086178;
+    border-color: #618b97;
+    color: #ffffff;
+}
+
+.btn-success.disabled, .btn-success.disabled:hover, .btn-success.disabled:focus, .btn-success.disabled.focus, .btn-success.disabled:active, .btn-success.disabled.active, .btn-success[disabled], .btn-success[disabled]:hover, .btn-success[disabled]:focus, .btn-success.focus[disabled], .btn-success[disabled]:active, .btn-success.active[disabled], fieldset[disabled] .btn-success, fieldset[disabled] .btn-success:hover, fieldset[disabled] .btn-success:focus, fieldset[disabled] .btn-success.focus, fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success.active {
+    background-color: #004357;
+    border-color: #618b97;
+}
+
+.btn-default {
+    font-family: Arial,sans-serif;
+    border-color: #618b97;
+    color: #fff;
+    background: #004357;
+}
+
+
+.trail-wrapper {
+    background-color: #004357;
+}
+
+.breadcrumb{
+    font-family: Arial,sans-serif;
+    color:white;
+}
+
+.trail-wrapper .breadcrumb > li + li::before {
+    color: #ffffff;
+}
+
+.trail-wrapper .breadcrumb > .active {
+    color: #ffffff;
+}
+.breadcrumb > .active {
+    color: #ffffff;
+}
+
+.breadcrumb a {
+    color: #ffffff;
+}
+
+

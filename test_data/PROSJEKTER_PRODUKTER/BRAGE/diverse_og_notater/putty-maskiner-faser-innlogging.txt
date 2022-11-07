@@ -1,0 +1,17 @@
+Putty:
+- velg rett maskin
+- klikk load
+- klikk open
+
+
+Brage-utvikle: sagitta.bibsys.no
+Brage-produksjon: dorado.bibsys.no
+
+
+Logg inn med webservutv / zx90kl
+
+
+
+cd /brage/app/bin
+./dspace
+

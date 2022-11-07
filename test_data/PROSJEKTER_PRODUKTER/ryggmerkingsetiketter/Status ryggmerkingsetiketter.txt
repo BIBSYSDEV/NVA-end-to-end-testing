@@ -1,0 +1,41 @@
+Subject: Status ryggmerkingsetiketter
+Date: Fri, 19 Feb 1999 10:32:25 +0100
+From: Siri Vikan <sv@bibsys.no>
+To: irmelin.lyng@ub.uib.no, b.t.marcussen@ub.uio.no
+
+Hei!
+
+Status for ryggmerkingsetiketter er som følgende:
+
+2 ulike skjermbilder som er avhengig om en gir kommandoen rygg med
+eller uten parameter.
+
+Oversikt over alle oppsamlede DOKID  og lagrede kopier får en gjennom
+kec-kommandoen.
+
+Sletting av oppsamlede DOKID foregår ved utskrift av etiketter for alle
+oppsamlede DOKID og for utvalgte DOKID. Begge disse funksjonene gir en
+mulighet til å ta vare på DOKID'ene som kopier (gamle kopier blir da
+slettet).
+
+Programmet skriver fortsatt etikettene ut til skjerm. Si i fra når dere
+ønsker at det skal endres slik at etikettene kan skrives ut på skriver.
+
+Bortsett fra eventuell feilretting og småjusteringer som følge av deres
+testing, så sier jeg meg forløpig ferdig med programmene.
+
+En del ønsket funksjonalitet er kommet fram gjennom møtet vårt og
+gjennom mail og telefoner fra dere til meg. Disse lar jeg  foreløpig
+bero litt til etter at programmet er tatt i bruk og skikkelig uttestet.
+Jeg har notert meg følgende ønsker:
+- en-linjers etiketter
+- generelle etiketter (uavhengig av klassifikasjonssystem)
+- kommando-linje i ryggmerkings-skjermene
+- mulighet til å endre midlertidig ant. tegn pr. linjer og ant. linjer
+for de ulike utskriftsformatene.
+- presentasjon av DOKID'et sammen med de aktuelle 096-feltene slik at
+det er mulig å se hvilket klassifikasjonssystem som er benyttet
+
+Lykke til med testingen!
+
+Siri

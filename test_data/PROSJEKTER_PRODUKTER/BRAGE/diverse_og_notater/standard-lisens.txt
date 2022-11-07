@@ -1,0 +1,11 @@
+B-02992 Tekststendringer: Distribusjonslisens
+
+Endring i fila for standard lisens
+
+Som arkivadministrator ønsker jeg at det som er "dummy" distribusjonslisens og som blir vist hvis det ikke er lagt inn en egen distribusjonslisens for samlinge, skal være så kort som mulig slik at de som registrerer nye innførsler ikke skal bli forvirret.
+Akseptansekrav: "Dummy-lisensen" skal fjernes slik at det kun står "NOTE: PLACE YOUR OWN LICENSE HERE This sample license is provided for informational purposes only." (jfr. også utskrift av denne siden)
+Maconomykoder: 50037801 + 95141
+
+dspace-parent > dspace > config > default.license
+
+

@@ -1,0 +1,60 @@
+[webservutv@sagitta /brage/app/bin]$ ./dspace
+You must provide at least one command argument
+ INFO [main] (ConfigurationManager.java:1224) - Loading from classloader: file:/brage/app/config/dspace.cfg
+ INFO [main] (ConfigurationManager.java:1224) - Using dspace provided log configuration (log.init.config)
+ INFO [main] (ConfigurationManager.java:1224) - Loading: /brage/app-utvikle/config/log4j.properties
+Usage: dspace [command-name] {parameters}
+ - checker: Run the checksum checker
+ - checker-emailer: Send emails related to the checksum checker
+ - classpath: Calculate and display the DSpace classpath
+ - cleanup: Remove deleted bitstreams from the assetstore
+ - community-filiator: Tool to manage community and sub-community relationships
+ - create-administrator: Create a DSpace administrator account
+ - curate: Perform curation tasks on DSpace objects
+ - dsprop: View a DSpace property from dspace.cfg
+ - dsrun: Run a class directly
+ - embargo-lifter: Embargo manager tool used to check, list and lift embargoes
+ - export: Export items or collections
+ - filter-media: Perform the media filtering to extract full text from documents and to create thumbnails
+ - generate-sitemaps: Generate search engine and html sitemaps
+ - harvest: Manage the OAI-PMH harvesting of external collections
+ - import: Import items into DSpace
+ - index: General index command (requires extra parameters)
+ - index-init: Initialise the search and browse indexes
+ - index-update: Update the search and browse indexes
+ - itemcounter: Update the item strength counts in the user interface
+ - itemupdate: Item update tool for altering metadata and bitstream content in items
+ - make-handle-config: Run the handle server simple setup command
+ - metadata-export: Export metadata for batch editing
+ - metadata-import: Import metadata after batch editing
+ - packager: Execute a packager
+ - registry-loader: Load entries into a registry
+ - stat-general: Compile the general statistics
+ - stat-initial: Compile the initial statistics
+ - stat-monthly: Compile the monthly statistics
+ - stat-report-general: Create the general statistics report
+ - stat-report-initial: Create the initial statistics report
+ - stat-report-monthly: Create the monthly statistics report
+ - stats-log-converter: Convert dspace.log files ready for import into solr statistics
+ - stats-log-importer: Import previously converted log files into solr statistics
+ - stats-log-importer-elasticsearch: Import solr-format converted log files into Elastic Search statistics
+ - stats-util: Statistics Client for Maintenance of Solr Statistics Indexes
+ - structure-builder: Build DSpace community and collection structure
+ - sub-daily: Send daily subscription notices
+ - test-database: Test the DSpace database connection is OK
+ - setup-database: Create the database tables
+ - clean-database: Remove the database tables
+ - test-email: Test the DSpace email server settings are OK
+ - update-handle-prefix: Update handle records and metadata when moving from one handle to another
+ - update-discovery-index: Update Discovery Solr Search Index
+ - migrate-embargo: Embargo manager tool used to migrate old version of Embargo to the new one included in dspace3
+ - oai: OAI script manager
+ - list-collections: List all collections.
+ - list-communities: List all communities.
+ - SetGroupAccessOnItems: Set read access for a given group to all items in a collection.
+ - list-embargoed-items: List items with metadatafield dc.description.embargo set.
+ - generate-apache-redirect-URLs: Generate apache redirect URLs from BIBSYS Brage v. 1.8 to the new 3.1 version.
+        These lines are to be put in the file /etc/httpd/conf/vhosts/active/brage.conf
+ - create-missing-communities: Create missing communities from file config/modules/institution-registry.cfg.
+ - map-handles-to-themes: Map handles to themes by updating file config/xmlui.xconf (restart tomcat!).
+ - map-cristin-workflow: Map CRIStin collections to xmlworkflow in config/workflow.xml (restart tomcat!).

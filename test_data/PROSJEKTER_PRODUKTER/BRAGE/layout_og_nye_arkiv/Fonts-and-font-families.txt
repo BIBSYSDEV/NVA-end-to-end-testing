@@ -1,0 +1,78 @@
+FONTS AND FONT-FAMILIES
+-----------------------
+
+
+There are two types of font family names:
+* family-name - The name of a font-family, like "times", "courier", "arial", etc.
+* generic-family - The name of a generic-family, like "serif", "sans-serif", "cursive", "fantasy", "monospace".
+
+The font-family property should hold several font names as a "fallback" system, to ensure maximum compatibility between browsers/operating systems. If the browser does not support the first font, it tries the next font.
+
+Start with the font you want, and always end with a generic family, to let the 
+browser pick a similar font in the generic family, if no other fonts are available.
+
+
+p {
+    font-family: "Times New Roman", Times, serif;
+} 
+
+
+CSS Font
+http://www.w3schools.com/css/css_font.asp
+
+CSS font Property
+http://www.w3schools.com/cssref/pr_font_font.asp
+
+CSS font-family Property
+http://www.w3schools.com/cssref/pr_font_font-family.asp
+
+CSS Web Safe Font Combinations
+http://www.w3schools.com/cssref/css_websafe_fonts.asp
+
+font-family
+https://css-tricks.com/almanac/properties/f/font-family/
+
+CSS Font Families
+https://css-tricks.com/snippets/css/css-font-families/
+
+
+
+
+BRAGE
+-----
+
+
+Default:
+
+static > css > reset.css
+body {
+ font:13px helvetica, arial, sans-serif;
+ *font-size:small;
+ *font:x-small;
+ line-height:1.22; }
+
+
+
+Eksempler:
+
+astyle.css
+#ds-header-logo-text
+  font-family: 'Times New Roman';
+
+ubstyle.css
+h1
+  font-family: "Trebuchet MS", "Lucida Sans","sans serif";
+
+upstyle.css
+h1 og h2
+  font-family: Tahoma,Verdana,Helvetica,sans-serif;
+
+vqstyle.css
+alle fonter:
+  font-family: TimesNewRoman,"Times New Roman",Times,Baskerville,Georgia,serif;
+
+wastyle.css
+h1, h2 og h3
+  font-family: Georgia, serif;
+
+

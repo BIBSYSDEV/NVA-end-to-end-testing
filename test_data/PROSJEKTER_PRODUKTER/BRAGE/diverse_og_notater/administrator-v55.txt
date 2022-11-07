@@ -1,0 +1,8 @@
+Brage-brukeren er administrator
+
+
+community_wheel --> system-administrator
+community_19_admin --> arkiv-administrator for bibsys-arkivet
+
+
+Bruker sv er både system-administrator og arkiv-administrator for bibsys-arkivet både på utvikle og alfa

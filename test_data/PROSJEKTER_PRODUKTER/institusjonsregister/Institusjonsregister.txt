@@ -1,0 +1,33 @@
+https://www15.v1host.com/Trial71/Epic.mvc/Summary?oidToken=Epic%3A7462
+
+Portfolio Item E-01212 
+
+Register over institusjoner som inneholder de opplysningene vi trenger for
+- tilgang i applikasjoner (hva du har tilgang til (autorisering))
+- identifisere relasjoner mellom ulike aktører i bibliotekprosessen
+- lettvint hente ut kritisk informasjon om den enkelte institusjon
+- lette vedlikeholdet av dataene på den enkelte institusjon
+- unik identifisering av institusjon
+
+Institusjonshierarki for den enkelte institusjon.
+
+Brukergrupper:
+- utviklere - når vi utvikler applikasjoner
+- brukerstøtte  - for vedlikehold og nyregistrering av kundeinstitusjoner
+- institusjonene - for å vedlikeholde egne data
+- eksterne institusjoner - for å få referanse til korrekte opplysninger om våre kundeinstitusjoner
+
+Vi trenger brukergrensesnitt for registrering og oppdatering av data. Tjenester for uthenting av data på flere nivåer i institutsjonshierarkiet. 
+
+Produkter som vil ha nytte av registeret:
+- Alma
+- Brage
+- tilpasninger for NB (pliktavlevering, fjernlånspurringer...)
+- BIM
+- Bare(del av?)
+- DLR
+- BIRD
+
+Alle som har brukeridentifisering og institusjonsidentifisering har behov for registeret.
+
+SVUC og APIKEY bør finnes gjennom registeret.

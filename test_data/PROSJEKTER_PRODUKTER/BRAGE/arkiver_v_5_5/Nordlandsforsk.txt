@@ -1,0 +1,34 @@
+Nordlandsforskning
+
+
+branch: nyeArkivJan2018
+
+januar 2018
+
+
+
+
+http://www.nordlandsforskning.no/?lang=no_NO
+
+B-04292
+
+Navn: Nordlandsforskning
+bibkode: je
+Organisasjonsnummer: 989714309
+Inst.nr. i CRIStin: 7446
+E-postadresse for arkiv: nf@nforsk.no
+
+institution-registry.cfg
+je=Nordlandsforskning | nforsk | nforsk | nf@nforsk.no | NO989714309 | 7446
+
+Logostørrelse: 421 x 70
+
+style.css
+header .navbar-default .navbar-brand {
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0) url("../images/logo.png") no-repeat scroll 5px 5px ;
+  min-width:430px;
+  height:80px;
+}
+
+

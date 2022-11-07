@@ -1,0 +1,153 @@
+
+Opprinnelig style.css for Hedemark (med spesialtilpasninger):
+
+-------------------------------------------------------------------------
+
+
+header .navbar-default .navbar-brand {
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0) url("/xmlui/themes/up/images/logo.png") no-repeat scroll 0 5px ;
+    min-width:305px;
+    height:85px;
+}
+
+h2, h3{
+    color: #242621;
+    font-family: Georgia,serif;
+}
+
+a.list-group-item {
+    color: #0070c2;
+}
+
+a, a:focus {
+    color: #0070c2;
+}
+
+a:hover {
+    color: #0070c2;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background-color: #f16c21;
+    border-color: #9cacba;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.btn-primary {
+    background-color: #f16c21;
+    border-color: #9cacba;
+    color: #ffffff;
+}
+
+.form-control {
+    border: 1px solid #9cacba;
+}
+header{
+    border-bottom: 1px solid #ffffff;
+}
+
+header .navbar {
+    border: medium none;
+    color: #f16c21;
+    margin-bottom: 0;
+}
+
+header .navbar-default .navbar-toggle > li > a, header .navbar-default .navbar-nav > li > a {
+    color: #ffffff;
+}
+
+header .navbar-default .navbar-toggle > li > a:focus, header .navbar-default .navbar-nav > li > a:focus, header .navbar-default .navbar-toggle > li > a:hover, header .navbar-default .navbar-nav > li > a:hover {
+    color: #ffffff;
+    background-color: #f16c21;
+    text-decoration: underline;
+}
+
+header .navbar-brand img {
+    display: none;
+}
+
+header .navbar-default {
+    background-color: #f16c21;
+
+}
+
+header .navbar-default .navbar-toggle, header .navbar-default .navbar-nav {
+    border-color: transparent;
+    color: #ffffff;
+}
+
+header .navbar-default .navbar-toggle:hover, header .navbar-default .navbar-toggle:focus, header .navbar-default .navbar-nav:hover, header .navbar-default .navbar-nav:focus {
+    background-color: #ffffff;
+    color: #f16c21;
+}
+
+header .navbar-default .navbar-toggle .icon-bar, header .navbar-default .navbar-nav .icon-bar {
+    background-color: #bbbbbb;
+}
+
+header .navbar-default .navbar-toggle:hover .icon-bar, header .navbar-default .navbar-nav:hover .icon-bar {
+    background-color: #bbbbbb;
+}
+
+header .navbar-brand {
+    height: 60px;
+}
+
+header .navbar-brand:hover {
+    color: #ffffff;
+}
+
+header .navbar-brand:focus {
+    color: #ffffff;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #f16c21;
+}
+
+.btn-success {
+    background-color: #f16c21;
+    border-color: #9cacba;
+    color: #ffffff;
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success.focus, .btn-success:active, .btn-success.active, .open > .btn-success.dropdown-toggle {
+    background-color: #f16c21;
+    border-color: #9cacba;
+    color: #ffffff;
+}
+
+.btn-success.disabled, .btn-success.disabled:hover, .btn-success.disabled:focus, .btn-success.disabled.focus, .btn-success.disabled:active, .btn-success.disabled.active, .btn-success[disabled], .btn-success[disabled]:hover, .btn-success[disabled]:focus, .btn-success.focus[disabled], .btn-success[disabled]:active, .btn-success.active[disabled], fieldset[disabled] .btn-success, fieldset[disabled] .btn-success:hover, fieldset[disabled] .btn-success:focus, fieldset[disabled] .btn-success.focus, fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success.active {
+    background-color: #f16c21;
+    border-color: #9cacba;
+}
+
+.trail-wrapper {
+    background-color: #f16c21;
+}
+
+.breadcrumb{
+    color:white;
+}
+
+.trail-wrapper .breadcrumb > li + li::before {
+    color: #ffffff;
+}
+
+.trail-wrapper .breadcrumb > .active {
+    color: #ffffff;
+}
+.breadcrumb > .active {
+    color: #ffffff;
+}
+
+.breadcrumb a {
+    color: #ffffff;
+}
+
+header .navbar-default .navbar-toggle > .open > a, header .navbar-default .navbar-toggle > .open > a:hover, header .navbar-default .navbar-toggle > .open > a:focus, header .navbar-default .navbar-nav > .open > a, header .navbar-default .navbar-nav > .open > a:hover, header .navbar-default .navbar-nav > .open > a:focus {
+    background-color: #0a4678;
+    color: #fff;
+}

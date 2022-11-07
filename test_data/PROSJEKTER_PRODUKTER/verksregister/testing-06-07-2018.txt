@@ -1,0 +1,40 @@
+ Id
+work:0d7eb2c3683f7eb7d72be1d975db135e172c27c83f90f9586d182b1ad7a0f86c
+Opphavsperson			Dahl, Roald
+Foretrukket tittel på verk	Clauds hund (nob)
+Tidspunkt for verk		
+Tidligst manifestasjon		2005
+Type verk			Språkbasert verk
+Har kvalitetsnivå		kat2
+Styrke				g
+Hash				clauds hund http://livedata-utv.bibsys.no/authority/90064099 https://schema.nb.no/bibliographic/values/v1000 
+
+
+
+ Id
+work:c4e9cafd5171ff60fd3d7814651b7722c8fde0e401bb59d6b2fe1d12b9b0a4c4
+Opphavsperson			Sivle, Per
+Foretrukket tittel på verk	Berre ein hund (nno)
+Tidspunkt for verk		
+Tidligst manifestasjon		2004
+Type verk			Språkbasert verk
+Har kvalitetsnivå		kat2
+Styrke				g
+Hash				berre ein hund http://livedata-utv.bibsys.no/authority/90133023 https://schema.nb.no/bibliographic/values/v1000 
+
+
+
+
+
+
+Master:	Clauds hund
+Donor:	Berre ein hund
+
+
+
+-----------------------------------------------------
+
+
+work:1637c188c93a7db738b3a1cf5958889229f6a04cc0a30d03050d3869a1395272
+
+

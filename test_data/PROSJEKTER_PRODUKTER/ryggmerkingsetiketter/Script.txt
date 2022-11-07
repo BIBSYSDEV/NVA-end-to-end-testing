@@ -1,0 +1,39 @@
+pegasus:/workdir=> more prt_rygg.bsh
+
+cat paa.fil
+cat rygg_merke.asc
+cat av.fil
+
+
+----------------------------------------------------------------------
+
+FRA P457MAIN:
+
+1760     COMPRESS 'cd $STATSCRIPTDIR; p457reiu.bsh' G-REGSTED 
+1770               #START-DATO #SAFE-MAIL-ADR #REPLY-TO 
+1780         INTO #ARGUMENTER 
+1790     CALL 'SHCMD' #ARGUMENTER 
+
+
+
+
+pegasus:/statskript=> more p457reiu.bsh
+
+#!/bin/sh
+#
+#  Statistikk LM-en: Liste over reserverte men ikke utlM-ente dokument
+#
+#
+TERM=vt100-iso
+export TERM
+. /usr/SAG/sagenv >/dev/null 2>&1
+NATURAL_OUT=p457reiu.log
+export NATURAL_OUT
+#
+cat<<EoF | SHELL=/bin/ksh at now >/dev/null 2>&1
+nice natural parm=redir-50 etid=$$ stack="(logon bibsys2;p457reiu:$1:$2:$3:$4;fi
+n)" >feil2.log 2>&1 EoF
+#
+exit
+
+----------------------------------------------------------------------

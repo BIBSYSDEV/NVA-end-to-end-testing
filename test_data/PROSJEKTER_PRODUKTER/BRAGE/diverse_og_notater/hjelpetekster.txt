@@ -1,0 +1,54 @@
+
+
+Registrering
+
+Beskrivelse trinn 2
+
+Norske vitenskapsdisipliner:
+
+Trenger en hjelpetekst her på samme måte som under Frie emneord
+
+----------------------------------------------------------------------------
+
+dspace
+  config
+    input-forms_no.xml
+
+
+Ny hjelpetekst:
+
+Hentes fra registeret via lenken nedenfor. Bruk LEGG TIL for å legge til mer enn en.
+
+Use the link to the controlled vocabulary below. Use ADD to add more than one.
+
+
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>subject</dc-element>
+                    <dc-qualifier>nsi</dc-qualifier>
+                    <!-- An input-type of twobox MUST be marked as repeatable -->
+                    <repeatable>true</repeatable>
+                    <label>Norske vitenskapsdisipliner</label>
+                    <input-type>twobox</input-type>
+                    <hint></hint>
+                    <required></required>
+                    <vocabulary>nsi</vocabulary>
+                </field>
+
+                <field>
+                    <dc-schema>dc</dc-schema>
+                    <dc-element>subject</dc-element>
+                    <dc-qualifier></dc-qualifier>
+                    <repeatable>true</repeatable>
+                    <label>Frie emneord</label>
+                    <input-type>onebox</input-type>
+                    <hint>Frie emneord må skilles fra hverandre ved bruk av LEGG TIL.</hint>
+                    <required></required>
+                </field>
+
+
+
+
+
+
+

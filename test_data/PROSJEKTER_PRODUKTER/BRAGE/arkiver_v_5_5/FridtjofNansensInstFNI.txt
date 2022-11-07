@@ -1,0 +1,38 @@
+
+Fridtjof Nansens Institutt (FNI)
+
+https://www.fni.no/
+
+
+
+
+januar 2018
+
+branch: nyeArkivJan2018
+
+
+
+
+
+B-04183
+
+Navn: Fridtjof Nansens Institutt
+bibkode: jc
+Organisasjonsnummer: 944137238
+Inst.nr. i CRIStin: 7430
+E-postadresse for arkiv: post@fni.no
+
+institution-registry.cfg
+jc=Fridtjof Nansens Institutt | fni | fni | post@fni.no | NO944137238 | 7430
+
+Logo-størrelse: 300 x 41
+
+style.css
+header .navbar-default .navbar-brand {
+ color: #ffffff;
+ background: rgba(0, 0, 0, 0) url("../images/logo.png") no-repeat scroll 10px 15px;
+ min-width:310px;
+ height:70px;
+}
+
+

@@ -1,0 +1,203 @@
+
+[webservutv@papyrus /brage/app/bin]$ ./dspace import -h
+usage: ItemImport
+
+./dspace import -h
+
+
+ -a,--add                add items to DSpace
+ -b,--add-bte            add items to DSpace via
+                         Biblio-Transformation-Engine (BTE)
+ -c,--collection <arg>   destination collection(s) Handle or database ID
+ -d,--delete             delete items listed in mapfile
+ -e,--eperson <arg>      email of eperson doing importing
+ -h,--help               help
+ -i,--inputtype <arg>    input type in case of BTE import
+ -m,--mapfile <arg>      mapfile items in mapfile
+ -n,--notify             if sending submissions through the workflow, send
+                         notification emails
+ -p,--template           apply template
+ -q,--quiet              don't display metadata
+ -r,--replace            replace items in mapfile
+ -R,--resume             resume a failed import (add only)
+ -s,--source <arg>       source of items (directory)
+ -t,--test               test run - do not actually import items
+ -w,--workflow           send submission through collection's workflow
+ -z,--zip <arg>          name of zip file
+
+adding items:    ItemImport -a -e eperson -c collection -s sourcedir -m mapfile
+
+adding items from zip file:    ItemImport -a -e eperson -c collection -s sourcedir -z filename.zip -m mapfile
+replacing items: ItemImport -r -e eperson -c collection -s sourcedir -m mapfile
+deleting items:  ItemImport -d -e eperson -m mapfile
+If multiple collections are specified, the first collection will be the one that owns the item.
+
+
+----------------------------------------------------------------------------------------------
+
+Bora-import's handle:
+
+11250.1/38795035
+
+----------------------------------------------------------------------------------------------
+
+
+./dspace import -a -e brage@bibsys.no -c 11250.1/38795035 -s /brage/import/ -z boracmi.zip -m /brage/import/mapfile_BORA_1 -t
+
+
+
+Fikk feilmeldinga:
+
+[webservutv@papyrus /brage/app/bin]$ ./dspace import -a -e brage@bibsys.no -c 11250.1/38795035 -s /brage/import/ -z boracmi.zip -m /brage/import/mapfile_BORA_1 -t
+**Test Run** - not actually importing items.
+Destination collections:
+Owning  Collection: Bora-import
+java.io.FileNotFoundException: /brage/import/brage/import/boracmi.zip (Ingen slik fil eller filkatalog)
+        at java.util.zip.ZipFile.open(Native Method)
+        at java.util.zip.ZipFile.<init>(ZipFile.java:215)
+        at java.util.zip.ZipFile.<init>(ZipFile.java:145)
+        at java.util.zip.ZipFile.<init>(ZipFile.java:159)
+        at org.dspace.app.itemimport.ItemImport.unzip(ItemImport.java:2021)
+        at org.dspace.app.itemimport.ItemImport.unzip(ItemImport.java:1987)
+        at org.dspace.app.itemimport.ItemImport.unzip(ItemImport.java:2098)
+        at org.dspace.app.itemimport.ItemImport.main(ItemImport.java:490)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:606)
+        at org.dspace.app.launcher.ScriptLauncher.runOneCommand(ScriptLauncher.java:226)
+        at org.dspace.app.launcher.ScriptLauncher.main(ScriptLauncher.java:78)
+java.io.FileNotFoundException: /brage/import/brage/import/boracmi.zip (Ingen slik fil eller filkatalog)
+Deleting temporary zip directory: /brage/app/imports
+***End of Test Run***
+Started: 1489139264980
+Ended: 1489139265553
+Elapsed time: 0 secs (573 msecs)
+
+
+
+Prøver:
+
+./dspace import -a -e brage@bibsys.no -c 11250.1/38795035 -z boracmi.zip -m /brage/import/mapfile_BORA_1 -t
+
+
+Feilmelding:
+
+
+[webservutv@papyrus /brage/app/bin]$ ./dspace import -a -e brage@bibsys.no -c 11250.1/38795035 -z boracmi.zip -m /brage/import/mapfile_BORA_1 -t
+**Test Run** - not actually importing items.
+Error - a source directory containing items must be set
+ (run with -h flag for details)
+
+
+
+
+
+
+
+./dspace import -a -e brage@bibsys.no -c 11250.1/38795035 -s /brage/import -z boracmi.zip -m /brage/import/mapfile_BORA_1 -t
+
+Feilmelding:
+
+[webservutv@papyrus /brage/app/bin]$ ./dspace import -a -e brage@bibsys.no -c 11250.1/38795035 -s /brage/import -z boracmi.zip -m /brage/import/mapfile_BORA_1 -t
+**Test Run** - not actually importing items.
+Destination collections:
+Owning  Collection: Bora-import
+java.io.FileNotFoundException: /brage/import/brage/import/boracmi.zip (Ingen slik fil eller filkatalog)
+        at java.util.zip.ZipFile.open(Native Method)
+        at java.util.zip.ZipFile.<init>(ZipFile.java:215)
+        at java.util.zip.ZipFile.<init>(ZipFile.java:145)
+        at java.util.zip.ZipFile.<init>(ZipFile.java:159)
+        at org.dspace.app.itemimport.ItemImport.unzip(ItemImport.java:2021)
+        at org.dspace.app.itemimport.ItemImport.unzip(ItemImport.java:1987)
+        at org.dspace.app.itemimport.ItemImport.unzip(ItemImport.java:2098)
+        at org.dspace.app.itemimport.ItemImport.main(ItemImport.java:490)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:606)
+        at org.dspace.app.launcher.ScriptLauncher.runOneCommand(ScriptLauncher.java:226)
+        at org.dspace.app.launcher.ScriptLauncher.main(ScriptLauncher.java:78)
+java.io.FileNotFoundException: /brage/import/brage/import/boracmi.zip (Ingen slik fil eller filkatalog)
+Deleting temporary zip directory: /brage/app/imports
+***End of Test Run***
+Started: 1489139618601
+Ended: 1489139619204
+Elapsed time: 0 secs (603 msecs)
+
+
+
+
+
+./dspace import -a -e brage@bibsys.no -c 11250.1/38795035 -s ../../import -z boracmi.zip -m ../../import/mapfile_BORA_1 -t
+
+
+
+[webservutv@papyrus /brage/app/bin]$ ./dspace import -a -e brage@bibsys.no -c 11250.1/38795035 -s ../../import -z boracmi.zip -m ../../import/mapfile_BORA_1 -t
+**Test Run** - not actually importing items.
+Destination collections:
+Owning  Collection: Bora-import
+java.io.FileNotFoundException: ../../import/../../import/boracmi.zip (Ingen slik fil eller filkatalog)
+        at java.util.zip.ZipFile.open(Native Method)
+        at java.util.zip.ZipFile.<init>(ZipFile.java:215)
+        at java.util.zip.ZipFile.<init>(ZipFile.java:145)
+        at java.util.zip.ZipFile.<init>(ZipFile.java:159)
+        at org.dspace.app.itemimport.ItemImport.unzip(ItemImport.java:2021)
+        at org.dspace.app.itemimport.ItemImport.unzip(ItemImport.java:1987)
+        at org.dspace.app.itemimport.ItemImport.unzip(ItemImport.java:2098)
+        at org.dspace.app.itemimport.ItemImport.main(ItemImport.java:490)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:606)
+        at org.dspace.app.launcher.ScriptLauncher.runOneCommand(ScriptLauncher.java:226)
+        at org.dspace.app.launcher.ScriptLauncher.main(ScriptLauncher.java:78)
+java.io.FileNotFoundException: ../../import/../../import/boracmi.zip (Ingen slik fil eller filkatalog)
+Deleting temporary zip directory: /brage/app/imports
+***End of Test Run***
+Started: 1489146815113
+Ended: 1489146815725
+Elapsed time: 0 secs (612 msecs)
+
+
+
+
+
+
+./dspace import -a -e brage@bibsys.no -c 11250.1/38795035 -s /brage/import -z boracmi.zip -m /brage/import/mapfile_BORA_1 -t
+
+
+
+
+
+
+
+
+
+
+
+
+
+DETTE VIRKA NESTEN (FIKK FEIL HANDLE)
+
+[webservutv@papyrus /brage/import]$ /brage/app/bin/dspace import -a -e brage@bibsys.no -c 11250.1/38795035 -s . -z boracmi.zip -m mapfile_BORA_1 -t
+
+
+
+
+
+
+/brage/app/bin/dspace import -a -e brage@bibsys.no -c 11250.1/38795038 -s boracmi -m mapfile_BORA_1 -t
+/brage/app/bin/dspace import -a -e brage@bibsys.no -c 11250.1/38795038 -s boracmi -m mapfile_BORA_1
+
+/brage/app/bin/dspace import -a -e brage@bibsys.no -c 11250.1/38795038 -s boracmi -m mapfile_BORA_1 > /tmp/BORA.txt 2>&1
+
+
+
+
+
+
+
+
+
+

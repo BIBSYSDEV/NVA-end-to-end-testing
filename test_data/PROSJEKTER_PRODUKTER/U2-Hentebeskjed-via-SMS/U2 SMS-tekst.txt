@@ -1,0 +1,34 @@
+Subject: SMS-tekst
+Date: 24 Sep 2002 11:00:00 +0200
+From: "Ole Husby" <ole.husby@bibsys.no>
+To: "Siri Coldevin Vikan" <sv@bibsys.no>
+BCC: "Siri.Vikan@cygnus.bibsys.no" <Siri.Vikan@bibsys.no>
+
+Siri,
+
+forslag til tekst ved hentebeskjed for bestilt boklån:
+
+  [biblsign] * Bestilt bok "[tittel]" kan hentes ved
+  [biblsign] [utlånsted] innen 1 uke
+
+der det tas med så mange tegn av tittelen som det er
+plass til.
+
+Eksempel:
+
+  UBIT * Bestilt bok "Forslag til kravspesifikasjon for
+  hentebeskjeder til brukernes ..." kan hentes ved
+  UBIT dragv innen 1 uke
+
+For artikkelkopi skiftes ordet "bok" ut med "kopi".
+
+Ole
+
+--
+   ___________________________________________________
+
+    Ole Husby           phone: +47 73 59 29 59 (work)
+    ole.husby@bibsys.no        +47 91 17 40 86 (GSM)
+    BIBSYS                     +47 72 87 16 99 (home)
+    N-7491 Trondheim
+    N o r w a y                 http://www.bibsys.no/
