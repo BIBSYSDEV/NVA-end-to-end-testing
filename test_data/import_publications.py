@@ -30,8 +30,9 @@ user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
-request_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/doirequest'
-approve_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/update-doi-request'
+request_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
+approve_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket/{}'
+tickets_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/tickets'
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
@@ -367,22 +368,37 @@ def request_doi(identifier, username):
     request_bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
-        'identifier': identifier,
+        'type': 'DoiRequest',
         'message': 'Test'
     }
-    response = requests.post(request_doi_endpoint,
+    response = requests.post(request_doi_endpoint.format(STAGE, identifier),
                              json=doi_request_payload, headers=headers)
-
+    check_response(response, 200)
 
 def approve_doi(identifier):
     time.sleep(5)
     request_bearer_token = common.login(username=username_curator)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
-    doi_request_payload = {
-        'doiRequestStatus': 'APPROVED'
-    }
-    response = requests.post(f'{approve_doi_endpoint}/{identifier}',
-                             json=doi_request_payload, headers=headers)
+    tickets = requests.get(tickets_endpoint.format(STAGE, identifier), headers=headers).json()
+    ticket_id = ''
+    for ticket in tickets['tickets']:
+        if ticket['type'] == 'DoiRequest':
+            ticket_id = ticket['identifier']
+    if ticket_id != '':
+        doi_request_payload = {
+            'type': 'DoiRequest',
+            'status': 'Completed',
+        }
+        response = requests.put(approve_doi_endpoint.format(STAGE, identifier, ticket_id),
+                                json=doi_request_payload, headers=headers)
+        check_response(response, 202)
+    else:
+        print('DoiRequest not found in tickets')
+
+def check_response(response, status_code):
+    if response.status_code != status_code:
+        print(response.status_code)
+        print(response.json())
 
 def find_caller_identity():
     client = boto3.client('sts')
