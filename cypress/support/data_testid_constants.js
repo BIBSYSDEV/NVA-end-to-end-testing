@@ -282,20 +282,20 @@ export const filmTypes = {
   'Interactive film': 'InteractiveFilm',
   'AR/VR film': 'AugmentedVirtualRealityFilm',
   'Other': 'Other',
-}
+};
 
 export const filmAnnouncements = {
   'Broadcast': 'add-tv-web-streaming-button',
   'Cinematic release': 'add-festival-cinema-button',
   'Other release': 'add-other-button',
-}
+};
 
 export const musicAwards = {
   'Concert': dataTestId.registrationWizard.resourceType.addConcertShowButton,
   'Audio/visual publication': dataTestId.registrationWizard.resourceType.addAudioVideoPublicationButton,
   'Music score': dataTestId.registrationWizard.resourceType.addScoreManuscriptButton,
   'Other performance': dataTestId.registrationWizard.resourceType.addOtherButton,
-}
+};
 
 export const musicConcertFields = {
   'Place': dataTestId.registrationWizard.resourceType.concertPlace,
@@ -309,14 +309,14 @@ export const musicConcertProgramFields = {
   'Composer': dataTestId.registrationWizard.resourceType.concertProgramComposer,
   'Premiere': dataTestId.registrationWizard.resourceType.concertProgramIsPremiere,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
-}
+};
 
 export const musicAudioVideoFields = {
   'Format': dataTestId.registrationWizard.resourceType.artisticSubtype,
   'Publisher': dataTestId.registrationWizard.resourceType.audioVideoPublisher,
   'Catalogue number': dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber,
   'Track list': dataTestId.registrationWizard.resourceType.audioVideoAddTrack,
-}
+};
 
 export const musicAudioVideoTrackTypes = {
   'CD': 'CompactDisc',
@@ -325,13 +325,13 @@ export const musicAudioVideoTrackTypes = {
   'Download': 'DigitalFile',
   'LP/EP': 'Vinyl',
   'Other': 'Other',
-}
+};
 
 export const musicAudioVideoTrackFields = {
   'Title': dataTestId.registrationWizard.resourceType.audioVideoContentTitle,
   'Composer': dataTestId.registrationWizard.resourceType.audioVideoContentComposer,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
-}
+};
 
 export const musicScoreFields = {
   'Ensemble': dataTestId.registrationWizard.resourceType.scoreEnsemble,
@@ -340,19 +340,19 @@ export const musicScoreFields = {
   'Publisher': dataTestId.registrationWizard.resourceType.scorePublisher,
   'ISMN': dataTestId.registrationWizard.resourceType.scoreIsmn,
   'ISRC': dataTestId.registrationWizard.resourceType.scoreIsrc,
-}
+};
 
 export const musicOtherFields = {
   'Type': dataTestId.registrationWizard.resourceType.otherPerformanceType,
   'Place': dataTestId.registrationWizard.resourceType.otherPerformancePlace,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Other performance': dataTestId.registrationWizard.resourceType.otherPerfomanceAddWork,
-}
+};
 
 export const musicOtherWorksField = {
   'Title': dataTestId.registrationWizard.resourceType.otherPerformanceWorkTitle,
   'Composer': dataTestId.registrationWizard.resourceType.otherPerformanceWorkComposer,
-}
+};
 
 export const musicConcertDetails = {
   // 'Part of a series/tour': dataTestId.registrationWizard.resourceType.concertProgramTour,
@@ -360,7 +360,7 @@ export const musicConcertDetails = {
   'Date': dataTestId.registrationWizard.resourceType.concertDate,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
-}
+};
 
 export const competitionFields = {
   'Name': dataTestId.registrationWizard.resourceType.competitionName,
@@ -410,7 +410,7 @@ export const performingArtsWorkTypes = {
   'Theater/show': 'TheatricalProduction',
   'TV/film/radio': 'Broadcast',
   'Other': 'Other',
-}
+};
 
 export const presentationSubtypes = {
   'Conference lecture': 'publication-instance-type-ConferenceLecture',
@@ -485,7 +485,7 @@ export const contributorButtons = {
 };
 
 export const landingPageFields = {
-  'Title': dataTestId.registrationLandingPage.title,
+  'Title': dataTestId.registrationLandingPage.registrationSubtype,
   'Abstract': dataTestId.registrationLandingPage.abstractAccordion,
   'NPI': dataTestId.registrationLandingPage.npi,
   'Keywords': dataTestId.registrationLandingPage.keywords,
