@@ -37,7 +37,8 @@ When('they click the Edit Registration button', () => {
   cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
 });
 Then('the Registration is opened in the Wizard on the first tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
 });
 
 //   @511
@@ -47,9 +48,11 @@ Given('that a Creator navigates to the Landing Page for Registration for publish
   cy.login(userDraftDoi);
   cy.selectRegistration(publicRegistrationWithoutDoi, published);
 });
-And('they are the Owner of this Registration', () => {});
+And('they are the Owner of this Registration', () => { });
 And('they click the "Request a DOI" button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.requestDoiButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.requestDoiButton}]`).click();
 });
 Then('the "Request a DOI" dialog is opened', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.requestDoiModal}]`).should('be.visible');
@@ -58,7 +61,7 @@ And('they see fields for Message', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiMessageField}]`).should('be.visible');
 });
 And('they see a "Send Request" button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.sendDoiButton}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.taskPanel.sendDoiButton}]`).should('be.visible');
 });
 
 //   @1232
@@ -68,19 +71,20 @@ Given('that the Creator navigates to the Landing Page for Registration for publi
   cy.selectRegistration(publicRegistrationRequestingDoi, published);
 });
 And('open "Request a DOI" dialog', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.requestDoiButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
 });
 And('optional add a message to the Curator', () => {
   cy.get('textarea').first().type('Optional message');
 });
 When('the user click the Send Button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.sendDoiButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.sendDoiButton}]`).click();
 });
 Then('the Landing Page for Registration is displayed', () => {
   cy.location('pathname').should('contain', 'public');
 });
 And('the "Request a DOI" button is renamed to "DOI pending" and is disabled', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.sendDoiButton}]`).should('not.exist');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.sendDoiButton}]`).should('not.exist');
 });
 And('the request is listed in User Worklist', () => {
   cy.get(`[data-testid=${dataTestId.header.messagesLink}]`).click();
@@ -107,13 +111,11 @@ And('the Registration has no DOI', () => {
   cy.get('[data-testid=doi-presentation]').should('not.exist');
 });
 When('they look at the Status Bar', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`).as('status_bar');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
 });
 Then('they see buttons for Draft a DOI and Edit Registration', () => {
-  cy.get('@status_bar').within((statusBar) => {
-    cy.get(`[data-testid=${dataTestId.registrationLandingPage.reserveDoiButton}]`).should('be.visible');
-    cy.get(`[data-testid=${dataTestId.registrationLandingPage.reserveDoiButton}]`).should('be.visible');
-  });
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton}]`).should('be.visible');
 });
 
 //   @1234
@@ -122,12 +124,12 @@ Given('that the Owner View Landing Page for Registration for unpublished Registr
   cy.login(userDraftDoi);
   cy.selectRegistration(registrationTitle, unpublished);
 });
-And('they are the Owner of the Registration', () => {});
+And('they are the Owner of the Registration', () => { });
 When('they click the "Draft a DOI" button', () => {
   cy.get('[data-testid=doi-presentation]').should('not.exist');
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.reserveDoiButton}]`).click();
 });
-Then('the Landing Page for Registration is displayed', () => {});
+Then('the Landing Page for Registration is displayed', () => { });
 And('the "Draft a DOI" button is renamed to "DOI pending" and is disabled', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.reserveDoiButton}]`).should('not.exist');
 });
@@ -163,7 +165,7 @@ And('the Registration has a Draft DOI', () => {
 When('the Owner clicks the publish button', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.publishButton}]`).click();
 });
-Then('the Landing Page for Registration is displayed', () => {});
+Then('the Landing Page for Registration is displayed', () => { });
 And('the "Request a DOI" button is still named "DOI pending" and is disabled', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.reserveDoiButton}]`).should('not.exist');
 });
@@ -205,9 +207,9 @@ When('they click "Go to Registration"', () => {
 Then('they see the Registration is opened in the Wizard', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`).should('be.visible');
 });
-And('they see the Submission tab', () => {});
-And('they see the Create DOI button is enabled', () => {});
-And('they see the Decline DOI button is enabled', () => {});
+And('they see the Submission tab', () => { });
+And('they see the Create DOI button is enabled', () => { });
+And('they see the Decline DOI button is enabled', () => { });
 
 //   @512
 //   Scenario: A Curator approves a DOI request
@@ -234,9 +236,9 @@ And('the Request DOI item is marked as Approved in their Worklist', () => {
 
 //   @1244
 //   Scenario: A Curator declines a DOI request
-Given('that a Curator enters a decline comment on a DOI request', () => {});
-When('they click Save', () => {});
-Then('the DOI request is marked as "Declined"', () => {});
-And('the request in the User\'s Worklist is updated to "Declined"', () => {});
-And("the request is removed from the Curator's Worklist", () => {});
-And('they see their Worklist', () => {});
+Given('that a Curator enters a decline comment on a DOI request', () => { });
+When('they click Save', () => { });
+Then('the DOI request is marked as "Declined"', () => { });
+And('the request in the User\'s Worklist is updated to "Declined"', () => { });
+And("the request is removed from the Curator's Worklist", () => { });
+And('they see their Worklist', () => { });

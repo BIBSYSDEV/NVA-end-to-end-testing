@@ -31,7 +31,7 @@ And('the Registration has a DOI', () => {
 When('they see the Status Bar', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`).should('be.visible');
 });
-Then('they see that the {string} button is not visible', (button) => {
+Then('they see that the {string} button is not visible', (button) => { 
   cy.get(`[data-testid=${landingPageButtons[button]}]`).should('not.exist');
 });
 // Examples:
