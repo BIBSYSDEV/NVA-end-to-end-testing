@@ -26,10 +26,11 @@ And('the Resource has no DOI', () => {
   cy.get('[data-testid=doi-presentation]').should('not.exist');
 });
 When('they see the Status Bar', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`);
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
 });
 Then('they see buttons for "Request a DOI" and "Edit Resource"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.requestDoiButton}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.requestDoiButton}]`).should('be.visible');
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.editButton}]`).should('be.visible');
 });
 
@@ -38,8 +39,7 @@ When('the Creator navigates to the Landing Page', () => {
   cy.login(userWithAuthor);
   cy.openMyRegistrations();
 });
-And('the Resource has Validation Errors', () => {});
-And('the Resource has Validation Errors', () => {});
+And('the Resource has Validation Errors', () => { });
 And('the Resource is a draft', () => {
   cy.get('[data-testid^=registration-title]')
     .filter(':contains("Registration with validation error")') // need to use text search to find correct registration
@@ -52,5 +52,5 @@ Then('they see a List of all Validation Errors for the Resource', () => {
   cy.get('[data-testid=error-list-div]').should('be.visible');
 });
 And('they see a "Edit registration" button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.backToWizard}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.backToWizard}]`).should('be.visible');
 });
