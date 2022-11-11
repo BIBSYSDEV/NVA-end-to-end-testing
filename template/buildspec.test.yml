@@ -7,8 +7,6 @@ env:
     CYPRESS_AWS_CLIENT_ID: CognitoUserPoolAppClientId
     CYPRESS_REACT_APP_URL: /NVA/ApplicationDomain
     CYPRESS_REACT_APP_API_HOST: /NVA/ApiDomain
-  variables:
-    ROLE_ARN: arn:aws:iam::884807050265:role/master-pipelines-NvaFrontendP-CodeBuildServiceRole-1GIYP92X9LHEX
 
 batch:
   fast-fail: false
@@ -17,6 +15,7 @@ batch:
       env:
         variables:
           image: public.ecr.aws/cypress-io/cypress/browsers:node14.17.0-chrome88-ff89
+          ROLE_ARN: arn:aws:iam::884807050265:role/master-pipelines-NvaFrontendP-CodeBuildServiceRole-1GIYP92X9LHEX
 
 phases:
   install:
