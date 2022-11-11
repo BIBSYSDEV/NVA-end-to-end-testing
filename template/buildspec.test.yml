@@ -27,12 +27,13 @@ phases:
       - wget https://github.com/BIBSYSDEV/NVA-end-to-end-testing/archive/refs/heads/test-deploy.zip
       - unzip test-deploy.zip
       - cd NVA-end-to-end-testing-test-deploy
-      - npm install
       - aws sts assume-role --role-arn $ROLE_ARN --role-session-name test > Credentials
+      - echo $ROLE_ARN
       - export CYPRESS_AWS_ACCESS_KEY_ID=$(cat Credentials | jq -r '.Credentials.AccessKeyId')
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')
       - export CYPRESS_AWS_SESSION_TOKEN=$(cat Credentials | jq -r '.Credentials.SessionToken')
       - export CYPRESS_AWS_REGION=${AWS_REGION}
+      - npm install
   build:
     commands:
       - npx cypress run --browser chrome  --record --key e32a110d-15d4-4202-a5a0-2ee10238a66c
