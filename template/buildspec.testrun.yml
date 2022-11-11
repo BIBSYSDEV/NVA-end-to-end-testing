@@ -14,8 +14,6 @@ env:
     CYPRESS_DASHBOARD_KEY: 'E2ECypressDashboardKey:CypressDashboardKey'
   variables:
     image: public.ecr.aws/cypress-io/cypress/browsers:node14.17.0-chrome88-ff89
-    ROLE_ARN: arn:aws:iam::884807050265:role/master-pipelines-NvaFrontendP-CodeBuildServiceRole-1GIYP92X9LHEX
-    TESTREPORTS_BUCKET: nva-testreport-884807050265
 
 phases:
   install:
