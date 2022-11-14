@@ -16,6 +16,8 @@ phases:
       python: 3.x
   pre_build:
     commands:
+      - export ACCESS_KEY_ID=$(aws configure get aws_access_key_id)
+      - echo $ACCESS_KEY_ID
       - aws sts assume-role --role-arn $ROLE_ARN --role-session-name test > Credentials
       - export CYPRESS_AWS_ACCESS_KEY_ID=$(cat Credentials | jq -r '.Credentials.AccessKeyId')
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')

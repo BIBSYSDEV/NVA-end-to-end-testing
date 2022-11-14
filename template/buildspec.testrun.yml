@@ -21,8 +21,6 @@ phases:
       nodejs: latest
   pre_build:
     commands:
-      - echo $CYPRESS_DASHBOARD_KEY
-      - echo $CODEBUILD_INITIATOR
       - aws sts assume-role --role-arn $ROLE_ARN --role-session-name test > Credentials
       - export CYPRESS_AWS_ACCESS_KEY_ID=$(cat Credentials | jq -r '.Credentials.AccessKeyId')
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')
