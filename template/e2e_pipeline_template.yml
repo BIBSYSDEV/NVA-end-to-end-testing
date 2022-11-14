@@ -1,0 +1,282 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Description: >
+  Pipeline for e2e-testing
+
+Parameters:
+  GitHubOAuthToken:
+    Description: OAuth token used by AWS CodePipeline to connect to GitHub
+    NoEcho: true
+    Type: String
+    Default: '{{resolve:secretsmanager:githubtoken:SecretString}}'
+  GitHubOwner:
+    Description: GitHub username owning the repo
+    Type: String
+    Default: BIBSYSDEV
+  GitHubRepo:
+    Description: GitHub repo name
+    Type: String
+    Default: NVA-end-to-end-testing
+  GitHubBranch:
+    Description: GitHub repo branch name. It defaults to main if not specified.
+    Type: String
+    Default: test-deploy
+Resources:
+  TestReportBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      AccessControl: PublicRead
+      BucketName: !Sub 'nva-testreport2-${AWS::AccountId}'
+      WebsiteConfiguration:
+        IndexDocument: cucumber_report.html
+        ErrorDocument: cucumber_report.html
+  CodeBuildE2ETestDataProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      ServiceRole: !GetAtt CodeBuildServiceRole.Arn
+      Artifacts:
+        Type: CODEPIPELINE
+      Environment:
+        ComputeType: BUILD_GENERAL1_LARGE
+        Image: aws/codebuild/standard:5.0
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: S3_BUCKET
+            Type: PLAINTEXT
+            Value: !Ref ArtifactStoreBucket
+          - Name: ROLE_ARN
+            Type: PLAINTEXT
+            Value: !GetAtt CodeBuildServiceRole.Arn
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: template/buildspec.testdata.yml
+  CodeBuildE2ETestingProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      ServiceRole: !GetAtt CodeBuildServiceRole.Arn
+      BuildBatchConfig:
+        BatchReportMode: REPORT_AGGREGATED_BATCH
+        CombineArtifacts: true
+        ServiceRole: !GetAtt CodeBuildServiceRole.Arn
+      Artifacts:
+        Type: CODEPIPELINE
+      Environment:
+        ComputeType: BUILD_GENERAL1_LARGE
+        Image: aws/codebuild/standard:5.0
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: TESTREPORTS_BUCKET
+            Type: PLAINTEXT
+            Value: !Ref TestReportBucket
+          - Name: S3_BUCKET
+            Type: PLAINTEXT
+            Value: !Ref ArtifactStoreBucket
+          - Name: CYPRESS_REMOTE
+            Type: PLAINTEXT
+            Value: remote
+          - Name: ROLE_ARN
+            Type: PLAINTEXT
+            Value: !GetAtt CodeBuildServiceRole.Arn
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: template/buildspec.test_parallel.yml
+  Pipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      ArtifactStore:
+        Type: S3
+        Location:
+          Ref: ArtifactStoreBucket
+      RoleArn: !GetAtt PipelineRole.Arn
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: GitHubSource
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Provider: GitHub
+                Version: '1'
+              Configuration:
+                Owner: !Ref GitHubOwner
+                OAuthToken: !Ref GitHubOAuthToken
+                Repo: !Ref GitHubRepo
+                Branch: !Ref GitHubBranch
+                PollForSourceChanges: true
+              OutputArtifacts:
+                - Name: SourceArtifact
+              RunOrder: 1
+        - Name: E2ETestDataCreation
+          Actions:
+            - Name: E2ETestDataCreation
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: '1'
+              Configuration:
+                ProjectName: !GetAtt CodeBuildE2ETestDataProject.Arn
+              InputArtifacts:
+                - Name: SourceArtifact
+              OutputArtifacts:
+                - Name: TestDataArtifact
+              RunOrder: 1
+        - Name: E2ETesting
+          Actions:
+            - Name: E2ETesting
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: '1'
+              Configuration:
+                ProjectName: !GetAtt CodeBuildE2ETestingProject.Arn
+                BatchEnabled: true
+              InputArtifacts:
+                - Name: SourceArtifact
+              OutputArtifacts:
+                - Name: TestArtifact
+              RunOrder: 1
+
+  PipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: ['sts:AssumeRole']
+            Effect: Allow
+            Principal:
+              Service: [codepipeline.amazonaws.com]
+        Version: '2012-10-17'
+      Path: /
+      Policies:
+        - PolicyName: CodePipelineAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                  - 's3:ListBucket'
+                  - 's3:GetBucketVersioning'
+                  - 's3:PutObject'
+                  - 's3:GetObject'
+                  - 's3:GetObjectVersion'
+                Effect: Allow
+                Resource:
+                  - !Sub ${ArtifactStoreBucket.Arn}/*
+              - Action:
+                  - 'codebuild:StartBuild'
+                  - 'codebuild:StartBuildBatch'
+                  - 'codebuild:BatchGetBuilds'
+                  - 'codebuild:BatchGetBuildBatches'
+                Effect: Allow
+                Resource:
+                  - !GetAtt CodeBuildE2ETestDataProject.Arn
+                  - !GetAtt CodeBuildE2ETestingProject.Arn
+              - Action:
+                  - 'ssm:getParameter'
+                  - 'ssm:getParameters'
+                Effect: Allow
+                Resource: '*'
+
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Action:
+              - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service:
+                - codebuild.amazonaws.com
+      Path: /
+      Policies:
+        - PolicyName: CodeBuildLogs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource:
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/*'
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/*:*'
+        - PolicyName: BucketPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 's3:GetObject'
+                  - 's3:GetObjectVersion'
+                  - 's3:PutObject'
+                  - 's3:DeleteObject'
+                  - 's3:ListBucket'
+                Resource:
+                  - !Sub 'arn:aws:s3:::${ArtifactStoreBucket}/*'
+                  - !Sub 'arn:aws:s3:::${ArtifactStoreBucket}/'
+                  - !Sub 'arn:aws:s3:::${TestReportBucket}/*'
+        - PolicyName: secretsPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'ssm:GetParameters'
+                  - 'secretsmanager:GetSecretValue'
+                Resource: '*'
+        - PolicyName: e2eTest
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'cognito-idp:AdminGetUser'
+                  - 'cognito-idp:AdminDeleteUser'
+                  - 'cognito-idp:AdminSetUserPassword'
+                  - 'cognito-idp:AdminInitiateAuth'
+                  - 'cognito-idp:AdminCreateUser'
+                  - 'cognito-idp:ListUsers'
+                Resource:
+                  - '*'
+              - Effect: Allow
+                Action:
+                  - 'sts:AssumeRole'
+                Resource:
+                  - '*'
+              - Effect: Allow
+                Action:
+                  - 'ssm:getParameter'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'secretsmanager:GetSecretValue'
+                  - 'secretsmanager:GetResourcePolicy'
+                  - 'secretsmanager:DescribeSecret'
+                  - 'secretsmanager:ListSecretVersionIds'
+                Resource: 'arn:aws:secretsmanager:eu-west-1:884807050265:secret:E2ECypressDashboardKey-nwJlda'
+              - Effect: Allow
+                Action:
+                  - 'dynamodb:Scan'
+                  - 'dynamodb:Query'
+                  - 'dynamodb:PutItem'
+                  - 'dynamodb:DeleteItem'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'codebuild:StartBuild'
+                  - 'codebuild:StartBuildBatch'
+                  - 'codebuild:BatchGetBuildBatches'
+                  - 'codebuild:StopBuild'
+                  - 'codebuild:RetryBuild'
+                Resource: '*'
+
+  ArtifactStoreBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
