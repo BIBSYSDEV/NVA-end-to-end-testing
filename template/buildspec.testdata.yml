@@ -16,6 +16,7 @@ phases:
       python: 3.x
   pre_build:
     commands:
+      - aws configure get aws_access_key_id
       - export ACCESS_KEY_ID=$(aws configure get aws_access_key_id)
       - echo $ACCESS_KEY_ID
       - aws sts assume-role --role-arn $ROLE_ARN --role-session-name test > Credentials
