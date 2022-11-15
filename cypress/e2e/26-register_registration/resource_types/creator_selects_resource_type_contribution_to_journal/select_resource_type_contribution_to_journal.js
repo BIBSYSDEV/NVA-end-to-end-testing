@@ -1,4 +1,4 @@
-import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { And, Before, Then } from 'cypress-cucumber-preprocessor/steps';
 import { userResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { journalSubtypes, journalFields, journalContentTypes } from '../../../../support/data_testid_constants';
@@ -13,12 +13,12 @@ Before(() => {
 })
 
 // Common steps
-Given('Creator begins registering a Registration in the Wizard with a Link', () => {
-  cy.login(userResourceTypeJournal);
-  cy.startWizardWithLink(doiLink);
-  cy.wrap(true).as('link');
-});
-Given('Creator begins registering a Registration in the Wizard with a File', () => {
+// Given('Creator begins registering a Registration in the Wizard', () => {
+//   cy.login(userResourceTypeJournal);
+//   cy.startWizardWithLink(doiLink);
+//   cy.wrap(true).as('link');
+// });
+Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(userResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
 });
@@ -44,6 +44,15 @@ And('they enter an invalid value in fields:', (dataTable) => {
     cy.get(`[data-testid=${journalFields[field]}]`).type('{selectall}{del}invalid');
   });
 });
+
+And('the number for "Pages from" is greater than the number for "Pages to"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`).type('10');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}]`).type('9');
+})
+And('they enter numbers for "Pages from" and "Pages to"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`).type('10');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}]`).type('9');
+})
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('[data-testid^=snackbar]').should('not.exist');
   const fields = { ...journalFields }
@@ -59,6 +68,18 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
     });
   });
 });
+And('they can see an error messages for field "Pages from"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`)
+    .within(() => {
+      cy.get('p').should('have.class', 'Mui-error');
+    })
+})
+And('they can see an error message for fields "Pages from"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`)
+    .within(() => {
+      cy.get('p').should('have.class', 'Mui-error');
+    })
+})
 And('they can see "Invalid format" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${journalFields[field[0]]}]`).within(() => {
