@@ -496,7 +496,7 @@ export const landingPageFields = {
   'Fields corresponding to subtype': dataTestId.registrationLandingPage.subtypeFields,
   'Contributors': dataTestId.registrationLandingPage.contributors,
   'Files': dataTestId.registrationLandingPage.filesAccordion,
-  'DOI link': dataTestId.registrationLandingPage.doiLink,
+  'DOI link': dataTestId.registrationLandingPage.doiOriginalLink,
   'License': dataTestId.registrationLandingPage.license,
 };
 

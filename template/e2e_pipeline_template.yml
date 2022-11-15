@@ -47,7 +47,7 @@ Resources:
             Value: !Ref ArtifactStoreBucket
           - Name: ROLE_ARN
             Type: PLAINTEXT
-            Value: !GetAtt CodeBuildServiceRole.Arn
+            Value: !GetAtt TestrunnerRole.Arn
       Source:
         Type: CODEPIPELINE
         BuildSpec: template/buildspec.testdata.yml
@@ -77,7 +77,7 @@ Resources:
             Value: remote
           - Name: ROLE_ARN
             Type: PLAINTEXT
-            Value: !GetAtt CodeBuildServiceRole.Arn
+            Value: !GetAtt TestrunnerRole.Arn
       Source:
         Type: CODEPIPELINE
         BuildSpec: template/buildspec.test_parallel.yml
@@ -135,8 +135,6 @@ Resources:
                 BatchEnabled: true
               InputArtifacts:
                 - Name: SourceArtifact
-              OutputArtifacts:
-                - Name: TestArtifact
               RunOrder: 1
 
   PipelineRole:
@@ -247,7 +245,7 @@ Resources:
                 Action:
                   - 'sts:AssumeRole'
                 Resource:
-                  - '*'
+                  - 'arn:aws:iam::884807050265:role/e2e-testing-CodeBuildServiceRole-YJMJ03VHJ0CB'
               - Effect: Allow
                 Action:
                   - 'ssm:getParameter'
@@ -273,6 +271,33 @@ Resources:
                   - 'codebuild:BatchGetBuildBatches'
                   - 'codebuild:StopBuild'
                   - 'codebuild:RetryBuild'
+                Resource: '*'
+
+  TestrunnerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Action:
+              - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              AWS: !GetAtt CodeBuildServiceRole.Arn
+      Path: /
+      Policies:
+        - PolicyName: CodeBuildCognito
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                - 'cognito-idp:AdminGetUser'
+                - 'cognito-idp:AdminDeleteUser'
+                - 'cognito-idp:AdminSetUserPassword'
+                - 'cognito-idp:AdminInitiateAuth'
+                - 'cognito-idp:AdminCreateUser'
+                - 'cognito-idp:ListUsers'
                 Resource: '*'
 
   ArtifactStoreBucket:
