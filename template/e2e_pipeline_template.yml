@@ -31,7 +31,7 @@ Resources:
     Type: 'AWS::S3::Bucket'
     Properties:
       AccessControl: PublicRead
-      BucketName: !Sub 'nva-testreport2-${AWS::AccountId}'
+      BucketName: !Sub 'nva-testreport-new-${AWS::AccountId}'
       WebsiteConfiguration:
         IndexDocument: cucumber_report.html
         ErrorDocument: cucumber_report.html
