@@ -22,6 +22,10 @@ Parameters:
     Description: GitHub repo branch name. It defaults to main if not specified.
     Type: String
     Default: test-deploy
+  CypressBaseUrl:
+    Description: Base url for application under testing
+    Type: String
+    Default: dev.nva.sikt.no
 Resources:
   TestReportBucket:
     Type: 'AWS::S3::Bucket'
@@ -56,8 +60,7 @@ Resources:
     Properties:
       ServiceRole: !GetAtt CodeBuildServiceRole.Arn
       BuildBatchConfig:
-        BatchReportMode: REPORT_AGGREGATED_BATCH
-        CombineArtifacts: true
+        CombineArtifacts: false
         ServiceRole: !GetAtt CodeBuildServiceRole.Arn
       Artifacts:
         Type: CODEPIPELINE
@@ -78,6 +81,9 @@ Resources:
           - Name: ROLE_ARN
             Type: PLAINTEXT
             Value: !GetAtt TestrunnerRole.Arn
+          - Name: CYPRESS_baseUrl
+            Type: PLAINTEXT
+            Value: !Ref CypressBaseUrl
       Source:
         Type: CODEPIPELINE
         BuildSpec: template/buildspec.test_parallel.yml

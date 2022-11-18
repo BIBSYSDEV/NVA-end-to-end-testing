@@ -3,24 +3,37 @@ import { USER, NAME } from '../../support/constants';
 import { createUser } from '../../support/users';
 
 Before(() => {
-  cy.loginCognito(USER).then((idToken) => cy.wrap(idToken).as('idToken'));
-  cy.visit('/');
+  cy.loginCognito(USER);
+  cy.visit(`/`, {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVUSER'),
+    },
+  });
 
   cy.get('[data-testid=create-author-button]').click();
   cy.get('[data-testid=modal_next]').click();
   cy.get('[data-testid=skip-connect-to-orcid]').click();
 
   cy.setLanguage();
-  cy.visit('/');
+  cy.visit(`/`, {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVUSER'),
+    },
+  });
 });
 
-Given('that the user is logged in', () => {
-  cy.get('@idToken');
-});
+Given('that the user is logged in', () => {});
 And('they have no NVA role', () => {});
 
 When('they look at any page in NVA', () => {
-  cy.visit('/');
+  cy.visit(`/`, {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVUSER'),
+    },
+  });
 });
 
 Then('they see a menu containing', (tableData) => {

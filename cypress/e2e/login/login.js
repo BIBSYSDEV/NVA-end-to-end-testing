@@ -3,14 +3,15 @@ import { TEST_USER, TEST_USER_NAME } from '../../support/constants';
 import { dataTestId } from '../../support/dataTestIds';
 
 Given('A user have logged in using Cognito', () => {
-  cy.loginCognito(TEST_USER).then((idToken) => {
-    cy.wrap(idToken).as('idToken');
-  });
+  cy.loginCognito(TEST_USER);
 });
 
 When('the user navigates to the front page', () => {
-  cy.get('@idToken').then(() => {
-    cy.visit('/');
+  cy.visit(`/`, {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVUSER'),
+    },
   });
 });
 

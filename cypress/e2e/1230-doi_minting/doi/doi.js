@@ -94,7 +94,12 @@ And('the request is listed in Curator Worklist', () => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get(`[data-testid=${dataTestId.header.logOutLink}]`).click();
   cy.login(userCuratorDraftDoi);
-  cy.visit('/');
+  cy.visit(`/`, {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVUSER'),
+    },
+  });
   cy.get(`[data-testid=${dataTestId.header.worklistLink}]`).click();
   cy.get('[data-testid^=message-title]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
 });
