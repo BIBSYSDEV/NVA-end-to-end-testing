@@ -110,13 +110,13 @@ export const resourceTypes = {
 };
 
 export const journalSubtypes = {
-  'Journal article': 'publication-instance-type-JournalArticle',
-  'Commentary': 'publication-instance-type-JournalLetter',
-  'Book review': 'publication-instance-type-JournalReview',
-  'Editorial': 'publication-instance-type-JournalLeader',
-  'Corrigendum': 'publication-instance-type-JournalCorrigendum',
-  'Journal issue': 'publication-instance-type-JournalIssue',
-  'Conference abstract': 'publication-instance-type-ConferenceAbstract',
+  'Journal article': 'publication-resource-type-chip-JournalArticle',
+  'Commentary': 'publication-resource-type-chip-JournalLetter',
+  'Book review': 'publication-resource-type-chip-JournalReview',
+  'Editorial': 'publication-resource-type-chip-JournalLeader',
+  'Corrigendum': 'publication-resource-type-chip-JournalCorrigendum',
+  'Journal issue': 'publication-resource-type-chip-JournalIssue',
+  'Conference abstract': 'publication-resource-type-chip-ConferenceAbstract',
 };
 
 export const journalFields = {
@@ -146,8 +146,8 @@ export const journalContentTypes = {
 };
 
 export const bookSubtypes = {
-  'Monograph': 'publication-instance-type-BookMonograph',
-  'Anthology': 'publication-instance-type-BookAnthology',
+  'Monograph': 'publication-resource-type-chip-BookMonograph',
+  'Anthology': 'publication-resource-type-chip-BookAnthology',
 };
 
 export const bookFields = {
@@ -169,11 +169,11 @@ export const contentType = {
 };
 
 export const reportSubtypes = {
-  'Research report': 'publication-instance-type-ReportResearch',
-  'Policy report': 'publication-instance-type-ReportPolicy',
-  'Working paper': 'publication-instance-type-ReportWorkingPaper',
-  'Abstract collection': 'publication-instance-type-ReportBookOfAbstract',
-  'Other type of report': 'publication-instance-type-ReportBasic',
+  'Research report': 'publication-resource-type-chip-ReportResearch',
+  'Policy report': 'publication-resource-type-chip-ReportPolicy',
+  'Working paper': 'publication-resource-type-chip-ReportWorkingPaper',
+  'Abstract collection': 'publication-resource-type-chip-ReportBookOfAbstract',
+  'Other type of report': 'publication-resource-type-chip-ReportBasic',
 };
 
 export const reportFields = {
@@ -185,11 +185,11 @@ export const reportFields = {
 };
 
 export const studentThesisSubtypes = {
-  'Bachelor thesis': 'publication-instance-type-DegreeBachelor',
-  'Master thesis': 'publication-instance-type-DegreeMaster',
-  'Doctoral thesis': 'publication-instance-type-DegreePhd',
-  'Licentiate thesis': 'publication-instance-type-DegreeLicentiate',
-  'Other student thesis': 'publication-instance-type-OtherStudentWork',
+  'Bachelor thesis': 'publication-resource-type-chip-DegreeBachelor',
+  'Master thesis': 'publication-resource-type-chip-DegreeMaster',
+  'Doctoral thesis': 'publication-resource-type-chip-DegreePhd',
+  'Licentiate thesis': 'publication-resource-type-chip-DegreeLicentiate',
+  'Other student thesis': 'publication-resource-type-chip-OtherStudentWork',
 };
 
 export const studentThesisFields = {
@@ -202,10 +202,10 @@ export const studentThesisFields = {
 };
 
 export const chapterSubtypes = {
-  'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
-  'Chapter in Anthology': 'publication-instance-type-ChapterArticle',
-  'Chapter in Report': 'publication-instance-type-ChapterInReport',
-  'Conference abstract': 'publication-instance-type-ChapterConferenceAbstract',
+  'Chapter of Anthology': 'publication-resource-type-chip-ChapterArticle',
+  'Chapter in Anthology': 'publication-resource-type-chip-ChapterArticle',
+  'Chapter in Report': 'publication-resource-type-chip-ChapterInReport',
+  'Conference abstract': 'publication-resource-type-chip-ChapterConferenceAbstract',
 };
 
 export const chapterFields = {
@@ -237,13 +237,13 @@ export const chapterContentTypes = {
 };
 
 export const artisticSubtypes = {
-  'Artistic result - Design': 'publication-instance-type-ArtisticDesign',
-  'Artistic result - Architecture': 'publication-instance-type-Architecture',
-  'Artistic result - Film': 'publication-instance-type-MovingPicture',
-  'Artistic result - Music': 'publication-instance-type-MusicPerformance',
-  'Artistic result - Performing art': 'publication-instance-type-PerformingArts',
-  'Artistic result - Writing art': 'publication-instance-type-WritingArt',
-  'Artistic result - Visual art': 'publication-instance-type-VisualArt',
+  'Artistic result - Design': 'publication-resource-type-chip-ArtisticDesign',
+  'Artistic result - Architecture': 'publication-resource-type-chip-Architecture',
+  'Artistic result - Film': 'publication-resource-type-chip-MovingPicture',
+  'Artistic result - Music': 'publication-resource-type-chip-MusicPerformance',
+  'Artistic result - Performing art': 'publication-resource-type-chip-PerformingArts',
+  'Artistic result - Writing art': 'publication-resource-type-chip-WritingArt',
+  'Artistic result - Visual art': 'publication-resource-type-chip-VisualArt',
 };
 
 export const architectureTypes = {
@@ -413,10 +413,10 @@ export const performingArtsWorkTypes = {
 };
 
 export const presentationSubtypes = {
-  'Conference lecture': 'publication-instance-type-ConferenceLecture',
-  'Conference poster': 'publication-instance-type-ConferencePoster',
-  'Lecture': 'publication-instance-type-Lecture',
-  'Other presentation': 'publication-instance-type-OtherPresentation',
+  'Conference lecture': 'publication-resource-type-chip-ConferenceLecture',
+  'Conference poster': 'publication-resource-type-chip-ConferencePoster',
+  'Lecture': 'publication-resource-type-chip-Lecture',
+  'Other presentation': 'publication-resource-type-chip-OtherPresentation',
 };
 
 export const persentationFields = {
@@ -429,12 +429,12 @@ export const persentationFields = {
 };
 
 export const mediaSubtypes = {
-  'Feature Article': 'publication-instance-type-MediaFeatureArticle',
-  'Reader Opinion': 'publication-instance-type-MediaReaderOpinion',
-  'Interview': 'publication-instance-type-MediaInterview',
-  'Blog post': 'publication-instance-type-MediaBlogPost',
-  'Podcast': 'publication-instance-type-MediaPodcast',
-  'Participation in Radio or TV': 'publication-instance-type-MediaParticipationInRadioOrTv',
+  'Feature Article': 'publication-resource-type-chip-MediaFeatureArticle',
+  'Reader Opinion': 'publication-resource-type-chip-MediaReaderOpinion',
+  'Interview': 'publication-resource-type-chip-MediaInterview',
+  'Blog post': 'publication-resource-type-chip-MediaBlogPost',
+  'Podcast': 'publication-resource-type-chip-MediaPodcast',
+  'Participation in Radio or TV': 'publication-resource-type-chip-MediaParticipationInRadioOrTv',
 };
 
 export const mediaMediumTypes = {

@@ -18,7 +18,7 @@ When('they navigate to the Resource Type tab', () => {
 //   @453
 //   Scenario: Creator navigates to Resource Type tab
 Then('they see the field for Type', () => {
-  cy.get('[data-testid=publication-context-type]').should('be.visible');
+  cy.get('[data-testid^=publication-resource]').should('be.visible');
 });
 And('they see the tab Description is clickable', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.enabled');

@@ -16,9 +16,9 @@ Before(() => {
 
 // Common steps
 Given('Creator navigates to the Resource Type tab and selects Resource type "Student thesis"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
+  cy.get('[data-testid^=publication-resource-type-chip-Degree]').first().click();
   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 Then('they see fields:', (dataTable) => {
@@ -32,12 +32,9 @@ Given('Creator navigates to Resource Type tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
 });
 When('they select the Resource type "Student thesis"', () => {
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
-  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+  cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
 });
 Then('they see a list of subtypes:', (dataTable) => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.testDataTestidList(dataTable, studentThesisSubtypes);
 });
 // | Bachelor thesis      |
@@ -63,11 +60,9 @@ When('they select the Subtype {string}', (subtype) => {
 // Scenario: Creator sees that fields are validated for Resource subtypes for "Student thesis"
 Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
+  cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
+  cy.get('[data-testid=publication-resource-type-chip-DegreeBachelor]').click();
   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-instance-type-DegreeBachelor]').click({ force: true });
 });
 When('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
@@ -88,6 +83,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 // @2776
 // Scenario: Creator sees series fields for Resource subtypes "Doctoral thesis"
 When('they select the Subtype "Doctoral thesis" and "Licentiate thesis"', () => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
+  cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
   cy.get(`[data-testid=${studentThesisSubtypes['Doctoral thesis']}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });

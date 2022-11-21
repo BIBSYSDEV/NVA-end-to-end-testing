@@ -17,10 +17,7 @@ Before(() => {
   cy.login(userContributor);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-instance-type-BookMonograph]').click();
+  cy.get('[data-testid=publication-resource-type-chip-BookMonograph]').click();
 });
 
 // Feature: Creator navigates to Contributors tab
@@ -99,7 +96,7 @@ When('the Registration has Registration Type {string}', (type) => {
 });
 And('the Registration has Registration Subtype {string}', (subtype) => {
   cy.get('[data-testid=publication-instance-type]').click();
-  cy.get(`[data-testid=publication-instance-type-${subtype}]`).click();
+  cy.get(`[data-testid=publication-resource-type-chip-${subtype}]`).click();
   cy.get('@book').then((isBook) => {
     if (isBook && subtype !== 'BookMonograph') {
       cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
@@ -177,7 +174,7 @@ And('they select Resource Type "Book"', () => {
 });
 And('they select Registration Subtype "Monograph"', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
+  cy.get('[data-testid=publication-resource-type-chip-BookMonograph]').click({ force: true });
 });
 
 //   Scenario: Creator adds an Author to the list of Authors for Resource Type Chapter
@@ -188,14 +185,14 @@ And('they select the Resource Type', (dataTable) => {
 });
 And('they select the Registration Subtype "Chapter in anthology"', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-instance-type-ChapterArticle]').click({ force: true });
+  cy.get('[data-testid=publication-resource-type-chip-ChapterArticle]').click({ force: true });
 });
 
 //   @2203
 //   Scenario: Creator adds an Editor to the list of Editors for Resource Type Book, Anthology
 And('they select Registration Subtype "Anthology"', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-instance-type-BookAnthology]').click({ force: true });
+  cy.get('[data-testid=publication-resource-type-chip-BookAnthology]').click({ force: true });
   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 And('they see the "Add Editor" Button', () => {
@@ -226,7 +223,7 @@ And('they select Resource Type "Student Thesis"', () => {
 });
 And('they select any Registration Subtype', () => {
   cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-instance-type-DegreeMaster]').click({ force: true });
+  cy.get('[data-testid=publication-resource-type-chip-DegreeMaster]').click({ force: true });
 });
 And('they see the "Add Supervisor" Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Supervisor')}]`).should(

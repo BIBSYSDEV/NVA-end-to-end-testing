@@ -17,10 +17,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
   cy.login(userResourceTypeArchitecture);
   cy.startWizardWithEmptyRegistration();
   cy.get('[data-testid=button-next-tab]').click();
-  cy.get(`[data-testid=publication-context-type]`).click();
-  cy.get('[data-testid=publication-context-type-Artistic]').click();
-  cy.get(`[data-testid=publication-instance-type]`).click();
-  cy.get('[data-testid=publication-instance-type-Architecture]').click();
+  cy.get('[data-testid=publication-resource-type-chip-Architecture]').click();
 });
 // end common steps
 
@@ -30,10 +27,7 @@ Given('the creator wants to add an Artistic Result - Architecture', () => {
   cy.login(userResourceTypeArchitecture);
   cy.startWizardWithEmptyRegistration();
   cy.get('[data-testid=button-next-tab]').click();
-  cy.get(`[data-testid=publication-context-type]`).click();
-  cy.get('[data-testid=publication-context-type-Artistic]').click();
-  cy.get(`[data-testid=publication-instance-type]`).click();
-  cy.get('[data-testid=publication-instance-type-Architecture]').click();
+  cy.get('[data-testid=publication-resource-type-chip-Architecture]').click();
 });
 Then('they can add information about:', (dataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticTypeField}]`).click();

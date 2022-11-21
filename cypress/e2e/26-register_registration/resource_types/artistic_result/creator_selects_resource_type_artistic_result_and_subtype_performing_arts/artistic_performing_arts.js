@@ -9,12 +9,9 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Art
     cy.login(userPerformingArts);
     cy.startWizardWithEmptyRegistration();
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    cy.get(`[data-testid=publication-context-type]`).click();
-    cy.get('[data-testid=publication-context-type-Artistic]').click();
 });
 When('they select Resource Subtype "Performing arts"', () => {
-    cy.get(`[data-testid=publication-instance-type]`).click();
-    cy.get('[data-testid=publication-instance-type-PerformingArts]').click();
+    cy.get('[data-testid=publication-resource-type-chip-PerformingArts]').click();
 });
 Then('they see fields:', (dataTable) => {
     cy.testDataTestidList(dataTable, performingArtsFields);
@@ -64,10 +61,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
     cy.login(userPerformingArts);
     cy.startWizardWithEmptyRegistration();
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    cy.get(`[data-testid=publication-context-type]`).click();
-    cy.get('[data-testid=publication-context-type-Artistic]').click();
-    cy.get(`[data-testid=publication-instance-type]`).click();
-    cy.get('[data-testid=publication-instance-type-PerformingArts]').click();
+    cy.get('[data-testid=publication-resource-type-chip-PerformingArts]').click();
 });
 When('they click the Add Exhibition Place Button', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click();

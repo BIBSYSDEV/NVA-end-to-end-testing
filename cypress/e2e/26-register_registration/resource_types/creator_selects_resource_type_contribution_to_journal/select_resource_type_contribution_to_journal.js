@@ -32,12 +32,9 @@ And('they click the Save button', () => {
   cy.get('[data-testid=button-previous-tab]').click();
 });
 And('they select the Resource type "Contribution to journal"', () => {
-  cy.get('[data-testid=publication-context-type]').type(' ').click({ force: true });
-  cy.get('[data-testid=publication-context-type-Journal]').click();
 });
 And('they select Resource subtype Journal article', () => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.get('[data-testid=publication-instance-type-JournalArticle]').click();
+  cy.get('[data-testid=publication-resource-type-chip-JournalArticle]').click();
 });
 And('they enter an invalid value in fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
@@ -156,10 +153,7 @@ Given('Creator sees fields for Journal article', () => {
   cy.login(userResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Journal]').click({ force: true });
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.get('[data-testid=publication-instance-type-JournalArticle]').click({ force: true });
+  cy.get('[data-testid=publication-resource-type-chip-JournalArticle]').click({ force: true });
 });
 When('they set Content Type to one of:', (dataTable) => {
   dataTable.rawTable.forEach(value => {

@@ -12,11 +12,8 @@ Before(() => {
 // Common steps
 Given('Creator navigates to the Resource Type tab and selects Resource type "Book"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
 });
 When('they select Resource subtype {string}', (subtype) => {
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get(`[data-testid=${bookSubtypes[subtype]}]`).click({ force: true });
 });
 // end Common steps
@@ -26,11 +23,8 @@ Given('Creator navigates to Resource Type tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
 });
 When('they select the Resource type "Book"', () => {
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
 });
 Then('they see a list of subtypes:', (dataTable) => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.testDataTestidList(dataTable, bookSubtypes);
 });
 // | Anthology           |
@@ -86,10 +80,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 // Scenario: Creator selects Resource subtype "Monograph" and Content type Academic Monograph
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-instance-type-BookMonograph]').click({ force: true });
+  cy.get('[data-testid=publication-resource-type-chip-BookMonograph]').click({ force: true });
 })
 When('they select Content type "Academic Monograph"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();
