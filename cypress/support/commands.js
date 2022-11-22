@@ -131,7 +131,12 @@ Cypress.Commands.add('login', (userId) => {
     cy.setLocalStorage('beta', 'true');
     cy.mockPersonSearch(userId);
     cy.mockDepartments();
-    cy.visit('/');
+    cy.visit(`/`, {
+      auth: {
+        username: Cypress.env('DEVUSER'),
+        password: Cypress.env('DEVUSER'),
+      },
+    });
   });
 });
 

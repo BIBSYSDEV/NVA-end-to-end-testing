@@ -20,7 +20,12 @@ import { dataTestId } from '../../../support/dataTestIds';
 // Common steps
 Given('that the user is logged in', () => { });
 When('they look at any page in NVA', () => {
-  cy.visit(`/`);
+  cy.visit(`/`, {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVUSER'),
+    },
+  });
 });
 Then('they see a Dropdown Menu with items:', (dataTable) => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).should('exist');
@@ -40,7 +45,12 @@ And('they see the Language selector', () => {
 // @344
 // Scenario: Unauthenticated User sees menu
 Given('that the User is not logged in', () => {
-  cy.visit('/');
+  cy.visit(`/`, {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVUSER'),
+    },
+  });
 });
 Then('they see the Log in Button', () => {
   cy.get(`[data-testid=${dataTestId.header.logInButton}]`).should('be.visible');

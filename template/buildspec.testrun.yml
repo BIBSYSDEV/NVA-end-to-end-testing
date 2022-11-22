@@ -5,13 +5,14 @@ version: 0.2
 
 env:
   parameter-store:
-    CYPRESS_baseUrl: CognitoFrontendApplicationUrl
     CYPRESS_AWS_USER_POOL_ID: CognitoUserPoolId
     CYPRESS_AWS_CLIENT_ID: /test/CognitoTestClient$RUNNER
     CYPRESS_REACT_APP_URL: /NVA/ApplicationDomain
     CYPRESS_REACT_APP_API_HOST: /NVA/ApiDomain
   secrets-manager:
-    CYPRESS_DASHBOARD_KEY: 'E2ECypressDashboardKey:CypressDashboardKey'
+    CYPRESS_DASHBOARD_KEY: 'E2ETesting:CypressDashboardKey'
+    CYPRESS_DEVUSER: 'E2ETesting:DevUser'
+    CYPRESS_DEVPASSWORD: 'E2ETesting:DevPassword'
   variables:
     image: public.ecr.aws/cypress-io/cypress/browsers:node14.17.0-chrome88-ff89
 
