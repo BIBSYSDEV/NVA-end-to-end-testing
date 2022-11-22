@@ -22,7 +22,6 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Cha
   selectChapter();
 });
 When('they select the Resource Subtype {string}', (chapterType) => {
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get(`[data-testid=${chapterSubtypes[chapterType]}]`).click();
   cy.wrap(chapterType).as('chapterType');
 });
@@ -83,7 +82,6 @@ Then('they see Content type field with options:', (dataTable) => {
 Given('Creator sees fields for Resource subtype "Chapter in Anthology"', () => {
   navigateToResourceTab();
   selectChapter();
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   cy.get(`[data-testid=${chapterSubtypes['Chapter in Anthology']}]`).click();
 });
 When('they select Content type "Academic chapter"', () => {

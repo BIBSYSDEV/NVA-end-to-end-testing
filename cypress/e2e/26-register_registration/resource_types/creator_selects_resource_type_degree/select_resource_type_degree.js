@@ -45,7 +45,6 @@ Then('they see a list of subtypes:', (dataTable) => {
 // @1694
 // Scenario Outline: Creator sees fields for Resource subtypes for "Student thesis"
 When('they select the Subtype {string}', (subtype) => {
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
   if (subtype in studentThesisSubtypes) {
     cy.get(`[data-testid=${studentThesisSubtypes[subtype]}]`).click({ force: true });
   }

@@ -95,7 +95,6 @@ And('they see fields:', (dataTable) => {
   })
 });
 And('they select the Resource subtype "Corrigendum"', () => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get(`[data-testid=${journalSubtypes['Corrigendum']}]`).click({ force: true });
   cy.get('@link').then((link) => {
     link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
@@ -106,7 +105,6 @@ And('they select the Resource subtype "Corrigendum"', () => {
 // @274
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Contribution to journal"
 Then('they see a list of subtypes:', (dataTable) => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.testDataTestidList(dataTable, journalSubtypes);
 });
 // | Journal article |
@@ -170,7 +168,6 @@ When('they set Content Type to one of:', (dataTable) => {
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype
 And('they select Resource subtype {string}', (subtype) => {
   cy.wrap(subtype).as('subtype');
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get(`[data-testid=${journalSubtypes[subtype]}]`).click({ force: true });
   cy.get('@link').then((link) => {
     link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
