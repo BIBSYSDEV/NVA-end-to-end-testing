@@ -18,7 +18,7 @@ Given('Creator navigates to Resource Type tab', () => {
 });
 When('they select the Resource type "Report"', () => {
   cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
-;
+});
 Then('they see a list of subtypes:', (dataTable) => {
   cy.testDataTestidList(dataTable, reportSubtypes);
 });
