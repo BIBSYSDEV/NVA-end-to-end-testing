@@ -9,16 +9,14 @@ const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 
 Before(() => {
     cy.login(userResourceTypeMedia);
-    cy.startWizardWithLink(doiLink);
+    cy.startWizardWithEmptyRegistration();
 });
 
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource type "Media Contribution"
 Given('Creator navigates to Resource Type tab', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
-When('they select the Resource type "Media Contribution"', () => {
-    cy.get('[data-testid^=resource-type-chip-]').first().click();
-});
+When('they select the Resource type "Media Contribution"', () => { });
 Then('they see a list of subtypes:', (dataTable) => {
     cy.testDataTestidList(dataTable, mediaSubtypes);
 });
@@ -32,20 +30,20 @@ Then('they see a list of subtypes:', (dataTable) => {
 //   Scenario: Creator navigates to the Resource Type tab and selects a Resource subtype for Media Contribution
 Given('Creator navigates to the Resource Type tab and selects Resource type "Media Contribution"', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    cy.get('[data-testid^=resource-type-chip-]').first().click();
-    cy.get('[data-testid=resource-type-chip-MediaContribution]').click({ force: true });
-    cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 When('they select a Resource Subtype', () => {
-    cy.get('[data-testid^=resource-type-chip-]').first().click();
+    cy.get('[data-testid=resource-type-chip-MediaInterview').click();
 });
-Then('they see field Medium with options:', (dataTable) => { });
+Then('they see field Medium with options:', (dataTable) => {
+
+});
 //   | Newspaper or Journal |
 //   | Internet             |
 //   | Radio                |
 //   | TV                   |
 //   | Other                |
-And('they see field Format with options:', (dataTable) => { });
+And('they see field Format with options:', (dataTable) => {
+});
 //   | Text  |
 //   | Sound |
 //   | Video |
