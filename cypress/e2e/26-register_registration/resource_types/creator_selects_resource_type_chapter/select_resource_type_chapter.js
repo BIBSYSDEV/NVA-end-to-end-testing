@@ -19,7 +19,6 @@ Before(() => {
 // Common steps
 Given('Creator navigates to the Resource Type tab and selects Resource type "Chapter"', () => {
   navigateToResourceTab();
-  selectChapter();
 });
 When('they select the Resource Subtype {string}', (chapterType) => {
   cy.get(`[data-testid=${chapterSubtypes[chapterType]}]`).click();
@@ -81,7 +80,6 @@ Then('they see Content type field with options:', (dataTable) => {
 // Scenario: Creator selects Resource subtype "Chapter in Anthology" and Content type "Academic chapter"
 Given('Creator sees fields for Resource subtype "Chapter in Anthology"', () => {
   navigateToResourceTab();
-  selectChapter();
   cy.get(`[data-testid=${chapterSubtypes['Chapter in Anthology']}]`).click();
 });
 When('they select Content type "Academic chapter"', () => {

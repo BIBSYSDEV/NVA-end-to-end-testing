@@ -25,13 +25,13 @@ Parameters:
   CypressBaseUrl:
     Description: Base url for application under testing
     Type: String
-    Default: dev.nva.sikt.no
+    Default: https://dev.nva.sikt.no
 Resources:
   TestReportBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
       AccessControl: PublicRead
-      BucketName: !Sub 'nva-testreport-new-${AWS::AccountId}'
+      BucketName: !Sub 'nva-testreport2-${AWS::AccountId}'
       WebsiteConfiguration:
         IndexDocument: cucumber_report.html
         ErrorDocument: cucumber_report.html
@@ -298,12 +298,12 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                - 'cognito-idp:AdminGetUser'
-                - 'cognito-idp:AdminDeleteUser'
-                - 'cognito-idp:AdminSetUserPassword'
-                - 'cognito-idp:AdminInitiateAuth'
-                - 'cognito-idp:AdminCreateUser'
-                - 'cognito-idp:ListUsers'
+                  - 'cognito-idp:AdminGetUser'
+                  - 'cognito-idp:AdminDeleteUser'
+                  - 'cognito-idp:AdminSetUserPassword'
+                  - 'cognito-idp:AdminInitiateAuth'
+                  - 'cognito-idp:AdminCreateUser'
+                  - 'cognito-idp:ListUsers'
                 Resource: '*'
 
   ArtifactStoreBucket:
