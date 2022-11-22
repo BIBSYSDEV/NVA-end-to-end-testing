@@ -29,7 +29,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Pre
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
 When('they select a Resource Subtype', () => {
-    cy.get('[data-testid^=resource-type-chip-]').first().click();
+    cy.get('[data-testid=resource-type-chip-ConferenceLecture]').click();
 });
 Then('they see fields:', (dataTable) => {
     cy.testDataTestidList(dataTable, persentationFields);
