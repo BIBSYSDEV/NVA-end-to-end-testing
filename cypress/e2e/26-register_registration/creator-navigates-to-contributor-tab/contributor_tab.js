@@ -86,22 +86,23 @@ Given('Creator navigates to Contributors tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
 When('the Registration has Registration Type {string}', (type) => {
-  cy.get('[data-testid=publication-context-type]').click();
-  cy.get(`[data-testid=${resourceTypes[type]}]`).click();
-  cy.wrap(true).as('book');
-  if (type !== 'Book') {
-    cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
-    cy.wrap(false).as('book');
-  }
+  // cy.get('[data-testid=publication-context-type]').click();
+  // cy.get(`[data-testid=${resourceTypes[type]}]`).click();
+  // cy.wrap((type === 'Book')).as('book');
 });
 And('the Registration has Registration Subtype {string}', (subtype) => {
-  cy.get('[data-testid=publication-instance-type]').click();
-  cy.get(`[data-testid=resource-type-chip-${subtype}]`).click();
-  cy.get('@book').then((isBook) => {
-    if (isBook && subtype !== 'BookMonograph') {
-      cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
-    }
-  })
+  // cy.get('@book').then((isBook) => {
+  if (subtype !== 'BookMonograph') {
+    cy.get(`[data-testid=resource-type-chip-BookMonograph]`).click();
+    cy.get(`[data-testid=resource-type-chip-${subtype}]`).click();
+    cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+  }
+  // if (isBook && subtype !== 'BookMonograph') {
+  //   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+  // } else {
+
+  // }
+  // })
 });
 Then('they see buttons {string}', (button) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
