@@ -25,7 +25,7 @@ Before(() => {
 Given('Creator begins registering a Registration in the Wizard', () => {
 });
 When('they navigate to the Contributors tab', () => {
-  cy.get('[data-testid=nav-tabpanel-contributors]').click({ force: true });
+  cy.get('[data-testid=nav-tabpanel-contributors]').click();
 });
 
 And('they see the "Add Author" Button', () => {
@@ -33,7 +33,7 @@ And('they see the "Add Author" Button', () => {
 });
 And('they click "Add Author"', () => {
   // cy.mockPersonSearch(userWithAuthor);
-  cy.get('[data-testid=add-Creator]').click({ force: true });
+  cy.get('[data-testid=add-Creator]').click();
 });
 // End common steps
 
@@ -86,23 +86,13 @@ Given('Creator navigates to Contributors tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
 When('the Registration has Registration Type {string}', (type) => {
-  // cy.get('[data-testid=publication-context-type]').click();
-  // cy.get(`[data-testid=${resourceTypes[type]}]`).click();
-  // cy.wrap((type === 'Book')).as('book');
 });
 And('the Registration has Registration Subtype {string}', (subtype) => {
-  // cy.get('@book').then((isBook) => {
   if (subtype !== 'BookMonograph') {
     cy.get(`[data-testid=resource-type-chip-BookMonograph]`).click();
     cy.get(`[data-testid=resource-type-chip-${subtype}]`).click();
     cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
   }
-  // if (isBook && subtype !== 'BookMonograph') {
-  //   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
-  // } else {
-
-  // }
-  // })
 });
 Then('they see buttons {string}', (button) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
@@ -154,10 +144,10 @@ And('they search for Author in the Author Search Dialog', () => {
 And('they select an Author identity', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`)
     .first()
-    .click({ force: true });
+    .click();
 });
 And('they click "Add"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
 });
 Then('the selected Author identity is added to the list of Authors', () => {
   cy.get('[data-testid=Creator]').within((authors) => {
@@ -167,33 +157,27 @@ Then('the selected Author identity is added to the list of Authors', () => {
 
 //   Scenario: Creator adds an Author to the list of Authors for Resource Type Book, Monograph
 And('they navigate to the Resources tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
 And('they select Resource Type "Book"', () => {
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Book]').click({ force: true });
 });
 And('they select Registration Subtype "Monograph"', () => {
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=resource-type-chip-BookMonograph]').click({ force: true });
 });
 
 //   Scenario: Creator adds an Author to the list of Authors for Resource Type Chapter
 And('they select the Resource Type', (dataTable) => {
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get(`[data-testid=${resourceTypes[dataTable.rawTable[0]]}]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 And('they select the Registration Subtype "Chapter in anthology"', () => {
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=resource-type-chip-ChapterArticle]').click({ force: true });
+  cy.get(`[data-testid=resource-type-chip-BookMonograph]`).click();
+  cy.get('[data-testid=resource-type-chip-ChapterArticle]').click();
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 
 //   @2203
 //   Scenario: Creator adds an Editor to the list of Editors for Resource Type Book, Anthology
 And('they select Registration Subtype "Anthology"', () => {
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=resource-type-chip-BookAnthology]').click({ force: true });
+  cy.get(`[data-testid=resource-type-chip-BookMonograph]`).click();
+  cy.get('[data-testid=resource-type-chip-BookAnthology]').click();
   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 And('they see the "Add Editor" Button', () => {
@@ -218,13 +202,11 @@ Then('the selected Author identity is added to the list of Editors', () => {
 //   @2204
 //   Scenario: Creator adds a Supervisor to the list of Supervisors for Resource Type Student Thesis
 And('they select Resource Type "Student Thesis"', () => {
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Degree]').click({ force: true });
-  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 And('they select any Registration Subtype', () => {
-  cy.get('[data-testid=publication-instance-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=resource-type-chip-DegreeMaster]').click({ force: true });
+  cy.get(`[data-testid=resource-type-chip-BookMonograph]`).click();
+  cy.get('[data-testid=resource-type-chip-DegreeMaster]').click();
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 And('they see the "Add Supervisor" Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton('Supervisor')}]`).should(
@@ -265,7 +247,7 @@ And('they see the a button for adding a new Author in the Create new Author Dial
 // Scenario: Creator sees Button to Verify Contributor
 When('the Registration has an Unverified Contributor', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
-  cy.get('[data-testid=add-Creator]').click({ force: true });
+  cy.get('[data-testid=add-Creator]').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
     'Unverified Author'
@@ -279,7 +261,7 @@ Then('they see a Button to Verify the Contributor', () => {
 // Scenario: Creator opens Dialog to Verify Contributor
 Given('Creator sees Button to Verify Contributor', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
-  cy.get('[data-testid=add-Creator]').click({ force: true });
+  cy.get('[data-testid=add-Creator]').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
     'Unverified Author'
@@ -305,7 +287,7 @@ And('they see a list of Persons matching the search', () => {
 // Scenario: Creator verifies Contributor
 Given('Creator opens Dialog to Verify Contributor', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
-  cy.get('[data-testid=add-Creator]').click({ force: true });
+  cy.get('[data-testid=add-Creator]').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
     'Unverified Author'
