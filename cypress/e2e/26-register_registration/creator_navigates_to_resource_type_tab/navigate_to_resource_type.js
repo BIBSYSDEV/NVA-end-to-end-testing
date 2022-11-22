@@ -18,7 +18,7 @@ When('they navigate to the Resource Type tab', () => {
 //   @453
 //   Scenario: Creator navigates to Resource Type tab
 Then('they see the field for Type', () => {
-  cy.get('[data-testid^=publication-resource]').should('be.visible');
+  cy.get(`[data-testid^=resource-type-]`).should('exist')
 });
 And('they see the tab Description is clickable', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.enabled');
@@ -48,5 +48,5 @@ And('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
 });
-Then('they can see "Mandatory" error messages for fields:', (dataTable) => {});
+Then('they can see "Mandatory" error messages for fields:', (dataTable) => { });
 // | Type |
