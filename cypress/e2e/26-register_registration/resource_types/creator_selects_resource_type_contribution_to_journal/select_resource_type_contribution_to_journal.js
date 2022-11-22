@@ -43,8 +43,8 @@ And('they enter an invalid value in fields:', (dataTable) => {
 });
 
 And('the number for "Pages from" is greater than the number for "Pages to"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`).type('10');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}]`).type('9');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}] > div > input`).type('10');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}] > div > input`).type('9');
 })
 And('they enter numbers for "Pages from" and "Pages to"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`).type('10');
