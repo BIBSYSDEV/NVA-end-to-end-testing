@@ -204,7 +204,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Reference
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
 
-  cy.get('[data-testid=publication-resource-type-chip-BookMonograph]').click({ force: true });
+  cy.get('[data-testid=resource-type-chip-BookMonograph]').click({ force: true });
 
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.publisherField}]`)
     .click({ force: true })
@@ -517,7 +517,7 @@ Cypress.Commands.add('fillInCommonFields', (type, subtype) => {
 
 Cypress.Commands.add('fillInResourceType', (type, subtype) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get(`[data-testid=publication-resource-type-chip-${subtype.replaceAll(' ', '-')}]`).click({ force: true });
+  cy.get(`[data-testid=resource-type-chip-${subtype.replaceAll(' ', '-')}]`).click({ force: true });
   Object.keys(resourceTypes[type][subtype]).forEach((key) => {
     if (key !== 'contributorType') {
       const field = resourceTypes[type][subtype][key];

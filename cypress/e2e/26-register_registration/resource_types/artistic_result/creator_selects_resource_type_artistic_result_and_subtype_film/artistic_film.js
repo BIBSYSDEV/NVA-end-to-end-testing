@@ -11,7 +11,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Art
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 })
 When('they select Resource Subtype "Film"', () => {
-    cy.get('[data-testid=publication-resource-type-chip-MovingPicture]').click();
+    cy.get('[data-testid=resource-type-chip-MovingPicture]').click();
 });
 Then('they see fields:', (dataTable) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticDescriptionField}]`);
@@ -55,7 +55,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
     cy.login(userFilm);
     cy.startWizardWithEmptyRegistration();
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    cy.get('[data-testid=publication-resource-type-chip-MovingPicture]').click();
+    cy.get('[data-testid=resource-type-chip-MovingPicture]').click();
 })
 When('they add a Broadcast with details for:', () => {
     cy.get(`[data-testid=${filmAnnouncements['Broadcast']}]`).click();

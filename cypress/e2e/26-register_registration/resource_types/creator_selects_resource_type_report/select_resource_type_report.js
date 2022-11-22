@@ -17,7 +17,7 @@ Given('Creator navigates to Resource Type tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
 });
 When('they select the Resource type "Report"', () => {
-  cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
+  cy.get('[data-testid^=resource-type-chip-]').first().click();
 });
 Then('they see a list of subtypes:', (dataTable) => {
   cy.testDataTestidList(dataTable, reportSubtypes);
@@ -32,7 +32,7 @@ Then('they see a list of subtypes:', (dataTable) => {
 // Scenario Outline: Creator sees fields for Resource subtypes for "Report"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Report"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
+  cy.get('[data-testid^=resource-type-chip-]').first().click();
 });
 When('they select the Subtype {string}', (subtype) => {
   cy.get(`[data-testid=${reportSubtypes[subtype]}]`).click();
@@ -56,7 +56,7 @@ Then('they see fields:', (dataTable) => {
 // Scenario Outline: Creator sees that fields are validated for Resource subtypes for "Report"
 Given('Creator sees fields for Resource subtypes for "Report"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
+  cy.get('[data-testid^=resource-type-chip-]').first().click();
 });
 And('they have selected the Subtype {string}', (subtype) => {
   cy.get(`[data-testid=${reportSubtypes[subtype]}]`).click();

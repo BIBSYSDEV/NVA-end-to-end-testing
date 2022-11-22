@@ -17,7 +17,7 @@ Given('Creator navigates to Resource Type tab', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
 When('they select the Resource type "Media Contribution"', () => {
-    cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
+    cy.get('[data-testid^=resource-type-chip-]').first().click();
 });
 Then('they see a list of subtypes:', (dataTable) => {
     cy.testDataTestidList(dataTable, mediaSubtypes);
@@ -32,12 +32,12 @@ Then('they see a list of subtypes:', (dataTable) => {
 //   Scenario: Creator navigates to the Resource Type tab and selects a Resource subtype for Media Contribution
 Given('Creator navigates to the Resource Type tab and selects Resource type "Media Contribution"', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
-    cy.get('[data-testid=publication-resource-type-chip-MediaContribution]').click({ force: true });
+    cy.get('[data-testid^=resource-type-chip-]').first().click();
+    cy.get('[data-testid=resource-type-chip-MediaContribution]').click({ force: true });
     cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 When('they select a Resource Subtype', () => {
-    cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
+    cy.get('[data-testid^=resource-type-chip-]').first().click();
 });
 Then('they see field Medium with options:', (dataTable) => { });
 //   | Newspaper or Journal |

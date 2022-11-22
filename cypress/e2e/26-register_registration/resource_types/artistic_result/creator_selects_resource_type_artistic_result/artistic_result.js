@@ -32,7 +32,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Art
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
 And('they select any Subtype', () => {
-  cy.get('[data-testid^=publication-resource-type-chip-]').first().click();
+  cy.get('[data-testid^=resource-type-chip-]').first().click();
 });
 When('they select Other as Type Work', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticTypeField}]`).click();

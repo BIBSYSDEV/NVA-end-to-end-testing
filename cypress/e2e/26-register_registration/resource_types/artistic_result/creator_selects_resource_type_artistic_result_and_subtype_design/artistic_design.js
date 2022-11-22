@@ -20,7 +20,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
   cy.login(userDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get('[data-testid=publication-resource-type-chip-ArtisticDesign]').click();
+  cy.get('[data-testid=resource-type-chip-ArtisticDesign]').click();
 });
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Design"
@@ -31,7 +31,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Art
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
 When('they select Resource Subtype "Artistic result - Design"', () => {
-  cy.get('[data-testid=publication-resource-type-chip-ArtisticDesign]').click();
+  cy.get('[data-testid=resource-type-chip-ArtisticDesign]').click();
 });
 Then('they see fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
