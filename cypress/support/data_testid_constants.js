@@ -479,9 +479,12 @@ export const contributorCreateFields = {
 
 export const contributorButtons = {
   'Add Author': 'Creator',
-  'Add Contributor': 'OtherContributor',
+  'Add Contributor': 'Creator',
   'Add Supervisor': 'Supervisor',
   'Add Editor': 'Editor',
+  'Add Designer': 'Designer',
+  'Add Curator/organizer': 'Designer',
+  'Add Consultant': 'Designer',
 };
 
 export const landingPageFields = {

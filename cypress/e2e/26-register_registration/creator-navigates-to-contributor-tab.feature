@@ -22,36 +22,36 @@ Feature: Creator navigates to Contributors tab
     And the Registration has Registration Subtype "<RegistrationSubtype>"
     Then they see buttons "<AddContributorButtons>"
     Examples:
-      | RegistrationType | RegistrationSubtype | AddContributorButtons                       |
-      | Book             | BookAnthology       | Add Editor, Add Contributor                 |
-      | Book             | BookMonograph       | Add Author, Add Contributor                 |
-      | Chapter          | ChapterArticle      | Add Author, Add Contributor                 |
-      # | Chapter          | ChapterConferenceAbstract | Add Author, Add Contributor                 |
-      | Degree           | DegreeBachelor      | Add Author, Add Supervisor, Add Contributor |
-      | Degree           | DegreeMaster        | Add Author, Add Supervisor, Add Contributor |
-      | Degree           | DegreePhd           | Add Author, Add Supervisor, Add Contributor |
-      # | Degree           | DegreeLicentiate          | Add Author, Add Supervisor, Add Contributor |
-      | Degree           | OtherStudentWork    | Add Author, Add Supervisor, Add Contributor |
-      # | Journal          | FeatureArticle      | Add Author, Add Contributor                 |
-      | Journal          | JournalArticle      | Add Author, Add Contributor                 |
-      | Journal          | JournalCorrigendum  | Add Author, Add Contributor                 |
-      | Journal          | JournalLeader       | Add Author, Add Contributor                 |
-      | Journal          | JournalLetter       | Add Author, Add Contributor                 |
-      | Journal          | JournalReview       | Add Author, Add Contributor                 |
-      # | Journal          | JournalBooklet            | Add Author, Add Contributor                 |
-      # | Journal          | JournalConferenceAbstract | Add Author, Add Contributor                 |
-      | Report           | ReportBasic         | Add Author, Add Contributor                 |
-      | Report           | ReportPolicy        | Add Author, Add Contributor                 |
-      | Report           | ReportResearch      | Add Author, Add Contributor                 |
-      # | Report           | ReportAbstractCollection  | Add Author, Add Contributor                 |
-      | Report           | ReportWorkingPaper  | Add Author, Add Contributor                 |
-      | Presentation     | ConferenceLecture   | Add Author, Add Contributor                 |
-      | Presentation     | ConferencePoster    | Add Author, Add Contributor                 |
-      | Presentation     | Lecture             | Add Author, Add Contributor                 |
-      | Presentation     | OtherPresentation   | Add Author, Add Contributor                 |
-      | Artistic         | ArtisticDesign      | Add Contributor                             |
-  # | Media            | Interview                 | Add Author, Add Contributor                 |
-  # | Media            | Blog                      | Add Author, Add Contributor                 |
+      | RegistrationType | RegistrationSubtype | AddContributorButtons                               |
+      | Book             | BookAnthology       | Add Editor                                          |
+      | Book             | BookMonograph       | Add Author                                          |
+      | Chapter          | ChapterArticle      | Add Author                                          |
+      # | Chapter          | ChapterConferenceAbstract | Add Author                 |
+      | Degree           | DegreeBachelor      | Add Author, Add Supervisor                          |
+      | Degree           | DegreeMaster        | Add Author, Add Supervisor                          |
+      | Degree           | DegreePhd           | Add Author, Add Supervisor                          |
+      # | Degree           | DegreeLicentiate          | Add Author, Add Supervisor |
+      | Degree           | OtherStudentWork    | Add Author, Add Supervisor                          |
+      # | Journal          | FeatureArticle      | Add Author                 |
+      | Journal          | JournalArticle      | Add Author                                          |
+      | Journal          | JournalCorrigendum  | Add Author                                          |
+      | Journal          | JournalLeader       | Add Author                                          |
+      | Journal          | JournalLetter       | Add Author                                          |
+      | Journal          | JournalReview       | Add Author                                          |
+      # | Journal          | JournalBooklet            | Add Author                 |
+      # | Journal          | JournalConferenceAbstract | Add Author                 |
+      | Report           | ReportBasic         | Add Author                                          |
+      | Report           | ReportPolicy        | Add Author                                          |
+      | Report           | ReportResearch      | Add Author                                          |
+      # | Report           | ReportAbstractCollection  | Add Author                 |
+      | Report           | ReportWorkingPaper  | Add Author                                          |
+      | Presentation     | ConferenceLecture   | Add Author                                          |
+      | Presentation     | ConferencePoster    | Add Author                                          |
+      | Presentation     | Lecture             | Add Author                                          |
+      | Presentation     | OtherPresentation   | Add Author                                          |
+      | Artistic         | ArtisticDesign      | Add Designer, Add Curator/organizer, Add Consultant |
+  # | Media            | Interview                 | Add Author                 |
+  # | Media            | Blog                      | Add Author                 |
   # | Media            | Podcast                   | Add Contributor                             |
   # | Media            | ProgrammeManagement       | Add Contributor                             |
   # | Media            | ProgrammeParticipation    | Add Contributor                             |
