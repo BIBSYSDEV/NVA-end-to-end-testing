@@ -88,39 +88,6 @@ Feature: Creator navigates to Contributors tab
     Then the selected Creator identity is added to the list of Creators
     And their current Affiliations are listed
 
-  @TEST_NP-4007
-  @test
-  Scenario: Creator adds an Creator to the list of Creators for Resource Type Book, Monograph
-    Given Creator begins registering a Registration in the Wizard
-    And they navigate to the Resources tab
-    And they select Resource Type "Book"
-    And they select Registration Subtype "Monograph"
-    When they navigate to the Contributors tab
-    And they see the "Add Creator" Button
-    And they click "Add Creator"
-    And they search for Creator in the Creator Search Dialog
-    And they select an Creator identity
-    And they click "Add"
-    Then the selected Creator identity is added to the list of Creators
-    And their current Affiliations are listed
-
-  @TEST_NP-4010
-  @test
-  Scenario: Creator adds an Creator to the list of Creators for Resource Type Chapter
-    Given Creator begins registering a Registration in the Wizard
-    And they navigate to the Resources tab
-    And they select the Resource Type
-      | Part of book/report |
-    And they select the Registration Subtype "Chapter in anthology"
-    When they navigate to the Contributors tab
-    And they see the "Add Creator" Button
-    And they click "Add Creator"
-    And they search for Creator in the Creator Search Dialog
-    And they select an Creator identity
-    And they click "Add"
-    Then the selected Creator identity is added to the list of Creators
-    And their current Affiliations are listed
-
   @TEST_NP-4004
   @test
   @2203
