@@ -477,16 +477,6 @@ export const contributorCreateFields = {
   'Last name': 'create-contributor-last-name',
 };
 
-export const contributorButtons = {
-  'Add Author': 'Creator',
-  'Add Contributor': 'Creator',
-  'Add Supervisor': 'Supervisor',
-  'Add Editor': 'Editor',
-  'Add Designer': 'Designer',
-  'Add Curator/organizer': 'Designer',
-  'Add Consultant': 'Designer',
-};
-
 export const landingPageFields = {
   'Title': dataTestId.registrationLandingPage.registrationSubtype,
   'Abstract': dataTestId.registrationLandingPage.abstractAccordion,

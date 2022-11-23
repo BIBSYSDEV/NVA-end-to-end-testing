@@ -83,66 +83,58 @@ And('their current Affiliations are listed', () => {
 Given('Creator navigates to Contributors tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
-When('the Registration has Registration Type {string}', (type) => {
-  cy.wrap(type).as('registrationType');
-});
 And('the Registration has Registration Subtype {string}', (subtype) => {
+  cy.wrap(subtype).as('registrationType');
   if (subtype !== 'BookMonograph') {
     cy.get(`[data-testid=resource-type-chip-BookMonograph]`).click();
     cy.get(`[data-testid=resource-type-chip-${subtype}]`).click();
     cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
   }
 });
-Then('they see buttons {string}', (button) => {
+Then('they see buttons {string}', (contributorTypes) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
-  const buttons = button.split(', ');
-  buttons.forEach((contributorButton) => {
-    cy.get(`[data-value=${contributorButtons[contributorButton]}]`).should('be.visible');
+  const types = contributorTypes.split(', ');
+  types.forEach((contributorType) => {
+    cy.get(`[data-value=${contributorType}]`).should('be.visible');
   });
-  cy.get('@registrationType').then(registrationType => {
-    if (registrationType !== 'Artistic') {
-      cy.get(`[data-value=ContactPerson]`).should('be.visible');
-      cy.get(`[data-value=RightsHolder]`).should('be.visible');
-    }
     cy.get(`[data-value=Other]`).should('be.visible');
-  })
 });
 // Examples:
 //   | RegistrationType | RegistrationSubtype       | AddContributorButtons                       |
-//   | Book             | BookAnthology             | Add Editor                 |
-//   | Book             | BookMonograph             | Add Author                 |
-//   | Chapter          | ChapterArticle            | Add Author                 |
-//   | Chapter          | ChapterConferenceAbstract | Add Author                 |
-//   | Degree           | DegreeBachelor            | Add Author, Add Supervisor |
-//   | Degree           | DegreeMaster              | Add Author, Add Supervisor |
-//   | Degree           | DegreePhd                 | Add Author, Add Supervisor |
-//   | Degree           | DegreeLicentiate          | Add Author, Add Supervisor |
-//   | Degree           | OtherStudentWork          | Add Author, Add Supervisor |
-//   | Journal          | FeatureArticle            | Add Author                 |
-//   | Journal          | JournalArticle            | Add Author                 |
-//   | Journal          | JournalCorrigendum        | Add Author                 |
-//   | Journal          | JournalLeader             | Add Author                 |
-//   | Journal          | JournalLetter             | Add Author                 |
-//   | Journal          | JournalReview             | Add Author                 |
-//   | Journal          | JournalBooklet            | Add Author                 |
-//   | Journal          | JournalConferenceAbstract | Add Author                 |
-//   | Report           | ReportBasic               | Add Author                 |
-//   | Report           | ReportPolicy              | Add Author                 |
-//   | Report           | ReportResearch            | Add Author                 |
-//   | Report           | ReportAbstractCollection  | Add Author                 |
-//   | Report           | ReportWorkingPaper        | Add Author                 |
-//   | Presentation     | ConferenceLecture         | Add Author                 |
-//   | Presentation     | ConferencePoster          | Add Author                 |
-//   | Presentation     | Lecture                   | Add Author                 |
-//   | Presentation     | OtherPresentation         | Add Author                 |
-//   | Artistic         | ArtisticDesign            | Add Contributor                             |
-//   | Media            | Interview                 | Add Author                 |
-//   | Media            | Blog                      | Add Author                 |
-//   | Media            | Podcast                   | Add Contributor                             |
-//   | Media            | ProgrammeManagement       | Add Contributor                             |
-//   | Media            | ProgrammeParticipation    | Add Contributor                             |
+//   | Book             | BookAnthology             | Editor                 |
+//   | Book             | BookMonograph             | Author                 |
+//   | Chapter          | ChapterArticle            | Author                 |
+//   | Chapter          | ChapterConferenceAbstract | Author                 |
+//   | Degree           | DegreeBachelor            | Author, Supervisor |
+//   | Degree           | DegreeMaster              | Author, Supervisor |
+//   | Degree           | DegreePhd                 | Author, Supervisor |
+//   | Degree           | DegreeLicentiate          | Author, Supervisor |
+//   | Degree           | OtherStudentWork          | Author, Supervisor |
+//   | Journal          | FeatureArticle            | Author, ContactPerson                 |
+//   | Journal          | JournalArticle            | Author                 |
+//   | Journal          | JournalCorrigendum        | Author                 |
+//   | Journal          | JournalLeader             | Author                 |
+//   | Journal          | JournalLetter             | Author                 |
+//   | Journal          | JournalReview             | Author                 |
+//   | Journal          | JournalBooklet            | Author                 |
+//   | Journal          | JournalConferenceAbstract | Author                 |
+//   | Report           | ReportBasic               | Author                 |
+//   | Report           | ReportPolicy              | Author                 |
+//   | Report           | ReportResearch            | Author                 |
+//   | Report           | ReportAbstractCollection  | Author                 |
+//   | Report           | ReportWorkingPaper        | Author                 |
+//   | Presentation     | ConferenceLecture         | Author                 |
+//   | Presentation     | ConferencePoster          | Author                 |
+//   | Presentation     | Lecture                   | Author                 |
+//   | Presentation     | OtherPresentation         | Author                 |
+//   | Artistic         | ArtisticDesign            | Contributor                             |
+//   | Media            | Interview                 | Author                 |
+//   | Media            | Blog                      | Author                 |
+//   | Media            | Podcast                   | Contributor                             |
+//   | Media            | ProgrammeManagement       | Contributor                             |
+//   | Media            | ProgrammeParticipation    | Contributor                             |
 
 //   @419
 //   Scenario: Creator adds an Author to the list of Authors
