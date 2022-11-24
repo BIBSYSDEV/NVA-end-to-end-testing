@@ -190,7 +190,7 @@ And('they see the "Add Editor" Button', () => {
 And('they click "Add Editor"', () => {
   cy.get(`[data-value=Editor]`).click();
 });
-And('they search for Editor in the Author Search Dialog', () => {
+And('they search for Editor in the Creator Search Dialog', () => {
   cy.get('[data-testid=search-field]').type('TestUser Contributor');
 });
 Then('the selected Author identity is added to the list of Editors', () => {
