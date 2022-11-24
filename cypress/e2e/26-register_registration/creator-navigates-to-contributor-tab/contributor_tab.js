@@ -35,7 +35,7 @@ And('they click "Add Author"', () => {
   cy.get('[data-testid=add-contributor]').click();
 });
 
-And('they see the "Add Creator" button', () => {
+And('they see the "Add Creator" Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton}]`).should('be.visible');
 })
 // End common steps
