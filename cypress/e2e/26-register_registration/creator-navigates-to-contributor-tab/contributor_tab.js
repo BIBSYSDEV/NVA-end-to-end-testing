@@ -28,16 +28,20 @@ When('they navigate to the Contributors tab', () => {
   cy.get('[data-testid=nav-tabpanel-contributors]').click();
 });
 
-And('they see the "Add Author" Button', () => {
+And('they see the "Add Creator" Button', () => {
   cy.get('[data-testid=add-contributor]').should('be.visible');
 });
-And('they click "Add Author"', () => {
+And('they click "Add Creator"', () => {
   cy.get('[data-testid=add-contributor]').click();
 });
 
 And('they see the "Add Creator" Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton}]`).should('be.visible');
 })
+And('they click "Add Creator"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton}]`).click();
+})
+
 // End common steps
 
 //   @417
@@ -68,15 +72,15 @@ And('they see Save is enabled', () => {
 });
 
 //   @1837
-//   Scenario: Creator adds themselves to the list of Authors
-And('they see the Author Search Dialog', () => {
+//   Scenario: Creator adds themselves to the list of Creators
+And('they see the Creator Search Dialog', () => {
   cy.get('[data-testid=contributor-modal]').should('be.visible');
 });
-And('they click "Add me as Author"', () => {
+And('they click "Add me as Creator"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`)
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addSelfButton}]`).click();
 });
-Then('their Author identity is added to the list of Authors', () => {
+Then('their Creator identity is added to the list of Creators', () => {
   cy.contains('Contributor TestUser');
 });
 And('their current Affiliations are listed', () => {
@@ -108,44 +112,44 @@ Then('they see buttons {string}', (contributorTypes) => {
 // Examples:
 //   | RegistrationType | RegistrationSubtype       | AddContributorButtons                       |
 //   | Book             | BookAnthology             | Editor                 |
-//   | Book             | BookMonograph             | Author                 |
-//   | Chapter          | ChapterArticle            | Author                 |
-//   | Chapter          | ChapterConferenceAbstract | Author                 |
-//   | Degree           | DegreeBachelor            | Author, Supervisor |
-//   | Degree           | DegreeMaster              | Author, Supervisor |
-//   | Degree           | DegreePhd                 | Author, Supervisor |
-//   | Degree           | DegreeLicentiate          | Author, Supervisor |
-//   | Degree           | OtherStudentWork          | Author, Supervisor |
-//   | Journal          | FeatureArticle            | Author, ContactPerson                 |
-//   | Journal          | JournalArticle            | Author                 |
-//   | Journal          | JournalCorrigendum        | Author                 |
-//   | Journal          | JournalLeader             | Author                 |
-//   | Journal          | JournalLetter             | Author                 |
-//   | Journal          | JournalReview             | Author                 |
-//   | Journal          | JournalBooklet            | Author                 |
-//   | Journal          | JournalConferenceAbstract | Author                 |
-//   | Report           | ReportBasic               | Author                 |
-//   | Report           | ReportPolicy              | Author                 |
-//   | Report           | ReportResearch            | Author                 |
-//   | Report           | ReportAbstractCollection  | Author                 |
-//   | Report           | ReportWorkingPaper        | Author                 |
-//   | Presentation     | ConferenceLecture         | Author                 |
-//   | Presentation     | ConferencePoster          | Author                 |
-//   | Presentation     | Lecture                   | Author                 |
-//   | Presentation     | OtherPresentation         | Author                 |
+//   | Book             | BookMonograph             | Creator                 |
+//   | Chapter          | ChapterArticle            | Creator                 |
+//   | Chapter          | ChapterConferenceAbstract | Creator                 |
+//   | Degree           | DegreeBachelor            | Creator, Supervisor |
+//   | Degree           | DegreeMaster              | Creator, Supervisor |
+//   | Degree           | DegreePhd                 | Creator, Supervisor |
+//   | Degree           | DegreeLicentiate          | Creator, Supervisor |
+//   | Degree           | OtherStudentWork          | Creator, Supervisor |
+//   | Journal          | FeatureArticle            | Creator, ContactPerson                 |
+//   | Journal          | JournalArticle            | Creator                 |
+//   | Journal          | JournalCorrigendum        | Creator                 |
+//   | Journal          | JournalLeader             | Creator                 |
+//   | Journal          | JournalLetter             | Creator                 |
+//   | Journal          | JournalReview             | Creator                 |
+//   | Journal          | JournalBooklet            | Creator                 |
+//   | Journal          | JournalConferenceAbstract | Creator                 |
+//   | Report           | ReportBasic               | Creator                 |
+//   | Report           | ReportPolicy              | Creator                 |
+//   | Report           | ReportResearch            | Creator                 |
+//   | Report           | ReportAbstractCollection  | Creator                 |
+//   | Report           | ReportWorkingPaper        | Creator                 |
+//   | Presentation     | ConferenceLecture         | Creator                 |
+//   | Presentation     | ConferencePoster          | Creator                 |
+//   | Presentation     | Lecture                   | Creator                 |
+//   | Presentation     | OtherPresentation         | Creator                 |
 //   | Artistic         | ArtisticDesign            | Contributor                             |
-//   | Media            | Interview                 | Author                 |
-//   | Media            | Blog                      | Author                 |
+//   | Media            | Interview                 | Creator                 |
+//   | Media            | Blog                      | Creator                 |
 //   | Media            | Podcast                   | Contributor                             |
 //   | Media            | ProgrammeManagement       | Contributor                             |
 //   | Media            | ProgrammeParticipation    | Contributor                             |
 
 //   @419
-//   Scenario: Creator adds an Author to the list of Authors
-And('they search for Author in the Author Search Dialog', () => {
+//   Scenario: Creator adds an Creator to the list of Creators
+And('they search for Creator in the Creator Search Dialog', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('TestUser, Contributor');
 });
-And('they select an Author identity', () => {
+And('they select an Creator identity', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`)
     .first()
     .click();
@@ -153,11 +157,11 @@ And('they select an Author identity', () => {
 And('they click "Add"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
 });
-Then('the selected Author identity is added to the list of Authors', () => {
+Then('the selected Creator identity is added to the list of Creators', () => {
   cy.contains('Contributor TestUser');
 });
 
-//   Scenario: Creator adds an Author to the list of Authors for Resource Type Book, Monograph
+//   Scenario: Creator adds an Creator to the list of Creators for Resource Type Book, Monograph
 And('they navigate to the Resources tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
@@ -166,7 +170,7 @@ And('they select Resource Type "Book"', () => {
 And('they select Registration Subtype "Monograph"', () => {
 });
 
-//   Scenario: Creator adds an Author to the list of Authors for Resource Type Chapter
+//   Scenario: Creator adds an Creator to the list of Creators for Resource Type Chapter
 And('they select the Resource Type', (dataTable) => {
 });
 And('they select the Registration Subtype "Chapter in anthology"', () => {
@@ -193,7 +197,7 @@ And('they click "Add Editor"', () => {
 And('they search for Editor in the Creator Search Dialog', () => {
   cy.get('[data-testid=search-field]').type('TestUser Contributor');
 });
-Then('the selected Author identity is added to the list of Editors', () => {
+Then('the selected Creator identity is added to the list of Editors', () => {
   cy.contains('Contributor TestUser');
 });
 
@@ -214,27 +218,27 @@ And('they see the "Add Supervisor" Button', () => {
 And('they click "Add Supervisor"', () => {
   cy.get(`[data-value=Supervisor]`).click();
 });
-And('they search for Supervisor in the Author Search Dialog', () => {
+And('they search for Supervisor in the Creator Search Dialog', () => {
   cy.get('[data-testid=search-field]').type('TestUser Contributor');
 });
-Then('the selected Author identity is added to the list of Supervisors', () => {
+Then('the selected Creator identity is added to the list of Supervisors', () => {
   cy.contains('Contributor TestUser');
 });
 
 //   @788
-//   Scenario: Creator creates a new Author in the Author dialog
-And('they see a button for creating a new Author', () => {
+//   Scenario: Creator creates a new Creator in the Creator dialog
+And('they see a button for creating a new Creator', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).should(
     'be.visible'
   );
 });
-When('they click the button for creating a new Author', () => {
+When('they click the button for creating a new Creator', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
 });
-Then('they see field for Author name', () => {
+Then('they see field for Creator name', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).should('be.visible');
 });
-And('they see the a button for adding a new Author in the Create new Author Dialog', () => {
+And('they see the a button for adding a new Creator in the Create new Creator Dialog', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).should('be.visible');
 });
 
@@ -244,7 +248,7 @@ When('the Registration has an Unverified Contributor', () => {
   cy.get('[data-testid=add-contributor]').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
-    'Unverified Author'
+    'Unverified Creator'
   );
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
 });
@@ -258,7 +262,7 @@ Given('Creator sees Button to Verify Contributor', () => {
   cy.get('[data-testid=add-contributor]').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
-    'Unverified Author'
+    'Unverified Creator'
   );
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
   cy.get(`[data-testid^=button-set-unverified-contributor-]`).should('be.visible');
@@ -284,7 +288,7 @@ Given('Creator opens Dialog to Verify Contributor', () => {
   cy.get('[data-testid=add-contributor]').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
-    'Unverified Author'
+    'Unverified Creator'
   );
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
   cy.get(`[data-testid^=button-set-unverified-contributor-]`).first().click();
