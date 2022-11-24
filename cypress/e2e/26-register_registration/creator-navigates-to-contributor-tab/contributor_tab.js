@@ -34,6 +34,10 @@ And('they see the "Add Author" Button', () => {
 And('they click "Add Author"', () => {
   cy.get('[data-testid=add-contributor]').click();
 });
+
+And('they see the "Add Creator" button', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton}]`).should('be.visible');
+})
 // End common steps
 
 //   @417
@@ -99,7 +103,7 @@ Then('they see buttons {string}', (contributorTypes) => {
   types.forEach((contributorType) => {
     cy.get(`[data-value=${contributorType}]`).should('be.visible');
   });
-    cy.get(`[data-value=Other]`).should('be.visible');
+  cy.get(`[data-value=Other]`).should('be.visible');
 });
 // Examples:
 //   | RegistrationType | RegistrationSubtype       | AddContributorButtons                       |
