@@ -4,7 +4,7 @@ export const mainButtons = {
   'New Registration': dataTestId.header.newRegistrationLink,
   'My Registrations': dataTestId.header.myPageLink,
   'My page': dataTestId.header.myPageLink,
-  'Worklist': dataTestId.header.worklistLink,
+  'Worklist': dataTestId.header.tasksLink,
   'Basic data': dataTestId.header.basicDataLink,
 };
 
