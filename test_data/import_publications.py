@@ -246,9 +246,10 @@ def create_contributor(contributor):
         return new_contributor
 
 
-def create_publication_data(publication_template, test_publication, username, customer, status):
+def create_publication_data(publication_template, test_publication, username, customer, status, today):
     new_publication = copy.deepcopy(publication_template)
-    new_publication['entityDescription']['mainTitle'] = test_publication['title']
+    new_publication['entityDescription']['mainTitle'] = f'{test_publication["title"]} {today}'
+    print(new_publication['entityDescription']['mainTitle'])
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
     if 'publication_content_type' in test_publication:
@@ -304,18 +305,22 @@ def create_publication_data(publication_template, test_publication, username, cu
     return new_publication
 
 
-def create_test_publication(publication_template, test_publication, bearer_token):
+def create_test_publication(publication_template, test_publication):
     customer = get_customer(test_publication['owner']).replace(
         f'https://api.{STAGE}.nva.aws.unit.no/customer/', '')
     username = arp_dict[test_publication['owner']]['username']
     status = test_publication['status']
+
+    today = date.today().strftime('%Y%m%d')
+    print(today)
 
     new_publication = create_publication_data(
         publication_template=publication_template,
         test_publication=test_publication,
         username=username,
         customer=customer,
-        status=status
+        status=status,
+        today=today
     )
 
     return new_publication
@@ -335,8 +340,7 @@ def create_publications():
             print(f'Creating {test_publication["title"]}')
             new_publication = create_test_publication(
                 publication_template=publication_template,
-                test_publication=test_publication,
-                bearer_token=bearer_token
+                test_publication=test_publication
             )
             response = put_item(
                 new_publication=new_publication, username=username)

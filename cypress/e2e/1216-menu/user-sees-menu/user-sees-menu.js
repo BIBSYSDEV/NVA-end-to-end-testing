@@ -23,7 +23,7 @@ When('they look at any page in NVA', () => {
   cy.visit(`/`, {
     auth: {
       username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
     },
   });
 });
@@ -48,7 +48,7 @@ Given('that the User is not logged in', () => {
   cy.visit(`/`, {
     auth: {
       username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
     },
   });
 });
@@ -73,7 +73,6 @@ And('they have the "Creator" role', () => {
 // @347
 // Scenario: User sees the menu for Curator
 And('they have the "Curator" Role', () => {
-  cy.mockPersonSearch(userCuratorWithAuthor);
   cy.login(userCuratorWithAuthor);
   cy.wrap(curatorMenu).as('MENU');
 });

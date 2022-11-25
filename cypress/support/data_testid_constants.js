@@ -9,7 +9,6 @@ export const mainButtons = {
 };
 
 export const userMenu = {
-  'My user profile': dataTestId.header.myProfileLink,
   'Log out': dataTestId.header.logOutLink,
 };
 
