@@ -411,11 +411,91 @@ export const performingArtsWorkTypes = {
   'Other': 'Other',
 };
 
+export const literaryArtsAnnouncements = {
+  'Monograph': dataTestId.registrationWizard.resourceType.addBookButton,
+  'Web Publication': dataTestId.registrationWizard.resourceType.addWebPublicationButton,
+  'Performance': dataTestId.registrationWizard.resourceType.addPerformanceButton,
+  'Audio/Visual Publication': dataTestId.registrationWizard.resourceType.addAudioVideoButton,
+}
+
+export const literaryArtsBookFields = {
+  'Publisher': {
+    'field': dataTestId.registrationWizard.resourceType.publisherNameField,
+    'value': 'Test literary arts book publisher'
+  },
+  'Year': {
+    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'value': '2022',
+  },
+  'ISBN': {
+    'field': dataTestId.registrationWizard.resourceType.isbnField,
+    'value': '9780136091813',
+  },
+  'Total pages': {
+    'field': dataTestId.registrationWizard.resourceType.pagesField,
+    'value': '666'
+  },
+
+}
+
+export const literaryArtsPerformanceFields = {
+  'Type of Performance': {
+    'field': dataTestId.registrationWizard.resourceType.artisticSubtype,
+    'value': 'Reading'
+  },
+  'Date': {
+    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'value': '01-01-2022',
+  },
+  'Place': {
+    'field': dataTestId.registrationWizard.resourceType.placeField,
+    'value': 'Performance place',
+  },
+}
+
+export const literaryArtsWebFields = {
+  'Publisher': {
+    'field': dataTestId.registrationWizard.resourceType.publisherNameField,
+    'value': 'Test literary arts web publisher'
+  },
+  'Year': {
+    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'value': '2022',
+  },
+  'Link': {
+    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'value': 'https://test.no',
+  },
+}
+
+export const literaryArtsAudioVisualFields = {
+  'Publisher': {
+    'field': dataTestId.registrationWizard.resourceType.publisherNameField,
+    'value': 'Test literary arts audio/visual publisher'
+  },
+  'Year': {
+    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'value': '2022',
+  },
+  'Type of audio/visual publication': {
+    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'value': 'Audiobook',
+  },
+  'ISBN': {
+    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'value': '9780136091813',
+  },
+  'Duration': {
+    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'value': '666',
+  },
+}
+
 export const presentationSubtypes = {
-  'Conference lecture': 'resource-type-chip-ConferenceLecture',
-  'Conference poster': 'resource-type-chip-ConferencePoster',
-  'Lecture': 'resource-type-chip-Lecture',
-  'Other presentation': 'resource-type-chip-OtherPresentation',
+  'Conference lecture': dataTestId.registrationWizard.resourceType.resourceTypeChip('ConferenceLecture'),
+  'Conference poster': dataTestId.registrationWizard.resourceType.resourceTypeChip('ConferencePoster'),
+  'Lecture': dataTestId.registrationWizard.resourceType.resourceTypeChip('Lecture'),
+  'Other presentation': dataTestId.registrationWizard.resourceType.resourceTypeChip('OtherPresentation'),
 };
 
 export const persentationFields = {

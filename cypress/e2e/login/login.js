@@ -10,7 +10,7 @@ When('the user navigates to the front page', () => {
   cy.visit(`/`, {
     auth: {
       username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
     },
   });
 });

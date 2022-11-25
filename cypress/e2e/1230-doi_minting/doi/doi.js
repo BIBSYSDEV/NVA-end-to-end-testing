@@ -97,7 +97,7 @@ And('the request is listed in Curator Worklist', () => {
   cy.visit(`/`, {
     auth: {
       username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
     },
   });
   cy.get(`[data-testid=${dataTestId.header.worklistLink}]`).click();

@@ -12,7 +12,7 @@ When('they log in', () => {
   cy.visit(`/`, {
     auth: {
       username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
     },
   });
 });

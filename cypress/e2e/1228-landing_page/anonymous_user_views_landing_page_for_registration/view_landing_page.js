@@ -9,7 +9,7 @@ When('an Anonymous user navigates to a Landing Page for a Resource', () => {
   cy.visit(`/`, {
     auth: {
       username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
     },
   });
   cy.setLocalStorage('beta', true);

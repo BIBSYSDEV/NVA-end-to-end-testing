@@ -74,6 +74,7 @@ export const userRequestSupport = "test-user-open-request-support@test.no";
 export const userOpenMyRegistrations = "test-user-open-my-registrations@test.no";
 export const userResearchDataDmp = "test-user-research-data-dmp@test.no";
 export const userPublishedRegistration = "test-user-published-registration@test.no";
+export const userLiteraryArts = "test-user-literary-arts@test.no";
 
 const userData = {
   name: '',
@@ -148,4 +149,5 @@ export const user = {
   [userOpenMyRegistrations]: { ...userData, name: 'TestUser, Open my registrations' },
   [userResearchDataDmp]: { ...userData, name: 'TestUser, Research data dmp' },
   [userPublishedRegistration]: { ...userData, name: 'TestUser, Published registration' },
+  [userLiteraryArts]: { ...userData, name: 'TestUser, Literary arts' },
 };
