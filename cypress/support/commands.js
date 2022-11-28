@@ -129,7 +129,7 @@ Cypress.Commands.add('login', (userId) => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.setLocalStorage('beta', 'true');
-    cy.mockPersonSearch(userId);
+    // cy.mockPersonSearch(userId);
     cy.mockDepartments();
     cy.visit(`/`, {
       auth: {
@@ -218,7 +218,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('Testuser Withauthor{enter}');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).first().click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
 
   // Files and reference
@@ -292,13 +292,13 @@ Cypress.Commands.add('addMockOrcid', (username) => {
     });
 });
 
-Cypress.Commands.add('mockPersonSearch', (userId) => {
-  cy.intercept(
-    `https://api.${stage}.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
-    mockPersonFeideIdSearch(userId)
-  );
-  cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?name=*`, mockPersonNameSearch(userId));
-});
+// Cypress.Commands.add('mockPersonSearch', (userId) => {
+//   cy.intercept(
+//     `https://api.${stage}.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
+//     mockPersonFeideIdSearch(userId)
+//   );
+//   cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?name=*`, mockPersonNameSearch(userId));
+// });
 
 Cypress.Commands.add('mockProjectSearch', () => {
   cy.fixture(projectSearchMockFile).then((searchResult) => {
@@ -366,45 +366,45 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
     });
 });
 
-Cypress.Commands.add('mockUpdatePerson', (userId) => {
-  cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/feideid/add`, (req) => {
-    const author = { ...mockPerson(userId), feideids: [userId] };
-    req.reply(author);
-  });
-  cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/add`, (req) => {
-    const author = { ...mockPerson(userId), feideids: [userId] };
-    const orgunitids = [...mockPerson(userId).orgunitids];
-    orgunitids.push(req.body['identifier']);
-    author.orgunitids = [...orgunitids];
-    req.reply(author);
-  });
-  cy.intercept(
-    'DELETE',
-    `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/delete`,
-    (req) => {
-      const author = { ...mockPerson(userId), feideids: [userId] };
-      author['orgunitids'] = author['orgunitids'].filter((item) => {
-        return item !== req.body['identifier'];
-      });
-      req.reply(author);
-    }
-  );
-  cy.intercept('DELETE', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/feideid/delete`, (req) => {
-    const author = { ...mockPerson(userId), feideids: [userId] };
-    author['feideid'] = author['feideid'].filter((item) => {
-      return item !== req.body['identifier'];
-    });
-    req.reply(author);
-  });
-});
+// Cypress.Commands.add('mockUpdatePerson', (userId) => {
+//   cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/feideid/add`, (req) => {
+//     const author = { ...mockPerson(userId), feideids: [userId] };
+//     req.reply(author);
+//   });
+//   cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/add`, (req) => {
+//     const author = { ...mockPerson(userId), feideids: [userId] };
+//     const orgunitids = [...mockPerson(userId).orgunitids];
+//     orgunitids.push(req.body['identifier']);
+//     author.orgunitids = [...orgunitids];
+//     req.reply(author);
+//   });
+//   cy.intercept(
+//     'DELETE',
+//     `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/delete`,
+//     (req) => {
+//       const author = { ...mockPerson(userId), feideids: [userId] };
+//       author['orgunitids'] = author['orgunitids'].filter((item) => {
+//         return item !== req.body['identifier'];
+//       });
+//       req.reply(author);
+//     }
+//   );
+//   cy.intercept('DELETE', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/feideid/delete`, (req) => {
+//     const author = { ...mockPerson(userId), feideids: [userId] };
+//     author['feideid'] = author['feideid'].filter((item) => {
+//       return item !== req.body['identifier'];
+//     });
+//     req.reply(author);
+//   });
+// });
 
-Cypress.Commands.add('mockCreatePerson', (userId) => {
-  const author = { ...mockPerson(userId), feideids: [userId] };
-  cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person`, {
-    statusCode: 200,
-    body: author,
-  });
-});
+// Cypress.Commands.add('mockCreatePerson', (userId) => {
+//   const author = { ...mockPerson(userId), feideids: [userId] };
+//   cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person`, {
+//     statusCode: 200,
+//     body: author,
+//   });
+// });
 
 const fillInField = (field) => {
   switch (field['type']) {
