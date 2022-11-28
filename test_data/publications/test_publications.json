@@ -338,16 +338,5 @@
     "status": "DRAFT",
     "contributor": "test-user-with-author@test.no",
     "title": "Test open my registrations"
-  },
-  {
-    "publication_type": "ResearchData",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "DataManagementPlan",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "title": "Test Data Management Plan"
   }
 ]
