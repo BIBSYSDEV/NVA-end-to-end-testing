@@ -18,7 +18,6 @@ Feature: Dataset
         When the User has selected to register a Dataset
         Then the User sees information about types of data that are illegal to publish on this service
 
-    @test
     @TEST_NP-13252
     @9141
     Scenario: User confirms to register data that are legal to publish on this service
@@ -91,6 +90,7 @@ Feature: Dataset
         Then the User is warned about the implications of publishing sensitive data
         And the User has an option to contact user support
 
+    @test
     @TEST_NP-13261
     @9146
     Scenario: User sees Landing Page for Dataset

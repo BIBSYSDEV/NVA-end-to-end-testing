@@ -8,7 +8,7 @@
 // As a User
 // I want to be able to link published datasets to my published journal articles
 
-import { userResearchDataDmp } from '../../../../../support/constants';
+import { userResearchDataset } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 
 //	Background:
@@ -16,35 +16,27 @@ import { dataTestId } from '../../../../../support/dataTestIds';
 //  Common steps
 
 Given ('User selects Resource type "Research Data"', () =>{
-    cy.login(userResearchDataDmp);
+    cy.login(userResearchDataset);
     cy.startWizardWithEmptyRegistration();
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
     cy.get('[data-testid=publication-context-type]').click();
     cy.get('[data-testid="publication-context-type-ResearchData"]').click();
 }); 
 And ('they select Dataset as subtype', () =>{
-    cy.get('[data-testid=publication-instance-type]').click();      
+    cy.get('[data-testid=publication-instance-type]').click();
     cy.get('[data-testid="publication-instance-type-DataSet"]').click();
 }); 
 
 // end common steps
 
-
-
-
     // @TEST_NP-13251
     // @9141
     // Scenario: User sees information about types of data that are illegal to publish on this service
         When ('the User has selected to register a Dataset', () =>{
-            
         }); 
         Then ('the User sees information about types of data that are illegal to publish on this service', () =>{
-            cy.get('[data-testid=accept-button]').should('be.visible');
-            cy.get('[data-testid=cancel-button]').should('be.visible');      
+            cy.get('[data-testid=research-data-confirm-dialog]').should('exist');
         }); 
-
-
-
 
     // @TEST_NP-13252
     // @9141
@@ -56,22 +48,19 @@ And ('they select Dataset as subtype', () =>{
             cy.get('[data-testid=cancel-button]').click();
         }); 
         Then ('the dialog is closed', () =>{
-            cy.get('[data-testid=cancel-button]').should('not.exist');
+            cy.get('[data-testid=research-data-confirm-dialog]').should('not.exist');
         }); 
 
     // @TEST_NP-13253
     // @9141
     // Scenario: User confirms to register data that is illegal to publish on this service
         Given ('User sees information about types of data that are illegal to publish on this service', () =>{
-            cy.get('[data-testid=accept-button]').should('be.visible');
         });
         When ('the User confirms that the data intended to be published is illegal', () =>{
-            cy.get('[data-testid=accept-button]').click();
         });
         Then ('the User is prohibited from publishing the Registration', () =>{
-            cy.get('[data-testid=publication-instance-type]').should('be.empty');
         });
-        And ('any registered data is stored as a draft', () =>{
+        And ('any registered data is stored as a draft', () =>{ 
         });
         And ('the User sees the standard user support dialog where the user can ask for assistance', () =>{
         });
@@ -80,19 +69,10 @@ And ('they select Dataset as subtype', () =>{
     // @9140
     // Scenario: User is informed about further support and registration process
         Given ('User sees information about types of data that are illegal to publish on this service', () =>{
-            cy.get('[data-testid=accept-button]').should('be.visible');
         });
         When ('the User has submitted a user support request', () =>{
-            cy.get('[data-testid=accept-button]').click();
-            cy.get('[data-testid=open-support-button]').click();
-            cy.get('[data-testid=message-field]').should('be.visible');
-            cy.get('[data-testid=message-field]').type('This is a message from me to Support.');
-            cy.get('[data-testid=send-button]').click();
         });
         Then ('the User is informed that the registration is stored', () =>{
-
-
-
         });
         And ('can be completed at any later stage', () =>{
         });
@@ -103,19 +83,16 @@ And ('they select Dataset as subtype', () =>{
     // @9140
     // Scenario: User adds zero or more geographical data to the dataset
         Given ('User confirms to register data that are legal to publish on this service', () =>{
-            cy.get('[data-testid=cancel-button]').should('be.visible');
             cy.get('[data-testid=cancel-button]').click();
         });
         When ('the User writes some free-text geographical data', () =>{
             cy.get('[data-testid=geographic-description-field]').should('be.visible');
             cy.get('[data-testid=geographic-description-field]').type('Trondheim, Norway');
-
-
         });
         // # Future: Add support for land, region, county and map reference (line, rectangle, point)
         Then ('it is stored', () =>{
-
-
+            cy.get('[data-testid=button-save-registration]').click();
+            cy.get('[data-testid=snackbar-success]').should('be.visible');
         });
 
     // @TEST_NP-13256
@@ -152,10 +129,18 @@ And ('they select Dataset as subtype', () =>{
     // @9140
     // Scenario: User adds zero or more comply-to-references to a DMP resource published in NVA
         Given ('User confirms to register data that are legal to publish on this service', () =>{
+            cy.get('[data-testid=cancel-button]').click();      
         });
         When ('the User searches for published DMPs', () =>{
+            cy.get('[data-testid=complies-with-field]').type('Test av dataset');
+            cy.wait(3000);
+            cy.get('[data-testid=complies-with-field]').type('{downArrow}{enter}');
         });
         Then ('the User can store any search result as a comply-to-reference', () =>{
+            cy.get('[data-testid^=related-registration-link-]').first().within(()=>{
+                cy.contains('Test av dataset');
+            });
+            cy.get('[data-testid^=remove-relation-button]').should('be.visible');
         });
 
     // @TEST_NP-13259
@@ -188,14 +173,59 @@ And ('they select Dataset as subtype', () =>{
     // @9146
     // Scenario: User sees Landing Page for Dataset
         When ('User opens Landing Page for a Dataset', () =>{
+            cy.get('[data-testid=cancel-button]').click();
+
+            // fill in data in the Resouce type page
+            cy.get('[data-testid=geographic-description-field]').type('Trondheim, Norway');
+            cy.get('[data-testid=related-registration-field]').type('Antologi');
+            cy.wait(3000);
+            cy.get('[data-testid=related-registration-field]').type('{downArrow}{enter}');
+            cy.get('[data-testid=complies-with-field]').type('Test av dataset');
+            cy.wait(3000);
+            cy.get('[data-testid=complies-with-field]').type('{downArrow}{enter}');
+            cy.get('[data-testid=external-link-field]').type('https://sikt.no');
+            cy.get('[data-testid=external-link-add-button]').click();
+
+            // go to description page and fill in data
+            cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click();
+            cy.get('[data-testid=project-search-field]').type('test');
+            cy.get('[data-testid=project-search-field]').type('{downArrow}{enter}');
+            cy.wait(3000);
+         
+            // go to files and license page
+            cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
+            cy.wait(3000);
+            cy.get('[data-testid=button-save-registration]').click();
+            cy.wait(3000);
         });
+
         Then ('the User sees geographical information', () =>{
+            cy.get('[data-testid=geographic-accordion]').should('be.visible');
+            cy.get('[data-testid=geographic-accordion]').within(()=>{
+                cy.contains('Trondheim, Norway');
+            });
         });
         And ('the User sees publications that use this dataset', () =>{
+            cy.get('[data-testid=publications-using-dataset-accordion]').should('be.visible');
+            cy.get('[data-testid=projects-accordion]').within(()=>{
+                cy.contains('antologi');
+            });
         });
         And ('the User sees projects assosiated with this dataset', () =>{
+            cy.get('[data-testid=projects-accordion]').should('be.visible');
+            cy.get('[data-testid=projects-accordion]').within(()=>{
+                cy.contains('test');
+            });
         });
         And ('the User sees DMPs this dataset complay to', () =>{
+            cy.get('[data-testid=dmp-accordion]').should('be.visible');
+            cy.get('[data-testid=dmp-accordion]').within(()=>{
+                cy.contains('Test av dataset');
+            });
         });
         And ('the User sees other related resources', () =>{
+            cy.get('[data-testid=external-links-accordion]').should('be.visible');
+            cy.get('[data-testid= external-links-accordion]').within(()=>{
+                cy.contains('https://sikt.no');
+            });
         });
