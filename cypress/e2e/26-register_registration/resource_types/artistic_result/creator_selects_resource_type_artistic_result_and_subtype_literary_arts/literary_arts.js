@@ -103,7 +103,7 @@ When('they add a Performance with details for:', (dataTable) => {
             cy.get(`[data-testid=${literaryArtsPerformanceFields[field[0]]['field']}]`).click();
             cy.get(`[data-value=${literaryArtsPerformanceFields[field[0]]['value']}]`).click();
         } else if (field[0] === 'Date') {
-            cy.chooseDatePicker(`[data-testid=literaryArtsPerformanceFields[field[0]]['field']`, literaryArtsPerformanceFields[field[0]]['value']);
+            cy.chooseDatePicker(`[data-testid=${literaryArtsPerformanceFields[field[0]]['field']}]`, literaryArtsPerformanceFields[field[0]]['value']);
         } else {
             cy.get(`[data-testid=${literaryArtsPerformanceFields[field[0]]['field']}]`).type(
                 literaryArtsPerformanceFields[field[0]]['value']
