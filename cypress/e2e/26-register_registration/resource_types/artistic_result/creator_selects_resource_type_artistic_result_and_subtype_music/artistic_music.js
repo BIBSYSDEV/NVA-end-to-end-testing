@@ -9,12 +9,9 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Art
   cy.login(userMusic);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get(`[data-testid=publication-context-type]`).click();
-  cy.get('[data-testid=publication-context-type-Artistic]').click();
 });
 When('they select Resource Subtype "Music"', () => {
-  cy.get(`[data-testid=publication-instance-type]`).click();
-  cy.get('[data-testid=publication-instance-type-MusicPerformance]').click();
+  cy.get('[data-testid=resource-type-chip-MusicPerformance]').click();
 });
 And('they can add Exhibitions of type:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
@@ -45,10 +42,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
   cy.login(userMusic);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get(`[data-testid=publication-context-type]`).click();
-  cy.get('[data-testid=publication-context-type-Artistic]').click();
-  cy.get(`[data-testid=publication-instance-type]`).click();
-  cy.get('[data-testid=publication-instance-type-MusicPerformance]').click();
+  cy.get('[data-testid=resource-type-chip-MusicPerformance]').click();
 });
 When('they add a Concert with details for:', (dataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addConcertShowButton}]`).click();

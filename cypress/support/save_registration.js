@@ -109,7 +109,7 @@ export const registrationFields = {
 export const contributorsCommon = {
   'author': {
     type: 'add',
-    fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
+    fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
     landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
     value: 'Withauthor TestUser',
     add: {
@@ -121,7 +121,7 @@ export const contributorsCommon = {
   },
   'contributors': {
     type: 'add',
-    fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+    fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
     landingPageTestId: dataTestId.registrationLandingPage.contributors,
     value: 'Withauthor TestUser',
     add: {
@@ -141,7 +141,7 @@ export const contributors = {
   BookAnthology: {
     'author': {
       type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Editor'),
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
       landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
       value: 'Withauthor TestUser',
       add: {
@@ -153,7 +153,7 @@ export const contributors = {
     },
     'contributors': {
       type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
       landingPageTestId: dataTestId.registrationLandingPage.contributors,
       value: 'Withauthor TestUser',
       add: {
@@ -171,7 +171,7 @@ export const contributors = {
   Degree: {
     'author': {
       type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Creator'),
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
       landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
       value: 'Withauthor TestUser',
       add: {
@@ -183,7 +183,7 @@ export const contributors = {
     },
     'supervisor': {
       type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('Supervisor'),
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
       landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
       value: 'Withauthor TestUser',
       add: {
@@ -195,7 +195,7 @@ export const contributors = {
     },
     'contributors': {
       type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
       landingPageTestId: dataTestId.registrationLandingPage.contributors,
       value: 'Withauthor TestUser',
       add: {
@@ -213,7 +213,7 @@ export const contributors = {
   Artistic: {
     'contributors': {
       type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton('OtherContributor'),
+      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
       landingPageTestId: dataTestId.registrationLandingPage.contributors,
       value: 'Withauthor TestUser',
       add: {

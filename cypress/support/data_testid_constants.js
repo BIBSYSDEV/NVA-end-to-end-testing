@@ -4,12 +4,11 @@ export const mainButtons = {
   'New Registration': dataTestId.header.newRegistrationLink,
   'My Registrations': dataTestId.header.myPageLink,
   'My page': dataTestId.header.myPageLink,
-  'Worklist': dataTestId.header.worklistLink,
+  'Worklist': dataTestId.header.tasksLink,
   'Basic data': dataTestId.header.basicDataLink,
 };
 
 export const userMenu = {
-  'My user profile': dataTestId.header.myProfileLink,
   'Log out': dataTestId.header.logOutLink,
 };
 
@@ -110,13 +109,13 @@ export const resourceTypes = {
 };
 
 export const journalSubtypes = {
-  'Journal article': 'publication-instance-type-JournalArticle',
-  'Commentary': 'publication-instance-type-JournalLetter',
-  'Book review': 'publication-instance-type-JournalReview',
-  'Editorial': 'publication-instance-type-JournalLeader',
-  'Corrigendum': 'publication-instance-type-JournalCorrigendum',
-  'Journal issue': 'publication-instance-type-JournalIssue',
-  'Conference abstract': 'publication-instance-type-ConferenceAbstract',
+  'Journal article': 'resource-type-chip-JournalArticle',
+  'Commentary': 'resource-type-chip-JournalLetter',
+  'Book review': 'resource-type-chip-JournalReview',
+  'Editorial': 'resource-type-chip-JournalLeader',
+  'Corrigendum': 'resource-type-chip-JournalCorrigendum',
+  'Journal issue': 'resource-type-chip-JournalIssue',
+  'Conference abstract': 'resource-type-chip-ConferenceAbstract',
 };
 
 export const journalFields = {
@@ -146,8 +145,8 @@ export const journalContentTypes = {
 };
 
 export const bookSubtypes = {
-  'Monograph': 'publication-instance-type-BookMonograph',
-  'Anthology': 'publication-instance-type-BookAnthology',
+  'Monograph': 'resource-type-chip-BookMonograph',
+  'Anthology': 'resource-type-chip-BookAnthology',
 };
 
 export const bookFields = {
@@ -169,11 +168,11 @@ export const contentType = {
 };
 
 export const reportSubtypes = {
-  'Research report': 'publication-instance-type-ReportResearch',
-  'Policy report': 'publication-instance-type-ReportPolicy',
-  'Working paper': 'publication-instance-type-ReportWorkingPaper',
-  'Abstract collection': 'publication-instance-type-ReportBookOfAbstract',
-  'Other type of report': 'publication-instance-type-ReportBasic',
+  'Research report': 'resource-type-chip-ReportResearch',
+  'Policy report': 'resource-type-chip-ReportPolicy',
+  'Working paper': 'resource-type-chip-ReportWorkingPaper',
+  'Abstract collection': 'resource-type-chip-ReportBookOfAbstract',
+  'Other type of report': 'resource-type-chip-ReportBasic',
 };
 
 export const reportFields = {
@@ -185,11 +184,11 @@ export const reportFields = {
 };
 
 export const studentThesisSubtypes = {
-  'Bachelor thesis': 'publication-instance-type-DegreeBachelor',
-  'Master thesis': 'publication-instance-type-DegreeMaster',
-  'Doctoral thesis': 'publication-instance-type-DegreePhd',
-  'Licentiate thesis': 'publication-instance-type-DegreeLicentiate',
-  'Other student thesis': 'publication-instance-type-OtherStudentWork',
+  'Bachelor thesis': 'resource-type-chip-DegreeBachelor',
+  'Master thesis': 'resource-type-chip-DegreeMaster',
+  'Doctoral thesis': 'resource-type-chip-DegreePhd',
+  'Licentiate thesis': 'resource-type-chip-DegreeLicentiate',
+  'Other student thesis': 'resource-type-chip-OtherStudentWork',
 };
 
 export const studentThesisFields = {
@@ -202,10 +201,10 @@ export const studentThesisFields = {
 };
 
 export const chapterSubtypes = {
-  'Chapter of Anthology': 'publication-instance-type-ChapterArticle',
-  'Chapter in Anthology': 'publication-instance-type-ChapterArticle',
-  'Chapter in Report': 'publication-instance-type-ChapterInReport',
-  'Conference abstract': 'publication-instance-type-ChapterConferenceAbstract',
+  'Chapter of Anthology': 'resource-type-chip-ChapterArticle',
+  'Chapter in Anthology': 'resource-type-chip-ChapterArticle',
+  'Chapter in Report': 'resource-type-chip-ChapterInReport',
+  'Conference abstract': 'resource-type-chip-ChapterConferenceAbstract',
 };
 
 export const chapterFields = {
@@ -237,13 +236,13 @@ export const chapterContentTypes = {
 };
 
 export const artisticSubtypes = {
-  'Artistic result - Design': 'publication-instance-type-ArtisticDesign',
-  'Artistic result - Architecture': 'publication-instance-type-Architecture',
-  'Artistic result - Film': 'publication-instance-type-MovingPicture',
-  'Artistic result - Music': 'publication-instance-type-MusicPerformance',
-  'Artistic result - Performing art': 'publication-instance-type-PerformingArts',
-  'Artistic result - Writing art': 'publication-instance-type-WritingArt',
-  'Artistic result - Visual art': 'publication-instance-type-VisualArt',
+  'Artistic result - Design': 'resource-type-chip-ArtisticDesign',
+  'Artistic result - Architecture': 'resource-type-chip-Architecture',
+  'Artistic result - Film': 'resource-type-chip-MovingPicture',
+  'Artistic result - Music': 'resource-type-chip-MusicPerformance',
+  'Artistic result - Performing art': 'resource-type-chip-PerformingArts',
+  'Artistic result - Writing art': 'resource-type-chip-WritingArt',
+  'Artistic result - Visual art': 'resource-type-chip-VisualArt',
 };
 
 export const architectureTypes = {
@@ -412,11 +411,91 @@ export const performingArtsWorkTypes = {
   'Other': 'Other',
 };
 
+export const literaryArtsAnnouncements = {
+  'Monograph': dataTestId.registrationWizard.resourceType.addBookButton,
+  'Web Publication': dataTestId.registrationWizard.resourceType.addWebPublicationButton,
+  'Performance': dataTestId.registrationWizard.resourceType.addPerformanceButton,
+  'Audio/Visual Publication': dataTestId.registrationWizard.resourceType.addAudioVideoButton,
+}
+
+export const literaryArtsBookFields = {
+  'Publisher': {
+    'field': dataTestId.registrationWizard.resourceType.publisherNameField,
+    'value': 'Test literary arts book publisher'
+  },
+  'Year': {
+    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'value': '2022',
+  },
+  'ISBN': {
+    'field': dataTestId.registrationWizard.resourceType.isbnField,
+    'value': '9780136091813',
+  },
+  'Total pages': {
+    'field': dataTestId.registrationWizard.resourceType.pagesField,
+    'value': '666'
+  },
+
+}
+
+export const literaryArtsPerformanceFields = {
+  'Type of Performance': {
+    'field': dataTestId.registrationWizard.resourceType.artisticSubtype,
+    'value': 'Reading'
+  },
+  'Date': {
+    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'value': '01-01-2022',
+  },
+  'Place': {
+    'field': dataTestId.registrationWizard.resourceType.placeField,
+    'value': 'Performance place',
+  },
+}
+
+export const literaryArtsWebFields = {
+  'Publisher': {
+    'field': dataTestId.registrationWizard.resourceType.publisherNameField,
+    'value': 'Test literary arts web publisher'
+  },
+  'Year': {
+    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'value': '2022',
+  },
+  'Link': {
+    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'value': 'https://test.no',
+  },
+}
+
+export const literaryArtsAudioVisualFields = {
+  'Publisher': {
+    'field': dataTestId.registrationWizard.resourceType.publisherNameField,
+    'value': 'Test literary arts audio/visual publisher'
+  },
+  'Year': {
+    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'value': '2022',
+  },
+  'Type of audio/visual publication': {
+    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'value': 'Audiobook',
+  },
+  'ISBN': {
+    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'value': '9780136091813',
+  },
+  'Duration': {
+    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'value': '666',
+  },
+}
+
 export const presentationSubtypes = {
-  'Conference lecture': 'publication-instance-type-ConferenceLecture',
-  'Conference poster': 'publication-instance-type-ConferencePoster',
-  'Lecture': 'publication-instance-type-Lecture',
-  'Other presentation': 'publication-instance-type-OtherPresentation',
+  'Conference lecture': dataTestId.registrationWizard.resourceType.resourceTypeChip('ConferenceLecture'),
+  'Conference poster': dataTestId.registrationWizard.resourceType.resourceTypeChip('ConferencePoster'),
+  'Lecture': dataTestId.registrationWizard.resourceType.resourceTypeChip('Lecture'),
+  'Other presentation': dataTestId.registrationWizard.resourceType.resourceTypeChip('OtherPresentation'),
 };
 
 export const persentationFields = {
@@ -429,12 +508,12 @@ export const persentationFields = {
 };
 
 export const mediaSubtypes = {
-  'Feature Article': 'publication-instance-type-MediaFeatureArticle',
-  'Reader Opinion': 'publication-instance-type-MediaReaderOpinion',
-  'Interview': 'publication-instance-type-MediaInterview',
-  'Blog post': 'publication-instance-type-MediaBlogPost',
-  'Podcast': 'publication-instance-type-MediaPodcast',
-  'Participation in Radio or TV': 'publication-instance-type-MediaParticipationInRadioOrTv',
+  'Feature Article': 'resource-type-chip-MediaFeatureArticle',
+  'Reader Opinion': 'resource-type-chip-MediaReaderOpinion',
+  'Interview': 'resource-type-chip-MediaInterview',
+  'Blog post': 'resource-type-chip-MediaBlogPost',
+  'Podcast': 'resource-type-chip-MediaPodcast',
+  'Participation in Radio or TV': 'resource-type-chip-MediaParticipationInRadioOrTv',
 };
 
 export const mediaMediumTypes = {
@@ -477,13 +556,6 @@ export const contributorCreateFields = {
   'Last name': 'create-contributor-last-name',
 };
 
-export const contributorButtons = {
-  'Add Author': 'Creator',
-  'Add Contributor': 'OtherContributor',
-  'Add Supervisor': 'Supervisor',
-  'Add Editor': 'Editor',
-};
-
 export const landingPageFields = {
   'Title': dataTestId.registrationLandingPage.registrationSubtype,
   'Abstract': dataTestId.registrationLandingPage.abstractAccordion,
@@ -496,7 +568,7 @@ export const landingPageFields = {
   'Fields corresponding to subtype': dataTestId.registrationLandingPage.subtypeFields,
   'Contributors': dataTestId.registrationLandingPage.contributors,
   'Files': dataTestId.registrationLandingPage.filesAccordion,
-  'DOI link': dataTestId.registrationLandingPage.doiLink,
+  'DOI link': dataTestId.registrationLandingPage.doiOriginalLink,
   'License': dataTestId.registrationLandingPage.license,
 };
 

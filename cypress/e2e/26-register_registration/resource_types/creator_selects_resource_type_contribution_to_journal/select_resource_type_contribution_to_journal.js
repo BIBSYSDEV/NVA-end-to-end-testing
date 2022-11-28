@@ -1,4 +1,4 @@
-import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { And, Before, Then } from 'cypress-cucumber-preprocessor/steps';
 import { userResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { journalSubtypes, journalFields, journalContentTypes } from '../../../../support/data_testid_constants';
@@ -13,12 +13,12 @@ Before(() => {
 })
 
 // Common steps
-Given('Creator begins registering a Registration in the Wizard with a Link', () => {
-  cy.login(userResourceTypeJournal);
-  cy.startWizardWithLink(doiLink);
-  cy.wrap(true).as('link');
-});
-Given('Creator begins registering a Registration in the Wizard with a File', () => {
+// Given('Creator begins registering a Registration in the Wizard', () => {
+//   cy.login(userResourceTypeJournal);
+//   cy.startWizardWithLink(doiLink);
+//   cy.wrap(true).as('link');
+// });
+Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(userResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
 });
@@ -32,18 +32,24 @@ And('they click the Save button', () => {
   cy.get('[data-testid=button-previous-tab]').click();
 });
 And('they select the Resource type "Contribution to journal"', () => {
-  cy.get('[data-testid=publication-context-type]').type(' ').click({ force: true });
-  cy.get('[data-testid=publication-context-type-Journal]').click();
 });
 And('they select Resource subtype Journal article', () => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.get('[data-testid=publication-instance-type-JournalArticle]').click();
+  cy.get('[data-testid=resource-type-chip-JournalArticle]').click();
 });
 And('they enter an invalid value in fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${journalFields[field]}]`).type('{selectall}{del}invalid');
   });
 });
+
+And('the number for "Pages from" is greater than the number for "Pages to"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}] > div > input`).type('10');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}] > div > input`).type('9');
+})
+And('they enter numbers for "Pages from" and "Pages to"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`).type('10');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}]`).type('9');
+})
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('[data-testid^=snackbar]').should('not.exist');
   const fields = { ...journalFields }
@@ -59,6 +65,18 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
     });
   });
 });
+And('they can see an error messages for field "Pages from"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`)
+    .within(() => {
+      cy.get('p').should('have.class', 'Mui-error');
+    })
+})
+And('they can see an error message for fields "Pages from"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`)
+    .within(() => {
+      cy.get('p').should('have.class', 'Mui-error');
+    })
+})
 And('they can see "Invalid format" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${journalFields[field[0]]}]`).within(() => {
@@ -77,7 +95,6 @@ And('they see fields:', (dataTable) => {
   })
 });
 And('they select the Resource subtype "Corrigendum"', () => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get(`[data-testid=${journalSubtypes['Corrigendum']}]`).click({ force: true });
   cy.get('@link').then((link) => {
     link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
@@ -88,7 +105,6 @@ And('they select the Resource subtype "Corrigendum"', () => {
 // @274
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Contribution to journal"
 Then('they see a list of subtypes:', (dataTable) => {
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.testDataTestidList(dataTable, journalSubtypes);
 });
 // | Journal article |
@@ -135,10 +151,7 @@ Given('Creator sees fields for Journal article', () => {
   cy.login(userResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get('[data-testid=publication-context-type]').click({ force: true }).type(' ');
-  cy.get('[data-testid=publication-context-type-Journal]').click({ force: true });
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
-  cy.get('[data-testid=publication-instance-type-JournalArticle]').click({ force: true });
+  cy.get('[data-testid=resource-type-chip-JournalArticle]').click({ force: true });
 });
 When('they set Content Type to one of:', (dataTable) => {
   dataTable.rawTable.forEach(value => {
@@ -155,7 +168,6 @@ When('they set Content Type to one of:', (dataTable) => {
 // Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype
 And('they select Resource subtype {string}', (subtype) => {
   cy.wrap(subtype).as('subtype');
-  cy.get('[data-testid=publication-instance-type]').type(' ').click({ force: true });
   cy.get(`[data-testid=${journalSubtypes[subtype]}]`).click({ force: true });
   cy.get('@link').then((link) => {
     link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();

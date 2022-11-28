@@ -73,8 +73,8 @@ export const userPerformingArts = "test-user-performing-arts@test.no";
 export const userRequestSupport = "test-user-open-request-support@test.no";
 export const userOpenMyRegistrations = "test-user-open-my-registrations@test.no";
 export const userResearchDataDmp = "test-user-research-data-dmp@test.no";
-export const userResearchDataset = "test-user-research-dataset@test.no";
-
+export const userPublishedRegistration = "test-user-published-registration@test.no";
+export const userLiteraryArts = "test-user-literary-arts@test.no";
 
 const userData = {
   name: '',
@@ -148,5 +148,6 @@ export const user = {
   [userRequestSupport]: { ...userData, name: 'TestUser, Request support' },
   [userOpenMyRegistrations]: { ...userData, name: 'TestUser, Open my registrations' },
   [userResearchDataDmp]: { ...userData, name: 'TestUser, Research data dmp' },
-  [userResearchDataset]: { ...userData, name: 'TestUser, Research dataset' },
+  [userPublishedRegistration]: { ...userData, name: 'TestUser, Published registration' },
+  [userLiteraryArts]: { ...userData, name: 'TestUser, Literary arts' },
 };

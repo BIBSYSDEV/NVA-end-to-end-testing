@@ -10,7 +10,7 @@ Feature: Anonymous User views Landing Page for Registration
             | Abstract                        |
             | NPI                             |
             | Keywords                        |
-            | Publication date                |
+            # | Publication date                |
             | Primary language                |
             | Projects                        |
             | Registration subtype            |

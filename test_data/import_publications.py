@@ -30,8 +30,9 @@ user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
-request_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/doirequest'
-approve_doi_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication/update-doi-request'
+request_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
+approve_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket/{}'
+tickets_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/tickets'
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
@@ -245,9 +246,10 @@ def create_contributor(contributor):
         return new_contributor
 
 
-def create_publication_data(publication_template, test_publication, username, customer, status):
+def create_publication_data(publication_template, test_publication, username, customer, status, today):
     new_publication = copy.deepcopy(publication_template)
-    new_publication['entityDescription']['mainTitle'] = test_publication['title']
+    new_publication['entityDescription']['mainTitle'] = f'{test_publication["title"]} {today}'
+    print(new_publication['entityDescription']['mainTitle'])
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
     if 'publication_content_type' in test_publication:
@@ -303,18 +305,22 @@ def create_publication_data(publication_template, test_publication, username, cu
     return new_publication
 
 
-def create_test_publication(publication_template, test_publication, bearer_token):
+def create_test_publication(publication_template, test_publication):
     customer = get_customer(test_publication['owner']).replace(
         f'https://api.{STAGE}.nva.aws.unit.no/customer/', '')
     username = arp_dict[test_publication['owner']]['username']
     status = test_publication['status']
+
+    today = date.today().strftime('%Y%m%d')
+    print(today)
 
     new_publication = create_publication_data(
         publication_template=publication_template,
         test_publication=test_publication,
         username=username,
         customer=customer,
-        status=status
+        status=status,
+        today=today
     )
 
     return new_publication
@@ -334,8 +340,7 @@ def create_publications():
             print(f'Creating {test_publication["title"]}')
             new_publication = create_test_publication(
                 publication_template=publication_template,
-                test_publication=test_publication,
-                bearer_token=bearer_token
+                test_publication=test_publication
             )
             response = put_item(
                 new_publication=new_publication, username=username)
@@ -367,22 +372,37 @@ def request_doi(identifier, username):
     request_bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
     doi_request_payload = {
-        'identifier': identifier,
+        'type': 'DoiRequest',
         'message': 'Test'
     }
-    response = requests.post(request_doi_endpoint,
+    response = requests.post(request_doi_endpoint.format(STAGE, identifier),
                              json=doi_request_payload, headers=headers)
-
+    check_response(response, 200)
 
 def approve_doi(identifier):
     time.sleep(5)
     request_bearer_token = common.login(username=username_curator)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
-    doi_request_payload = {
-        'doiRequestStatus': 'APPROVED'
-    }
-    response = requests.post(f'{approve_doi_endpoint}/{identifier}',
-                             json=doi_request_payload, headers=headers)
+    tickets = requests.get(tickets_endpoint.format(STAGE, identifier), headers=headers).json()
+    ticket_id = ''
+    for ticket in tickets['tickets']:
+        if ticket['type'] == 'DoiRequest':
+            ticket_id = ticket['identifier']
+    if ticket_id != '':
+        doi_request_payload = {
+            'type': 'DoiRequest',
+            'status': 'Completed',
+        }
+        response = requests.put(approve_doi_endpoint.format(STAGE, identifier, ticket_id),
+                                json=doi_request_payload, headers=headers)
+        check_response(response, 202)
+    else:
+        print('DoiRequest not found in tickets')
+
+def check_response(response, status_code):
+    if response.status_code != status_code:
+        print(response.status_code)
+        print(response.json())
 
 def find_caller_identity():
     client = boto3.client('sts')

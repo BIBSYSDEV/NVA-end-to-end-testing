@@ -21,7 +21,7 @@ Feature: Creator selects Resource type Degree
         When they select the Subtype "<Subtype>"
         Then they see fields:
             | Search box for Publisher |
-            | DOI                      |
+            # | DOI                      |
             | Total pages              |
         Examples:
             | Subtype              |

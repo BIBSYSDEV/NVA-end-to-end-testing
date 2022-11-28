@@ -13,11 +13,8 @@ When('Creator navigates to Resource Type tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
 When('they select the Resource type "Artistic Result"', () => {
-  cy.get(`[data-testid=publication-context-type]`).click();
-  cy.get('[data-testid=publication-context-type-Artistic]').click();
 });
 Then('they see a list of subtypes:', (dataTable) => {
-  cy.get('[data-testid=publication-instance-type]').click();
   cy.testDataTestidList(dataTable, artisticSubtypes);
 });
 // | Artistic result - Architecture   |
@@ -33,12 +30,9 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Art
   cy.login(userArtistic);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get(`[data-testid=publication-context-type]`).click();
-  cy.get('[data-testid=publication-context-type-Artistic]').click();
 });
 And('they select any Subtype', () => {
-  cy.get('[data-testid=publication-instance-type]').click();
-  cy.get('[data-testid^=publication-instance-type-]').first().click();
+  cy.get('[data-testid^=resource-type-chip-]').first().click();
 });
 When('they select Other as Type Work', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticTypeField}]`).click();

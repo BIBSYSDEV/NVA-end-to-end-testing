@@ -11,7 +11,12 @@ const fileTypes = {
 // Common steps
 Given('Anonymous User views Landing Page for Registration', () => {
   cy.setLocalStorage('i18nextLng', 'eng');
-  cy.visit('/');
+  cy.visit(`/`, {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
+    },
+  });
 });
 
 // End common steps
