@@ -13,5 +13,5 @@ When('they click Save and Present', () => {
   cy.get('[data-testid=button-save-registration]').click({ force: true });
 });
 Then('they see the Landing Page for the Registration', () => {
-  cy.location('pathname').should('contain', 'registration').and('contain', 'public');
+  cy.location('pathname').should('contain', 'registration');
 });

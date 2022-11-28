@@ -106,7 +106,7 @@ When('they add a Performance with details for:', (dataTable) => {
 //   | Date                |
 And('Type of Performance can be one of:', (dataTable) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticSubtype}]`).click();
-    dataTable.forEach(type => {
+    dataTable.rawTable.forEach(type => {
         cy.get(`[data-value=${type}]`);
     })
     cy.get(`[data-value=${literaryArtsPerformanceFields['Type of Performance']['value']}]}]`).click()
