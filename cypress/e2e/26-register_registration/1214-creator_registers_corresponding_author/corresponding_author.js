@@ -15,7 +15,7 @@ And('they see an Author', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}] > div > input`).type(
     'Testuser Withauthor{enter}'
   );
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).first().click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
 });
 When('they check the Corresponding checkbox', () => {
