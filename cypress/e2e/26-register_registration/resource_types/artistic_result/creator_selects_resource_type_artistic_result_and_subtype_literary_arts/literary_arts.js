@@ -119,7 +119,7 @@ And('Type of Performance can be one of:', (dataTable) => {
     dataTable.rawTable.forEach(type => {
         cy.get(`[data-value=${type}]`);
     })
-    cy.get(`[data-value=${literaryArtsPerformanceFields['Type of Performance']['value']}]}]`).click()
+    cy.get(`[data-value=${literaryArtsPerformanceFields['Type of Performance']['value']}]`).click()
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 })
 //   | Reading |
