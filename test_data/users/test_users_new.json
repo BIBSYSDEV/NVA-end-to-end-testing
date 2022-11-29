@@ -806,6 +806,16 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "Reseach data dmp",
+    "nin": "13063726693",
+    "username": "test-user-research-data-dmp@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
     "firstName": "Published registration",
     "nin": "29073726679",
     "username": "test-user-published-registration@test.no",

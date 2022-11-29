@@ -1,10 +1,6 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userContributor } from '../../../support/constants';
+import { userContributor, userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import {
-  contributorButtons,
-  resourceTypes,
-} from '../../../support/data_testid_constants';
 
 Before({ tags: '@TEST_NP-4008' }, () => {
   cy.wrap('button-set-unverified-contributor-').as('button');
@@ -244,6 +240,7 @@ And('they see the a button for adding a new Creator in the Create new Creator Di
 
 // Scenario: Creator sees Button to Verify Contributor
 When('the Registration has an Unverified Contributor', () => {
+  cy.mockPersonSearch(userWithAuthor);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
@@ -258,6 +255,7 @@ Then('they see a Button to Verify the Contributor', () => {
 
 // Scenario: Creator opens Dialog to Verify Contributor
 Given('Creator sees Button to Verify Contributor', () => {
+  cy.mockPersonSearch(userWithAuthor);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
@@ -284,6 +282,7 @@ And('they see a list of Persons matching the search', () => {
 
 // Scenario: Creator verifies Contributor
 Given('Creator opens Dialog to Verify Contributor', () => {
+  cy.mockPersonSearch(userWithAuthor);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
