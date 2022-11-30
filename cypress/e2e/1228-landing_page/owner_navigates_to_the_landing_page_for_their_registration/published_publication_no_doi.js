@@ -1,3 +1,4 @@
+import { today } from '../../../support/commands';
 import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
@@ -18,7 +19,7 @@ And('they are the Owner of the Resource', () => {
 And('the Resource has no DOI', () => {
   cy.get('[data-testid=published-button]').click({ force: true });
   cy.get('[data-testid^=registration-title]')
-    .filter(':contains("Published registration no DOI")') // need to use text search to find correct registration
+    .filter(`:contains("Published registration no DOI ${today}")`) // need to use text search to find correct registration
     .parent()
     .within((publicationLine) => {
       cy.wrap(publicationLine).get('[data-testid^=open-registration]').click({ force: true });
@@ -42,7 +43,7 @@ When('the Creator navigates to the Landing Page', () => {
 And('the Resource has Validation Errors', () => { });
 And('the Resource is a draft', () => {
   cy.get('[data-testid^=registration-title]')
-    .filter(':contains("Registration with validation error")') // need to use text search to find correct registration
+    .filter(`:contains("Registration with validation error ${today}")`) // need to use text search to find correct registration
     .parent()
     .within((publicationLine) => {
       cy.wrap(publicationLine).get('[data-testid^=open-registration]').first().click({ force: true });

@@ -1,3 +1,4 @@
+import { today } from '../../../support/commands';
 import { userMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { descriptionFields } from '../../../support/data_testid_constants';
@@ -37,7 +38,7 @@ And('they see a List of Registrations', () => {
 });
 When('they click Edit on a Registration', () => {
   cy.get('tr')
-    .filter(':contains("Registration with validation error")')
+    .filter(`:contains("Registration with validation error ${today}")`)
     .within(() => {
       cy.get('[data-testid^=edit-registration]').first().click({ force: true });
     });

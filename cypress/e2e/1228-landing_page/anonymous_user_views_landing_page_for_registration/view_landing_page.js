@@ -1,7 +1,8 @@
+import { today } from '../../../support/commands';
 import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageFields, landingPageShareButtons } from '../../../support/data_testid_constants';
 
-const landing_page_registration_title = 'View Landing Page';
+const landing_page_registration_title = `View Landing Page ${today}`;
 
 // @881
 // Scenario: Anonymous User views Landing Page for Registration

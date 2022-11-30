@@ -39,9 +39,10 @@ const amplifyConfig = {
 };
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
-const secretsManager = new AWS.SecretsManager();
 
 const authFlow = 'USER_PASSWORD_AUTH';
+
+export const today = new Date().toISOString().slice(0,10).replaceAll('-', '');
 
 Cypress.Commands.add('connectAuthor', () => {
   cy.get(`[data-testid=create-author-button]`).click();
@@ -73,15 +74,6 @@ Cypress.Commands.add('loginCognito', (userId) => {
     const randomPassword = `P%${uuidv4()}`;
     let password = 'P%403f577d-edda-468c-ae77-c8e1a79cd665'
 
-    // secretsManager.getSecretValue(
-    //   {
-    //     SecretId: 'E2ETestUserPassword',
-    //   },
-    //   (err, data) => {
-    //     if (data) {
-    // password = data['SecretString'];
-    // console.log(userId)
-    // console.log(password);
     const authorizeUser = {
       AuthFlow: authFlow,
       ClientId: clientId,
@@ -198,7 +190,7 @@ Cypress.Commands.add('openMyRegistrations', () => {
 Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Description
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click({ force: true });
-  cy.get('[data-testid=registration-title-field]').type('Title');
+  cy.get('[data-testid=registration-title-field]').type(`Title ${today}`);
   cy.get(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`).type('01.01.2020');
 
   // Reference
