@@ -301,7 +301,6 @@ def create_publication_data(publication_template, test_publication, username, cu
         file['mimeType'] = fileTypes['pdf']['mimeType']
         file['name'] = fileTypes['pdf']['fileName']
         new_publication['associatedArtifacts'].append(file)
-
     return new_publication
 
 
@@ -312,7 +311,6 @@ def create_test_publication(publication_template, test_publication):
     status = test_publication['status']
 
     today = date.today().strftime('%Y%m%d')
-    print(today)
 
     new_publication = create_publication_data(
         publication_template=publication_template,

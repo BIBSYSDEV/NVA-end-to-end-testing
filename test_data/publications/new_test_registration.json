@@ -40,12 +40,7 @@
         "type": "JournalArticle",
         "volume": "1",
         "issue": "2",
-        "peerReviewed": true,
-        "pages": {
-          "type": "Range",
-          "begin": "3",
-          "end": "4"
-        },
+        "peerReviewed": false,
         "contentType": "Research article"
       }
     },
