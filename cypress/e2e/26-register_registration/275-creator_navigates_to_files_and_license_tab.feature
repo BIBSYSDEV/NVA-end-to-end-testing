@@ -8,7 +8,7 @@ Feature: Creator navigates to Files and License tab
     When they navigate to the Files and License tab
     Then they see the File upload widget
     And they see an Input Field for Linked Resources
-    # And they have the option to mark that the Resource has no File or Linked Resource
+    And they have the option to mark that the Resource has no File or Linked Resource
     And they see the tab Description is clickable
     And they see the tab Resource Type is clickable
     And they see the tab Contributors is clickable
@@ -51,14 +51,14 @@ Feature: Creator navigates to Files and License tab
       | https://github.com/xxx/yyy |
 
   @TEST_NP-13016
-  # @test
+  @test
   Scenario: Creator adds a file
     Given Creator navigates to Files and License tab
     When they add a file to the File upload widget
     Then they can see the file in the list of files
 
   @TEST_NP-13337
-  # @test
+  @test
   Scenario: Creator sees information about file
     Given Creator adds a file
     When they see the file in the list of files
@@ -68,7 +68,7 @@ Feature: Creator navigates to Files and License tab
       | Terms of use     |
 
   @TEST_NP-12277
-  # @test
+  @test
   Scenario: Creator removes a file
     Given Creator open a Registration with a file
     And navigates to Files and License tab
