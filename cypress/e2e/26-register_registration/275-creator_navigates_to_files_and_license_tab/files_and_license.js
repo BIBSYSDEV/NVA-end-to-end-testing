@@ -1,5 +1,6 @@
 import { userFilesAndLicense } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { fileFields } from '../../../support/data_testid_constants';
 
 const fileName = 'example.txt'
 
@@ -88,7 +89,9 @@ When('they see the file in the list of files', () => {
   cy.get(`[data-testid=uploaded-file-row]`).filter(`:contains(${fileName})`).should('be.visible');
 })
 Then('they can see information about:', (dataTable) => {
-  dataTable.rawTable.forEach((value) => { })
+  cy.get(`[data-testid=uploaded-file-row]`).filter(`:contains(${fileName})`).within(() => {
+    cy.testDataTestidList(dataTable, fileFields);
+  })
 })
 // | Version |
 // | Publish date |

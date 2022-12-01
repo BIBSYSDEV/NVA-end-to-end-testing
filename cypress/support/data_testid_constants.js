@@ -556,6 +556,11 @@ export const contributorCreateFields = {
   'Last name': 'create-contributor-last-name',
 };
 
+export const fileFields = {
+  'Version': dataTestId.registrationWizard.files.version,
+  'Terms of use': dataTestId.registrationWizard.files.selectLicenseField,
+}
+
 export const landingPageFields = {
   'Title': dataTestId.registrationLandingPage.registrationSubtype,
   'Abstract': dataTestId.registrationLandingPage.abstractAccordion,

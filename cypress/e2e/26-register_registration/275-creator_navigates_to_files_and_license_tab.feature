@@ -64,7 +64,7 @@ Feature: Creator navigates to Files and License tab
     When they see the file in the list of files
     Then they can see information about:
       | Version      |
-      | Publish date |
+      # | Publish date |
       | Terms of use |
 
   @TEST_NP-12277
