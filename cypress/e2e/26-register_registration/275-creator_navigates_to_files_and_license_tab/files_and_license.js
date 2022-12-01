@@ -1,4 +1,3 @@
-import { And } from 'cypress-cucumber-preprocessor/steps/index';
 import { userFilesAndLicense } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
