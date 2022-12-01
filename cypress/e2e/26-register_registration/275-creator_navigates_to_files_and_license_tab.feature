@@ -18,7 +18,7 @@ Feature: Creator navigates to Files and License tab
     And they see Save is enabled
 
   @TEST_NP-3999
-  @2634
+  # @2634
   Scenario Outline: Creator looks up a valid Link as a Linked Resource
     Given Creator navigates to Files and License tab
     When they enter "<Link>" in the Linked Resource field
@@ -63,9 +63,9 @@ Feature: Creator navigates to Files and License tab
     Given Creator adds a file
     When they see the file in the list of files
     Then they can see information about:
-      | Version          |
-      | Publish date     |
-      | Terms of use     |
+      | Version      |
+      | Publish date |
+      | Terms of use |
 
   @TEST_NP-12277
   @test

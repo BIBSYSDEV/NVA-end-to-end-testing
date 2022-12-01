@@ -1,6 +1,8 @@
 import { userFilesAndLicense } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
+const fileName = 'example.txt'
+
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(userFilesAndLicense);
   cy.startWizardWithEmptyRegistration();
@@ -52,27 +54,63 @@ Given('Creator navigates to Files and License tab', () => {
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
 });
-When('they wish to mark that a Resource have no File or Linked Resource', () => { });
-Then('they see a warning message that the Resource will have no File or Linked Resource', () => { });
-And('they see they can cancel marking the Resource', () => { });
+When('they wish to mark that a Resource have no File or Linked Resource', () => {
+  // TODO: legg til data-testid i frontend
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.files.noFilesOrLinksButton}]`)
+});
+Then('they see a warning message that the Resource will have no File or Linked Resource', () => {
+  // TODO: legg til data-testid i frontend
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.files.noFilesOrLinksWarning}]`)
+});
+And('they see they can cancel marking the Resource', () => {
+  // TODO: legg til data-testid i frontend
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.files.addFilesOrLinksButton}]`).should('be.visible');
+});
 And('they see they can confirm marking the Resource', () => { });
 
 // Scenario: Creator adds a file
-Given('Creator navigates to Files and License tab', () => { });
-When('they add a file to the File upload widget', () => { });
-Then('they can see the file in the list of files', () => { });
+// Given('Creator navigates to Files and License tab', () => { });
+When('they add a file to the File upload widget', () => {
+  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+});
+Then('they can see the file in the list of files', () => {
+  cy.get(`[data-testid=uploaded-file-row]`).filter(`:contains(${fileName})`).should('be.visible');
+});
 
 // Scenario: Creator sees information about file
-Given('Creator adds a file', () => { })
-When('they see the file in the list of files', () => { })
-Then('they can see information about:', () => { })
+Given('Creator adds a file', () => {
+  cy.login(userFilesAndLicense);
+  cy.startWizardWithEmptyRegistration();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
+  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+})
+When('they see the file in the list of files', () => {
+  cy.get(`[data-testid=uploaded-file-row]`).filter(`:contains(${fileName})`).should('be.visible');
+})
+Then('they can see information about:', (dataTable) => {
+  dataTable.rawTable.forEach((value) => { })
+})
 // | Version |
 // | Publish date |
 // | Terms of use |
 
 // Scenario: Creator removes a file
-Given('Creator open a Registration with a file', () => { });
-And('navigates to Files and License tab', () => { });
-When('they remove a file', () => { });
-Then('they no longer see the file in the list of files', () => { });
+Given('Creator open a Registration with a file', () => {
+  cy.login(userFilesAndLicense);
+  cy.startWizardWithEmptyRegistration();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
+  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+});
+And('navigates to Files and License tab', () => {
+  cy.get(`[data-testid=uploaded-file-row]`).filter(`:contains(${fileName})`).should('exist');
+});
+When('they remove a file', () => {
+  cy.get(`[data-testid=uploaded-file-row]`).filter(`:contains(${fileName})`).within(() => {
+    cy.get('[data-testid=CancelIcon]').click();
+  })
+  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+});
+Then('they no longer see the file in the list of files', () => {
+  cy.get(`[data-testid=uploaded-file-row]`).should('not.exist');
+});
 
