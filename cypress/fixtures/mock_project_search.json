@@ -5,7 +5,7 @@
   "searchString": "language=nb&page=1&query=test&results=5",
   "processingTime": 5104,
   "firstRecord": 1,
-  "nextResults": "https://api.dev.nva.aws.unit.no/project/?language=nb&page=2&query=test&results=5",
+  "nextResults": "https://api.dev.nva.aws.unit.no/cristin/project/?language=nb&page=2&query=test&results=5",
   "previousResults": null,
   "hits": [
     {
