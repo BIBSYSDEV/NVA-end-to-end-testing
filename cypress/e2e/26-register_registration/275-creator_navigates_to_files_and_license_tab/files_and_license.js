@@ -43,7 +43,6 @@ And('they see Previous is enabled', () => {
   cy.get('[data-testid=button-previous-tab]').should('be.enabled');
 });
 And('they see Next is enabled', () => {
-  // cy.get('[data-testid=button-next-tab]').should('be.enabled');
 });
 And('they see Save is enabled', () => {
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
@@ -56,21 +55,17 @@ Given('Creator navigates to Files and License tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
 });
 When('they wish to mark that a Resource have no File or Linked Resource', () => {
-  // TODO: legg til data-testid i frontend
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.files.noFilesOrLinksButton}]`)
+  cy.get(`[data-testid=${dataTestId.registrationWizard.files.noFilesOrLinksButton}]`).click();
 });
 Then('they see a warning message that the Resource will have no File or Linked Resource', () => {
-  // TODO: legg til data-testid i frontend
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.files.noFilesOrLinksWarning}]`)
+  cy.get(`[data-testid=${dataTestId.registrationWizard.files.noFilesOrLinksWarning}]`);
 });
 And('they see they can cancel marking the Resource', () => {
-  // TODO: legg til data-testid i frontend
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.files.addFilesOrLinksButton}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.files.addFilesOrLinksButton}]`).should('be.visible');
 });
 And('they see they can confirm marking the Resource', () => { });
 
 // Scenario: Creator adds a file
-// Given('Creator navigates to Files and License tab', () => { });
 When('they add a file to the File upload widget', () => {
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });

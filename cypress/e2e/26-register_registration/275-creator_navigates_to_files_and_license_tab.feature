@@ -2,7 +2,6 @@ Feature: Creator navigates to Files and License tab
 
   @TEST_NP-3998
   @test
-  @275
   Scenario: Creator navigates to Files and License tab
     Given Creator begins registering a Registration in the Wizard
     When they navigate to the Files and License tab
@@ -18,7 +17,6 @@ Feature: Creator navigates to Files and License tab
     And they see Save is enabled
 
   @TEST_NP-3999
-  # @2634
   Scenario Outline: Creator looks up a valid Link as a Linked Resource
     Given Creator navigates to Files and License tab
     When they enter "<Link>" in the Linked Resource field
@@ -31,6 +29,7 @@ Feature: Creator navigates to Files and License tab
       | https://github.com/BIBSYSDEV/NVA-Frontend |
       | https://www.nrk.no/                       |
 
+  @test
   Scenario: Creator marks that a Resource has no File or Linked Resource
     Given Creator navigates to Files and License tab
     When they wish to mark that a Resource have no File or Linked Resource
@@ -39,7 +38,6 @@ Feature: Creator navigates to Files and License tab
     And they see they can confirm marking the Resource
 
   @TEST_NP-3997
-  @2636
   Scenario Outline: Creator looks up an invalid Link as Linked Resource
     Given Creator navigates to Files and License tab
     When they enter "<Link>" in the Linked Resource field
