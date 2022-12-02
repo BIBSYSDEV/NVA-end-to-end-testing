@@ -93,6 +93,16 @@ export const institutionFields = {
   ...myInstitutionFields,
   'Feide Organization ID': dataTestId.institutionAdmin.feideField,
 };
+export const myRegistrations = {
+  'Title': 'registration-title',
+  'Status': 'registration-status',
+  'Created': 'registration-created',
+}
+
+export const myRegistrationsButtons = {
+  'Show': 'open-registration',
+  'Edit': 'edit-registration',
+}
 
 export const resourceTypes = {
   'Contribution to journal': 'publication-context-type-Journal',
