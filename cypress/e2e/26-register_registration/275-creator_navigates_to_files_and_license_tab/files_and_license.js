@@ -65,6 +65,19 @@ And('they see they can cancel marking the Resource', () => {
 });
 And('they see they can confirm marking the Resource', () => { });
 
+// Scenario: Creator marks a File with Administrative Agrement
+When('they upload a File', () => {
+  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+})
+And('they mark the File with Administrative Agreement', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.files.administrativeAgreement}]`).click();
+})
+Then('the File is not presented on the Landing Page', () => {
+  cy.get(`[data-testid=button-save-registration]`).click();
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.filesAccordion}]`).should('not.exist');
+})
+
+
 // Scenario: Creator adds a file
 When('they add a file to the File upload widget', () => {
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });

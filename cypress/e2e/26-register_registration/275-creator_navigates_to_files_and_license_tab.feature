@@ -13,7 +13,6 @@ Feature: Creator navigates to Files and License tab
     And they see the tab Contributors is clickable
     And they see the tab Files and License is selected
     And they see Previous is enabled
-    And they see Next is enabled
     And they see Save is enabled
 
   @TEST_NP-3999
@@ -29,13 +28,21 @@ Feature: Creator navigates to Files and License tab
       | https://github.com/BIBSYSDEV/NVA-Frontend |
       | https://www.nrk.no/                       |
 
+  @TEST_NP-22030
   @test
   Scenario: Creator marks that a Resource has no File or Linked Resource
     Given Creator navigates to Files and License tab
     When they wish to mark that a Resource have no File or Linked Resource
     Then they see a warning message that the Resource will have no File or Linked Resource
     And they see they can cancel marking the Resource
-    And they see they can confirm marking the Resource
+
+  @TEST_NP-22031
+  @test
+  Scenario: Creator marks a File with Administrative Agrement
+    Given Creator navigates to Files and License tab
+    When they upload a File
+    And they mark the File with Administrative Agreement
+    Then the File is not presented on the Landing Page
 
   @TEST_NP-3997
   Scenario Outline: Creator looks up an invalid Link as Linked Resource
@@ -62,7 +69,6 @@ Feature: Creator navigates to Files and License tab
     When they see the file in the list of files
     Then they can see information about:
       | Version      |
-      # | Publish date |
       | Terms of use |
 
   @TEST_NP-12277
