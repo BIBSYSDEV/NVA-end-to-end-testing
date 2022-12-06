@@ -65,7 +65,7 @@ And('they see a list of Exhibition Places with fields:', (dataTable) => {
 // | Date end   |
 // | Order      |
 And('they see that each Exhibition Place has a Delete Button', () => {
-  cy.get('[data-testid=DeleteIcon]').should('be.visible');
+  cy.get('[data-testid=CancelIcon]').should('be.visible');
 });
 And('they see that each Exhibition Place has an Edit Button', () => {
   cy.get('[data-testid=EditIcon]').should('be.visible');
@@ -108,7 +108,7 @@ And('they see an item in the list of Exhibition Places', () => {
   cy.contains(venueName);
 });
 When('they click the Delete Exhibition Place Button', () => {
-  cy.get('[data-testid=DeleteIcon]').click();
+  cy.get('[data-testid=CancelIcon]').click();
   cy.get(`[data-testid=accept-button]`).click();
 });
 Then('the row is removed from list of Exhibition Places', () => {
