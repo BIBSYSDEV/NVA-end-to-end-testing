@@ -106,6 +106,16 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "Withauthor 1",
+    "nin": "20084732363",
+    "username": "test-user-with-author-1@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
     "firstName": "Withauthor 2",
     "nin": "10041246176",
     "username": "test-user-with-author-2@test.no",
@@ -839,6 +849,96 @@
     "firstName": "Files and license",
     "nin": "31052435431",
     "username": "test-user-files-and-license@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Save journal",
+    "nin": "13083726673",
+    "username": "test-user-save-journal@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Save book",
+    "nin": "08115214412",
+    "username": "test-user-save-book@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Save report",
+    "nin": "19065938327",
+    "username": "test-user-save-report@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Save thesis",
+    "nin": "02068638758",
+    "username": "test-user-save-thesis@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Save part of book",
+    "nin": "11061770730",
+    "username": "test-user-save-part-of-book@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Save presentation",
+    "nin": "16081839593",
+    "username": "test-user-save-presentation@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Save artistic result",
+    "nin": "05107748042",
+    "username": "test-user-save-artistic-result@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Save media contribution",
+    "nin": "22071702883",
+    "username": "test-user-save-media-contribution@test.no",
+    "role": [{"type": "Role", "rolename": "Creator"}],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Save research data",
+    "nin": "10020818277",
+    "username": "test-user-save-research-data@test.no",
     "role": [{"type": "Role", "rolename": "Creator"}],
     "orcid": true,
     "orgNumber": "20202",

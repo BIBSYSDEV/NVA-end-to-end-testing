@@ -67,7 +67,6 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
             print(payload)
             print(response.text)
         cristinPersonId = response.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
-        print(cristinPersonId)
         time.sleep(10)
     if not cristinPersonId == '':
         updateAffiliations = True
