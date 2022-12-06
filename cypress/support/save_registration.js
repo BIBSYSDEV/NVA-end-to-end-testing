@@ -74,7 +74,7 @@ export const registrationFields = {
       fieldTestId: dataTestId.registrationWizard.files.version,
       elementType: 'radio',
       landingPageTestId: dataTestId.registrationLandingPage.version,
-      value: 'Accepted version',
+      value: 'Accepted',
       checkbox: {
         selected: 'first',
       },
@@ -137,100 +137,7 @@ export const contributorsCommon = {
   },
 };
 
-export const contributors = {
-  BookAnthology: {
-    'author': {
-      type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
-      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
-      value: 'Withauthor TestUser',
-      add: {
-        searchFieldTestId: 'search-field',
-        searchValue: 'TestUser',
-        resultsTestId: dataTestId.registrationWizard.contributors.authorRadioButton,
-        selectButtonTestId: dataTestId.registrationWizard.contributors.selectUserButton,
-      },
-    },
-    'contributors': {
-      type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
-      landingPageTestId: dataTestId.registrationLandingPage.contributors,
-      value: 'Withauthor TestUser',
-      add: {
-        select: {
-          selectTestId: 'select-contributor-type',
-          value: 'Other',
-        },
-        searchFieldTestId: 'search-field',
-        searchValue: 'TestUser',
-        resultsTestId: dataTestId.registrationWizard.contributors.authorRadioButton,
-        selectButtonTestId: dataTestId.registrationWizard.contributors.selectUserButton,
-      },
-    },
-  },
-  Degree: {
-    'author': {
-      type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
-      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
-      value: 'Withauthor TestUser',
-      add: {
-        searchFieldTestId: 'search-field',
-        searchValue: 'TestUser',
-        resultsTestId: dataTestId.registrationWizard.contributors.authorRadioButton,
-        selectButtonTestId: dataTestId.registrationWizard.contributors.selectUserButton,
-      },
-    },
-    'supervisor': {
-      type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
-      landingPageTestId: dataTestId.registrationLandingPage.authorLink(''),
-      value: 'Withauthor TestUser',
-      add: {
-        searchFieldTestId: 'search-field',
-        searchValue: 'TestUser',
-        resultsTestId: dataTestId.registrationWizard.contributors.authorRadioButton,
-        selectButtonTestId: dataTestId.registrationWizard.contributors.selectUserButton,
-      },
-    },
-    'contributors': {
-      type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
-      landingPageTestId: dataTestId.registrationLandingPage.contributors,
-      value: 'Withauthor TestUser',
-      add: {
-        select: {
-          selectTestId: 'select-contributor-type',
-          value: 'Other',
-        },
-        searchFieldTestId: 'search-field',
-        searchValue: 'TestUser',
-        resultsTestId: dataTestId.registrationWizard.contributors.authorRadioButton,
-        selectButtonTestId: dataTestId.registrationWizard.contributors.selectUserButton,
-      },
-    },
-  },
-  Artistic: {
-    'contributors': {
-      type: 'add',
-      fieldTestId: dataTestId.registrationWizard.contributors.addContributorButton,
-      landingPageTestId: dataTestId.registrationLandingPage.contributors,
-      value: 'Withauthor TestUser',
-      add: {
-        select: {
-          selectTestId: 'select-contributor-type',
-          value: 'Other',
-        },
-        searchFieldTestId: 'search-field',
-        searchValue: 'TestUser',
-        resultsTestId: dataTestId.registrationWizard.contributors.authorRadioButton,
-        selectButtonTestId: dataTestId.registrationWizard.contributors.selectUserButton,
-      },
-    },
-  },
-};
-
-const resourceTypeFields = {
+export const resourceTypeFields = {
   publisher: {
     type: 'search',
     fieldTestId: dataTestId.registrationWizard.resourceType.publisherField,
@@ -330,7 +237,7 @@ const resourceTypeFields = {
     landingPageTestId: '',
     value: '333',
   },
-  to: {
+  pagesTo: {
     type: 'text',
     fieldTestId: dataTestId.registrationWizard.resourceType.pagesToField,
     elementType: 'input',
@@ -435,122 +342,3 @@ const resourceTypeFields = {
   },
 };
 
-export const resourceTypesCommon = {
-  Book: {
-    publisher: resourceTypeFields.publisher,
-    scientificField: resourceTypeFields.scientificField,
-    isbn: resourceTypeFields.isbn,
-    pages: resourceTypeFields.pages,
-    seriesTitle: resourceTypeFields.seriesTitle,
-    seriesNumber: resourceTypeFields.seriesNumber,
-  },
-  Report: {
-    publisher: resourceTypeFields.publisher,
-    isbn: resourceTypeFields.isbn,
-    pages: resourceTypeFields.pages,
-    seriesTitle: resourceTypeFields.seriesTitle,
-    seriesNumber: resourceTypeFields.seriesNumber,
-  },
-  Journal: {
-    volume: resourceTypeFields.volume,
-    issue: resourceTypeFields.issue,
-    pagesFrom: resourceTypeFields.pagesFrom,
-    to: resourceTypeFields.to,
-    articleNumber: resourceTypeFields.articleNumber,
-  },
-  Degree: {
-    publisher: resourceTypeFields.publisher,
-    isbn: resourceTypeFields.isbn,
-    pages: resourceTypeFields.pages,
-  },
-  Chapter: {
-    partOf: resourceTypeFields.partOf,
-    pagesFrom: resourceTypeFields.pagesFrom,
-    pagesTo: resourceTypeFields.to,
-    content: resourceTypeFields.chapterContent,
-    peerReview: resourceTypeFields.peerReview,
-  },
-  Event: {
-    titleOfEvent: resourceTypeFields.titleOfEvent,
-    eventOrganizer: resourceTypeFields.eventOrganizer,
-    eventPlace: resourceTypeFields.eventPlace,
-    eventCountry: resourceTypeFields.eventCountry,
-    eventDateFrom: resourceTypeFields.eventDateFrom,
-    eventDateTo: resourceTypeFields.eventDateTo,
-  },
-  Artistic: {
-    artisticTypeWork: resourceTypeFields.artisticType,
-    artisticDescription: resourceTypeFields.artisticDescription,
-    exhibitionPlace: resourceTypeFields.exhibitionPlace,
-  },
-};
-
-export const resourceTypes = {
-  Book: {
-    BookMonograph: {
-      ...resourceTypesCommon.Book,
-      content: resourceTypeFields.bookContent,
-    },
-    BookAnthology: { ...resourceTypesCommon.Book },
-  },
-  Report: {
-    ReportResearch: { ...resourceTypesCommon.Report },
-    ReportPolicy: { ...resourceTypesCommon.Report },
-    ReportWorkingPaper: { ...resourceTypesCommon.Report },
-    ReportBasic: { ...resourceTypesCommon.Report },
-  },
-  Journal: {
-    JournalArticle: {
-      ...resourceTypesCommon.Journal,
-      journal: resourceTypeFields.journal,
-      content: resourceTypeFields.journalContent,
-    },
-    JournalCorrigendum: {
-      ...resourceTypesCommon.Journal,
-      articleTitle: resourceTypeFields.articleTitle,
-    },
-    FeatureArticle: {
-      ...resourceTypesCommon.Journal,
-      journal: resourceTypeFields.journal,
-    },
-    JournalLetter: {
-      ...resourceTypesCommon.Journal,
-      journal: resourceTypeFields.journal,
-    },
-    JournalReview: {
-      ...resourceTypesCommon.Journal,
-      journal: resourceTypeFields.journal,
-    },
-    JournalLeader: {
-      ...resourceTypesCommon.Journal,
-      journal: resourceTypeFields.journal,
-    },
-  },
-  Report: {
-    ReportResearch: { ...resourceTypesCommon.Report },
-    ReportPolicy: { ...resourceTypesCommon.Report },
-    ReportWorkingPaper: { ...resourceTypesCommon.Report },
-    ReportBasic: { ...resourceTypesCommon.Report },
-  },
-  Degree: {
-    DegreeBachelor: { ...resourceTypesCommon.Degree },
-    DegreeMaster: { ...resourceTypesCommon.Degree },
-    DegreePhd: {
-      ...resourceTypesCommon.Degree,
-      publisher: resourceTypeFields.publisher,
-    },
-    OtherStudentWork: { ...resourceTypesCommon.Degree },
-  },
-  Chapter: {
-    ChapterArticle: { ...resourceTypesCommon.Chapter },
-  },
-  Event: {
-    ConferenceLecture: { ...resourceTypesCommon.Event },
-    ConferencePoster: { ...resourceTypesCommon.Event },
-    Lecture: { ...resourceTypesCommon.Event },
-    OtherPresentation: { ...resourceTypesCommon.Event },
-  },
-  Artistic: {
-    ArtisticDesign: { ...resourceTypesCommon.Artistic },
-  },
-};

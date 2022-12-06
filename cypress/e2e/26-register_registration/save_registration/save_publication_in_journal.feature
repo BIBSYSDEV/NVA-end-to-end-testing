@@ -1,4 +1,6 @@
-    Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Publication in Journal
+Feature: Save regisratation for Publication in journal
+    @test
+    Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Publication in journal
         Given Author begins registering a Registration
         And selects "<Subtype>"
         And fill in values for all fields
@@ -7,11 +9,11 @@
         And they can see the values in the Registration Wizard
 
         Examples:
-            | Subtype            |
-            | JournalArticle     |
-            | JournalLetter      |
-            | JournalReview      |
-            | JournalLeader      |
-            | JournalCorrigendum |
-            | JournalIssue       |
-            | ConferenceAbstract |
+            | Subtype        |
+            | JournalArticle |
+# | JournalLetter      |
+# | JournalReview      |
+# | JournalLeader      |
+# | JournalCorrigendum |
+# | JournalIssue       |
+# | ConferenceAbstract |

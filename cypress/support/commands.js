@@ -42,7 +42,7 @@ const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
 const authFlow = 'USER_PASSWORD_AUTH';
 
-export const today = new Date().toISOString().slice(0,10).replaceAll('-', '');
+export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
 
 Cypress.Commands.add('connectAuthor', () => {
   cy.get(`[data-testid=create-author-button]`).click();
@@ -67,6 +67,10 @@ Cypress.Commands.add('checkMenu', (table) => {
     cy.get('li').should('contain.text', menuItem);
   });
 });
+
+Cypress.Commands.add('getDataTestId', (dataTestId) => {
+  cy.get(`[data-testid=${dataTestId}]`)
+})
 
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
@@ -358,45 +362,6 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
     });
 });
 
-// Cypress.Commands.add('mockUpdatePerson', (userId) => {
-//   cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/feideid/add`, (req) => {
-//     const author = { ...mockPerson(userId), feideids: [userId] };
-//     req.reply(author);
-//   });
-//   cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/add`, (req) => {
-//     const author = { ...mockPerson(userId), feideids: [userId] };
-//     const orgunitids = [...mockPerson(userId).orgunitids];
-//     orgunitids.push(req.body['identifier']);
-//     author.orgunitids = [...orgunitids];
-//     req.reply(author);
-//   });
-//   cy.intercept(
-//     'DELETE',
-//     `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/orgunitid/delete`,
-//     (req) => {
-//       const author = { ...mockPerson(userId), feideids: [userId] };
-//       author['orgunitids'] = author['orgunitids'].filter((item) => {
-//         return item !== req.body['identifier'];
-//       });
-//       req.reply(author);
-//     }
-//   );
-//   cy.intercept('DELETE', `https://api.${stage}.nva.aws.unit.no/person/1234567890/identifiers/feideid/delete`, (req) => {
-//     const author = { ...mockPerson(userId), feideids: [userId] };
-//     author['feideid'] = author['feideid'].filter((item) => {
-//       return item !== req.body['identifier'];
-//     });
-//     req.reply(author);
-//   });
-// });
-
-// Cypress.Commands.add('mockCreatePerson', (userId) => {
-//   const author = { ...mockPerson(userId), feideids: [userId] };
-//   cy.intercept('POST', `https://api.${stage}.nva.aws.unit.no/person`, {
-//     statusCode: 200,
-//     body: author,
-//   });
-// });
 
 const fillInField = (field) => {
   switch (field['type']) {
@@ -415,7 +380,7 @@ const fillInField = (field) => {
       cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true });
       break;
     case 'select':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').click();
+      cy.get(`[data-testid=${field['fieldTestId']}]`).scrollIntoView().should('be.visible').click();
       cy.contains(field['value']).click({ force: true });
       break;
     case 'add':
@@ -471,7 +436,7 @@ Cypress.Commands.add('checkField', (field) => {
       cy.get(`[data-testid=${field['fieldTestId']}] div`).should('contain', value);
       break;
     case 'file':
-      cy.get('[data-testid=uploaded-file-card] > div > p').should('contain', value);
+      cy.get('[data-testid=uploaded-file-row]').should('contain', value);
       break;
     case 'radio':
       cy.get(`[data-testid=${field['fieldTestId']}] span`)
@@ -497,45 +462,35 @@ Cypress.Commands.add('checkField', (field) => {
   }
 });
 
-Cypress.Commands.add('fillInCommonFields', (type, subtype) => {
+Cypress.Commands.add('fillInCommonFields', () => {
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key]['tab']}]`).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
       const field = registrationFields[key][subkey];
-      fillInField(field, type, subtype);
+      fillInField(field);
     });
   });
 });
 
-Cypress.Commands.add('fillInResourceType', (type, subtype) => {
+Cypress.Commands.add('fillInResourceType', (subtype, fields) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get(`[data-testid=resource-type-chip-${subtype.replaceAll(' ', '-')}]`).click({ force: true });
-  Object.keys(resourceTypes[type][subtype]).forEach((key) => {
-    if (key !== 'contributorType') {
-      const field = resourceTypes[type][subtype][key];
-      fillInField(field);
-    }
-  });
-  if ('contributorType' in resourceTypes[type]) {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
-    fillInField(resourceTypes[type]['contributorType']);
-  }
+  cy.get(`[data-testid=resource-type-chip-${subtype}]`).click();
+  fields.forEach(field => {
+    fillInField(field);
+  })
 });
 
-Cypress.Commands.add('fillInContributors', (type, subtype) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
-  let fields = {};
-  if (type in contributors) {
-    fields = contributors[type];
-  } else if (subtype in contributors) {
-    fields = contributors[subtype];
-  } else {
-    fields = contributorsCommon;
-  }
-  Object.keys(fields).forEach((key) => {
-    const field = fields[key];
-    fillInField(field);
-  });
+Cypress.Commands.add('fillInContributors', (contributorRoles) => {
+  var index = 0;
+  contributorRoles.forEach(role => {
+      index++;
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectContributorType).click();
+      cy.get(`[data-value=${role}]`).click();
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`Withauthor ${(index)}`);
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).filter(`:contains('Withauthor ${index}')`).first().click();
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+  })
 });
 
 Cypress.Commands.add('checkLandingPage', () => {
@@ -544,9 +499,11 @@ Cypress.Commands.add('checkLandingPage', () => {
       const field = registrationFields[key][subkey];
       if (field['landingPageTestId']) {
         if (field['landingPageTestId'] === dataTestId.registrationLandingPage.license) {
-          cy.get(`[data-testid=${field['landingPageTestId']}]`).get(`[title="${field['value']}"]`);
+          cy.get(`[data-testid=${field.landingPageTestId}]`).get(`[title="${field.value}"]`);
+        } else if (field['landingPageTestId'] === dataTestId.registrationLandingPage.title) {
+          cy.get(`[data-testid=${dataTestId.registrationLandingPage.registrationSubtype}]`).parent().should('contain', field.value)
         } else {
-          cy.get(`[data-testid^=${field['landingPageTestId']}]`).should('contain', field['value']);
+          cy.get(`[data-testid^=${field.landingPageTestId}]`).should('contain', field.value);
         }
       }
     });
