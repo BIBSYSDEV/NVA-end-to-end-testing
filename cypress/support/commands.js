@@ -380,7 +380,7 @@ const fillInField = (field) => {
       cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true });
       break;
     case 'select':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).scrollIntoView().should('be.visible').click();
+      cy.get(`[data-testid=${field['fieldTestId']}]`).scrollIntoView().should('be.visible').click({ force: true });
       cy.contains(field['value']).click({ force: true });
       break;
     case 'add':
@@ -483,13 +483,13 @@ Cypress.Commands.add('fillInResourceType', (subtype, fields) => {
 Cypress.Commands.add('fillInContributors', (contributorRoles) => {
   var index = 0;
   contributorRoles.forEach(role => {
-      index++;
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectContributorType).click();
-      cy.get(`[data-value=${role}]`).click();
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`Withauthor ${(index)}`);
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).filter(`:contains('Withauthor ${index}')`).first().click();
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+    index++;
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectContributorType).click();
+    cy.get(`[data-value=${role}]`).click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`Withauthor ${(index)}`);
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).filter(`:contains('Withauthor ${index}')`).first().click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
   })
 });
 

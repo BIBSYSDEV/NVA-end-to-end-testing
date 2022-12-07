@@ -37,7 +37,7 @@ And('the User is notified that progress on this claim can be viewed in My Messag
 And('the Registration contains a File, which is an Administrative Agreement', () => {
 
   cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`File with Administrative agreement ${today}{enter}`);
-  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
+  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > td > p > a`)
     .filter(`:contains("File with Administrative agreement ${today}")`)
     .first()
     .click();
@@ -51,7 +51,7 @@ Then('they do not see the File that is an Administrative Agreement', () => {
 // Scenario: Files that are part of Registration are listed
 And('the Registration contains Files', () => {
   cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`No administrative agreement ${today}`);
-  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
+  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > td > p > a`)
     .filter(`:contains("No administrative agreement ${today}") `)
     .first()
     .click();
@@ -83,7 +83,7 @@ And('they can see a download button for Files that are not Embargoed', () => {
 // Scenario Outline: Files can be previewed
 And('the Registration contains Files that are not Embargoed of type {string}', (fileType) => {
   cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`Not Embargoed ${fileType} file ${today}`);
-  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
+  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > td > p > a`)
     .filter(`:contains("Not Embargoed ${fileType} file ${today}")`)
     .first()
     .click();
@@ -108,7 +108,7 @@ And('they see the preview of the downloaded File', () => {
 // Scenario: Automatically preview first File
 And('the Registration contains Files', () => {
   cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`Not Embargoed Image file ${today}`);
-  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
+  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > td > p > a`)
     .filter(`:contains("Not Embargoed Image file ${today}")`)
     .first()
     .click();
@@ -128,7 +128,7 @@ And('the downloaded File is displayed', (file) => {
 // Scenario: Lock Embargoed Files
 And('the Registration contains a File that is Embargoed', () => {
   cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`Embargoed PDF file ${today}`);
-  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
+  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > td > p > a`)
     .filter(`:contains("Embargoed PDF file ${today}")`)
     .first()
     .click();
