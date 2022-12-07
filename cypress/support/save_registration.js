@@ -90,7 +90,7 @@ export const registrationFields = {
       },
     },
     'date': {
-      type: 'text',
+      type: 'date',
       fieldTestId: dataTestId.registrationWizard.files.embargoDateField,
       elementType: 'input',
       landingPageTestId: '',
