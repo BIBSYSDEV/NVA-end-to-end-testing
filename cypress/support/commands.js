@@ -380,7 +380,7 @@ const fillInField = (field) => {
       cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true });
       break;
     case 'select':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).scrollIntoView().should('be.visible').click({ force: true });
+      cy.get(`[data-testid=${field['fieldTestId']}]`).scrollIntoView().should('be.visible').click();
       cy.contains(field['value']).click({ force: true });
       break;
     case 'add':
