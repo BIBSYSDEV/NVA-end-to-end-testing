@@ -369,8 +369,8 @@ const fillInField = (field) => {
       cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], { delay: 1 });
       break;
     case 'date':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], { delay: 1 });
-      // cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, field['value']);
+      // cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], { delay: 1 });
+      cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, field['value']);
       break;
     case 'search':
       cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], { delay: 1 });
