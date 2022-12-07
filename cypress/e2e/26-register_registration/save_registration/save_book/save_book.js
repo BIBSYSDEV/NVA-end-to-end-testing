@@ -9,13 +9,12 @@ const commonFields = [
     resourceTypeFields.scientificField,
     resourceTypeFields.isbn,
     resourceTypeFields.pages,
-    resourceTypeFields.bookContent,
     resourceTypeFields.seriesTitle,
     resourceTypeFields.seriesNumber,
 ]
 
 const fields = {
-    'BookMonograph': [...commonFields],
+    'BookMonograph': [...commonFields, resourceTypeFields.bookContent],
     'BookAnthology': [...commonFields],
 }
 
