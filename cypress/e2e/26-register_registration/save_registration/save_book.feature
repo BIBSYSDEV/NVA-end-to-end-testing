@@ -1,6 +1,6 @@
 Feature: Save registration for Book
     @test
-    Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Publication in journal
+    Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Book
         Given Author begins registering a Registration
         And selects "<Subtype>"
         And fill in values for all fields
