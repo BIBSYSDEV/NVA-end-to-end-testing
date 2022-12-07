@@ -1,4 +1,4 @@
-Feature: Save registration for Publication in journal
+Feature: Save registration for Book
     @test
     Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Publication in journal
         Given Author begins registering a Registration
@@ -9,11 +9,6 @@ Feature: Save registration for Publication in journal
         And they can see the values in the Registration Wizard
 
         Examples:
-            | Subtype            |
-            | JournalArticle     |
-            | JournalLetter      |
-            | JournalReview      |
-            | JournalLeader      |
-            | JournalCorrigendum |
-            | JournalIssue       |
-            | ConferenceAbstract |
+            | Subtype       |
+            | BookMonograph |
+            | BookAnthology |
