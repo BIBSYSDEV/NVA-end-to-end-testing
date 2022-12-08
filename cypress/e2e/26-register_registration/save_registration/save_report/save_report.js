@@ -1,4 +1,4 @@
-import { userSaveBook } from '../../../../support/constants';
+import { userSaveReport } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 
@@ -32,7 +32,7 @@ const reportContributorRoles = {
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Report
 Given('Author begins registering a Registration', () => {
-  cy.login(userSaveBook);
+  cy.login(userSaveReport);
   cy.startWizardWithEmptyRegistration();
 });
 And('selects {string}', (resourceType) => {
