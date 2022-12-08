@@ -15,7 +15,7 @@ const fields = {
     'DegreeMaster': [...commonFields],
     'DegreePhd': [...commonFields, resourceTypeFields.seriesTitle, resourceTypeFields.seriesNumber],
     'DegreeLicentiate': [...commonFields, resourceTypeFields.seriesTitle, resourceTypeFields.seriesNumber],
-    'OtherStudentWOrk': [...commonFields],
+    'OtherStudentWork': [...commonFields],
 };
 
 const commonContributorRoles = ['Creator', 'Supervisor', 'ContactPerson', 'RightsHolder', 'Other'];
