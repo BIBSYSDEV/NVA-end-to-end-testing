@@ -5,7 +5,6 @@ import { registrationFields, resourceTypeFields } from '../../../../support/save
 const filename = 'example.json';
 
 const commonFields = [
-    resourceTypeFields.journal,
     resourceTypeFields.volume,
     resourceTypeFields.issue,
     resourceTypeFields.pagesFrom,
@@ -14,13 +13,13 @@ const commonFields = [
 ]
 
 const fields = {
-    'JournalArticle': [...commonFields, resourceTypeFields.journalContent],
-    'JournalLetter': [...commonFields],
-    'JournalReview': [...commonFields],
-    'JournalLeader': [...commonFields],
-    'JournalCorrigendum': [...commonFields],
-    'JournalIssue': [...commonFields],
-    'ConferenceAbstract': [...commonFields],
+    'JournalArticle': [...commonFields, resourceTypeFields.journal, resourceTypeFields.journalContent],
+    'JournalLetter': [...commonFields, resourceTypeFields.journal],
+    'JournalReview': [...commonFields, resourceTypeFields.journal],
+    'JournalLeader': [...commonFields, resourceTypeFields.journal],
+    'JournalCorrigendum': [...commonFields, resourceTypeFields.articleTitle],
+    'JournalIssue': [...common, FieldsresourceTypeFields.journal],
+    'ConferenceAbstract': [...commonFields, resourceTypeFields.journal],
 }
 
 const contributorRoles = [
