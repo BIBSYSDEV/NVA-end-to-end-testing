@@ -12,4 +12,4 @@ Feature: Save registration for Part of book
             | Subtype                   |
             | ChapterArticle            |
             | ChapterInReport           |
-            | CahpterConferenceAbstract |
+            | ChapterConferenceAbstract |

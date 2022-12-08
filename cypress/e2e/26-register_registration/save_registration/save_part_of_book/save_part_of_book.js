@@ -13,7 +13,7 @@ const commonFields = [
 const fields = {
     'ChapterArticle': [...commonFields, resourceTypeFields.chapterContent],
     'ChapterInReport': [...commonFields],
-    'CahpterConferenceAbstract': [...commonFields],
+    'ChapterConferenceAbstract': [...commonFields],
 };
 
 const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
@@ -21,7 +21,7 @@ const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Oth
 const reportContributorRoles = {
     'ChapterArticle': [...commonContributorRoles],
     'ChapterInReport': [...commonContributorRoles],
-    'CahpterConferenceAbstract': [...commonContributorRoles],
+    'ChapterConferenceAbstract': [...commonContributorRoles],
 };
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Part of book
@@ -88,4 +88,4 @@ And('they can see the values in the Registration Wizard', () => {
 // | Subtype                   |
 // | ChapterArticle            |
 // | ChapterInReport           |
-// | CahpterCOnferenceAbstract |
+// | ChapterConferenceAbstract |
