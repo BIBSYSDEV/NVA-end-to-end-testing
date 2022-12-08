@@ -63,6 +63,18 @@ batch:
         variables:
           RUNNER: 8
       ignore-failure: true
+    - identifier: runner9
+      buildspec: template/buildspec.testrun.yml
+      env:
+        variables:
+          RUNNER: 9
+      ignore-failure: true
+    - identifier: runner10
+      buildspec: template/buildspec.testrun.yml
+      env:
+        variables:
+          RUNNER: 10
+      ignore-failure: true
     - identifier: test_report
       buildspec: template/buildspec.testreport.yml
       depend-on:
@@ -74,3 +86,5 @@ batch:
         - runner6
         - runner7
         - runner8
+        - runner9
+        - runner10

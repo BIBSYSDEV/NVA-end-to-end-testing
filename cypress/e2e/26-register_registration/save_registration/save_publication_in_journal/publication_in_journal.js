@@ -18,7 +18,7 @@ const fields = {
     'JournalReview': [...commonFields, resourceTypeFields.journal],
     'JournalLeader': [...commonFields, resourceTypeFields.journal],
     'JournalCorrigendum': [...commonFields, resourceTypeFields.articleTitle],
-    'JournalIssue': [...common, FieldsresourceTypeFields.journal],
+    'JournalIssue': [...commonFields, resourceTypeFields.journal],
     'ConferenceAbstract': [...commonFields, resourceTypeFields.journal],
 }
 

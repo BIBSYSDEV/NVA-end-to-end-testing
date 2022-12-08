@@ -1,7 +1,7 @@
 Feature: Application Administrator administers Customer Institutions
 
   @TEST_NP-4161
-  @test
+  # @test
   @365
   Scenario: Application Administrator opens Institutions
     Given that the user is logged in as Application Administrator
@@ -15,7 +15,7 @@ Feature: Application Administrator administers Customer Institutions
     And they see a button Add institution that is enabled
 
   @TEST_NP-4147
-  @test
+  # @test
   @366
   Scenario: Application Administrator adds a Customer Institution
     Given that the user is logged in as Application Administrator
@@ -36,7 +36,7 @@ Feature: Application Administrator administers Customer Institutions
     And a button Create that is enabled
 
   @TEST_NP-4162
-  @test
+  # @test
   @574
   Scenario: Application Administrator opens a Customer Institution
     Given that the user is logged in as Application Administrator
