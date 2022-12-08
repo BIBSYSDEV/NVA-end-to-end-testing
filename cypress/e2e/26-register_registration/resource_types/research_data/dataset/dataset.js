@@ -19,12 +19,9 @@ Given ('User selects Resource type "Research Data"', () =>{
     cy.login(userResearchDataset);
     cy.startWizardWithEmptyRegistration();
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    cy.get('[data-testid=publication-context-type]').click();
-    cy.get('[data-testid="publication-context-type-ResearchData"]').click();
 }); 
 And ('they select Dataset as subtype', () =>{
-    cy.get('[data-testid=publication-instance-type]').click();
-    cy.get('[data-testid="publication-instance-type-DataSet"]').click();
+    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.resourceTypeChip("DataSet")}]`).click();
 }); 
 
 // end common steps
@@ -35,17 +32,27 @@ And ('they select Dataset as subtype', () =>{
         When ('the User has selected to register a Dataset', () =>{
         }); 
         Then ('the User sees information about types of data that are illegal to publish on this service', () =>{
-            cy.get('[data-testid=research-data-confirm-dialog]').should('exist');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog}]`).should('exist');
         }); 
+
+
+
+
 
     // @TEST_NP-13252
     // @9141
     // Scenario: User confirms to register data that are legal to publish on this service
         Given ('User sees information about types of data that are illegal to publish on this service', () =>{
-            cy.get('[data-testid=cancel-button]').should('be.visible');
+
+            //cy.get('[data-testid=cancel-button]').should('be.visible');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.cancelButton}]`).should('be.visible');
+        
         }); 
         When ('they confirm that the data intended to be published complies with the terms of the service', () =>{
             cy.get('[data-testid=cancel-button]').click();
+
+
+            
         }); 
         Then ('the dialog is closed', () =>{
             cy.get('[data-testid=research-data-confirm-dialog]').should('not.exist');

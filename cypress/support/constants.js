@@ -150,4 +150,5 @@ export const user = {
   [userResearchDataDmp]: { ...userData, name: 'TestUser, Research data dmp' },
   [userPublishedRegistration]: { ...userData, name: 'TestUser, Published registration' },
   [userLiteraryArts]: { ...userData, name: 'TestUser, Literary arts' },
+  [userResearchDataset]: { ...userData, name: 'TestUser, Research dataset' },
 };

@@ -12,6 +12,7 @@ Feature: Dataset
         Given User selects Resource type "Research Data"
         And they select Dataset as subtype
 
+    @test
     @TEST_NP-13251
     @9141
     Scenario: User sees information about types of data that are illegal to publish on this service
@@ -90,7 +91,6 @@ Feature: Dataset
         Then the User is warned about the implications of publishing sensitive data
         And the User has an option to contact user support
 
-    @test
     @TEST_NP-13261
     @9146
     Scenario: User sees Landing Page for Dataset
