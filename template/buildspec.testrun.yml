@@ -6,7 +6,7 @@ version: 0.2
 env:
   parameter-store:
     CYPRESS_AWS_USER_POOL_ID: CognitoUserPoolId
-    CYPRESS_AWS_CLIENT_ID: /test/CognitoTestClient$RUNNER
+    CYPRESS_AWS_CLIENT_ID: /test/CognitoTestClient1
     CYPRESS_REACT_APP_URL: /NVA/ApplicationDomain
     CYPRESS_REACT_APP_API_HOST: /NVA/ApiDomain
   secrets-manager:
