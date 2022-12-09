@@ -30,7 +30,7 @@ const reportContributorRoles = {
     'LiteraryArts': [],
 };
 
-// Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Part of book
+// Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Artistic result
 Given('Author begins registering a Registration', () => {
     cy.login(userSavePartOfBook);
     cy.startWizardWithEmptyRegistration();
