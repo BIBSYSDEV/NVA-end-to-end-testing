@@ -13,4 +13,4 @@ Feature: Save registration for Presentation
             | ConferenceLecture |
             | ConferencePoster  |
             | Lecture           |
-            | Poster            |
+            | OtherPresentation |
