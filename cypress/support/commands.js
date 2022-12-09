@@ -404,7 +404,7 @@ const fillInField = (field) => {
     case 'checkbox':
       switch (field['checkbox']['selected']) {
         case 'first':
-          cy.get(`[data-testid=${field['fieldTestId']}`).within(() => {
+          cy.get(`[data-testid=${field['fieldTestId']}`, { timeout: 30000 }).within(() => {
             cy.get('input').first().click({ force: true });
           });
           break;
