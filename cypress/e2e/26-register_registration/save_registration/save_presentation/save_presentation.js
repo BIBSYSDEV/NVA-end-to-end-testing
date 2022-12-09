@@ -17,7 +17,7 @@ const fields = {
   'ConferenceLecture': [...commonFields],
   'ConferencePoster': [...commonFields],
   'Lecture': [...commonFields],
-  'Poster': [...commonFields],
+  'OtherPresentation': [...commonFields],
 };
 
 const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
@@ -26,7 +26,7 @@ const presentationContributorRoles = {
   'ConferenceLecture': [...commonContributorRoles],
   'ConferencePoster': [...commonContributorRoles],
   'Lecture': [...commonContributorRoles],
-  'ReportBPosterookOfAbstract': [...commonContributorRoles],
+  'OtherPresentation': [...commonContributorRoles],
 };
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Presentation
