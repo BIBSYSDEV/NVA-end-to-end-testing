@@ -5,9 +5,6 @@ import { registrationFields, resourceTypeFields } from '../../../../support/save
 const filename = 'example.json';
 
 const commonFields = [
-    resourceTypeFields.partOf,
-    resourceTypeFields.pagesFrom,
-    resourceTypeFields.pagesTo,
 ];
 
 const fields = {
@@ -24,9 +21,13 @@ const fields = {
 const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
 
 const reportContributorRoles = {
-    'ChapterArticle': [...commonContributorRoles],
-    'ChapterInReport': [...commonContributorRoles],
-    'ChapterConferenceAbstract': [...commonContributorRoles],
+    'ArtisticDesign': [],
+    'Architecture': [],
+    'PerformingArts': [],
+    'MovingPicture': [],
+    'MusicPerformance': [],
+    'VisualArts': [],
+    'LiteraryArts': [],
 };
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Part of book
