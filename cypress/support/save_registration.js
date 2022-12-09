@@ -284,7 +284,7 @@ export const resourceTypeFields = {
   },
   eventPlace: {
     type: 'text',
-    fieldTestId: dataTestId.registrationWizard.resourceType.eventPlaceField,
+    fieldTestId: dataTestId.registrationWizard.resourceType.placeField,
     elementType: 'input',
     landingPageTestId: '',
     value: 'Test event place',
