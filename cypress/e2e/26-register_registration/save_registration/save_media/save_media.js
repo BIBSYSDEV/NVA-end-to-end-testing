@@ -24,10 +24,10 @@ const otherCommonFields = [
 const fields = {
     'MediaFeatureArticle': [...writtenCommonFields],
     'MediaReaderOpinion': [...writtenCommonFields],
-    'MediaInterview': [...commonFields],
-    'MediaBlogPost': [...commonFields],
-    'MediaPodcast': [...commonFields],
-    'MediaParticipationInRadioOrTv': [...commonFields],
+    'MediaInterview': [...otherCommonFields],
+    'MediaBlogPost': [...otherCommonFields],
+    'MediaPodcast': [...otherCommonFields],
+    'MediaParticipationInRadioOrTv': [...otherCommonFields],
 };
 
 const commonContributorRoles = ['Other'];
