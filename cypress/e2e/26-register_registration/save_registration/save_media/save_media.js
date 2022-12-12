@@ -35,7 +35,7 @@ const commonContributorRoles = ['Other'];
 const mediaContributorROles = {
     'MediaFeatureArticle': ['Creator', ...commonContributorRoles],
     'MediaReaderOpinion': ['Creator', ...commonContributorRoles],
-    'MediaInterview': ['Journalist', 'InterviewSubject', ...commoncommonContributorRolesFields],
+    'MediaInterview': ['Journalist', 'InterviewSubject', ...commonContributorRoles],
     'MediaBlogPost': ['Creator', ...commonContributorRoles],
     'MediaPodcast': ['ProgrammeLeader', 'ProgrammeParticipant', ...commonContributorRoles],
     'MediaParticipationInRadioOrTv': ['ProgrammeLeader', 'ProgrammeParticipant', ...commonContributorRoles],
