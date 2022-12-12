@@ -340,5 +340,40 @@ export const resourceTypeFields = {
       selectButtonTestId: dataTestId.registrationWizard.resourceType.saveVenueButton,
     },
   },
+  mediaMedium: {
+    type: 'select',
+    fieldTestId: dataTestId.registrationWizard.resourceType.mediaMedium,
+    elementType: 'input',
+    landingPageTestId: '',
+    value: 'Newspaper or journal',
+  },
+  mediaFormat: {
+    type: 'select',
+    fieldTestId: dataTestId.registrationWizard.resourceType.mediaFormat,
+    elementType: 'input',
+    landingPageTestId: '',
+    value: 'Text',
+  },
+  mediaChannel: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.mediaChannel,
+    elementType: 'input',
+    landingPageTestId: '',
+    value: 'Test channel',
+  },
+  mediaSeries: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.mediaSeries,
+    elementType: 'input',
+    landingPageTestId: '',
+    value: 'Test series',
+  },
+  mediaIssue: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.mediaIssue,
+    elementType: 'input',
+    landingPageTestId: '',
+    value: 'Test issue',
+  },
 };
 
