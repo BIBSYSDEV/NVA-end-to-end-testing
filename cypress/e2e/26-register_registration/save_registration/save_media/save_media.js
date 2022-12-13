@@ -30,7 +30,7 @@ const fields = {
 
 const commonContributorRoles = ['Other'];
 
-const mediaContributorROles = {
+const mediaContributorRoles = {
     'MediaFeatureArticle': ['Creator', ...commonContributorRoles],
     'MediaReaderOpinion': ['Creator', ...commonContributorRoles],
     'MediaInterview': ['Journalist', 'InterviewSubject', ...commonContributorRoles],
@@ -51,7 +51,7 @@ And('fill in values for all fields', () => {
     cy.get('@resourceType').then((resourceType) => {
         cy.fillInResourceType(resourceType, fields[resourceType]);
         cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-        const contributorRoles = mediaContributorROles[resourceType];
+        const contributorRoles = mediaContributorRoles[resourceType];
         cy.fillInContributors(contributorRoles);
     });
     cy.fillInCommonFields();
