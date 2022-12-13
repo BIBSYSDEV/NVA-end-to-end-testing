@@ -7,7 +7,7 @@ const commonFields = [
 
 const fields = {
     'ArtisticDesign': [
-        resourceTypeFields.artisticType('Product design'),
+        resourceTypeFields.artisticType('ProductDesign'),
         resourceTypeFields.artisticDescription,
         resourceTypeFields.exhibitionPlace,
     ],
@@ -29,7 +29,11 @@ const fields = {
         resourceTypeFields.concert,
         resourceTypeFields.audioVideoPublication,
     ],
-    'VisualArts': [...commonFields],
+    'VisualArts': [
+        resourceTypeFields.artisticType('IndividualExhibition'),
+        resourceTypeFields.artisticDescription,
+        resourceTypeFields.exhibitionPlace,
+    ],
     'LiteraryArts': [
         resourceTypeFields.artisticType('Novel'),
         resourceTypeFields.bookPrintedMatter,
@@ -48,7 +52,7 @@ const artisticContributorRoles = {
     'PerformingArts': [],
     'MovingPicture': [],
     'MusicPerformance': ['Soloist', 'Conductor', 'Musician', 'Composer', 'Organizer', 'Writer', ...commonContributorRoles],
-    'VisualArts': [],
+    'VisualArts': ['Artist', 'Curator', 'Consultant', ...commonContributorRoles],
     'LiteraryArts': ['Creator', 'TranslatorAdapter', 'Editor', ...commonContributorRoles],
 };
 

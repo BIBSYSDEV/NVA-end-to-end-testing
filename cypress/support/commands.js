@@ -381,7 +381,11 @@ const fillInField = (field) => {
       break;
     case 'select':
       cy.get(`[data-testid=${field['fieldTestId']}]`).scrollIntoView().should('be.visible').click();
-      cy.contains(field['value']).click({ force: true });
+      if (field.fieldTestId === dataTestId.registrationWizard.resourceType.artisticTypeField) {
+        cy.get(`[data-value=${field['value']}]`).click();
+      } else {
+        cy.contains(field['value']).click({ force: true });
+      }
       break;
     case 'add':
       cy.get(`[data-testid=${field['fieldTestId']}]`).click();
@@ -491,22 +495,22 @@ Cypress.Commands.add('checkContributors', (contributorRoles) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
   var roleIndex = 0;
   contributorRoles.forEach((role) => {
-      roleIndex++;
-      const name = `Withauthor ${roleIndex}`;
-      if (contributorRoles.length > 5) {
-          cy.contains('Search by name').parent().within(() => {
-              cy.get('input').clear().type(name);
-          });
-      }
-      cy.get(`[value=${role}]`)
-          .parent()
-          .parent()
-          .parent()
-          .parent()
-          .parent()
-          .within(() => {
-              cy.contains(name);
-          });
+    roleIndex++;
+    const name = `Withauthor ${roleIndex}`;
+    if (contributorRoles.length > 5) {
+      cy.contains('Search by name').parent().within(() => {
+        cy.get('input').clear().type(name);
+      });
+    }
+    cy.get(`[value=${role}]`)
+      .parent()
+      .parent()
+      .parent()
+      .parent()
+      .parent()
+      .within(() => {
+        cy.contains(name);
+      });
   });
 })
 
