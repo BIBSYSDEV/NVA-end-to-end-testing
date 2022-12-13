@@ -2,8 +2,6 @@ import { userSaveReport } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 
-const filename = 'example.json';
-
 const commonFields = [
   resourceTypeFields.publisher,
   resourceTypeFields.isbn,
@@ -72,22 +70,7 @@ And('they can see the values in the Registration Wizard', () => {
     fields[subtype].forEach((field) => {
       cy.checkField(field);
     });
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-    const contributorRoles = reportContributorRoles[subtype];
-    var roleIndex = 0;
-    contributorRoles.forEach((role) => {
-      roleIndex++;
-      const name = `Withauthor ${roleIndex}`;
-      cy.get(`[value=${role}]`)
-        .parent()
-        .parent()
-        .parent()
-        .parent()
-        .parent()
-        .within(() => {
-          cy.contains(name);
-        });
-    });
+    cy.checkContributors(reportContributorRoles[subtype])
   });
 });
 

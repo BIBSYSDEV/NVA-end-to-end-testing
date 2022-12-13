@@ -310,13 +310,15 @@ export const resourceTypeFields = {
     landingPageTestId: '',
     value: '11.11.2021',
   },
-  artisticType: {
-    type: 'select',
-    fieldTestId: dataTestId.registrationWizard.resourceType.artisticTypeField,
-    elementType: 'input',
-    landingPageTestId: '',
-    value: 'Product design',
-    landingPageValue: 'ProductDesign',
+  artisticType: (artisticType) => {
+    return {
+      type: 'select',
+      fieldTestId: dataTestId.registrationWizard.resourceType.artisticTypeField,
+      elementType: 'input',
+      landingPageTestId: '',
+      value: artisticType,
+      landingPageValue: artisticType,
+    }
   },
   artisticDescription: {
     type: 'text',
@@ -325,10 +327,76 @@ export const resourceTypeFields = {
     landingPageTestId: '',
     value: 'Test artistic description',
   },
+  competition: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addCompetitionButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test competition',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.competitionName]: 'Test competition',
+        [dataTestId.registrationWizard.resourceType.competitionDescription]: 'Test competition description',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  mentionPublication: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addMentionInPublicationButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test publication/mention',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.publicationMentionTitle]: 'Test publication/mention',
+        [dataTestId.registrationWizard.resourceType.publicationMentionIssue]: 'Test mention issue',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.publicationMentionOther]: 'Test mention other',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  prizeAward: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addAwardButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test prize/award',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.awardName]: 'Test prize/award',
+        [dataTestId.registrationWizard.resourceType.awardOrganizer]: 'Test award organizer',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.awardRanking]: 'Test award ranking',
+        [dataTestId.registrationWizard.resourceType.awardOther]: 'Test award other',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  exhibition: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addExhibitionButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test exhibition',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.exhibitionName]: 'Test exhibition',
+        [dataTestId.registrationWizard.resourceType.exhibitionPlace]: 'Test exhibition place',
+        [dataTestId.registrationWizard.resourceType.exhibitionOrganizer]: 'Test exhibition organizer',
+        [dataTestId.registrationWizard.resourceType.dateFromField]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.dateToField]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.exhibitionOther]: 'Test exhibition other',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
   exhibitionPlace: {
     type: 'add',
     fieldTestId: dataTestId.registrationWizard.resourceType.addVenueButton,
-    elementType: 'place',
+    elementType: 'announcement',
     landingPageTestId: '',
     value: 'Test exhibition place',
     add: {
@@ -337,7 +405,103 @@ export const resourceTypeFields = {
         [dataTestId.registrationWizard.resourceType.dateFromField]: '11.11.2021',
         [dataTestId.registrationWizard.resourceType.dateToField]: '11.11.2021',
       },
-      selectButtonTestId: dataTestId.registrationWizard.resourceType.saveVenueButton,
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  concert: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addConcertShowButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test concert/show',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.concertPlace]: 'Test concert/show',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDuration]: '11',
+        [dataTestId.registrationWizard.resourceType.concertAddWork]: 'Test work',
+
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  audioVideoPublication: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addAudioVideoPublicationButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test audio/video publisher',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.artisticSubtype]: 'CompactDisc',
+        [dataTestId.registrationWizard.resourceType.audioVideoPublisher]: 'Test audio/video publisher',
+        [dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber]: '11',
+        [dataTestId.registrationWizard.resourceType.audioVideoAddTrack]: 'Test track',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  literaryAudioVideoPublication: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addAudioVideoButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test audio/video publisher',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.artisticSubtype]: 'Audiobook',
+        [dataTestId.registrationWizard.resourceType.publisherNameField]: 'Test audio/video publisher',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '2021',
+        [dataTestId.registrationWizard.resourceType.isbnField]: '9781234567897',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDuration]: '20',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  literaryPerformance: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addPerformanceButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test literary performance place',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.artisticSubtype]: 'Reading',
+        [dataTestId.registrationWizard.resourceType.placeField]: 'Test literary performance place',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  literaryWebPublicatrion: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addWebPublicationButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test literary web publication publisher',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.linkField]: 'http://test.no',
+        [dataTestId.registrationWizard.resourceType.publisherNameField]: 'Test literary web publication publisher',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '2021',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  bookPrintedMatter: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addBookButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test book publisher',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.publisherNameField]: 'Test book publisher',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '2021',
+        [dataTestId.registrationWizard.resourceType.isbnField]: '9781234567897',
+        [dataTestId.registrationWizard.resourceType.pagesField]: '20',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
   },
   mediaMedium: {

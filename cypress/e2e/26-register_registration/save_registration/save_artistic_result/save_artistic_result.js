@@ -2,32 +2,54 @@ import { userSavePartOfBook } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 
-const filename = 'example.json';
-
 const commonFields = [
 ];
 
 const fields = {
-    'ArtisticDesign': [...commonFields,],
-    'Architecture': [...commonFields],
-    'PerformingArts': [...commonFields],
+    'ArtisticDesign': [
+        resourceTypeFields.artisticType('Product design'),
+        resourceTypeFields.artisticDescription,
+        resourceTypeFields.exhibitionPlace,
+    ],
+    'Architecture': [
+        resourceTypeFields.artisticType('Building'),
+        resourceTypeFields.artisticDescription,
+        resourceTypeFields.competition,
+        resourceTypeFields.mentionPublication,
+        resourceTypeFields.prizeAward,
+        resourceTypeFields.exhibition,
+    ],
+    'PerformingArts': [
+        resourceTypeFields.artisticType('TheatricalProduction'),
+        resourceTypeFields.artisticDescription,
+        resourceTypeFields.exhibitionPlace,
+    ],
     'MovingPicture': [...commonFields],
-    'MusicPerformance': [...commonFields],
+    'MusicPerformance': [
+        resourceTypeFields.concert,
+        resourceTypeFields.audioVideoPublication,
+    ],
     'VisualArts': [...commonFields],
-    'LiteraryArts': [...commonFields],
+    'LiteraryArts': [
+        resourceTypeFields.artisticType('Novel'),
+        resourceTypeFields.bookPrintedMatter,
+        resourceTypeFields.literaryAudioVideoPublication,
+        resourceTypeFields.literaryPerformance,
+        resourceTypeFields.literaryWebPublicatrion,
+    ],
 };
 
 
-const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
+const commonContributorRoles = ['Other'];
 
-const reportContributorRoles = {
-    'ArtisticDesign': [],
-    'Architecture': [],
+const artisticContributorRoles = {
+    'ArtisticDesign': ['Designer', 'CuratorOrganizer', 'Consultant', ...commonContributorRoles],
+    'Architecture': ['Architect', 'LandscapeArchitect', 'InteriorArchitect', 'ArchitecturalPlanner', ...commonContributorRoles],
     'PerformingArts': [],
     'MovingPicture': [],
-    'MusicPerformance': [],
+    'MusicPerformance': ['Soloist', 'Conductor', 'Musician', 'Composer', 'Organizer', 'Writer', ...commonContributorRoles],
     'VisualArts': [],
-    'LiteraryArts': [],
+    'LiteraryArts': ['Creator', 'TranslatorAdapter', 'Editor', ...commonContributorRoles],
 };
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Artistic result
@@ -42,8 +64,7 @@ And('fill in values for all fields', () => {
     cy.get('@resourceType').then((resourceType) => {
         cy.fillInResourceType(resourceType, fields[resourceType]);
         cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-        const contributorRoles = reportContributorRoles[resourceType];
-        cy.fillInContributors(contributorRoles);
+        cy.fillInContributors(artisticContributorRoles[resourceType]);
     });
     cy.fillInCommonFields();
 });
@@ -72,22 +93,7 @@ And('they can see the values in the Registration Wizard', () => {
         fields[subtype].forEach((field) => {
             cy.checkField(field);
         });
-        cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-        const contributorRoles = reportContributorRoles[subtype];
-        var roleIndex = 0;
-        contributorRoles.forEach((role) => {
-            roleIndex++;
-            const name = `Withauthor ${roleIndex}`;
-            cy.get(`[value=${role}]`)
-                .parent()
-                .parent()
-                .parent()
-                .parent()
-                .parent()
-                .within(() => {
-                    cy.contains(name);
-                });
-        });
+        cy.checkContributors(artisticContributorRoles[subtype])
     });
 });
 

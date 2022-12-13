@@ -387,7 +387,31 @@ const fillInField = (field) => {
       cy.get(`[data-testid=${field['fieldTestId']}]`).click();
       if ('fields' in field['add']) {
         Object.keys(field['add']['fields']).forEach((key) => {
-          cy.get(`[data-testid=${key}]`).type(field['add']['fields'][key]);
+          if (key === dataTestId.registrationWizard.resourceType.artisticSubtype) {
+            cy.getDataTestId(key).click();
+            cy.get(`[data-value=${field['add']['fields'][key]}]`).click();
+          } else if (key === dataTestId.registrationWizard.resourceType.concertAddWork) {
+            cy.getDataTestId(key).click();
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`)
+              .first()
+              .type(field['add']['fields'][key]);
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramComposer}]`)
+              .first()
+              .type(field['add']['fields'][key]);
+          } else if (key === dataTestId.registrationWizard.resourceType.audioVideoAddTrack) {
+            cy.getDataTestId(key).click();
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.audioVideoContentTitle}]`)
+              .first()
+              .type(field['add']['fields'][key]);
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.audioVideoContentComposer}]`)
+              .first()
+              .type(field['add']['fields'][key]);
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.artisticOutputDuration}]`)
+              .first()
+              .type('20');
+          } else {
+            cy.get(`[data-testid=${key}]`).type(field['add']['fields'][key]);
+          }
         });
       } else {
         if ('select' in field['add']) {
@@ -453,14 +477,38 @@ Cypress.Commands.add('checkField', (field) => {
           cy.get('input').should(value ? 'be.checked' : 'not.be.checked');
         });
       break;
-    case 'place':
+    case 'announcement':
       cy.get(`[data-testid=${field['fieldTestId']}]`)
+        .parent()
         .parent()
         .within(() => {
           cy.contains(field['value']);
         });
   }
 });
+
+Cypress.Commands.add('checkContributors', (contributorRoles) => {
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+  var roleIndex = 0;
+  contributorRoles.forEach((role) => {
+      roleIndex++;
+      const name = `Withauthor ${roleIndex}`;
+      if (contributorRoles.length > 5) {
+          cy.contains('Search by name').parent().within(() => {
+              cy.get('input').clear().type(name);
+          });
+      }
+      cy.get(`[value=${role}]`)
+          .parent()
+          .parent()
+          .parent()
+          .parent()
+          .parent()
+          .within(() => {
+              cy.contains(name);
+          });
+  });
+})
 
 Cypress.Commands.add('fillInCommonFields', () => {
   Object.keys(registrationFields).forEach((key) => {
