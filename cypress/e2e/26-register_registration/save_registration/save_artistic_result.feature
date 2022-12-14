@@ -10,10 +10,10 @@ Feature: Save registration for Artistic result
 
         Examples:
             | Subtype          |
-            | ArtisticDesign   |
-            | Architecture     |
+            # | ArtisticDesign   |
+            # | Architecture     |
             | PerformingArts   |
-            | MovingPicture    |
-            | MusicPerformance |
-            | VisualArts       |
-            | LiteraryArts     |
+            # | MovingPicture    |
+            # | MusicPerformance |
+            # | VisualArts       |
+            # | LiteraryArts     |

@@ -55,7 +55,7 @@ const commonContributorRoles = ['Other'];
 const artisticContributorRoles = {
     'ArtisticDesign': ['Designer', 'CuratorOrganizer', 'Consultant', ...commonContributorRoles],
     'Architecture': ['Architect', 'LandscapeArchitect', 'InteriorArchitect', 'ArchitecturalPlanner', ...commonContributorRoles],
-    'PerformingArts': [],
+    'PerformingArts': ['Dancer', 'Actor', 'Choreographer', 'Director', 'Scenographer', 'CostumeDesigner', 'Producer', 'ArtisticDirector', 'Dramatist', 'Librettist', 'Dramaturge', 'SoundDesigner', 'LightDesigner', ...commonContributorRoles],
     'MovingPicture': ['Director', 'Photographer', 'Producer', 'ProductionDesigner', 'Screenwriter', 'SoundDesigner', 'VfxSupervisor', 'VideoEditor', 'ContactPerson', 'RightsHolder', ...commonContributorRoles],
     'MusicPerformance': ['Soloist', 'Conductor', 'Musician', 'Composer', 'Organizer', 'Writer', ...commonContributorRoles],
     'VisualArts': ['Artist', 'Curator', 'Consultant', ...commonContributorRoles],

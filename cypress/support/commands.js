@@ -500,7 +500,7 @@ Cypress.Commands.add('checkContributors', (contributorRoles) => {
   var roleIndex = 0;
   contributorRoles.forEach((role) => {
     roleIndex++;
-    const name = `Withauthor ${roleIndex}`;
+    const name = `Withauthor ${roleIndex} `;
     if (contributorRoles.length > 5) {
       cy.contains('Search by name').parent().within(() => {
         cy.get('input').clear().type(name);
@@ -544,7 +544,7 @@ Cypress.Commands.add('fillInContributors', (contributorRoles) => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectContributorType).click();
     cy.get(`[data-value=${role}]`).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`Withauthor ${(index)}`);
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).filter(`:contains('Withauthor ${index}')`).first().click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).filter(`:contains('Withauthor ${index} ')`).first().click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
   })
 });
