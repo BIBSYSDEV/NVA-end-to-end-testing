@@ -394,6 +394,10 @@ const fillInField = (field) => {
           if (key === dataTestId.registrationWizard.resourceType.artisticSubtype) {
             cy.getDataTestId(key).click();
             cy.get(`[data-value=${field['add']['fields'][key]}]`).click();
+          } else if (key === dataTestId.registrationWizard.resourceType.artisticOutputDate ||
+            key === dataTestId.registrationWizard.resourceType.dateFromField ||
+            key === dataTestId.registrationWizard.resourceType.dateToField) {
+            cy.chooseDatePicker(key, field['add']['fields'][key])
           } else if (key === dataTestId.registrationWizard.resourceType.concertAddWork) {
             cy.getDataTestId(key).click();
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`)
