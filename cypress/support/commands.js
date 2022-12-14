@@ -503,7 +503,7 @@ Cypress.Commands.add('checkContributors', (contributorRoles) => {
     const name = `Withauthor ${roleIndex} `;
     if (contributorRoles.length > 5) {
       cy.contains('Search by name').parent().within(() => {
-        cy.get('input').clear().type(name);
+        cy.get('input').clear().type(name, { delay: 1 });
       });
     }
     cy.get(`[value=${role}]`)
@@ -514,6 +514,7 @@ Cypress.Commands.add('checkContributors', (contributorRoles) => {
       .parent()
       .within(() => {
         cy.contains(name);
+        cy.get(`[value=${role}]`);
       });
   });
 })
