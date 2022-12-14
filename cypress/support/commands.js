@@ -366,10 +366,12 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
 const fillInField = (field) => {
   switch (field['type']) {
     case 'text':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], { delay: 1 });
+      cy.getDataTestId(field['fieldTestId']).should('be.visible').type(field['value'], { delay: 1 });
+      if (field.fieldTestId === dataTestId.registrationWizard.resourceType.externalLinkField) {
+        cy.getDataTestId(dataTestId.registrationWizard.resourceType.externalLinkAddButton).click();
+      }
       break;
     case 'date':
-      // cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], { delay: 1 });
       cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, field['value']);
       break;
     case 'search':
@@ -456,7 +458,13 @@ Cypress.Commands.add('checkField', (field) => {
   const value = field['landingPageValue'] ?? field['value'];
   switch (field['elementType']) {
     case 'input':
-      cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', value);
+      if (
+        field.fieldTestId === dataTestId.registrationWizard.resourceType.externalLinkField
+      ) {
+        cy.contains(value);
+      } else {
+        cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', value);
+      }
       break;
     case 'textArea':
       cy.get(`[data-testid=${field['fieldTestId']}] textArea`).should('contain', value);
@@ -465,7 +473,14 @@ Cypress.Commands.add('checkField', (field) => {
       cy.get(`[data-testid=${field['fieldTestId']}] span`).should('contain', value);
       break;
     case 'search':
-      cy.get(`[data-testid=${field['fieldTestId']}] div`).should('contain', value);
+      if (
+        field.fieldTestId === dataTestId.registrationWizard.resourceType.relatedRegistrationField ||
+        field.fieldTestId === dataTestId.registrationWizard.resourceType.compliesWithField
+      ) {
+        cy.contains(value);
+      } else {
+        cy.get(`[data-testid=${field['fieldTestId']}] div`).should('contain', value);
+      }
       break;
     case 'file':
       cy.get('[data-testid=uploaded-file-row]').should('contain', value);
@@ -532,6 +547,9 @@ Cypress.Commands.add('fillInCommonFields', () => {
 Cypress.Commands.add('fillInResourceType', (subtype, fields) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get(`[data-testid=resource-type-chip-${subtype}]`).click();
+  if (subtype === 'DataSet') {
+    cy.getDataTestId(dataTestId.confirmDialog.cancelButton).click();
+  }
   fields.forEach(field => {
     fillInField(field);
   })

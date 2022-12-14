@@ -583,5 +583,33 @@ export const resourceTypeFields = {
     landingPageTestId: '',
     value: 'Test issue',
   },
+  relatedRegistrations: {
+    type: 'search',
+    fieldTestId: dataTestId.registrationWizard.resourceType.relatedRegistrationField,
+    elementType: 'search',
+    landingPageTestId: '',
+    value: 'Test Antologi',
+  },
+  relatedDMPs: {
+    type: 'search',
+    fieldTestId: dataTestId.registrationWizard.resourceType.compliesWithField,
+    elementType: 'search',
+    landingPageTestId: '',
+    value: 'Test registration DMP',
+  },
+  externalLink: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.externalLinkField,
+    elementType: 'input',
+    landingPageTestId: '',
+    value: 'https://test.no',
+  },
+  geographicDescription: {
+    type: 'text',
+    fieldTestId: dataTestId.registrationWizard.resourceType.geographicDescriptionField,
+    elementType: 'input',
+    landingPageTestId: '',
+    value: 'Test geographic description',
+  },
 };
 
