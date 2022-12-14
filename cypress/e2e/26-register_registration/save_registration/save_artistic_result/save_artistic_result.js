@@ -24,7 +24,13 @@ const fields = {
         resourceTypeFields.artisticDescription,
         resourceTypeFields.exhibitionPlace,
     ],
-    'MovingPicture': [...commonFields],
+    'MovingPicture': [
+        resourceTypeFields.artisticType('ShortFilm'),
+        resourceTypeFields.artisticDescription,
+        resourceTypeFields.tvWebStreaming,
+        resourceTypeFields.festivalCinema,
+        resourceTypeFields.otherFilmAnnouncement,
+    ],
     'MusicPerformance': [
         resourceTypeFields.concert,
         resourceTypeFields.audioVideoPublication,
@@ -50,7 +56,7 @@ const artisticContributorRoles = {
     'ArtisticDesign': ['Designer', 'CuratorOrganizer', 'Consultant', ...commonContributorRoles],
     'Architecture': ['Architect', 'LandscapeArchitect', 'InteriorArchitect', 'ArchitecturalPlanner', ...commonContributorRoles],
     'PerformingArts': [],
-    'MovingPicture': [],
+    'MovingPicture': ['Director', 'Photographer', 'Producer', 'ProductionDesigner', 'Screenwriter', 'SoundDesigner', 'VfxSupervisor', 'VideoEditor', 'ContactPerson', 'RightsHolder', ...commonContributorRoles],
     'MusicPerformance': ['Soloist', 'Conductor', 'Musician', 'Composer', 'Organizer', 'Writer', ...commonContributorRoles],
     'VisualArts': ['Artist', 'Curator', 'Consultant', ...commonContributorRoles],
     'LiteraryArts': ['Creator', 'TranslatorAdapter', 'Editor', ...commonContributorRoles],

@@ -504,6 +504,50 @@ export const resourceTypeFields = {
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
   },
+  tvWebStreaming: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addTvWebStreamingButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test streaming publisher',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.broadcastPublisher]: 'Test streaming publisher',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  festivalCinema: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addFestivalCinemaButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test festival place',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.cinemaPlace]: 'Test festival place',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  otherFilmAnnouncement: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addOtherButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test festival place',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.otherReleaseType]: 'Test other type',
+        [dataTestId.registrationWizard.resourceType.otherReleasePlace]: 'Test other place',
+        [dataTestId.registrationWizard.resourceType.otherReleasePublisher]: 'Test other publisher',
+        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
   mediaMedium: {
     type: 'select',
     fieldTestId: dataTestId.registrationWizard.resourceType.mediaMedium,

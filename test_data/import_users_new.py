@@ -158,7 +158,8 @@ def importUsers(test_users_file_name):
             print(f'Creating {firstName} {lastName}')
 
             createCristinPerson(accessToken=accessToken, nin=nin, firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId)
-            createNvaUser(accessToken=accessToken, nin=nin, customer=customer, roles=roles, username=username)
+            if not 'cristinUser' in test_user:
+                createNvaUser(accessToken=accessToken, nin=nin, customer=customer, roles=roles, username=username)
 
 def createNin():
     with open('./users/nin.txt') as nin_file:
@@ -167,25 +168,6 @@ def createNin():
             print(f'    "nin": "{nin}",')
 
 def deleteUsers(admin):
-    # print('deleting from Cognito...')
-    # client = boto3.client('cognito-idp')
-    # paginator = client.get_paginator('list_users')
-    # operation_parameters = {
-    #     'UserPoolId': USER_POOL_ID
-    # }
-    # users = []
-    # for response in paginator.paginate(**operation_parameters):
-    #     users.append(response['Users'])
-
-    # for userlist in users:
-    #     for user in userlist:
-    #         if 'test-user-' in user['Username']:
-    #             print(f'Found {user["Username"]}')
-    #             client.admin_delete_user(
-    #                 Username=user['Username'],
-    #                 UserPoolId=USER_POOL_ID
-    #             )
-
     print('deleting from DynamoDb...')
     client = boto3.client('dynamodb')
     users = client.scan(TableName=USERS_ROLES_TABLE_NAME)['Items']

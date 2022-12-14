@@ -9,11 +9,11 @@ Feature: Save registration for Artistic result
         And they can see the values in the Registration Wizard
 
         Examples:
-            | Subtype      |
+            | Subtype          |
             | ArtisticDesign   |
-            | Architecture |
+            | Architecture     |
             | PerformingArts   |
             | MovingPicture    |
             | MusicPerformance |
             | VisualArts       |
-            | LiteraryArts |
+            | LiteraryArts     |
