@@ -488,6 +488,7 @@ Cypress.Commands.add('checkField', (field) => {
     case 'radio':
       cy.get(`[data-testid=${field['fieldTestId']}] span`)
         .parent()
+        .first()
         .within(() => {
           cy.contains(value);
           cy.get('input').should('be.checked');
