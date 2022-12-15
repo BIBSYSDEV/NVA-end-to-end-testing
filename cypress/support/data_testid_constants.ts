@@ -1,6 +1,6 @@
 import { dataTestId } from './dataTestIds';
 
-export const mainButtons = {
+export const mainButtons: Record<string, string> = {
   'New Registration': dataTestId.header.newRegistrationLink,
   'My Registrations': dataTestId.header.myPageLink,
   'My page': dataTestId.header.myPageLink,
@@ -8,35 +8,34 @@ export const mainButtons = {
   'Basic data': dataTestId.header.basicDataLink,
 };
 
-export const userMenu = {
+export const userMenu: Record<string, string> = {
   'Log out': dataTestId.header.logOutLink,
 };
 
-export const myRegistrationsTabs = {
+export const myRegistrationsTabs: Record<string, string> = {
   'Draft': 'unpublished-button',
   'Published': 'published-button',
 };
 
-export const creatorMenu = {
+export const creatorMenu: Record<string, string> = {
   ...userMenu,
 };
 
-export const curatorMenu = {
+export const curatorMenu: Record<string, string> = {
   ...userMenu,
 };
 
-export const instAdminMenu = {
+export const instAdminMenu: Record<string, string> = {
   ...userMenu,
-  'Users': dataTestId.header.adminUsersLink,
-  'My institution': dataTestId.header.adminInstitutionLink,
+  'Users': dataTestId.header.editorLink,
 };
 
-export const adminMenu = {
+export const adminMenu: Record<string, string> = {
   ...userMenu,
-  'Institutions': dataTestId.header.adminInstitutionsLink,
+  'Institutions': dataTestId.header.editorLink,
 };
 
-export const profilePageFields = {
+export const profilePageFields: Record<string, string> = {
   'Real name': 'user-name',
   'Feide ID': 'user-id',
   'Email': 'user-id',
@@ -46,65 +45,65 @@ export const profilePageFields = {
   'Language': 'language-button',
 };
 
-export const userAdministrationPagination = {
+export const userAdministrationPagination: Record<string, string> = {
   'Administrator': 'Institution-admin',
   'Curator': 'Curator',
   'Editor': 'Editor',
 };
 
-export const userAdministrationSections = {
+export const userAdministrationSections: Record<string, string> = {
   'Administrators': dataTestId.myInstitutionUsersPage.usersAdministrators,
   'Curators': dataTestId.myInstitutionUsersPage.usersCurators,
   'Editors': dataTestId.myInstitutionUsersPage.usersEditors,
 };
 
-export const userAdministrationButtons = {
+export const userAdministrationButtons: Record<string, string> = {
   'Add Administrator': 'button-add-institution-admin',
   'Add Curator': 'button-add-curator',
   'Add Editor': 'button-add-editor',
 };
 
-export const userAdministrationAddRoleButtons = {
+export const userAdministrationAddRoleButtons: Record<string, string> = {
   'Add Administrator': 'button-add-role-Institution-admin',
   'Add Curator': 'button-add-role-Curator',
   'Add Editor': 'button-add-role-Editor',
 };
 
-export const userAdministrationRemoveRoleButtons = {
+export const userAdministrationRemoveRoleButtons: Record<string, string> = {
   'Administrator': 'button-remove-role-Institution-admin',
   'Curator': 'button-remove-role-Curator',
   'Editor': 'button-remove-role-Editor',
 };
 
-export const myInstitutionFields = {
+export const myInstitutionFields: Record<string, string> = {
   'Name in organization registry': dataTestId.organization.searchField,
   'Display name': dataTestId.institutionAdmin.displayNameField,
   'Short display name': dataTestId.institutionAdmin.shortNameField,
   'Archive name': dataTestId.institutionAdmin.archiveNameField,
 };
 
-export const myinstitutionfieldsTestvalue = {
+export const myinstitutionfieldsTestvalue: Record<string, string> = {
   'Display name': 'Testinstitusjon',
   'Short display name': 'Testinst',
   'Archive name': 'Testarchive',
 };
 
-export const institutionFields = {
+export const institutionFields: Record<string, string> = {
   ...myInstitutionFields,
   'Feide Organization ID': dataTestId.institutionAdmin.feideField,
 };
-export const myRegistrations = {
+export const myRegistrations: Record<string, string> = {
   'Title': 'registration-title',
   'Status': 'registration-status',
   'Created': 'registration-created',
-}
+};
 
-export const myRegistrationsButtons = {
+export const myRegistrationsButtons: Record<string, string> = {
   'Show': 'open-registration',
   'Edit': 'edit-registration',
-}
+};
 
-export const resourceTypes = {
+export const resourceTypes: Record<string, string> = {
   'Contribution to journal': 'publication-context-type-Journal',
   'Journal': 'publication-context-type-Journal',
   'Book': 'publication-context-type-Book',
@@ -118,7 +117,7 @@ export const resourceTypes = {
   'Artistic': 'publication-context-type-Artistic',
 };
 
-export const journalSubtypes = {
+export const journalSubtypes: Record<string, string> = {
   'Journal article': 'resource-type-chip-JournalArticle',
   'Commentary': 'resource-type-chip-JournalLetter',
   'Book review': 'resource-type-chip-JournalReview',
@@ -128,7 +127,7 @@ export const journalSubtypes = {
   'Conference abstract': 'resource-type-chip-ConferenceAbstract',
 };
 
-export const journalFields = {
+export const journalFields: Record<string, string> = {
   'Article number': 'article-number-field',
   'Content': dataTestId.registrationWizard.resourceType.contentField,
   'DOI': 'doi-field',
@@ -145,7 +144,7 @@ export const journalFields = {
   'Volume': 'volume-field',
 };
 
-export const journalContentTypes = {
+export const journalContentTypes: Record<string, string> = {
   'Academic article': dataTestId.registrationWizard.resourceType.contentValue('academicarticle'),
   'Academic literature review': dataTestId.registrationWizard.resourceType.contentValue('academicliteraturereview'),
   'Case report': dataTestId.registrationWizard.resourceType.contentValue('casereport'),
@@ -154,12 +153,12 @@ export const journalContentTypes = {
   'Popular science article': dataTestId.registrationWizard.resourceType.contentValue('popularsciencearticle'),
 };
 
-export const bookSubtypes = {
+export const bookSubtypes: Record<string, string> = {
   'Monograph': 'resource-type-chip-BookMonograph',
   'Anthology': 'resource-type-chip-BookAnthology',
 };
 
-export const bookFields = {
+export const bookFields: Record<string, string> = {
   'Publisher': dataTestId.registrationWizard.resourceType.publisherField,
   'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
   'Total number of pages': dataTestId.registrationWizard.resourceType.pagesField,
@@ -168,7 +167,7 @@ export const bookFields = {
   'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
 };
 
-export const contentType = {
+export const contentType: Record<string, string> = {
   'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academicmonograph'),
   'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.contentValue('nonfictionmonograph'),
   'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popularsciencemonograph'),
@@ -177,7 +176,7 @@ export const contentType = {
   'Exhibition catalog': dataTestId.registrationWizard.resourceType.contentValue('exhibitioncatalog'),
 };
 
-export const reportSubtypes = {
+export const reportSubtypes: Record<string, string> = {
   'Research report': 'resource-type-chip-ReportResearch',
   'Policy report': 'resource-type-chip-ReportPolicy',
   'Working paper': 'resource-type-chip-ReportWorkingPaper',
@@ -185,7 +184,7 @@ export const reportSubtypes = {
   'Other type of report': 'resource-type-chip-ReportBasic',
 };
 
-export const reportFields = {
+export const reportFields: Record<string, string> = {
   'Search box for Publisher': dataTestId.registrationWizard.resourceType.publisherField,
   'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
   'Total number of pages': dataTestId.registrationWizard.resourceType.pagesField,
@@ -193,7 +192,7 @@ export const reportFields = {
   'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
 };
 
-export const studentThesisSubtypes = {
+export const studentThesisSubtypes: Record<string, string> = {
   'Bachelor thesis': 'resource-type-chip-DegreeBachelor',
   'Master thesis': 'resource-type-chip-DegreeMaster',
   'Doctoral thesis': 'resource-type-chip-DegreePhd',
@@ -201,7 +200,7 @@ export const studentThesisSubtypes = {
   'Other student thesis': 'resource-type-chip-OtherStudentWork',
 };
 
-export const studentThesisFields = {
+export const studentThesisFields: Record<string, string> = {
   'Search box for Publisher': dataTestId.registrationWizard.resourceType.publisherField,
   'DOI': 'doi-field',
   'Search box for Series': dataTestId.registrationWizard.resourceType.seriesField,
@@ -210,14 +209,14 @@ export const studentThesisFields = {
   'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
 };
 
-export const chapterSubtypes = {
+export const chapterSubtypes: Record<string, string> = {
   'Chapter of Anthology': 'resource-type-chip-ChapterArticle',
   'Chapter in Anthology': 'resource-type-chip-ChapterArticle',
   'Chapter in Report': 'resource-type-chip-ChapterInReport',
   'Conference abstract': 'resource-type-chip-ChapterConferenceAbstract',
 };
 
-export const chapterFields = {
+export const chapterFields: Record<string, string> = {
   'DOI': 'doi-field',
   'Search box for published Anthologies': 'info-anthology',
   'Search box for published Reports': 'info-anthology',
@@ -229,13 +228,13 @@ export const chapterFields = {
   'NPI discipline': 'npi-search',
 };
 
-export const chapterContainerField = {
+export const chapterContainerField: Record<string, string> = {
   'Search box for published Anthologies': dataTestId.registrationWizard.resourceType.partOfField,
   'Search box for published Reports': dataTestId.registrationWizard.resourceType.partOfField,
   'Search box for published Abstract Collections': dataTestId.registrationWizard.resourceType.partOfField,
 };
 
-export const chapterContentTypes = {
+export const chapterContentTypes: Record<string, string> = {
   'Academic Chapter': 'content-value-academicchapter',
   'Non-fiction Chapter': 'content-value-nonfictionchapter',
   'Popular Science Chapter': 'content-value-popularsciencechapter',
@@ -245,7 +244,7 @@ export const chapterContentTypes = {
   'Exhibition Catalog Chapter': 'content-value-exhibitioncatalogchapter',
 };
 
-export const artisticSubtypes = {
+export const artisticSubtypes: Record<string, string> = {
   'Artistic result - Design': 'resource-type-chip-ArtisticDesign',
   'Artistic result - Architecture': 'resource-type-chip-Architecture',
   'Artistic result - Film': 'resource-type-chip-MovingPicture',
@@ -255,7 +254,7 @@ export const artisticSubtypes = {
   'Artistic result - Visual art': 'resource-type-chip-VisualArt',
 };
 
-export const architectureTypes = {
+export const architectureTypes: Record<string, string> = {
   'Construction': 'Building',
   'Plan proposal': 'PlanningProposal',
   'Landscape architecture': 'LandscapeArchitecture',
@@ -263,7 +262,7 @@ export const architectureTypes = {
   'Other': 'Other',
 };
 
-export const designTypes = {
+export const designTypes: Record<string, string> = {
   'Product': 'ProductDesign',
   'Interior Architecture': 'InteriorDesign',
   'Clothing Design': 'ClothingDesign',
@@ -277,14 +276,14 @@ export const designTypes = {
   'Other': 'Other',
 };
 
-export const exhibitionTypes = {
+export const exhibitionTypes: Record<string, string> = {
   'Competition': 'add-competition-button',
   'Publication or Mention': 'add-mention-in-publication-button',
   'Prize or Award': 'add-award-button',
   'Exhibition': 'add-exhibition-button',
 };
 
-export const filmTypes = {
+export const filmTypes: Record<string, string> = {
   'Film': 'Film',
   'Short film': 'ShortFilm',
   'Serial film': 'SerialFilmProduction',
@@ -293,41 +292,41 @@ export const filmTypes = {
   'Other': 'Other',
 };
 
-export const filmAnnouncements = {
+export const filmAnnouncements: Record<string, string> = {
   'Broadcast': 'add-tv-web-streaming-button',
   'Cinematic release': 'add-festival-cinema-button',
   'Other release': 'add-other-button',
 };
 
-export const musicAwards = {
+export const musicAwards: Record<string, string> = {
   'Concert': dataTestId.registrationWizard.resourceType.addConcertShowButton,
   'Audio/visual publication': dataTestId.registrationWizard.resourceType.addAudioVideoPublicationButton,
   'Music score': dataTestId.registrationWizard.resourceType.addScoreManuscriptButton,
   'Other performance': dataTestId.registrationWizard.resourceType.addOtherButton,
 };
 
-export const musicConcertFields = {
+export const musicConcertFields: Record<string, string> = {
   'Place': dataTestId.registrationWizard.resourceType.concertPlace,
   'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
 };
 
-export const musicConcertProgramFields = {
+export const musicConcertProgramFields: Record<string, string> = {
   'Title': dataTestId.registrationWizard.resourceType.concertProgramTitle,
   'Composer': dataTestId.registrationWizard.resourceType.concertProgramComposer,
   'Premiere': dataTestId.registrationWizard.resourceType.concertProgramIsPremiere,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
 };
 
-export const musicAudioVideoFields = {
+export const musicAudioVideoFields: Record<string, string> = {
   'Format': dataTestId.registrationWizard.resourceType.artisticSubtype,
   'Publisher': dataTestId.registrationWizard.resourceType.audioVideoPublisher,
   'Catalogue number': dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber,
   'Track list': dataTestId.registrationWizard.resourceType.audioVideoAddTrack,
 };
 
-export const musicAudioVideoTrackTypes = {
+export const musicAudioVideoTrackTypes: Record<string, string> = {
   'CD': 'CompactDisc',
   'DVD': 'DVD',
   'Streaming': 'Streaming',
@@ -336,13 +335,13 @@ export const musicAudioVideoTrackTypes = {
   'Other': 'Other',
 };
 
-export const musicAudioVideoTrackFields = {
+export const musicAudioVideoTrackFields: Record<string, string> = {
   'Title': dataTestId.registrationWizard.resourceType.audioVideoContentTitle,
   'Composer': dataTestId.registrationWizard.resourceType.audioVideoContentComposer,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
 };
 
-export const musicScoreFields = {
+export const musicScoreFields: Record<string, string> = {
   'Ensemble': dataTestId.registrationWizard.resourceType.scoreEnsemble,
   'Movements': dataTestId.registrationWizard.resourceType.scoreMovements,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
@@ -351,40 +350,40 @@ export const musicScoreFields = {
   'ISRC': dataTestId.registrationWizard.resourceType.scoreIsrc,
 };
 
-export const musicOtherFields = {
+export const musicOtherFields: Record<string, string> = {
   'Type': dataTestId.registrationWizard.resourceType.otherPerformanceType,
   'Place': dataTestId.registrationWizard.resourceType.otherPerformancePlace,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Other performance': dataTestId.registrationWizard.resourceType.otherPerfomanceAddWork,
 };
 
-export const musicOtherWorksField = {
+export const musicOtherWorksField: Record<string, string> = {
   'Title': dataTestId.registrationWizard.resourceType.otherPerformanceWorkTitle,
   'Composer': dataTestId.registrationWizard.resourceType.otherPerformanceWorkComposer,
 };
 
-export const musicConcertDetails = {
+export const musicConcertDetails: Record<string, string> = {
   // 'Part of a series/tour': dataTestId.registrationWizard.resourceType.concertProgramTour,
   'Place': dataTestId.registrationWizard.resourceType.concertPlace,
-  'Date': dataTestId.registrationWizard.resourceType.concertDate,
+  'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
 };
 
-export const competitionFields = {
+export const competitionFields: Record<string, string> = {
   'Name': dataTestId.registrationWizard.resourceType.competitionName,
   'Description': dataTestId.registrationWizard.resourceType.competitionDescription,
   'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
 };
 
-export const publicationMentionFields = {
+export const publicationMentionFields: Record<string, string> = {
   'Name': dataTestId.registrationWizard.resourceType.publicationMentionTitle,
   'Issue': dataTestId.registrationWizard.resourceType.publicationMentionIssue,
   'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
   'Description': dataTestId.registrationWizard.resourceType.publicationMentionOther,
 };
 
-export const awardFields = {
+export const awardFields: Record<string, string> = {
   'Name': dataTestId.registrationWizard.resourceType.awardName,
   'Organizer': dataTestId.registrationWizard.resourceType.awardOrganizer,
   'Year': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -392,7 +391,7 @@ export const awardFields = {
   'Description': dataTestId.registrationWizard.resourceType.awardOther,
 };
 
-export const exhibitionFields = {
+export const exhibitionFields: Record<string, string> = {
   'Name': dataTestId.registrationWizard.resourceType.exhibitionName,
   'Place': dataTestId.registrationWizard.resourceType.exhibitionPlace,
   'Organizer': dataTestId.registrationWizard.resourceType.exhibitionOrganizer,
@@ -401,37 +400,37 @@ export const exhibitionFields = {
   'Description': dataTestId.registrationWizard.resourceType.exhibitionOther,
 };
 
-export const designFields = {
+export const designFields: Record<string, string> = {
   'More information': dataTestId.registrationWizard.resourceType.artisticDescriptionField,
   'Exhibition place': dataTestId.registrationWizard.resourceType.venueNameField,
   'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
   'Date to': dataTestId.registrationWizard.resourceType.dateToField,
 };
 
-export const performingArtsFields = {
+export const performingArtsFields: Record<string, string> = {
   'More information': dataTestId.registrationWizard.resourceType.artisticDescriptionField,
   'Name': dataTestId.registrationWizard.resourceType.venueNameField,
   'Date start': dataTestId.registrationWizard.resourceType.dateFromField,
   'Date end': dataTestId.registrationWizard.resourceType.dateToField,
 };
 
-export const performingArtsWorkTypes = {
+export const performingArtsWorkTypes: Record<string, string> = {
   'Theater/show': 'TheatricalProduction',
   'TV/film/radio': 'Broadcast',
   'Other': 'Other',
 };
 
-export const literaryArtsAnnouncements = {
+export const literaryArtsAnnouncements: Record<string, string> = {
   'Monograph': dataTestId.registrationWizard.resourceType.addBookButton,
   'Web Publication': dataTestId.registrationWizard.resourceType.addWebPublicationButton,
   'Performance': dataTestId.registrationWizard.resourceType.addPerformanceButton,
   'Audio/Visual Publication': dataTestId.registrationWizard.resourceType.addAudioVideoButton,
-}
+};
 
-export const literaryArtsBookFields = {
+export const literaryArtsBookFields: Record<string, Record<string, string>> = {
   'Publisher': {
     'field': dataTestId.registrationWizard.resourceType.publisherNameField,
-    'value': 'Test literary arts book publisher'
+    'value': 'Test literary arts book publisher',
   },
   'Year': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -443,15 +442,14 @@ export const literaryArtsBookFields = {
   },
   'Total pages': {
     'field': dataTestId.registrationWizard.resourceType.pagesField,
-    'value': '666'
+    'value': '666',
   },
+};
 
-}
-
-export const literaryArtsPerformanceFields = {
+export const literaryArtsPerformanceFields: Record<string, Record<string, string>> = {
   'Type of Performance': {
     'field': dataTestId.registrationWizard.resourceType.artisticSubtype,
-    'value': 'Reading'
+    'value': 'Reading',
   },
   'Date': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -461,12 +459,12 @@ export const literaryArtsPerformanceFields = {
     'field': dataTestId.registrationWizard.resourceType.placeField,
     'value': 'Performance place',
   },
-}
+};
 
-export const literaryArtsWebFields = {
+export const literaryArtsWebFields: Record<string, Record<string, string>> = {
   'Publisher': {
     'field': dataTestId.registrationWizard.resourceType.publisherNameField,
-    'value': 'Test literary arts web publisher'
+    'value': 'Test literary arts web publisher',
   },
   'Year': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -476,12 +474,12 @@ export const literaryArtsWebFields = {
     'field': dataTestId.registrationWizard.resourceType.linkField,
     'value': 'https://test.no',
   },
-}
+};
 
-export const literaryArtsAudioVisualFields = {
+export const literaryArtsAudioVisualFields: Record<string, Record<string, string>> = {
   'Publisher': {
     'field': dataTestId.registrationWizard.resourceType.publisherNameField,
-    'value': 'Test literary arts audio/visual publisher'
+    'value': 'Test literary arts audio/visual publisher',
   },
   'Year': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -499,16 +497,16 @@ export const literaryArtsAudioVisualFields = {
     'field': dataTestId.registrationWizard.resourceType.linkField,
     'value': '666',
   },
-}
+};
 
-export const presentationSubtypes = {
+export const presentationSubtypes: Record<string, string> = {
   'Conference lecture': dataTestId.registrationWizard.resourceType.resourceTypeChip('ConferenceLecture'),
   'Conference poster': dataTestId.registrationWizard.resourceType.resourceTypeChip('ConferencePoster'),
   'Lecture': dataTestId.registrationWizard.resourceType.resourceTypeChip('Lecture'),
   'Other presentation': dataTestId.registrationWizard.resourceType.resourceTypeChip('OtherPresentation'),
 };
 
-export const persentationFields = {
+export const persentationFields: Record<string, string> = {
   'Title of event': dataTestId.registrationWizard.resourceType.eventTitleField,
   'Place of event': dataTestId.registrationWizard.resourceType.placeField,
   'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
@@ -517,7 +515,7 @@ export const persentationFields = {
   'Country': dataTestId.registrationWizard.resourceType.eventCountryField,
 };
 
-export const mediaSubtypes = {
+export const mediaSubtypes: Record<string, string> = {
   'Feature Article': 'resource-type-chip-MediaFeatureArticle',
   'Reader Opinion': 'resource-type-chip-MediaReaderOpinion',
   'Interview': 'resource-type-chip-MediaInterview',
@@ -526,7 +524,7 @@ export const mediaSubtypes = {
   'Participation in Radio or TV': 'resource-type-chip-MediaParticipationInRadioOrTv',
 };
 
-export const mediaMediumTypes = {
+export const mediaMediumTypes: Record<string, string> = {
   'Newspaper or Journal': 'Journal',
   'Internet': 'Internet',
   'Radio': 'Radio',
@@ -534,9 +532,9 @@ export const mediaMediumTypes = {
   'Other': 'Other',
 };
 
-export const OTHER_SUBTYPES = {};
+export const OTHER_SUBTYPES: Record<string, string> = {};
 
-export const resourceSubTypes = {
+export const resourceSubTypes: Record<string, string> = {
   ...bookSubtypes,
   ...chapterSubtypes,
   ...journalSubtypes,
@@ -544,9 +542,9 @@ export const resourceSubTypes = {
   ...studentThesisSubtypes,
 };
 
-export const OTHER_FIELDS = {};
+export const OTHER_FIELDS: Record<string, string> = {};
 
-export const descriptionFields = {
+export const descriptionFields: Record<string, string> = {
   'Title': 'registration-title-field',
   'Abstract': 'registration-abstract-field',
   'Description': 'registration-description-field',
@@ -557,26 +555,26 @@ export const descriptionFields = {
   'Project association': 'project-search-field',
 };
 
-export const resourceTypeFields = {
+export const resourceTypeFields: Record<string, string> = {
   'Type': 'publication-context-type',
 };
 
-export const contributorCreateFields = {
+export const contributorCreateFields: Record<string, string> = {
   'First name': 'create-contributor-first-name',
   'Last name': 'create-contributor-last-name',
 };
 
-export const fileFields = {
+export const fileFields: Record<string, string> = {
   'Version': dataTestId.registrationWizard.files.version,
   'Terms of use': dataTestId.registrationWizard.files.selectLicenseField,
-}
+};
 
-export const landingPageFields = {
+export const landingPageFields: Record<string, string> = {
   'Title': dataTestId.registrationLandingPage.registrationSubtype,
   'Abstract': dataTestId.registrationLandingPage.abstractAccordion,
   'NPI': dataTestId.registrationLandingPage.npi,
   'Keywords': dataTestId.registrationLandingPage.keywords,
-  'Publication date': dataTestId.registrationLandingPage.publicationDate,
+  'Publication date': dataTestId.registrationLandingPage.fileEmbargoDate,
   'Primary language': dataTestId.registrationLandingPage.primaryLanguage,
   'Projects': dataTestId.registrationLandingPage.projectsAccordion,
   'Registration subtype': dataTestId.registrationLandingPage.registrationSubtype,
@@ -587,12 +585,12 @@ export const landingPageFields = {
   'License': dataTestId.registrationLandingPage.license,
 };
 
-export const landingPageButtons = {
+export const landingPageButtons: Record<string, string> = {
   'Request a DOI': 'button-toggle-request-doi',
   'Reserve a DOI': 'button-toggle-reserve-doi',
 };
 
-export const landingPageShareButtons = {
+export const landingPageShareButtons: Record<string, string> = {
   Email: dataTestId.registrationLandingPage.emailButton,
   Facebook: dataTestId.registrationLandingPage.facebookButton,
   LinkedIn: dataTestId.registrationLandingPage.linkedInButton,

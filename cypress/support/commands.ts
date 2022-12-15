@@ -1,6 +1,6 @@
 import * as AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
-import Amplify from 'aws-amplify'
+import Amplify from 'aws-amplify';
 import { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import {
@@ -11,9 +11,9 @@ import {
   projectApiPath,
   journalSearchMockFile,
 } from './mock_data';
-import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, Then, Before, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 import { dataTestId } from './dataTestIds';
-import { contributors, contributorsCommon, registrationFields, resourceTypes } from './save_registration';
+import { registrationFields } from './save_registration';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -55,28 +55,28 @@ Cypress.Commands.add('skipOrcid', () => {
 
 Cypress.Commands.add('setLanguage', () => {
   cy.get(`[data-testid=${dataTestId.header.generalMenuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.myProfileLink}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
   cy.get('[data-testid=language-selector]').click();
   cy.get('[data-testid=user-language-eng]').click();
 });
 
-Cypress.Commands.add('checkMenu', (table) => {
+Cypress.Commands.add('checkMenu', (table: DataTable) => {
   cy.get(`[data-testid=${dataTestId.header.generalMenuButton}]`).click();
-  table.forEach((row) => {
+  table.raw().forEach((row) => {
     const menuItem = row[0];
     cy.get('li').should('contain.text', menuItem);
   });
 });
 
-Cypress.Commands.add('getDataTestId', (dataTestId) => {
-  cy.get(`[data-testid=${dataTestId}]`)
-})
+Cypress.Commands.add('getDataTestId', (dataTestId: string) => {
+  cy.get(`[data-testid=${dataTestId}]`);
+});
 
-Cypress.Commands.add('loginCognito', (userId) => {
+const loginCognito = (userId: string) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
     const randomPassword = `P%${uuidv4()}`;
-    let password = 'P%403f577d-edda-468c-ae77-c8e1a79cd665'
+    let password = 'P%403f577d-edda-468c-ae77-c8e1a79cd665';
 
     const authorizeUser = {
       AuthFlow: authFlow,
@@ -94,15 +94,14 @@ Cypress.Commands.add('loginCognito', (userId) => {
       Permanent: true,
     };
 
-
     identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
       if (data) {
         identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
           if (data) {
-            console.log(data)
+            console.log(data);
             if (!data.ChallengeName) {
               await Auth.signIn(userId, password);
-              resolve(data.AuthenticationResult.IdToken);
+              resolve(data.AuthenticationResult?.IdToken);
             }
           } else {
             reject(err);
@@ -112,20 +111,14 @@ Cypress.Commands.add('loginCognito', (userId) => {
         reject(err);
       }
     });
-    // } else {
-    //   console.log(err)
-    //   reject(err);
-    // }
   });
-  // });
-});
+};
 
 Cypress.Commands.add('login', (userId) => {
-  cy.loginCognito(userId).then(() => {
+  loginCognito(userId).then(() => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.setLocalStorage('beta', 'true');
-    // cy.mockPersonSearch(userId);
     cy.mockDepartments();
     cy.visit(`/`, {
       auth: {
@@ -182,14 +175,10 @@ Cypress.Commands.add('startWizardWithEmptyRegistration', () => {
     .click({ force: true });
 });
 
-Cypress.Commands.add('logoutCognito', () => {
-  Auth.signOut();
-});
-
 Cypress.Commands.add('openMyRegistrations', () => {
   cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
   cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsLink}]`).click();
-})
+});
 
 Cypress.Commands.add('createValidRegistration', (fileName) => {
   // Description
@@ -214,7 +203,9 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addContributorButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('Testuser Withauthor{enter}');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).first().click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`)
+    .first()
+    .click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
 
   // Files and reference
@@ -228,7 +219,7 @@ Cypress.Commands.add('createValidRegistration', (fileName) => {
 });
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
-  dataTable.rawTable.forEach((value) => {
+  dataTable.raw().forEach((value: string[]) => {
     cy.get(`[data-testid=${values[value[0]]}]`, { timeout: 30000 });
   });
 });
@@ -257,19 +248,6 @@ Cypress.Commands.add('addFeideId', (username) => {
         authority: authority,
       });
     });
-});
-
-Cypress.Commands.add('findScenario', () => {
-  let scenario = '';
-  if (window.testState.currentScenario.tags && window.testState.currentScenario.tags.length > 0) {
-    scenario = window.testState.currentScenario.tags[0].name;
-  } else {
-    scenario = window.testState.currentScenario.name;
-    if (scenario.includes('(example')) {
-      scenario = scenario.substring(0, scenario.indexOf('(example')).trim();
-    }
-  }
-  cy.wrap(scenario).as('scenario');
 });
 
 // Commands for mocking
@@ -362,44 +340,45 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
     });
 });
 
-
-const fillInField = (field) => {
-  switch (field['type']) {
+const fillInField = (field: Record<string, any>) => {
+  switch (field.type) {
     case 'text':
-      cy.getDataTestId(field['fieldTestId']).should('be.visible').type(field['value'], { delay: 1 });
+      cy.getDataTestId(field.fieldTestId).should('be.visible').type(field.value, { delay: 1 });
       if (field.fieldTestId === dataTestId.registrationWizard.resourceType.externalLinkField) {
         cy.getDataTestId(dataTestId.registrationWizard.resourceType.externalLinkAddButton).click();
       }
       break;
     case 'date':
-      cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, field['value']);
+      cy.chooseDatePicker(`[data-testid=${field.fieldTestId}]`, field.value);
       break;
     case 'search':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).should('be.visible').type(field['value'], { delay: 1 });
-      cy.contains(field['value']).click();
+      cy.get(`[data-testid=${field.fieldTestId}]`).should('be.visible').type(field.value, { delay: 1 });
+      cy.contains(field.value).click();
       break;
     case 'file':
-      cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true });
+      cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field.value}`, { force: true });
       break;
     case 'select':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).scrollIntoView().should('be.visible').click();
+      cy.get(`[data-testid=${field.fieldTestId}]`).scrollIntoView().should('be.visible').click();
       if (field.fieldTestId === dataTestId.registrationWizard.resourceType.artisticTypeField) {
-        cy.get(`[data-value=${field['value']}]`).click();
+        cy.get(`[data-value=${field.value}]`).click();
       } else {
-        cy.contains(field['value']).click({ force: true });
+        cy.contains(field.value).click({ force: true });
       }
       break;
     case 'add':
       cy.get(`[data-testid=${field['fieldTestId']}]`).click();
-      if ('fields' in field['add']) {
-        Object.keys(field['add']['fields']).forEach((key) => {
+      if ('fields' in field.add) {
+        Object.keys(field.add.fields).forEach((key) => {
           if (key === dataTestId.registrationWizard.resourceType.artisticSubtype) {
             cy.getDataTestId(key).click();
             cy.get(`[data-value=${field['add']['fields'][key]}]`).click();
-          } else if (key === dataTestId.registrationWizard.resourceType.artisticOutputDate ||
+          } else if (
+            key === dataTestId.registrationWizard.resourceType.artisticOutputDate ||
             key === dataTestId.registrationWizard.resourceType.dateFromField ||
-            key === dataTestId.registrationWizard.resourceType.dateToField) {
-            cy.chooseDatePicker(`[data-testid=${key}]`, field['add']['fields'][key])
+            key === dataTestId.registrationWizard.resourceType.dateToField
+          ) {
+            cy.chooseDatePicker(`[data-testid=${key}]`, field['add']['fields'][key]);
           } else if (key === dataTestId.registrationWizard.resourceType.concertAddWork) {
             cy.getDataTestId(key).click();
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`)
@@ -424,7 +403,7 @@ const fillInField = (field) => {
           }
         });
       } else {
-        if ('select' in field['add']) {
+        if ('select' in field.add) {
           cy.get(`[data-testid=${field['add']['select']['selectTestId']}]`).click();
           cy.contains(field['add']['select']['value']).click();
         }
@@ -458,9 +437,7 @@ Cypress.Commands.add('checkField', (field) => {
   const value = field['landingPageValue'] ?? field['value'];
   switch (field['elementType']) {
     case 'input':
-      if (
-        field.fieldTestId === dataTestId.registrationWizard.resourceType.externalLinkField
-      ) {
+      if (field.fieldTestId === dataTestId.registrationWizard.resourceType.externalLinkField) {
         cy.contains(value);
       } else {
         cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', value);
@@ -517,9 +494,11 @@ Cypress.Commands.add('checkContributors', (contributorRoles) => {
     roleIndex++;
     const name = `Withauthor ${roleIndex} `;
     if (contributorRoles.length > 5) {
-      cy.contains('Search by name').parent().within(() => {
-        cy.get('input').clear().type(name, { delay: 1 });
-      });
+      cy.contains('Search by name')
+        .parent()
+        .within(() => {
+          cy.get('input').clear().type(name, { delay: 1 });
+        });
     }
     cy.get(`[value=${role}]`)
       .parent()
@@ -532,7 +511,7 @@ Cypress.Commands.add('checkContributors', (contributorRoles) => {
         cy.get(`[value=${role}]`);
       });
   });
-})
+});
 
 Cypress.Commands.add('fillInCommonFields', () => {
   Object.keys(registrationFields).forEach((key) => {
@@ -550,22 +529,25 @@ Cypress.Commands.add('fillInResourceType', (subtype, fields) => {
   if (subtype === 'DataSet') {
     cy.getDataTestId(dataTestId.confirmDialog.cancelButton).click();
   }
-  fields.forEach(field => {
+  fields.forEach((field: any) => {
     fillInField(field);
-  })
+  });
 });
 
 Cypress.Commands.add('fillInContributors', (contributorRoles) => {
   var index = 0;
-  contributorRoles.forEach(role => {
+  contributorRoles.forEach((role: string) => {
     index++;
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectContributorType).click();
     cy.get(`[data-value=${role}]`).click();
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`Withauthor ${(index)}`);
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).filter(`:contains('Withauthor ${index} ')`).first().click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`Withauthor ${index}`);
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton)
+      .filter(`:contains('Withauthor ${index} ')`)
+      .first()
+      .click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-  })
+  });
 });
 
 Cypress.Commands.add('checkLandingPage', () => {
@@ -576,7 +558,9 @@ Cypress.Commands.add('checkLandingPage', () => {
         if (field['landingPageTestId'] === dataTestId.registrationLandingPage.license) {
           cy.get(`[data-testid=${field.landingPageTestId}]`).get(`[title="${field.value}"]`);
         } else if (field['landingPageTestId'] === dataTestId.registrationLandingPage.title) {
-          cy.get(`[data-testid=${dataTestId.registrationLandingPage.registrationSubtype}]`).parent().should('contain', field.value)
+          cy.get(`[data-testid=${dataTestId.registrationLandingPage.registrationSubtype}]`)
+            .parent()
+            .should('contain', field.value);
         } else {
           cy.get(`[data-testid^=${field.landingPageTestId}]`).should('contain', field.value);
         }
@@ -596,15 +580,16 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       cy.get('[role="dialog"] [aria-label="calendar view is open, go to text input view"]').click();
       cy.get(`[role="dialog"] ${selector}`)
         .last()
-        .then((dialog) => {
+        .then((dialog: any) => {
           cy.log(dialog);
         });
-      cy.get(`[role="dialog"] ${selector}`, { force: true }).last().find('input').clear().type(value);
+      const selectorString = `[role="dialog"] ${selector}`;
+      cy.get(selectorString).last().find('input').clear().type(value);
       cy.contains('[role="dialog"] button', 'OK').click();
     } else {
       cy.get(selector)
         .find('input')
-        .then((input) => {
+        .then((input: any) => {
           cy.log(input);
         });
       cy.get(selector).find('input').clear().type(value);

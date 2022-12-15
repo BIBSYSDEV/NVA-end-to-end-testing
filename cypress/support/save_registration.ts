@@ -1,6 +1,6 @@
 import { dataTestId } from './dataTestIds';
 
-export const registrationFields = {
+export const registrationFields: Record<string, Record<string, any>> = {
   'description': {
     'tab': dataTestId.registrationWizard.stepper.descriptionStepButton,
     'title': {
@@ -35,7 +35,7 @@ export const registrationFields = {
       type: 'search',
       fieldTestId: dataTestId.registrationWizard.description.vocabularyRow('hrcsActivity'),
       elementType: 'chip',
-      landingPageTestId: dataTestId.registrationLandingPage.vocabularies,
+      landingPageTestId: dataTestId.registrationLandingPage.keywords,
       value: 'Underpinning Research',
     },
     'date': {
@@ -73,7 +73,7 @@ export const registrationFields = {
       type: 'checkbox',
       fieldTestId: dataTestId.registrationWizard.files.version,
       elementType: 'radio',
-      landingPageTestId: dataTestId.registrationLandingPage.version,
+      landingPageTestId: '',
       value: 'Accepted',
       checkbox: {
         selected: 'first',
@@ -83,7 +83,7 @@ export const registrationFields = {
       type: 'checkbox',
       fieldTestId: dataTestId.registrationWizard.files.administrativeAgreement,
       elementType: 'checkbox',
-      landingPageTestId: dataTestId.registrationLandingPage.administrativeAgreement,
+      landingPageTestId: '',
       value: false,
       checkbox: {
         selected: 'check',
@@ -310,7 +310,7 @@ export const resourceTypeFields = {
     landingPageTestId: '',
     value: '11.11.2021',
   },
-  artisticType: (artisticType) => {
+  artisticType: (artisticType: string) => {
     return {
       type: 'select',
       fieldTestId: dataTestId.registrationWizard.resourceType.artisticTypeField,
