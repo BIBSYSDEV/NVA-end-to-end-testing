@@ -1,5 +1,7 @@
 // Feature: Creator selects Resource type Artistic Result and subtype Design
 
+import { DataTable, Given } from '@badeball/cypress-cucumber-preprocessor';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps/index';
 import { userDesign } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import { designTypes, designFields } from '../../../../../support/data_testid_constants';
@@ -16,7 +18,7 @@ const addVenue = () => {
 
 // Common steps:
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Design"', () => {
-  cy.setLocalStorage('beta', true);
+  cy.setLocalStorage('beta', 'true');
   cy.login(userDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
@@ -25,7 +27,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Design"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
-  cy.setLocalStorage('beta', true);
+  cy.setLocalStorage('beta', 'true');
   cy.login(userDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
@@ -33,16 +35,16 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Art
 When('they select Resource Subtype "Artistic result - Design"', () => {
   cy.get('[data-testid=resource-type-chip-ArtisticDesign]').click();
 });
-Then('they see fields:', (dataTable) => {
-  dataTable.rawTable.forEach((field) => {
+Then('they see fields:', (dataTable: DataTable) => {
+  dataTable.raw().forEach((field) => {
     cy.get(`[data-testid=${designFields[field[0]]}]`).should('be.visible');
   });
 });
 // | More information |
-And('they see field for Type Work with options:', (dataTable) => {
+Then('they see field for Type Work with options:', (dataTable: DataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticTypeField}]`).click();
-  dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-value=${designTypes[value]}]`).should('be.visible');
+  dataTable.raw().forEach((value) => {
+    cy.get(`[data-value=${designTypes[value[0]]}]`).should('be.visible');
   });
   cy.get(`[data-value=${designTypes[Object.keys(designTypes)[0]]}]`).click();
 });
@@ -57,20 +59,20 @@ And('they see field for Type Work with options:', (dataTable) => {
 // | Web Design            |
 // | Service Design        |
 // | Other                 |
-And('they see a list of Exhibition Places with fields:', (dataTable) => {
+Then('they see a list of Exhibition Places with fields:', (dataTable) => {
   addVenue();
 });
 // | Name       |
 // | Date start |
 // | Date end   |
 // | Order      |
-And('they see that each Exhibition Place has a Delete Button', () => {
+Then('they see that each Exhibition Place has a Delete Button', () => {
   cy.get('[data-testid=CancelIcon]').should('be.visible');
 });
-And('they see that each Exhibition Place has an Edit Button', () => {
+Then('they see that each Exhibition Place has an Edit Button', () => {
   cy.get('[data-testid=EditIcon]').should('be.visible');
 });
-And('they see an Add Exhibition Place Button', () => {
+Then('they see an Add Exhibition Place Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).should('be.visible');
 });
 
@@ -81,11 +83,11 @@ When('they click the Add Exhibition Place Button', () => {
 Then('they see the Add Exhibition Place Dialog', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).should('be.visible');
 });
-And('they see fields:', (dataTable) => { });
+Then('they see fields:', (dataTable) => { });
 // | Exhibition place |
 // | Date from        |
 // | Date to          |
-And('they see an Add Button', () => {
+Then('they see an Add Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).should('be.visible');
 });
 When('they fill the fields with input data', () => {
@@ -94,7 +96,7 @@ When('they fill the fields with input data', () => {
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2011')
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2011')
 });
-And('they click the Add Button', () => {
+Then('they click the Add Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
 Then('the new Exhibition Place is listed under Exhibition places', () => {
@@ -103,7 +105,7 @@ Then('the new Exhibition Place is listed under Exhibition places', () => {
 });
 
 // Scenario: Creator Deletes an Exhibition Place
-And('they see an item in the list of Exhibition Places', () => {
+Then('they see an item in the list of Exhibition Places', () => {
   addVenue();
   cy.contains(venueName);
 });

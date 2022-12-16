@@ -1,3 +1,4 @@
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { userSaveRegistration } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
@@ -10,33 +11,23 @@ const fileTitle = '[Missing title]';
 
 // common steps
 When('they click Start', () => {
-  // cy.intercept('/doi-fetch', {
-  //   'identifier': '',
-  //   'title': 'Mock DOI fetch',
-  //   'creatorName': null,
-  //   'date': {
-  //     'year': '1970',
-  //     'month': '8',
-  //     'day': '14',
-  //   },
-  // });
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
-    .filter(':visible', {timeout: 30000})
-    .should('be.enabled', {timeout: 30000});
+    .filter(':visible', { timeout: 30000 })
+    .should('be.enabled', { timeout: 30000 });
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
-    .filter(':visible', {timeout: 30000})
-    .click({ force: true }, {timeout: 30000});
+    .filter(':visible', { timeout: 30000 })
+    .click({ timeout: 30000, force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
 });
-And('they click My Registrations', () => {
+When('they click My Registrations', () => {
   cy.openMyRegistrations();
 });
-And('they see that Edit is enabled', () => {
+When('they see that Edit is enabled', () => {
   cy.get('@registration').within((registration) => {
     cy.get('[data-testid^=edit-registration]');
   });
 });
-And('they see that Delete is enabled', () => {
+When('they see that Delete is enabled', () => {
   cy.get('@registration').within((registration) => {
     cy.get('[data-testid^=delete-registration]');
   });

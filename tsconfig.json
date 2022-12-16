@@ -15,5 +15,5 @@
     "noEmit": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["**/*.ts"]
+  "include": ["cypress"]
 }

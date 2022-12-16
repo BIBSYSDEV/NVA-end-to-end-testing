@@ -1,3 +1,4 @@
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { userWithAuthor3 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
@@ -15,7 +16,7 @@ Given('Creator begins registering a Registration', () => {
 
 //   @443
 //   Scenario Outline: Creator begins registering a Registration in the Wizard
-And('they have selected {string} for starting the Wizard', (method) => {
+Given('they have selected {string} for starting the Wizard', (method) => {
   cy.wrap(method).as('registrationMethod');
   if (method === 'Link to registration') {
     cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).click({ force: true });
@@ -37,7 +38,9 @@ When('they click Start', () => {
   });
 });
 Then('they see the Wizard', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`, { timeout: 30000 }).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`, { timeout: 30000 }).should(
+    'be.visible'
+  );
 });
 // Examples:
 //   | Method               |
@@ -46,9 +49,9 @@ Then('they see the Wizard', () => {
 
 //   @226
 //   Scenario: Creator begins registering a Registration
-Given('that the user is logged in', () => { });
-And('they have Role Creator', () => { });
-And('they are on the Start page', () => {
+Given('that the user is logged in', () => {});
+Given('they have Role Creator', () => {});
+Given('they are on the Start page', () => {
   cy.login(userWithAuthor3);
 });
 When('they click the New Registration button', () => {
@@ -57,13 +60,13 @@ When('they click the New Registration button', () => {
 Then('they are redirected to the New Registration page', () => {
   cy.location('pathname').should('contain', '/registration');
 });
-And('they see an Expansion panel for Upload file', () => {
+Then('they see an Expansion panel for Upload file', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).should('be.visible');
 });
-And('they see an Expansion panel for Link to resource', () => {
+Then('they see an Expansion panel for Link to resource', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).should('be.visible');
 });
-And('they see an Expansion panel for Empty Registration', () => {
+Then('they see an Expansion panel for Empty Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).should('be.visible');
 });
 
@@ -72,7 +75,7 @@ And('they see an Expansion panel for Empty Registration', () => {
 When('they click Upload file', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
 });
-And('they upload a file', () => {
+When('they upload a file', () => {
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });
 Then('they see the file name', () => {
@@ -80,32 +83,32 @@ Then('they see the file name', () => {
     cy.wrap(fileElement).contains(fileName);
   });
 });
-And('they see the file size', () => {
+Then('they see the file size', () => {
   // TODO file size is not implemented yet
 });
-And('they see the Remove button', () => {
+Then('they see the Remove button', () => {
   cy.get('[data-testid=button-remove-file]').should('be.visible');
 });
-And('they see the Start button is enabled', () => {
+Then('they see the Start button is enabled', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`, { timeout: 30000 })
     .filter(':visible')
     .should('be.enabled');
 });
 
 // Common steps for @228, @439, @440, @441, @442, @2208, @2370
-And('they expand the Expansion panel for Link to resource', () => {
+Given('they expand the Expansion panel for Link to resource', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).click({ force: true });
 });
-When('they enter {string} from {string}', (link, source) => {
+When('they enter {string} from {string}', (link: string, source: string) => {
   cy.wrap(source).as('source');
   cy.get('[data-testid=new-registration-link-field] > div > input').type(link);
 });
-And('they click Search', () => {
+When('they click Search', () => {
   cy.get('[data-testid=doi-search-button]').click({ force: true });
 });
 // TODO Need correct link for schema.org
 Then('they see metadata about the Link in the Expansion panel', () => {
-  cy.get('@source').then((source) => {
+  cy.get('@source').then((source: any) => {
     if (source !== 'schema.org') {
       cy.get('[data-testid=link-metadata]').should('be.visible');
     }
@@ -115,7 +118,7 @@ Then('they see metadata about the Link in the Expansion panel', () => {
 // Scenario: Creator begins registration with an empty Registration
 Given('Creator begins registering a Registration', () => {
   cy.login(userWithAuthor3);
-  cy.get(`[data-testid=${dataTestId.header.startRegistrationButton}]`).click();
+  cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click();
 });
 When('they expand the Expansion panel for Empty Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click();

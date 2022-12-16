@@ -1,10 +1,10 @@
-import { defineConfig } from "cypress";
-import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
-import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
-import createEsbuildPlugin from "@badeball/cypress-cucumber-preprocessor/esbuild";
+import { defineConfig } from 'cypress';
+import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
+import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
+import createEsbuildPlugin from '@badeball/cypress-cucumber-preprocessor/esbuild';
 
 export default defineConfig({
-  projectId: "a6w1e7",
+  projectId: 'a6w1e7',
   env: {
     TAGS: 'not @ignore and @test',
   },
@@ -16,8 +16,9 @@ export default defineConfig({
     html: false,
     json: true,
   },
+
   e2e: {
-    specPattern: "**/*.feature",
+    specPattern: '**/*.feature',
     async setupNodeEvents(
       on: Cypress.PluginEvents,
       config: Cypress.PluginConfigOptions
@@ -26,13 +27,14 @@ export default defineConfig({
       await addCucumberPreprocessorPlugin(on, config);
 
       on(
-        "file:preprocessor",
+        'file:preprocessor',
         createBundler({
           plugins: [createEsbuildPlugin(config)],
         })
       );
 
       // Make sure to return the config object as it might have been modified by the plugin.
-      return config;  },
+      return config;
+    },
   },
 });

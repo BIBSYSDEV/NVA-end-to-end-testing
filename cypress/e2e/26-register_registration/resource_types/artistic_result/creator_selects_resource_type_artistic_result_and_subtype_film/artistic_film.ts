@@ -1,5 +1,6 @@
 // Feature: Creator selects Resource type Artistic Result and subtype Film
 
+import { DataTable, Given, Then, When } from "@badeball/cypress-cucumber-preprocessor";
 import { userFilm } from "../../../../../support/constants";
 import { dataTestId } from "../../../../../support/dataTestIds";
 import { filmAnnouncements, filmTypes } from "../../../../../support/data_testid_constants";
@@ -17,12 +18,12 @@ Then('they see fields:', (dataTable) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticDescriptionField}]`);
 })
 //   | More information |
-And('they see field for Type Work with options:', (dataTable) => {
+Then('they see field for Type Work with options:', (dataTable: DataTable) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticTypeField}]`).click();
-    dataTable.rawTable.forEach(value => {
+    dataTable.raw().forEach(value => {
         cy.get(`[data-value=${filmTypes[value[0]]}]`);
     });
-    cy.get(`[data-value=${filmTypes[dataTable.rawTable[0][0]]}]`).click();
+    cy.get(`[data-value=${filmTypes[dataTable.raw()[0][0]]}]`).click();
 })
 //   | Film             |
 //   | Short film       |
@@ -30,22 +31,22 @@ And('they see field for Type Work with options:', (dataTable) => {
 //   | Interactive film |
 //   | AR/VR film       |
 //   | Other            |
-And('they can add Exhibitions of type:', (dataTable) => {
-    dataTable.rawTable.forEach(value => {
+Then('they can add Exhibitions of type:', (dataTable: DataTable) => {
+    dataTable.raw().forEach(value => {
         cy.get(`[data-testid=${filmAnnouncements[value[0]]}]`);
     })
 })
 //   | Broadcast         |
 //   | Cinematic release |
 //   | Other release     |
-And('they can edit existing Exhibitions', () => {
+Then('they can edit existing Exhibitions', () => {
     cy.get(`[data-testid=${filmAnnouncements['Broadcast']}]`).click();
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.broadcastPublisher}]`).type('Broadcast publisher');
     cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDate}]`, '11.11.2011');
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
     cy.contains('Show/Edit');
 })
-And('they can delete existing Exhibitions', () => {
+Then('they can delete existing Exhibitions', () => {
     cy.contains('Remove');
 })
 
