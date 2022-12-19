@@ -37,7 +37,6 @@ Feature: Data Management Plan (DMP)
         When the User removes a related-reference resource
         Then the related-reference is removed
 
-    @test
     @TEST_NP-16254
     Scenario: User adds an external links to a DMP
         When the user types in an external link
@@ -45,6 +44,7 @@ Feature: Data Management Plan (DMP)
         Then the user sees the saved link
         And the user has the option to remove the saved link
 
+    @test
     @TEST_NP-16255
     Scenario: User removes an external link to a resource
         Given User adds an external links to a DMP

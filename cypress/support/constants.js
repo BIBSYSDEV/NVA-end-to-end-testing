@@ -75,6 +75,7 @@ export const userOpenMyRegistrations = "test-user-open-my-registrations@test.no"
 export const userResearchDataDmp = "test-user-research-data-dmp@test.no";
 export const userPublishedRegistration = "test-user-published-registration@test.no";
 export const userLiteraryArts = "test-user-literary-arts@test.no";
+export const userResearchDataset = "test-user-research-dataset@test.no";
 
 const userData = {
   name: '',

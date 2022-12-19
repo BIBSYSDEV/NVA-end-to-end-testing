@@ -62,6 +62,10 @@ And ('they select DMP as subtype', () =>{
         });
     // # future scenario will allow use of external IRI, not only internal
 
+
+
+
+
 	// @TEST_NP-13298
 	// Scenario: User removes a related-references to resource
 		Given ('User adds zero or more related-references to resource published in NVA', () =>{
@@ -74,10 +78,17 @@ And ('they select DMP as subtype', () =>{
         }); 
 		Then ('the related-reference is removed', () =>{
 
-            cy.get('[data-testid^=related-registration-link-]').should('not.exist');
-            
-            
-            
+
+            //cy.get('[data-testid^=related-registration-link-]').should('not.exist');
+
+
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).should('not.exist');
+
+
+
+
+
+
             cy.get('[data-testid^=remove-relation-button]').should('not.exist');
         });
 
@@ -101,7 +112,12 @@ And ('they select DMP as subtype', () =>{
     // @TEST_NP-16255
     // Scenario: User removes an external link to a resource
         Given ('User adds an external links to a DMP', () =>{
-            cy.get('[data-testid=external-link-field]').type('https://sikt.no/');
+
+
+            //cy.get('[data-testid=external-link-field]').type('https://sikt.no/');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkField}]`).type('https://sikt.no/');
+
+
             cy.get('[data-testid=external-link-add-button]').click();
         });
         When ('the user removes an external link', () =>{
