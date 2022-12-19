@@ -1,12 +1,10 @@
-import * as AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
-import Amplify from 'aws-amplify'
-import { Auth } from 'aws-amplify';
+import { Auth } from '@aws-amplify/auth';
+import { CognitoIdentityProviderClient } from '@aws-sdk/client-cognito-identity-provider';
 import 'cypress-localstorage-commands';
 import {
   mockPersonFeideIdSearch,
   mockPersonNameSearch,
-  mockPerson,
   projectSearchMockFile,
   projectApiPath,
   journalSearchMockFile,
@@ -38,7 +36,16 @@ const amplifyConfig = {
   },
 };
 
-const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
+// const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
+const identityServiceProvider = new CognitoIdentityProviderClient(
+  {
+    region: region,
+    credentials: {
+      accessKeyId: awsAccessKeyId,
+      secretAccessKey: awsSecretAccessKey,
+      sessionToken: awsSessionToken,
+    }
+  });
 
 const authFlow = 'USER_PASSWORD_AUTH';
 
@@ -94,24 +101,31 @@ Cypress.Commands.add('loginCognito', (userId) => {
       Permanent: true,
     };
 
-
-    identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
-      if (data) {
-        identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-          if (data) {
-            console.log(data)
-            if (!data.ChallengeName) {
-              await Auth.signIn(userId, password);
-              resolve(data.AuthenticationResult.IdToken);
-            }
-          } else {
-            reject(err);
-          }
-        });
-      } else {
-        reject(err);
-      }
+    const setPasswordCommand = new AdminSetUserPasswordCommand(passwordParams);
+    identityServiceProvider.send(setPasswordCommand).then(() => {
+      const initiateAuthCommand = new InitiateAuthCommand(authorizeUser);
+      identityServiceProvider.send(initiateAuthCommand).then(() => {
+        Auth.signIn(userId, password);
+      });
     });
+
+    // identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+    //   if (data) {
+    //     identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+    //       if (data) {
+    //         console.log(data)
+    //         if (!data.ChallengeName) {
+    //           await Auth.signIn(userId, password);
+    //           resolve(data.AuthenticationResult.IdToken);
+    //         }
+    //       } else {
+    //         reject(err);
+    //       }
+    //     });
+    //   } else {
+    //     reject(err);
+    //   }
+    // });
     // } else {
     //   console.log(err)
     //   reject(err);

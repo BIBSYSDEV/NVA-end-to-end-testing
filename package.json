@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@aws-amplify/pubsub": "^3.3.3",
-    "aws-amplify": "^4.3.2",
-    "aws-sdk": "^2.1007.0",
+    "@aws-amplify/auth": "^5.1.1",
+    "@aws-sdk/client-cognito-identity-provider": "^3.231.0",
     "cosmiconfig": "^6.0.0",
     "cypress-localstorage-commands": "^1.6.1",
     "cypress-promise": "^1.1.0",
