@@ -55,16 +55,12 @@ And ('they select DMP as subtype', () =>{
             cy.contains('Antologi').first().click({ force: true });
         });
         Then ('the User can store any search result as a related-reference', () =>{
-            cy.get('[data-testid^=related-registration-link-]').first().within(()=>{
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).within(()=>{
                 cy.contains('Antologi');
             });
-            cy.get('[data-testid^=remove-relation-button]').should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('be.visible');
         });
     // # future scenario will allow use of external IRI, not only internal
-
-
-
-
 
 	// @TEST_NP-13298
 	// Scenario: User removes a related-references to resource
@@ -73,23 +69,12 @@ And ('they select DMP as subtype', () =>{
             cy.contains('Antologi').first().click({ force: true });
         });
 		When ('the User removes a related-reference resource', () =>{
-            cy.get('[data-testid^=remove-relation-button]').first().click();
-            cy.get('[data-testid=accept-button]').click();           
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).click();
+            cy.get('[data-testid=accept-button]').click();
         }); 
 		Then ('the related-reference is removed', () =>{
-
-
-            //cy.get('[data-testid^=related-registration-link-]').should('not.exist');
-
-
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).should('not.exist');
-
-
-
-
-
-
-            cy.get('[data-testid^=remove-relation-button]').should('not.exist');
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('not.exist');
         });
 
     // @TEST_NP-16254
@@ -98,33 +83,28 @@ And ('they select DMP as subtype', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType. externalLinkField}]`).type('https://sikt.no/');
         }); 
         And ('the user adds the link', () =>{
-            cy.get('[data-testid=external-link-add-button]').click();
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkAddButton}]`).click();
         });
         Then ('the user sees the saved link', () =>{
-            cy.get('[data-testid=external-link]').first().within(()=>{
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLink}]`).within(()=>{
                 cy.contains('https://sikt.no/');
             });
         });
         And ('the user has the option to remove the saved link', () =>{
-            cy.get('[data-testid^=remove-relation-button]').first().should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('be.visible');
         });
     
     // @TEST_NP-16255
     // Scenario: User removes an external link to a resource
         Given ('User adds an external links to a DMP', () =>{
-
-
-            //cy.get('[data-testid=external-link-field]').type('https://sikt.no/');
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkField}]`).type('https://sikt.no/');
-
-
-            cy.get('[data-testid=external-link-add-button]').click();
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkAddButton}]`).click();
         });
         When ('the user removes an external link', () =>{
-            cy.get('[data-testid^=remove-relation-button]').first().click();
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).click();
             cy.get('[data-testid=accept-button]').click();    
         });
         Then ('the user sees the external link is removed', () =>{
-            cy.get('[data-testid=external-link]').should('not.exist');
-            cy.get('[data-testid^=remove-relation-button]').should('not.exist');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLink}]`).should('not.exist');
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('not.exist');
         });
