@@ -185,52 +185,29 @@ And ('they select Dataset as subtype', () =>{
             cy.get('[data-testid=button-save-registration]').click();
             cy.wait(3000);
         });
-
-
-
-
-// **********************************************************************
-
         Then ('the User sees geographical information', () =>{
-
-            cy.get('[data-testid=geographic-accordion]').should('be.visible');
-
-
-            //cy.get(`[data-testid=${dataTestId.registrationWizard.registrationLandingPage.geographicAccordion}]`).should('be.visible');
-
-            
-
-            cy.get('[data-testid=geographic-accordion]').within(()=>{
-            // cy.get(`[data-testid^=${dataTestId.registrationWizard.registrationLandingPage.geographicAccordion}]`).within(()=>{
+            cy.get(`[data-testid=${dataTestId.registrationLandingPage.geographicAccordion}]`).should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationLandingPage.geographicAccordion}]`).within(()=>{
                 cy.contains('Trondheim, Norway');
             });
         });
-
-
-
-
-        
         And ('the User sees publications that use this dataset', () =>{
-            //cy.get('[data-testid=publications-using-dataset-accordion]').should('be.visible');
-            //cy.get('[data-testid=projects-accordion]').within(()=>{
-                //cy.contains('antologi');
-            //});
+            cy.get(`[data-testid=${dataTestId.registrationLandingPage.publicationsUsingDatasetAccordion}]`).should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationLandingPage.publicationsUsingDatasetAccordion}]`).within(()=>{
+                cy.contains('Antologi');
+            });
         });
         And ('the User sees projects assosiated with this dataset', () =>{
-            //cy.get('[data-testid=projects-accordion]').should('be.visible');
-            //cy.get('[data-testid=projects-accordion]').within(()=>{
-                //cy.contains('test');
-            //});
         });
         And ('the User sees DMPs this dataset complay to', () =>{
-            //cy.get('[data-testid=dmp-accordion]').should('be.visible');
-            //cy.get('[data-testid=dmp-accordion]').within(()=>{
-                //cy.contains('Test av dataset');
-            //});
+            cy.get(`[data-testid=${dataTestId.registrationLandingPage.dmpAccordion}]`).should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationLandingPage.dmpAccordion}]`).within(()=>{
+                cy.contains('Test registration DMP');
+            });
         });
         And ('the User sees other related resources', () =>{
-            //cy.get('[data-testid=external-links-accordion]').should('be.visible');
-            //cy.get('[data-testid= external-links-accordion]').within(()=>{
-                //cy.contains('https://sikt.no');
-            //});
+            cy.get(`[data-testid=${dataTestId.registrationLandingPage.externalLinksAccordion}]`).should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationLandingPage.externalLinksAccordion}]`).within(()=>{
+                cy.contains('https://sikt.no');
+            });
         });
