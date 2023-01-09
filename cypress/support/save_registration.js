@@ -553,7 +553,7 @@ export const resourceTypeFields = {
     fieldTestId: dataTestId.registrationWizard.resourceType.mediaMedium,
     elementType: 'input',
     landingPageTestId: '',
-    value: 'Newspaper or journal',
+    value: 'Journal',
   },
   mediaFormat: {
     type: 'select',
