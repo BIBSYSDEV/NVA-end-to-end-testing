@@ -6,14 +6,13 @@ import 'cypress-localstorage-commands';
 import {
   mockPersonFeideIdSearch,
   mockPersonNameSearch,
-  mockPerson,
   projectSearchMockFile,
   projectApiPath,
   journalSearchMockFile,
 } from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
-import { contributors, contributorsCommon, registrationFields, resourceTypes } from './save_registration';
+import { registrationFields, } from './save_registration';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');

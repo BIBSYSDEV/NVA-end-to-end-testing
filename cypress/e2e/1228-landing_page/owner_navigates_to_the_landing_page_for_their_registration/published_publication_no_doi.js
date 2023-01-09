@@ -1,57 +1,65 @@
 import { today } from '../../../support/commands';
-import { userWithAuthor } from '../../../support/constants';
+import { userDraftDoi } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Owner navigates to the Landing Page for their Registration
 
-// Common steps
-Given('that the Creator navigates to the Landing Page for a Resource', () => {
-  cy.login(userWithAuthor);
+// Scenario: Owner Requests a DOI
+Given('the owner opens the Landing Page of their Registration', () => {
+  cy.login(userDraftDoi);
+  cy.startWizardWithEmptyRegistration();
 });
-And('they are the Owner of the Resource', () => {
-  cy.openMyRegistrations();
+Given('the Registration has no DOI', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type('Test request DOI');
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.getDataTestId('button-save-registration').click();
 });
-// End common steps
-
-// @1231
-// Scenario: Owner navigates to the Landing Page for their Published Registration without DOI
-
-And('the Resource has no DOI', () => {
-  cy.get('[data-testid=published-button]').click({ force: true });
-  cy.get('[data-testid^=registration-title]')
-    .filter(`:contains("Published registration no DOI ${today}")`) // need to use text search to find correct registration
-    .parent()
-    .within((publicationLine) => {
-      cy.wrap(publicationLine).get('[data-testid^=open-registration]').click({ force: true });
-    });
-  cy.get('[data-testid=doi-presentation]').should('not.exist');
+When('they request a DOI', () => {
+  cy.getDataTestId('doi-request-accordion', { timeOut: 30000 }).click();
+  cy.getDataTestId('button-toggle-reserve-doi').click();
 });
-When('they see the Status Bar', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
-});
-Then('they see buttons for "Request a DOI" and "Edit Resource"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.requestDoiButton}]`).should('be.visible');
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.editButton}]`).should('be.visible');
+Then('they can see a reserved DOI', () => {
+  cy.wait(20000);
+  cy.getDataTestId('refresh-doi-button', { timeOut: 30000 }).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.doiLink).should('be.visible');
 });
 
-// Scenario: Owner navigates to the Landing Page for their Registration with Validation Errors
-When('the Creator navigates to the Landing Page', () => {
-  cy.login(userWithAuthor);
-  cy.openMyRegistrations();
+// Scenario: Owner wants to publish Resource
+When("the Owner previews the Resource's Landing Page", () => {
+  cy.login(userDraftDoi);
+  cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type('Test request DOI');
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.getDataTestId('button-save-registration').click();
 });
-And('the Resource has Validation Errors', () => { });
-And('the Resource is a draft', () => {
-  cy.get('[data-testid^=registration-title]')
-    .filter(`:contains("Registration with validation error ${today}")`) // need to use text search to find correct registration
-    .parent()
-    .within((publicationLine) => {
-      cy.wrap(publicationLine).get('[data-testid^=open-registration]').first().click({ force: true });
-    });
+And('the Registraion has "Draft" Status', () => {});
+Then('they see a "Publish" option', () => {
+  cy.getDataTestId('button-publish-registration').should('be.visible');
 });
-Then('they see a List of all Validation Errors for the Resource', () => {
-  cy.get('[data-testid=error-list-div]').should('be.visible');
+
+// Scenario: Owner wants to publish their Resource, pending Approval
+// When("the Owner previews the Resource's Landing Page", () => {});
+And('the Registration has "Draft" Status', () => {});
+And('there is a pending Approval Request on the Resource', () => {
+  cy.getDataTestId('doi-request-accordion', { timeOut: 30000 }).click();
+  cy.getDataTestId('button-toggle-reserve-doi').click();
+  cy.wait(20000);
+  cy.getDataTestId('refresh-doi-button', { timeOut: 30000 }).click();
 });
-And('they see a "Edit registration" button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.backToWizard}]`).should('be.visible');
+Then('they see a "Publishing pending" notice', () => {
+  cy.getDataTestId('doi-request-accordion', { timeOut: 30000 }).click();
+  cy.getDataTestId('doi-request-accordion').within(() => {
+    cy.contains('Registration has a reserved DOI');
+  });
 });
+And('the user is informed that progress can be viewed in My Messages', () => {});
+
+// Scenario: Owner wants to publish Resource, all restrictions
+Given('Institutions publications policy is "Only Curator can publish"', () => {});
+When('the Owner uses the Publish option', () => {});
+Then('the Owner see a Landing Page with an Unpublished Resource', () => {});
+And('an Approval Request is sent to his Curator', () => {});
+And(
+  'the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages',
+  () => {}
+);
