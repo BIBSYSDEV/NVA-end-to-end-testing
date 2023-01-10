@@ -1,6 +1,8 @@
 import { today } from '../../../support/commands';
-import { userDraftDoi } from '../../../support/constants';
+import { userCurator, userDraftDoi, userPublishNoRights } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+
+const fileName = 'example.txt'
 
 // Feature: Owner navigates to the Landing Page for their Registration
 
@@ -32,14 +34,14 @@ When("the Owner previews the Resource's Landing Page", () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId('button-save-registration').click();
 });
-And('the Registraion has "Draft" Status', () => {});
+And('the Registraion has "Draft" Status', () => { });
 Then('they see a "Publish" option', () => {
   cy.getDataTestId('button-publish-registration').should('be.visible');
 });
 
 // Scenario: Owner wants to publish their Resource, pending Approval
 // When("the Owner previews the Resource's Landing Page", () => {});
-And('the Registration has "Draft" Status', () => {});
+And('the Registration has "Draft" Status', () => { });
 And('there is a pending Approval Request on the Resource', () => {
   cy.getDataTestId('doi-request-accordion', { timeOut: 30000 }).click();
   cy.getDataTestId('button-toggle-reserve-doi').click();
@@ -52,14 +54,29 @@ Then('they see a "Publishing pending" notice', () => {
     cy.contains('Registration has a reserved DOI');
   });
 });
-And('the user is informed that progress can be viewed in My Messages', () => {});
+And('the user is informed that progress can be viewed in My Messages', () => { });
 
 // Scenario: Owner wants to publish Resource, all restrictions
-Given('Institutions publications policy is "Only Curator can publish"', () => {});
-When('the Owner uses the Publish option', () => {});
-Then('the Owner see a Landing Page with an Unpublished Resource', () => {});
-And('an Approval Request is sent to his Curator', () => {});
+Given('Institutions publications policy is "Only Curator can publish"', () => {
+  cy.login(userPublishNoRights);
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(fileName);
+  cy.getDataTestId('button-save-registration').click();
+});
+When('the Owner uses the Publish option', () => {
+  cy.getDataTestId('button-publish-registration', { timeOut: 15000 }).click();
+});
+Then('the Owner see a Landing Page with an Unpublished Resource', () => {
+  cy.getDataTestId('tasks-panel').within(() => {
+    cy.contains('Publishing request - Draft');
+  })
+});
+And('an Approval Request is sent to his Curator', () => {
+  cy.login(userCurator);
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+});
 And(
   'the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages',
-  () => {}
+  () => { }
 );
+
