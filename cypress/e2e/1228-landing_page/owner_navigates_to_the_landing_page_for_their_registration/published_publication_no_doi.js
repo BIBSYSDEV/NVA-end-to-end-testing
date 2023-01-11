@@ -21,6 +21,7 @@ When('they request a DOI', () => {
   cy.getDataTestId('button-toggle-reserve-doi').click();
 });
 Then('they can see a reserved DOI', () => {
+  cy.getDataTestId('refresh-doi-button', { timeOut: 30000 }).should('be.visible');
   cy.wait(20000);
   cy.getDataTestId('refresh-doi-button', { timeOut: 30000 }).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.doiLink).should('be.visible');
@@ -64,7 +65,7 @@ Given('Institutions publications policy is "Only Curator can publish"', () => {
   cy.getDataTestId('button-save-registration').click();
 });
 When('the Owner uses the Publish option', () => {
-  cy.getDataTestId('button-publish-registration', { timeOut: 15000 }).click();
+  cy.getDataTestId('button-publish-registration', { timeOut: 20000 }).click();
 });
 Then('the Owner see a Landing Page with an Unpublished Resource', () => {
   cy.getDataTestId('tasks-panel').within(() => {
@@ -80,3 +81,44 @@ And(
   () => { }
 );
 
+// Scenario: Owner uses the Publish option on Landing Page
+Given('Institutions publications policy is "Registrator has full publishing rights"', () => {
+  cy.login(userDraftDoi);
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(fileName);
+  cy.getDataTestId('button-save-registration').click();
+})
+Then("the Resource's status is \"Published\"", () => {
+  cy.wait(10000);
+  cy.getDataTestId('refresh-publishing-request-button', { timeOut: 30000 }).click();
+})
+And('the Owner sees a Landing Page with a Published Resource', () => {
+  cy.getDataTestId('tasks-panel').within(() => {
+    cy.contains('Publishing request - Published');
+  })
+})
+
+// Scenario: Owner navigates to the Landing Page for their draft Resource with Validation Errors
+When('the Creator navigates to the Landing Page', () => {
+  cy.login(userDraftDoi)
+  cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type('Test draft publication');
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.getDataTestId('button-save-registration').click();
+})
+And('the Resource has Validation Errors', () => {
+  cy.getDataTestId('tasks-panel').within(() => {
+    cy.getDataTestId('WarningIcon');
+  })
+})
+And('the Resource is a draft', () => {
+  cy.getDataTestId('tasks-panel').within(() => {
+    cy.contains('Publishing request - Draft');
+  })
+})
+Then('they see a List of all Validation Errors for the Resource', () => {
+  cy.getDataTestId('error-list-div').should('be.visible');
+})
+And('they see a "Edit registration" button', () => {
+  cy.getDataTestId('back-to-wizard-button').should('be.visible')
+})

@@ -87,7 +87,7 @@ export const userSaveArtisticResult = 'test-user-save-artistic-result@test.no';
 export const userSaveMediaContribution = 'test-user-save-media-contribution@test.no';
 export const userSaveResearchData = 'test-user-save-research-data@test.no';
 export const userPublishNoRights = 'test-user-publish-no-rights@test.no';
-export const userCurator = 'test-user-second-inst-curator-6@test.no';
+export const userCurator = 'test-user-second-inst-curator-5@test.no';
 
 const userData = {
   name: '',
