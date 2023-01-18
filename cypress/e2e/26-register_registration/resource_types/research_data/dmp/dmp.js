@@ -70,7 +70,14 @@ And ('they select DMP as subtype', () =>{
         });
 		When ('the User removes a related-reference resource', () =>{
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).click();
-            cy.get('[data-testid=accept-button]').click();
+            
+            
+            
+            //cy.get('[data-testid=accept-button]').click();
+            cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+
+
+
         }); 
 		Then ('the related-reference is removed', () =>{
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).should('not.exist');
@@ -80,7 +87,7 @@ And ('they select DMP as subtype', () =>{
     // @TEST_NP-16254
     // Scenario: User adds an external links to a DMP
         When ('the user types in an external link', () =>{
-            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType. externalLinkField}]`).type('https://sikt.no/');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkField}]`).type('https://sikt.no/');
         }); 
         And ('the user adds the link', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkAddButton}]`).click();
@@ -102,7 +109,13 @@ And ('they select DMP as subtype', () =>{
         });
         When ('the user removes an external link', () =>{
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).click();
-            cy.get('[data-testid=accept-button]').click();    
+
+
+            //cy.get('[data-testid=accept-button]').click();    
+            cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+
+
+
         });
         Then ('the user sees the external link is removed', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLink}]`).should('not.exist');
