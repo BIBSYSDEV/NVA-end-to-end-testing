@@ -30,10 +30,12 @@ And('they have selected {string} for starting the Wizard', (method) => {
 });
 When('they click Start', () => {
   cy.get('@registrationMethod').then((method) => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
-      .filter(':visible', { timeout: 30000 })
-      .should('be.enabled', { timeout: 30000 })
-      .click({ force: true, timeout: 30000 });
+    if (method !== 'Empty Registration') {
+      cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+        .filter(':visible', { timeout: 30000 })
+        .should('be.enabled', { timeout: 30000 })
+        .click({ force: true, timeout: 30000 });
+    }
   });
 });
 Then('they see the Wizard', () => {
