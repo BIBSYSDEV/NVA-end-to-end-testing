@@ -1035,5 +1035,20 @@
     "orcid": true,
     "orgNumber": "5991",
     "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Publish registration",
+    "nin": "17031785715",
+    "username": "test-user-publish-registration@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "5991",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
   }
 ]

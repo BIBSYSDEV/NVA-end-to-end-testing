@@ -189,10 +189,11 @@ Cypress.Commands.add('openMyRegistrations', () => {
   cy.getDataTestId(dataTestId.myPage.myRegistrationsLink).click();
 });
 
-Cypress.Commands.add('createValidRegistration', (fileName) => {
+Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
-  cy.get('[data-testid=registration-title-field]').type(`Title ${today}`);
+  title = title ? `${title} ${today}` : `Title ${today}`;
+  cy.get('[data-testid=registration-title-field]').type(title);
   cy.getDataTestId(dataTestId.registrationWizard.description.datePublishedField).type('01.01.2020');
 
   // Reference
