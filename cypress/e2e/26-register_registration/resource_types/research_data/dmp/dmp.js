@@ -102,9 +102,6 @@ And ('they select DMP as subtype', () =>{
         });
         When ('the user removes an external link', () =>{
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).click();
-
-
-            //cy.get('[data-testid=accept-button]').click();    
             cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 
 
