@@ -70,9 +70,6 @@ And ('they select DMP as subtype', () =>{
         });
 		When ('the User removes a related-reference resource', () =>{
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).click();
-            
-            
-            
             cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 
 
