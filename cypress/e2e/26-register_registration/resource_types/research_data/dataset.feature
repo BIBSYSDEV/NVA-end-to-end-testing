@@ -12,12 +12,14 @@ Feature: Dataset
         Given User selects Resource type "Research Data"
         And they select Dataset as subtype
 
+    @test
     @TEST_NP-13251
     @9141
     Scenario: User sees information about types of data that are illegal to publish on this service
         When the User has selected to register a Dataset
         Then the User sees information about types of data that are illegal to publish on this service
 
+    @test
     @TEST_NP-13252
     @9141
     Scenario: User confirms to register data that are legal to publish on this service
@@ -43,6 +45,7 @@ Feature: Dataset
         And can be completed at any later stage
         And answers to user support requests will be visible on "My page"
 
+    @test
     @TEST_NP-13255
     @9140
     Scenario: User adds zero or more geographical data to the dataset
@@ -51,6 +54,7 @@ Feature: Dataset
         # Future: Add support for land, region, county and map reference (line, rectangle, point)
         Then it is stored
 
+    @test
     @TEST_NP-13256
     @9140
     Scenario: User adds zero or more use-references to resource published in NVA
@@ -66,6 +70,7 @@ Feature: Dataset
         Then the User can store any search result as a related-reference
     # future scenario will allow use of external IRI, not only internal
 
+    @test
     @TEST_NP-13258
     @9140
     Scenario: User adds zero or more comply-to-references to a DMP resource published in NVA

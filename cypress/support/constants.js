@@ -89,6 +89,7 @@ export const userSaveResearchData = 'test-user-save-research-data@test.no';
 export const userPublishNoRights = 'test-user-publish-no-rights@test.no';
 export const userCurator = 'test-user-second-inst-curator-5@test.no';
 export const userPublishRegistration = 'test-user-publish-registration@test.no';
+export const userResearchDataset = "test-user-research-dataset@test.no";
 
 const userData = {
   name: '',
@@ -178,4 +179,5 @@ export const user = {
   [userPublishNoRights]: { ...userData, name: 'TestUser, Publish registration no rights' },
   [userCurator]: { ...userData, name: 'TestUser, Curator 1' },
   [userPublishRegistration]: { ...userData, name: 'TestUser, Publish registration' },
+  [userResearchDataset]: { ...userData, name: 'TestUser, Research dataset' },
 };
