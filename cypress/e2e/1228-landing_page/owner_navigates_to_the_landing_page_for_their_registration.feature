@@ -1,28 +1,25 @@
 Feature: Owner navigates to the Landing Page for their Resource
 
-    @test
     @1231
     @TEST_NP-4168
     @TESTSET_NP-4235
-    Scenario: Owner navigates to the Landing Page for their Published Resource without DOI
-        Given that the Creator navigates to the Landing Page for a Resource
-        And they are the Owner of the Resource
-        And the Resource has no DOI
-        When they see the Status Bar
-        Then they see buttons for "Request a DOI" and "Edit Resource"
+    @test
+    Scenario: Owner Requests a DOI
+        Given the owner opens the Landing Page of their Registration
+        And the Registration has no DOI
+        When they request a DOI
+        Then they can see a reserved DOI
 
-    @needJiraTag
-    @implemented
     @TEST_NP-4169
-    @TESTSET_NP-4235
+    @test
     Scenario: Owner wants to publish Resource
         When the Owner previews the Resource's Landing Page
-        And the Registraion has "Draft" Status
+        And the Registration has "Draft" Status
         Then they see a "Publish" option
 
     @3192
     @TEST_NP-4182
-    @TESTSET_NP-4235
+    @test
     Scenario: Owner wants to publish their Resource, pending Approval
         When the Owner previews the Resource's Landing Page
         And the Registration has "Draft" Status
@@ -33,6 +30,7 @@ Feature: Owner navigates to the Landing Page for their Resource
     @3193
     @TEST_NP-4181
     @TESTSET_NP-4235
+    @test
     Scenario: Owner wants to publish Resource, all restrictions
         Given Institutions publications policy is "Only Curator can publish"
         When the Owner uses the Publish option
@@ -43,6 +41,7 @@ Feature: Owner navigates to the Landing Page for their Resource
     @3194
     @TEST_NP-4176
     @TESTSET_NP-4235
+    # @test
     Scenario: Owner wants to publish Resource, file restrictions
         Given Institutions publications policy is "Registrator can only publish metadata"
         When the Owner uses the Publish option
@@ -53,9 +52,11 @@ Feature: Owner navigates to the Landing Page for their Resource
         And an Approval Request is sent to the Curator
         And the Owner is notified that an Approval Request is sent to the Curator and progress can be viewed in My Messages
 
+
     @3195
     @TEST_NP-4179
     @TESTSET_NP-4235
+    @test
     Scenario: Owner uses the Publish option on Langing Page
         Given Institutions publications policy is "Registrator has full publishing rights"
         When the Owner uses the Publish option

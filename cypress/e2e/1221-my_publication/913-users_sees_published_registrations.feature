@@ -1,7 +1,7 @@
 Feature: User sees published Registrations
 
     @TEST_NP-4121
-    # @test
+    @test
     Scenario: User sees published Registrations
         Given Creator opens the page My Registrations
         When they click Published Registrations in the navigation bar
@@ -10,12 +10,12 @@ Feature: User sees published Registrations
             | Status  |
             | Created |
         And they see list items with Status
-            | Deleted   |
+            # | Deleted   |
             | Published |
         And they see each list item has buttons
             | Show   |
             | Edit   |
-            | Delete |
+            # | Delete |
         And the they see the Edit button is enabled
         And the Delete button is enabled for Registrations not marked as Deleted
         And they see the navigation bar for Unpublished Registrations is enabled

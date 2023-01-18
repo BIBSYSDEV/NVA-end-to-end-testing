@@ -27,6 +27,7 @@ export const userNoOrcid = 'test-user-no-orcid@test.no';
 export const userConnectOrcid = 'test-user-connect-orcid@test.no';
 export const userConnectAuthor = 'test-user-connect-author@test.no';
 export const userWithAuthor = 'test-user-with-author@test.no';
+export const userWithAuthor1 = 'test-user-with-author-1@test.no';
 export const userWithAuthor2 = 'test-user-with-author-2@test.no';
 export const userWithAuthor3 = 'test-user-with-author-3@test.no';
 export const userWithAuthor4 = 'test-user-with-author-4@test.no';
@@ -62,19 +63,32 @@ export const userResourceTypeArchitecture = 'test-user-resource-type-architectur
 export const userViewRegistration = 'test-user-view-registration@test.no';
 export const userEditor = 'test-user-editor@test.no';
 export const userMyRegistrations = 'test-user-my-registrations@test.no';
-export const userFetchDoi = "test-user-doi-fetch@test.no";
-export const userContributor = "test-user-contributor@test.no";
-export const userFilm = "test-user-film@test.no";
-export const userArtistic = "test-user-artistic@test.no";
-export const userDesign = "test-user-design@test.no";
-export const userMusic = "test-user-music@test.no";
-export const userLogout = "test-user-logout@test.no";
-export const userPerformingArts = "test-user-performing-arts@test.no";
-export const userRequestSupport = "test-user-open-request-support@test.no";
-export const userOpenMyRegistrations = "test-user-open-my-registrations@test.no";
-export const userResearchDataDmp = "test-user-research-data-dmp@test.no";
-export const userPublishedRegistration = "test-user-published-registration@test.no";
-export const userLiteraryArts = "test-user-literary-arts@test.no";
+export const userFetchDoi = 'test-user-doi-fetch@test.no';
+export const userContributor = 'test-user-contributor@test.no';
+export const userFilm = 'test-user-film@test.no';
+export const userArtistic = 'test-user-artistic@test.no';
+export const userDesign = 'test-user-design@test.no';
+export const userMusic = 'test-user-music@test.no';
+export const userLogout = 'test-user-logout@test.no';
+export const userPerformingArts = 'test-user-performing-arts@test.no';
+export const userRequestSupport = 'test-user-open-request-support@test.no';
+export const userOpenMyRegistrations = 'test-user-open-my-registrations@test.no';
+export const userResearchDataDmp = 'test-user-research-data-dmp@test.no';
+export const userPublishedRegistration = 'test-user-published-registration@test.no';
+export const userLiteraryArts = 'test-user-literary-arts@test.no';
+export const userFilesAndLicense = 'test-user-files-and-license@test.no';
+export const userSaveJournal = 'test-user-save-journal@test.no';
+export const userSaveBook = 'test-user-save-book@test.no';
+export const userSaveReport = 'test-user-save-report@test.no';
+export const userSaveThesis = 'test-user-save-thesis@test.no';
+export const userSavePartOfBook = 'test-user-save-part-of-book@test.no';
+export const userSavePresentation = 'test-user-save-presentation@test.no';
+export const userSaveArtisticResult = 'test-user-save-artistic-result@test.no';
+export const userSaveMediaContribution = 'test-user-save-media-contribution@test.no';
+export const userSaveResearchData = 'test-user-save-research-data@test.no';
+export const userPublishNoRights = 'test-user-publish-no-rights@test.no';
+export const userCurator = 'test-user-second-inst-curator-5@test.no';
+export const userPublishRegistration = 'test-user-publish-registration@test.no';
 export const userResearchDataset = "test-user-research-dataset@test.no";
 
 const userData = {
@@ -101,6 +115,7 @@ export const user = {
   },
   [userConnectOrcid]: { ...userData, name: 'TestUser, Connect ORCID', feideid: false, orcid: false },
   [userWithAuthor]: { ...userData, name: 'TestUser, Withauthor' },
+  [userWithAuthor1]: { ...userData, name: 'TestUser, Withauthor 1' },
   [userWithAuthor2]: { ...userData, name: 'TestUser, Withauthor 2' },
   [userWithAuthor3]: { ...userData, name: 'TestUser, Withauthor 3' },
   [userWithAuthor4]: { ...userData, name: 'TestUser, Withauthor 4' },
@@ -151,5 +166,18 @@ export const user = {
   [userResearchDataDmp]: { ...userData, name: 'TestUser, Research data dmp' },
   [userPublishedRegistration]: { ...userData, name: 'TestUser, Published registration' },
   [userLiteraryArts]: { ...userData, name: 'TestUser, Literary arts' },
+  [userFilesAndLicense]: { ...userData, name: 'TestUser, Files and license' },
+  [userSaveJournal]: { ...userData, name: 'TestUser, Save journal' },
+  [userSaveBook]: { ...userData, name: 'TestUser, Save book' },
+  [userSaveReport]: { ...userData, name: 'TestUser, Save report' },
+  [userSaveThesis]: { ...userData, name: 'TestUser, Save thesis' },
+  [userSavePartOfBook]: { ...userData, name: 'TestUser, Save part of book' },
+  [userSavePresentation]: { ...userData, name: 'TestUser, Save presentation' },
+  [userSaveArtisticResult]: { ...userData, name: 'TestUser, Save artistic result' },
+  [userSaveMediaContribution]: { ...userData, name: 'TestUser, Save media presentation' },
+  [userSaveResearchData]: { ...userData, name: 'TestUser, Save research data' },
+  [userPublishNoRights]: { ...userData, name: 'TestUser, Publish registration no rights' },
+  [userCurator]: { ...userData, name: 'TestUser, Curator 1' },
+  [userPublishRegistration]: { ...userData, name: 'TestUser, Publish registration' },
   [userResearchDataset]: { ...userData, name: 'TestUser, Research dataset' },
 };

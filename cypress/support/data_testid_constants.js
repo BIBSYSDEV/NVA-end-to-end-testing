@@ -93,6 +93,16 @@ export const institutionFields = {
   ...myInstitutionFields,
   'Feide Organization ID': dataTestId.institutionAdmin.feideField,
 };
+export const myRegistrations = {
+  'Title': 'registration-title',
+  'Status': 'registration-status',
+  'Created': 'registration-created',
+}
+
+export const myRegistrationsButtons = {
+  'Show': 'open-registration',
+  'Edit': 'edit-registration',
+}
 
 export const resourceTypes = {
   'Contribution to journal': 'publication-context-type-Journal',
@@ -555,6 +565,11 @@ export const contributorCreateFields = {
   'First name': 'create-contributor-first-name',
   'Last name': 'create-contributor-last-name',
 };
+
+export const fileFields = {
+  'Version': dataTestId.registrationWizard.files.version,
+  'Terms of use': dataTestId.registrationWizard.files.selectLicenseField,
+}
 
 export const landingPageFields = {
   'Title': dataTestId.registrationLandingPage.registrationSubtype,

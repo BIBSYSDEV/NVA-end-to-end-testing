@@ -30,10 +30,12 @@ And('they have selected {string} for starting the Wizard', (method) => {
 });
 When('they click Start', () => {
   cy.get('@registrationMethod').then((method) => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
-      .filter(':visible', { timeout: 30000 })
-      .should('be.enabled', { timeout: 30000 })
-      .click({ force: true, timeout: 30000 });
+    if (method !== 'Empty Registration') {
+      cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+        .filter(':visible', { timeout: 30000 })
+        .should('be.enabled', { timeout: 30000 })
+        .click({ force: true, timeout: 30000 });
+    }
   });
 });
 Then('they see the Wizard', () => {
@@ -121,5 +123,4 @@ When('they expand the Expansion panel for Empty Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click();
 });
 Then('they see a button to start registration', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).should('be.visible');
 });

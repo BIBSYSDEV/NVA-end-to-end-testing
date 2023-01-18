@@ -4,7 +4,7 @@
   "owner": "<owner_id>",
   "projects": [
     {
-      "id": "https://api.dev.nva.aws.unit.no/project/403669",
+      "id": "https://api.dev.nva.aws.unit.no/cristin/project/403669",
       "name": "test-retest av test batteri til måling av smerte og funksjon hos personer med\r\nkne artrose: reliabilitet, validitet, sensivitet og spesifisitet",
       "type": "ResearchProject"
     }
@@ -40,12 +40,7 @@
         "type": "JournalArticle",
         "volume": "1",
         "issue": "2",
-        "peerReviewed": true,
-        "pages": {
-          "type": "Range",
-          "begin": "3",
-          "end": "4"
-        },
+        "peerReviewed": false,
         "contentType": "Research article"
       }
     },

@@ -1,12 +1,13 @@
+import { today } from '../../../support/commands';
 import { userCuratorDraftDoi, userDraftDoi } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: DOI related scenarios moved from MVP feature
 
-const publicRegistrationRequestingDoi = 'Published registration requesting DOI';
-const publicRegistrationWithoutDoi = 'Published registration without DOI';
-const draftRegistrationWithoutDoi = 'Draft registration without DOI';
-const registrationTitle = 'Draft registration requesting DOI';
+const publicRegistrationRequestingDoi = `Published registration requesting DOI ${today}`;
+const publicRegistrationWithoutDoi = `Published registration without DOI ${today}`;
+const draftRegistrationWithoutDoi = `Draft registration without DOI ${today}`;
+const registrationTitle = `Draft registration requesting DOI ${today}`;
 const draftRegistrationPublishWithRequestedDoi = 'Draft registration publish with requested DOI';
 const publishedRegistrationWithDoi = 'Published registration with DOI';
 

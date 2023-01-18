@@ -64,7 +64,7 @@ And('they can edit existing Exhibitions', () => {
   cy.get('[data-testid=EditIcon]').should('be.visible');
 });
 And('they can delete existing Exhibitions', () => {
-  cy.get('[data-testid=DeleteIcon]').should('be.visible');
+  cy.get('[data-testid=CancelIcon]').should('be.visible');
 });
 
 //   Scenario: Creator adds an Competition

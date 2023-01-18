@@ -318,18 +318,18 @@
     "embargoed": true
   },
   {
-    "publication_type": "BookAnthology",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_type": "Reference",
+    "publication_context_type": "Book",
+    "publication_instance_type": "BookAnthology",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
-    "title": "Antologi"
+    "title": "Test Antologi"
   },
   {
-    "publication_type": "BookAnthology",
+    "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
     "publication_instance_type": "JournalArticle",
     "file_identifier": "lorem_ipsum",
@@ -340,14 +340,36 @@
     "title": "Test open my registrations"
   },
   {
-    "publication_type": "ResearchData",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Reference",
+    "publication_context_type": "ResearchData",
     "publication_instance_type": "DataManagementPlan",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-open-my-registrations@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Test registration DMP"
+  },
+  {
+    "publication_type": "Reference",
+    "publication_context_type": "Report",
+    "publication_instance_type": "ReportResearch",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
-    "title": "Test Data Management Plan"
+    "title": "Test Antologi"
+  },
+  {
+    "publication_type": "Reference",
+    "publication_context_type": "Report",
+    "publication_instance_type": "ReportBookOfAbstract",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Test Antologi"
   }
 ]
