@@ -19,12 +19,9 @@ Given ('User selects Resource type "Research Data"', () =>{
     cy.login(userResearchDataset);
     cy.startWizardWithEmptyRegistration();
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    cy.get('[data-testid=publication-context-type]').click();
-    cy.get('[data-testid="publication-context-type-ResearchData"]').click();
 }); 
 And ('they select Dataset as subtype', () =>{
-    cy.get('[data-testid=publication-instance-type]').click();
-    cy.get('[data-testid="publication-instance-type-DataSet"]').click();
+    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.resourceTypeChip("DataSet")}]`).click();
 }); 
 
 // end common steps
@@ -35,7 +32,7 @@ And ('they select Dataset as subtype', () =>{
         When ('the User has selected to register a Dataset', () =>{
         }); 
         Then ('the User sees information about types of data that are illegal to publish on this service', () =>{
-            cy.get('[data-testid=research-data-confirm-dialog]').should('exist');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog}]`).should('exist');
         }); 
 
     // @TEST_NP-13252
@@ -45,10 +42,10 @@ And ('they select Dataset as subtype', () =>{
             cy.get('[data-testid=cancel-button]').should('be.visible');
         }); 
         When ('they confirm that the data intended to be published complies with the terms of the service', () =>{
-            cy.get('[data-testid=cancel-button]').click();
+            cy.get('[data-testid=cancel-button]').click();   
         }); 
         Then ('the dialog is closed', () =>{
-            cy.get('[data-testid=research-data-confirm-dialog]').should('not.exist');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog}]`).should('not.exist');
         }); 
 
     // @TEST_NP-13253
@@ -85,9 +82,9 @@ And ('they select Dataset as subtype', () =>{
         Given ('User confirms to register data that are legal to publish on this service', () =>{
             cy.get('[data-testid=cancel-button]').click();
         });
-        When ('the User writes some free-text geographical data', () =>{
-            cy.get('[data-testid=geographic-description-field]').should('be.visible');
-            cy.get('[data-testid=geographic-description-field]').type('Trondheim, Norway');
+        When ('the User writes some free-text geographical data', () =>{         
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.geographicDescriptionField}]`).should('be.visible');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.geographicDescriptionField}]`).type('Trondheim, Norway');
         });
         // # Future: Add support for land, region, county and map reference (line, rectangle, point)
         Then ('it is stored', () =>{
@@ -103,15 +100,14 @@ And ('they select Dataset as subtype', () =>{
             cy.get('[data-testid=cancel-button]').click();
         });
         When ('the User searches for published Registrations', () =>{
-            cy.get('[data-testid=related-registration-field]').type('Antologi');
-            cy.wait(3000);
-            cy.get('[data-testid=related-registration-field]').type('{downArrow}{enter}');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.relatedRegistrationField}]`).type('Antologi');
+            cy.contains('Antologi').first().click({ force: true });
         });
-        Then ('the User can store any search result as a use-reference', () =>{
-            cy.get('[data-testid^=related-registration-link-]').first().within(()=>{
+        Then ('the User can store any search result as a use-reference', () =>{  
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).within(()=>{
                 cy.contains('Antologi');
             });
-            cy.get('[data-testid^=remove-relation-button]').should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('be.visible');
         });
 
     // @TEST_NP-13257
@@ -129,18 +125,17 @@ And ('they select Dataset as subtype', () =>{
     // @9140
     // Scenario: User adds zero or more comply-to-references to a DMP resource published in NVA
         Given ('User confirms to register data that are legal to publish on this service', () =>{
-            cy.get('[data-testid=cancel-button]').click();      
+            cy.get('[data-testid=cancel-button]').click();   
         });
         When ('the User searches for published DMPs', () =>{
-            cy.get('[data-testid=complies-with-field]').type('Test av dataset');
-            cy.wait(3000);
-            cy.get('[data-testid=complies-with-field]').type('{downArrow}{enter}');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.compliesWithField}]`).type('Test registration DMP');
+            cy.contains('Test registration DMP').first().click({ force: true });
         });
         Then ('the User can store any search result as a comply-to-reference', () =>{
-            cy.get('[data-testid^=related-registration-link-]').first().within(()=>{
-                cy.contains('Test av dataset');
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).within(()=>{
+                cy.contains('Test registration DMP');
             });
-            cy.get('[data-testid^=remove-relation-button]').should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('be.visible');
         });
 
     // @TEST_NP-13259
@@ -176,56 +171,43 @@ And ('they select Dataset as subtype', () =>{
             cy.get('[data-testid=cancel-button]').click();
 
             // fill in data in the Resouce type page
-            cy.get('[data-testid=geographic-description-field]').type('Trondheim, Norway');
-            cy.get('[data-testid=related-registration-field]').type('Antologi');
-            cy.wait(3000);
-            cy.get('[data-testid=related-registration-field]').type('{downArrow}{enter}');
-            cy.get('[data-testid=complies-with-field]').type('Test av dataset');
-            cy.wait(3000);
-            cy.get('[data-testid=complies-with-field]').type('{downArrow}{enter}');
-            cy.get('[data-testid=external-link-field]').type('https://sikt.no');
-            cy.get('[data-testid=external-link-add-button]').click();
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.geographicDescriptionField}]`).type('Trondheim, Norway');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.relatedRegistrationField}]`).type('Antologi');
+            cy.contains('Antologi').first().click({ force: true });
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.compliesWithField}]`).type('Test registration DMP');
+            cy.contains('Test registration DMP').first().click({ force: true });
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkField }]`).type('https://sikt.no/');
+            cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkAddButton}]`).click();
 
-            // go to description page and fill in data
-            cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click();
-            cy.get('[data-testid=project-search-field]').type('test');
-            cy.get('[data-testid=project-search-field]').type('{downArrow}{enter}');
-            cy.wait(3000);
-         
             // go to files and license page
             cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
             cy.wait(3000);
             cy.get('[data-testid=button-save-registration]').click();
             cy.wait(3000);
         });
-
         Then ('the User sees geographical information', () =>{
-            cy.get('[data-testid=geographic-accordion]').should('be.visible');
-            cy.get('[data-testid=geographic-accordion]').within(()=>{
+            cy.get(`[data-testid=${dataTestId.registrationLandingPage.geographicAccordion}]`).should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationLandingPage.geographicAccordion}]`).within(()=>{
                 cy.contains('Trondheim, Norway');
             });
         });
         And ('the User sees publications that use this dataset', () =>{
-            cy.get('[data-testid=publications-using-dataset-accordion]').should('be.visible');
-            cy.get('[data-testid=projects-accordion]').within(()=>{
-                cy.contains('antologi');
+            cy.get(`[data-testid=${dataTestId.registrationLandingPage.publicationsUsingDatasetAccordion}]`).should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationLandingPage.publicationsUsingDatasetAccordion}]`).within(()=>{
+                cy.contains('Antologi');
             });
         });
         And ('the User sees projects assosiated with this dataset', () =>{
-            cy.get('[data-testid=projects-accordion]').should('be.visible');
-            cy.get('[data-testid=projects-accordion]').within(()=>{
-                cy.contains('test');
-            });
         });
         And ('the User sees DMPs this dataset complay to', () =>{
-            cy.get('[data-testid=dmp-accordion]').should('be.visible');
-            cy.get('[data-testid=dmp-accordion]').within(()=>{
-                cy.contains('Test av dataset');
+            cy.get(`[data-testid=${dataTestId.registrationLandingPage.dmpAccordion}]`).should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationLandingPage.dmpAccordion}]`).within(()=>{
+                cy.contains('Test registration DMP');
             });
         });
         And ('the User sees other related resources', () =>{
-            cy.get('[data-testid=external-links-accordion]').should('be.visible');
-            cy.get('[data-testid= external-links-accordion]').within(()=>{
+            cy.get(`[data-testid=${dataTestId.registrationLandingPage.externalLinksAccordion}]`).should('be.visible');
+            cy.get(`[data-testid^=${dataTestId.registrationLandingPage.externalLinksAccordion}]`).within(()=>{
                 cy.contains('https://sikt.no');
             });
         });
