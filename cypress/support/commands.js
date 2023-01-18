@@ -172,12 +172,6 @@ Cypress.Commands.add('startWizardWithLink', (doiLink) => {
 Cypress.Commands.add('startWizardWithEmptyRegistration', () => {
   cy.getDataTestId(dataTestId.header.newRegistrationLink).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.new.emptyRegistrationAccordion).click();
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
-    .filter(':visible')
-    .should('be.enabled');
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
-    .filter(':visible')
-    .click({ force: true });
 });
 
 Cypress.Commands.add('logoutCognito', () => {
