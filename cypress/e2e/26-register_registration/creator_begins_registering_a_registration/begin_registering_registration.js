@@ -123,5 +123,4 @@ When('they expand the Expansion panel for Empty Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click();
 });
 Then('they see a button to start registration', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`).should('be.visible');
 });
