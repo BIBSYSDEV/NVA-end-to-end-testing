@@ -73,7 +73,6 @@ And ('they select DMP as subtype', () =>{
             
             
             
-            //cy.get('[data-testid=accept-button]').click();
             cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 
 
