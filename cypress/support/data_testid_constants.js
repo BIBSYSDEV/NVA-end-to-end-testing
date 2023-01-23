@@ -37,8 +37,8 @@ export const adminMenu = {
 };
 
 export const profilePageFields = {
-  'Real name': 'user-name',
-  'Feide ID': 'user-id',
+  'Real name': 'full-name-field',
+  'Feide ID': 'cristin-id-field',
   'Email': 'user-id',
   'ORCID': 'orcid-line',
   'Roles': 'user-role-creator',

@@ -10,7 +10,7 @@ Feature: User opens the page My Profile
         And they see their Profile page which includes information for
             | Real name |
             | Feide ID  |
-            | Email     |
+            # | Email     |
             # | ORCID         |
             | Roles     |
             # | Organizations |
