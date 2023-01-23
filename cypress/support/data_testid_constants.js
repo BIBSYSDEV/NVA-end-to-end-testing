@@ -78,9 +78,9 @@ export const userAdministrationRemoveRoleButtons = {
 
 export const myInstitutionFields = {
   'Name in organization registry': dataTestId.organization.searchField,
-  'Display name': dataTestId.institutionAdmin.displayNameField,
-  'Short display name': dataTestId.institutionAdmin.shortNameField,
-  'Archive name': dataTestId.institutionAdmin.archiveNameField,
+  'Display name': dataTestId.basicData.institutionAdmin.displayNameField,
+  'Short display name': dataTestId.basicData.institutionAdmin.shortNameField,
+  'Archive name': dataTestId.basicData.institutionAdmin.archiveNameField,
 };
 
 export const myinstitutionfieldsTestvalue = {
@@ -91,7 +91,7 @@ export const myinstitutionfieldsTestvalue = {
 
 export const institutionFields = {
   ...myInstitutionFields,
-  'Feide Organization ID': dataTestId.institutionAdmin.feideField,
+  'Feide Organization ID': dataTestId.basicData.institutionAdmin.feideField,
 };
 export const myRegistrations = {
   'Title': 'registration-title',
