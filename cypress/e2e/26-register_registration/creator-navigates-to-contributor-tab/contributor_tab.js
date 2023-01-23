@@ -302,7 +302,7 @@ Then('the Dialog is closed', () => {
   cy.get(`[data-testid=contributor-modal]`).should('not.exist');
 });
 And('they see the Contributor is now verified', () => {
-  cy.get('[data-testid=CheckCircleSharpIcon]').should('be.visible');
+  cy.get(`[data-testid^=${dataTestId.registrationWizard.contributors.verifiedAuthor('')}]`).should('be.visible');
 });
 And('all current Affiliations are listed for the Contributor', () => {
   cy.contains('Unit');
