@@ -142,12 +142,8 @@ Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
 
 Cypress.Commands.add('startWizardWithFile', (fileName) => {
   cy.startRegistrationWithFile(fileName);
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
-    .filter(':visible')
-    .should('be.enabled');
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
-    .filter(':visible')
-    .click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton).filter(':visible').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton).filter(':visible').click({ force: true });
 });
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
@@ -161,12 +157,8 @@ Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
 
 Cypress.Commands.add('startWizardWithLink', (doiLink) => {
   cy.startRegistrationWithLink(doiLink);
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
-    .filter(':visible')
-    .should('be.enabled');
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
-    .filter(':visible')
-    .click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton).filter(':visible').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton).filter(':visible').click({ force: true });
 });
 
 Cypress.Commands.add('startWizardWithEmptyRegistration', () => {
@@ -193,33 +185,27 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   // Reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 
-  cy.getDataTestId('resource-type-chip-BookMonograph').click({ force: true });
+  cy.getDataTestId('resource-type-chip-JournalArticle').click({ force: true });
 
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField)
-    .click({ force: true })
-    .type('Norges');
-  cy.contains('Norges forskningsråd').click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
-  cy.contains('Archaeology and Conservation').click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges');
+  cy.contains('Norges byggforskningsinstitutt').click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.contentField).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.contentValue('academicmonograph')).click();
+  cy.contains('Academic article').click();
 
   // Contributors
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Testuser Withauthor{enter}');
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton)
-    .first()
-    .click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).first().click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click({ force: true });
 
   // Files and reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
   cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
-    cy.get('input[type=radio]').first().click();
+    cy.get('input[type=radio]').last().click();
   });
-  cy.get('[data-testid=uploaded-file-select-license]').click({ force: true }).type(' ');
+  cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
   cy.get('[data-testid=license-item]').first().click({ force: true });
 });
 
@@ -429,9 +415,7 @@ const fillInField = (field) => {
           cy.contains(field['add']['select']['value']).click();
         }
         cy.getDataTestId(field['add']['searchFieldTestId']).type(field['add']['searchValue']);
-        cy.getDataTestId(field['add']['resultsTestId'])
-          .filter(`:contains(${field['value']})`)
-          .click({ force: true });
+        cy.getDataTestId(field['add']['resultsTestId']).filter(`:contains(${field['value']})`).click({ force: true });
       }
       cy.getDataTestId(field['add']['selectButtonTestId']).click();
       break;
