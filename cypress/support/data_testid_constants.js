@@ -92,17 +92,18 @@ export const myinstitutionfieldsTestvalue = {
 export const institutionFields = {
   ...myInstitutionFields,
   'Feide Organization ID': dataTestId.basicData.institutionAdmin.feideField,
+  'ROR ID': dataTestId.basicData.institutionAdmin.rorField,
 };
 export const myRegistrations = {
   'Title': 'registration-title',
   'Status': 'registration-status',
   'Created': 'registration-created',
-}
+};
 
 export const myRegistrationsButtons = {
   'Show': 'open-registration',
   'Edit': 'edit-registration',
-}
+};
 
 export const resourceTypes = {
   'Contribution to journal': 'publication-context-type-Journal',
@@ -426,12 +427,12 @@ export const literaryArtsAnnouncements = {
   'Web Publication': dataTestId.registrationWizard.resourceType.addWebPublicationButton,
   'Performance': dataTestId.registrationWizard.resourceType.addPerformanceButton,
   'Audio/Visual Publication': dataTestId.registrationWizard.resourceType.addAudioVideoButton,
-}
+};
 
 export const literaryArtsBookFields = {
   'Publisher': {
     'field': dataTestId.registrationWizard.resourceType.publisherNameField,
-    'value': 'Test literary arts book publisher'
+    'value': 'Test literary arts book publisher',
   },
   'Year': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -443,15 +444,14 @@ export const literaryArtsBookFields = {
   },
   'Total pages': {
     'field': dataTestId.registrationWizard.resourceType.pagesField,
-    'value': '666'
+    'value': '666',
   },
-
-}
+};
 
 export const literaryArtsPerformanceFields = {
   'Type of Performance': {
     'field': dataTestId.registrationWizard.resourceType.artisticSubtype,
-    'value': 'Reading'
+    'value': 'Reading',
   },
   'Date': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -461,12 +461,12 @@ export const literaryArtsPerformanceFields = {
     'field': dataTestId.registrationWizard.resourceType.placeField,
     'value': 'Performance place',
   },
-}
+};
 
 export const literaryArtsWebFields = {
   'Publisher': {
     'field': dataTestId.registrationWizard.resourceType.publisherNameField,
-    'value': 'Test literary arts web publisher'
+    'value': 'Test literary arts web publisher',
   },
   'Year': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -476,12 +476,12 @@ export const literaryArtsWebFields = {
     'field': dataTestId.registrationWizard.resourceType.linkField,
     'value': 'https://test.no',
   },
-}
+};
 
 export const literaryArtsAudioVisualFields = {
   'Publisher': {
     'field': dataTestId.registrationWizard.resourceType.publisherNameField,
-    'value': 'Test literary arts audio/visual publisher'
+    'value': 'Test literary arts audio/visual publisher',
   },
   'Year': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -499,7 +499,7 @@ export const literaryArtsAudioVisualFields = {
     'field': dataTestId.registrationWizard.resourceType.linkField,
     'value': '666',
   },
-}
+};
 
 export const presentationSubtypes = {
   'Conference lecture': dataTestId.registrationWizard.resourceType.resourceTypeChip('ConferenceLecture'),
@@ -569,7 +569,7 @@ export const contributorCreateFields = {
 export const fileFields = {
   'Version': dataTestId.registrationWizard.files.version,
   'Terms of use': dataTestId.registrationWizard.files.selectLicenseField,
-}
+};
 
 export const landingPageFields = {
   'Title': dataTestId.registrationLandingPage.registrationSubtype,
