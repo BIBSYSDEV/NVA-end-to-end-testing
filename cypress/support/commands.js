@@ -519,12 +519,14 @@ Cypress.Commands.add('checkContributors', (contributorRoles) => {
   });
 });
 
-Cypress.Commands.add('fillInCommonFields', () => {
+Cypress.Commands.add('fillInCommonFields', (hasFileVersion) => {
   Object.keys(registrationFields).forEach((key) => {
     cy.getDataTestId(registrationFields[key]['tab']).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
       const field = registrationFields[key][subkey];
-      fillInField(field);
+      if(subkey !== 'version' || hasFileVersion){
+        fillInField(field);
+      }
     });
   });
 });

@@ -59,7 +59,7 @@ export const userResourceTypeDegree = 'test-user-resource-type-degree@test.no';
 export const userResourceTypeMedia = 'test-user-resource-type-media@test.no';
 export const userResourceTypePresentation = 'test-user-resource-type-presentation@test.no';
 export const userResourceTypeReport = 'test-user-resource-type-report@test.no';
-export const userResourceTypeArchitecture = 'test-user-resource-type-architecture@test.no'
+export const userResourceTypeArchitecture = 'test-user-resource-type-architecture@test.no';
 export const userViewRegistration = 'test-user-view-registration@test.no';
 export const userEditor = 'test-user-editor@test.no';
 export const userMyRegistrations = 'test-user-my-registrations@test.no';
@@ -89,7 +89,8 @@ export const userSaveResearchData = 'test-user-save-research-data@test.no';
 export const userPublishNoRights = 'test-user-publish-no-rights@test.no';
 export const userCurator = 'test-user-second-inst-curator-5@test.no';
 export const userPublishRegistration = 'test-user-publish-registration@test.no';
-export const userResearchDataset = "test-user-research-dataset@test.no";
+export const userResearchDataset = 'test-user-research-dataset@test.no';
+export const userSecondEditor = 'test-user-second-editor@test.no';
 
 const userData = {
   name: '',
@@ -180,4 +181,5 @@ export const user = {
   [userCurator]: { ...userData, name: 'TestUser, Curator 1' },
   [userPublishRegistration]: { ...userData, name: 'TestUser, Publish registration' },
   [userResearchDataset]: { ...userData, name: 'TestUser, Research dataset' },
+  [userSecondEditor]: { ...userData, name: 'TestUser, Second Institution-Editor' },
 };

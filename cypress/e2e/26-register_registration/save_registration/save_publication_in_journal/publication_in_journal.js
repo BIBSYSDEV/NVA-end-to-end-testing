@@ -38,10 +38,11 @@ And('selects {string}', (resourceType) => {
 And('fill in values for all fields', () => {
     cy.get('@resourceType').then(resourceType => {
         cy.fillInResourceType(resourceType, fields[resourceType]);
+        cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+        cy.fillInContributors(contributorRoles);
+        const hasFileVersion = (resourceType === 'JournalArticle')
+        cy.fillInCommonFields(hasFileVersion);
     });
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-    cy.fillInContributors(contributorRoles);
-    cy.fillInCommonFields();
 })
 When('they saves Registration', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
@@ -57,9 +58,13 @@ And('they can see the values in the Registration Wizard', () => {
     Object.keys(registrationFields).forEach((key) => {
         cy.get(`[data-testid=${registrationFields[key].tab}]`).click();
         Object.keys(registrationFields[key]).forEach((subkey) => {
-            if (subkey !== 'tab') {
-                const field = registrationFields[key][subkey];
-                cy.checkField(field);
+            if (subkey !== 'tab' ) {
+                cy.get('@resourceType').then(resourceType => {
+                    const field = registrationFields[key][subkey];
+                    if (subkey !== 'version' || resourceType === 'JournalArticle'){
+                        cy.checkField(field);
+                    }
+                })
             }
         });
     });
