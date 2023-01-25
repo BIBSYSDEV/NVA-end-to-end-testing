@@ -524,7 +524,7 @@ Cypress.Commands.add('fillInCommonFields', (hasFileVersion) => {
     cy.getDataTestId(registrationFields[key]['tab']).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
       const field = registrationFields[key][subkey];
-      if(subkey !== 'version' || hasFileVersion){
+      if (subkey !== 'version' || hasFileVersion) {
         fillInField(field);
       }
     });
@@ -591,7 +591,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
         .then((dialog) => {
           cy.log(dialog);
         });
-      cy.get(`[role="dialog"] ${selector}`, { force: true }).last().find('input').clear().type(value);
+      cy.get(`[role="dialog"] ${selector}`, { force: true }).last().find('input', { force: true }).clear().type(value);
       cy.contains('[role="dialog"] button', 'OK').click();
     } else {
       cy.get(selector)
