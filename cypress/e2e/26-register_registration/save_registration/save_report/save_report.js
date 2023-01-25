@@ -59,7 +59,7 @@ And('they can see the values in the Registration Wizard', () => {
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key].tab}]`).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
-      if (subkey !== 'tab') {
+      if (subkey !== 'tab' && subkey !== 'version') {
         const field = registrationFields[key][subkey];
         cy.checkField(field);
       }
@@ -70,7 +70,7 @@ And('they can see the values in the Registration Wizard', () => {
     fields[subtype].forEach((field) => {
       cy.checkField(field);
     });
-    cy.checkContributors(reportContributorRoles[subtype])
+    cy.checkContributors(reportContributorRoles[subtype]);
   });
 });
 
