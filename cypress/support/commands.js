@@ -13,6 +13,7 @@ import {
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
+import { userSecondEditor } from './constants';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -603,3 +604,24 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
     }
   });
 });
+
+Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
+  cy.login(userSecondEditor);
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click();
+})
+
+Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
+  cy.login(userSecondEditor);
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesMetadata).click();
+})
+
+Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
+  cy.login(userSecondEditor);
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorRequiresApproval).click();
+})
