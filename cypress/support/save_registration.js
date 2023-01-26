@@ -89,13 +89,13 @@ export const registrationFields = {
         selected: 'check',
       },
     },
-    'date': {
-      type: 'date',
-      fieldTestId: dataTestId.registrationWizard.files.embargoDateField,
-      elementType: 'input',
-      landingPageTestId: '',
-      value: '11.11.2021',
-    },
+    // 'date': {
+    //   type: 'date',
+    //   fieldTestId: dataTestId.registrationWizard.files.embargoDateField,
+    //   elementType: 'input',
+    //   landingPageTestId: '',
+    //   value: '11.11.2021',
+    // },
     'terms of use': {
       type: 'select',
       fieldTestId: dataTestId.registrationWizard.files.selectLicenseField,
@@ -318,7 +318,7 @@ export const resourceTypeFields = {
       landingPageTestId: '',
       value: artisticType,
       landingPageValue: artisticType,
-    }
+    };
   },
   artisticDescription: {
     type: 'text',
@@ -420,7 +420,6 @@ export const resourceTypeFields = {
         [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
         [dataTestId.registrationWizard.resourceType.artisticOutputDuration]: '11',
         [dataTestId.registrationWizard.resourceType.concertAddWork]: 'Test work',
-
       },
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
@@ -612,4 +611,3 @@ export const resourceTypeFields = {
     value: 'Test geographic description',
   },
 };
-
