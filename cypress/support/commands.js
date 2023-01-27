@@ -592,7 +592,11 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
         .then((dialog) => {
           cy.log(dialog);
         });
-      cy.get(`[role="dialog"] ${selector}`, { force: true }).last().find('input').clear({ force: true }).type(value, { force: true });
+      cy.get(`[role="dialog"] ${selector}`, { force: true })
+        .last()
+        .find('input')
+        .clear({ force: true })
+        .type(value, { force: true });
       cy.contains('[role="dialog"] button', 'OK').click();
     } else {
       cy.get(selector)
@@ -609,19 +613,19 @@ Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
   cy.login(userSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
-  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click();
-})
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click({ force: true });
+});
 
 Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
   cy.login(userSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
-  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesMetadata).click();
-})
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesMetadata).click({ force: true });
+});
 
 Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
   cy.login(userSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
-  cy.getDataTestId(dataTestId.editor.workflowRegistratorRequiresApproval).click();
-})
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorRequiresApproval).click({ force: true });
+});
