@@ -53,40 +53,40 @@ Feature: Owner navigates to the Landing Page for their Resource
         And the Owner is notified that an Approval Request is sent to the Curator and progress can be viewed in My Messages
 
 
-    # @3195
-    # @TEST_NP-4179
-    # @TESTSET_NP-4235
-    # @test
-    # Scenario: Owner uses the Publish option on Langing Page
-    #     Given Institutions publications policy is "Registrator has full publishing rights"
-    #     When the Owner uses the Publish option
-    #     Then the Resource's status is "Published"
-    #     And the Owner sees a Landing Page with a Published Resource
+    @3195
+    @TEST_NP-4179
+    @TESTSET_NP-4235
+    @test
+    Scenario: Owner uses the Publish option on Langing Page
+        Given Institutions publications policy is "Registrator has full publishing rights"
+        When the Owner uses the Publish option
+        Then the Resource's status is "Published"
+        And the Owner sees a Landing Page with a Published Resource
 
-    # @test
-    # @updated
-    # @TEST_NP-4183
-    # @TESTSET_NP-4235
-    # # - removed "Go back to schema"-button
-    # Scenario: Owner navigates to the Landing Page for their draft Resource with Validation Errors
-    #     When the Creator navigates to the Landing Page
-    #     And the Resource has Validation Errors
-    #     And the Resource is a draft
-    #     Then they see a List of all Validation Errors for the Resource
-    #     And they see a "Edit registration" button
+    @test
+    @updated
+    @TEST_NP-4183
+    @TESTSET_NP-4235
+    # - removed "Go back to schema"-button
+    Scenario: Owner navigates to the Landing Page for their draft Resource with Validation Errors
+        When the Creator navigates to the Landing Page
+        And the Resource has Validation Errors
+        And the Resource is a draft
+        Then they see a List of all Validation Errors for the Resource
+        And they see a "Edit registration" button
 
-    # @needJiraTag
-    # @TEST_NP-4174
-    # @TESTSET_NP-4235
-    # Scenario: Owner sees the option to transfer Ownership of a Resource
-    #     When the Owner views the Landing Page
-    #     Then the Owner sees a option to transfer Ownership of Resource
+    @needJiraTag
+    @TEST_NP-4174
+    @TESTSET_NP-4235
+    Scenario: Owner sees the option to transfer Ownership of a Resource
+        When the Owner views the Landing Page
+        Then the Owner sees a option to transfer Ownership of Resource
 
-    # @needJiraTag
-    # @TEST_NP-4177
-    # @TESTSET_NP-4235
-    # Scenario: Owner transfers Ownership of a Resource
-    #     When the Owner uses the option to transfer Ownership of current Resource
-    #     Then the Owner must acknowledges that this is a final action
-    #     And the Owner must select a new Owner
-    #     And the ownership is transfered to new Owner
+    @needJiraTag
+    @TEST_NP-4177
+    @TESTSET_NP-4235
+    Scenario: Owner transfers Ownership of a Resource
+        When the Owner uses the option to transfer Ownership of current Resource
+        Then the Owner must acknowledges that this is a final action
+        And the Owner must select a new Owner
+        And the ownership is transfered to new Owner
