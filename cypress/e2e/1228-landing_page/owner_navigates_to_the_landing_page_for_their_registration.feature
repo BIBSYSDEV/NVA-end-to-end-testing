@@ -1,42 +1,42 @@
 Feature: Owner navigates to the Landing Page for their Resource
 
-    # @1231
-    # @TEST_NP-4168
-    # @TESTSET_NP-4235
-    # @test
-    # Scenario: Owner Requests a DOI
-    #     Given the owner opens the Landing Page of their Registration
-    #     And the Registration has no DOI
-    #     When they request a DOI
-    #     Then they can see a reserved DOI
+    @1231
+    @TEST_NP-4168
+    @TESTSET_NP-4235
+    @test
+    Scenario: Owner Requests a DOI
+        Given the owner opens the Landing Page of their Registration
+        And the Registration has no DOI
+        When they request a DOI
+        Then they can see a reserved DOI
 
-    # @TEST_NP-4169
-    # @test
-    # Scenario: Owner wants to publish Resource
-    #     When the Owner previews the Resource's Landing Page
-    #     And the Registration has "Draft" Status
-    #     Then they see a "Publish" option
+    @TEST_NP-4169
+    @test
+    Scenario: Owner wants to publish Resource
+        When the Owner previews the Resource's Landing Page
+        And the Registration has "Draft" Status
+        Then they see a "Publish" option
 
-    # @3192
-    # @TEST_NP-4182
-    # @test
-    # Scenario: Owner wants to publish their Resource, pending Approval
-    #     When the Owner previews the Resource's Landing Page
-    #     And the Registration has "Draft" Status
-    #     And there is a pending Approval Request on the Resource
-    #     Then they see a "Publishing pending" notice
-    #     And the user is informed that progress can be viewed in My Messages
+    @3192
+    @TEST_NP-4182
+    @test
+    Scenario: Owner wants to publish their Resource, pending Approval
+        When the Owner previews the Resource's Landing Page
+        And the Registration has "Draft" Status
+        And there is a pending Approval Request on the Resource
+        Then they see a "Publishing pending" notice
+        And the user is informed that progress can be viewed in My Messages
 
-    # @3193
-    # @TEST_NP-4181
-    # @TESTSET_NP-4235
-    # @test
-    # Scenario: Owner wants to publish Resource, all restrictions
-    #     Given Institutions publications policy is "Only Curator can publish"
-    #     When the Owner uses the Publish option
-    #     Then the Owner see a Landing Page with an Unpublished Resource
-    #     And an Approval Request is sent to his Curator
-    #     And the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages
+    @3193
+    @TEST_NP-4181
+    @TESTSET_NP-4235
+    @test
+    Scenario: Owner wants to publish Resource, all restrictions
+        Given Institutions publications policy is "Only Curator can publish"
+        When the Owner uses the Publish option
+        Then the Owner see a Landing Page with an Unpublished Resource
+        And an Approval Request is sent to his Curator
+        And the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages
 
     @3194
     @TEST_NP-4176
