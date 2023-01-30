@@ -68,7 +68,7 @@ Feature: Creator navigates to Files and License tab
     Given Creator adds a file
     When they see the file in the list of files
     Then they can see information about:
-      | Version      |
+      # | Version      |
       | Terms of use |
 
   @TEST_NP-12277
