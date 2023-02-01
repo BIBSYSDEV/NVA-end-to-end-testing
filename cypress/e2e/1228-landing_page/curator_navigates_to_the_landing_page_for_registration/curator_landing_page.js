@@ -7,38 +7,45 @@ import { v4 as uuidv4 } from 'uuid';
 const fileName = 'example.txt';
 const title = `Curator published registration ${uuidv4()}`;
 
+// Common steps
+
+// Then('the Registration is Published', () => {
+//     cy.wait(10000);
+//     cy.reload();
+//     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
+//       cy.contains('Publishing request - Published');
+//     });
+//   });
+  
+
+// end common steps
+
 //   Scenario: Curator Approves a Publishing Request
 Given('a Curator opens the Landing Page of a Registration', () => {
-  cy.setWorkflowRegistratorRequiresApproval();
-  cy.login(userPublishRegistration);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title);
-  cy.getDataTestId('button-save-registration').click();
-  cy.getDataTestId('button-publish-registration', { timeout: 20000 }).click();
-  cy.location('pathname').as('path');
-  cy.get('@path').then((path) => {
-    cy.login(userCurator);
-    cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
-    cy.visit(path, {
-      auth: {
-        username: Cypress.env('DEVUSER'),
-        password: Cypress.env('DEVPASSWORD'),
-      },
-    });
-  });
 });
 And('the Registration has a Publishing Request', () => {
+    cy.wrap('approve publishing request').as('workflow');
+    cy.setWorkflowRegistratorRequiresApproval();
+    cy.login(userCurator);
+    cy.startWizardWithEmptyRegistration();
+    cy.createValidRegistration(fileName, title);
+    cy.getDataTestId('button-save-registration').click();
+    cy.getDataTestId('button-publish-registration', { timeout: 20000 }).click();
+    cy.location('pathname').as('path');
+    cy.get('@path').then((path) => {
+      cy.login(userCurator);
+      cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
+      cy.visit(path, {
+        auth: {
+          username: Cypress.env('DEVUSER'),
+          password: Cypress.env('DEVPASSWORD'),
+        },
+      });
+    });
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).should('exist');
 });
 When('they approve the Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
-});
-Then('the Registration is Published', () => {
-  cy.wait(10000);
-  cy.reload();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-    cy.contains('Publishing request - Published');
-  });
 });
 And('all files are Published', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.fileVersion).within(() => {
@@ -53,7 +60,7 @@ Given('a Curator from a customer with Workflow "{string}"', (workflow) => {
   } else if (workflow === 'Only Curator can publish') {
     cy.setWorkflowRegistratorRequiresApproval();
   }
-  cy.login(userPublishNoRights);
+  cy.login(userCurator);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
   cy.getDataTestId('button-save-registration').click();
@@ -85,15 +92,15 @@ And('all files are "{string}"', () => {});
 
 //   Scenario: Curator Approves a DOI Request
 Given('a Curator opens the Landing Page of a Registration', () => {
-  cy.login(userCurator);
-  cy.setWorkflowRegistratorPublishesAll();
-  cy.login(userPublishNoRights);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title);
-  cy.getDataTestId('button-save-registration').click();
-  cy.location('pathname').as('path');
 });
 And('the Registration is Published', () => {
+    cy.login(userCurator);
+    cy.setWorkflowRegistratorPublishesAll();
+    cy.login(userPublishNoRights);
+    cy.startWizardWithEmptyRegistration();
+    cy.createValidRegistration(fileName, title);
+    cy.getDataTestId('button-save-registration').click();
+    cy.location('pathname').as('path');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton, { timeOut: 30000 }).click();
 });
 And('the Registration has a DOI Request', () => {
