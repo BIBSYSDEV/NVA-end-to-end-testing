@@ -127,9 +127,15 @@ And('the Registration is Published', () => {});
 And('the Registration has a DOI Request', () => {});
 When('they reject the DOI Request', () => {
   cy.login(userCurator);
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.contains(title).click();
-  cy.get('[data-testid^=go-to-registration]').filter(':visible').click();
+  cy.get('@path').then((path) => {
+    cy.login(userCurator);
+    cy.visit(path, {
+      auth: {
+        username: Cypress.env('DEVUSER'),
+        password: Cypress.env('DEVPASSWORD'),
+      },
+    });
+  });
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();
 });
 Then('the reserved DOI is removed from the Registration', () => {
