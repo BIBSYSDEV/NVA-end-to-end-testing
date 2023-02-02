@@ -138,7 +138,7 @@ def importUsers(test_users_file_name):
     customers = {}
     cristinOrgId = ''
     for customer in customersScan:
-        if not customer['cristinId']['S'] == '':
+        if 'cristinId' in customer and not customer['cristinId']['S'] == '':
             cristinOrgId = customer['cristinId']['S'].replace('https://api.dev.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
             customers[cristinOrgId] = f'https://api.dev.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
 
