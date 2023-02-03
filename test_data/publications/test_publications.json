@@ -395,10 +395,55 @@
     "owner": "test-user-with-author@test.no",
     "status": "DRAFT",
     "contributor": "",
+    "title": "Draft registration - DOI request approved",
+    "ticket": {
+      "type": "DoiRequest",
+      "status": "Approved"
+    }
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "Draft registration - DOI request rejected",
+    "ticket": {
+      "type": "DoiRequest",
+      "status": "Rejected"
+    }
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "",
     "title": "Draft registration - Publishing Request",
     "ticket": {
       "type": "PublishingRequest",
       "status": "Requested"
+    }
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "Draft registration - Publishing Request approved",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Approved"
     }
   },
   {
@@ -429,6 +474,36 @@
     "ticket": {
       "type": "GeneralSupportCase",
       "status": "Requested"
+    }
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "Draft registration- Support ticket",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Requested"
+    }
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "Draft registration- Support ticket closed",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Closed"
     }
   }
 ]
