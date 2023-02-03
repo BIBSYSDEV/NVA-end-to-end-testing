@@ -39,7 +39,7 @@ upload_complete = upload_endpoint.format(STAGE, 'complete')
 username = 'admin-user-testdata@test.no'
 username_curator = 'test-user-curator-draft-doi@test.no'
 
-status_requeste = 'Requested'
+status_requested = 'Requested'
 status_approved = 'Approved'
 status_Rejected = 'Rejected'
 status_pending = 'Pending'
@@ -423,8 +423,20 @@ def create_ticket(identifier, username, type, status):
     }
     response = requests.post(create_ticket_endpoint.format(STAGE, identifier),
                             json=ticket_payload, headers=headers)
-    print(response.json())
     check_response(response, 200)
+    if status != status_requested:
+        request_bearer_token = common.login(username=username_curator)
+        headers['Authorization'] = f'Bearer {request_bearer_token}'
+        request_payload = {
+            'type': type,
+            'status': status,
+        }
+        ticket_id = response.json()['identifier']
+        response = requests.put(update_ticket_endpoint.format(STAGE, identifier, ticket_id),
+                                json=request_payload, headers=headers)
+        print(response.json())
+        check_response(response, 200)
+
 
 
 def check_response(response, status_code):

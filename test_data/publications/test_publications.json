@@ -381,7 +381,7 @@
     "status": "DRAFT",
     "contributor": "",
     "title": "Draft registration - DOI request",
-    "Ticket": {
+    "ticket": {
       "type": "DoiRequest",
       "status": "Requested"
     }
@@ -396,7 +396,7 @@
     "status": "DRAFT",
     "contributor": "",
     "title": "Draft registration - Publishing Request",
-    "Ticket": {
+    "ticket": {
       "type": "PublishingRequest",
       "status": "Requested"
     }
@@ -410,8 +410,23 @@
     "owner": "test-user-with-author@test.no",
     "status": "DRAFT",
     "contributor": "",
+    "title": "Draft registration - Publishing Request rejected",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Rejected"
+    }
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "JournalArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "DRAFT",
+    "contributor": "",
     "title": "Draft registration- Support ticket",
-    "Ticket": {
+    "ticket": {
       "type": "GeneralSupportCase",
       "status": "Requested"
     }
