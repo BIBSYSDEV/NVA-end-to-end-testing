@@ -37,7 +37,8 @@ upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
 username = 'admin-user-testdata@test.no'
-username_curator = 'test-user-curator-draft-doi@test.no'
+# username_curator = 'test-user-curator-draft-doi@test.no'
+username_curator = 'test-user-second-inst-curator-2@test.no'
 
 status_requested = 'Requested'
 status_approved = 'Approved'
