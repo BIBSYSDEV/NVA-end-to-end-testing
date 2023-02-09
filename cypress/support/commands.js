@@ -180,7 +180,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
   title = title ? `${title} ${today}` : `Title ${today}`;
-  cy.get('[data-testid=registration-title-field]').type(title);
+  cy.get('[data-testid=registration-title-field]').type(title, { delay: 0 });
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, '01.01.2020');
 
   // Reference
@@ -196,9 +196,10 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   // Contributors
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Testuser Withauthor{enter}');
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).first().click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Testuser Withauthor{enter}', { delay: 0 });
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).first().click({ force: true });
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click({ force: true });
 
   // Files and reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });

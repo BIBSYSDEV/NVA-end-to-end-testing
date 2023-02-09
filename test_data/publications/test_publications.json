@@ -393,7 +393,7 @@
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
-    "status": "DRAFT",
+    "status": "PUBLISHED",
     "contributor": "",
     "title": "Draft registration - DOI request approved",
     "ticket": {
