@@ -167,10 +167,10 @@ export const bookSubtypes = {
 
 export const bookFields = {
   'Publisher': dataTestId.registrationWizard.resourceType.publisherField,
+  'NPI discipline': dataTestId.registrationWizard.resourceType.scientificSubjectField,
   'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
   'Total number of pages': dataTestId.registrationWizard.resourceType.pagesField,
-  'NPI discipline': dataTestId.registrationWizard.resourceType.scientificSubjectField,
-  'Series title': dataTestId.registrationWizard.resourceType.seriesField,
+  'Series': dataTestId.registrationWizard.resourceType.seriesField,
   'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
 };
 

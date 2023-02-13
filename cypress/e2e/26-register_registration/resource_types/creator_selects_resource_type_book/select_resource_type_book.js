@@ -15,7 +15,6 @@ Given('Creator navigates to the Resource Type tab and sees Resource types for "B
 });
 // end Common steps
 
-
 // @392
 // Scenario Outline: Creator navigates to the Resource Type tab and selects Resource subtype
 // And('they see fields:', (dataTable) => {
@@ -77,12 +76,11 @@ Given('Creator navigates to the Resource Type tab and sees Resource types for "B
 // Scenario: Creator navigates to the Resource Type tab and sees Resource types for "Book"
 Given('Creator navigates to Resource Type tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-})
-When('they select the Resource type "Book"', () => {
-})
+});
+When('they select the Resource type "Book"', () => {});
 Then('they see a list of subtypes:', (dataTable) => {
   cy.testDataTestidList(dataTable, bookSubtypes);
-})
+});
 // | Anthology                 |
 // | Academic Monograph        |
 // | Non-fiction Monograph     |
@@ -92,13 +90,13 @@ Then('they see a list of subtypes:', (dataTable) => {
 // | Exhibition catalog        |
 
 // Scenario: Creator sees fields for Book
-Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => { })
+Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => {});
 When('they select any Book type', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
-})
+});
 And('they see fields:', (dataTable) => {
   cy.testDataTestidList(dataTable, bookFields);
-})
+});
 // | Publisher             |
 // | NPI discipline        |
 // | ISBN                  |
@@ -108,29 +106,29 @@ And('they see fields:', (dataTable) => {
 
 // Scenario: Creator sees that fields for Book are validated on Resource Type tab
 Given('Creator sees fields for Book', () => {
-  cy.getDataTestid(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestid(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click()
-})
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
+});
 When('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click();
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
-})
-Then('they can see "Mandatory" error messages for fields:', () => {
+});
+Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${bookFields[field[0]]}]`).within(() => {
       cy.get('p').should('have.class', 'Mui-error');
       cy.get('p').should('have.class', 'Mui-required');
     });
   });
-})
+});
 // | Publisher      |
 // | NPI discipline |
 
 // Scenario: Creator selects Resource subtype Academic Monograph
-Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => { })
+Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => {});
 When('they select type "Academic Monograph"', () => {
-  cy.getDataTestid(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click()
-})
-Then('they see the Norwegian Science Index (NVI) evaluation status', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
+});
+Then('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
-})
+});
