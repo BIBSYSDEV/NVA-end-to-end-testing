@@ -91,6 +91,7 @@ export const userCurator = 'test-user-second-inst-curator-5@test.no';
 export const userPublishRegistration = 'test-user-publish-registration@test.no';
 export const userResearchDataset = 'test-user-research-dataset@test.no';
 export const userSecondEditor = 'test-user-second-editor@test.no';
+export const userContributors = 'test-user-contributors@test.no';
 
 const userData = {
   name: '',
@@ -182,4 +183,5 @@ export const user = {
   [userPublishRegistration]: { ...userData, name: 'TestUser, Publish registration' },
   [userResearchDataset]: { ...userData, name: 'TestUser, Research dataset' },
   [userSecondEditor]: { ...userData, name: 'TestUser, Second Institution-Editor' },
+  [userContributors]: { ...userData, name: 'TestUser, Contributors' },
 };

@@ -79,7 +79,7 @@ And('they can see the values in the Registration Wizard', () => {
 
 // Examples:
 //     | Subtype            |
-//     | JournalArticle     |
+//     | AcademicArticle     |
 //     | JournalLetter      |
 //     | JournalReview      |
 //     | JournalLeader      |

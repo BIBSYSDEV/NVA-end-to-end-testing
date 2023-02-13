@@ -1048,6 +1048,16 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "Contributors",
+    "nin": "21103726694",
+    "username": "test-user-contributors@test.no",
+    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
     "firstName": "Publish registration no rights",
     "nin": "07078638723",
     "username": "test-user-publish-no-rights@test.no",
