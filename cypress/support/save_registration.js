@@ -181,13 +181,6 @@ export const resourceTypeFields = {
     landingPageTestId: '',
     value: '123',
   },
-  bookContent: {
-    type: 'select',
-    fieldTestId: dataTestId.registrationWizard.resourceType.contentField,
-    elementType: 'search',
-    landingPageTestId: '',
-    value: 'Academic monograph',
-  },
   journalContent: {
     type: 'select',
     fieldTestId: dataTestId.registrationWizard.resourceType.contentField,
