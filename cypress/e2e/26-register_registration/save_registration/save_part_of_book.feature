@@ -9,7 +9,13 @@ Feature: Save registration for Part of book
         And they can see the values in the Registration Wizard
 
         Examples:
-            | Subtype                   |
-            | AcademicChapter           |
-            | ChapterInReport           |
-            | ChapterConferenceAbstract |
+            | Subtype                    |
+            | AcademicChapter            |
+            | NonFictionChapter          |
+            | PopularScienceChapter      |
+            | TextbookChapter            |
+            | EncyclopediaChapter        |
+            | Introduction               |
+            | ExhibitionCatalogChapter   |
+            | ChapterInReport            |
+            | ChapterConferenceAbstract  |

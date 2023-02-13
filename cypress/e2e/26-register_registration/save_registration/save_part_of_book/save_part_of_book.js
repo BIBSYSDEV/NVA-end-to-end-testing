@@ -2,21 +2,9 @@ import { userSavePartOfBook } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 
-const commonFields = [resourceTypeFields.partOf, resourceTypeFields.pagesFrom, resourceTypeFields.pagesTo];
+const fields = [resourceTypeFields.partOf, resourceTypeFields.pagesFrom, resourceTypeFields.pagesTo];
 
-const fields = {
-  'AcademicChapter': [...commonFields, resourceTypeFields.chapterContent],
-  'ChapterInReport': [...commonFields],
-  'ChapterConferenceAbstract': [...commonFields],
-};
-
-const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
-
-const reportContributorRoles = {
-  'AcademicChapter': [...commonContributorRoles],
-  'ChapterInReport': [...commonContributorRoles],
-  'ChapterConferenceAbstract': [...commonContributorRoles],
-};
+const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Part of book
 Given('Author begins registering a Registration', () => {
@@ -28,9 +16,8 @@ And('selects {string}', (resourceType) => {
 });
 And('fill in values for all fields', () => {
   cy.get('@resourceType').then((resourceType) => {
-    cy.fillInResourceType(resourceType, fields[resourceType]);
+    cy.fillInResourceType(resourceType, fields);
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-    const contributorRoles = reportContributorRoles[resourceType];
     cy.fillInContributors(contributorRoles);
   });
   cy.fillInCommonFields();
@@ -57,10 +44,10 @@ And('they can see the values in the Registration Wizard', () => {
   });
   cy.get('@resourceType').then((subtype) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    fields[subtype].forEach((field) => {
+    fields.forEach((field) => {
       cy.checkField(field);
     });
-    cy.checkContributors(reportContributorRoles[subtype]);
+    cy.checkContributors(contributorRoles);
   });
 });
 
