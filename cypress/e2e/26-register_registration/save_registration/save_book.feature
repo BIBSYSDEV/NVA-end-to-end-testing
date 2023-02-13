@@ -10,5 +10,5 @@ Feature: Save registration for Book
 
         Examples:
             | Subtype       |
-            | BookMonograph |
+            | AcademicMonograph |
             | BookAnthology |

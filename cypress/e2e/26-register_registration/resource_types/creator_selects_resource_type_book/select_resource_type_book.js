@@ -80,7 +80,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 // Scenario: Creator selects Resource subtype "Monograph" and Content type Academic Monograph
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Monograph"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get('[data-testid=resource-type-chip-BookMonograph]').click({ force: true });
+  cy.get('[data-testid=resource-type-chip-AcademicMonograph]').click({ force: true });
 })
 When('they select Content type "Academic Monograph"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();

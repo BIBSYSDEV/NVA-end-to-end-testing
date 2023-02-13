@@ -10,6 +10,6 @@ Feature: Save registration for Part of book
 
         Examples:
             | Subtype                   |
-            | ChapterArticle            |
+            | AcademicChapter            |
             | ChapterInReport           |
             | ChapterConferenceAbstract |

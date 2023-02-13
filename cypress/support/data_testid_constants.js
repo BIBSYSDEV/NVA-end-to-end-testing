@@ -120,7 +120,7 @@ export const resourceTypes = {
 };
 
 export const journalSubtypes = {
-  'Journal article': 'resource-type-chip-JournalArticle',
+  'Journal article': 'resource-type-chip-AcademicArticle',
   'Commentary': 'resource-type-chip-JournalLetter',
   'Book review': 'resource-type-chip-JournalReview',
   'Editorial': 'resource-type-chip-JournalLeader',
@@ -156,7 +156,7 @@ export const journalContentTypes = {
 };
 
 export const bookSubtypes = {
-  'Monograph': 'resource-type-chip-BookMonograph',
+  'Monograph': 'resource-type-chip-AcademicMonograph',
   'Anthology': 'resource-type-chip-BookAnthology',
 };
 
@@ -212,8 +212,8 @@ export const studentThesisFields = {
 };
 
 export const chapterSubtypes = {
-  'Chapter of Anthology': 'resource-type-chip-ChapterArticle',
-  'Chapter in Anthology': 'resource-type-chip-ChapterArticle',
+  'Chapter of Anthology': 'resource-type-chip-AcademicChapter',
+  'Chapter in Anthology': 'resource-type-chip-AcademicChapter',
   'Chapter in Report': 'resource-type-chip-ChapterInReport',
   'Conference abstract': 'resource-type-chip-ChapterConferenceAbstract',
 };

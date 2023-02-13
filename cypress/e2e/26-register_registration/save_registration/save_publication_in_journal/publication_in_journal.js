@@ -11,7 +11,7 @@ const commonFields = [
 ]
 
 const fields = {
-    'JournalArticle': [...commonFields, resourceTypeFields.journal, resourceTypeFields.journalContent],
+    'AcademicArticle': [...commonFields, resourceTypeFields.journal, resourceTypeFields.journalContent],
     'JournalLetter': [...commonFields, resourceTypeFields.journal],
     'JournalReview': [...commonFields, resourceTypeFields.journal],
     'JournalLeader': [...commonFields, resourceTypeFields.journal],
@@ -40,7 +40,7 @@ And('fill in values for all fields', () => {
         cy.fillInResourceType(resourceType, fields[resourceType]);
         cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
         cy.fillInContributors(contributorRoles);
-        const hasFileVersion = (resourceType === 'JournalArticle')
+        const hasFileVersion = (resourceType === 'AcademicArticle')
         cy.fillInCommonFields(hasFileVersion);
     });
 })
@@ -61,7 +61,7 @@ And('they can see the values in the Registration Wizard', () => {
             if (subkey !== 'tab' ) {
                 cy.get('@resourceType').then(resourceType => {
                     const field = registrationFields[key][subkey];
-                    if (subkey !== 'version' || resourceType === 'JournalArticle'){
+                    if (subkey !== 'version' || resourceType === 'AcademicArticle'){
                         cy.checkField(field);
                     }
                 })

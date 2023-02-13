@@ -2,7 +2,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -13,7 +13,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -24,7 +24,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-published-registration@test.no",
@@ -35,7 +35,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -46,7 +46,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
@@ -57,7 +57,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
@@ -68,7 +68,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -79,7 +79,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -90,7 +90,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-my-registrations@test.no",
@@ -101,7 +101,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -112,7 +112,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
@@ -124,7 +124,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -135,7 +135,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
@@ -146,7 +146,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -157,7 +157,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
@@ -168,7 +168,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
@@ -179,7 +179,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-resource-type-report@test.no",
@@ -190,7 +190,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "Journal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
@@ -202,7 +202,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "Journal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
@@ -214,7 +214,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "Journal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
@@ -225,7 +225,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "Journal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
@@ -237,7 +237,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-view-registration@test.no",
@@ -248,7 +248,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -261,7 +261,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -272,7 +272,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -283,7 +283,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -295,7 +295,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -307,7 +307,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-with-author@test.no",
@@ -330,7 +330,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-open-my-registrations@test.no",
@@ -374,7 +374,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
@@ -389,7 +389,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
@@ -404,7 +404,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
@@ -419,7 +419,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
@@ -434,7 +434,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
@@ -449,7 +449,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
@@ -464,7 +464,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
@@ -479,7 +479,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
@@ -494,7 +494,7 @@
   {
     "publication_type": "JournalContent",
     "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "JournalArticle",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",

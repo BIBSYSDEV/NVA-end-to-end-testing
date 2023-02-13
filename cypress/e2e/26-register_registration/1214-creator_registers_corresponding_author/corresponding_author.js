@@ -5,7 +5,7 @@ Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(userWithAuthor);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get('[data-testid=resource-type-chip-BookMonograph]').click();
+  cy.get('[data-testid=resource-type-chip-AcademicMonograph]').click();
 });
 And('they navigate to the Contributors tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click({ force: true });

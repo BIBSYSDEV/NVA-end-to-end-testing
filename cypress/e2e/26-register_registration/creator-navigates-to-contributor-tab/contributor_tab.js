@@ -13,7 +13,7 @@ Before(() => {
   cy.login(userContributor);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get('[data-testid=resource-type-chip-BookMonograph]').click();
+  cy.get('[data-testid=resource-type-chip-AcademicMonograph]').click();
 });
 
 // Feature: Creator navigates to Contributors tab
@@ -89,8 +89,8 @@ Given('Creator navigates to Contributors tab', () => {
 });
 And('the Registration has Registration Subtype {string}', (subtype) => {
   cy.wrap(subtype).as('registrationType');
-  if (subtype !== 'BookMonograph') {
-    cy.get(`[data-testid=resource-type-chip-BookMonograph]`).click();
+  if (subtype !== 'AcademicMonograph') {
+    cy.get(`[data-testid=resource-type-chip-AcademicMonograph]`).click();
     cy.get(`[data-testid=resource-type-chip-${subtype}]`).click();
     cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
   }
@@ -108,7 +108,7 @@ Then('they see buttons {string}', (contributorTypes) => {
 // Examples:
 //   | RegistrationType | RegistrationSubtype       | AddContributorButtons                       |
 //   | Book             | BookAnthology             | Editor                 |
-//   | Book             | BookMonograph             | Creator                 |
+//   | Book             | AcademicMonograph             | Creator                 |
 //   | Chapter          | ChapterArticle            | Creator                 |
 //   | Chapter          | ChapterConferenceAbstract | Creator                 |
 //   | Degree           | DegreeBachelor            | Creator, Supervisor |
@@ -170,15 +170,14 @@ And('they select Registration Subtype "Monograph"', () => {
 And('they select the Resource Type', (dataTable) => {
 });
 And('they select the Registration Subtype "Chapter in anthology"', () => {
-  cy.get(`[data-testid=resource-type-chip-BookMonograph]`).click();
-  cy.get('[data-testid=resource-type-chip-ChapterArticle]').click();
+  cy.get(`[data-testid=resource-type-chip-AcademicMonograph]`).click();
+  cy.get('[data-testid=resource-type-chip-AcademicChapter]').click();
   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
 
 //   @2203
 //   Scenario: Creator adds an Editor to the list of Editors for Resource Type Book, Anthology
 And('they select Registration Subtype "Anthology"', () => {
-  cy.get(`[data-testid=resource-type-chip-BookMonograph]`).click();
   cy.get('[data-testid=resource-type-chip-BookAnthology]').click();
   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
@@ -202,7 +201,6 @@ Then('the selected Creator identity is added to the list of Editors', () => {
 And('they select Resource Type "Student Thesis"', () => {
 });
 And('they select any Registration Subtype', () => {
-  cy.get(`[data-testid=resource-type-chip-BookMonograph]`).click();
   cy.get('[data-testid=resource-type-chip-DegreeMaster]').click();
   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });

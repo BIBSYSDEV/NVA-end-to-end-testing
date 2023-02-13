@@ -5,7 +5,7 @@ import { registrationFields, resourceTypeFields } from '../../../../support/save
 const commonFields = [resourceTypeFields.partOf, resourceTypeFields.pagesFrom, resourceTypeFields.pagesTo];
 
 const fields = {
-  'ChapterArticle': [...commonFields, resourceTypeFields.chapterContent],
+  'AcademicChapter': [...commonFields, resourceTypeFields.chapterContent],
   'ChapterInReport': [...commonFields],
   'ChapterConferenceAbstract': [...commonFields],
 };
@@ -13,7 +13,7 @@ const fields = {
 const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
 
 const reportContributorRoles = {
-  'ChapterArticle': [...commonContributorRoles],
+  'AcademicChapter': [...commonContributorRoles],
   'ChapterInReport': [...commonContributorRoles],
   'ChapterConferenceAbstract': [...commonContributorRoles],
 };
@@ -65,6 +65,6 @@ And('they can see the values in the Registration Wizard', () => {
 });
 
 // | Subtype                   |
-// | ChapterArticle            |
+// | AcademicChapter            |
 // | ChapterInReport           |
 // | ChapterConferenceAbstract |

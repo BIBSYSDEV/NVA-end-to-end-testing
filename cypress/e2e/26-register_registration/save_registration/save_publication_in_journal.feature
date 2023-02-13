@@ -10,7 +10,7 @@ Feature: Save registration for Publication in journal
 
         Examples:
             | Subtype            |
-            | JournalArticle     |
+            | AcademicArticle    |
             | JournalLetter      |
             | JournalReview      |
             | JournalLeader      |

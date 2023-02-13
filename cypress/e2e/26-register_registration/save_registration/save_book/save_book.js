@@ -12,14 +12,14 @@ const commonFields = [
 ];
 
 const fields = {
-  'BookMonograph': [...commonFields, resourceTypeFields.bookContent],
+  'AcademicMonograph': [...commonFields, resourceTypeFields.bookContent],
   'BookAnthology': [...commonFields],
 };
 
 const commonContributorRoles = ['ContactPerson', 'RightsHolder', 'Other'];
 
 const bookContributorRoles = {
-  'BookMonograph': ['Creator', ...commonContributorRoles],
+  'AcademicMonograph': ['Creator', ...commonContributorRoles],
   'BookAnthology': ['Editor', ...commonContributorRoles],
 };
 
@@ -71,5 +71,5 @@ And('they can see the values in the Registration Wizard', () => {
 
 // Examples:
 // | Subtype       |
-// | BookMonograph |
+// | AcademicMonograph |
 // | BookAnthology |

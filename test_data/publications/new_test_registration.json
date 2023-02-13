@@ -37,7 +37,7 @@
         "type": "Journal"
       },
       "publicationInstance": {
-        "type": "JournalArticle",
+        "type": "AcademicArticle",
         "volume": "1",
         "issue": "2",
         "peerReviewed": false,
