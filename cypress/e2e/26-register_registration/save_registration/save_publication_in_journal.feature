@@ -9,11 +9,16 @@ Feature: Save registration for Publication in journal
         And they can see the values in the Registration Wizard
 
         Examples:
-            | Subtype            |
-            | AcademicArticle    |
-            | JournalLetter      |
-            | JournalReview      |
-            | JournalLeader      |
-            | JournalCorrigendum |
-            | JournalIssue       |
-            | ConferenceAbstract |
+            | Subtype                  |
+            | AcademicArticle          |
+            | AcademicLiteratureReview |
+            | JournalLetter            |
+            | JournalReview            |
+            | JournalLeader            |
+            | JournalCorrigendum       |
+            | JournalIssue             |
+            | ConferenceAbstract       |
+            | CaseReport               |
+            | StudyProtocol            |
+            | ProfessionalArticle      |
+            | PopularScienceArticle    |
