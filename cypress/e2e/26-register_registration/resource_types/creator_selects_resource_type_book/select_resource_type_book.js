@@ -94,7 +94,7 @@ Then('they see a list of subtypes:', (dataTable) => {
 // Scenario: Creator sees fields for Book
 Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => { })
 When('they select any Book type', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph'))
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
 })
 And('they see fields:', (dataTable) => {
   cy.testDataTestidList(dataTable, bookFields);
