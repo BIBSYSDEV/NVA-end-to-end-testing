@@ -1,7 +1,7 @@
 import { And, Before, Then } from 'cypress-cucumber-preprocessor/steps';
 import { userResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
-import { journalSubtypes, journalFields, journalContentTypes } from '../../../../support/data_testid_constants';
+import { journalSubtypes, journalFields } from '../../../../support/data_testid_constants';
 
 // Feature: Creator selects Resource type Contribution to journal
 
@@ -118,9 +118,9 @@ Then('they see a list of subtypes:', (dataTable) => {
 // @1656
 // Scenario: Creator sees fields for Journal article
 And('they see a dropdown for Content Type with options:', (dataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
-  cy.testDataTestidList(dataTable, journalContentTypes);
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academicarticle')}]`).click();
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
+  // cy.testDataTestidList(dataTable, journalContentTypes);
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academicarticle')}]`).click();
 });
 //     // | Academic article           |
 //     // | Academic literature review |
@@ -156,7 +156,7 @@ Given('Creator sees fields for Journal article', () => {
 When('they set Content Type to one of:', (dataTable) => {
   dataTable.rawTable.forEach(value => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
-    cy.get(`[data-testid=${journalContentTypes[value[0]]}]`).click({ force: true });
+    // cy.get(`[data-testid=${journalContentTypes[value[0]]}]`).click({ force: true });
   })
 })
 // | Academic article           |

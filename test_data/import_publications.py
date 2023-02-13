@@ -259,10 +259,10 @@ def create_publication_data(publication_template, test_publication, username, cu
     print(new_publication['entityDescription']['mainTitle'])
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
-    if 'publication_content_type' in test_publication:
-        new_publication['entityDescription']['reference']['publicationInstance'][
-            'contentType'] = test_publication['publication_content_type']
-    new_publication['owner'] = username
+    # if 'publication_content_type' in test_publication:
+    #     new_publication['entityDescription']['reference']['publicationInstance'][
+    #         'contentType'] = test_publication['publication_content_type']
+    # new_publication['owner'] = username
     new_publication['publisher']['id'] = customer
     new_publication['status'] = status
 

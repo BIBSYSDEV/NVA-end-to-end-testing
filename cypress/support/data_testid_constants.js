@@ -146,18 +146,23 @@ export const journalFields = {
   'Volume': 'volume-field',
 };
 
-export const journalContentTypes = {
-  'Academic article': dataTestId.registrationWizard.resourceType.contentValue('academicarticle'),
-  'Academic literature review': dataTestId.registrationWizard.resourceType.contentValue('academicliteraturereview'),
-  'Case report': dataTestId.registrationWizard.resourceType.contentValue('casereport'),
-  'Study protocol': dataTestId.registrationWizard.resourceType.contentValue('studyprotocol'),
-  'Professional article': dataTestId.registrationWizard.resourceType.contentValue('professionalarticle'),
-  'Popular science article': dataTestId.registrationWizard.resourceType.contentValue('popularsciencearticle'),
-};
+// export const journalContentTypes = {
+//   'Academic article': dataTestId.registrationWizard.resourceType.contentValue('academicarticle'),
+//   'Academic literature review': dataTestId.registrationWizard.resourceType.contentValue('academicliteraturereview'),
+//   'Case report': dataTestId.registrationWizard.resourceType.contentValue('casereport'),
+//   'Study protocol': dataTestId.registrationWizard.resourceType.contentValue('studyprotocol'),
+//   'Professional article': dataTestId.registrationWizard.resourceType.contentValue('professionalarticle'),
+//   'Popular science article': dataTestId.registrationWizard.resourceType.contentValue('popularsciencearticle'),
+// };
 
 export const bookSubtypes = {
-  'Monograph': 'resource-type-chip-AcademicMonograph',
+  'Academic Monograph': 'resource-type-chip-AcademicMonograph',
   'Anthology': 'resource-type-chip-BookAnthology',
+  'Non-fiction Monograph': 'resource-type-chip-NonFictionMonograph',
+  'Popular Science Monograph': 'resource-type-chip-PopularScienceMonograph',
+  'Textbook': 'resource-type-chip-Textbook',
+  'Encyclopedia': 'resource-type-chip-Encyclopedia',
+  'Exhibition catalog': 'resource-type-chip-ExhibitionCatalog',
 };
 
 export const bookFields = {
@@ -169,14 +174,14 @@ export const bookFields = {
   'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
 };
 
-export const contentType = {
-  'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academicmonograph'),
-  'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.contentValue('nonfictionmonograph'),
-  'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popularsciencemonograph'),
-  'Textbook': dataTestId.registrationWizard.resourceType.contentValue('textbook'),
-  'Encyclopedia': dataTestId.registrationWizard.resourceType.contentValue('encyclopedia'),
-  'Exhibition catalog': dataTestId.registrationWizard.resourceType.contentValue('exhibitioncatalog'),
-};
+// export const contentType = {
+//   'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academicmonograph'),
+//   'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.contentValue('nonfictionmonograph'),
+//   'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popularsciencemonograph'),
+//   'Textbook': dataTestId.registrationWizard.resourceType.contentValue('textbook'),
+//   'Encyclopedia': dataTestId.registrationWizard.resourceType.contentValue('encyclopedia'),
+//   'Exhibition catalog': dataTestId.registrationWizard.resourceType.contentValue('exhibitioncatalog'),
+// };
 
 export const reportSubtypes = {
   'Research report': 'resource-type-chip-ReportResearch',
@@ -236,15 +241,15 @@ export const chapterContainerField = {
   'Search box for published Abstract Collections': dataTestId.registrationWizard.resourceType.partOfField,
 };
 
-export const chapterContentTypes = {
-  'Academic Chapter': 'content-value-academicchapter',
-  'Non-fiction Chapter': 'content-value-nonfictionchapter',
-  'Popular Science Chapter': 'content-value-popularsciencechapter',
-  'Textbook Chapter': 'content-value-textbookchapter',
-  'Encyclopedia Chapter': 'content-value-encyclopediachapter',
-  'Introduction': 'content-value-introduction',
-  'Exhibition Catalog Chapter': 'content-value-exhibitioncatalogchapter',
-};
+// export const chapterContentTypes = {
+//   'Academic Chapter': 'content-value-academicchapter',
+//   'Non-fiction Chapter': 'content-value-nonfictionchapter',
+//   'Popular Science Chapter': 'content-value-popularsciencechapter',
+//   'Textbook Chapter': 'content-value-textbookchapter',
+//   'Encyclopedia Chapter': 'content-value-encyclopediachapter',
+//   'Introduction': 'content-value-introduction',
+//   'Exhibition Catalog Chapter': 'content-value-exhibitioncatalogchapter',
+// };
 
 export const artisticSubtypes = {
   'Artistic result - Design': 'resource-type-chip-ArtisticDesign',
