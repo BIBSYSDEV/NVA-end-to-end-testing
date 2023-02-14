@@ -1,4 +1,4 @@
-import { And, Before, Then } from 'cypress-cucumber-preprocessor/steps';
+import { And, Before, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { userResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { journalSubtypes, journalFields } from '../../../../support/data_testid_constants';
@@ -13,23 +13,9 @@ Before(() => {
 })
 
 // Common steps
-// Given('Creator begins registering a Registration in the Wizard', () => {
-//   cy.login(userResourceTypeJournal);
-//   cy.startWizardWithLink(doiLink);
-//   cy.wrap(true).as('link');
-// });
-Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(userResourceTypeJournal);
-  cy.startWizardWithEmptyRegistration();
-});
-When('they navigate to the Resource Type tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-});
 And('they click the Save button', () => {
   cy.get('[data-testid=button-save-registration]').click();
   cy.get('[data-testid=button-save-registration]').should('be.enabled');
-  cy.get('[data-testid=button-next-tab]').click();
-  cy.get('[data-testid=button-previous-tab]').click();
 });
 And('they select the Resource type "Contribution to journal"', () => {
 });
@@ -42,13 +28,79 @@ And('they enter an invalid value in fields:', (dataTable) => {
   });
 });
 
-And('the number for "Pages from" is greater than the number for "Pages to"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}] > div > input`).type('10');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}] > div > input`).type('9');
+And('they can see "Invalid format" error messages for fields:', (dataTable) => {
+  dataTable.rawTable.forEach((field) => {
+    cy.get(`[data-testid=${journalFields[field[0]]}]`).within(() => {
+      cy.get('input').focus().blur();
+      cy.wrap(field).get('p').should('have.class', 'Mui-error');
+    });
+  });
+});
+And('they see fields:', (dataTable) => {
+  const fields = { ...journalFields };
+  cy.get('@subtype').then((subtype) => {
+    if (subtype === 'Corrigendum') {
+      fields['Search field for Journal'] = dataTestId.registrationWizard.resourceType.corrigendumForField;
+    }
+    cy.testDataTestidList(dataTable, fields);
+  })
+});
+And('they select the Resource subtype "Corrigendum"', () => {
+  cy.get(`[data-testid=${journalSubtypes['Corrigendum']}]`).click({ force: true });
+  cy.get('@link').then((link) => {
+    link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+  })
+});
+// End common steps
+
+// @274
+// Scenario: Creator navigates to the Resource Type tab and see list of Journal types
+Given('Creator begins registering a Registration in the Wizard', () => {
+  cy.login(userResourceTypeJournal);
+  cy.startWizardWithEmptyRegistration();
+});
+When('they navigate to the Resource Type tab', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+});
+Then('they can select Journal Resource types:', (dataTable) => {
+  cy.testDataTestidList(dataTable, journalSubtypes);
+});
+// | Journal article |
+// | Feature article |
+// | Comment         |
+// | Book review     |
+// | Leader          |
+// | Corrigendum     |
+// | Booklet         |
+
+// @1656
+// Scenario: Creator sees fields for Journal type
+Given('Creator navigates to the Resource Type tab and see list of Journal types', () => {
+  cy.login(userResourceTypeJournal);
+  cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+})
+When('they select either of:', (dataTable) => {
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
+})
+And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
+});
+
+// Scenario: Creator sees that fields for Journal article are validated
+Given('Creator sees fields for Journal type', () => {
+  cy.login(userResourceTypeJournal);
+  cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
 })
 And('they enter numbers for "Pages from" and "Pages to"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`).type('10');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}]`).type('9');
+})
+And('the number for "Pages from" is greater than the number for "Pages to"', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}] > div > input`).type('10');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}] > div > input`).type('9');
 })
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.get('[data-testid^=snackbar]').should('not.exist');
@@ -65,77 +117,22 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
     });
   });
 });
-And('they can see an error messages for field "Pages from"', () => {
+And('they can see error messages for fields "Pages from" and "Pages to"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`)
     .within(() => {
       cy.get('p').should('have.class', 'Mui-error');
     })
-})
-And('they can see an error message for fields "Pages from"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`)
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}]`)
     .within(() => {
       cy.get('p').should('have.class', 'Mui-error');
     })
 })
-And('they can see "Invalid format" error messages for fields:', (dataTable) => {
-  dataTable.rawTable.forEach((field) => {
-    cy.get(`[data-testid=${journalFields[field[0]]}]`).within(() => {
-      cy.get('input').focus().blur();
-      cy.wrap(field).get('p').should('have.class', 'Mui-error');
-    });
-  });
-});
-And('they see fields:', (dataTable) => {
-  const fields = { ...journalFields };
-  cy.get('@subtype').then((subtype) => {
-    if (subtype === 'Corrigendum') {
-      fields['Search box for Journal'] = dataTestId.registrationWizard.resourceType.corrigendumForField;
-    }
-    cy.testDataTestidList(dataTable, fields);
-  })
-});
-And('they select the Resource subtype "Corrigendum"', () => {
-  cy.get(`[data-testid=${journalSubtypes['Corrigendum']}]`).click({ force: true });
-  cy.get('@link').then((link) => {
-    link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
-  })
-});
-// End common steps
-
-// @274
-// Scenario: Creator navigates to the Resource Type tab and selects Resource type "Contribution to journal"
-Then('they see a list of subtypes:', (dataTable) => {
-  cy.testDataTestidList(dataTable, journalSubtypes);
-});
-// | Journal article |
-// | Feature article |
-// | Comment         |
-// | Book review     |
-// | Leader          |
-// | Corrigendum     |
-// | Booklet         |
-
-// @1656
-// Scenario: Creator sees fields for Journal article
-And('they see a dropdown for Content Type with options:', (dataTable) => {
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
-  // cy.testDataTestidList(dataTable, journalContentTypes);
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentValue('academicarticle')}]`).click();
-});
-//     // | Academic article           |
-//     // | Academic literature review |
-//     // | Case report                |
-//     // | Study protocol             |
-//     // | Professional article       |
-//     // | Popular science article    |
-And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
-});
-
-// Scenario: Creator sees that fields for Journal article are validated
 
 // @1625
 // Scenario: Creator sees fields for Resource subtype "Corrigendum"
+When('they select the Resource type "Corrigendum"', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('JournalCorrigendum')).click();
+})
 And('they see a disabled field for Journal based on selected Journal article', () => {
   cy.get('[data-testid=corrigendum-for-field]').within(() => {
     cy.get('input').type('Test article corrigendum');
@@ -145,6 +142,13 @@ And('they see a disabled field for Journal based on selected Journal article', (
 });
 
 // Scenario: Creator sees that fields for Resource subtype "Corrigendum" are validated
+Given('Creator sees fields for Resource subtype "Corrigendum"', () => {
+  cy.login(userResourceTypeJournal);
+  cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('JournalCorrigendum')).click();
+})
+
 
 // Scenario: Creator sees extra fields for Norwegian Science Index (NVI) compatible Journal article
 Given('Creator sees fields for Journal article', () => {
@@ -153,11 +157,13 @@ Given('Creator sees fields for Journal article', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get('[data-testid=resource-type-chip-AcademicArticle]').click({ force: true });
 });
-When('they set Content Type to one of:', (dataTable) => {
-  dataTable.rawTable.forEach(value => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).type(' ').click({ force: true });
-    // cy.get(`[data-testid=${journalContentTypes[value[0]]}]`).click({ force: true });
-  })
+When('they select type to be {string}:', (type) => {
+  const elements = [];
+  type.split(' ').forEach(element => {
+    elements.push(element.charAt(0).toUpperCase() + element.slice(1));
+  });
+  const resourceType = elements.join('');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(resourceType)).click();
 })
 // | Academic article           |
 // | Academic literature review |

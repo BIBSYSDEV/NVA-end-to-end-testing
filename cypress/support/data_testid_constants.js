@@ -120,7 +120,12 @@ export const resourceTypes = {
 };
 
 export const journalSubtypes = {
-  'Journal article': 'resource-type-chip-AcademicArticle',
+  'Academic article': 'resource-type-chip-AcademicArticle',
+  'Academic literature review': 'resource-type-chip-AcademicLiteratureReview',
+  'Case report': 'resource-type-chip-CaseReport',
+  'Study protocol': 'resource-type-chip-StudyProtocol',
+  'Professional article': 'resource-type-chip-ProfessionalArticle',
+  'Popular science article': 'resource-type-chip-PopularScienceArticle',
   'Commentary': 'resource-type-chip-JournalLetter',
   'Book review': 'resource-type-chip-JournalReview',
   'Editorial': 'resource-type-chip-JournalLeader',
@@ -139,9 +144,9 @@ export const journalFields = {
   'Pages to': dataTestId.registrationWizard.resourceType.pagesToField,
   'Peer reviewed': 'peer_review-true',
   'Peer reviewed and presents new research': 'peer-review-field',
-  'Search box for Journal': dataTestId.registrationWizard.resourceType.journalField,
+  'Search field for Journal': dataTestId.registrationWizard.resourceType.journalField,
   'Search-box for Journal': dataTestId.registrationWizard.resourceType.journalField,
-  'Search box for "Journal article"': dataTestId.registrationWizard.resourceType.corrigendumForField,
+  'Search field for Journal article': dataTestId.registrationWizard.resourceType.corrigendumForField,
   'Search box for published books': '',
   'Volume': 'volume-field',
 };
