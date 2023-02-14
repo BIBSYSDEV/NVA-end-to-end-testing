@@ -1,7 +1,6 @@
 import { userResourceTypeChapter } from '../../../../support/constants';
 import {
   chapterContainerField,
-  // chapterContentTypes,
   chapterFields,
   chapterSubtypes,
 } from '../../../../support/data_testid_constants';
