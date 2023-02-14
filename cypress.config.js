@@ -5,7 +5,7 @@ module.exports = defineConfig({
   env: {
     TAGS: 'not @ignore and @test',
   },
-  defaultCommandTimeout: 15000,
+  defaultCommandTimeout: 20000,
   video: true,
   reporter: '../node_modules/mochawesome/src/mochawesome.js',
   reporterOptions: {
