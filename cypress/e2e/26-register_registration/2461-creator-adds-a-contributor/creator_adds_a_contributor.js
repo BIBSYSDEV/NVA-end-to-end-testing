@@ -1,7 +1,13 @@
 import { userContributors } from "../../../support/constants"
 import { dataTestId } from "../../../support/dataTestIds";
+import { contributorTypes } from "../../../support/data_testid_constants";
 
 // Feature: Creator adds a Contributor
+
+const registrationTypes = {
+    'ReportAbstractCollection': 'ReportBookOfAbstract',
+    'Dataset': 'DataSet',
+}
 
 // Scenario Outline: Creator opens the Add Contributor Dialog
 Given('Creator navigates to Contributors tab', () => {
@@ -10,25 +16,27 @@ Given('Creator navigates to Contributors tab', () => {
 })
 And('the Registration has Registration Type {string}', (type) => {
     cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(type)).click();
+    if (registrationTypes[type]) {
+        cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(registrationTypes[type])).click();
+    } else {
+        cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(type)).click();
+    }
+    if (type === 'Dataset') {
+        cy.getDataTestId(dataTestId.confirmDialog.cancelButton).click();
+    }
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
 })
 When('they click "Add Contributor"', () => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
 })
 Then('they see the "Add Contributor" Dialog', () => { })
-And('they see a dropdown with Contributor Types {string}', (contributorTypes) => {
-    const types = contributorTypes.split(', ');
+And('they see a dropdown with Contributor Types {string}', (typeList) => {
+    const types = typeList.split(', ');
+    cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
     types.forEach((contributorType) => {
-        cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
-        const upperCaseElements = []
-        contributorType.split(' ').forEach(element => {
-            upperCaseElements.push(element.charAt(0).toUpperCase() + element.slice(1));
-        });
-        const dataValue = upperCaseElements.join('');
-        cy.get(`[data-value=${dataValue}]`).should('be.visible');
-        cy.get(`[data-value=${dataValue}]`).click()
+        cy.get(`[data-value=${contributorTypes[contributorType]}]`).should('be.visible');
     });
+    cy.get(`[data-value=${contributorTypes[types[0]]}]`).click()
 })
 And('they see a "Close" Button', () => {
     cy.getDataTestId('close-modal').should('be.visible');

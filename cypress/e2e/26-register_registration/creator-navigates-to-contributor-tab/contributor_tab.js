@@ -1,6 +1,7 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { userContributor, userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { contributorTypes } from '../../../support/data_testid_constants';
 
 Before({ tags: '@TEST_NP-4008' }, () => {
   cy.wrap('button-set-unverified-contributor-').as('button');
@@ -107,9 +108,8 @@ Then('they see buttons {string}', (contributorTypes) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
   const types = contributorTypes.split(', ');
   types.forEach((contributorType) => {
-    cy.get(`[data-value=${contributorType}]`).should('be.visible');
+    cy.get(`[data-value=${contributorTypes[contributorType]}]`).should('be.visible');
   });
-  cy.get(`[data-value=Other]`).should('be.visible');
 });
 // Examples:
 //   | RegistrationType | RegistrationSubtype       | AddContributorButtons                       |

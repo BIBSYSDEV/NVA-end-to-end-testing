@@ -151,15 +151,6 @@ export const journalFields = {
   'Volume': 'volume-field',
 };
 
-// export const journalContentTypes = {
-//   'Academic article': dataTestId.registrationWizard.resourceType.contentValue('academicarticle'),
-//   'Academic literature review': dataTestId.registrationWizard.resourceType.contentValue('academicliteraturereview'),
-//   'Case report': dataTestId.registrationWizard.resourceType.contentValue('casereport'),
-//   'Study protocol': dataTestId.registrationWizard.resourceType.contentValue('studyprotocol'),
-//   'Professional article': dataTestId.registrationWizard.resourceType.contentValue('professionalarticle'),
-//   'Popular science article': dataTestId.registrationWizard.resourceType.contentValue('popularsciencearticle'),
-// };
-
 export const bookSubtypes = {
   'Academic Monograph': 'resource-type-chip-AcademicMonograph',
   'Anthology': 'resource-type-chip-BookAnthology',
@@ -178,15 +169,6 @@ export const bookFields = {
   'Series': dataTestId.registrationWizard.resourceType.seriesField,
   'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
 };
-
-// export const contentType = {
-//   'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academicmonograph'),
-//   'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.contentValue('nonfictionmonograph'),
-//   'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popularsciencemonograph'),
-//   'Textbook': dataTestId.registrationWizard.resourceType.contentValue('textbook'),
-//   'Encyclopedia': dataTestId.registrationWizard.resourceType.contentValue('encyclopedia'),
-//   'Exhibition catalog': dataTestId.registrationWizard.resourceType.contentValue('exhibitioncatalog'),
-// };
 
 export const reportSubtypes = {
   'Research report': 'resource-type-chip-ReportResearch',
@@ -245,16 +227,6 @@ export const chapterContainerField = {
   'Search box for published Reports': dataTestId.registrationWizard.resourceType.partOfField,
   'Search box for published Abstract Collections': dataTestId.registrationWizard.resourceType.partOfField,
 };
-
-// export const chapterContentTypes = {
-//   'Academic Chapter': 'content-value-academicchapter',
-//   'Non-fiction Chapter': 'content-value-nonfictionchapter',
-//   'Popular Science Chapter': 'content-value-popularsciencechapter',
-//   'Textbook Chapter': 'content-value-textbookchapter',
-//   'Encyclopedia Chapter': 'content-value-encyclopediachapter',
-//   'Introduction': 'content-value-introduction',
-//   'Exhibition Catalog Chapter': 'content-value-exhibitioncatalogchapter',
-// };
 
 export const artisticSubtypes = {
   'Artistic result - Design': 'resource-type-chip-ArtisticDesign',
@@ -608,3 +580,57 @@ export const landingPageShareButtons = {
   LinkedIn: dataTestId.registrationLandingPage.linkedInButton,
   Twitter: dataTestId.registrationLandingPage.twitterButton,
 };
+
+export const contributorTypes = {
+  'Author': 'Creator',
+  'Editor': 'Editor',
+  'Contact person': 'ContactPerson',
+  'Rights holder': 'RightsHolder',
+  'Other': 'Other',
+  'Supervisor': 'Supervisor',
+  'Designer': 'Designer',
+  'Curator/Organizer': 'CuratorOrganizer',
+  'Consultant': 'Consultant',
+  'Architect': 'Architect',
+  'Landscape architect': 'LandscapeArchitect',
+  'Interior architect': 'InteriorArchitect',
+  'Architectural planner': 'ArchitecturalPlanner',
+  'Dancer': 'Dancer',
+  'Actor': 'Actor',
+  'Choreographer': 'Choreographer',
+  'Director': 'Director',
+  'Scenographer': 'Scenographer',
+  'Costume designer': 'CostumeDesigner',
+  'Producer': 'Producer',
+  'Artistic director': 'ArtisticDirector',
+  'Dramatist': 'Dramatist',
+  'Librettist': 'Librettist',
+  'Dramaturge': 'Dramaturge',
+  'Sound designer': 'SoundDesigner',
+  'Light designer': 'LightDesigner',
+  'Screenwriter': 'Screenwriter',
+  'Photographer': 'Photographer',
+  'Production designer': 'ProductionDesigner',
+  'Video editor': 'VideoEditor',
+  'Sound design': 'SoundDesigner',
+  'VFX Supervisor': 'VfxSupervisor',
+  'Soloist': 'Soloist',
+  'Conductor': 'Conductor',
+  'Musician': 'Musician',
+  'Composer': 'Composer',
+  'Organizer': 'Organizer',
+  'Writer': 'Writer',
+  'Translator': 'TranslatorAdapter',
+  'Artist': 'Artist',
+  'Curator': 'Curator',
+  'Journalist': 'Journalist',
+  'Interviewee': 'InterviewSubject',
+  'Program host': 'ProgrammeLeader',
+  'Participant': 'ProgrammeParticipant',
+  'Data collector': 'DataCollector',
+  'Data curator': 'DataCurator',
+  'Data manager': 'DataManager',
+  'Distributor': 'Distributor',
+  'Related person': 'RelatedPerson',
+  'Researcher': 'Researcher',
+}
