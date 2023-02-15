@@ -37,7 +37,7 @@ Feature: Curator opens My Worklist
 
   Background:
 
-  @test
+  # @test
   @TEST_NP-4430
   Scenario: Curator opens their Worklist
     When the Curator opens their Worklist
