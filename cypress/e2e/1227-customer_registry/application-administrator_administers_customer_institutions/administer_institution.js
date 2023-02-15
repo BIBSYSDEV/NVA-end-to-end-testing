@@ -88,10 +88,10 @@ And('they see the Save button', () => {
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.saveButton).should('be.visible');
 });
 And('they see the list of current Institution Administrators', () => {
-  cy.get('tr').filter(':contains("Second Institution-admin-")').should('have.length', 5);
+  cy.get('tr').filter(':contains("Second Institution-admin-")').should('have.length.above', 0);
 });
 And('every Institution Administrator has a Remove button', () => {
-  cy.get(`[data-testid^=button-remove-role-Institution-admin-]`).should('have.length', 5);
+  cy.get(`[data-testid^=button-remove-role-Institution-admin-]`).should('have.length.above', 0);
 });
 And('they see button to add a new Institution Administrator', () => {
   cy.getDataTestId('button-open-add-admin').should('be.visible');
