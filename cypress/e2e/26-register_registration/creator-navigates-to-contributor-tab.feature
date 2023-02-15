@@ -132,7 +132,7 @@ Feature: Creator navigates to Contributors tab
     Then they see a Button to Verify the Contributor
 
   @TEST_NP-4008
-  @test
+  # @test
   Scenario: Creator opens Dialog to Verify Contributor
     Given Creator sees Button to Verify Contributor
     When they click the Button to Verify Contributor

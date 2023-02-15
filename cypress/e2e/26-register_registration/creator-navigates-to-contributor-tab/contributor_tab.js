@@ -45,7 +45,7 @@ And('they click "Add Creator"', () => {
 Then('they see "Add Contributor" Button is enabled', () => {
   cy.get('[data-testid=add-contributor]').should('be.enabled');
 });
-And('they see the tab Description is clickable', () => {
+Then('they see the tab Description is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-description]').should('be.enabled');
 });
 And('they see the tab Resource Type is clickable', () => {
@@ -69,14 +69,20 @@ And('they see Save is enabled', () => {
 
 //   @1837
 //   Scenario: Creator adds themselves to the list of Creators
-And('they see the Creator Search Dialog', () => {
+And('they see the "Add Author" Button', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).should('be.visible');
+});
+And ('they click "Add Author"', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+});
+And('they see the Author Search Dialog', () => {
   cy.get('[data-testid=contributor-modal]').should('be.visible');
 });
-And('they click "Add me as Creator"', () => {
+And('they click "Add me as Author"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`)
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addSelfButton}]`).click();
 });
-Then('their Creator identity is added to the list of Creators', () => {
+Then('their Author identity is added to the list of Authors', () => {
   cy.contains('Contributor TestUser');
 });
 And('their current Affiliations are listed', () => {
@@ -141,11 +147,11 @@ Then('they see buttons {string}', (contributorTypes) => {
 //   | Media            | ProgrammeParticipation    | Contributor                             |
 
 //   @419
-//   Scenario: Creator adds an Creator to the list of Creators
-And('they search for Creator in the Creator Search Dialog', () => {
+//   Scenario: Creator adds an Author to the list of Authors
+And('they search for Author in the Author Search Dialog', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('TestUser, Contributor');
 });
-And('they select an Creator identity', () => {
+And('they select an Author identity', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`)
     .first()
     .click();
@@ -153,7 +159,7 @@ And('they select an Creator identity', () => {
 And('they click "Add"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
 });
-Then('the selected Creator identity is added to the list of Creators', () => {
+Then('the selected Author identity is added to the list of Authors', () => {
   cy.contains('Contributor TestUser');
 });
 
@@ -178,6 +184,7 @@ And('they select the Registration Subtype "Chapter in anthology"', () => {
 //   @2203
 //   Scenario: Creator adds an Editor to the list of Editors for Resource Type Book, Anthology
 And('they select Registration Subtype "Anthology"', () => {
+  cy.get('[data-testid=resource-type-chip-AcademicMonograph]').click();
   cy.get('[data-testid=resource-type-chip-BookAnthology]').click();
   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
@@ -189,10 +196,10 @@ And('they see the "Add Editor" Button', () => {
 And('they click "Add Editor"', () => {
   cy.get(`[data-value=Editor]`).click();
 });
-And('they search for Editor in the Creator Search Dialog', () => {
+And('they search for Editor in the Author Search Dialog', () => {
   cy.get('[data-testid=search-field]').type('TestUser Contributor');
 });
-Then('the selected Creator identity is added to the list of Editors', () => {
+Then('the selected Author identity is added to the list of Editors', () => {
   cy.contains('Contributor TestUser');
 });
 
@@ -201,6 +208,7 @@ Then('the selected Creator identity is added to the list of Editors', () => {
 And('they select Resource Type "Student Thesis"', () => {
 });
 And('they select any Registration Subtype', () => {
+  cy.get('[data-testid=resource-type-chip-AcademicMonograph]').click();
   cy.get('[data-testid=resource-type-chip-DegreeMaster]').click();
   cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
 });
@@ -212,27 +220,27 @@ And('they see the "Add Supervisor" Button', () => {
 And('they click "Add Supervisor"', () => {
   cy.get(`[data-value=Supervisor]`).click();
 });
-And('they search for Supervisor in the Creator Search Dialog', () => {
+And('they search for Supervisor in the Author Search Dialog', () => {
   cy.get('[data-testid=search-field]').type('TestUser Contributor');
 });
-Then('the selected Creator identity is added to the list of Supervisors', () => {
+Then('the selected Author identity is added to the list of Supervisors', () => {
   cy.contains('Contributor TestUser');
 });
 
 //   @788
-//   Scenario: Creator creates a new Creator in the Creator dialog
-And('they see a button for creating a new Creator', () => {
+//   Scenario: Author creates a new Author in the Author dialog
+And('they see the "Create new Author" Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).should(
     'be.visible'
   );
 });
-When('they click the button for creating a new Creator', () => {
+When('they click "Create new Author"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
 });
-Then('they see field for Creator name', () => {
+Then('they see fields:', (dataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).should('be.visible');
 });
-And('they see the a button for adding a new Creator in the Create new Creator Dialog', () => {
+And('they see the "Create new Author" Button in the Create new Author Dialog', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).should('be.visible');
 });
 
