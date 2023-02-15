@@ -9,6 +9,43 @@ const registrationTypes = {
     'Dataset': 'DataSet',
 }
 
+const openContributorAddDialog = () => {
+    cy.login(userContributors);
+    cy.startWizardWithEmptyRegistration();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+}
+
+const selectContributorType = () => {
+    cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
+    cy.get('[data-value=Creator]').click();
+}
+
+const enterSearchTerm = () => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Withauthor TestUser{enter}');
+}
+
+const selectContributor = () => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).first().click();
+}
+
+const creatorSelectContributorType = () => {
+    openContributorAddDialog();
+    selectContributorType();
+}
+
+const searchForContributor = () => {
+    creatorSelectContributorType()
+    enterSearchTerm();
+    selectContributor();
+}
+
+const creatorSelectsContributorFromSearch = () => {
+    searchForContributor();
+}
+
 // Scenario Outline: Creator opens the Add Contributor Dialog
 Given('Creator navigates to Contributors tab', () => {
     cy.login(userContributors);
@@ -112,25 +149,53 @@ And('they see a disabled "Add" Button', () => {
 //     | Map                           | Contact person, Rights holder, Other                                                                                                                                          |
 
 // Scenario: Creator selects a Contributor Type
-Given('Creator opens the Add Contributor Dialog', () => { })
-When('they select a Contributor Type', () => { })
-Then('they see a search field', () => { })
+Given('Creator opens the Add Contributor Dialog', () => {
+    openContributorAddDialog()
+})
+When('they select a Contributor Type', () => {
+    selectContributorType()
+})
+Then('they see a search field', () => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).should('be.visible');
+})
 
 // Scenario: Creator searches for a Contributor
-Given('Creator selects a Contributor Type', () => { })
-When('they enter a search term', () => { })
-Then('they see a List of Contributors matching the search term', () => { })
-And('they see number of hits and the search term', () => { })
-And('they see Previous Publications by the Contributors', () => { })
-And('they see the Primary Institution for the Contributors', () => { })
+Given('Creator selects a Contributor Type', () => {
+    creatorSelectContributorType()
+})
+When('they enter a search term', () => {
+    enterSearchTerm();
+})
+Then('they see a List of Contributors matching the search term', () => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).should('have.length.above', 0);
+})
+And('they see number of hits and the search term', () => {
+    cy.contains('results for "Withauthor TestUser');
+})
+And('they see Previous Publications by the Contributors', () => {
+    cy.contains('other registrations')
+})
+And('they see the Primary Institution for the Contributors', () => {
+    cy.contains('The Norwegian Directorate for ICT and Joint Services in Higher Education and Research');
+})
 
 // Scenario: Creator selects a Contributor from search
-Given('Creator searches for a Contributor', () => { })
-When('they click on a Contributor from the search result', () => { })
-Then('they see the "Add" Button is enabled', () => { })
+Given('Creator searches for a Contributor', () => {
+    searchForContributor();
+})
+When('they click on a Contributor from the search result', () => {
+    selectContributor()
+})
+Then('they see the "Add" Button is enabled', () => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).should('be.enabled');
+})
 
 // Scenario: Creator adds a Contributor to the List of Contributors
-Given('Creator selects a Contributor from search', () => { })
-When('they click the "Add" Button', () => { })
+Given('Creator selects a Contributor from search', () => {
+    creatorSelectsContributorFromSearch();
+})
+When('they click the "Add" Button', () => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click()
+})
 Then('the Dialog is closed', () => { })
 And('the selected Contributor is added to the List of Contributors', () => { })
