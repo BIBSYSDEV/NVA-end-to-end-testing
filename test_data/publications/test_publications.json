@@ -161,17 +161,6 @@
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-draft-doi@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-draft-doi@test.no",
-    "title": "Test article corrigendum"
-  },
-  {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "AcademicArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-draft-doi@test.no",
     "status": "DRAFT",
     "contributor": "test-user-draft-doi@test.no",
     "title": "Draft registration without DOI"
