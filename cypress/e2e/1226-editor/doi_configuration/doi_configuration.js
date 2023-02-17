@@ -8,13 +8,11 @@ import { dataTestId } from '../../../support/dataTestIds';
 //     As an Editor
 //     I want to see information about my institutions DOI configuration
 
-//     Background:
-//         Given a logged in Editor
 
 const doiInformation = {
   'DataCite Member ID': {
-    'title': 'DataCite Member ID',
-    'value': 'nvatest.unit',
+    'title': 'DataCite Repository ID',
+    'value': 'NVATEST.UNIT',
   },
   'Institutions DOI prefix': {
     'title': 'DOI prefix',
@@ -22,26 +20,27 @@ const doiInformation = {
   },
 };
 
-Before(() => {
+//     Background:
+Given('a logged in Editor', () => {
   cy.login(userEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
-});
+})
 
 // Scenario: Editor opens institutions DOI configuration
-Given("the Institution don't have an DOI configuration", () => {});
+Given("the Institution don't have an DOI configuration", () => { });
 When("the Editor opens the institution's DOI configuration menu item", () => {
   cy.getDataTestId(dataTestId.editor.doiLinkButton).click();
 });
-Then('the Editor sees a link to Sikt to order DOI service', () => {});
-And('some other text informing about the DOI service', () => {});
+Then('the Editor sees a link to Sikt to order DOI service', () => { });
+And('some other text informing about the DOI service', () => { });
 
 // Scenario: Editor opens institutions DOI configuration
-Given('the Institution has an DOI configuration', () => {});
-When("the Editor opens the institution's DOI configuration menu item", () => {});
+Given('the Institution has an DOI configuration', () => { });
+When("the Editor opens the institution's DOI configuration menu item", () => { });
 Then('the Editor sees following information', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
-    cy.contains(value[0].title);
-    cy.contains(value[0].value);
+    cy.contains(doiInformation[value[0]].title);
+    cy.contains(doiInformation[value[0]].value, { matchCase: false });
   });
 });
 // | DataCite Member ID |

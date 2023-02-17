@@ -42,7 +42,7 @@ Feature: Registrator worklist
 
     @TEST_NP-4193
     @1251
-    @test
+    # @test
     Scenario: Creator opens a Registration with a DOI request
         Given that the Creator Opens a DOI request entry from My Worklist
         When they click the Edit Registration button

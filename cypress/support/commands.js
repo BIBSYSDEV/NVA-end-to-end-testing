@@ -76,19 +76,18 @@ Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
     const randomPassword = `P%${uuidv4()}`;
-    let password = 'P%403f577d-edda-468c-ae77-c8e1a79cd665';
 
     const authorizeUser = {
       AuthFlow: authFlow,
       ClientId: clientId,
       AuthParameters: {
         USERNAME: userId,
-        PASSWORD: password,
+        PASSWORD: randomPassword,
       },
     };
 
     const passwordParams = {
-      Password: password,
+      Password: randomPassword,
       UserPoolId: userPoolId,
       Username: userId,
       Permanent: true,
@@ -100,7 +99,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
           if (data) {
             console.log(data);
             if (!data.ChallengeName) {
-              await Auth.signIn(userId, password);
+              await Auth.signIn(userId, randomPassword);
               resolve(data.AuthenticationResult.IdToken);
             }
           } else {

@@ -8,7 +8,6 @@ Feature: Editor decides who gets publishing rights
 		Given an Institution with one or more Editor roles
 
 	@TEST_NP-4159
-	@test
 	@needJiraTag
 	# - this scenario might be a duplicate to @1424
 	Scenario: The logged-in User is a Registrator

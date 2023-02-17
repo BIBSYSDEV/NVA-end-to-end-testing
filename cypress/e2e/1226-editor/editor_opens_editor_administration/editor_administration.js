@@ -8,13 +8,11 @@ import { dataTestId } from '../../../support/dataTestIds';
 //     As an Editor
 //     I want to see institution names, codes, and institutional author
 
-//     Background:
-//         Given a logged in Editor
 
 const information = {
   "Institution's short name": "Institution's short name",
   "Institution's ROR": 'Research Organization Registry (ROR)',
-  "Institution's author intentity": "Instiution's code",
+  "Institution's author intentity": "Institution's code",
 };
 
 const menuItems = {
@@ -29,7 +27,8 @@ const menuItems = {
   // #        | Lisenser og filer            |
 };
 
-Before(() => {
+//     Background:
+Given('a logged in Editor', () => {
   cy.login(userEditor);
 });
 
@@ -43,17 +42,17 @@ Then('the Editor sees one or many registered official names in Bokmål, English,
 });
 And('they see all of', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
-    cy.contains(value[0]);
+    cy.contains(information[value[0]]);
   });
 });
 // | Institution's short name       |
 // | Institution's ROR              |
 // | Institution's author intentity |
-And('they may also see', () => {});
+And('they may also see', () => { });
 // | Institution's Feide domain     |
 And('the Editor sees a menu with following options', (dataTable) => {
   dataTable.rawTable.forEach((menuItem) => {
-    cy.getDataTestId(menuItem[0]);
+    cy.getDataTestId(menuItems[menuItem[0]]);
   });
 });
 //         | Institutions configuration |
@@ -66,5 +65,5 @@ And('the Editor sees a menu with following options', (dataTable) => {
 //         | NVI-rapportering           |
 // #        | Lisenser og filer            |
 And('"Institutions configuration" is the active choice', () => {
-  cy.getDataTestId(menuItem['Institutions configuration']).should('be.enabled');
+  cy.getDataTestId(menuItems['Institutions configuration']).should('have.class', 'MuiButton-containedPrimary');
 });

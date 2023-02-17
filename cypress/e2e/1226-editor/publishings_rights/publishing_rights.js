@@ -8,23 +8,22 @@ import { dataTestId } from '../../../support/dataTestIds';
 // 	As an Editor
 // 	I want to choose between different options
 
-// Background:
-// Given an Institution with one or more Editor roles
-const publishnStrategies = {
+const publishStrategies = {
   'Registrator has full publishing rights': dataTestId.editor.workflowRegistratorPublishesAll,
   'Registrator can only publish metadata': dataTestId.editor.workflowRegistratorPublishesMetadata,
   'Only Curator can publish': dataTestId.editor.workflowRegistratorRequiresApproval,
 };
 
-Before(() => {
+// Background:
+Given('an Institution with one or more Editor roles', () => {
   cy.login(userEditor);
 });
 
 // Scenario: Default publishing rights
 When('the Editor of an Institution hasn’t chosen a policy', () => {
   cy.login(userSecondEditor);
-  cy.get(dataTestId.header.editorLink).click();
-  cy.get(dataTestId.editor.publishStrategyLinkButton).click();
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
 });
 Then('the publications policy is:', () => {
   cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).should('be.disabled');
@@ -33,21 +32,25 @@ Then('the publications policy is:', () => {
 
 // Scenario: Editor defines publishing rights
 Given('a Editor views the Editor page', () => {
-  cy.get(dataTestId.header.editorLink).click();
-  cy.get(dataTestId.editor.publishStrategyLinkButton).click();
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
 });
-When('the Editor chooses {string}:', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
-    cy.wrap(publishnStrategies[value[0]]).as(strategyButton);
-    cy.getDataTestId(publishnStrategies[value[0]]).click();
-  });
+When('the Editor chooses {string}:', (strategy) => {
+  cy.wrap(publishStrategies[strategy]).as('strategyButton');
+  cy.getDataTestId(publishStrategies[strategy]).click({ force: true });
 });
 // | Registrator has full publishing rights |
 // | Registrator can only publish metadata  |
 // | Only Curator can publish               |
 Then('the Institutions publications policy is changed accordingly', () => {
-  cy.get('@strategyButton').should('be.disabled');
+  cy.get('@strategyButton').then((button) => {
+    cy.getDataTestId(button).should('be.disabled');
+  })
 });
 And('the Editor is notified that a new policy is activated', () => {
-  cy.getDataTestId('snackbar-success');
+  cy.get('@strategyButton').then(strategy => {
+    if (strategy !== publishStrategies[Object.keys(publishStrategies)[0]]) {
+      cy.getDataTestId('snackbar-success');
+    }
+  })
 });

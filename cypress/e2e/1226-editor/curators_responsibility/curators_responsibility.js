@@ -13,11 +13,9 @@ import { dataTestId } from '../../../support/dataTestIds';
 //     I want to manage which curators is responsible for which parts of the institution
 
 //     Background:
-//         Given a logged in Editor
-
-Before(() => {
-  cy.loginn(userEditor);
-});
+Given ('a logged in Editor', () => {
+  cy.login(userEditor);
+})
 
 // Scenario: Editor views curators and area of responsibility
 Given('the Institusion have Curators registered', () => {
@@ -55,7 +53,7 @@ Then("the Curator's entire list of area of responsibility is displayed", () => {
 Given('Editor activates a Curator in the list', () => {});
 When('the Editor uses the option to edit an Curators area of responsibility', () => {});
 Then("the Institution's sub-units is displayed", () => {});
-And('any current area of responsibility is selected', () => {});
+And('any current area of responsibility is selected', () => {});
 
 // Scenario: Editor aborts the edit of an Curators area of responsibility
 Given('Editor edit an Curators area of responsibility', () => {});
