@@ -27,7 +27,7 @@ Then('the Registration is Published', () => {
       cy.login(userPublishNoRights);
       cy.startWizardWithEmptyRegistration();
       cy.createValidRegistration(fileName, title);
-      cy.getDataTestId('button-save-registration').click();
+      cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
       cy.location('pathname').as('path');
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton, { timeOut: 30000 }).click();
       cy.wait(10000);
@@ -53,7 +53,7 @@ And('the Registration has a Publishing Request', () => {
   cy.login(userCurator);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
-  cy.getDataTestId('button-save-registration').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId('button-publish-registration', { timeout: 20000 }).click();
   cy.location('pathname').as('path');
   cy.get('@path').then((path) => {
@@ -87,7 +87,7 @@ Given('a Curator from a customer with Workflow "{string}"', (workflow) => {
   cy.login(userCurator);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
-  cy.getDataTestId('button-save-registration').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.location('pathname').as('path');
 });
 Given('a Curator opens the Landing Page of a Registration', () => {
@@ -121,7 +121,7 @@ Given('that a Curator views their Worklist', () => {
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, doiRequestTitle);
-  cy.getDataTestId('button-save-registration').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId('button-publish-registration', { timeout: 20000 }).click();
   cy.wait(10000);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();

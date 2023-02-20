@@ -51,20 +51,20 @@ And('they see the tab Files and License is clickable', () => {
 });
 And('they see a Button for creating a new Project is enabled', () => { });
 And('they see Next is enabled', () => {
-  cy.get('[data-testid=button-next-tab]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).should('be.enabled');
 });
 And('they see Save is enabled', () => {
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
 
 // Scenario: Creator sees that fields are validated on Description tab
 And('they click the Save button', () => {
-  cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
   cy.get('[data-testid=snackbar-success]');
   cy.get('[data-testid=snackbar-success]').should('not.exist');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${descriptionFields[field]}]`).within(() => {
       cy.contains('is required');

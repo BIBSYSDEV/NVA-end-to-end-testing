@@ -62,10 +62,10 @@ And('they see Previous is enabled', () => {
   cy.get('[data-testid=button-previous-tab]').should('be.enabled');
 });
 And('they see Next is enabled', () => {
-  cy.get('[data-testid=button-next-tab]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).should('be.enabled');
 });
 And('they see Save is enabled', () => {
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
 
 //   @1837
@@ -73,7 +73,7 @@ And('they see Save is enabled', () => {
 And('they see the "Add Author" Button', () => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).should('be.visible');
 });
-And ('they click "Add Author"', () => {
+And('they click "Add Author"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
 });
 And('they see the Author Search Dialog', () => {

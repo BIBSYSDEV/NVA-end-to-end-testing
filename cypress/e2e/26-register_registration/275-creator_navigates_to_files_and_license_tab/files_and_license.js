@@ -45,7 +45,7 @@ And('they see Previous is enabled', () => {
 And('they see Next is enabled', () => {
 });
 And('they see Save is enabled', () => {
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
 
 // Scenario: Creator marks that a Resource has no File or Linked Resource
@@ -73,7 +73,7 @@ And('they mark the File with Administrative Agreement', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.files.administrativeAgreement}]`).click();
 })
 Then('the File is not presented on the Landing Page', () => {
-  cy.get(`[data-testid=button-save-registration]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.filesAccordion}]`).should('not.exist');
 })
 

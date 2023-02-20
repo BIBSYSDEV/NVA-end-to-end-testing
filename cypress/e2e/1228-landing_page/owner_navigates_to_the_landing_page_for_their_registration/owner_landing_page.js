@@ -15,7 +15,7 @@ Given('the owner opens the Landing Page of their Registration', () => {
 Given('the Registration has no DOI', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type('Test request DOI');
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId('button-save-registration').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 When('they request a DOI', () => {
   cy.getDataTestId('doi-request-accordion', { timeOut: 30000 }).click();
@@ -34,16 +34,16 @@ When("the Owner previews the Resource's Landing Page", () => {
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type('Test request DOI');
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId('button-save-registration').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
-And('the Registraion has "Draft" Status', () => {});
+And('the Registraion has "Draft" Status', () => { });
 Then('they see a "Publish" option', () => {
   cy.getDataTestId('button-publish-registration').should('be.visible');
 });
 
 // Scenario: Owner wants to publish their Resource, pending Approval
 // When("the Owner previews the Resource's Landing Page", () => {});
-And('the Registration has "Draft" Status', () => {});
+And('the Registration has "Draft" Status', () => { });
 And('there is a pending Approval Request on the Resource', () => {
   cy.getDataTestId('doi-request-accordion', { timeOut: 30000 }).click();
   cy.getDataTestId('button-toggle-reserve-doi').click();
@@ -56,7 +56,7 @@ Then('they see a "Publishing pending" notice', () => {
     cy.contains('Registration has a reserved DOI');
   });
 });
-And('the user is informed that progress can be viewed in My Messages', () => {});
+And('the user is informed that progress can be viewed in My Messages', () => { });
 
 // Scenario: Owner wants to publish Resource, all restrictions
 Given('Institutions publications policy is "Only Curator can publish"', () => {
@@ -64,7 +64,7 @@ Given('Institutions publications policy is "Only Curator can publish"', () => {
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
-  cy.getDataTestId('button-save-registration').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 When('the Owner uses the Publish option', () => {
   cy.getDataTestId('button-publish-registration', { timeOut: 20000 }).click();
@@ -81,7 +81,7 @@ And('an Approval Request is sent to his Curator', () => {
 });
 And(
   'the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages',
-  () => {}
+  () => { }
 );
 
 // Scenario: Owner wants to publish Resource, file restrictions
@@ -90,7 +90,7 @@ Given('Institutions publications policy is "Registrator can only publish metadat
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
-  cy.getDataTestId('button-save-registration').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 When('the Owner uses the Publish option', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton, { timeOut: 30000 }).click();
@@ -103,8 +103,8 @@ And("the Resource's status is Published", () => {
     cy.contains('Publication - published', { timeOut: 20000 });
   });
 });
-And("the Resource's files, license and embargo date are locked with a pending approval notification", () => {});
-And('the number of files is visible', () => {});
+And("the Resource's files, license and embargo date are locked with a pending approval notification", () => { });
+And('the number of files is visible', () => { });
 And('an Approval Request is sent to the Curator', () => {
   cy.login(userCurator);
   cy.wait(20000);
@@ -113,7 +113,7 @@ And('an Approval Request is sent to the Curator', () => {
 });
 And(
   'the Owner is notified that an Approval Request is sent to the Curator and progress can be viewed in My Messages',
-  () => {}
+  () => { }
 );
 
 // Scenario: Owner uses the Publish option on Landing Page
@@ -121,7 +121,7 @@ Given('Institutions publications policy is "Registrator has full publishing righ
   cy.login(userDraftDoi);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName);
-  cy.getDataTestId('button-save-registration').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 Then('the Resource\'s status is "Published"', () => {
   cy.wait(10000);
@@ -139,7 +139,7 @@ When('the Creator navigates to the Landing Page', () => {
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type('Test draft publication');
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId('button-save-registration').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 And('the Resource has Validation Errors', () => {
   cy.getDataTestId('tasks-panel').within(() => {

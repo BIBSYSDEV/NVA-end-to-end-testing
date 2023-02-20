@@ -20,7 +20,7 @@ Given('Creator navigates to the Resource Type tab and sees Resource types for "B
 Given('Creator navigates to Resource Type tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
 });
-When('they select the Resource type "Book"', () => {});
+When('they select the Resource type "Book"', () => { });
 Then('they see a list of subtypes:', (dataTable) => {
   cy.testDataTestidList(dataTable, bookSubtypes);
 });
@@ -33,7 +33,7 @@ Then('they see a list of subtypes:', (dataTable) => {
 // | Exhibition catalog        |
 
 // Scenario: Creator sees fields for Book
-Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => {});
+Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => { });
 When('they select any Book type', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
 });
@@ -53,8 +53,8 @@ Given('Creator sees fields for Book', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
 });
 When('they click the Save button', () => {
-  cy.get('[data-testid=button-save-registration]').click();
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {
@@ -68,7 +68,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
 // | NPI discipline |
 
 // Scenario: Creator selects Resource subtype Academic Monograph
-Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => {});
+Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => { });
 When('they select type "Academic Monograph"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
 });
