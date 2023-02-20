@@ -24,7 +24,7 @@ const vocabularyStatus = {
 
 //     Background:
 Given('a logged in Editor', () => {
-    cy.locing(userEditor);
+    cy.login(userEditor);
 })
 
 // Scenario Outline: Editor sees fields for Vocabulary settings
