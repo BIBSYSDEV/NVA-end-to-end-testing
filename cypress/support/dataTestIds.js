@@ -59,6 +59,9 @@ export const dataTestId = {
     vocabularyLinkButton: 'vocabulary-link-button',
     hrcsActivityButtonGroup: 'hrcs-activity-button-group',
     hrcsCategoryButtonGroup: 'hrcs-category-button-group',
+    vocabularyDisabled: 'vocabulary-disabled',
+    vocabularyAllowed: 'vocabulary-allowed',
+    vocabularyDefault: 'vocabulary-default',
     workflowRegistratorPublishesAll: 'workflow-registrator-publishes-all',
     workflowRegistratorPublishesMetadata: 'workflow-registrator-publishes-metadata',
     workflowRegistratorRequiresApproval: 'workflow-registrator-requires-approval',
@@ -90,6 +93,7 @@ export const dataTestId = {
     searchResultItem: 'result-list-item',
   },
   projectLandingPage: {
+    editProjectButton: 'edit-project-button',
     generalInfoBox: 'general-info',
     participantsAccordion: 'participants-accordion',
     resultsAccordion: 'results-accordion',
@@ -213,6 +217,13 @@ export const dataTestId = {
       linkAccordion: 'new-registration-link',
       linkMetadata: 'link-metadata',
       startRegistrationButton: 'registration-start-button',
+    },
+    formActions: {
+      nextTabButton: 'next-tab-button',
+      openSupportButton: 'open-support-button',
+      previousTabButton: 'previous-tab-button',
+      saveRegistrationButton: 'save-registration-button',
+      supportModal: 'support-modal',
     },
     resourceType: {
       addAudioVideoButton: 'add-audio-video-button',

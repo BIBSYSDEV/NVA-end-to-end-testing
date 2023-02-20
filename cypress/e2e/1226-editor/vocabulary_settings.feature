@@ -14,15 +14,13 @@ Feature: Editor decide on institutions Vocabulary settings
     @TEST_NP-4156
     @test
     @2445
-    Scenario Outline: Editor sees fields for Vocabulary settings
+    Scenario: Editor sees fields for Vocabulary settings
         Given Editor opens Editor Administration
         And they see Vocabulary settings
-        Then they can set "<Vocabulary>" to be one of:
+        Then they a list of Vocabularies:
+            | HRCS Activity |
+            | HRCS Category |
+        And they can set a Vocabulary to be one of:
             | Disabled |
             | Allowed  |
             | Default  |
-        And they see a Save Button
-        Examples:
-            | Vocabulary    |
-            | HRCS Activity |
-            | HRCS Category |
