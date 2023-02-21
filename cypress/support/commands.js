@@ -18,7 +18,7 @@ import { userSecondEditor } from './constants';
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
 const awsSessionToken = Cypress.env('AWS_SESSION_TOKEN');
-const region = Cypress.env('AWS_REGION');
+const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
 const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'dev';
@@ -124,7 +124,7 @@ Cypress.Commands.add('login', (userId) => {
     cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.setLocalStorage('beta', 'true');
     // cy.mockPersonSearch(userId);
-    cy.mockDepartments();
+    // cy.mockDepartments();
     cy.visit(`/`, {
       auth: {
         username: Cypress.env('DEVUSER'),
