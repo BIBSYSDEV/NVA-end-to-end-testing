@@ -45,7 +45,7 @@ Then('they can set a Vocabulary to be one of:', (dataTable) => {
     dataTable.rawTable.forEach(value => {
         Object.values(vocabularies).forEach(vocabulary => {
             cy.getDataTestId(vocabulary).within(() => {
-                cy.get(vocabularyStatus[value[0]]);
+                cy.getDataTestId(vocabularyStatus[value[0]]);
             })
         })
     })
