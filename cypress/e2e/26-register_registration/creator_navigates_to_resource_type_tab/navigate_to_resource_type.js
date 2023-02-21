@@ -33,7 +33,7 @@ And('they see the tab Files and License is clickable', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).should('be.visible');
 });
 And('they see Previous is enabled', () => {
-  cy.get('[data-testid=button-previous-tab]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.previousTabButton).should('be.enabled');
 });
 And('they see Next is enabled', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).should('be.enabled');
