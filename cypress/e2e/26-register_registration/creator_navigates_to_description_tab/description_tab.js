@@ -192,10 +192,10 @@ And('they see a confirmation message that the Project was created', () => { });
 And('they see the Project is listed under Project Associations', () => { });
 
 // Scenario: Creator adds funding
-When('they uses the option to add funding', () => {
+And('they add funding', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.addFundingButton).click();
 });
-Then('they see an option to add a funding source', () => {
+Then('they can select a funding source', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).should('be.visible');
 });
 And('they see an option to cancel the funding source', () => {
@@ -203,9 +203,6 @@ And('they see an option to cancel the funding source', () => {
 });
 
 // Scenario: Creator adds funding from NFR
-And('they add funding', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.addFundingButton).click();
-});
 When('they select NFR as a funding source', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).should('be.visible');
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
@@ -218,8 +215,11 @@ Then('they can search for NFR Project', () => {
 // Scenario: Creator adds funding from a NFR Project
 When('they select a NFR Project', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingNfrProjectSearchField).type('test');
+  cy.contains('test').click();
 });
-Then('they can see the sum for the funding', () => { });
+Then('they can see the sum for the funding', () => {
+  cy.contains('Sum 0').should('not.exist');
+});
 
 const fundingFields = {
   'Project name': dataTestId.registrationWizard.description.fundingProjectField,
@@ -228,7 +228,6 @@ const fundingFields = {
 }
 
 // Scenario: Creator adds funding from a non-NFR funding source
-And('they add funding', () => { });
 When('they select a non-NFR funding source', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
   cy.contains('Agder Research Foundation').click();
