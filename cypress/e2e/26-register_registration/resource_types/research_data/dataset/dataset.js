@@ -19,7 +19,7 @@ Given ('User selects Resource type "Research Data"', () =>{
     cy.login(userResearchDataset);
     cy.startWizardWithEmptyRegistration();
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-}); 
+});
 And ('they select Dataset as subtype', () =>{
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.resourceTypeChip("DataSet")}]`).click();
 }); 
@@ -30,23 +30,23 @@ And ('they select Dataset as subtype', () =>{
     // @9141
     // Scenario: User sees information about types of data that are illegal to publish on this service
         When ('the User has selected to register a Dataset', () =>{
-        }); 
+        });
         Then ('the User sees information about types of data that are illegal to publish on this service', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog}]`).should('exist');
-        }); 
+        });
 
     // @TEST_NP-13252
     // @9141
     // Scenario: User confirms to register data that are legal to publish on this service
         Given ('User sees information about types of data that are illegal to publish on this service', () =>{
-            cy.get('[data-testid=cancel-button]').should('be.visible');
-        }); 
+            cy.get(`[data-testid=${dataTestId.confirmDialog.cancelButton}]`).should('be.visible');
+        });
         When ('they confirm that the data intended to be published complies with the terms of the service', () =>{
-            cy.get('[data-testid=cancel-button]').click();   
-        }); 
+            cy.get(`[data-testid=${dataTestId.confirmDialog.cancelButton}]`).click();
+        });
         Then ('the dialog is closed', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog}]`).should('not.exist');
-        }); 
+        });
 
     // @TEST_NP-13253
     // @9141
@@ -57,7 +57,7 @@ And ('they select Dataset as subtype', () =>{
         });
         Then ('the User is prohibited from publishing the Registration', () =>{
         });
-        And ('any registered data is stored as a draft', () =>{ 
+        And ('any registered data is stored as a draft', () =>{
         });
         And ('the User sees the standard user support dialog where the user can ask for assistance', () =>{
         });
@@ -80,7 +80,7 @@ And ('they select Dataset as subtype', () =>{
     // @9140
     // Scenario: User adds zero or more geographical data to the dataset
         Given ('User confirms to register data that are legal to publish on this service', () =>{
-            cy.get('[data-testid=cancel-button]').click();
+            cy.get(`[data-testid=${dataTestId.confirmDialog.cancelButton}]`).click();
         });
         When ('the User writes some free-text geographical data', () =>{         
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.geographicDescriptionField}]`).should('be.visible');
@@ -96,14 +96,14 @@ And ('they select Dataset as subtype', () =>{
     // @9140
     // Scenario: User adds zero or more use-references to resource published in NVA
         Given ('User confirms to register data that are legal to publish on this service', () =>{
-            cy.get('[data-testid=cancel-button]').should('be.visible');
-            cy.get('[data-testid=cancel-button]').click();
+            cy.get(`[data-testid=${dataTestId.confirmDialog.cancelButton}]`).should('be.visible');
+            cy.get(`[data-testid=${dataTestId.confirmDialog.cancelButton}]`).click();
         });
         When ('the User searches for published Registrations', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.relatedRegistrationField}]`).type('Antologi');
             cy.contains('Antologi').first().click({ force: true });
         });
-        Then ('the User can store any search result as a use-reference', () =>{  
+        Then ('the User can store any search result as a use-reference', () =>{
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).within(()=>{
                 cy.contains('Antologi');
             });
@@ -125,7 +125,7 @@ And ('they select Dataset as subtype', () =>{
     // @9140
     // Scenario: User adds zero or more comply-to-references to a DMP resource published in NVA
         Given ('User confirms to register data that are legal to publish on this service', () =>{
-            cy.get('[data-testid=cancel-button]').click();   
+            cy.get(`[data-testid=${dataTestId.confirmDialog.cancelButton}]`).click();
         });
         When ('the User searches for published DMPs', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.compliesWithField}]`).type('Test registration DMP');
@@ -168,7 +168,7 @@ And ('they select Dataset as subtype', () =>{
     // @9146
     // Scenario: User sees Landing Page for Dataset
         When ('User opens Landing Page for a Dataset', () =>{
-            cy.get('[data-testid=cancel-button]').click();
+            cy.get(`[data-testid=${dataTestId.confirmDialog.cancelButton}]`).click();
 
             // fill in data in the Resouce type page
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.geographicDescriptionField}]`).type('Trondheim, Norway');

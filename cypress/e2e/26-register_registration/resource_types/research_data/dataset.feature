@@ -95,7 +95,7 @@ Feature: Dataset
         Then the User is warned about the implications of publishing sensitive data
         And the User has an option to contact user support
 
-    # @test
+    @test
     @TEST_NP-13261
     @9146
     Scenario: User sees Landing Page for Dataset
