@@ -118,27 +118,27 @@ Feature: Creator navigates to Description tab
     Then they see an option to add a funding source
     And they see an option to cancel the funding source
 
-  # @test
+  @test
   Scenario: Creator adds funding from NFR
     Given Creator begins Wizard registration and navigates to Description tab
     And they add funding
     When they select NFR as a funding source
     Then they can search for NFR Project
-    
-  # @test
+
+  @test
   Scenario: Creator adds funding from a NFR Project
     Given Creator begins Wizard registration and navigates to Description tab
     And they add funding
     And they select NFR as a funding source
     When they select a NFR Project
-    Then they can register the sum for the funding
+    Then they can see the sum for the funding
 
-  # @test
+  @test
   Scenario: Creator adds funding from a non-NFR funding source
     Given Creator begins Wizard registration and navigates to Description tab
     And they add funding
     When they select a non-NFR funding source
     Then they can register:
-    | Project name |
-    | ID           |
-    | Sum          | 
+      | Project name |
+      | ID           |
+      | Sum          |
