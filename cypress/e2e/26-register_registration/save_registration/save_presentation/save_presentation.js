@@ -46,7 +46,7 @@ And('fill in values for all fields', () => {
 });
 When('they saves Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
-  cy.get('[data-testid="button-save-registration"]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 Then('they can see the values on the Registration Landing Page', () => {
   cy.get('@resourceType').then((subtype) => {
@@ -58,7 +58,7 @@ And('they can see the values in the Registration Wizard', () => {
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key].tab}]`).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
-      if (subkey !== 'tab') {
+      if (subkey !== 'tab' && subkey !== 'version') {
         const field = registrationFields[key][subkey];
         cy.checkField(field);
       }
@@ -69,7 +69,7 @@ And('they can see the values in the Registration Wizard', () => {
     fields[subtype].forEach((field) => {
       cy.checkField(field);
     });
-    cy.checkContributors(presentationContributorRoles[subtype])
+    cy.checkContributors(presentationContributorRoles[subtype]);
   });
 });
 

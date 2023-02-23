@@ -16,7 +16,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
   cy.setLocalStorage('beta', true);
   cy.login(userResourceTypeArchitecture);
   cy.startWizardWithEmptyRegistration();
-  cy.get('[data-testid=button-next-tab]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).click();
   cy.get('[data-testid=resource-type-chip-Architecture]').click();
 });
 // end common steps
@@ -26,7 +26,7 @@ Given('the creator wants to add an Artistic Result - Architecture', () => {
   cy.setLocalStorage('beta', true);
   cy.login(userResourceTypeArchitecture);
   cy.startWizardWithEmptyRegistration();
-  cy.get('[data-testid=button-next-tab]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).click();
   cy.get('[data-testid=resource-type-chip-Architecture]').click();
 });
 Then('they can add information about:', (dataTable) => {

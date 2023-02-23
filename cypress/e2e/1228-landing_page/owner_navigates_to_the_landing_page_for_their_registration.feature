@@ -41,7 +41,7 @@ Feature: Owner navigates to the Landing Page for their Resource
     @3194
     @TEST_NP-4176
     @TESTSET_NP-4235
-    # @test
+    @test
     Scenario: Owner wants to publish Resource, file restrictions
         Given Institutions publications policy is "Registrator can only publish metadata"
         When the Owner uses the Publish option

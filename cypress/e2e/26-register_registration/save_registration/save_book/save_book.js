@@ -2,7 +2,7 @@ import { userSaveBook } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 
-const commonFields = [
+const fields = [
   resourceTypeFields.publisher,
   resourceTypeFields.scientificField,
   resourceTypeFields.isbn,
@@ -11,15 +11,15 @@ const commonFields = [
   resourceTypeFields.seriesNumber,
 ];
 
-const fields = {
-  'BookMonograph': [...commonFields, resourceTypeFields.bookContent],
-  'BookAnthology': [...commonFields],
-};
-
 const commonContributorRoles = ['ContactPerson', 'RightsHolder', 'Other'];
 
 const bookContributorRoles = {
-  'BookMonograph': ['Creator', ...commonContributorRoles],
+  'AcademicMonograph': ['Creator', ...commonContributorRoles],
+  'NonFictionMonograph': ['Creator', ...commonContributorRoles],
+  'PopularScienceMonograph': ['Creator', ...commonContributorRoles],
+  'Textbook': ['Creator', ...commonContributorRoles],
+  'Encyclopedia': ['Creator', ...commonContributorRoles],
+  'ExhibitionCatalog': ['Creator', ...commonContributorRoles],
   'BookAnthology': ['Editor', ...commonContributorRoles],
 };
 
@@ -33,7 +33,7 @@ And('selects {string}', (resourceType) => {
 });
 And('fill in values for all fields', () => {
   cy.get('@resourceType').then((resourceType) => {
-    cy.fillInResourceType(resourceType, fields[resourceType]);
+    cy.fillInResourceType(resourceType, fields);
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     const contributorRoles = bookContributorRoles[resourceType];
     cy.fillInContributors(contributorRoles);
@@ -42,7 +42,7 @@ And('fill in values for all fields', () => {
 });
 When('they saves Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
-  cy.get('[data-testid="button-save-registration"]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 Then('they can see the values on the Registration Landing Page', () => {
   cy.get('@resourceType').then((subtype) => {
@@ -54,7 +54,7 @@ And('they can see the values in the Registration Wizard', () => {
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key].tab}]`).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
-      if (subkey !== 'tab') {
+      if (subkey !== 'tab' && subkey !== 'version') {
         const field = registrationFields[key][subkey];
         cy.checkField(field);
       }
@@ -62,14 +62,14 @@ And('they can see the values in the Registration Wizard', () => {
   });
   cy.get('@resourceType').then((subtype) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    fields[subtype].forEach((field) => {
+    fields.forEach((field) => {
       cy.checkField(field);
     });
-    cy.checkContributors(bookContributorRoles[subtype])
+    cy.checkContributors(bookContributorRoles[subtype]);
   });
 });
 
 // Examples:
 // | Subtype       |
-// | BookMonograph |
+// | AcademicMonograph |
 // | BookAnthology |

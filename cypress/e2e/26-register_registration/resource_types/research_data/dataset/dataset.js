@@ -15,14 +15,14 @@ import { dataTestId } from '../../../../../support/dataTestIds';
 
 //  Common steps
 
-Given ('User selects Resource type "Research Data"', () =>{
+Given('User selects Resource type "Research Data"', () => {
     cy.login(userResearchDataset);
     cy.startWizardWithEmptyRegistration();
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
-And ('they select Dataset as subtype', () =>{
+And('they select Dataset as subtype', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.resourceTypeChip("DataSet")}]`).click();
-}); 
+});
 
 // end common steps
 

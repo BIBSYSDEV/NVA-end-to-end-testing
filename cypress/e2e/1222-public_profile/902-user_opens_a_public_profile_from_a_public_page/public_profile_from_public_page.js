@@ -10,9 +10,9 @@ Given('the Creator publishes Publication', () => {
   cy.startWizardWithEmptyRegistration();
 
   cy.createValidRegistration(fileName);
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
-  cy.get('[data-testid=button-save-registration]').click({ force: true });
-  cy.get('[data-testid=button-save-registration]').should('not.exist');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
 });
 When('they click a Contributor', () => {
   // cy.intercept('GET', `https://api.${stage}.nva.aws.unit.no/person/1234567890`, mockPerson(userWithAuthor));

@@ -37,12 +37,10 @@
         "type": "Journal"
       },
       "publicationInstance": {
-        "type": "JournalArticle",
+        "type": "AcademicArticle",
         "volume": "1",
         "issue": "2",
-        "peerReviewed": false,
-        "contentType": "Research article"
-      }
+        "peerReviewed": false      }
     },
     "npiSubjectHeading": "010",
     "abstract": "Abstract"
