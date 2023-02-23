@@ -20,17 +20,12 @@ Given('User selects Resource type "Research Data"', () => {
     cy.startWizardWithEmptyRegistration();
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
-<<<<<<< HEAD
-And ('they select Dataset as subtype', () =>{
-=======
 And('they select Dataset as subtype', () => {
->>>>>>> ee7c5de1581c1212eb256aec5d02f41457349e97
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.resourceTypeChip("DataSet")}]`).click();
 });
 
 // end common steps
 
-<<<<<<< HEAD
     // @TEST_NP-13251
     // @9141
     // Scenario: User sees information about types of data that are illegal to publish on this service
@@ -66,43 +61,6 @@ And('they select Dataset as subtype', () => {
         });
         And ('the User sees the standard user support dialog where the user can ask for assistance', () =>{
         });
-=======
-// @TEST_NP-13251
-// @9141
-// Scenario: User sees information about types of data that are illegal to publish on this service
-When('the User has selected to register a Dataset', () => {
-});
-Then('the User sees information about types of data that are illegal to publish on this service', () => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog}]`).should('exist');
-});
-
-// @TEST_NP-13252
-// @9141
-// Scenario: User confirms to register data that are legal to publish on this service
-Given('User sees information about types of data that are illegal to publish on this service', () => {
-    cy.get('[data-testid=cancel-button]').should('be.visible');
-});
-When('they confirm that the data intended to be published complies with the terms of the service', () => {
-    cy.get('[data-testid=cancel-button]').click();
-});
-Then('the dialog is closed', () => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog}]`).should('not.exist');
-});
-
-// @TEST_NP-13253
-// @9141
-// Scenario: User confirms to register data that is illegal to publish on this service
-Given('User sees information about types of data that are illegal to publish on this service', () => {
-});
-When('the User confirms that the data intended to be published is illegal', () => {
-});
-Then('the User is prohibited from publishing the Registration', () => {
-});
-And('any registered data is stored as a draft', () => {
-});
-And('the User sees the standard user support dialog where the user can ask for assistance', () => {
-});
->>>>>>> ee7c5de1581c1212eb256aec5d02f41457349e97
 
 // @TEST_NP-13254
 // @9140
