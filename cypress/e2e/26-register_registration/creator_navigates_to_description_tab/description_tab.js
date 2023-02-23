@@ -204,7 +204,7 @@ And('they see an option to cancel the funding source', () => {
 
 // Scenario: Creator adds funding from NFR
 When('they select NFR as a funding source', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).should('be.visible');
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
   cy.contains('Research Council of Norway').click();
 });
@@ -217,8 +217,8 @@ When('they select a NFR Project', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingNfrProjectSearchField).type('test');
   cy.contains('test').click();
 });
-Then('they can see the sum for the funding', () => {
-  cy.contains('Sum 0').should('not.exist');
+Then('they can add a sum for the funding', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSumField);
 });
 
 const fundingFields = {
