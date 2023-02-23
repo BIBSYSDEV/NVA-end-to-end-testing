@@ -217,8 +217,8 @@ When('they select a NFR Project', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingNfrProjectSearchField).type('test');
   cy.contains('test').click();
 });
-Then('they can see the sum for the funding', () => {
-  cy.contains('Sum 0').should('not.exist');
+Then('they can add a sum for the funding', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSumField);
 });
 
 const fundingFields = {
