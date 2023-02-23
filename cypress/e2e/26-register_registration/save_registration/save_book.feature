@@ -9,6 +9,11 @@ Feature: Save registration for Book
         And they can see the values in the Registration Wizard
 
         Examples:
-            | Subtype       |
-            | BookMonograph |
-            | BookAnthology |
+            | Subtype                 |
+            | AcademicMonograph       |
+            | NonFictionMonograph     |
+            | PopularScienceMonograph |
+            | Textbook                |
+            | Encyclopedia            |
+            | ExhibitionCatalog       |
+            | BookAnthology           |

@@ -30,14 +30,21 @@ user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
-request_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
-approve_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket/{}'
+create_ticket_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
+update_ticket_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket/{}'
 tickets_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/tickets'
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
 username = 'admin-user-testdata@test.no'
 username_curator = 'test-user-curator-draft-doi@test.no'
+username_curator_inst_2 = 'test-user-second-inst-curator-2@test.no'
+
+status_requested = 'Requested'
+status_approved = 'Approved'
+status_Rejected = 'Rejected'
+status_pending = 'Pending'
+status_close = 'Closed'
 
 arp_dict = {}
 file_dict = {}
@@ -252,10 +259,10 @@ def create_publication_data(publication_template, test_publication, username, cu
     print(new_publication['entityDescription']['mainTitle'])
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
-    if 'publication_content_type' in test_publication:
-        new_publication['entityDescription']['reference']['publicationInstance'][
-            'contentType'] = test_publication['publication_content_type']
-    new_publication['owner'] = username
+    # if 'publication_content_type' in test_publication:
+    #     new_publication['entityDescription']['reference']['publicationInstance'][
+    #         'contentType'] = test_publication['publication_content_type']
+    # new_publication['owner'] = username
     new_publication['publisher']['id'] = customer
     new_publication['status'] = status
 
@@ -349,6 +356,14 @@ def create_publications():
                 print(f'publishing...{identifier}')
                 response = publish_publication(identifier=identifier,
                                                username=username)
+            if 'ticket' in test_publication:
+                print('creating ticket...')
+                create_ticket(
+                    identifier=identifier,
+                    username=username,
+                    type=test_publication['ticket']['type'],
+                    status=test_publication['ticket']['status']
+                )
             if 'doi' in test_publication:
                 print('requesting doi...')
                 request_doi(identifier=identifier, username=username)
@@ -375,7 +390,7 @@ def request_doi(identifier, username):
         'type': 'DoiRequest',
         'message': 'Test'
     }
-    response = requests.post(request_doi_endpoint.format(STAGE, identifier),
+    response = requests.post(create_ticket_endpoint.format(STAGE, identifier),
                              json=doi_request_payload, headers=headers)
     check_response(response, 200)
 
@@ -393,11 +408,37 @@ def approve_doi(identifier):
             'type': 'DoiRequest',
             'status': 'Completed',
         }
-        response = requests.put(approve_doi_endpoint.format(STAGE, identifier, ticket_id),
+        response = requests.put(update_ticket_endpoint.format(STAGE, identifier, ticket_id),
                                 json=doi_request_payload, headers=headers)
         check_response(response, 202)
     else:
         print('DoiRequest not found in tickets')
+
+def create_ticket(identifier, username, type, status):
+    print(f'{identifier} - {username} - {type} - {status}')
+    request_bearer_token = common.login(username=username)
+    headers['Authorization'] = f'Bearer {request_bearer_token}'
+    ticket_payload = {
+        'type': type,
+        'message': 'Test'
+    }
+    response = requests.post(create_ticket_endpoint.format(STAGE, identifier),
+                            json=ticket_payload, headers=headers)
+    check_response(response, 200)
+    if status != status_requested:
+        request_bearer_token = common.login(username=username_curator_inst_2)
+        headers['Authorization'] = f'Bearer {request_bearer_token}'
+        request_payload = {
+            'type': type,
+            'status': status,
+        }
+        ticket_id = response.json()['identifier']
+        response = requests.put(update_ticket_endpoint.format(STAGE, identifier, ticket_id),
+                                json=request_payload, headers=headers)
+        print(response.json())
+        check_response(response, 200)
+
+
 
 def check_response(response, status_code):
     if response.status_code != status_code:

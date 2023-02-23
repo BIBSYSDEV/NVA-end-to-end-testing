@@ -77,8 +77,8 @@ Then('they can see the "Invalid ISBN" error message', () => {
   });
 });
 When('they click the Save button', () => {
-  cy.get('[data-testid=button-save-registration]').click();
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {

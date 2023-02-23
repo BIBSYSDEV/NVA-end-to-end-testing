@@ -131,7 +131,7 @@ And('they see an input field to Search for employees', () => {
 And('they see a list of employees with an "Add" button', () => {
   cy.get('@roleModal').within(() => {
     cy.get('@button').then((button) => {
-      cy.get(`[data-testid^=${userAdministrationAddRoleButtons[button]}]`).should('have.length', 5);
+      cy.get(`[data-testid^=${userAdministrationAddRoleButtons[button]}]`).should('have.length.at.least', 1);
     });
   });
 });

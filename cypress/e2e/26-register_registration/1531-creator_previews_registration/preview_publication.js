@@ -10,7 +10,7 @@ And('they navigate to the Files and License tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
 });
 When('they click Save and Present', () => {
-  cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
 });
 Then('they see the Landing Page for the Registration', () => {
   cy.location('pathname').should('contain', 'registration');

@@ -13,11 +13,12 @@ import {
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
+import { userSecondEditor } from './constants';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
 const awsSessionToken = Cypress.env('AWS_SESSION_TOKEN');
-const region = Cypress.env('AWS_REGION');
+const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
 const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'dev';
@@ -75,19 +76,18 @@ Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
     const randomPassword = `P%${uuidv4()}`;
-    let password = 'P%403f577d-edda-468c-ae77-c8e1a79cd665';
 
     const authorizeUser = {
       AuthFlow: authFlow,
       ClientId: clientId,
       AuthParameters: {
         USERNAME: userId,
-        PASSWORD: password,
+        PASSWORD: randomPassword,
       },
     };
 
     const passwordParams = {
-      Password: password,
+      Password: randomPassword,
       UserPoolId: userPoolId,
       Username: userId,
       Permanent: true,
@@ -99,7 +99,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
           if (data) {
             console.log(data);
             if (!data.ChallengeName) {
-              await Auth.signIn(userId, password);
+              await Auth.signIn(userId, randomPassword);
               resolve(data.AuthenticationResult.IdToken);
             }
           } else {
@@ -124,7 +124,7 @@ Cypress.Commands.add('login', (userId) => {
     cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.setLocalStorage('beta', 'true');
     // cy.mockPersonSearch(userId);
-    cy.mockDepartments();
+    // cy.mockDepartments();
     cy.visit(`/`, {
       auth: {
         username: Cypress.env('DEVUSER'),
@@ -142,12 +142,8 @@ Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
 
 Cypress.Commands.add('startWizardWithFile', (fileName) => {
   cy.startRegistrationWithFile(fileName);
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
-    .filter(':visible')
-    .should('be.enabled');
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
-    .filter(':visible')
-    .click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton).filter(':visible').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton).filter(':visible').click({ force: true });
 });
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
@@ -161,12 +157,8 @@ Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
 
 Cypress.Commands.add('startWizardWithLink', (doiLink) => {
   cy.startRegistrationWithLink(doiLink);
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
-    .filter(':visible')
-    .should('be.enabled');
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
-    .filter(':visible')
-    .click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton).filter(':visible').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton).filter(':visible').click({ force: true });
 });
 
 Cypress.Commands.add('startWizardWithEmptyRegistration', () => {
@@ -187,39 +179,32 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
   title = title ? `${title} ${today}` : `Title ${today}`;
-  cy.get('[data-testid=registration-title-field]').type(title);
-  cy.getDataTestId(dataTestId.registrationWizard.description.datePublishedField).type('01.01.2020');
+  cy.get('[data-testid=registration-title-field]').type(title, { delay: 0 });
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, '01.01.2020');
 
   // Reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 
-  cy.getDataTestId('resource-type-chip-BookMonograph').click({ force: true });
+  cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
 
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField)
-    .click({ force: true })
-    .type('Norges');
-  cy.contains('Norges forskningsråd').click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
-  cy.contains('Archaeology and Conservation').click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.contentField).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.contentValue('academicmonograph')).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges');
+  cy.contains('Norges byggforskningsinstitutt').click({ force: true });
 
   // Contributors
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Testuser Withauthor{enter}');
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton)
-    .first()
-    .click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Testuser Withauthor{enter}', { delay: 0 });
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).first().click({ force: true });
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click({ force: true });
 
   // Files and reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
   cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
-    cy.get('input[type=radio]').first().click();
+    cy.get('input[type=radio]').last().click();
   });
-  cy.get('[data-testid=uploaded-file-select-license]').click({ force: true }).type(' ');
+  cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
   cy.get('[data-testid=license-item]').first().click({ force: true });
 });
 
@@ -429,9 +414,7 @@ const fillInField = (field) => {
           cy.contains(field['add']['select']['value']).click();
         }
         cy.getDataTestId(field['add']['searchFieldTestId']).type(field['add']['searchValue']);
-        cy.getDataTestId(field['add']['resultsTestId'])
-          .filter(`:contains(${field['value']})`)
-          .click({ force: true });
+        cy.getDataTestId(field['add']['resultsTestId']).filter(`:contains(${field['value']})`).click({ force: true });
       }
       cy.getDataTestId(field['add']['selectButtonTestId']).click();
       break;
@@ -535,12 +518,14 @@ Cypress.Commands.add('checkContributors', (contributorRoles) => {
   });
 });
 
-Cypress.Commands.add('fillInCommonFields', () => {
+Cypress.Commands.add('fillInCommonFields', (hasFileVersion) => {
   Object.keys(registrationFields).forEach((key) => {
     cy.getDataTestId(registrationFields[key]['tab']).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
       const field = registrationFields[key][subkey];
-      fillInField(field);
+      if (subkey !== 'version' || hasFileVersion) {
+        fillInField(field);
+      }
     });
   });
 });
@@ -605,7 +590,11 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
         .then((dialog) => {
           cy.log(dialog);
         });
-      cy.get(`[role="dialog"] ${selector}`, { force: true }).last().find('input').clear().type(value);
+      cy.get(`[role="dialog"] ${selector}`, { force: true })
+        .last()
+        .find('input')
+        .clear({ force: true })
+        .type(value, { force: true });
       cy.contains('[role="dialog"] button', 'OK').click();
     } else {
       cy.get(selector)
@@ -616,4 +605,25 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       cy.get(selector).find('input').clear().type(value);
     }
   });
+});
+
+Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
+  cy.login(userSecondEditor);
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click({ force: true });
+});
+
+Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
+  cy.login(userSecondEditor);
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesMetadata).click({ force: true });
+});
+
+Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
+  cy.login(userSecondEditor);
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorRequiresApproval).click({ force: true });
 });

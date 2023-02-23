@@ -33,20 +33,20 @@ And('they see the tab Files and License is clickable', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).should('be.visible');
 });
 And('they see Previous is enabled', () => {
-  cy.get('[data-testid=button-previous-tab]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.previousTabButton).should('be.enabled');
 });
 And('they see Next is enabled', () => {
-  cy.get('[data-testid=button-next-tab]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).should('be.enabled');
 });
 And('they see Save is enabled', () => {
-  cy.get('[data-testid=button-save-registration').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
 
 //   Scenario: Creator sees that fields are validated on Resource Type tab
 
 And('they click the Save button', () => {
-  cy.get('[data-testid=button-save-registration]').click({ force: true });
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => { });
 // | Type |

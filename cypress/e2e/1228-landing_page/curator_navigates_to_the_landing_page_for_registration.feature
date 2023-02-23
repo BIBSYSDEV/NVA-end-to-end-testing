@@ -9,7 +9,8 @@ Feature: Curator navigates to the Landing Page for Registration
         And all files are Published
 
     Scenario Outline: Curator Rejects a Publishing Request
-        Given a Curator opens the Landing Page of a Registration
+        Given a Curator from a customer with Workflow "<Workflow>"
+        And they opens the Landing Page of a Registration
         And the Registration has a Publishing Request
         When they reject the Publishing Request
         Then the Registration is "<RegistrationStatus>"
@@ -19,6 +20,20 @@ Feature: Curator navigates to the Landing Page for Registration
             | Registrator can only publish metadata | Published          | Unpublished |
             | Only Curator can publish              | Draft              | Unpublished |
 
+    @TEST_NP-4127
+    @test
+    @358
+    Scenario: Curator opens a Registration from a DOI Request
+        Given that a Curator views their Worklist
+        And they have selected the DOI Requests tab
+        And they have expanded an Message
+        When they click "Go to registration"
+        Then they see the Landing Page for the DOI Request's Registration
+        And the Create DOI button is enabled
+        And the Decline DOI button is enabled
+
+
+    @test
     Scenario: Curator Approves a DOI Request
         Given a Curator opens the Landing Page of a Registration
         And the Registration is Published
@@ -26,6 +41,7 @@ Feature: Curator navigates to the Landing Page for Registration
         When they approve the DOI Request
         Then the DOI is findable
 
+    @test
     Scenario: Curator Rejects a DOI Request
         Given a Curator opens the Landing Page of a Registration
         And the Registration is Published

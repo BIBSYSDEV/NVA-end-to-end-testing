@@ -51,20 +51,20 @@ And('they see the tab Files and License is clickable', () => {
 });
 And('they see a Button for creating a new Project is enabled', () => { });
 And('they see Next is enabled', () => {
-  cy.get('[data-testid=button-next-tab]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).should('be.enabled');
 });
 And('they see Save is enabled', () => {
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
 
 // Scenario: Creator sees that fields are validated on Description tab
 And('they click the Save button', () => {
-  cy.get('[data-testid=button-save-registration]').click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
   cy.get('[data-testid=snackbar-success]');
   cy.get('[data-testid=snackbar-success]').should('not.exist');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${descriptionFields[field]}]`).within(() => {
       cy.contains('is required');
@@ -170,23 +170,71 @@ Then('they can see an input field for the Default Vocabulary', () => {
 // TODO implement when project fully implemented
 
 // Scenario: Creator opens Dialog for creating a new Project
-When('they click Button for creating a new Project', () => { })
-Then('they see a Dialog with input fields:', () => { })
+When('they click Button for creating a new Project', () => { });
+Then('they see a Dialog with input fields:', () => { });
 // | Project Title            |
 // | Coordinating Institution |
 // | Project Manager          |
 // | Start Date               |
 // | Internal reference       |
-And('they see a Cancel Button', () => { })
-And('they see a Save Button', () => { })
+And('they see a Cancel Button', () => { });
+And('they see a Save Button', () => { });
 
 // Scenario: Creator creates a new Project
-Given('Creator opens Dialog for creating a new Project', () => { })
-When('they enter a Project Title', () => { })
-And('they select a Coordinating Institution', () => { })
-And('​they select a Project Manager', () => { })
-And('they set a Start Date', () => { })
-And('they click Save', () => { })
-Then('the Dialog is closed', () => { })
-And('they see a confirmation message that the Project was created', () => { })
-And('they see the Project is listed under Project Associations', () => { })
+Given('Creator opens Dialog for creating a new Project', () => { });
+When('they enter a Project Title', () => { });
+And('they select a Coordinating Institution', () => { });
+And('​they select a Project Manager', () => { });
+And('they set a Start Date', () => { });
+And('they click Save', () => { });
+Then('the Dialog is closed', () => { });
+And('they see a confirmation message that the Project was created', () => { });
+And('they see the Project is listed under Project Associations', () => { });
+
+// Scenario: Creator adds funding
+And('they add funding', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.addFundingButton).click();
+});
+Then('they can select a funding source', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).should('be.visible');
+});
+And('they see an option to cancel the funding source', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingRemoveButton).should('be.visible');
+});
+
+// Scenario: Creator adds funding from NFR
+When('they select NFR as a funding source', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
+  cy.contains('Research Council of Norway').click();
+});
+Then('they can search for NFR Project', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingNfrProjectSearchField).should('be.visible');
+});
+
+// Scenario: Creator adds funding from a NFR Project
+When('they select a NFR Project', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingNfrProjectSearchField).type('test');
+  cy.contains('test').click();
+});
+Then('they can see the sum for the funding', () => {
+  cy.contains('Sum 0').should('not.exist');
+});
+
+const fundingFields = {
+  'Project name': dataTestId.registrationWizard.description.fundingProjectField,
+  'ID': dataTestId.registrationWizard.description.fundingIdField,
+  'Sum': dataTestId.registrationWizard.description.fundingSumField,
+}
+
+// Scenario: Creator adds funding from a non-NFR funding source
+When('they select a non-NFR funding source', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
+  cy.contains('Agder Research Foundation').click();
+});
+Then('they can register:', (dataTable) => {
+  cy.testDataTestidList(dataTable, fundingFields);
+});
+// | Project name |
+// | ID           |
+// | Sum          |

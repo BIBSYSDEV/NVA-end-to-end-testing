@@ -55,8 +55,8 @@ Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
   cy.get(`[data-testid^=resource-type-chip-Degree]`).first().click()
 });
 When('they click the Save button', () => {
-  cy.get('[data-testid=button-save-registration]').click({ force: true });
-  cy.get('[data-testid=button-save-registration]').should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   dataTable.rawTable.forEach((field) => {

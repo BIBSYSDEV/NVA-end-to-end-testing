@@ -37,8 +37,8 @@ export const adminMenu = {
 };
 
 export const profilePageFields = {
-  'Real name': 'user-name',
-  'Feide ID': 'user-id',
+  'Real name': 'full-name-field',
+  'Feide ID': 'cristin-id-field',
   'Email': 'user-id',
   'ORCID': 'orcid-line',
   'Roles': 'user-role-creator',
@@ -78,9 +78,9 @@ export const userAdministrationRemoveRoleButtons = {
 
 export const myInstitutionFields = {
   'Name in organization registry': dataTestId.organization.searchField,
-  'Display name': dataTestId.institutionAdmin.displayNameField,
-  'Short display name': dataTestId.institutionAdmin.shortNameField,
-  'Archive name': dataTestId.institutionAdmin.archiveNameField,
+  'Display name': dataTestId.basicData.institutionAdmin.displayNameField,
+  'Short display name': dataTestId.basicData.institutionAdmin.shortNameField,
+  'Archive name': dataTestId.basicData.institutionAdmin.archiveNameField,
 };
 
 export const myinstitutionfieldsTestvalue = {
@@ -91,18 +91,19 @@ export const myinstitutionfieldsTestvalue = {
 
 export const institutionFields = {
   ...myInstitutionFields,
-  'Feide Organization ID': dataTestId.institutionAdmin.feideField,
+  'Feide Organization ID': dataTestId.basicData.institutionAdmin.feideField,
+  'ROR ID': dataTestId.basicData.institutionAdmin.rorField,
 };
 export const myRegistrations = {
   'Title': 'registration-title',
   'Status': 'registration-status',
   'Created': 'registration-created',
-}
+};
 
 export const myRegistrationsButtons = {
   'Show': 'open-registration',
   'Edit': 'edit-registration',
-}
+};
 
 export const resourceTypes = {
   'Contribution to journal': 'publication-context-type-Journal',
@@ -119,7 +120,12 @@ export const resourceTypes = {
 };
 
 export const journalSubtypes = {
-  'Journal article': 'resource-type-chip-JournalArticle',
+  'Academic article': 'resource-type-chip-AcademicArticle',
+  'Academic literature review': 'resource-type-chip-AcademicLiteratureReview',
+  'Case report': 'resource-type-chip-CaseReport',
+  'Study protocol': 'resource-type-chip-StudyProtocol',
+  'Professional article': 'resource-type-chip-ProfessionalArticle',
+  'Popular science article': 'resource-type-chip-PopularScienceArticle',
   'Commentary': 'resource-type-chip-JournalLetter',
   'Book review': 'resource-type-chip-JournalReview',
   'Editorial': 'resource-type-chip-JournalLeader',
@@ -138,43 +144,30 @@ export const journalFields = {
   'Pages to': dataTestId.registrationWizard.resourceType.pagesToField,
   'Peer reviewed': 'peer_review-true',
   'Peer reviewed and presents new research': 'peer-review-field',
-  'Search box for Journal': dataTestId.registrationWizard.resourceType.journalField,
+  'Search field for Journal': dataTestId.registrationWizard.resourceType.journalField,
   'Search-box for Journal': dataTestId.registrationWizard.resourceType.journalField,
-  'Search box for "Journal article"': dataTestId.registrationWizard.resourceType.corrigendumForField,
+  'Search field for Journal article': dataTestId.registrationWizard.resourceType.corrigendumForField,
   'Search box for published books': '',
   'Volume': 'volume-field',
 };
 
-export const journalContentTypes = {
-  'Academic article': dataTestId.registrationWizard.resourceType.contentValue('academicarticle'),
-  'Academic literature review': dataTestId.registrationWizard.resourceType.contentValue('academicliteraturereview'),
-  'Case report': dataTestId.registrationWizard.resourceType.contentValue('casereport'),
-  'Study protocol': dataTestId.registrationWizard.resourceType.contentValue('studyprotocol'),
-  'Professional article': dataTestId.registrationWizard.resourceType.contentValue('professionalarticle'),
-  'Popular science article': dataTestId.registrationWizard.resourceType.contentValue('popularsciencearticle'),
-};
-
 export const bookSubtypes = {
-  'Monograph': 'resource-type-chip-BookMonograph',
+  'Academic Monograph': 'resource-type-chip-AcademicMonograph',
   'Anthology': 'resource-type-chip-BookAnthology',
+  'Non-fiction Monograph': 'resource-type-chip-NonFictionMonograph',
+  'Popular Science Monograph': 'resource-type-chip-PopularScienceMonograph',
+  'Textbook': 'resource-type-chip-Textbook',
+  'Encyclopedia': 'resource-type-chip-Encyclopedia',
+  'Exhibition catalog': 'resource-type-chip-ExhibitionCatalog',
 };
 
 export const bookFields = {
   'Publisher': dataTestId.registrationWizard.resourceType.publisherField,
+  'NPI discipline': dataTestId.registrationWizard.resourceType.scientificSubjectField,
   'ISBN': dataTestId.registrationWizard.resourceType.isbnField,
   'Total number of pages': dataTestId.registrationWizard.resourceType.pagesField,
-  'NPI discipline': dataTestId.registrationWizard.resourceType.scientificSubjectField,
-  'Series title': dataTestId.registrationWizard.resourceType.seriesField,
+  'Series': dataTestId.registrationWizard.resourceType.seriesField,
   'Series number': dataTestId.registrationWizard.resourceType.seriesNumber,
-};
-
-export const contentType = {
-  'Academic Monograph': dataTestId.registrationWizard.resourceType.contentValue('academicmonograph'),
-  'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.contentValue('nonfictionmonograph'),
-  'Popular Science Monograph': dataTestId.registrationWizard.resourceType.contentValue('popularsciencemonograph'),
-  'Textbook': dataTestId.registrationWizard.resourceType.contentValue('textbook'),
-  'Encyclopedia': dataTestId.registrationWizard.resourceType.contentValue('encyclopedia'),
-  'Exhibition catalog': dataTestId.registrationWizard.resourceType.contentValue('exhibitioncatalog'),
 };
 
 export const reportSubtypes = {
@@ -211,8 +204,8 @@ export const studentThesisFields = {
 };
 
 export const chapterSubtypes = {
-  'Chapter of Anthology': 'resource-type-chip-ChapterArticle',
-  'Chapter in Anthology': 'resource-type-chip-ChapterArticle',
+  'Chapter of Anthology': 'resource-type-chip-AcademicChapter',
+  'Chapter in Anthology': 'resource-type-chip-AcademicChapter',
   'Chapter in Report': 'resource-type-chip-ChapterInReport',
   'Conference abstract': 'resource-type-chip-ChapterConferenceAbstract',
 };
@@ -233,16 +226,6 @@ export const chapterContainerField = {
   'Search box for published Anthologies': dataTestId.registrationWizard.resourceType.partOfField,
   'Search box for published Reports': dataTestId.registrationWizard.resourceType.partOfField,
   'Search box for published Abstract Collections': dataTestId.registrationWizard.resourceType.partOfField,
-};
-
-export const chapterContentTypes = {
-  'Academic Chapter': 'content-value-academicchapter',
-  'Non-fiction Chapter': 'content-value-nonfictionchapter',
-  'Popular Science Chapter': 'content-value-popularsciencechapter',
-  'Textbook Chapter': 'content-value-textbookchapter',
-  'Encyclopedia Chapter': 'content-value-encyclopediachapter',
-  'Introduction': 'content-value-introduction',
-  'Exhibition Catalog Chapter': 'content-value-exhibitioncatalogchapter',
 };
 
 export const artisticSubtypes = {
@@ -426,12 +409,12 @@ export const literaryArtsAnnouncements = {
   'Web Publication': dataTestId.registrationWizard.resourceType.addWebPublicationButton,
   'Performance': dataTestId.registrationWizard.resourceType.addPerformanceButton,
   'Audio/Visual Publication': dataTestId.registrationWizard.resourceType.addAudioVideoButton,
-}
+};
 
 export const literaryArtsBookFields = {
   'Publisher': {
     'field': dataTestId.registrationWizard.resourceType.publisherNameField,
-    'value': 'Test literary arts book publisher'
+    'value': 'Test literary arts book publisher',
   },
   'Year': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -443,15 +426,14 @@ export const literaryArtsBookFields = {
   },
   'Total pages': {
     'field': dataTestId.registrationWizard.resourceType.pagesField,
-    'value': '666'
+    'value': '666',
   },
-
-}
+};
 
 export const literaryArtsPerformanceFields = {
   'Type of Performance': {
     'field': dataTestId.registrationWizard.resourceType.artisticSubtype,
-    'value': 'Reading'
+    'value': 'Reading',
   },
   'Date': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -461,12 +443,12 @@ export const literaryArtsPerformanceFields = {
     'field': dataTestId.registrationWizard.resourceType.placeField,
     'value': 'Performance place',
   },
-}
+};
 
 export const literaryArtsWebFields = {
   'Publisher': {
     'field': dataTestId.registrationWizard.resourceType.publisherNameField,
-    'value': 'Test literary arts web publisher'
+    'value': 'Test literary arts web publisher',
   },
   'Year': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -476,12 +458,12 @@ export const literaryArtsWebFields = {
     'field': dataTestId.registrationWizard.resourceType.linkField,
     'value': 'https://test.no',
   },
-}
+};
 
 export const literaryArtsAudioVisualFields = {
   'Publisher': {
     'field': dataTestId.registrationWizard.resourceType.publisherNameField,
-    'value': 'Test literary arts audio/visual publisher'
+    'value': 'Test literary arts audio/visual publisher',
   },
   'Year': {
     'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
@@ -499,7 +481,7 @@ export const literaryArtsAudioVisualFields = {
     'field': dataTestId.registrationWizard.resourceType.linkField,
     'value': '666',
   },
-}
+};
 
 export const presentationSubtypes = {
   'Conference lecture': dataTestId.registrationWizard.resourceType.resourceTypeChip('ConferenceLecture'),
@@ -569,7 +551,7 @@ export const contributorCreateFields = {
 export const fileFields = {
   'Version': dataTestId.registrationWizard.files.version,
   'Terms of use': dataTestId.registrationWizard.files.selectLicenseField,
-}
+};
 
 export const landingPageFields = {
   'Title': dataTestId.registrationLandingPage.registrationSubtype,
@@ -598,3 +580,57 @@ export const landingPageShareButtons = {
   LinkedIn: dataTestId.registrationLandingPage.linkedInButton,
   Twitter: dataTestId.registrationLandingPage.twitterButton,
 };
+
+export const contributorTypes = {
+  'Author': 'Creator',
+  'Editor': 'Editor',
+  'Contact person': 'ContactPerson',
+  'Rights holder': 'RightsHolder',
+  'Other': 'Other',
+  'Supervisor': 'Supervisor',
+  'Designer': 'Designer',
+  'Curator/Organizer': 'CuratorOrganizer',
+  'Consultant': 'Consultant',
+  'Architect': 'Architect',
+  'Landscape architect': 'LandscapeArchitect',
+  'Interior architect': 'InteriorArchitect',
+  'Architectural planner': 'ArchitecturalPlanner',
+  'Dancer': 'Dancer',
+  'Actor': 'Actor',
+  'Choreographer': 'Choreographer',
+  'Director': 'Director',
+  'Scenographer': 'Scenographer',
+  'Costume designer': 'CostumeDesigner',
+  'Producer': 'Producer',
+  'Artistic director': 'ArtisticDirector',
+  'Dramatist': 'Dramatist',
+  'Librettist': 'Librettist',
+  'Dramaturge': 'Dramaturge',
+  'Sound designer': 'SoundDesigner',
+  'Light designer': 'LightDesigner',
+  'Screenwriter': 'Screenwriter',
+  'Photographer': 'Photographer',
+  'Production designer': 'ProductionDesigner',
+  'Video editor': 'VideoEditor',
+  'Sound design': 'SoundDesigner',
+  'VFX Supervisor': 'VfxSupervisor',
+  'Soloist': 'Soloist',
+  'Conductor': 'Conductor',
+  'Musician': 'Musician',
+  'Composer': 'Composer',
+  'Organizer': 'Organizer',
+  'Writer': 'Writer',
+  'Translator': 'TranslatorAdapter',
+  'Artist': 'Artist',
+  'Curator': 'Curator',
+  'Journalist': 'Journalist',
+  'Interviewee': 'InterviewSubject',
+  'Program host': 'ProgrammeLeader',
+  'Participant': 'ProgrammeParticipant',
+  'Data collector': 'DataCollector',
+  'Data curator': 'DataCurator',
+  'Data manager': 'DataManager',
+  'Distributor': 'Distributor',
+  'Related person': 'RelatedPerson',
+  'Researcher': 'Researcher',
+}
