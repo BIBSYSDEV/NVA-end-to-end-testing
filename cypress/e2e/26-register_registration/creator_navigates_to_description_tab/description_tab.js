@@ -204,7 +204,7 @@ And('they see an option to cancel the funding source', () => {
 
 // Scenario: Creator adds funding from NFR
 When('they select NFR as a funding source', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).should('be.enabled');
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
   cy.contains('Research Council of Norway').click();
 });
