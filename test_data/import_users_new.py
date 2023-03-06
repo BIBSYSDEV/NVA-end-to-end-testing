@@ -18,6 +18,7 @@ USERS_ROLES_TABLE_NAME = ssm.get_parameter(Name='/test/UserTable',
 customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
                                        WithDecryption=False)['Parameter']['Value']
 
+print(USERS_ROLES_TABLE_NAME)
 def createHeaders(accessToken):
     return {
         'Authorization': f'Bearer {accessToken}',
@@ -54,7 +55,7 @@ def createCristinEmploymentPayload(organization):
         "organization": organization ,
         "fullTimeEquivalentPercentage": 100,
         "startDate": "2020-01-01T01:01:01.000Z",
-        "type": "https://api.dev.nva.aws.unit.no/position#1087"
+        "type": f'https://api.{STAGE}.nva.aws.unit.no/position#1087'
     }
 
 def organizationExists(affiliations, organization):
@@ -75,7 +76,7 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
         if response.status_code != 201:
             print(payload)
             print(response.text)
-        cristinPersonId = response.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
+        cristinPersonId = response.json()['id'].replace(f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
         time.sleep(10)
     if not cristinPersonId == '':
         updateAffiliations = True
@@ -148,8 +149,8 @@ def importUsers(test_users_file_name):
     cristinOrgId = ''
     for customer in customersScan:
         if 'cristinId' in customer and not customer['cristinId']['S'] == '':
-            cristinOrgId = customer['cristinId']['S'].replace('https://api.dev.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
-            customers[cristinOrgId] = f'https://api.dev.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
+            cristinOrgId = customer['cristinId']['S'].replace(f'https://api.{STAGE}.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
+            customers[cristinOrgId] = f'https://api.{STAGE}.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
 
     with open(test_users_file_name) as test_users_file:
 
