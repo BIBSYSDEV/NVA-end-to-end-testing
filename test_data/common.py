@@ -11,8 +11,8 @@ customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
                                        WithDecryption=False)['Parameter']['Value']
 username = 'test-user-with-author@test.no'
 
-clientId = '7vt27od1nkei5mepcv3df98c5k'
-secret = '3looqcjbolfvue8flaajrjbnqu3l9v6u1sibmp58n8og9v6gers'
+clientId = '1nbiuinkdappc61f8igc82mie8'
+secret = '10lcd99qlhu86qfkbicci0gtoit0fqmai40r7dnrm1nm04d8m9v7'
 
 def login(username):
     client = boto3.client('cognito-idp')
