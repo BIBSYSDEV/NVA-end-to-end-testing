@@ -145,6 +145,7 @@ def importUsers(test_users_file_name):
     accessToken = common.getBackendAccessToken()
 
     customersScan = common.scan_customers()
+    print(customersScan)
     customers = {}
     cristinOrgId = ''
     for customer in customersScan:
