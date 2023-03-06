@@ -41,7 +41,7 @@ def scan_customers():
     return response['Items']
 
 def getBackendAccessToken():
-    url = "https://nva-dev.auth.eu-west-1.amazoncognito.com/oauth2/token"
+    url = "https://nva-e2e.auth.eu-west-1.amazoncognito.com/oauth2/token"
 
     payload='grant_type=client_credentials'
     headers = {
