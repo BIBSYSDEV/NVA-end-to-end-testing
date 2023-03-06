@@ -92,7 +92,7 @@ export const userPublishRegistration = 'test-user-publish-registration@test.no';
 export const userResearchDataset = 'test-user-research-dataset@test.no';
 export const userSecondEditor = 'test-user-second-editor@test.no';
 export const userContributors = 'test-user-contributors@test.no';
-
+export const userProject = 'test-user-project@test.no';
 const userData = {
   name: '',
   orgunitids: ['https://api.cristin.no/v2/institutions/1111111111'],
@@ -184,4 +184,5 @@ export const user = {
   [userResearchDataset]: { ...userData, name: 'TestUser, Research dataset' },
   [userSecondEditor]: { ...userData, name: 'TestUser, Second Institution-Editor' },
   [userContributors]: { ...userData, name: 'TestUser, Contributors' },
+  [userProject]: { ...userData, name: 'TestUser, Project' },
 };

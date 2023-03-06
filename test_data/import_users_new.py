@@ -5,9 +5,18 @@ import common
 import time
 import sys
 
-apiUrl = 'https://api.dev.nva.aws.unit.no/'
-USER_POOL_ID = 'eu-west-1_nLV9i5X5D'
-USERS_ROLES_TABLE_NAME = 'nva-users-and-roles-master-pipelines-NvaIdentityService-WLJCBMUDMRYZ-nva-identity-service'
+ssm = boto3.client('ssm')
+STAGE = ssm.get_parameter(Name='/test/Stage',
+                          WithDecryption=False)['Parameter']['Value']
+apiUrl = f'https://api.{STAGE}.nva.aws.unit.no/'
+USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
+                                 WithDecryption=False)['Parameter']['Value']
+CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
+                              WithDecryption=False)['Parameter']['Value']
+USERS_ROLES_TABLE_NAME = ssm.get_parameter(Name='/test/UserTable',
+                                       WithDecryption=False)['Parameter']['Value']
+customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
+                                       WithDecryption=False)['Parameter']['Value']
 
 def createHeaders(accessToken):
     return {
