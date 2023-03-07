@@ -21,7 +21,8 @@ const awsSessionToken = Cypress.env('AWS_SESSION_TOKEN');
 const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
 const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
-const stage = Cypress.env('STAGE') ?? 'dev';
+// const stage = Cypress.env('STAGE') ?? 'e2e';
+const stage = 'e2e';
 
 AWS.config.update({
   accessKeyId: awsAccessKeyId,
@@ -33,7 +34,7 @@ AWS.config.update({
 const amplifyConfig = {
   Auth: {
     region: region,
-    userPoolId: userPoolId,
+    userPoolId: 'eu-west-1_lfd37eQxM',
     userPoolWebClientId: '3rls7ad53ldmjvdbj7p8fii18q',
   },
 };
