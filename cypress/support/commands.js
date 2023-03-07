@@ -34,7 +34,7 @@ const amplifyConfig = {
   Auth: {
     region: region,
     userPoolId: userPoolId,
-    userPoolWebClientId: '3rls7ad53ldmjvdbj7p8fii18q',
+    userPoolWebClientId: '4ekg7vjqp0upin62bp3ikj00ts',
   },
 };
 
