@@ -4,6 +4,7 @@ import boto3
 import common
 import time
 import sys
+import uuid
 
 ssm = boto3.client('ssm')
 STAGE = ssm.get_parameter(Name='/test/Stage',
@@ -106,9 +107,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
         print(payload)
         print(response.json())
 
-    secretsManager = boto3.client('secretsmanager')
-    password = secretsManager.get_secret_value(SecretId='E2ETestUserPassword')['SecretString']
-    tempPassword = 'P%temp123'
+    tempPassword = f'P_{str(uuid.uuid4())}'
 
     client = boto3.client('cognito-idp')
 
