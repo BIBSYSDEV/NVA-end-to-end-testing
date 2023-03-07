@@ -119,7 +119,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
         print(payload)
         print(response.json())
 
-    tempPassword = f'P%1234abcd'
+    tempPassword = 'P%1234abcd'
 
     client = boto3.client('cognito-idp')
 
