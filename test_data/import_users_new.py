@@ -15,16 +15,19 @@ USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
 CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 USERS_ROLES_TABLE_NAME = ssm.get_parameter(Name='/test/UserTable',
-                                       WithDecryption=False)['Parameter']['Value']
+                                           WithDecryption=False)['Parameter']['Value']
 customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
                                        WithDecryption=False)['Parameter']['Value']
 
 print(USERS_ROLES_TABLE_NAME)
+
+
 def createHeaders(accessToken):
     return {
         'Authorization': f'Bearer {accessToken}',
         'Content-type': 'application/json'
     }
+
 
 def findCristinPerson(accessToken, nin):
     url = f'{apiUrl}cristin/person/identityNumber'
@@ -37,33 +40,37 @@ def findCristinPerson(accessToken, nin):
 
     return response
 
+
 def createCristinPayload(nin, firstName, lastName):
     return {
         "identifiers": [
-            { "type": "NationalIdentificationNumber","value": nin}
+            {"type": "NationalIdentificationNumber", "value": nin}
         ],
         "names": [
-            { "type": "PreferredFirstName", "value": firstName },
-            { "type": "PreferredLastName", "value": lastName },
-            { "type": "FirstName", "value": firstName },
-            { "type": "LastName","value": lastName}
+            {"type": "PreferredFirstName", "value": firstName},
+            {"type": "PreferredLastName", "value": lastName},
+            {"type": "FirstName", "value": firstName},
+            {"type": "LastName", "value": lastName}
         ]
     }
+
 
 def createCristinEmploymentPayload(organization):
     return {
         "endDate": "2030-05-10T09:32:11.598Z",
-        "organization": organization ,
+        "organization": organization,
         "fullTimeEquivalentPercentage": 100,
         "startDate": "2020-01-01T01:01:01.000Z",
         "type": f'https://api.{STAGE}.nva.aws.unit.no/position#1087'
     }
+
 
 def organizationExists(affiliations, organization):
     for affiliation in affiliations:
         if affiliation['organization'] == organization:
             return True
     return False
+
 
 def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
     createUrl = f'{apiUrl}cristin/person'
@@ -72,25 +79,30 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
     cristinPersonId = ''
     if existingPerson.status_code == 404:
         print('Creating Cristin person...')
-        payload = createCristinPayload(nin=nin, firstName=firstName, lastName=lastName)
+        payload = createCristinPayload(
+            nin=nin, firstName=firstName, lastName=lastName)
         response = requests.post(url=createUrl, headers=headers, json=payload)
         if response.status_code != 201:
             print(payload)
             print(response.text)
-        cristinPersonId = response.json()['id'].replace(f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
+        cristinPersonId = response.json()['id'].replace(
+            f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
         time.sleep(10)
     if not cristinPersonId == '':
         updateAffiliations = True
         if 'affiliations' in existingPerson.json():
-            updateAffiliations = not organizationExists(existingPerson.json()['affiliations'], cristinOrgId)
+            updateAffiliations = not organizationExists(
+                existingPerson.json()['affiliations'], cristinOrgId)
         if updateAffiliations:
             updateUrl = f'{apiUrl}cristin/person/{cristinPersonId}/employment'
             payload = createCristinEmploymentPayload(organization=cristinOrgId)
-            response = requests.post(url=updateUrl, json=payload, headers=headers)
+            response = requests.post(
+                url=updateUrl, json=payload, headers=headers)
     else:
         print('Employment exists...')
 
     return cristinPersonId
+
 
 def createNvaUser(accessToken, nin, customer, roles, username):
     print('Creating NVA user...')
@@ -107,7 +119,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
         print(payload)
         print(response.json())
 
-    tempPassword = f'P_{str(uuid.uuid4())}'
+    tempPassword = f'P%1234abcd'
 
     client = boto3.client('cognito-idp')
 
@@ -150,7 +162,8 @@ def importUsers(test_users_file_name):
     cristinOrgId = ''
     for customer in customersScan:
         if 'cristinId' in customer and not customer['cristinId']['S'] == '':
-            cristinOrgId = customer['cristinId']['S'].replace(f'https://api.{STAGE}.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
+            cristinOrgId = customer['cristinId']['S'].replace(
+                f'https://api.{STAGE}.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
             customers[cristinOrgId] = f'https://api.{STAGE}.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
 
     print(customers)
@@ -169,15 +182,19 @@ def importUsers(test_users_file_name):
             username = test_user['username']
             print(f'Creating {firstName} {lastName}')
 
-            createCristinPerson(accessToken=accessToken, nin=nin, firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId)
+            createCristinPerson(accessToken=accessToken, nin=nin,
+                                firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId)
             if not 'cristinUser' in test_user:
-                createNvaUser(accessToken=accessToken, nin=nin, customer=customer, roles=roles, username=username)
+                createNvaUser(accessToken=accessToken, nin=nin,
+                              customer=customer, roles=roles, username=username)
+
 
 def createNin():
     with open('./users/nin.txt') as nin_file:
         for nin in nin_file:
             nin = nin.replace('\n', '')
             print(f'    "nin": "{nin}",')
+
 
 def deleteUsers(admin):
     print('deleting from DynamoDb...')
@@ -197,16 +214,18 @@ def deleteUsers(admin):
                     response = client.delete_item(
                         TableName=USERS_ROLES_TABLE_NAME,
                         Key={'PrimaryKeyHashKey': {
-                                'S': user['PrimaryKeyHashKey']['S']
-                            },
+                            'S': user['PrimaryKeyHashKey']['S']
+                        },
                             'PrimaryKeyRangeKey': {
                                 'S': user['PrimaryKeyRangeKey']['S']
-                            }
+                        }
                         })
+
 
 def run(user_file, admin):
     deleteUsers(admin=admin)
     importUsers(test_users_file_name=user_file)
+
 
 if __name__ == '__main__':
     admin = False

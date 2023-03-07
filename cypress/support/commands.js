@@ -21,8 +21,7 @@ const awsSessionToken = Cypress.env('AWS_SESSION_TOKEN');
 const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
 const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
-// const stage = Cypress.env('STAGE') ?? 'e2e';
-const stage = 'e2e';
+const stage = Cypress.env('STAGE') ?? 'e2e';
 
 AWS.config.update({
   accessKeyId: awsAccessKeyId,
@@ -76,7 +75,8 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
-    const randomPassword = `P%${uuidv4()}`;
+    // const randomPassword = `P%${uuidv4()}`;
+    const randomPassword = `P%1234abcd`;
 
     const authorizeUser = {
       AuthFlow: authFlow,
