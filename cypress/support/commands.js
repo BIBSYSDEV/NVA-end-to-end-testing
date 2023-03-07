@@ -74,8 +74,6 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
 
 Cypress.Commands.add('loginCognito', (userId) => {
   const randomPassword = `P%1234abcd`;
-  cy.log(userId)
-  cy.log(randomPassword)
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
     // const randomPassword = `P%${uuidv4()}`;
