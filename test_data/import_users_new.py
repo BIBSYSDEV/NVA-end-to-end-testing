@@ -4,11 +4,22 @@ import boto3
 import common
 import time
 import sys
+import uuid
 
-apiUrl = 'https://api.dev.nva.aws.unit.no/'
-USER_POOL_ID = 'eu-west-1_nLV9i5X5D'
-USERS_ROLES_TABLE_NAME = 'nva-users-and-roles-master-pipelines-NvaIdentityService-WLJCBMUDMRYZ-nva-identity-service'
+ssm = boto3.client('ssm')
+STAGE = ssm.get_parameter(Name='/test/Stage',
+                          WithDecryption=False)['Parameter']['Value']
+apiUrl = f'https://api.{STAGE}.nva.aws.unit.no/'
+USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
+                                 WithDecryption=False)['Parameter']['Value']
+CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
+                              WithDecryption=False)['Parameter']['Value']
+USERS_ROLES_TABLE_NAME = ssm.get_parameter(Name='/test/UserTable',
+                                       WithDecryption=False)['Parameter']['Value']
+customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
+                                       WithDecryption=False)['Parameter']['Value']
 
+print(USERS_ROLES_TABLE_NAME)
 def createHeaders(accessToken):
     return {
         'Authorization': f'Bearer {accessToken}',
@@ -45,7 +56,7 @@ def createCristinEmploymentPayload(organization):
         "organization": organization ,
         "fullTimeEquivalentPercentage": 100,
         "startDate": "2020-01-01T01:01:01.000Z",
-        "type": "https://api.dev.nva.aws.unit.no/position#1087"
+        "type": f'https://api.{STAGE}.nva.aws.unit.no/position#1087'
     }
 
 def organizationExists(affiliations, organization):
@@ -66,7 +77,7 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
         if response.status_code != 201:
             print(payload)
             print(response.text)
-        cristinPersonId = response.json()['id'].replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')
+        cristinPersonId = response.json()['id'].replace(f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
         time.sleep(10)
     if not cristinPersonId == '':
         updateAffiliations = True
@@ -96,9 +107,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
         print(payload)
         print(response.json())
 
-    secretsManager = boto3.client('secretsmanager')
-    password = secretsManager.get_secret_value(SecretId='E2ETestUserPassword')['SecretString']
-    tempPassword = 'P%temp123'
+    tempPassword = f'P_{str(uuid.uuid4())}'
 
     client = boto3.client('cognito-idp')
 
@@ -135,13 +144,16 @@ def importUsers(test_users_file_name):
     accessToken = common.getBackendAccessToken()
 
     customersScan = common.scan_customers()
+    print('CustomersScan:')
+    print(customersScan)
     customers = {}
     cristinOrgId = ''
     for customer in customersScan:
         if 'cristinId' in customer and not customer['cristinId']['S'] == '':
-            cristinOrgId = customer['cristinId']['S'].replace('https://api.dev.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
-            customers[cristinOrgId] = f'https://api.dev.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
+            cristinOrgId = customer['cristinId']['S'].replace(f'https://api.{STAGE}.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
+            customers[cristinOrgId] = f'https://api.{STAGE}.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
 
+    print(customers)
     with open(test_users_file_name) as test_users_file:
 
         test_users = json.load(test_users_file)
