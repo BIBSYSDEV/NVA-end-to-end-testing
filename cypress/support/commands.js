@@ -33,8 +33,8 @@ AWS.config.update({
 const amplifyConfig = {
   Auth: {
     region: region,
-    userPoolId: 'eu-west-1_lfd37eQxM',
-    userPoolWebClientId: '3rls7ad53ldmjvdbj7p8fii18q',
+    userPoolId: userPoolId,
+    userPoolWebClientId: clientId,
   },
 };
 
@@ -74,6 +74,9 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
 
 Cypress.Commands.add('loginCognito', (userId) => {
   const randomPassword = `P%1234abcd`;
+  console.log('userId = ' + userId);
+  console.log(randomPassword);
+  console.log(amplifyConfig);
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
     // const randomPassword = `P%${uuidv4()}`;
@@ -95,11 +98,15 @@ Cypress.Commands.add('loginCognito', (userId) => {
     };
 
     identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+      console.log(passwordParams);
       if (data) {
         identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+          console.log(authorizeUser);
           if (data) {
             console.log(data);
             if (!data.ChallengeName) {
+              console.log('userId = ' + userId);
+              console.log(randomPassword);
               await Auth.signIn(userId, randomPassword);
               resolve(data.AuthenticationResult.IdToken);
             }
