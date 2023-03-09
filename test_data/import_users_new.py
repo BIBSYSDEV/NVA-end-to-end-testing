@@ -157,7 +157,6 @@ def importUsers(test_users_file_name):
 
     customersScan = common.scan_customers()
     print('CustomersScan:')
-    print(customersScan)
     customers = {}
     cristinOrgId = ''
     for customer in customersScan:
@@ -166,7 +165,6 @@ def importUsers(test_users_file_name):
                 f'https://api.{STAGE}.nva.aws.unit.no/cristin/organization/', '').replace('.0.0.0', '')
             customers[cristinOrgId] = f'https://api.{STAGE}.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
 
-    print(customers)
     with open(test_users_file_name) as test_users_file:
 
         test_users = json.load(test_users_file)

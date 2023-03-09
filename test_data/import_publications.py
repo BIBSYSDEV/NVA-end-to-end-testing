@@ -259,10 +259,6 @@ def create_publication_data(publication_template, test_publication, username, cu
     print(new_publication['entityDescription']['mainTitle'])
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
-    # if 'publication_content_type' in test_publication:
-    #     new_publication['entityDescription']['reference']['publicationInstance'][
-    #         'contentType'] = test_publication['publication_content_type']
-    # new_publication['owner'] = username
     new_publication['publisher']['id'] = customer
     new_publication['status'] = status
 
@@ -286,7 +282,7 @@ def create_publication_data(publication_template, test_publication, username, cu
         'name': 'test_file_name',
         'publisherAuthority': False,
         'size': 'test_file_size',
-        'type': 'UnpublishedFile',
+        'type': 'PublishedFile',
         'administrativeAgreement': False
     }
     fileType = 'pdf'
@@ -342,8 +338,6 @@ def create_publications():
         test_publications = json.load(test_publications_file)
         for test_publication in test_publications:
             username = test_publication['owner']
-            bearer_token = ''
-            bearer_token = common.login(username=username)
             print(f'Creating {test_publication["title"]}')
             new_publication = create_test_publication(
                 publication_template=publication_template,
@@ -435,7 +429,6 @@ def create_ticket(identifier, username, type, status):
         ticket_id = response.json()['identifier']
         response = requests.put(update_ticket_endpoint.format(STAGE, identifier, ticket_id),
                                 json=request_payload, headers=headers)
-        print(response.json())
         check_response(response, 200)
 
 
