@@ -382,36 +382,6 @@
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
-    "status": "PUBLISHED",
-    "contributor": "",
-    "title": "Draft registration - DOI request approved",
-    "ticket": {
-      "type": "DoiRequest",
-      "status": "Approved"
-    }
-  },
-  {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "AcademicArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-publish-registration@test.no",
-    "status": "DRAFT",
-    "contributor": "",
-    "title": "Draft registration - DOI request rejected",
-    "ticket": {
-      "type": "DoiRequest",
-      "status": "Rejected"
-    }
-  },
-  {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
-    "publication_instance_type": "AcademicArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
     "contributor": "",
     "title": "Draft registration - Publishing Request",

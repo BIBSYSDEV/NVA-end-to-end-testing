@@ -418,15 +418,20 @@ def create_ticket(identifier, username, type, status):
     }
     response = requests.post(create_ticket_endpoint.format(STAGE, identifier),
                             json=ticket_payload, headers=headers)
-    check_response(response, 200)
-    if status != status_requested:
+    check_response(response, 201)
+    if status != status_requested and status != status_approved:
         request_bearer_token = common.login(username=username_curator_inst_2)
         headers['Authorization'] = f'Bearer {request_bearer_token}'
+        tickets = requests.get(tickets_endpoint.format(STAGE, identifier), headers=headers).json()
+        ticket_id = ''
+        for ticket in tickets['tickets']:
+            if ticket['type'] == type:
+                ticket_id = ticket['identifier']
         request_payload = {
             'type': type,
             'status': status,
         }
-        ticket_id = response.json()['identifier']
+        # ticket_id = response.json()['identifier']
         response = requests.put(update_ticket_endpoint.format(STAGE, identifier, ticket_id),
                                 json=request_payload, headers=headers)
         check_response(response, 200)
