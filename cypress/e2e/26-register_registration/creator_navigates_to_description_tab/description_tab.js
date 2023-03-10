@@ -4,7 +4,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 
 import { descriptionFields } from '../../../support/data_testid_constants';
 
-const projectName = 'Test mock project';
+const projectName = 'Testprosjekt NVA';
 const institutionName = 'Test institution';
 
 Before(() => {
@@ -49,7 +49,7 @@ And('they see the tab Contributors is clickable', () => {
 And('they see the tab Files and License is clickable', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).should('be.enabled');
 });
-And('they see a Button for creating a new Project is enabled', () => { });
+And('they see a Button for creating a new Project is enabled', () => {});
 And('they see Next is enabled', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).should('be.enabled');
 });
@@ -79,7 +79,7 @@ And('they see a Search box for Projects', () => {
   cy.get('[data-testid=project-search-field] > div > div > input').should('be.visible');
 });
 And('they enter search term in the Search box', () => {
-  cy.mockProjectSearch(projectName);
+  // cy.mockProjectSearch(projectName);
   cy.get('[data-testid=project-search-field] > div > div > input').type(projectName);
 });
 Then('they see list of Projects matching the search term', () => {
@@ -96,7 +96,7 @@ Given('Creator searches for Project', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click({ force: true });
 });
 When('they select a Project from the Search results', () => {
-  cy.mockProjectSearch(projectName);
+  // cy.mockProjectSearch(projectName);
   cy.get('[data-testid=project-search-field] > div > div > input').type(projectName);
   cy.get('[data-testid^=project-option]').filter(`:contains(${projectName})`).first().click({ force: true });
 });
@@ -109,7 +109,7 @@ Then('the selected Project is added to the list of selected Projects', () => {
 Given('Creator adds a Project', () => {
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click({ force: true });
-  cy.mockProjectSearch(projectName);
+  // cy.mockProjectSearch(projectName);
   cy.get('[data-testid=project-search-field] > div > div > input').type(projectName);
   cy.get('[data-testid^=project-option]').filter(`:contains(${projectName})`).first().click({ force: true });
 });
@@ -125,7 +125,7 @@ Then('they see the Project is removed from the list of selected Projects', () =>
 });
 
 // Scenario: Creator opens dropdown with Allowed Vocabularies
-And('their Institution has a Vocabulary set as "Allowed"', () => { });
+And('their Institution has a Vocabulary set as "Allowed"', () => {});
 When('they click "Add Vocabulary"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.description.addVocabularyButton}]`).click();
@@ -156,7 +156,7 @@ Then('they see an input field for the selected Vocabulary', () => {
 Given('Creator begins Wizard registration', () => {
   cy.startWizardWithEmptyRegistration();
 });
-And('their Institution has a Vocabulary set as "Default"', () => { });
+And('their Institution has a Vocabulary set as "Default"', () => {});
 When('the User navigates to Description tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click();
 });
@@ -167,13 +167,12 @@ Then('they can see an input field for the Default Vocabulary', () => {
   );
 });
 
-
 const projectFields = {
   'Project Title': dataTestId.registrationWizard.description.projectForm.titleField,
   'Coordinating Institution': dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField,
   'Project Manager': dataTestId.registrationWizard.description.projectForm.contributorsSearchField,
   'Start Date': dataTestId.registrationWizard.description.projectForm.startDateField,
-}
+};
 
 // Scenario: Creator opens Dialog for creating a new Project
 When('they click Button for creating a new Project', () => {
@@ -205,7 +204,7 @@ Given('Creator opens Dialog for creating a new Project', () => {
   cy.get('button').filter(':contains("Start")').click();
 });
 When('they enter a Project Title', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.titleField).type('Project title')
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.titleField).type('Project title');
 });
 And('they select a Coordinating Institution', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField).type('unit');
@@ -228,12 +227,14 @@ And('they click Save', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton).click();
 });
 Then('the Dialog is closed', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton, { timeOut: 20000 }).should('not.exist');
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton, { timeOut: 20000 }).should(
+    'not.exist'
+  );
 });
 And('they see a confirmation message that the Project was created', () => {
   cy.getDataTestId('snackbar-success');
 });
-And('they see the Project is listed under Project Associations', () => { });
+And('they see the Project is listed under Project Associations', () => {});
 
 // Scenario: Creator adds funding
 And('they add funding', () => {
@@ -269,7 +270,7 @@ const fundingFields = {
   'Project name': dataTestId.registrationWizard.description.fundingProjectField,
   'ID': dataTestId.registrationWizard.description.fundingIdField,
   'Sum': dataTestId.registrationWizard.description.fundingSumField,
-}
+};
 
 // Scenario: Creator adds funding from a non-NFR funding source
 When('they select a non-NFR funding source', () => {

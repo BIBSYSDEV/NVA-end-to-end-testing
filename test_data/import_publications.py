@@ -87,8 +87,8 @@ def map_user_to_arp():
             }
             query_response = requests.post(
                 person_query.format(STAGE),
-                json = {
-                   "type": "NationalIdentificationNumber",
+                json={
+                    "type": "NationalIdentificationNumber",
                     "value": user['nin']
                 },
                 headers=headers)
@@ -163,14 +163,15 @@ def upload_file():
         locations[filekey]['location'] = response.json()['location']
         locations[filekey]['filesize'] = test_file_size
 
+
 def scan_resources():
     print('scanning resources')
     paginator = dynamodb_client.get_paginator('scan')
     operation_parameters = {
-        'TableName':publications_tablename,
+        'TableName': publications_tablename,
         'FilterExpression': 'contains(#PK0, :val)',
         'ExpressionAttributeNames': {'#PK0': 'PK0'},
-        'ExpressionAttributeValues':{':val': {STRING: '20202.0.0.0'}}
+        'ExpressionAttributeValues': {':val': {STRING: '20202.0.0.0'}}
     }
     publications = []
     for response in paginator.paginate(**operation_parameters):
@@ -180,7 +181,6 @@ def scan_resources():
     for publicationlist in publications:
         for item in publicationlist:
             scanned_publications.append(item)
-
 
     return scanned_publications
 
@@ -350,6 +350,7 @@ def create_publications():
                 print(f'publishing...{identifier}')
                 response = publish_publication(identifier=identifier,
                                                username=username)
+                print(response)
             if 'ticket' in test_publication:
                 print('creating ticket...')
                 create_ticket(
@@ -365,6 +366,7 @@ def create_publications():
                     print('approving doi...')
                     approve_doi(identifier=identifier)
 
+
 def publish_publication(identifier, username):
     publish_bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {publish_bearer_token}'
@@ -373,9 +375,8 @@ def publish_publication(identifier, username):
     }
     response = requests.post(publish_endpoint.format(
         STAGE, identifier), json=payload, headers=headers)
-    if response.status_code != 200:
-        print(response.status_code)
-        print(response.json())
+    check_response(response=response, status_code=201)
+
 
 def request_doi(identifier, username):
     request_bearer_token = common.login(username=username)
@@ -388,11 +389,13 @@ def request_doi(identifier, username):
                              json=doi_request_payload, headers=headers)
     check_response(response, 200)
 
+
 def approve_doi(identifier):
     time.sleep(5)
     request_bearer_token = common.login(username=username_curator)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
-    tickets = requests.get(tickets_endpoint.format(STAGE, identifier), headers=headers).json()
+    tickets = requests.get(tickets_endpoint.format(
+        STAGE, identifier), headers=headers).json()
     ticket_id = ''
     for ticket in tickets['tickets']:
         if ticket['type'] == 'DoiRequest':
@@ -408,6 +411,7 @@ def approve_doi(identifier):
     else:
         print('DoiRequest not found in tickets')
 
+
 def create_ticket(identifier, username, type, status):
     print(f'{identifier} - {username} - {type} - {status}')
     request_bearer_token = common.login(username=username)
@@ -417,12 +421,13 @@ def create_ticket(identifier, username, type, status):
         'message': 'Test'
     }
     response = requests.post(create_ticket_endpoint.format(STAGE, identifier),
-                            json=ticket_payload, headers=headers)
+                             json=ticket_payload, headers=headers)
     check_response(response, 201)
     if status != status_requested and status != status_approved:
         request_bearer_token = common.login(username=username_curator_inst_2)
         headers['Authorization'] = f'Bearer {request_bearer_token}'
-        tickets = requests.get(tickets_endpoint.format(STAGE, identifier), headers=headers).json()
+        tickets = requests.get(tickets_endpoint.format(
+            STAGE, identifier), headers=headers).json()
         ticket_id = ''
         for ticket in tickets['tickets']:
             if ticket['type'] == type:
@@ -437,22 +442,26 @@ def create_ticket(identifier, username, type, status):
         check_response(response, 200)
 
 
-
 def check_response(response, status_code):
     if response.status_code != status_code:
         print(response.status_code)
         print(response.json())
+
 
 def find_caller_identity():
     client = boto3.client('sts')
     response = client.get_caller_identity()
     print(response)
 
+def read_customers():
+    print('Reading customers')
+    
 
 def run():
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
+    # read_customers()
     map_user_to_arp()
     upload_file()
     delete_publications()
