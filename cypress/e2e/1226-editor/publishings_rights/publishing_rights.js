@@ -15,12 +15,12 @@ const publishStrategies = {
 
 // Background:
 Given('an Institution with one or more Editor roles', () => {
-  cy.login(userEditor);
+  cy.login(userSecondEditor);
 });
 
 // Scenario: Default publishing rights
 When('the Editor of an Institution hasn’t chosen a policy', () => {
-  cy.login(userSecondEditor);
+  cy.login(userEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
 });
