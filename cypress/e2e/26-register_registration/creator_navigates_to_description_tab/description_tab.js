@@ -5,7 +5,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { descriptionFields } from '../../../support/data_testid_constants';
 
 const projectName = 'Testprosjekt NVA';
-const institutionName = 'Test institution';
+const institutionName = 'Institutt for nordisk og mediafag';
 
 Before(() => {
   cy.login(userWithAuthor4);
