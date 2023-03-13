@@ -217,10 +217,10 @@ And('​they select a Project Manager', () => {
   cy.contains('Unit – The Norwegian Directorate for ICT and Joint Services in Higher Education and Research').click();
 });
 And('they set a Start Date', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startDateField).type('11.11.2020');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.projectForm.startDateField}]`, '11.11.2020')
 });
 And('they set a End Date', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.endDateField).type('12.12.2020');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.projectForm.endDateField}]`, '12.12.2020')
 });
 And('they click Save', () => {
   cy.get('button').filter(':contains("Next")').click();
