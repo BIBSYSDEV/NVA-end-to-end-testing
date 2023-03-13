@@ -254,12 +254,12 @@ When('they select NFR as a funding source', () => {
   cy.contains('Research Council of Norway').click();
 });
 Then('they can search for NFR Project', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.fundingNfrProjectSearchField).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.description.nfrProjectSearchField).should('be.visible');
 });
 
 // Scenario: Creator adds funding from a NFR Project
 When('they select a NFR Project', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.fundingNfrProjectSearchField).type('test');
+  cy.getDataTestId(dataTestId.registrationWizard.description.nfrProjectSearchField).type('test');
   cy.contains('test').click();
 });
 Then('they can add a sum for the funding', () => {
