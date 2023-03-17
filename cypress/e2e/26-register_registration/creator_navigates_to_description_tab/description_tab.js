@@ -5,7 +5,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { descriptionFields } from '../../../support/data_testid_constants';
 
 const projectName = 'Testprosjekt NVA';
-const institutionName = 'Institutt for nordisk og mediafag';
+const institutionName = 'Institutt for nordisk og mediefag';
 
 Before(() => {
   cy.login(userWithAuthor4);
@@ -86,8 +86,8 @@ Then('they see list of Projects matching the search term', () => {
   cy.get('[data-testid^=project-option]').should('have.length.above', 0);
 });
 And('they see title and associated Institutions for each Project', () => {
-  cy.get('[data-testid^=project-option]').contains(projectName);
-  cy.get('[data-testid^=project-option]').contains(institutionName);
+  cy.get('[data-testid^=project-option]').filter(`:contains(${projectName})`);
+  cy.get('[data-testid^=project-option]').filter(`:contains(${projectName})`).first().contains(institutionName);
 });
 
 // Scenario: Creator adds a Project
@@ -217,10 +217,16 @@ And('​they select a Project Manager', () => {
   cy.contains('Unit – The Norwegian Directorate for ICT and Joint Services in Higher Education and Research').click();
 });
 And('they set a Start Date', () => {
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.projectForm.startDateField}]`, '11.11.2020')
+  cy.chooseDatePicker(
+    `[data-testid=${dataTestId.registrationWizard.description.projectForm.startDateField}]`,
+    '11.11.2020'
+  );
 });
 And('they set a End Date', () => {
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.projectForm.endDateField}]`, '12.12.2020')
+  cy.chooseDatePicker(
+    `[data-testid=${dataTestId.registrationWizard.description.projectForm.endDateField}]`,
+    '12.12.2020'
+  );
 });
 And('they click Save', () => {
   cy.get('button').filter(':contains("Next")').click();
@@ -250,7 +256,9 @@ And('they see an option to cancel the funding source', () => {
 // Scenario: Creator adds funding from NFR
 When('they select NFR as a funding source', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).should('be.visible');
-  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).within(() => {
+    cy.get('button').click();
+  });
   cy.contains('Research Council of Norway').click();
 });
 Then('they can search for NFR Project', () => {
@@ -262,8 +270,8 @@ When('they select a NFR Project', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.nfrProjectSearchField).type('test');
   cy.contains('test').click();
 });
-Then('they can add a sum for the funding', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSumField);
+Then('they can see the NFR identifier', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingIdField);
 });
 
 const fundingFields = {
