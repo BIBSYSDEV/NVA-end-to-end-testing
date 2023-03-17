@@ -168,10 +168,7 @@ def scan_resources():
     print('scanning resources')
     paginator = dynamodb_client.get_paginator('scan')
     operation_parameters = {
-        'TableName': publications_tablename,
-        'FilterExpression': 'contains(#PK0, :val)',
-        'ExpressionAttributeNames': {'#PK0': 'PK0'},
-        'ExpressionAttributeValues': {':val': {STRING: '20202.0.0.0'}}
+        'TableName': publications_tablename
     }
     publications = []
     for response in paginator.paginate(**operation_parameters):
@@ -188,28 +185,28 @@ def scan_resources():
 def delete_publications():
     resources = scan_resources()
     for resource in resources:
-        publication = resource['data'][MAP]
+        # publication = resource['data'][MAP]
         primary_partition_key = resource['PK0'][STRING]
         primary_sort_key = resource['SK0'][STRING]
-        identifier = publication['identifier'][STRING]
-        owner = ''
-        if 'resourceOwner' in publication:
-            owner = publication['resourceOwner'][MAP]['owner'][STRING]
-        if 'owner' in publication:
-            owner = publication['owner'][STRING]
-        if '20202.0.0.0' in owner:
-            print(
-                f'Deleting {identifier} - {owner}')
-            response = dynamodb_client.delete_item(
-                TableName=publications_tablename,
-                Key={
-                    'PK0': {
-                        STRING: primary_partition_key
-                    },
-                    'SK0': {
-                        STRING: primary_sort_key
-                    }
-                })
+        # identifier = publication['identifier'][STRING]
+        # owner = ''
+        # if 'resourceOwner' in publication:
+        #     owner = publication['resourceOwner'][MAP]['owner'][STRING]
+        # if 'owner' in publication:
+        #     owner = publication['owner'][STRING]
+        # if '20202.0.0.0' in owner:
+        print(
+            f'Deleting {primary_partition_key}')
+        response = dynamodb_client.delete_item(
+            TableName=publications_tablename,
+            Key={
+                'PK0': {
+                    STRING: primary_partition_key
+                },
+                'SK0': {
+                    STRING: primary_sort_key
+                }
+            })
     return
 
 
@@ -455,13 +452,13 @@ def find_caller_identity():
 
 def read_customers():
     print('Reading customers')
-    
+
 
 def run():
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
-    # read_customers()
+    read_customers()
     map_user_to_arp()
     upload_file()
     delete_publications()
