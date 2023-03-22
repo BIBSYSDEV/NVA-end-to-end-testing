@@ -96,6 +96,6 @@ When('they add a Other release with details for:', () => {
 //   | Publisher/Organizer |
 //   | Date                |
 Then('the Other release is listed under Exhibitions', () => {
-    cy.contains('Test Other release type');
+    cy.contains('Test Other release publisher');
 })
 
