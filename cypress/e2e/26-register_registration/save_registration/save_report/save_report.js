@@ -15,6 +15,7 @@ const fields = {
   'ReportPolicy': [...commonFields],
   'ReportWorkingPaper': [...commonFields],
   'ReportBookOfAbstract': [...commonFields],
+  'ConferenceReport': [...commonFields],
   'ReportBasic': [...commonFields],
 };
 
@@ -25,6 +26,7 @@ const reportContributorRoles = {
   'ReportPolicy': [...commonContributorRoles],
   'ReportWorkingPaper': [...commonContributorRoles],
   'ReportBookOfAbstract': [...commonContributorRoles],
+  'ConferenceReport': [...commonContributorRoles],
   'ReportBasic': [...commonContributorRoles],
 };
 
