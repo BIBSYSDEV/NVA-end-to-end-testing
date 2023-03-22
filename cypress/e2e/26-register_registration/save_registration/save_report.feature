@@ -10,9 +10,9 @@ Feature: Save registration for Report
 
         Examples:
             | Subtype              |
-            # | ReportResearch       |
-            # | ReportPolicy         |
-            # | ReportWorkingPaper   |
-            # | ReportBookOfAbstract |
+            | ReportResearch       |
+            | ReportPolicy         |
+            | ReportWorkingPaper   |
+            | ReportBookOfAbstract |
             | ConferenceReport     |
-            # | ReportBasic          |
+            | ReportBasic          |
