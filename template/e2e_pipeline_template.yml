@@ -233,6 +233,16 @@ Resources:
                   - 'ssm:GetParameters'
                   - 'secretsmanager:GetSecretValue'
                 Resource: '*'
+        - PolicyName: searchIndexLambdaPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'lambda:InvokeFunction'
+                Resource:
+                  - !Sub "arn:aws:lambda:eu-west-1:${AWS::AccountId}:function:master-pipelines-NvaSearchApiClientPip-InitHandler-LEwtReql7EUp"
+                  - !Sub "arn:aws:lambda:eu-west-1:${AWS::AccountId}:function:master-pipelines-NvaSearchApi-DeleteIndicesHandler-EKKiXwO7Iu8y"
         - PolicyName: e2eTest
           PolicyDocument:
             Version: '2012-10-17'
