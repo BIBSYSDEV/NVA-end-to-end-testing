@@ -81,8 +81,6 @@ const artisticContributorRoles = {
     'SoundDesigner',
     'VfxSupervisor',
     'VideoEditor',
-    'ContactPerson',
-    'RightsHolder',
     ...commonContributorRoles,
   ],
   'MusicPerformance': [

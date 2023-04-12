@@ -22,7 +22,7 @@ And('they see an Input Field for Linked Resources', () => {
 And('they have the option to mark that the Resource has no File or Linked Resource', () => {
   // TODO: legg til data-testid i frontend
   // cy.get(`[data-testid=${dataTestId.registrationWizard.files.noFilesOrLinksButton}]`)
-  cy.contains('The resource does not have any file or links to publish');
+  cy.contains('The resource does not have any files or links to publish');
 });
 And('they see the tab Description is clickable', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
