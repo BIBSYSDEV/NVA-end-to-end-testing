@@ -165,6 +165,7 @@ Then('the DOI is findable', () => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
   cy.getDataTestId('result-list-item')
     .filter(`:contains(${title})`)
+    .first()
     .within(() => {
       cy.get('a').first().click();
     });
