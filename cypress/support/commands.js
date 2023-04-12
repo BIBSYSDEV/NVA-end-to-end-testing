@@ -193,10 +193,18 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   // Reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 
-  cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
+  // cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
+  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges');
+  // cy.contains('Norges byggforskningsinstitutt').click({ force: true });
 
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges');
-  cy.contains('Norges byggforskningsinstitutt').click({ force: true });
+  cy.getDataTestId('resource-type-chip-ConferenceLecture').click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventTitleField).click().type('Event');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventOrganizerField).click().type('Organizer');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.placeField).click().type('Place');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventCountryField).click().type('nor');
+  cy.contains('Norway').click();
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2022');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2022');
 
   // Contributors
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
@@ -209,9 +217,9 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   // Files and reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
-    cy.get('input[type=radio]').last().click();
-  });
+  // cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
+  //   cy.get('input[type=radio]').last().click();
+  // });
   cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
   cy.get('[data-testid=license-item]').first().click({ force: true });
 });
