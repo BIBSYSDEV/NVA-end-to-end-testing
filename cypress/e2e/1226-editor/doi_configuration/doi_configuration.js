@@ -11,7 +11,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 
 const doiInformation = {
   'DataCite Member ID': {
-    'title': 'DataCite Repository ID',
+    'title': 'Data Cite Repository ID',
     'value': 'NVATEST.UNIT',
   },
   'Institutions DOI prefix': {
