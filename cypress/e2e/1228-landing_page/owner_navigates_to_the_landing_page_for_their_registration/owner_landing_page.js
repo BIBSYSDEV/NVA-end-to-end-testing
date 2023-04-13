@@ -22,9 +22,6 @@ When('they request a DOI', () => {
   cy.getDataTestId('button-toggle-reserve-doi').click();
 });
 Then('they can see a reserved DOI', () => {
-  cy.getDataTestId('refresh-doi-button', { timeOut: 30000 }).should('be.visible');
-  cy.wait(20000);
-  cy.getDataTestId('refresh-doi-button', { timeOut: 30000 }).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.doiLink).should('be.visible');
 });
 

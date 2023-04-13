@@ -1,6 +1,6 @@
 Feature: Curator navigates to the Landing Page for Registration
 
-    # @test
+    @test
     Scenario: Curator Approves a Publishing Request
         Given a Curator opens the Landing Page of a Registration
         And the Registration has a Publishing Request
