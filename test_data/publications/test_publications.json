@@ -198,7 +198,7 @@
     "status": "DRAFT",
     "contributor": "test-user-draft-doi@test.no",
     "title": "Draft registration with DOI",
-    "doi": "requested"
+    "doi": "reserved"
   },
   {
     "publication_type": "JournalContent",
@@ -221,7 +221,7 @@
     "status": "DRAFT",
     "contributor": "test-user-draft-doi@test.no",
     "title": "Draft registration publish with requested DOI",
-    "doi": "requested"
+    "doi": "reserved"
   },
   {
     "publication_type": "JournalContent",
@@ -370,10 +370,7 @@
     "status": "DRAFT",
     "contributor": "",
     "title": "Draft registration - DOI request",
-    "ticket": {
-      "type": "DoiRequest",
-      "status": "Requested"
-    }
+    "doi": "reserved"
   },
   {
     "publication_type": "JournalContent",

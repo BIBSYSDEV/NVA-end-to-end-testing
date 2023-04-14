@@ -30,6 +30,7 @@ user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
+reserve_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/doi'
 create_ticket_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
 update_ticket_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket/{}'
 tickets_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/tickets'
@@ -185,16 +186,8 @@ def scan_resources():
 def delete_publications():
     resources = scan_resources()
     for resource in resources:
-        # publication = resource['data'][MAP]
         primary_partition_key = resource['PK0'][STRING]
         primary_sort_key = resource['SK0'][STRING]
-        # identifier = publication['identifier'][STRING]
-        # owner = ''
-        # if 'resourceOwner' in publication:
-        #     owner = publication['resourceOwner'][MAP]['owner'][STRING]
-        # if 'owner' in publication:
-        #     owner = publication['owner'][STRING]
-        # if '20202.0.0.0' in owner:
         print(
             f'Deleting {primary_partition_key}')
         response = dynamodb_client.delete_item(
@@ -357,11 +350,14 @@ def create_publications():
                     status=test_publication['ticket']['status']
                 )
             if 'doi' in test_publication:
-                print('requesting doi...')
-                request_doi(identifier=identifier, username=username)
                 if test_publication['doi'] == 'created':
+                    print('requesting doi...')
+                    request_doi(identifier=identifier, username=username)
                     print('approving doi...')
                     approve_doi(identifier=identifier)
+                if test_publication['doi'] == 'reserved':
+                    print('reserving doi...')
+                    reserve_doi(identifier=identifier, username=username)
 
 
 def publish_publication(identifier, username):
@@ -374,6 +370,11 @@ def publish_publication(identifier, username):
         STAGE, identifier), json=payload, headers=headers)
     check_response(response=response, status_code=201)
 
+def reserve_doi(identifier, username):
+    request_bearer_token = common.login(username=username)
+    headers['Authorization'] = f'Bearer {request_bearer_token}'
+    response = requests.post(reserve_doi_endpoint.format(STAGE, identifier), headers=headers)
+    check_response(response, 200)
 
 def request_doi(identifier, username):
     request_bearer_token = common.login(username=username)
