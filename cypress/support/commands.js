@@ -210,6 +210,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).should('not.exist');
   // cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Testuser Withauthor{enter}', { delay: 0 });
   // cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).first().click({ force: true });
   // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click({ force: true });
@@ -291,52 +292,6 @@ Cypress.Commands.add('mockPersonSearch', (userId) => {
     mockPersonFeideIdSearch(userId)
   );
   cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?name=*`, mockPersonNameSearch(userId));
-});
-
-Cypress.Commands.add('mockProjectSearch', () => {
-  cy.fixture(projectSearchMockFile).then((searchResult) => {
-    cy.intercept(`${projectApiPath}?query=*`, searchResult);
-  });
-});
-
-Cypress.Commands.add('mockInstitution', () => {
-  cy.fixture('org_query.json').then((organizations) => {
-    cy.log(`mocking https://api.${stage}.nva.aws.unit.no/cristin/organization*`);
-    cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/?query=*`, organizations);
-  });
-});
-
-Cypress.Commands.add('mockDepartments', () => {
-  const institutionIds = ['1111111111', '2222222222', '3333333333'];
-  institutionIds.forEach((cristinId) => {
-    const departments_file = `departments_${cristinId}.json`;
-    cy.fixture(departments_file).then((departments) => {
-      cy.intercept(
-        `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}*&language=en`,
-        departments
-      );
-      cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.0.0.0`, departments);
-      cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.1.0.0`, departments);
-      cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.2.0.0`, departments);
-      cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/organization/${cristinId}.3.0.0`, departments);
-      cy.intercept(
-        `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}.1.0.0*&language=en`,
-        departments
-      );
-      cy.intercept(
-        `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}.2.0.0*&language=en`,
-        departments
-      );
-      cy.intercept(
-        `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Finstitutions%2F${cristinId}.3.0.0*&language=en`,
-        departments
-      );
-      cy.intercept(
-        `https://api.${stage}.nva.aws.unit.no/institution/departments?uri=https%3A%2F%2Fapi.cristin.no%2Fv2%2Funits%2F${cristinId}*&language=en`,
-        departments
-      );
-    });
-  });
 });
 
 Cypress.Commands.add('mockJournalSearch', () => {

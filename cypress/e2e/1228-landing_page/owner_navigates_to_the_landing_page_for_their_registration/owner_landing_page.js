@@ -1,11 +1,24 @@
 import { userCurator, userDraftDoi, userPublishNoRights } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
+import { Before } from 'cypress-cucumber-preprocessor/steps';
 
 const fileName = 'example.txt';
 const title = `Publication - ${uuid()}`;
 
 // Feature: Owner navigates to the Landing Page for their Registration
+
+Before({ tags: '@no_restriction' }, () => {
+  cy.setWorkflowRegistratorPublishesAll();
+});
+
+Before({ tags: '@file_restrictions' }, () => {
+  cy.setWorkflowRegistratorPublishesMetadata();
+});
+
+Before({ tags: '@all_restrictions' }, () => {
+  cy.setWorkflowRegistratorRequiresApproval();
+});
 
 // Scenario: Owner Requests a DOI
 Given('the owner opens the Landing Page of their Registration', () => {
@@ -27,33 +40,33 @@ Then('they can see a reserved DOI', () => {
 
 // Scenario: Owner wants to publish Resource
 When("the Owner previews the Resource's Landing Page", () => {
-  cy.login(userDraftDoi);
+  cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
-  cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type('Test request DOI');
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.createValidRegistration(fileName, title);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
-And('the Registraion has "Draft" Status', () => { });
+And('the Registraion has "Draft" Status', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
+    cy.contains('Publication - Draft');
+  });
+});
 Then('they see a "Publish" option', () => {
   cy.getDataTestId('button-publish-registration').should('be.visible');
 });
 
 // Scenario: Owner wants to publish their Resource, pending Approval
 // When("the Owner previews the Resource's Landing Page", () => {});
-And('the Registration has "Draft" Status', () => { });
+And('the Registration has "Draft" Status', () => {});
 And('there is a pending Approval Request on the Resource', () => {
-  cy.getDataTestId('doi-request-accordion', { timeOut: 30000 }).click();
-  cy.getDataTestId('button-toggle-reserve-doi').click();
-  cy.wait(20000);
-  cy.getDataTestId('refresh-doi-button', { timeOut: 30000 }).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
 });
 Then('they see a "Publishing pending" notice', () => {
-  cy.getDataTestId('doi-request-accordion', { timeOut: 30000 }).click();
-  cy.getDataTestId('doi-request-accordion').within(() => {
-    cy.contains('Registration has a reserved DOI');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
+    cy.contains('Publishing request - Draft');
   });
 });
-And('the user is informed that progress can be viewed in My Messages', () => { });
+And('the user is informed that progress can be viewed in My Messages', () => {});
 
 // Scenario: Owner wants to publish Resource, all restrictions
 Given('Institutions publications policy is "Only Curator can publish"', () => {
@@ -78,7 +91,7 @@ And('an Approval Request is sent to his Curator', () => {
 });
 And(
   'the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages',
-  () => { }
+  () => {}
 );
 
 // Scenario: Owner wants to publish Resource, file restrictions
@@ -100,8 +113,8 @@ And("the Resource's status is Published", () => {
     cy.contains('Publication - published', { timeOut: 20000 });
   });
 });
-And("the Resource's files, license and embargo date are locked with a pending approval notification", () => { });
-And('the number of files is visible', () => { });
+And("the Resource's files, license and embargo date are locked with a pending approval notification", () => {});
+And('the number of files is visible', () => {});
 And('an Approval Request is sent to the Curator', () => {
   cy.login(userCurator);
   cy.wait(20000);
@@ -110,7 +123,7 @@ And('an Approval Request is sent to the Curator', () => {
 });
 And(
   'the Owner is notified that an Approval Request is sent to the Curator and progress can be viewed in My Messages',
-  () => { }
+  () => {}
 );
 
 // Scenario: Owner uses the Publish option on Landing Page
