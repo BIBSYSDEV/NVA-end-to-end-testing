@@ -56,7 +56,7 @@ Then('they see a "Publish" option', () => {
 
 // Scenario: Owner wants to publish their Resource, pending Approval
 // When("the Owner previews the Resource's Landing Page", () => {});
-And('the Registration has "Draft" Status', () => {});
+And('the Registration has "Draft" Status', () => { });
 And('there is a pending Approval Request on the Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
@@ -66,11 +66,10 @@ Then('they see a "Publishing pending" notice', () => {
     cy.contains('Publishing request - Draft');
   });
 });
-And('the user is informed that progress can be viewed in My Messages', () => {});
+And('the user is informed that progress can be viewed in My Messages', () => { });
 
 // Scenario: Owner wants to publish Resource, all restrictions
 Given('Institutions publications policy is "Only Curator can publish"', () => {
-  cy.setWorkflowRegistratorRequiresApproval();
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
@@ -80,7 +79,7 @@ When('the Owner uses the Publish option', () => {
   cy.getDataTestId('button-publish-registration', { timeOut: 20000 }).click();
 });
 Then('the Owner see a Landing Page with an Unpublished Resource', () => {
-  cy.getDataTestId('tasks-panel').within(() => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
     cy.contains('Publishing request - Draft');
   });
 });
@@ -91,12 +90,11 @@ And('an Approval Request is sent to his Curator', () => {
 });
 And(
   'the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages',
-  () => {}
+  () => { }
 );
 
 // Scenario: Owner wants to publish Resource, file restrictions
 Given('Institutions publications policy is "Registrator can only publish metadata"', () => {
-  cy.setWorkflowRegistratorPublishesMetadata();
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
@@ -113,17 +111,16 @@ And("the Resource's status is Published", () => {
     cy.contains('Publication - published', { timeOut: 20000 });
   });
 });
-And("the Resource's files, license and embargo date are locked with a pending approval notification", () => {});
-And('the number of files is visible', () => {});
+And("the Resource's files, license and embargo date are locked with a pending approval notification", () => { });
+And('the number of files is visible', () => { });
 And('an Approval Request is sent to the Curator', () => {
   cy.login(userCurator);
-  cy.wait(20000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.contains(title);
 });
 And(
   'the Owner is notified that an Approval Request is sent to the Curator and progress can be viewed in My Messages',
-  () => {}
+  () => { }
 );
 
 // Scenario: Owner uses the Publish option on Landing Page
@@ -133,12 +130,9 @@ Given('Institutions publications policy is "Registrator has full publishing righ
   cy.createValidRegistration(fileName);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
-Then('the Resource\'s status is "Published"', () => {
-  cy.wait(10000);
-  cy.getDataTestId('refresh-publishing-request-button', { timeOut: 30000 }).click();
-});
+Then('the Resource\'s status is "Published"', () => { });
 And('the Owner sees a Landing Page with a Published Resource', () => {
-  cy.getDataTestId('tasks-panel').within(() => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
     cy.contains('Publishing request - Published');
   });
 });

@@ -434,9 +434,9 @@ def create_ticket(identifier, username, type, status):
             'type': type,
             'status': status,
         }
-        # ticket_id = response.json()['identifier']
         response = requests.put(update_ticket_endpoint.format(STAGE, identifier, ticket_id),
                                 json=request_payload, headers=headers)
+        time.sleep(10)
         check_response(response, 200)
 
 

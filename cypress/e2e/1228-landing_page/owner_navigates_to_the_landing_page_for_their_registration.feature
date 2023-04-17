@@ -1,8 +1,5 @@
 Feature: Owner navigates to the Landing Page for their Resource
 
-    @1231
-    @TEST_NP-4168
-    @TESTSET_NP-4235
     @test
     Scenario: Owner Requests a DOI
         Given the owner opens the Landing Page of their Registration
@@ -10,7 +7,6 @@ Feature: Owner navigates to the Landing Page for their Resource
         When they request a DOI
         Then they can see a reserved DOI
 
-    @TEST_NP-4169
     @test
     @no_restriction
     Scenario: Owner wants to publish Resource
@@ -18,8 +14,6 @@ Feature: Owner navigates to the Landing Page for their Resource
         And the Registration has "Draft" Status
         Then they see a "Publish" option
 
-    @3192
-    @TEST_NP-4182
     @test
     @all_restrictions
     Scenario: Owner wants to publish their Resource, pending Approval
@@ -29,9 +23,6 @@ Feature: Owner navigates to the Landing Page for their Resource
         Then they see a "Publishing pending" notice
         And the user is informed that progress can be viewed in My Messages
 
-    @3193
-    @TEST_NP-4181
-    @TESTSET_NP-4235
     @test
     @all_restrictions
     Scenario: Owner wants to publish Resource, all restrictions
@@ -41,9 +32,6 @@ Feature: Owner navigates to the Landing Page for their Resource
         And an Approval Request is sent to his Curator
         And the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages
 
-    @3194
-    @TEST_NP-4176
-    @TESTSET_NP-4235
     @test
     @file_restrictions
     Scenario: Owner wants to publish Resource, file restrictions
@@ -57,9 +45,6 @@ Feature: Owner navigates to the Landing Page for their Resource
         And the Owner is notified that an Approval Request is sent to the Curator and progress can be viewed in My Messages
 
 
-    @3195
-    @TEST_NP-4179
-    @TESTSET_NP-4235
     @test
     Scenario: Owner uses the Publish option on Langing Page
         Given Institutions publications policy is "Registrator has full publishing rights"
@@ -68,10 +53,6 @@ Feature: Owner navigates to the Landing Page for their Resource
         And the Owner sees a Landing Page with a Published Resource
 
     @test
-    @updated
-    @TEST_NP-4183
-    @TESTSET_NP-4235
-    # - removed "Go back to schema"-button
     Scenario: Owner navigates to the Landing Page for their draft Resource with Validation Errors
         When the Creator navigates to the Landing Page
         And the Resource has Validation Errors
@@ -79,16 +60,10 @@ Feature: Owner navigates to the Landing Page for their Resource
         Then they see a List of all Validation Errors for the Resource
         And they see a "Edit registration" button
 
-    @needJiraTag
-    @TEST_NP-4174
-    @TESTSET_NP-4235
     Scenario: Owner sees the option to transfer Ownership of a Resource
         When the Owner views the Landing Page
         Then the Owner sees a option to transfer Ownership of Resource
 
-    @needJiraTag
-    @TEST_NP-4177
-    @TESTSET_NP-4235
     Scenario: Owner transfers Ownership of a Resource
         When the Owner uses the option to transfer Ownership of current Resource
         Then the Owner must acknowledges that this is a final action
