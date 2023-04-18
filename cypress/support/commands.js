@@ -215,9 +215,9 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   // Files and reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-  // cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
-  //   cy.get('input[type=radio]').last().click();
-  // });
+  cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
+    cy.get('input[type=radio]').last().click();
+  });
   cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
   cy.get('[data-testid=license-item]').first().click({ force: true });
 });

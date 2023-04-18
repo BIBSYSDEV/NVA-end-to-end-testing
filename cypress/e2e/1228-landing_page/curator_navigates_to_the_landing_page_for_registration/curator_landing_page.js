@@ -16,7 +16,7 @@ const registratorPublishesWorkflow = 'registrator publishes';
 Then('the Registration is Published', () => {
   cy.get('@workflow').then((workflow) => {
     if (workflow === curatorPublishesWorkflow) {
-      cy.wait(20000);
+      cy.wait(5000)
       cy.reload();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
         cy.contains('Publishing request - Published');
@@ -30,9 +30,6 @@ Then('the Registration is Published', () => {
       cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
       cy.location('pathname').as('path');
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton, { timeOut: 30000 }).click();
-      cy.wait(20000);
-      // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-      // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
     }
   });
 });
@@ -41,14 +38,26 @@ Before(() => {
   cy.wrap(registratorPublishesWorkflow).as('workflow');
 });
 
+Before({ tags: '@no_restriction' }, () => {
+  cy.setWorkflowRegistratorPublishesAll();
+});
+
+Before({ tags: '@file_restrictions' }, () => {
+  cy.setWorkflowRegistratorPublishesMetadata();
+});
+
+Before({ tags: '@all_restrictions' }, () => {
+  cy.setWorkflowRegistratorRequiresApproval();
+});
+
+
 // end common steps
 
 //   Scenario: Curator Approves a Publishing Request
 Given('a Curator opens the Landing Page of a Registration', () => {});
 And('the Registration has a Publishing Request', () => {
   cy.wrap(curatorPublishesWorkflow).as('workflow');
-  cy.setWorkflowRegistratorRequiresApproval();
-  cy.login(userCurator);
+  cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -76,19 +85,20 @@ And('all files are Published', () => {
 });
 
 //   Scenario: Curator Rejects a Publishing Request
-Given('a Curator from a customer with Workflow "{string}"', (workflow) => {
+Given('a Curator from a customer with Workflow {string}', (workflow) => {
   if (workflow === 'Registrator can only publish metadata') {
     cy.setWorkflowRegistratorPublishesMetadata();
   } else if (workflow === 'Only Curator can publish') {
     cy.setWorkflowRegistratorRequiresApproval();
   }
-  cy.login(userCurator);
+  cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.location('pathname').as('path');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
 });
-Given('a Curator opens the Landing Page of a Registration', () => {
+Given('they opens the Landing Page of a Registration', () => {
   cy.get('@path').then((path) => {
     cy.login(userCurator);
     cy.visit(path, {
@@ -105,8 +115,16 @@ And('the Registration has a Publishing Request', () => {
 When('they reject the Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton).click();
 });
-Then('the Registration is "{string}"', () => {});
-And('all files are "{string}"', () => {});
+Then('the Registration is {string}', (registrationStatus) => {
+  const status ={
+    'Published': 'Published',
+    'Draft': 'Publishing request - Draft',
+  };
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
+    cy.contains(status[registrationStatus]);
+  })
+});
+And('all files are {string}', (fileStatus) => {});
 // Examples:
 //   | Workflow                              | RegistrationStatus | FileStatus  |
 //   | Registrator can only publish metadata | Published          | Unpublished |
@@ -114,19 +132,18 @@ And('all files are "{string}"', () => {});
 
 // Scenario: Curator opens a Registration from a DOI Request
 Given('that a Curator views their Worklist', () => {
-  cy.login(userCurator);
-  cy.setWorkflowRegistratorPublishesAll();
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, doiRequestTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId('button-publish-registration', { timeout: 20000 }).click();
-  cy.wait(20000);
-  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+  cy.wait(5000);
+  cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
   cy.login(userCurator);
+  cy.wait(5000)
   cy.getDataTestId(dataTestId.header.tasksLink).click();
 });
 And('they have selected the DOI Requests tab', () => {});
@@ -184,6 +201,5 @@ When('they reject the DOI Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();
 });
 Then('the reserved DOI is removed from the Registration', () => {
-  cy.wait(20000);
   cy.contains('https://handle.stage.datacite.org').should('not.exist');
 });
