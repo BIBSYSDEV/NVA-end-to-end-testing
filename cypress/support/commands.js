@@ -193,27 +193,24 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   // Reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 
-  // cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
-  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges');
-  // cy.contains('Norges byggforskningsinstitutt').click({ force: true });
+  cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges');
+  cy.contains('Norges byggforskningsinstitutt').click({ force: true });
 
-  cy.getDataTestId('resource-type-chip-ConferenceLecture').click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventTitleField).click().type('Event');
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventOrganizerField).click().type('Organizer');
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.placeField).click().type('Place');
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventCountryField).click().type('nor');
-  cy.contains('Norway').click();
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2022');
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2022');
+  // cy.getDataTestId('resource-type-chip-ConferenceLecture').click({ force: true });
+  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventTitleField).click().type('Event');
+  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventOrganizerField).click().type('Organizer');
+  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.placeField).click().type('Place');
+  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventCountryField).click().type('nor');
+  // cy.contains('Norway').click();
+  // cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2022');
+  // cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2022');
 
   // Contributors
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).should('not.exist');
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Testuser Withauthor{enter}', { delay: 0 });
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).first().click({ force: true });
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click({ force: true });
 
   // Files and reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
