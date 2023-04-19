@@ -37,8 +37,8 @@ When("the Editor opens the institution's configuration menu item", () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
 });
 Then('the Editor sees one or many registered official names in Bokmål, English, Nynorsk or Northern Sámi', () => {
-  cy.contains("Institution's Norwegian name");
-  cy.contains("Institution's English name");
+  cy.contains("The institution's Norwegian name");
+  cy.contains("The institution's English name");
 });
 And('they see all of', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
