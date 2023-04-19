@@ -54,13 +54,15 @@ Before({ tags: '@all_restrictions' }, () => {
 // end common steps
 
 //   Scenario: Curator Approves a Publishing Request
-Given('a Curator opens the Landing Page of a Registration', () => {});
+Given('a Curator opens the Landing Page of a Registration', () => { });
 And('the Registration has a Publishing Request', () => {
   cy.wrap(curatorPublishesWorkflow).as('workflow');
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
   cy.getDataTestId('button-publish-registration', { timeout: 20000 }).click();
   cy.location('pathname').as('path');
   cy.get('@path').then((path) => {
@@ -116,7 +118,7 @@ When('they reject the Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton).click();
 });
 Then('the Registration is {string}', (registrationStatus) => {
-  const status ={
+  const status = {
     'Published': 'Published',
     'Draft': 'Publishing request - Draft',
   };
@@ -124,7 +126,7 @@ Then('the Registration is {string}', (registrationStatus) => {
     cy.contains(status[registrationStatus]);
   })
 });
-And('all files are {string}', (fileStatus) => {});
+And('all files are {string}', (fileStatus) => { });
 // Examples:
 //   | Workflow                              | RegistrationStatus | FileStatus  |
 //   | Registrator can only publish metadata | Published          | Unpublished |
@@ -146,14 +148,14 @@ Given('that a Curator views their Worklist', () => {
   cy.wait(5000)
   cy.getDataTestId(dataTestId.header.tasksLink).click();
 });
-And('they have selected the DOI Requests tab', () => {});
+And('they have selected the DOI Requests tab', () => { });
 And('they have expanded an Message', () => {
   cy.contains(doiRequestTitle).click();
 });
 When('they click "Go to registration"', () => {
   cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
 });
-Then("they see the Landing Page for the DOI Request's Registration", () => {});
+Then("they see the Landing Page for the DOI Request's Registration", () => { });
 And('the Create DOI button is enabled', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).should('be.enabled');
 });
@@ -162,8 +164,8 @@ And('the Decline DOI button is enabled', () => {
 });
 
 //   Scenario: Curator Approves a DOI Request
-Given('a Curator opens the Landing Page of a Registration', () => {});
-And('the Registration is Published', () => {});
+Given('a Curator opens the Landing Page of a Registration', () => { });
+And('the Registration is Published', () => { });
 And('the Registration has a DOI Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
@@ -190,9 +192,9 @@ Then('the DOI is findable', () => {
 });
 
 //   Scenario: Curator Rejects a DOI Request
-Given('a Curator opens the Landing Page of a Registration', () => {});
-And('the Registration is Published', () => {});
-And('the Registration has a DOI Request', () => {});
+Given('a Curator opens the Landing Page of a Registration', () => { });
+And('the Registration is Published', () => { });
+And('the Registration has a DOI Request', () => { });
 When('they reject the DOI Request', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
