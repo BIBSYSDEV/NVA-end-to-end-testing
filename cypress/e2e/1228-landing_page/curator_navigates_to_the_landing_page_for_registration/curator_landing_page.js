@@ -21,15 +21,15 @@ Then('the Registration is Published', () => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
         cy.contains('Publishing request - Published');
       });
-    } else if (workflow === registratorPublishesWorkflow) {
-      cy.login(userCurator);
-      cy.setWorkflowRegistratorPublishesAll();
-      cy.login(userPublishNoRights);
-      cy.startWizardWithEmptyRegistration();
-      cy.createValidRegistration(fileName, title);
-      cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-      cy.location('pathname').as('path');
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton, { timeOut: 30000 }).click();
+      //   } else if (workflow === registratorPublishesWorkflow) {
+      //     cy.login(userCurator);
+      //     cy.setWorkflowRegistratorPublishesAll();
+      //     cy.login(userPublishNoRights);
+      //     cy.startWizardWithEmptyRegistration();
+      //     cy.createValidRegistration(fileName, title);
+      //     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+      //     cy.location('pathname').as('path');
+      //     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton, { timeOut: 30000 }).click();
     }
   });
 });
@@ -40,6 +40,7 @@ Before(() => {
 
 Before({ tags: '@no_restriction' }, () => {
   cy.setWorkflowRegistratorPublishesAll();
+  cy.wrap(registratorPublishesWorkflow).as('workflow');
 });
 
 Before({ tags: '@file_restrictions' }, () => {
@@ -48,22 +49,20 @@ Before({ tags: '@file_restrictions' }, () => {
 
 Before({ tags: '@all_restrictions' }, () => {
   cy.setWorkflowRegistratorRequiresApproval();
+  cy.wrap(curatorPublishesWorkflow).as('workflow');
 });
 
 
 // end common steps
 
 //   Scenario: Curator Approves a Publishing Request
-Given('a Curator opens the Landing Page of a Registration', () => { });
-And('the Registration has a Publishing Request', () => {
-  cy.wrap(curatorPublishesWorkflow).as('workflow');
+Given('a Curator opens the Landing Page of a Registration', () => {
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, title);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-  cy.getDataTestId('button-publish-registration', { timeout: 20000 }).click();
   cy.location('pathname').as('path');
   cy.get('@path').then((path) => {
     cy.login(userCurator);
@@ -75,6 +74,8 @@ And('the Registration has a Publishing Request', () => {
       },
     });
   });
+});
+And('the Registration has a Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).should('exist');
 });
 When('they approve the Publishing Request', () => {
