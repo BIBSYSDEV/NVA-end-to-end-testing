@@ -80,6 +80,7 @@ And('the Registration has a Publishing Request', () => {
 });
 When('they approve the Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).should('not.exist');
 });
 And('all files are Published', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.fileVersion).within(() => {
