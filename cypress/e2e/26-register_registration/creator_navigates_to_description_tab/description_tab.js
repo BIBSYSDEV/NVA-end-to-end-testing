@@ -282,7 +282,7 @@ const fundingFields = {
 
 // Scenario: Creator adds funding from a non-NFR funding source
 When('they select a non-NFR funding source', () => {
-  cy.wait(2000);
+  cy.wait(5000);
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
   cy.contains('Agder Research Foundation').click();
 });
