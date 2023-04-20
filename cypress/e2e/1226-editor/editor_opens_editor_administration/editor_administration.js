@@ -10,9 +10,9 @@ import { dataTestId } from '../../../support/dataTestIds';
 
 
 const information = {
-  "Institution's short name": "Institution's short name",
+  "Institution's short name": "Institution short name",
   "Institution's ROR": 'Research Organization Registry (ROR)',
-  "Institution's author intentity": "Institution's code",
+  "Institution's author intentity": "The institution's code",
 };
 
 const menuItems = {
