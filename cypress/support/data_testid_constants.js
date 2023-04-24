@@ -586,7 +586,7 @@ export const contributorTypes = {
   'Editor': 'Editor',
   'Contact person': 'ContactPerson',
   'Rights holder': 'RightsHolder',
-  'Other': 'Other',
+  'Other': 'RoleOther',
   'Supervisor': 'Supervisor',
   'Designer': 'Designer',
   'Curator/Organizer': 'CuratorOrganizer',

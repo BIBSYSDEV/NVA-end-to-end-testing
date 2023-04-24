@@ -69,9 +69,17 @@ When('they click "Add Contributor"', () => {
 Then('they see the "Add Contributor" Dialog', () => { })
 And('they see a dropdown with Contributor Types {string}', (typeList) => {
     const types = typeList.split(', ');
+    const otherTypes = {
+        '': 'RoleOther',
+    }
     cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
     types.forEach((contributorType) => {
-        cy.get(`[data-value=${contributorTypes[contributorType]}]`).should('be.visible');
+        if (contributorType !== 'Other') {
+            cy.get(`[data-value=${contributorTypes[contributorType]}]`).should('be.visible');
+        } else {
+            const otherType = 'RoleOther';
+            cy.get(`[data-value=${otherType}]`).should('be.visible');
+        }
     });
     cy.get(`[data-value=${contributorTypes[types[0]]}]`).click()
 })
