@@ -11,7 +11,7 @@ const fields = [
   resourceTypeFields.seriesNumber,
 ];
 
-const commonContributorRoles = ['ContactPerson', 'RightsHolder', 'Other'];
+const commonContributorRoles = ['ContactPerson', 'RightsHolder', 'RoleOther'];
 
 const bookContributorRoles = {
   'AcademicMonograph': ['Creator', ...commonContributorRoles],

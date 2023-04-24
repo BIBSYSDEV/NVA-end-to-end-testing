@@ -25,7 +25,7 @@ const fields = {
   'PopularScienceArticle': [...commonFields, resourceTypeFields.journal],
 };
 
-const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
+const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Publication in Journal
 Given('Author begins registering a Registration', () => {

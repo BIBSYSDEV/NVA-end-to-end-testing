@@ -19,7 +19,7 @@ const fields = {
   'ReportBasic': [...commonFields],
 };
 
-const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
+const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 const reportContributorRoles = {
   'ReportResearch': [...commonContributorRoles],

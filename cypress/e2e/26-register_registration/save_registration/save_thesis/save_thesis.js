@@ -12,7 +12,7 @@ const fields = {
   'OtherStudentWork': [...commonFields],
 };
 
-const commonContributorRoles = ['Creator', 'Supervisor', 'ContactPerson', 'RightsHolder', 'Other'];
+const commonContributorRoles = ['Creator', 'Supervisor', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 const degreeContributorRoles = {
   'DegreeBachelor': [...commonContributorRoles],

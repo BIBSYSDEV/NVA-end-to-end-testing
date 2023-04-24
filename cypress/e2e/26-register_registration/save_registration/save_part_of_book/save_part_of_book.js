@@ -4,7 +4,7 @@ import { registrationFields, resourceTypeFields } from '../../../../support/save
 
 const fields = [resourceTypeFields.partOf, resourceTypeFields.pagesFrom, resourceTypeFields.pagesTo];
 
-const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
+const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Part of book
 Given('Author begins registering a Registration', () => {

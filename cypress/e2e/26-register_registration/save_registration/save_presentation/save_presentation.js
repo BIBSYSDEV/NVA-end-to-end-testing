@@ -18,7 +18,7 @@ const fields = {
   'OtherPresentation': [...commonFields],
 };
 
-const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'Other'];
+const commonContributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 const presentationContributorRoles = {
   'ConferenceLecture': [...commonContributorRoles],

@@ -27,7 +27,7 @@ const commonContributorRoles = [
   'Researcher',
   'RightsHolder',
   'Supervisor',
-  'Other',
+  'RoleOther',
 ];
 
 const researchContributorRoles = {

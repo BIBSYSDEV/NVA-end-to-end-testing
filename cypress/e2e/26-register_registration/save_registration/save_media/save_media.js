@@ -28,7 +28,7 @@ const fields = {
   'MediaParticipationInRadioOrTv': [...otherCommonFields],
 };
 
-const commonContributorRoles = ['Other'];
+const commonContributorRoles = ['RoleOther'];
 
 const mediaContributorRoles = {
   'MediaFeatureArticle': ['Creator', ...commonContributorRoles],

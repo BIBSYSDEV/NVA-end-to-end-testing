@@ -45,7 +45,7 @@ const fields = {
   ],
 };
 
-const commonContributorRoles = ['Other'];
+const commonContributorRoles = ['RoleOther'];
 
 const artisticContributorRoles = {
   'ArtisticDesign': ['Designer', 'CuratorOrganizer', 'Consultant', ...commonContributorRoles],

@@ -243,7 +243,7 @@ export const architectureTypes = {
   'Plan proposal': 'PlanningProposal',
   'Landscape architecture': 'LandscapeArchitecture',
   'Interior': 'Interior',
-  'Other': 'Other',
+  'Other': 'ArchitectureOther',
 };
 
 export const designTypes = {
@@ -257,7 +257,7 @@ export const designTypes = {
   'Interaction Design': 'InteractionDesign',
   'Web Design': 'WebDesign',
   'Service Design': 'ServiceDesign',
-  'Other': 'Other',
+  'Other': 'ArtisticDesignOther',
 };
 
 export const exhibitionTypes = {
@@ -273,7 +273,7 @@ export const filmTypes = {
   'Serial film': 'SerialFilmProduction',
   'Interactive film': 'InteractiveFilm',
   'AR/VR film': 'AugmentedVirtualRealityFilm',
-  'Other': 'Other',
+  'Other': 'MovingPictureOther',
 };
 
 export const filmAnnouncements = {
@@ -316,7 +316,7 @@ export const musicAudioVideoTrackTypes = {
   'Streaming': 'Streaming',
   'Download': 'DigitalFile',
   'LP/EP': 'Vinyl',
-  'Other': 'Other',
+  'Other': 'MusicMediaOther',
 };
 
 export const musicAudioVideoTrackFields = {
@@ -401,7 +401,7 @@ export const performingArtsFields = {
 export const performingArtsWorkTypes = {
   'Theater/show': 'TheatricalProduction',
   'TV/film/radio': 'Broadcast',
-  'Other': 'Other',
+  'Other': 'PerformingArtsOther',
 };
 
 export const literaryArtsAnnouncements = {
@@ -513,7 +513,7 @@ export const mediaMediumTypes = {
   'Internet': 'Internet',
   'Radio': 'Radio',
   'TV': 'TV',
-  'Other': 'Other',
+  'Other': 'MediaTypeOther',
 };
 
 export const OTHER_SUBTYPES = {};
