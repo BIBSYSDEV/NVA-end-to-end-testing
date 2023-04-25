@@ -16,8 +16,9 @@ Given('that a Creator views the Landing Page for a Registration', () => {
   cy.login(userDraftDoi);
   cy.openMyRegistrations();
 });
-And('they are the Owner of this Registration', () => {});
+And('they are the Owner of this Registration', () => { });
 And('the Registration has status {string}', (status) => {
+  cy.wrap(status).as('status');
   cy.get(`[data-testid=${myRegistrationsTabs[status]}]`).click();
   cy.get('[data-testid^=registration-title]')
     .filter(`:contains(${registrationTitles[status]})`)
@@ -30,8 +31,12 @@ And('the Registration has a DOI', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
 });
 When('they see the Status Bar', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
+  cy.get('@status').then((status) => {
+    if (status === 'Draft') {
+      cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
+      cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
+    }
+  })
 });
 Then('they see that the {string} button is not visible', (button) => {
   cy.get(`[data-testid=${landingPageButtons[button]}]`).should('not.exist');

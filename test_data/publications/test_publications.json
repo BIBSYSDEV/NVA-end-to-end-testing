@@ -186,7 +186,7 @@
     "status": "PUBLISHED",
     "contributor": "test-user-draft-doi@test.no",
     "title": "Published registration with DOI",
-    "doi": "requested"
+    "doi": "created"
   },
   {
     "publication_type": "JournalContent",
