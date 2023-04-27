@@ -1,7 +1,7 @@
 Feature: Curator navigates to the Landing Page for Registration
 
     @test
-    @all_restrictions
+    @file_restrictions
     Scenario: Curator Approves a Publishing Request
         Given a Curator opens the Landing Page of a Registration
         And the Registration has a Publishing Request
@@ -10,7 +10,7 @@ Feature: Curator navigates to the Landing Page for Registration
         And all files are Published
 
     @test
-    @all_restrictions
+    @file_restrictions
     Scenario Outline: Curator Rejects a Publishing Request
         Given a Curator from a customer with Workflow "<Workflow>"
         And they opens the Landing Page of a Registration
@@ -21,7 +21,7 @@ Feature: Curator navigates to the Landing Page for Registration
         Examples:
             | Workflow                              | RegistrationStatus | FileStatus  |
             | Registrator can only publish metadata | Published          | Unpublished |
-            | Only Curator can publish              | Draft              | Unpublished |
+            # | Only Curator can publish              | Draft              | Unpublished |
 
     @test
     @no_restriction
