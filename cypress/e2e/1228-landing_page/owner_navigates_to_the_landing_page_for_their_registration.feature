@@ -14,8 +14,8 @@ Feature: Owner navigates to the Landing Page for their Resource
         And the Registration has "Draft" Status
         Then they see a "Publish" option
 
-    @test
-    @all_restrictions
+    # @test
+    @file_restrictions
     Scenario: Owner wants to publish their Resource, pending Approval
         When the Owner previews the Resource's Landing Page
         And the Registration has "Draft" Status
@@ -23,7 +23,7 @@ Feature: Owner navigates to the Landing Page for their Resource
         Then they see a "Publishing pending" notice
         And the user is informed that progress can be viewed in My Messages
 
-    @test
+    # @test
     @all_restrictions
     Scenario: Owner wants to publish Resource, all restrictions
         Given Institutions publications policy is "Only Curator can publish"

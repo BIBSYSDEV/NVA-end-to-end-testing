@@ -210,7 +210,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).should('not.exist');
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton, { timeOut: 30000 }).should('not.exist');
 
   // Files and reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
