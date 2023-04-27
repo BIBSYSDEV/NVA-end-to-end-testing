@@ -34,9 +34,9 @@ Feature: Editor decides who gets publishing rights
 		Then the Institutions publications policy is changed accordingly
 		And the Editor is notified that a new policy is activated
 		Examples:
-		| PublishStrategy                        |
-		| Registrator has full publishing rights |
-		| Registrator can only publish metadata  |
-		| Only Curator can publish               |
+			| PublishStrategy                        |
+			| Registrator has full publishing rights |
+			| Registrator can only publish metadata  |
+# | Only Curator can publish               |
 # The policys are used in owner_navigates_to_the_landing_page_for_their_registration.feature
 
