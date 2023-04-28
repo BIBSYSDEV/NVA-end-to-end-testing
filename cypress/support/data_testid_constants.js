@@ -307,6 +307,7 @@ export const musicAudioVideoFields = {
   'Format': dataTestId.registrationWizard.resourceType.artisticSubtype,
   'Publisher': dataTestId.registrationWizard.resourceType.audioVideoPublisher,
   'Catalogue number': dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber,
+  'ISRC': dataTestId.registrationWizard.resourceType.scoreIsrc,
   'Track list': dataTestId.registrationWizard.resourceType.audioVideoAddTrack,
 };
 

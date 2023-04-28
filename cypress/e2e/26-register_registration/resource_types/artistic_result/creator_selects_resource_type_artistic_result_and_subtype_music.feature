@@ -46,6 +46,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
       | Format           |
       | Publisher        |
       | Catalogue number |
+      | ISRC             |
       | Track list       |
     And Format can be any of:
       | CD        |
@@ -70,7 +71,6 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
       | Extent    |
       | Publisher |
       | ISMN      |
-      | ISRC      |
     Then the Music score is listed under Exhibitions
 
   @TEST_NP-13246

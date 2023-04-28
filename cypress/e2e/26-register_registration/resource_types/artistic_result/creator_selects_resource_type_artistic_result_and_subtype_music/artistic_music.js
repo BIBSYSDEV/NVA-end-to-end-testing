@@ -94,6 +94,8 @@ When('they add a Audiovisual publication with details for:', (dataTable) => {
       cy.get(`[data-value=${musicAudioVideoTrackTypes['CD']}]`).click();
     } else if (value[0] === 'Track list') {
       cy.get(`[data-testid=${musicAudioVideoFields[value[0]]}]`).click()
+    } else if (value[0] === 'ISRC') {
+      cy.get(`[data-testid=${musicAudioVideoFields[value[0]]}]`).type('NG-JY5-45-11574')
     } else {
       cy.get(`[data-testid=${musicAudioVideoFields[value[0]]}]`).type(`Test audio/video ${value[0]}`);
     }

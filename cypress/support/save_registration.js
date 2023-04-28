@@ -414,6 +414,7 @@ export const resourceTypeFields = {
         [dataTestId.registrationWizard.resourceType.artisticSubtype]: 'CompactDisc',
         [dataTestId.registrationWizard.resourceType.audioVideoPublisher]: 'Test audio/video publisher',
         [dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber]: '11',
+        [dataTestId.registrationWizard.resourceType.scoreIsrc]: 'NG-JY5-45-11574',
         [dataTestId.registrationWizard.resourceType.audioVideoAddTrack]: 'Test track',
       },
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
