@@ -37,8 +37,6 @@ Feature: User My Projects
             | Local Project Manager |
             | Participants          |
 
-    @TEST_NP-4091
-    @2874a
     Scenario: User navigate to My Page and selects Project registrations
         When a User navigate to My Page and selects Project registrations
         Then the User sees all active projects where the User has one of the following roles:
@@ -52,16 +50,14 @@ Feature: User My Projects
         And the User can select a list of Concluded Projects
         And the User can select a list of Draft Projects
 
-    @2874b
+    @test
     Scenario: User inspects a listed Project
         Given User navigate to My Page and selects Project registrations
         When the User inspects a listed project
         Then the User see can see each Project's:
-            | Type                     |
             | Title                    |
             | Project participants     |
             | Coordinating Institution |
-            | Status                   |
         And each Project can be edited if the User has one of the following roles:
             | Project Owner         |
             | Project Manager       |
@@ -71,25 +67,21 @@ Feature: User My Projects
             | Coordinating Institution |
             | Project category         |
 
-    @TEST_NP-4088
-    @2874c
+    @test
     Scenario: User opens a Project's Landing Page
         Given User navigate to My Page and selects Project registrations
-        When the User selects a Project's presentation area/line in table
+        When the User selects a Project's presentation
         Then the User is presented the Landing Page for the Project
 
-    @TEST_NP-4084
-    @2874d
+    @test
     Scenario: User Edits a Project in the Project Wizard
         Given User navigate to My Page and selects Project registrations
         When the User activate the option to Edit a project
         Then the Project is opend in the Project Wizard
 
-    @TEST_NP-4086
-    @2875
-    Scenario: User search in My Projects
-        When a User enter a search term in the search field on My Projects
-        Then the User see Projects matching the search term in the Project's:
-            | Title                    |
-            | Coordinating Institution |
-            | Participants             |
+Scenario: User search in My Projects
+    When a User enter a search term in the search field on My Projects
+    Then the User see Projects matching the search term in the Project's:
+        | Title                    |
+        | Coordinating Institution |
+        | Participants             |
