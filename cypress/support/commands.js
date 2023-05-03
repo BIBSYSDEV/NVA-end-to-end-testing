@@ -74,9 +74,6 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
 
 Cypress.Commands.add('loginCognito', (userId) => {
   const randomPassword = `P%1234abcd`;
-  console.log('userId = ' + userId);
-  console.log(randomPassword);
-  console.log(amplifyConfig);
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
     // const randomPassword = `P%${uuidv4()}`;
@@ -98,15 +95,10 @@ Cypress.Commands.add('loginCognito', (userId) => {
     };
 
     identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
-      console.log(passwordParams);
       if (data) {
         identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-          console.log(authorizeUser);
           if (data) {
-            console.log(data);
             if (!data.ChallengeName) {
-              console.log('userId = ' + userId);
-              console.log(randomPassword);
               await Auth.signIn(userId, randomPassword);
               resolve(data.AuthenticationResult.IdToken);
             }
@@ -118,12 +110,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
         reject(err);
       }
     });
-    // } else {
-    //   console.log(err)
-    //   reject(err);
-    // }
   });
-  // });
 });
 
 Cypress.Commands.add('login', (userId) => {
@@ -131,8 +118,6 @@ Cypress.Commands.add('login', (userId) => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.setLocalStorage('beta', 'true');
-    // cy.mockPersonSearch(userId);
-    // cy.mockDepartments();
     cy.visit(`/`, {
       auth: {
         username: Cypress.env('DEVUSER'),

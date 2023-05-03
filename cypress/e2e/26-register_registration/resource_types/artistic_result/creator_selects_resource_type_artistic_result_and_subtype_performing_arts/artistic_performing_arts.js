@@ -19,7 +19,6 @@ Then('they see fields:', (dataTable) => {
 //   | More information |
 And('they see field for Type Work with options:', (dataTable) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticTypeField}]`).click();
-    console.log(dataTable)
     dataTable.rawTable.forEach((value) => {
         cy.get(`[data-value=${performingArtsWorkTypes[value[0]]}]`);
     })
