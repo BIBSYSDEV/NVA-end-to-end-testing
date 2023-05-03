@@ -24,7 +24,11 @@ Then('they see fields:', () => { });
 And('they see field for Type Work with options:', (dataTable) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticTypeField}]`).click();
     dataTable.rawTable.forEach((value) => {
-        cy.get(`[data-value=${value}]`).should('be.visible');
+        if (value[0] === 'Other') {
+            cy.get(`[data-value=LiteraryArtsOther]`).should('be.visible');
+        } else {
+            cy.get(`[data-value=${value[0]}]`).should('be.visible');
+        }
     });
 });
 //   | Novel        |
@@ -115,9 +119,9 @@ When('they add a Performance with details for:', (dataTable) => {
 //   | Place               |
 //   | Date                |
 And('Type of Performance can be one of:', (dataTable) => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticSubtype}]`).click();
+    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.subtypeField}]`).click();
     dataTable.rawTable.forEach(type => {
-        if(type[0] !== 'Other'){
+        if (type[0] !== 'Other') {
             cy.get(`[data-value=${type}]`);
         } else {
             cy.get(`[data-value=LiteraryArtsPerformanceOther]`);
@@ -141,7 +145,7 @@ And('they can remove the Performance', () => {
 
 //   Scenario: Creator adds an Audio/Visual Publication
 // Given('Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"', () => { })
-When('they add an Audio/Visual Publication with details for:', () => {
+When('they add an AudioVisual Publication with details for:', (dataTable) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addAudioVideoButton}]`).click();
     dataTable.rawTable.forEach((field) => {
         if (field[0] === 'Type of audio/visual publication') {
@@ -159,12 +163,16 @@ When('they add an Audio/Visual Publication with details for:', () => {
 //   | Year                             |
 //   | ISBN                             |
 //   | Duration                         |
-And('Type of Type of audio/visual publication can be one of:', () => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticSubtype}]`).click();
-    dataTable.forEach((type) => {
-        cy.get(`[data-value=${type[0]}]`);
+And('Type of Type of audiovisual publication can be one of:', (dataTable) => {
+    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.subtypeField}]`).click();
+    dataTable.rawTable.forEach((type) => {
+        if(type[0] === 'Other') {
+            cy.get(`[data-value=LiteraryArtsAudioVisualOther]`);
+        } else {
+            cy.get(`[data-value=${type[0]}]`);
+        }
     });
-    cy.get(`[data-value=${literaryArtsAudioVisualFields['Type of audio/visual publication']['value']}]}]`).click();
+    cy.get(`[data-value=${literaryArtsAudioVisualFields['Type of audio/visual publication']['value']}]`).click();
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
 //   | Audiobook |
@@ -172,12 +180,12 @@ And('Type of Type of audio/visual publication can be one of:', () => {
 //   | ShortFilm |
 //   | Podcast   |
 //   | Other     |
-Then('the Audio/Visual Publication is listed under Announcements', () => {
-    cy.contains(literaryArtsAudioVisualFields['Type of audio/visual publication']['value']);
+Then('the AudioVisual Publication is listed under Announcements', () => {
+    cy.contains(literaryArtsAudioVisualFields['Publisher']['value']);
 });
-And('they can edit the Audio/Visual Publication', () => {
+And('they can edit the AudioVisual Publication', () => {
     cy.contains('Show/Edit');
 });
-And('they can remove the Audio/Visual Publication', () => {
+And('they can remove the AudioVisual Publication', () => {
     cy.contains('Remove');
 });

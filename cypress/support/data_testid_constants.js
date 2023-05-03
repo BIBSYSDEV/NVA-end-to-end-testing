@@ -418,7 +418,7 @@ export const literaryArtsBookFields = {
     'value': 'Test literary arts book publisher',
   },
   'Year': {
-    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'field': dataTestId.registrationWizard.resourceType.outputInstantDateField,
     'value': '2022',
   },
   'ISBN': {
@@ -433,11 +433,11 @@ export const literaryArtsBookFields = {
 
 export const literaryArtsPerformanceFields = {
   'Type of Performance': {
-    'field': dataTestId.registrationWizard.resourceType.artisticSubtype,
+    'field': dataTestId.registrationWizard.resourceType.subtypeField,
     'value': 'Reading',
   },
   'Date': {
-    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'field': dataTestId.registrationWizard.resourceType.outputInstantDateField,
     'value': '01-01-2022',
   },
   'Place': {
@@ -452,7 +452,7 @@ export const literaryArtsWebFields = {
     'value': 'Test literary arts web publisher',
   },
   'Year': {
-    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'field': dataTestId.registrationWizard.resourceType.outputInstantDateField,
     'value': '2022',
   },
   'Link': {
@@ -467,19 +467,19 @@ export const literaryArtsAudioVisualFields = {
     'value': 'Test literary arts audio/visual publisher',
   },
   'Year': {
-    'field': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+    'field': dataTestId.registrationWizard.resourceType.outputInstantDateField,
     'value': '2022',
   },
   'Type of audio/visual publication': {
-    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'field': dataTestId.registrationWizard.resourceType.subtypeField,
     'value': 'Audiobook',
   },
   'ISBN': {
-    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'field': dataTestId.registrationWizard.resourceType.isbnField,
     'value': '9780136091813',
   },
   'Duration': {
-    'field': dataTestId.registrationWizard.resourceType.linkField,
+    'field': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
     'value': '666',
   },
 };

@@ -1,6 +1,6 @@
 Feature: Creator selects Resource type Artistic Result and subtype Literary Arts
 
-  # @test
+  @test
   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"
     Given Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"
     When they select Resource Subtype "Literary Arts"
@@ -22,7 +22,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Literary Arts
       | Performance              |
       | Audio/Visual Publication |
 
-  # @test
+  @test
   Scenario: Creator adds an Monograph
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"
     When they add a Monograph with details for:
@@ -34,7 +34,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Literary Arts
     And they can edit the Monograph
     And they can remove the Monograph
 
-  # @test
+  @test
   Scenario: Creator adds an Web Publication
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"
     When they add a Web Publication with details for:
@@ -60,20 +60,21 @@ Feature: Creator selects Resource type Artistic Result and subtype Literary Arts
     And they can edit the Performance
     And they can remove the Performance
 
+  @test
   Scenario: Creator adds an Audio/Visual Publication
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"
-    When they add an Audio/Visual Publication with details for:
+    When they add an AudioVisual Publication with details for:
       | Type of audio/visual publication |
       | Publisher                        |
       | Year                             |
       | ISBN                             |
       | Duration                         |
-    And Type of Type of audio/visual publication can be one of:
+    And Type of Type of audiovisual publication can be one of:
       | Audiobook |
       | RadioPlay |
       | ShortFilm |
       | Podcast   |
       | Other     |
-    Then the Audio/Visual Publication is listed under Announcements
-    And they can edit the Audio/Visual Publication
-    And they can remove the Audio/Visual Publication
+    Then the AudioVisual Publication is listed under Announcements
+    And they can edit the AudioVisual Publication
+    And they can remove the AudioVisual Publication
