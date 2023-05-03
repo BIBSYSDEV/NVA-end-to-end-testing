@@ -316,7 +316,7 @@ export const resourceTypeFields = {
       fields: {
         [dataTestId.registrationWizard.resourceType.competitionName]: 'Test competition',
         [dataTestId.registrationWizard.resourceType.competitionDescription]: 'Test competition description',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
       },
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
@@ -329,10 +329,10 @@ export const resourceTypeFields = {
     value: 'Test publication/mention',
     add: {
       fields: {
-        [dataTestId.registrationWizard.resourceType.publicationMentionTitle]: 'Test publication/mention',
-        [dataTestId.registrationWizard.resourceType.publicationMentionIssue]: 'Test mention issue',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
-        [dataTestId.registrationWizard.resourceType.publicationMentionOther]: 'Test mention other',
+        [dataTestId.registrationWizard.resourceType.outputJournalBookMediumField]: 'Test publication/mention',
+        [dataTestId.registrationWizard.resourceType.outputIssueField]: 'Test mention issue',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.outputDescriptionField]: 'Test mention other',
       },
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
@@ -347,7 +347,7 @@ export const resourceTypeFields = {
       fields: {
         [dataTestId.registrationWizard.resourceType.awardName]: 'Test prize/award',
         [dataTestId.registrationWizard.resourceType.awardOrganizer]: 'Test award organizer',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
         [dataTestId.registrationWizard.resourceType.awardRanking]: 'Test award ranking',
         [dataTestId.registrationWizard.resourceType.awardOther]: 'Test award other',
       },
@@ -363,7 +363,7 @@ export const resourceTypeFields = {
     add: {
       fields: {
         [dataTestId.registrationWizard.resourceType.exhibitionName]: 'Test exhibition',
-        [dataTestId.registrationWizard.resourceType.exhibitionPlace]: 'Test exhibition place',
+        [dataTestId.registrationWizard.resourceType.placeField]: 'Test exhibition place',
         [dataTestId.registrationWizard.resourceType.exhibitionOrganizer]: 'Test exhibition organizer',
         [dataTestId.registrationWizard.resourceType.dateFromField]: '11.11.2021',
         [dataTestId.registrationWizard.resourceType.dateToField]: '11.11.2021',
@@ -395,8 +395,8 @@ export const resourceTypeFields = {
     value: 'Test concert/show',
     add: {
       fields: {
-        [dataTestId.registrationWizard.resourceType.concertPlace]: 'Test concert/show',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.placeField]: 'Test concert/show',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
         [dataTestId.registrationWizard.resourceType.artisticOutputDuration]: '11',
         [dataTestId.registrationWizard.resourceType.concertAddWork]: 'Test work',
       },
@@ -411,7 +411,7 @@ export const resourceTypeFields = {
     value: 'Test audio/video publisher',
     add: {
       fields: {
-        [dataTestId.registrationWizard.resourceType.artisticSubtype]: 'CompactDisc',
+        [dataTestId.registrationWizard.resourceType.subtypeField]: 'CompactDisc',
         [dataTestId.registrationWizard.resourceType.audioVideoPublisher]: 'Test audio/video publisher',
         [dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber]: '11',
         [dataTestId.registrationWizard.resourceType.scoreIsrc]: 'NG-JY5-45-11574',
@@ -428,9 +428,9 @@ export const resourceTypeFields = {
     value: 'Test audio/video publisher',
     add: {
       fields: {
-        [dataTestId.registrationWizard.resourceType.artisticSubtype]: 'Audiobook',
+        [dataTestId.registrationWizard.resourceType.subtypeField]: 'Audiobook',
         [dataTestId.registrationWizard.resourceType.publisherNameField]: 'Test audio/video publisher',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '2021',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '2021',
         [dataTestId.registrationWizard.resourceType.isbnField]: '9781234567897',
         [dataTestId.registrationWizard.resourceType.artisticOutputDuration]: '20',
       },
@@ -445,9 +445,9 @@ export const resourceTypeFields = {
     value: 'Test literary performance place',
     add: {
       fields: {
-        [dataTestId.registrationWizard.resourceType.artisticSubtype]: 'Reading',
+        [dataTestId.registrationWizard.resourceType.subtypeField]: 'Reading',
         [dataTestId.registrationWizard.resourceType.placeField]: 'Test literary performance place',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
       },
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
@@ -462,7 +462,7 @@ export const resourceTypeFields = {
       fields: {
         [dataTestId.registrationWizard.resourceType.linkField]: 'http://test.no',
         [dataTestId.registrationWizard.resourceType.publisherNameField]: 'Test literary web publication publisher',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '2021',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '2021',
       },
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
@@ -476,7 +476,7 @@ export const resourceTypeFields = {
     add: {
       fields: {
         [dataTestId.registrationWizard.resourceType.publisherNameField]: 'Test book publisher',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '2021',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '2021',
         [dataTestId.registrationWizard.resourceType.isbnField]: '9781234567897',
         [dataTestId.registrationWizard.resourceType.pagesField]: '20',
       },
@@ -492,7 +492,7 @@ export const resourceTypeFields = {
     add: {
       fields: {
         [dataTestId.registrationWizard.resourceType.broadcastPublisher]: 'Test streaming publisher',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
       },
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
@@ -505,8 +505,8 @@ export const resourceTypeFields = {
     value: 'Test festival place',
     add: {
       fields: {
-        [dataTestId.registrationWizard.resourceType.cinemaPlace]: 'Test festival place',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.placeField]: 'Test festival place',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
       },
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
@@ -519,10 +519,10 @@ export const resourceTypeFields = {
     value: 'Test festival place',
     add: {
       fields: {
-        [dataTestId.registrationWizard.resourceType.otherReleaseType]: 'Test other type',
-        [dataTestId.registrationWizard.resourceType.otherReleasePlace]: 'Test other place',
+        [dataTestId.registrationWizard.resourceType.outputDescriptionField]: 'Test other type',
+        [dataTestId.registrationWizard.resourceType.placeField]: 'Test other place',
         [dataTestId.registrationWizard.resourceType.otherReleasePublisher]: 'Test other publisher',
-        [dataTestId.registrationWizard.resourceType.artisticOutputDate]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
       },
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },

@@ -344,11 +344,11 @@ const fillInField = (field) => {
       cy.getDataTestId(field['fieldTestId']).click();
       if ('fields' in field['add']) {
         Object.keys(field['add']['fields']).forEach((key) => {
-          if (key === dataTestId.registrationWizard.resourceType.artisticSubtype) {
+          if (key === dataTestId.registrationWizard.resourceType.subtypeField) {
             cy.getDataTestId(key).click();
             cy.get(`[data-value=${field['add']['fields'][key]}]`).click();
           } else if (
-            key === dataTestId.registrationWizard.resourceType.artisticOutputDate ||
+            key === dataTestId.registrationWizard.resourceType.outputInstantDateField ||
             key === dataTestId.registrationWizard.resourceType.dateFromField ||
             key === dataTestId.registrationWizard.resourceType.dateToField
           ) {

@@ -337,7 +337,7 @@ export const musicScoreFields = {
 
 export const musicOtherFields = {
   'Type': dataTestId.registrationWizard.resourceType.otherPerformanceType,
-  'Place': dataTestId.registrationWizard.resourceType.otherPerformancePlace,
+  'Place': dataTestId.registrationWizard.resourceType.placeField,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Other performance': dataTestId.registrationWizard.resourceType.otherPerfomanceAddWork,
 };
@@ -358,27 +358,27 @@ export const musicConcertDetails = {
 export const competitionFields = {
   'Name': dataTestId.registrationWizard.resourceType.competitionName,
   'Description': dataTestId.registrationWizard.resourceType.competitionDescription,
-  'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+  'Date': dataTestId.registrationWizard.resourceType.outputInstantDateField,
 };
 
 export const publicationMentionFields = {
-  'Name': dataTestId.registrationWizard.resourceType.publicationMentionTitle,
-  'Issue': dataTestId.registrationWizard.resourceType.publicationMentionIssue,
-  'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
-  'Description': dataTestId.registrationWizard.resourceType.publicationMentionOther,
+  'Name': dataTestId.registrationWizard.resourceType.outputJournalBookMediumField,
+  'Issue': dataTestId.registrationWizard.resourceType.outputIssueField,
+  'Date': dataTestId.registrationWizard.resourceType.outputInstantDateField,
+  'Description': dataTestId.registrationWizard.resourceType.outputDescriptionField,
 };
 
 export const awardFields = {
   'Name': dataTestId.registrationWizard.resourceType.awardName,
   'Organizer': dataTestId.registrationWizard.resourceType.awardOrganizer,
-  'Year': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+  'Year': dataTestId.registrationWizard.resourceType.outputInstantDateField,
   'Ranking': dataTestId.registrationWizard.resourceType.awardRanking,
   'Description': dataTestId.registrationWizard.resourceType.awardOther,
 };
 
 export const exhibitionFields = {
   'Name': dataTestId.registrationWizard.resourceType.exhibitionName,
-  'Place': dataTestId.registrationWizard.resourceType.exhibitionPlace,
+  'Place': dataTestId.registrationWizard.resourceType.placeField,
   'Organizer': dataTestId.registrationWizard.resourceType.exhibitionOrganizer,
   'Date from': dataTestId.registrationWizard.resourceType.dateFromField,
   'Date to': dataTestId.registrationWizard.resourceType.dateToField,

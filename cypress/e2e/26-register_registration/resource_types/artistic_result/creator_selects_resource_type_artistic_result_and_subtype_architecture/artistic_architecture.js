@@ -52,7 +52,7 @@ And('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${exhibitionTypes['Exhibition']}]`).click({ force: true });
   //   cy.get('[role=dialog').within(() => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionName}]`).type('Exhibition name');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionPlace}]`).type('Exhibition place');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.placeField}]`).type('Exhibition place');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionOrganizer}]`).type(
     'Exhibition organizer'
   );
