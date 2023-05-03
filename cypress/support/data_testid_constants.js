@@ -290,8 +290,8 @@ export const musicAwards = {
 };
 
 export const musicConcertFields = {
-  'Place': dataTestId.registrationWizard.resourceType.concertPlace,
-  'Date': dataTestId.registrationWizard.resourceType.artisticOutputDate,
+  'Place': dataTestId.registrationWizard.resourceType.placeField,
+  'Date': dataTestId.registrationWizard.resourceType.outputInstantDateField,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
 };
@@ -304,7 +304,7 @@ export const musicConcertProgramFields = {
 };
 
 export const musicAudioVideoFields = {
-  'Format': dataTestId.registrationWizard.resourceType.artisticSubtype,
+  'Format': dataTestId.registrationWizard.resourceType.subtypeField,
   'Publisher': dataTestId.registrationWizard.resourceType.audioVideoPublisher,
   'Catalogue number': dataTestId.registrationWizard.resourceType.audioVideoCatalogueNumber,
   'ISRC': dataTestId.registrationWizard.resourceType.scoreIsrc,
@@ -349,7 +349,7 @@ export const musicOtherWorksField = {
 
 export const musicConcertDetails = {
   // 'Part of a series/tour': dataTestId.registrationWizard.resourceType.concertProgramTour,
-  'Place': dataTestId.registrationWizard.resourceType.concertPlace,
+  'Place': dataTestId.registrationWizard.resourceType.placeField,
   'Date': dataTestId.registrationWizard.resourceType.concertDate,
   'Extent': dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   'Works': dataTestId.registrationWizard.resourceType.concertAddWork,
