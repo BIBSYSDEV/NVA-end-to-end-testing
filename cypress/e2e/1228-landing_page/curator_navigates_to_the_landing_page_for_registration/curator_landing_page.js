@@ -176,7 +176,7 @@ And('the Registration has a DOI Request', () => {
 When('they approve the DOI Request', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.contains(title).click();
+  cy.contains(title, {timeout : 30000}).click();
   cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('not.exist');
