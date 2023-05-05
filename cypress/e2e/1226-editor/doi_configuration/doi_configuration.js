@@ -29,6 +29,7 @@ Given('a logged in Editor', () => {
 // Scenario: Editor opens institutions DOI configuration
 Given("the Institution don't have an DOI configuration", () => { });
 When("the Editor opens the institution's DOI configuration menu item", () => {
+  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.doiLinkButton).click();
 });
 Then('the Editor sees a link to Sikt to order DOI service', () => { });

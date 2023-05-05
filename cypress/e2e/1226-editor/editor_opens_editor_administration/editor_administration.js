@@ -36,7 +36,7 @@ When("the Editor opens the institution's configuration menu item", () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
 });
 Then('the Editor sees one or many registered official names in Bokmål, English, Nynorsk or Northern Sámi', () => {
-  cy.getDataTestid(dataTestId.editor.settingsAccordion).click();
+  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.institutionsNameLinkButton).click();
   cy.contains("The institution's Norwegian name");
   cy.contains("The institution's English name");
