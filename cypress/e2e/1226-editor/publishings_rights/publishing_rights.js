@@ -22,6 +22,7 @@ Given('an Institution with one or more Editor roles', () => {
 When('the Editor of an Institution hasn’t chosen a policy', () => {
   cy.login(userEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
 });
 Then('the publications policy is:', () => {
@@ -32,6 +33,7 @@ Then('the publications policy is:', () => {
 // Scenario: Editor defines publishing rights
 Given('a Editor views the Editor page', () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
 });
 When('the Editor chooses {string}:', (strategy) => {

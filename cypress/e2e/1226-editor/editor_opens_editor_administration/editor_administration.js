@@ -20,7 +20,6 @@ const menuItems = {
   'Vocabulary settings': dataTestId.editor.vocabularyLinkButton,
   'Publishing strategi': dataTestId.editor.publishStrategyLinkButton,
   'DOI configurasjon': dataTestId.editor.doiLinkButton,
-  "Curator's responsibility": dataTestId.editor.areaOfResponsibilityLinkButton,
   // #        | change owner of registration |
   // #        | Sletting av publikasjoner    |
   'NVI-rapportering': '',
@@ -41,9 +40,12 @@ Then('the Editor sees one or many registered official names in Bokmål, English,
   cy.contains("The institution's English name");
 });
 And('they see all of', (dataTable) => {
+  cy.getDataTestid(dataTestId.editor.settingsAccordion).click();
   dataTable.rawTable.forEach((value) => {
     cy.contains(information[value[0]]);
   });
+  cy.getDataTestId(dataTestId.editor.overviewAccordion).click();
+  cy.getDataTestId(dataTestId.editor.areaOfResponsibilityLinkButton)
 });
 // | Institution's short name       |
 // | Institution's ROR              |

@@ -86,6 +86,7 @@ export const userSavePresentation = 'test-user-save-presentation@test.no';
 export const userSaveArtisticResult = 'test-user-save-artistic-result@test.no';
 export const userSaveMediaContribution = 'test-user-save-media-contribution@test.no';
 export const userSaveResearchData = 'test-user-save-research-data@test.no';
+export const userSaveExhibition = 'test-user-save-exhibition@test.no';
 export const userPublishNoRights = 'test-user-publish-no-rights@test.no';
 export const userCurator = 'test-user-second-inst-curator-5@test.no';
 export const userPublishRegistration = 'test-user-publish-registration@test.no';
@@ -178,6 +179,7 @@ export const user = {
   [userSaveArtisticResult]: { ...userData, name: 'TestUser, Save artistic result' },
   [userSaveMediaContribution]: { ...userData, name: 'TestUser, Save media presentation' },
   [userSaveResearchData]: { ...userData, name: 'TestUser, Save research data' },
+  [userSaveExhibition]: { ...userData, name: 'TestUser, Save exhibition' },
   [userPublishNoRights]: { ...userData, name: 'TestUser, Publish registration no rights' },
   [userCurator]: { ...userData, name: 'TestUser, Curator 1' },
   [userPublishRegistration]: { ...userData, name: 'TestUser, Publish registration' },
