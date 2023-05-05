@@ -32,6 +32,7 @@ Given('Editor opens Editor Administration', () => {
     cy.getDataTestId(dataTestId.header.editorLink).click();
 })
 And('they see Vocabulary settings', () => {
+    cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
     cy.getDataTestId(dataTestId.editor.vocabularyLinkButton).click();
 })
 Then('they a list of Vocabularies:', (dataTable) => {

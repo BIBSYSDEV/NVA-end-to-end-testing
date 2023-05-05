@@ -36,16 +36,15 @@ When("the Editor opens the institution's configuration menu item", () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
 });
 Then('the Editor sees one or many registered official names in Bokmål, English, Nynorsk or Northern Sámi', () => {
+  cy.getDataTestid(dataTestId.editor.settingsAccordion).click();
+  cy.getDataTestId(dataTestId.editor.institutionsNameLinkButton).click();
   cy.contains("The institution's Norwegian name");
   cy.contains("The institution's English name");
 });
 And('they see all of', (dataTable) => {
-  cy.getDataTestid(dataTestId.editor.settingsAccordion).click();
   dataTable.rawTable.forEach((value) => {
     cy.contains(information[value[0]]);
   });
-  cy.getDataTestId(dataTestId.editor.overviewAccordion).click();
-  cy.getDataTestId(dataTestId.editor.areaOfResponsibilityLinkButton)
 });
 // | Institution's short name       |
 // | Institution's ROR              |
@@ -54,8 +53,12 @@ And('they may also see', () => { });
 // | Institution's Feide domain     |
 And('the Editor sees a menu with following options', (dataTable) => {
   dataTable.rawTable.forEach((menuItem) => {
-    cy.getDataTestId(menuItems[menuItem[0]]);
+    if(menuItem[0] !== "Curator's responsibility") {
+      cy.getDataTestId(menuItems[menuItem[0]]);
+    }
   });
+  cy.getDataTestId(dataTestId.editor.areaOfResponsibilityLinkButton)
+  cy.getDataTestId(dataTestId.editor.overviewAccordion).click();
 });
 //         | Institutions configuration |
 //         | Vocabulary settings        |
