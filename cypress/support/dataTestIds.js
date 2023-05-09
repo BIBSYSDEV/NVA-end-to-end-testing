@@ -43,12 +43,12 @@ export const dataTestId = {
     nationalIdentityNumberField: 'national-identity-number-field',
     personAdmin: {
       cristinId: (id) => `cristin-id-${id}`,
-      employments: () => (id ? `employments-${id}` : 'employments'),
+      employments: (id) => (id ? `employments-${id}` : 'employments'),
       firstName: 'first-name',
       institution: 'institution',
       lastName: 'last-name',
       name: (id) => `name-${id}`,
-      nin: () => (id ? `nin-${id}` : 'nin'),
+      nin: (id) => (id ? `nin-${id}` : 'nin'),
       personSearchField: 'person-search-field',
       position: 'position',
       positionPercent: 'position-percent',
@@ -408,6 +408,7 @@ export const dataTestId = {
   },
   myPage: {
     createProjectButton: 'create-project-button',
+    messagesAccordion: 'messages-accordion',
     messagesLink: 'messages-link',
     myProfileLink: 'my-profile-link',
     myProfile: {
@@ -421,11 +422,15 @@ export const dataTestId = {
       showFullNinButton: 'show-full-nin-button',
       telephoneField: 'telephone-field',
     },
+    myProfileAccordion: 'my-profile-accordion',
     myProjectRegistrationsLink: 'my-project-registrations-link',
     myProjectsLink: 'my-projects-link',
     myRegistrationsLink: 'my-registrations-link',
     myResultsLink: "my-publications'link",
     newRegistrationLink: 'new-registration-link',
+    projectRegistrationsAccordion: 'project-registrations-accordion',
+    registrationsAccordion: 'registrations-accordion',
+    researchProfileAccordion: 'research-profile-accordion',
     researchProfileLink: 'research-profile-link',
   },
 };

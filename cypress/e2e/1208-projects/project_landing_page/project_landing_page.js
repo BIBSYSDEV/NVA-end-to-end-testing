@@ -2,6 +2,11 @@
 
 import { dataTestId } from "../../../support/dataTestIds";
 
+const panelHeadings = {
+    'Participants': 'Project participants',
+    'Associated Projects': 'Related projects',
+};
+
 //     Scenario: User opens Landing Page for Project
 When("A Anonymous User opens a Project's Landing Page", () => {
     cy.setLocalStorage('i18nextLng', 'eng');
@@ -17,8 +22,14 @@ When("A Anonymous User opens a Project's Landing Page", () => {
     cy.get('ul > li > div > p > a').first().click();
 });
 Then('the Anonymous User see:', (fields) => {
-    fields.rawTable.forEach(field => {
-        cy.log(field[0]);
+    const fieldHeadings = {
+        'Project Title': 'Project',
+    };
+    cy.get('main > div > div').first().within(() => {
+
+        fields.rawTable.forEach((field) => {
+            cy.contains(fieldHeadings[field[0]] ?? field[0], { matchCase: false });
+        });
     });
 });
 //             | Project Title            |
@@ -27,13 +38,28 @@ Then('the Anonymous User see:', (fields) => {
 //             | Project Period           |
 //             | Financing                |
 //             | PRoject Category         |
-And('the Anonymous User see expandable panels for:', () => { });
+And('the Anonymous User see expandable panels for:', (panels) => {
+    cy.get('main > div > div').first().within(() => {
+        panels.rawTable.forEach((panel) => {
+            cy.contains(panelHeadings[panel[0]] ??  panel[0], { matchCase: false });
+        });
+    });
+});
 //             | Summary             |
 //             | Participants        |
 //             | Results             |
 //             # | Data Management Plan |
 //             | Associated Projects |
-And('the Anonymous User see counts of:', () => { });
+And('the Anonymous User see counts of:', (counts) => {
+    cy.get('main > div > div').first().within(() => {
+        counts.rawTable.forEach((count) => {
+            cy.contains(panelHeadings[count[0]] ??  count[0], { matchCase: false }).parent().within(() => {
+                cy.contains('(');
+                cy.contains(')');
+            })
+        })
+    });
+    });
 //             | Participants        |
 //             | Results             |
 //             | Associated Projects |

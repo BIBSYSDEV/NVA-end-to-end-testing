@@ -165,6 +165,7 @@ Cypress.Commands.add('logoutCognito', () => {
 
 Cypress.Commands.add('openMyRegistrations', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
   cy.getDataTestId(dataTestId.myPage.myRegistrationsLink).click();
 });
 
@@ -215,6 +216,7 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 
 Cypress.Commands.add('selectRegistration', (title, type) => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
   cy.getDataTestId(dataTestId.myPage.myRegistrationsLink).click();
   cy.getDataTestId(`${type}-button`).click();
   cy.get('[data-testid^=registration-title]')
@@ -496,6 +498,8 @@ Cypress.Commands.add('fillInResourceType', (subtype, fields) => {
 
 Cypress.Commands.add('fillInContributors', (contributorRoles) => {
   var index = 0;
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
   contributorRoles.forEach((role) => {
     index++;
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();

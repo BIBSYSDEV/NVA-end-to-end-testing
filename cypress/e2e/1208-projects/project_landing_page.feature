@@ -35,7 +35,7 @@ Feature: Project Landing Page
             | Project Manager          |
             | Project Period           |
             | Financing                |
-            | PRoject Category         |
+            | Project Category         |
         And the Anonymous User see expandable panels for:
             | Summary             |
             | Participants        |
