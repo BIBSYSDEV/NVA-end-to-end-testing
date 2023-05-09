@@ -498,8 +498,6 @@ Cypress.Commands.add('fillInResourceType', (subtype, fields) => {
 
 Cypress.Commands.add('fillInContributors', (contributorRoles) => {
   var index = 0;
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
   contributorRoles.forEach((role) => {
     index++;
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
