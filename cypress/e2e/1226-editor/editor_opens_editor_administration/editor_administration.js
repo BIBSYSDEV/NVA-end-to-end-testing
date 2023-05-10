@@ -58,7 +58,6 @@ And('the Editor sees a menu with following options', (dataTable) => {
     }
   });
   cy.getDataTestId(dataTestId.editor.areaOfResponsibilityLinkButton)
-  cy.getDataTestId(dataTestId.editor.overviewAccordion).click();
 });
 //         | Institutions configuration |
 //         | Vocabulary settings        |
@@ -70,5 +69,6 @@ And('the Editor sees a menu with following options', (dataTable) => {
 //         | NVI-rapportering           |
 // #        | Lisenser og filer            |
 And('"Institutions configuration" is the active choice', () => {
+  cy.getDataTestId(dataTestId.editor.settingsAccordionAccordion).click();
   cy.getDataTestId(menuItems['Institutions configuration']).should('have.class', 'MuiButton-containedPrimary');
 });

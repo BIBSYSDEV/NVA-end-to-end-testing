@@ -8,7 +8,7 @@ When('they click the button My Registrations', () => {
   cy.openMyRegistrations();
 });
 Then('they see My Registrations', () => {
-  cy.location('pathname').should('eq', '/my-page/registrations');
+  cy.location('pathname').should('eq', '/my-page/registrations/my-registrations');
 });
 And('they see a list of all unpublished Registrations with the fields', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
@@ -32,7 +32,7 @@ And('they see the navigation bar for unpublished Registrations is selected', () 
   cy.get('[data-testid=unpublished-button][tabindex=0]');
 });
 And('they see the navigation bar for published registrations is enabled', () => {
-  cy.get('[data-testid=published-button]').should('be.enabled');
+  cy.getDataTestId('published-button').should('be.enabled');
 });
 And('they see items with Status', (dataTable) => {
   dataTable.rawTable.forEach((value) => {

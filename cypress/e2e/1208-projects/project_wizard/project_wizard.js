@@ -62,6 +62,7 @@ And('they see a Close option', () => {
 // Scenario: User starts to register a Project with a suggested Financing from NFR
 Given('User opens the Project Wizard to register a new Project', () => {
     cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
     cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
 })
 When('they activate the search field, a list of Financings where the user has a role is presented', () => {
@@ -107,6 +108,7 @@ Then('the Project Wizard opens with no metadata pre-filled', () => {
 // Scenario: The User opens the Project Wizard on the Metadata page
 When('the Wizard is opened on the Metadata page', () => {
     cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
     cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
@@ -134,6 +136,7 @@ And('they have an option to go to the last page of the Wizard', () => {
 // Scenario: The User open the Project Wizard on the last page
 When('the Wizard is opened on the last page', () => {
     cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
     cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
