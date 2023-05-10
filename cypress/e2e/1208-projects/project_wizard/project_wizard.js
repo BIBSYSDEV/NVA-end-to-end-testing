@@ -35,6 +35,7 @@ And('the User got one of the following roles:', () => {
 // Scenario: User opens the Project Wizard to register a new Project
 When('the User selects Create new Project', () => {
     cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
     cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
 })
 Then('they see the Project Wizard start page', () => {

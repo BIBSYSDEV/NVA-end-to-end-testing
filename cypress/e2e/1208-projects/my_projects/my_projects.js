@@ -17,6 +17,7 @@ And('the User got one of the following roles:', () => {
 // Scenario: User navigate to My Page and selects Project registrations
 When('a User navigate to My Page and selects Project registrations', () => {
     cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.myProfileAccordion).click();
     cy.getDataTestId(dataTestId.myPage.myProjectRegistrationsLink).click();
 });
 Then('the User sees all active projects where the User has one of the following roles:', () => { });
@@ -35,6 +36,7 @@ And('the User can select a list of Draft Projects', () => { });
 // Scenario: User inspects a listed Project
 Given('User navigate to My Page and selects Project registrations', () => {
     cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.myProfileAccordion).click();
     cy.getDataTestId(dataTestId.myPage.myProjectsLink).click();
 });
 When('the User inspects a listed project', () => {
@@ -67,6 +69,7 @@ And('the list can be sorted by:', () => { });
 // Scenario: User opens a Project's Landing Page
 Given('User navigate to My Page and selects Project registrations', () => {
     cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.myProfileAccordion).click();
     cy.getDataTestId(dataTestId.myPage.myProjectsLink).click();
 });
 When("the User selects a Project's presentation", () => {
