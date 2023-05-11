@@ -387,6 +387,62 @@ export const resourceTypeFields = {
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
   },
+  exhibitionProductionSubtype: {
+    type: 'select',
+    fieldTestId: dataTestId.registrationWizard.resourceType.subtypeField,
+    elementType: 'input',
+    landingPageTestId: '',
+    value: 'Basic exhibition',
+  },
+  exhibitionProductionBasic: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addExhibitionBasicButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test exhibition basic name',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.exhibitionBasicNameField]: 'Test exhibition basic name',
+        [dataTestId.registrationWizard.resourceType.placeField]: 'Test exhibition place',
+        [dataTestId.registrationWizard.resourceType.dateFromField]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.dateToField]: '11.11.2021',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  exhibitionProductionMention: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addPublicationMentionButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test publication/mention',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.outputJournalBookMediumField]: 'Test publication/mention',
+        [dataTestId.registrationWizard.resourceType.outputIssueField]: 'Test mention issue',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.outputDescriptionField]: 'Test mention other',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
+  exhibitionProductionOtherPresentation: {
+    type: 'add',
+    fieldTestId: dataTestId.registrationWizard.resourceType.addExhibitionOtherPresentationButton,
+    elementType: 'announcement',
+    landingPageTestId: '',
+    value: 'Test exhibition other',
+    add: {
+      fields: {
+        [dataTestId.registrationWizard.resourceType.outputTypeField]: 'Test other type',
+        [dataTestId.registrationWizard.resourceType.placeField]: 'Test other place',
+        [dataTestId.registrationWizard.resourceType.publisherNameField]: 'Test other publisher',
+        [dataTestId.registrationWizard.resourceType.outputDescriptionField]: 'Test other description',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
+      },
+      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+    },
+  },
   concert: {
     type: 'add',
     fieldTestId: dataTestId.registrationWizard.resourceType.addConcertShowButton,

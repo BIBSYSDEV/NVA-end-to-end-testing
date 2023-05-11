@@ -11,4 +11,4 @@ Feature: Save registration for Exhibition
 
         Examples:
             | Subtype               |
-            | Exhibition production |
+            | ExhibitionProduction  |
