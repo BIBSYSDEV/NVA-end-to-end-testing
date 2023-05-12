@@ -1095,5 +1095,20 @@
     "orcid": true,
     "orgNumber": "5991",
     "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Project manager",
+    "nin": "06118638792",
+    "username": "test-user-project-manager@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
   }
 ]

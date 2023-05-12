@@ -1,4 +1,4 @@
-import { userWithAuthor } from '../../../support/constants';
+import { userWithAuthor, userCurator } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 // Feature: User edits Project
 
@@ -24,7 +24,7 @@ const projectSearchFields = {
 // Background:
 Given('A User is logged in', () => { })
 And('the User got one of the following roles:', () => {
-    cy.login(userWithAuthor);
+    cy.login(userCurator);
 })
 // | Registrator           |
 // | Curator               |
