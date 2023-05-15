@@ -208,19 +208,20 @@ def put_item(new_publication, username):
     count = 0
     while trying:
         bearer_token = common.login(username=username)
-        headers['Authorization'] = f'Bearer {bearer_token}'
-        response = requests.post(publication_endpoint,
-                                 json=new_publication,
-                                 headers=headers)
-        if response.status_code == 201:
-            trying = False
-        count = count + 1
-        if count == 3:
-            trying = False
-            print('Too many tries...')
-            print(response.json())
-            raise RuntimeError('Failed to create Registration')
-    return response.json()
+        if bearer_token != '':
+            headers['Authorization'] = f'Bearer {bearer_token}'
+            response = requests.post(publication_endpoint,
+                                    json=new_publication,
+                                    headers=headers)
+            if response.status_code == 201:
+                trying = False
+            count = count + 1
+            if count == 3:
+                trying = False
+                print('Too many tries...')
+                print(response.json())
+                raise RuntimeError('Failed to create Registration')
+            return response.json()
 
 
 def get_customer(username):

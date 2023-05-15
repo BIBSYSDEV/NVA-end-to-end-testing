@@ -23,16 +23,23 @@ def login(username):
         Username=username,
         Permanent=True,
     )
-
-    response = client.initiate_auth(
-        AuthFlow='USER_PASSWORD_AUTH',
-        ClientId=CLIENT_ID,
-        AuthParameters={
-            'USERNAME': username,
-            'PASSWORD': password
-        }
-    )
-    return response['AuthenticationResult']['AccessToken']
+    trying = True
+    count = 0
+    while trying:
+        try:
+            response = client.initiate_auth(
+                AuthFlow='USER_PASSWORD_AUTH',
+                ClientId=CLIENT_ID,
+                AuthParameters={
+                    'USERNAME': username,
+                    'PASSWORD': password
+                }
+            )
+            return response['AuthenticationResult']['AccessToken']
+        except:
+            count+=1
+            if count == 3: trying = False
+    return ''
 
 def scan_customers():
     client = boto3.client('dynamodb')
