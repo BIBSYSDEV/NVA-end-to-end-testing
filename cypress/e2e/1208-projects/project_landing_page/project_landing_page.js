@@ -19,6 +19,31 @@ const selectProject = (user) => {
     cy.contains('Project for testing').click();
 }
 
+const projectTitle = 'Project for testing 20230512';
+
+// Scenario: An Anonymous User searches for a Project
+Given('An Anonymous User is on the NVA start page', () => {
+    cy.setLocalStorage('i18nextLng', 'eng');
+    cy.setLocalStorage('previouslyLoggedIn', 'true');
+    cy.setLocalStorage('beta', 'true');
+    cy.visit('/', {
+        auth: {
+            username: Cypress.env('DEVUSER'),
+            password: Cypress.env('DEVPASSWORD'),
+        },
+    });
+});
+When('the Anonymous User navigates to the Project search page', () => {
+    cy.get('button').filter(':contains("Project")').click();
+});
+And('enters a search term for a Project', () => {
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
+});
+Then('a search result with the Project is displayed', () => {
+   cy.get('li').filter(`:contains(${projectTitle})`)
+});
+
+
 //     Scenario: User opens Landing Page for Project
 When("A Anonymous User opens a Project's Landing Page", () => {
     cy.setLocalStorage('i18nextLng', 'eng');
@@ -117,19 +142,19 @@ And('the Project is marked deleted', () => { });
 And('The Project is removed from the Projects list', () => { });
 
 //     Scenario: User expand Summary for a Project
-Given('User opens Landing Page for Project', () => {});
+Given('User opens Landing Page for Project', () => { });
 When('they expand "Summary"', () => {
     selectProject(userProjectManager);
     cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).click();
 });
 Then('they see "Scientific summary"', () => {
     cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).within(() => {
-        cy.contains('Scientific summary', {matchCase: false});
+        cy.contains('Scientific summary', { matchCase: false });
     })
- });
+});
 And('they see "Popular science summary"', () => {
     cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).within(() => {
-        cy.contains('Popular science summary', {matchCase: false});
+        cy.contains('Popular science summary', { matchCase: false });
     })
 });
 
@@ -148,10 +173,10 @@ Then('they see a list of Participants and their:', (participantInfo) => {
 
     participantInfo.rawTable.forEach(info => {
         cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).within(() => {
-            cy.contains(participantValues[info[0]], {matchCase: false});
+            cy.contains(participantValues[info[0]], { matchCase: false });
         })
     })
- });
+});
 //             | Name        |
 //             | Role        |
 //             | Affiliation |

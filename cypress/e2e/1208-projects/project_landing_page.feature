@@ -27,6 +27,13 @@ Feature: Project Landing Page
     # Jan Erik 14. sep.
 
     @test
+    Scenario: An Anonymous User searches for a Project
+        Given An Anonymous User is on the NVA start page
+        When the Anonymous User navigates to the Project search page
+        And enters a search term for a Project
+        Then a search result with the Project is displayed
+
+    @test
     Scenario: User opens Landing Page for Project
         When A Anonymous User opens a Project's Landing Page
         Then the Anonymous User see:
