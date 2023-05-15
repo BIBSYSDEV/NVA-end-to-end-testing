@@ -1,4 +1,4 @@
-import { userWithAuthor } from '../../../support/constants';
+import { userProjectManager } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: User My Projects
@@ -6,7 +6,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 // Background:
 Given('A User is logged in', () => { });
 And('the User got one of the following roles:', () => {
-    cy.login(userWithAuthor);
+    cy.login(userProjectManager);
  });
 // | Registrator           |
 // | Project Owner         |
