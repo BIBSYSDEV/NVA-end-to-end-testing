@@ -104,8 +104,8 @@ Cypress.Commands.add('loginCognito', (userId) => {
               if (data) {
                 if (!data.ChallengeName) {
                   await Auth.signIn(userId, randomPassword);
-                  resolve(data.AuthenticationResult.IdToken);
                   trying = false;
+                  resolve(data.AuthenticationResult.IdToken);
                 } else {
                   reject(err);
                 }
