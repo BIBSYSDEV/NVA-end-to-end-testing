@@ -44,8 +44,8 @@ When('the User inspects a listed project', () => {
  });
 Then("the User see can see each Project's:", (info) => {
     const projectInfo = {
-        'Title': 'Test my projects',
-        'Project participants': 'Withauthor TestUser',
+        'Title': 'Project for testing',
+        'Project participants': 'Project manager TestUser',
         'Coordinating Institution': 'Sikt - Norwegian Agency for Shared Services in Education and Research',
     }
     cy.get('@project').within(() => {
