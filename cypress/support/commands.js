@@ -96,30 +96,18 @@ Cypress.Commands.add('loginCognito', (userId) => {
 
     identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
       if (data) {
-        let trying = true;
-        let count = 0;
-        while (trying) {
-          try {
-            identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-              if (data) {
-                if (!data.ChallengeName) {
-                  await Auth.signIn(userId, randomPassword);
-                  trying = false;
-                  resolve(data.AuthenticationResult.IdToken);
-                } else {
-                  reject(err);
-                }
-              } else {
-                reject(err);
-              }
-            });
-          } catch (exception) {
-            count++;
-            if (count >= 3) {
-              trying = false;
+        identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+          if (data) {
+            if (!data.ChallengeName) {
+              await Auth.signIn(userId, randomPassword);
+              resolve(data.AuthenticationResult.IdToken);
+            } else {
+              reject(err);
             }
+          } else {
+            reject(err);
           }
-        }
+        });
       }
     });
   });
