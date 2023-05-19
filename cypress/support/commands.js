@@ -101,13 +101,13 @@ Cypress.Commands.add('loginCognito', (userId) => {
             if (!data.ChallengeName) {
               await Auth.signIn(userId, randomPassword);
               resolve(data.AuthenticationResult.IdToken);
+            } else {
+              reject(err);
             }
           } else {
             reject(err);
           }
         });
-      } else {
-        reject(err);
       }
     });
   });
