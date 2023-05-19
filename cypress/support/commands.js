@@ -73,10 +73,9 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
 });
 
 Cypress.Commands.add('loginCognito', (userId) => {
-  const randomPassword = `P%1234abcd`;
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
-    // const randomPassword = `P%${uuidv4()}`;
+    const randomPassword = `P%${uuidv4()}`;
 
     const authorizeUser = {
       AuthFlow: authFlow,
@@ -94,22 +93,38 @@ Cypress.Commands.add('loginCognito', (userId) => {
       Permanent: true,
     };
 
-    identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
-      if (data) {
-        identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-          if (data) {
-            if (!data.ChallengeName) {
-              await Auth.signIn(userId, randomPassword);
-              resolve(data.AuthenticationResult.IdToken);
+    let tries = 0;
+    let trying = false;
+    do {
+      identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+        if (data) {
+          identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+            if (data) {
+              if (!data.ChallengeName) {
+                await Auth.signIn(userId, randomPassword);
+                resolve(data.AuthenticationResult.IdToken);
+              } else {
+                trying = true;
+                console.log('fail.. challenge');
+                reject(err);
+              }
             } else {
+              trying = true;
+              console.log('fail.. init auth');
               reject(err);
             }
-          } else {
-            reject(err);
-          }
-        });
+          });
+        } else {
+          trying = true;
+          console.log('fail.. set password');
+          reject(err);
+        }
+      });
+      tries++;
+      if (tries > 3) {
+        trying = false;
       }
-    });
+    } while (trying);
   });
 });
 
@@ -449,7 +464,7 @@ Cypress.Commands.add('checkField', (field) => {
 
 Cypress.Commands.add('checkContributors', (contributorRoles) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  var roleIndex = 0;
+  let roleIndex = 0;
   contributorRoles.forEach((role) => {
     roleIndex++;
     const name = `Withauthor ${roleIndex} `;
@@ -497,7 +512,7 @@ Cypress.Commands.add('fillInResourceType', (subtype, fields) => {
 });
 
 Cypress.Commands.add('fillInContributors', (contributorRoles) => {
-  var index = 0;
+  let index = 0;
   contributorRoles.forEach((role) => {
     index++;
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
