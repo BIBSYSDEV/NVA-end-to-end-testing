@@ -67,7 +67,7 @@ And('they can see the values in the Registration Wizard', () => {
     fields.forEach((field) => {
       cy.checkField(field);
     });
-    cy.checkContributors(mediaContributorRoles[subtype]);
+    cy.checkContributors(exhibitionContributorRoles);
   });
 });
 

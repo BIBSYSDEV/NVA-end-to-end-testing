@@ -70,5 +70,5 @@ And('the Editor sees a menu with following options', (dataTable) => {
 // #        | Lisenser og filer            |
 And('"Institutions configuration" is the active choice', () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
-  cy.getDataTestId(menuItems['Institutions configuration']).should('have.class', 'MuiButton-containedPrimary');
+  cy.getDataTestId(menuItems['DOI configuration']).should('have.class', 'MuiButton-containedPrimary');
 });

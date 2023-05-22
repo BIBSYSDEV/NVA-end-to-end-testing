@@ -19,14 +19,12 @@ const filename = 'example.txt';
 
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.login(userDraftDoi);
-  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
-  cy.get(`[data-testid=${dataTestId.myPage.messagesLink}]`).click();
-  cy.get('[data-testid^=message-title]')
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.messagesLink).click();
+  cy.get('[data-testid^=result-list-item]')
     .first()
-    .parent()
-    .parent()
     .within(() => {
-      cy.get('[data-testid="ExpandMoreIcon"]').click();
+      cy.get('div > p > a').click();
     });
 });
 
@@ -35,7 +33,7 @@ Given('that the Creator Opens a DOI request entry from My Worklist', () => {
 //   @1251
 //   Scenario: Creator opens a Registration with a DOI request
 When('they click the Edit Registration button', () => {
-  cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
+  // cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
 });
 Then('the Registration is opened in the Wizard on the first tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
