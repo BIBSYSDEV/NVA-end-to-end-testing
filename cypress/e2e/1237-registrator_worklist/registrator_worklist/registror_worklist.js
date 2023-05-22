@@ -1,18 +1,28 @@
+import { userPublishRegistration } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 // Feature: Registrator worklist
 
 //     Scenario Outline: Creator opens My Messages
-Given('that the user is logged in as Creator', () => {});
-When('they click the menu item My Messages', () => {});
-Then('they see the My Messages page', () => {});
-And('they see a list of {string} with fields:', () => {});
+Given('that the user is logged in as Creator', () => {
+  cy.login(userPublishRegistration);
+});
+When('they click the menu item My Messages', () => {
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.messagesLink).click();
+});
+Then('they see the My Messages page', () => {
+  cy.location('pathname').should('contain', 'my-messages');
+});
+And('they see a list of RequestType with fields:', (dataTable) => {
+  dataTable.rawTable.forEach((element) => {});
+});
 //             | Registration title |
 //             | Date               |
-And("they see that items' status is one of {string}", () => {});
-And('they see that each item in the list is expandable', () => {});
-//         Examples:
+And("they see that items' status is one of:", (dataTable) => {});
 //             | RequestType      | RequestStatus                 |
 //             | DoiRequests      | Approved, Rejected, Requested |
 //             | Support Requests | Pending, Resolved             |
+And('they see that each item in the list is expandable', () => {});
 
 //     Scenario: Creator views details of an item in the Messages list
 //         Given that the Creator opens My Messages
