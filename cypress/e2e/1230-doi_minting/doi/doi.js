@@ -24,7 +24,7 @@ Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.get('[data-testid^=result-list-item]')
     .first()
     .within(() => {
-      cy.get('div > p > a').click();
+      cy.get('p > a').first().click();
     });
 });
 

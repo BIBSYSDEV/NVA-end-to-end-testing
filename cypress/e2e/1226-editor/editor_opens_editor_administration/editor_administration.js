@@ -19,7 +19,7 @@ const menuItems = {
   'Institutions configuration': dataTestId.editor.institutionsNameLinkButton,
   'Vocabulary settings': dataTestId.editor.vocabularyLinkButton,
   'Publishing strategi': dataTestId.editor.publishStrategyLinkButton,
-  'DOI configurasjon': dataTestId.editor.doiLinkButton,
+  'DOI configuration': dataTestId.editor.doiLinkButton,
   // #        | change owner of registration |
   // #        | Sletting av publikasjoner    |
   'NVI-rapportering': '',
