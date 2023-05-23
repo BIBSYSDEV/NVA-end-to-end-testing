@@ -198,15 +198,6 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges');
   cy.contains('Norges byggforskningsinstitutt').click({ force: true });
 
-  // cy.getDataTestId('resource-type-chip-ConferenceLecture').click({ force: true });
-  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventTitleField).click().type('Event');
-  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventOrganizerField).click().type('Organizer');
-  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.placeField).click().type('Place');
-  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventCountryField).click().type('nor');
-  // cy.contains('Norway').click();
-  // cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2022');
-  // cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2022');
-
   // Contributors
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click({ force: true });
@@ -577,7 +568,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
         .then((input) => {
           cy.log(input);
         });
-      cy.get(selector).parent().find('input').click().type(value, { force: true });
+      cy.get(selector).parent().find('input').click({force: true}).type(value, { force: true });
     }
   });
 });
