@@ -170,7 +170,7 @@ Cypress.Commands.add('startWizardWithLink', (doiLink) => {
 });
 
 Cypress.Commands.add('startWizardWithEmptyRegistration', () => {
-  cy.getDataTestId(dataTestId.header.newRegistrationLink).click({ force: true });
+  cy.getDataTestId(dataTestId.header.newRegistrationLink).first().click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.new.emptyRegistrationAccordion).click();
 });
 
