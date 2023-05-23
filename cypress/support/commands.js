@@ -565,6 +565,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       // cy.contains('[role="dialog"] button', 'OK').click();
       cy.get(selector).click();
       cy.get('.MuiPickersDay-today').click();
+      cy.contains('[role="dialog"] button', 'OK').click();
     } else {
       // cy.get(selector)
       //   .parent()
