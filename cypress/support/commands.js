@@ -563,7 +563,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       cy.get(`[role="dialog"] ${selector}`, { force: true })
         .last()
         .find('input')
-        .clear({ force: true })
+        .parent()
         .type(value, { force: true });
       cy.contains('[role="dialog"] button', 'OK').click();
     } else {
