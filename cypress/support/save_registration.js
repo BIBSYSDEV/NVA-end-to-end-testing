@@ -42,7 +42,7 @@ export const registrationFields = {
       type: 'date',
       fieldTestId: dataTestId.registrationWizard.description.datePublishedField,
       value: '11.11.2021',
-      elementType: 'input',
+      elementType: 'date',
       landingPageTestId: '',
     },
     'language': {
@@ -278,14 +278,14 @@ export const resourceTypeFields = {
   eventDateFrom: {
     type: 'date',
     fieldTestId: dataTestId.registrationWizard.resourceType.dateFromField,
-    elementType: 'input',
+    elementType: 'date',
     landingPageTestId: '',
     value: '11.11.2021',
   },
   eventDateTo: {
     type: 'date',
     fieldTestId: dataTestId.registrationWizard.resourceType.dateToField,
-    elementType: 'input',
+    elementType: 'date',
     landingPageTestId: '',
     value: '11.11.2021',
   },
@@ -393,6 +393,7 @@ export const resourceTypeFields = {
     elementType: 'input',
     landingPageTestId: '',
     value: 'Basic exhibition',
+    landingPageValue: 'BasicExhibition',
   },
   exhibitionProductionBasic: {
     type: 'add',
@@ -434,7 +435,7 @@ export const resourceTypeFields = {
     value: 'Test exhibition other',
     add: {
       fields: {
-        [dataTestId.registrationWizard.resourceType.outputTypeField]: 'Test other type',
+        [dataTestId.registrationWizard.resourceType.outputTypeField]: 'Test exhibition other',
         [dataTestId.registrationWizard.resourceType.placeField]: 'Test other place',
         [dataTestId.registrationWizard.resourceType.publisherNameField]: 'Test other publisher',
         [dataTestId.registrationWizard.resourceType.outputDescriptionField]: 'Test other description',

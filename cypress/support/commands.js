@@ -417,6 +417,9 @@ Cypress.Commands.add('checkField', (field) => {
         cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', value);
       }
       break;
+    case 'date':
+      cy.get(`[data-testid=${field['fieldTestId']}]`).parent().find('input').should('have.value', value);
+      break;
     case 'textArea':
       cy.get(`[data-testid=${field['fieldTestId']}] textArea`).should('contain', value);
       break;
@@ -574,7 +577,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
         .then((input) => {
           cy.log(input);
         });
-      cy.get(selector).parent().find('input').type(value);
+      cy.get(selector).parent().find('input').type(value, { force: true });
     }
   });
 });
