@@ -577,7 +577,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
         .then((input) => {
           cy.log(input);
         });
-      cy.get(selector).parent().find('input').type(value, { force: true });
+      cy.get(selector).parent().find('input').click().type(value, { force: true });
     }
   });
 });
