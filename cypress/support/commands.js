@@ -323,7 +323,7 @@ const fillInField = (field) => {
       cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true });
       break;
     case 'select':
-      cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click();
+      cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click({ force: true });
       if (
         field.fieldTestId === dataTestId.registrationWizard.resourceType.artisticTypeField ||
         field.fieldTestId === dataTestId.registrationWizard.resourceType.mediaMedium
