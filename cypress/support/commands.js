@@ -541,36 +541,37 @@ Cypress.Commands.add('checkLandingPage', () => {
 });
 
 Cypress.Commands.add('chooseDatePicker', (selector, value) => {
-  cy.get('body').then(($body) => {
-    const mobilePickerSelector = `${selector} input[readonly]`;
-    const isMobile = $body.find(mobilePickerSelector).length > 0;
-    if (isMobile) {
-      // The MobileDatePicker component has readonly inputs and needs to
-      // be opened and clicked on edit so its inputs can be edited
-      cy.get(mobilePickerSelector).click();
-      cy.get('[role="dialog"] [aria-label="calendar view is open, go to text input view"]').click();
-      cy.get(`[role="dialog"] ${selector}`)
-        .last()
-        .then((dialog) => {
-          cy.log(dialog);
-        });
-      cy.get(`[role="dialog"] ${selector}`, { force: true })
-        .last()
-        .find('input')
-        .parent()
-        .type(value, { force: true });
-      cy.contains('[role="dialog"] button', 'OK').click();
-    } else {
-      cy.get(selector)
-        .parent()
-        .parent()
-        .find('input')
-        .then((input) => {
-          cy.log(input);
-        });
-      cy.get(selector).parent().find('input').click({force: true}).type(value, { force: true });
-    }
-  });
+  cy.get(selector).click({ force: true }).type(value, { force: true });
+  // cy.get('body').then(($body) => {
+  //   const mobilePickerSelector = `${selector} input[readonly]`;
+  //   const isMobile = $body.find(mobilePickerSelector).length > 0;
+  //   if (isMobile) {
+  //     // The MobileDatePicker component has readonly inputs and needs to
+  //     // be opened and clicked on edit so its inputs can be edited
+  //     cy.get(mobilePickerSelector).click();
+  //     cy.get('[role="dialog"] [aria-label="calendar view is open, go to text input view"]').click();
+  //     cy.get(`[role="dialog"] ${selector}`)
+  //       .last()
+  //       .then((dialog) => {
+  //         cy.log(dialog);
+  //       });
+  //     cy.get(`[role="dialog"] ${selector}`, { force: true })
+  //       .last()
+  //       .find('input')
+  //       .parent()
+  //       .type(value, { force: true });
+  //     cy.contains('[role="dialog"] button', 'OK').click();
+  //   } else {
+  //     cy.get(selector)
+  //       .parent()
+  //       .parent()
+  //       .find('input')
+  //       .then((input) => {
+  //         cy.log(input);
+  //       });
+  //     // cy.get(selector).parent().find('input').click({force: true}).type(value, { force: true });
+  //   }
+  // });
 });
 
 Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
