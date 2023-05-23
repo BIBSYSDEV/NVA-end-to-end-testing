@@ -541,8 +541,8 @@ Cypress.Commands.add('checkLandingPage', () => {
 });
 
 Cypress.Commands.add('chooseDatePicker', (selector, value) => {
-  cy.get(selector).click({ force: true }).type(value, { force: true });
-  cy.contains('[role="dialog"] button', 'OK').click();
+  cy.get(selector).parent().find('[data-testid=CalendarIcon]').click();
+  cy.get('.MuiPickersDay-today').click();
   // cy.get('body').then(($body) => {
   //   const mobilePickerSelector = `${selector} input[readonly]`;
   //   const isMobile = $body.find(mobilePickerSelector).length > 0;
