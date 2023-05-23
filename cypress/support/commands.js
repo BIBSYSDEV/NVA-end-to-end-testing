@@ -568,11 +568,13 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       cy.contains('[role="dialog"] button', 'OK').click();
     } else {
       cy.get(selector)
+        .parent()
+        .parent()
         .find('input')
         .then((input) => {
           cy.log(input);
         });
-      cy.get(selector).find('input').clear().type(value);
+      cy.get(selector).parent().find('input').type(value);
     }
   });
 });
