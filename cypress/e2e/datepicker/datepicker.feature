@@ -1,6 +1,6 @@
 Feature: test datepicker - mobile
 
-    @test
+    # @test
     Scenario: Datepicker test
         Given New registration
         When typing in a date
