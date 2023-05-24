@@ -43,6 +43,12 @@ const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 const authFlow = 'USER_PASSWORD_AUTH';
 
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
+export const todayDatePicker = () => {
+  const pad = (value) => `0${value}`.slice(-2);
+  const date = new Date();
+  const dateValue = `${date.getDate()}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`
+  return dateValue;
+}
 
 Cypress.Commands.add('connectAuthor', () => {
   cy.get(`[data-testid=create-author-button]`).click();
@@ -313,7 +319,7 @@ const fillInField = (field) => {
       }
       break;
     case 'date':
-      cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, field['value']);
+      cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, todayDatePicker());
       break;
     case 'search':
       cy.getDataTestId(field['fieldTestId']).should('be.visible').type(field['value'], { delay: 1 });
@@ -345,7 +351,7 @@ const fillInField = (field) => {
             key === dataTestId.registrationWizard.resourceType.dateFromField ||
             key === dataTestId.registrationWizard.resourceType.dateToField
           ) {
-            cy.chooseDatePicker(`[data-testid=${key}]`, field['add']['fields'][key]);
+            cy.chooseDatePicker(`[data-testid=${key}]`, todayDatePicker());
           } else if (key === dataTestId.registrationWizard.resourceType.concertAddWork) {
             cy.getDataTestId(key).click();
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`)
@@ -409,7 +415,8 @@ Cypress.Commands.add('checkField', (field) => {
       }
       break;
     case 'date':
-      cy.get(`[data-testid=${field['fieldTestId']}]`).parent().find('input').should('have.value', value);
+      const dateValue = todayDatePicker();
+      cy.get(`[data-testid=${field['fieldTestId']}]`).parent().find('input').should('have.value', dateValue);
       break;
     case 'textArea':
       cy.get(`[data-testid=${field['fieldTestId']}] textArea`).should('contain', value);
@@ -541,10 +548,7 @@ Cypress.Commands.add('checkLandingPage', () => {
 });
 
 Cypress.Commands.add('chooseDatePicker', (selector, value) => {
-  // cy.get(selector).click();
-  // cy.get('.MuiPickersDay-today').click();
   cy.get('body').then(($body) => {
-    // const mobilePickerSelector = `${selector} input[readonly]`;
     const mobilePickerSelector = `[data-testid=CalendarIcon]`;
     const isMobile = $body.find(mobilePickerSelector).length === 0;
     if (isMobile) {
@@ -552,11 +556,6 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       // be opened and clicked on edit so its inputs can be edited
       // cy.get(mobilePickerSelector).click();
       // cy.get('[role="dialog"] [aria-label="calendar view is open, go to text input view"]').click();
-      // cy.get(`[role="dialog"] ${selector}`)
-      //   .last()
-      //   .then((dialog) => {
-      //     cy.log(dialog);
-      //   });
       // cy.get(`[role="dialog"] ${selector}`, { force: true })
       //   .last()
       //   .find('input')
@@ -567,14 +566,6 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       cy.get('.MuiPickersDay-today').click();
       cy.contains('[role="dialog"] button', 'OK').click();
     } else {
-      // cy.get(selector)
-      //   .parent()
-      //   .parent()
-      //   .find('input')
-      //   .then((input) => {
-      //     cy.log(input);
-      //   });
-      // cy.get(selector).parent().find('input').click({force: true}).type(value, { force: true });
       cy.get(selector).type(value);
     }
   });
