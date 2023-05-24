@@ -562,12 +562,13 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       //   .parent()
       //   .type(value, { force: true });
       // cy.contains('[role="dialog"] button', 'OK').click();
-      cy.get(selector).type(value, { force: true })
-      // cy.get(selector).click();
-      // cy.get('.MuiPickersDay-today').click();
-      if (cy.contains('[role="dialog"] button', 'OK').length > 0) {
-        cy.contains('[role="dialog"] button', 'OK').click();
+      cy.get(selector).click();
+      if (cy.get('.MuiPickersDay-today').length > 0) {
+        cy.get('.MuiPickersDay-today').click();
+      } else {
+        cy.get('.MuiPickersYear-yearButton').click();
       }
+      cy.contains('[role="dialog"] button', 'OK').click();
     } else {
       cy.get(selector).type(value);
     }
