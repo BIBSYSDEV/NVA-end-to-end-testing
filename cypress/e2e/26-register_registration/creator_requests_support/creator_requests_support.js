@@ -13,7 +13,7 @@ Then('the "Request support" dialog is opened', () => {
 });
 And('they see field for Message', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.messageText).should('exist');
+  cy.getDataTestId('message-field').should('exist');
 });
 And('they see a "Send Request" button', () => {
   cy.getDataTestId('send-button').should('exist');
