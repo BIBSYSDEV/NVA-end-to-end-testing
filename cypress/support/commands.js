@@ -565,10 +565,15 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       cy.get(selector).click();
       cy.get('[role=dialog]').then(($dialog) => {
         const selectDay = $dialog.find('.MuiPickersDay-today').length > 0
+        const selectYear = $dialog.find('.Mui-selected');
         if (selectDay) {
           cy.get('.MuiPickersDay-today').click();
         } else {
-          cy.get('.MuiPickersYear-yearButton').click();
+          if (selectYear) {
+            cy.get('.Mui-selected').click();
+          } else {
+            cy.get(selector).type(value);
+          }
         }
       })
       cy.contains('[role="dialog"] button', 'OK').click();
