@@ -569,11 +569,11 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
         if (selectDay) {
           cy.get('.MuiPickersDay-today').click();
         } else {
-          if (selectYear) {
-            cy.get('.Mui-selected').click();
-          } else {
-            cy.get(selector).type(value);
-          }
+          // if (selectYear) {
+          //   cy.get('.Mui-selected').click();
+          // } else {
+          cy.get(selector).type(value);
+          // }
         }
       })
       cy.contains('[role="dialog"] button', 'OK').click();
