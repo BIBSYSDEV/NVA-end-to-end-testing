@@ -472,5 +472,65 @@
     "status": "PUBLISHED",
     "contributor": "",
     "title": "Published registration BIBSYS"
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "Draft registration - Publishing Request rejected",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Rejected"
+    }
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "Registration - Publishing Request approved",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Approved"
+    }
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "Registration - Support request resolved",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Resolved"
+    }
+  },
+  {
+    "publication_type": "JournalContent",
+    "publication_context_type": "UnconfirmedJournal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "",
+    "title": "Registration - Support request pending",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Pending"
+    }
   }
 ]

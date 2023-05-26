@@ -94,6 +94,7 @@ export const userResearchDataset = 'test-user-research-dataset@test.no';
 export const userSecondEditor = 'test-user-second-editor@test.no';
 export const userContributors = 'test-user-contributors@test.no';
 export const userProjectManager = 'test-user-project-manager@test.no';
+export const userMessages = 'test-user-messages@test.no';
 
 const userData = {
   name: '',
@@ -188,4 +189,5 @@ export const user = {
   [userSecondEditor]: { ...userData, name: 'TestUser, Second Institution-Editor' },
   [userContributors]: { ...userData, name: 'TestUser, Contributors' },
   [userProjectManager]: { ...userData, name: 'TestUser, Project manager' },
+  [userMessages]: { ...userData, name: 'TestUser, Messages' },
 };
