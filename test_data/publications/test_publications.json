@@ -1,7 +1,7 @@
 [
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -11,8 +11,8 @@
     "title": "Draft registration"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -22,8 +22,8 @@
     "title": "Deleted Draft registration"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -33,8 +33,8 @@
     "title": "Published registration"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -44,8 +44,8 @@
     "title": "Published registration no DOI"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -55,8 +55,8 @@
     "title": "Published registration without DOI"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -66,8 +66,8 @@
     "title": "Published registration requesting DOI"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -77,8 +77,8 @@
     "title": "Delete registration"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -88,8 +88,8 @@
     "title": "Delete Draft registration"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -99,8 +99,8 @@
     "title": "Registration with validation error"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -110,8 +110,8 @@
     "title": "Registration with validation error"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -122,8 +122,8 @@
     "doi": "created"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -133,8 +133,8 @@
     "title": "Test article corrigendum"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -144,8 +144,8 @@
     "title": "Test article corrigendum"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -155,8 +155,8 @@
     "title": "Test article corrigendum"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -166,8 +166,8 @@
     "title": "Draft registration without DOI"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -177,7 +177,7 @@
     "title": "Draft registration report"
   },
   {
-    "publication_type": "JournalContent",
+    "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
@@ -189,7 +189,7 @@
     "doi": "created"
   },
   {
-    "publication_type": "JournalContent",
+    "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
@@ -201,7 +201,7 @@
     "doi": "reserved"
   },
   {
-    "publication_type": "JournalContent",
+    "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
@@ -212,7 +212,7 @@
     "title": "Draft registration requesting DOI"
   },
   {
-    "publication_type": "JournalContent",
+    "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
@@ -224,8 +224,8 @@
     "doi": "reserved"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -235,8 +235,8 @@
     "title": "View registration"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -248,8 +248,8 @@
     "fileType": "image"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -259,8 +259,8 @@
     "title": "No administrative agreement"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -270,8 +270,8 @@
     "title": "Not Embargoed PDF file"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -282,8 +282,8 @@
     "fileType": "image"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -294,8 +294,8 @@
     "fileType": "office"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -317,8 +317,8 @@
     "title": "Test Antologi"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -361,8 +361,8 @@
     "title": "Test Antologi"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -373,8 +373,8 @@
     "doi": "reserved"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -388,8 +388,8 @@
     }
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -403,8 +403,8 @@
     }
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -418,8 +418,8 @@
     }
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -433,8 +433,8 @@
     }
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -448,8 +448,8 @@
     }
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -463,8 +463,8 @@
     }
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -474,8 +474,8 @@
     "title": "Published registration BIBSYS"
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -489,8 +489,8 @@
     }
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -504,8 +504,8 @@
     }
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -515,12 +515,12 @@
     "title": "Registration - Support request resolved",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "Resolved"
+      "status": "Completed"
     }
   },
   {
-    "publication_type": "JournalContent",
-    "publication_context_type": "UnconfirmedJournal",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
@@ -532,5 +532,17 @@
       "type": "GeneralSupportCase",
       "status": "Pending"
     }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
+    "title": "Registration - DOI request request pending",
+    "doi": "requested"
   }
 ]

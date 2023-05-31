@@ -30,17 +30,15 @@
     "contributors": [],
     "tags": ["keyword"],
     "description": "Description",
-    "reference": {
-      "type": "Reference",
-      "publicationContext": {
-        "id": "https://api.dev.nva.aws.unit.no/publication-channels/journal/446050/1999",
-        "type": "Journal"
+    "reference" : {
+      "type" : "Reference",
+      "publicationContext" : {
+        "type" : "Journal",
+        "id" : "https://api.e2e.nva.aws.unit.no/publication-channels/journal/437597/2023"
       },
-      "publicationInstance": {
-        "type": "AcademicArticle",
-        "volume": "1",
-        "issue": "2",
-        "peerReviewed": false      }
+      "publicationInstance" : {
+        "type" : "AcademicArticle"
+      }
     },
     "npiSubjectHeading": "010",
     "abstract": "Abstract"

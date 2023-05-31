@@ -19,7 +19,7 @@ And('they see a list of messages with fields:', (dataTable) => {
       return cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > div > span`,).should('not.be.empty');
     },
     'Date': () => {
-      return cy.get('span').last()
+      return cy.get('span').last().should('not.be.empty')
     },
   }
   dataTable.rawTable.forEach(element => {
@@ -54,21 +54,11 @@ And('they see that each item in the list is expandable', () => { });
 //         When they click the Close button
 //         Then they see the Worklist
 
-//     @TEST_NP-4193
-//     @1251
-//     @test
 //     Scenario: Creator opens a Registration with a DOI request
 Given('that the Creator Opens a DOI request entry from My Messages', () => {
   cy.login(userDraftDoi);
   cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
   cy.get(`[data-testid=${dataTestId.myPage.messagesLink}]`).click();
-  cy.get('[data-testid^=message-title]')
-    .first()
-    .parent()
-    .parent()
-    .within(() => {
-      cy.get('[data-testid="ExpandMoreIcon"]').click();
-    });
 });
 When('they click the Edit Registration button', () => {
   cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
