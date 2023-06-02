@@ -572,6 +572,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
         } else {
           if (selectYear) {
             cy.get('.Mui-selected').click();
+            cy.contains('[role="dialog"] button', 'OK').click();
           } else {
             cy.get(selector).type(value, { force: true });
           }
