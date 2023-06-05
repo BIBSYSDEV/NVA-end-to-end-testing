@@ -570,12 +570,12 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
           cy.get('.MuiPickersDay-today').click();
           cy.contains('[role="dialog"] button', 'OK').click();
         } else {
-          if (selectYear) {
+          // if (selectYear) {
             cy.get('.Mui-selected').click();
             cy.contains('[role="dialog"] button', 'OK').click();
-          } else {
-            cy.get(selector).type(value, { force: true });
-          }
+          // } else {
+          //   cy.get(selector).type(value, { force: true });
+          // }
         }
       })
     } else {
