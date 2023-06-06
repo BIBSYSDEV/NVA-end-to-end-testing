@@ -11,6 +11,7 @@ phases:
       python: 3.x
   pre_build:
     commands:
+      - export env=e2e
       - export ROLE_ARM=arn:aws:iam::282305091481:role/service-role/codebuild-warmup-service-role
       - aws sts assume-role --role-arn $ROLE_ARN --role-session-name test > Credentials
       - export CYPRESS_AWS_ACCESS_KEY_ID=$(cat Credentials | jq -r '.Credentials.AccessKeyId')
@@ -25,25 +26,25 @@ phases:
       - TOKEN=$(python login_warmup.py)
 
       # POST publication
-      - curl -i -X POST https://api.test.nva.aws.unit.no/publication -H "Content-Type:application/json" -H "Authorization:Bearer {TOKEN}" -d '{"type":"NonExistingType"}'
+      - curl -i -X POST https://api.{{env}}.nva.aws.unit.no/publication -H "Content-Type:application/json" -H "Authorization:Bearer {TOKEN}" -d '{"type":"NonExistingType"}'
 
       # PUT publication
-      - curl -i -X PUT https://api.test.nva.aws.unit.no/publication/0184be6e2eeb-dc2a295d-dfb0-4f0d-b0ec-5bea756356b3 -H "Content-Type:application/json" -H "Authorization:Bearer {TOKEN}" -d '{"type":"NonExistingType"}'
+      - curl -i -X PUT https://api.{{env}}.nva.aws.unit.no/publication/0184be6e2eeb-dc2a295d-dfb0-4f0d-b0ec-5bea756356b3 -H "Content-Type:application/json" -H "Authorization:Bearer {TOKEN}" -d '{"type":"NonExistingType"}'
 
       # GET publication
-      - curl -i -X GET https://api.test.nva.aws.unit.no/publication/0184be6e2eeb-dc2a295d-dfb0-4f0d-b0ec-5bea756356b3 -H "Accept:application/json"
+      - curl -i -X GET https://api.{{env}}.nva.aws.unit.no/publication/0184be6e2eeb-dc2a295d-dfb0-4f0d-b0ec-5bea756356b3 -H "Accept:application/json"
 
       # GET organization
-      - curl -i -X GET https://api.test.nva.aws.unit.no/cristin/organization/20754.0.0.0 -H "Accept:application/json"
+      - curl -i -X GET https://api.{{env}}.nva.aws.unit.no/cristin/organization/20754.0.0.0 -H "Accept:application/json"
 
       # GET person
-      - curl -i -X GET https://api.test.nva.aws.unit.no/cristin/person/1136806 -H "Accept:application/json"
+      - curl -i -X GET https://api.{{env}}.nva.aws.unit.no/cristin/person/1136806 -H "Accept:application/json"
 
       # GET search person
       - curl -i -X GET https://api.{{env}}.nva.aws.unit.no/cristin/person?name=test -H "Accept:application/json"
 
       # GET search publication
-      - curl -i -X GET https://api.test.nva.aws.unit.no/search/resources -H "Accept:application/json"
+      - curl -i -X GET https://api.{{env}}.nva.aws.unit.no/search/resources -H "Accept:application/json"
 
       # GET search tickets
-      - curl -i -X GET https://api.test.nva.aws.unit.no/search/tickets -H "Accept:application/json" -H "Authorization:Bearer {TOKEN}"
+      - curl -i -X GET https://api.{{env}}.nva.aws.unit.no/search/tickets -H "Accept:application/json" -H "Authorization:Bearer {TOKEN}"
