@@ -117,7 +117,7 @@ Resources:
                   - 'codebuild:BatchGetBuildBatches'
                 Effect: Allow
                 Resource:
-                  - !GetAtt CodeBuildEWarmupProject.Arn
+                  - !GetAtt CodeBuildWarmupProject.Arn
               - Action:
                   - 'ssm:getParameter'
                   - 'ssm:getParameters'
