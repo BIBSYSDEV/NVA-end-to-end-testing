@@ -22,7 +22,7 @@ phases:
     commands:
       # Get token
       - cd test_data
-      - TOKEN = $(python login_warmup.py)
+      - TOKEN=$(python login_warmup.py)
 
       # POST publication
       - curl -i -X POST https://api.test.nva.aws.unit.no/publication -H "Content-Type:application/json" -H "Authorization:Bearer {TOKEN}" -d '{"type":"NonExistingType"}'
