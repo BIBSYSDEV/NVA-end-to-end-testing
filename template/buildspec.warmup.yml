@@ -24,6 +24,8 @@ phases:
       # Get token
       - cd test_data
       - TOKEN=$(python login_warmup.py)
+      - echo $TOKEN
+      - echo $env
 
       # POST publication
       - curl -i -X POST https://api.{env}.nva.aws.unit.no/publication -H "Content-Type:application/json" -H "Authorization:Bearer {TOKEN}" -d '{"type":"NonExistingType"}'
