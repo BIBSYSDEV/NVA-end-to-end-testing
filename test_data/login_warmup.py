@@ -7,7 +7,7 @@ USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
 CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
-username = 'warmup-test'
+username = 'Dataporten_c924937b-f153-4836-bb7a-401893b27ba8'
 
 def login_warmup():
     client = boto3.client('cognito-idp')
