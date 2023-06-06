@@ -1,0 +1,35 @@
+version: 0.2
+
+# Buildspec to run E2E tests in parallel. To add more builds to the parallel run,
+# add runners to the list of runners in the format:
+#
+# - identifier: runner<id>
+#   buildspec:
+#     - template/buildspec.testrun.yml
+#   env:
+#     variables:
+#       RUNNER: <id>
+#   ignore-failure: true
+#
+# Add new runners to the depend-on for the test report step
+
+batch:
+  build-graph:
+    - identifier: runner1
+      buildspec: template/buildspec.testrun.yml
+      env:
+        variables:
+          RUNNER: 1
+      ignore-failure: true
+    - identifier: runner2
+      buildspec: template/buildspec.testrun.yml
+      env:
+        variables:
+          RUNNER: 2
+      ignore-failure: true
+    - identifier: test_report
+      buildspec: template/buildspec.testreport.yml
+      depend-on:
+        - runner1
+        - runner2
+        
