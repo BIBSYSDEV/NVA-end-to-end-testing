@@ -11,7 +11,7 @@ phases:
       python: 3.x
   pre_build:
     commands:
-      - export env=e2e
+      - export env=test
       - export ROLE_ARM=arn:aws:iam::282305091481:role/service-role/codebuild-warmup-service-role
       - aws sts assume-role --role-arn $ROLE_ARN --role-session-name test > Credentials
       - export CYPRESS_AWS_ACCESS_KEY_ID=$(cat Credentials | jq -r '.Credentials.AccessKeyId')
