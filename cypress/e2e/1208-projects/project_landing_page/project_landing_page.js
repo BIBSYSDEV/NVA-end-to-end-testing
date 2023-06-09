@@ -14,7 +14,7 @@ const users = {
 
 const selectProject = (user) => {
     cy.login(user);
-    cy.get('section > div > button').filter(':contains("Project")').click();
+    cy.get('section > div > div > button').filter(':contains("Project")').click();
     cy.getDataTestId(dataTestId.startPage.searchField).type('Project for testing 20230512{enter}');
     cy.contains('Project for testing').click();
 }
@@ -40,7 +40,7 @@ And('enters a search term for a Project', () => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
 });
 Then('a search result with the Project is displayed', () => {
-   cy.get('li').filter(`:contains(${projectTitle})`)
+    cy.get('li').filter(`:contains(${projectTitle})`)
 });
 
 
