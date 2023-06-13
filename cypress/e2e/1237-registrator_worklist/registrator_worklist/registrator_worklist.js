@@ -92,7 +92,7 @@ Given('that the Creator Opens a DOI request entry from My Messages', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
   filterMessages(doiRequests);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().find('p > a').first().click();
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 });
 When('they click the Edit Registration button', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
@@ -118,7 +118,7 @@ And('they open My Messages page', () => {
 })
 And('they open a DOI request item in the Messages list', () => {
   filterMessages(supportRequests);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().find('p > a').first().click();
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 })
 And('they see previous messages between Creator and Curator\\(s)', () => { })
 When('they enter a new message', () => { })
