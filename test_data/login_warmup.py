@@ -32,6 +32,8 @@ def login_warmup():
             )
             return response['AuthenticationResult']['AccessToken']
         except:
+            print(response.status_code)
+            print(response.json())
             count+=1
             if count == 3: trying = False
     return ''
