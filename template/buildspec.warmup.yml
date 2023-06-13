@@ -28,7 +28,7 @@ phases:
       - echo $env
 
       # POST publication
-      - curl -S -s -o /dev/null -S -s -o /dev/null -i -X POST https://api.{$env}.nva.aws.unit.no/publication -H "Content-Type:application/json" -H "Authorization:Bearer {$TOKEN}" -d '{"type":"NonExistingType"}'
+      - curl -S -s -o /dev/null -i -X POST https://api.{$env}.nva.aws.unit.no/publication -H "Content-Type:application/json" -H "Authorization:Bearer {$TOKEN}" -d '{"type":"NonExistingType"}'
 
       # PUT publication
       - curl -S -s -o /dev/null -i -X PUT https://api.{$env}.nva.aws.unit.no/publication/0184be6e2eeb-dc2a295d-dfb0-4f0d-b0ec-5bea756356b3 -H "Content-Type:application/json" -H "Authorization:Bearer {TOKEN}" -d '{"type":"NonExistingType"}'
@@ -37,10 +37,22 @@ phases:
       - curl -S -s -o /dev/null -i -X GET https://api.{$env}.nva.aws.unit.no/publication/0184be6e2eeb-dc2a295d-dfb0-4f0d-b0ec-5bea756356b3 -H "Accept:application/json"
 
       # GET publication by-owner
-      - curl -S -s -o /dev/null -S -s -o /dev/null -i -X GET https://api.{$env}.nva.aws.unit.no/publication/by-owner -H "Content-Type:application/json" -H "Authorization:Bearer {$TOKEN}"
+      - curl -S -s -o /dev/null -i -X GET https://api.{$env}.nva.aws.unit.no/publication/by-owner -H "Content-Type:application/json" -H "Authorization:Bearer {$TOKEN}"
 
       # GET organization
       - curl -S -s -o /dev/null -i -X GET https://api.{$env}.nva.aws.unit.no/cristin/organization/20754.0.0.0 -H "Accept:application/json"
+
+      # GET organization persons
+      - curl -S -s -o /dev/null -i -X GET https://api.{$env}.nva.aws.unit.no/cristin/organization/20754.0.0.0/persons -H "Accept:application/json"
+
+      # GET customer
+      - curl -S -s -o /dev/null  -i -X GET https://api.{$env}.nva.aws.unit.no/customer -H "Content-Type:application/json" -H "Authorization:Bearer {$TOKEN}"
+
+      # GET institution users
+      - curl -S -s -o /dev/null  -i -X GET https://api.{$env}.nva.aws.unit.no/users-roles/institutions/users?institution=https%3A%2F%2Fapi.dev.nva.aws.unit.no%2Fcristin%2Forganization%2F20754 -H "Content-Type:application/json" -H "Authorization:Bearer {$TOKEN}"
+
+      # GET customer vocabularies
+      - curl -S -s -o /dev/null  -i -X GET https://api.{$env}.nva.aws.unit.no/customer/0baf8fcb-b18d-4c09-88bb-956b4f659103/vocabularies -H "Content-Type:application/json" -H "Authorization:Bearer {$TOKEN}"
 
       # GET person
       - curl -S -s -o /dev/null -i -X GET https://api.{$env}.nva.aws.unit.no/cristin/person/1136806 -H "Accept:application/json"
