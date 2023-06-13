@@ -60,8 +60,8 @@ And('they see Save is enabled', () => {
 // Scenario: Creator sees that fields are validated on Description tab
 And('they click the Save button', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
-  cy.get('[data-testid=MuiAlert-message]');
-  cy.get('[data-testid=MuiAlert-message]').should('not.exist');
+  cy.get('.MuiAlert-message');
+  cy.get('.MuiAlert-message').should('not.exist');
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
