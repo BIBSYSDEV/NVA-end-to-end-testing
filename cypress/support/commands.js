@@ -43,6 +43,12 @@ const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 const authFlow = 'USER_PASSWORD_AUTH';
 
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
+export const todayDatePicker = () => {
+  const pad = (value) => `0${value}`.slice(-2);
+  const date = new Date();
+  const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`
+  return dateValue;
+}
 
 Cypress.Commands.add('connectAuthor', () => {
   cy.get(`[data-testid=create-author-button]`).click();
@@ -73,10 +79,9 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
 });
 
 Cypress.Commands.add('loginCognito', (userId) => {
-  const randomPassword = `P%1234abcd`;
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
-    // const randomPassword = `P%${uuidv4()}`;
+    const randomPassword = `P%${uuidv4()}`;
 
     const authorizeUser = {
       AuthFlow: authFlow,
@@ -94,22 +99,38 @@ Cypress.Commands.add('loginCognito', (userId) => {
       Permanent: true,
     };
 
-    identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
-      if (data) {
-        identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-          if (data) {
-            if (!data.ChallengeName) {
-              await Auth.signIn(userId, randomPassword);
-              resolve(data.AuthenticationResult.IdToken);
+    let tries = 0;
+    let trying = false;
+    do {
+      identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+        if (data) {
+          identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+            if (data) {
+              if (!data.ChallengeName) {
+                await Auth.signIn(userId, randomPassword);
+                resolve(data.AuthenticationResult.IdToken);
+              } else {
+                trying = true;
+                console.log('fail.. challenge');
+                reject(err);
+              }
             } else {
+              trying = true;
+              console.log('fail.. init auth');
               reject(err);
             }
-          } else {
-            reject(err);
-          }
-        });
+          });
+        } else {
+          trying = true;
+          console.log('fail.. set password');
+          reject(err);
+        }
+      });
+      tries++;
+      if (tries > 3) {
+        trying = false;
       }
-    });
+    } while (trying);
   });
 });
 
@@ -155,7 +176,7 @@ Cypress.Commands.add('startWizardWithLink', (doiLink) => {
 });
 
 Cypress.Commands.add('startWizardWithEmptyRegistration', () => {
-  cy.getDataTestId(dataTestId.header.newRegistrationLink).click({ force: true });
+  cy.getDataTestId(dataTestId.header.newRegistrationLink).first().click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.new.emptyRegistrationAccordion).click();
 });
 
@@ -182,15 +203,6 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges');
   cy.contains('Norges byggforskningsinstitutt').click({ force: true });
-
-  // cy.getDataTestId('resource-type-chip-ConferenceLecture').click({ force: true });
-  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventTitleField).click().type('Event');
-  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventOrganizerField).click().type('Organizer');
-  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.placeField).click().type('Place');
-  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.eventCountryField).click().type('nor');
-  // cy.contains('Norway').click();
-  // cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2022');
-  // cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2022');
 
   // Contributors
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
@@ -307,7 +319,7 @@ const fillInField = (field) => {
       }
       break;
     case 'date':
-      cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, field['value']);
+      cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, todayDatePicker());
       break;
     case 'search':
       cy.getDataTestId(field['fieldTestId']).should('be.visible').type(field['value'], { delay: 1 });
@@ -317,7 +329,7 @@ const fillInField = (field) => {
       cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true });
       break;
     case 'select':
-      cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click();
+      cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click({ force: true }).type(' ');
       if (
         field.fieldTestId === dataTestId.registrationWizard.resourceType.artisticTypeField ||
         field.fieldTestId === dataTestId.registrationWizard.resourceType.mediaMedium
@@ -339,7 +351,7 @@ const fillInField = (field) => {
             key === dataTestId.registrationWizard.resourceType.dateFromField ||
             key === dataTestId.registrationWizard.resourceType.dateToField
           ) {
-            cy.chooseDatePicker(`[data-testid=${key}]`, field['add']['fields'][key]);
+            cy.chooseDatePicker(`[data-testid=${key}]`, todayDatePicker());
           } else if (key === dataTestId.registrationWizard.resourceType.concertAddWork) {
             cy.getDataTestId(key).click();
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`)
@@ -402,6 +414,10 @@ Cypress.Commands.add('checkField', (field) => {
         cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', value);
       }
       break;
+    case 'date':
+      const dateValue = todayDatePicker();
+      cy.get(`[data-testid=${field['fieldTestId']}]`).parent().find('input').should('have.value', dateValue);
+      break;
     case 'textArea':
       cy.get(`[data-testid=${field['fieldTestId']}] textArea`).should('contain', value);
       break;
@@ -449,7 +465,7 @@ Cypress.Commands.add('checkField', (field) => {
 
 Cypress.Commands.add('checkContributors', (contributorRoles) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  var roleIndex = 0;
+  let roleIndex = 0;
   contributorRoles.forEach((role) => {
     roleIndex++;
     const name = `Withauthor ${roleIndex} `;
@@ -497,7 +513,7 @@ Cypress.Commands.add('fillInResourceType', (subtype, fields) => {
 });
 
 Cypress.Commands.add('fillInContributors', (contributorRoles) => {
-  var index = 0;
+  let index = 0;
   contributorRoles.forEach((role) => {
     index++;
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
@@ -533,31 +549,37 @@ Cypress.Commands.add('checkLandingPage', () => {
 
 Cypress.Commands.add('chooseDatePicker', (selector, value) => {
   cy.get('body').then(($body) => {
-    const mobilePickerSelector = `${selector} input[readonly]`;
-    const isMobile = $body.find(mobilePickerSelector).length > 0;
+    const mobilePickerSelector = `[data-testid=CalendarIcon]`;
+    const isMobile = $body.find(mobilePickerSelector).length === 0;
     if (isMobile) {
       // The MobileDatePicker component has readonly inputs and needs to
       // be opened and clicked on edit so its inputs can be edited
-      cy.get(mobilePickerSelector).click();
-      cy.get('[role="dialog"] [aria-label="calendar view is open, go to text input view"]').click();
-      cy.get(`[role="dialog"] ${selector}`)
-        .last()
-        .then((dialog) => {
-          cy.log(dialog);
-        });
-      cy.get(`[role="dialog"] ${selector}`, { force: true })
-        .last()
-        .find('input')
-        .clear({ force: true })
-        .type(value, { force: true });
-      cy.contains('[role="dialog"] button', 'OK').click();
+      // cy.get(mobilePickerSelector).click();
+      // cy.get('[role="dialog"] [aria-label="calendar view is open, go to text input view"]').click();
+      // cy.get(`[role="dialog"] ${selector}`, { force: true })
+      //   .last()
+      //   .find('input')
+      //   .parent()
+      //   .type(value, { force: true });
+      // cy.contains('[role="dialog"] button', 'OK').click();
+      cy.get(selector).click();
+      cy.get('[role=dialog]').then(($dialog) => {
+        const selectDay = $dialog.find('.MuiPickersDay-today').length > 0
+        const selectYear = $dialog.find('.Mui-selected').length > 0;
+        if (selectDay) {
+          cy.get('.MuiPickersDay-today').click();
+          cy.contains('[role="dialog"] button', 'OK').click();
+        } else {
+          // if (selectYear) {
+            cy.get('.Mui-selected').click();
+            cy.contains('[role="dialog"] button', 'OK').click();
+          // } else {
+          //   cy.get(selector).type(value, { force: true });
+          // }
+        }
+      })
     } else {
-      cy.get(selector)
-        .find('input')
-        .then((input) => {
-          cy.log(input);
-        });
-      cy.get(selector).find('input').clear().type(value);
+      cy.get(selector).type(value);
     }
   });
 });

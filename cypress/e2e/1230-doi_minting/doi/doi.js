@@ -19,14 +19,11 @@ const filename = 'example.txt';
 
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.login(userDraftDoi);
-  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
-  cy.get(`[data-testid=${dataTestId.myPage.messagesLink}]`).click();
-  cy.get('[data-testid^=message-title]')
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.get('[data-testid^=result-list-item]')
     .first()
-    .parent()
-    .parent()
     .within(() => {
-      cy.get('[data-testid="ExpandMoreIcon"]').click();
+      cy.get('p > a').first().click();
     });
 });
 
@@ -35,11 +32,10 @@ Given('that the Creator Opens a DOI request entry from My Worklist', () => {
 //   @1251
 //   Scenario: Creator opens a Registration with a DOI request
 When('they click the Edit Registration button', () => {
-  cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.editButton}]`).click();
 });
 Then('the Registration is opened in the Wizard on the first tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.descriptionField).should('exist');
 });
 
 //   @511
@@ -62,7 +58,7 @@ And('they see fields for Message', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiMessageField}]`).should('be.visible');
 });
 And('they see a "Send Request" button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.taskPanel.sendDoiButton}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.sendDoiButton}]`).should('be.visible');
 });
 
 //   @1232

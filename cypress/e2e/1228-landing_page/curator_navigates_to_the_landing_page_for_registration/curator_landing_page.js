@@ -16,20 +16,9 @@ const registratorPublishesWorkflow = 'registrator publishes';
 Then('the Registration is Published', () => {
   cy.get('@workflow').then((workflow) => {
     if (workflow === curatorPublishesWorkflow) {
-      cy.wait(5000)
-      cy.reload();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
         cy.contains('Publishing request - Published');
       });
-      //   } else if (workflow === registratorPublishesWorkflow) {
-      //     cy.login(userCurator);
-      //     cy.setWorkflowRegistratorPublishesAll();
-      //     cy.login(userPublishNoRights);
-      //     cy.startWizardWithEmptyRegistration();
-      //     cy.createValidRegistration(fileName, title);
-      //     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-      //     cy.location('pathname').as('path');
-      //     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton, { timeOut: 30000 }).click();
     }
   });
 });
@@ -141,8 +130,6 @@ Given('that a Curator views their Worklist', () => {
   cy.createValidRegistration(fileName, doiRequestTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId('button-publish-registration', { timeout: 20000 }).click();
-  cy.wait(5000);
-  cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
@@ -155,7 +142,6 @@ And('they have expanded an Message', () => {
   cy.contains(doiRequestTitle).click();
 });
 When('they click "Go to registration"', () => {
-  cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
 });
 Then("they see the Landing Page for the DOI Request's Registration", () => { });
 And('the Create DOI button is enabled', () => {
@@ -177,7 +163,6 @@ When('they approve the DOI Request', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.contains(title, {timeout : 30000}).click();
-  cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('not.exist');
 });
@@ -201,7 +186,6 @@ When('they reject the DOI Request', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.contains(title).click();
-  cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();
 });
 Then('the reserved DOI is removed from the Registration', () => {

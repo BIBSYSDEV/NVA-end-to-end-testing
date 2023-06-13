@@ -359,6 +359,9 @@ def create_publications():
                 if test_publication['doi'] == 'reserved':
                     print('reserving doi...')
                     reserve_doi(identifier=identifier, username=username)
+                if test_publication['doi'] == 'requested':
+                    print('requesting doi...')
+                    request_doi(identifier=identifier, username=username)
 
 
 def publish_publication(identifier, username):
@@ -369,6 +372,7 @@ def publish_publication(identifier, username):
     }
     response = requests.post(publish_endpoint.format(
         STAGE, identifier), json=payload, headers=headers)
+    print(response)
     check_response(response=response, status_code=201)
 
 def reserve_doi(identifier, username):

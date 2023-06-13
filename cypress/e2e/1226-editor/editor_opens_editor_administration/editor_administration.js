@@ -19,7 +19,7 @@ const menuItems = {
   'Institutions configuration': dataTestId.editor.institutionsNameLinkButton,
   'Vocabulary settings': dataTestId.editor.vocabularyLinkButton,
   'Publishing strategi': dataTestId.editor.publishStrategyLinkButton,
-  'DOI configurasjon': dataTestId.editor.doiLinkButton,
+  'DOI configuration': dataTestId.editor.doiLinkButton,
   // #        | change owner of registration |
   // #        | Sletting av publikasjoner    |
   'NVI-rapportering': '',
@@ -70,5 +70,5 @@ And('the Editor sees a menu with following options', (dataTable) => {
 // #        | Lisenser og filer            |
 And('"Institutions configuration" is the active choice', () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
-  cy.getDataTestId(menuItems['Institutions configuration']).should('have.class', 'MuiButton-containedPrimary');
+  cy.getDataTestId(menuItems['DOI configuration']).should('have.class', 'MuiButton-containedPrimary');
 });

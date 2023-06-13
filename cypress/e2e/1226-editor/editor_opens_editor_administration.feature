@@ -23,7 +23,7 @@ Feature: Editor opens Editor Administration
             | Institutions configuration |
             | Vocabulary settings        |
             | Publishing strategi        |
-            | DOI configurasjon          |
+            | DOI configuration          |
             | Curator's responsibility   |
         #        | change owner of registration |
         #        | Sletting av publikasjoner    |

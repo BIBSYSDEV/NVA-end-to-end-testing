@@ -64,10 +64,10 @@ And('they can see the values in the Registration Wizard', () => {
   });
   cy.get('@resourceType').then((subtype) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    fields[subtype].forEach((field) => {
+    fields.forEach((field) => {
       cy.checkField(field);
     });
-    cy.checkContributors(mediaContributorRoles[subtype]);
+    cy.checkContributors(exhibitionContributorRoles);
   });
 });
 

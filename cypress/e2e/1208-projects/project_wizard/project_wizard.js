@@ -74,8 +74,8 @@ Then('they selects a Financing', () => {
 And('the Project Wizard opens pre-filled with metadata', () => {
     cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.titleField).should('not.be.empty');
-    cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startDateField).should('not.be.empty');
-    cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.endDateField).should('not.be.empty');
+    cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startDateField).should('not.have.value', '');
+    cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.endDateField).should('not.have.value', '');
 })
 
 // Scenario: User starts to register a Project with a located Financing from NFR
@@ -101,8 +101,8 @@ And('they selects Empty registration', () => {
 Then('the Project Wizard opens with no metadata pre-filled', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.description.projectForm.titleField}] > div > input`).should('be.empty');
     cy.get(`[data-testid=${dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField}] > div > input`).should('be.empty');
-    cy.get(`[data-testid=${dataTestId.registrationWizard.description.projectForm.startDateField}] > div > input`).should('be.empty');
-    cy.get(`[data-testid=${dataTestId.registrationWizard.description.projectForm.endDateField}] > div > input`).should('be.empty');
+    cy.get(`[data-testid=${dataTestId.registrationWizard.description.projectForm.startDateField}]`).should('be.empty');
+    cy.get(`[data-testid=${dataTestId.registrationWizard.description.projectForm.endDateField}]`).should('be.empty');
 })
 
 // Scenario: The User opens the Project Wizard on the Metadata page
