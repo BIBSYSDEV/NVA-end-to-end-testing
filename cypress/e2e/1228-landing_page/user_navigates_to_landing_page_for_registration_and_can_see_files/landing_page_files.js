@@ -36,7 +36,7 @@ And('the User is notified that progress on this claim can be viewed in My Messag
 // Scenario: Files that are Administrative Agreements are hidden
 And('the Registration contains a File, which is an Administrative Agreement', () => {
 
-  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`File with Administrative agreement ${today}{enter}`);
+  cy.getDataTestid(dataTestId.startPage.searchField).type(`File with Administrative agreement ${today}{enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains("File with Administrative agreement ${today}")`)
     .first()
@@ -45,29 +45,29 @@ And('the Registration contains a File, which is an Administrative Agreement', ()
 When('they view the Files section', () => {
 });
 Then('they do not see the File that is an Administrative Agreement', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.filesAccordion}]`).should('not.exist');
+  cy.getDataTestid(dataTestId.registrationLandingPage.filesAccordion).should('not.exist');
 });
 
 // Scenario: Files that are part of Registration are listed
 And('the Registration contains Files', () => {
-  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`No administrative agreement ${today}{enter}`);
+  cy.getDataTestid(dataTestId.startPage.searchField).type(`No administrative agreement ${today}{enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains("No administrative agreement ${today}") `)
     .first()
     .click();
 });
 When('they view the Files section', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.filesAccordion}]`).as('files').should('be.visible');
+  cy.getDataTestid(dataTestId.registrationLandingPage.filesAccordion).as('files').should('be.visible');
 });
 Then('they can see Files that are not Administrative Agreements are listed', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.file}]`).should('have.length', 1);
+  cy.getDataTestid(dataTestId.registrationLandingPage.file).should('have.length', 1);
 });
 And('for each File they can see:', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.file}]`).each((file) => {
+  cy.getDataTestid(dataTestId.registrationLandingPage.file).each((file) => {
     cy.wrap(file).within(() => {
-      cy.get(`[data-testid=${dataTestId.registrationLandingPage.fileName}]`).should('be.visible');
-      cy.get(`[data-testid=${dataTestId.registrationLandingPage.fileSize}]`).should('be.visible');
-      cy.get(`[data-testid=${dataTestId.registrationLandingPage.fileVersion}]`).should('be.visible');
+      cy.getDataTestid(dataTestId.registrationLandingPage.fileName).should('be.visible');
+      cy.getDataTestid(dataTestId.registrationLandingPage.fileSize).should('be.visible');
+      cy.getDataTestid(dataTestId.registrationLandingPage.fileVersion).should('be.visible');
     });
   });
 });
@@ -76,28 +76,28 @@ And('for each File they can see:', () => {
 // | Version |
 // | License |
 And('they can see a download button for Files that are not Embargoed', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.openFileButton}]`).should('have.length', 1);
+  cy.getDataTestid(dataTestId.registrationLandingPage.openFileButton).should('have.length', 1);
 });
 
 // @2158
 // Scenario Outline: Files can be previewed
 And('the Registration contains Files that are not Embargoed of type {string}', (fileType) => {
-  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`Not Embargoed ${fileType} file ${today}{enter}`);
+  cy.getDataTestid(dataTestId.startPage.searchField).type(`Not Embargoed ${fileType} file ${today}{enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains("Not Embargoed ${fileType} file ${today}")`)
     .first()
     .click();
 });
 And('every File has an expandable Preview panel', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.filesAccordion}]`).should('have.length', 1);
+  cy.getDataTestid(dataTestId.registrationLandingPage.filesAccordion).should('have.length', 1);
 });
 When('the user expands the Preview panel', () => { });
 Then('the selected File is downloaded', () => { });
 And('they see the downloaded File is of type {string}', (type) => {
-  cy.get('[data-testid=file-name]').contains(fileTypes[type]);
+  cy.getDataTestid(dataTestId.registrationLandingPage.filesAccordion).contains(fileTypes[type]);
 });
 And('they see the preview of the downloaded File', () => {
-  cy.get(`[data-testid=file-preview]`).should('be.visible');
+  cy.getDataTestid(dataTestId.registrationLandingPage.filePreview).should('be.visible');
 });
 // Examples:
 //     | FileType         |
@@ -107,7 +107,7 @@ And('they see the preview of the downloaded File', () => {
 
 // Scenario: Automatically preview first File
 And('the Registration contains Files', () => {
-  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`Not Embargoed Image file ${today}{enter}`);
+  cy.getDataTestid(dataTestId.startPage.searchField).type(`Not Embargoed Image file ${today}{enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains("Not Embargoed Image file ${today}")`)
     .first()
@@ -116,29 +116,29 @@ And('the Registration contains Files', () => {
 When('the first File is not Embargoed', () => { });
 And("the File's size is less than 10 MB", () => { });
 Then("the File's Preview panel is expanded by default", () => {
-  cy.get('[data-testid=file]').within(() => {
-    cy.get(`[data-testid=${dataTestId.registrationLandingPage.filePreviewHeader}]`).should('be.visible');
+  cy.getDataTestid(dataTestId.registrationLandingPage.file).within(() => {
+    cy.get(`[data-testid=${dataTestId.registrationLandingPage.fileName}]`).should('be.visible');
   });
 });
 And('the File is automatically downloaded', () => { });
 And('the downloaded File is displayed', (file) => {
-  cy.get(`[data-testid=file-preview]`).should('be.visible');
+  cy.getDataTestid(dataTestId.registrationLandingPage.filePreview).should('be.visible');
 });
 
 // Scenario: Lock Embargoed Files
 And('the Registration contains a File that is Embargoed', () => {
-  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`Embargoed PDF file ${today}{enter}`);
+  cy.getDataTestid(dataTestId.startPage.searchField).type(`Embargoed PDF file ${today}{enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains("Embargoed PDF file ${today}")`)
     .first()
     .click();
 });
 Then('the Embargoed File does not have an expandable Preview panel', () => {
-  cy.get('[data-testid=file]').should('not.exist');
+  cy.getDataTestid(dataTestId.registrationLandingPage.file).should('not.exist');
 });
 And('the Embargoed File does not have a download button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.openFileButton}]`).should('not.exist');
+  cy.getDataTestid(dataTestId.registrationLandingPage.openFileButton).should('not.exist');
 });
 And('the user can see the date when the File will no longer be Embargoed', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.fileEmbargoDate}]`).should('be.visible');
+  cy.getDataTestid(dataTestId.registrationLandingPage.fileEmbargoDate).should('be.visible');
 });
