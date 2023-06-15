@@ -544,5 +544,66 @@
     "contributor": "test-user-messages@test.no",
     "title": "Registration - DOI request request pending",
     "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Search result - Journal"
+  },
+  {
+    "publication_type": "Reference",
+    "publication_context_type": "Book",
+    "publication_instance_type": "BookAnthology",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Search result - Anthology",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Reference",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "ConferenceAbstract",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Search result - Conference abstract",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Reference",
+    "publication_context_type": "Book",
+    "publication_instance_type": "BookAnthology",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "status": "PUBLISHED",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Search result - Anthology",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-publish-registration@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "title": "Search result - Journal",
+    "doi": "requested"
   }
 ]

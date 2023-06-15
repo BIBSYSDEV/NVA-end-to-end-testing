@@ -232,7 +232,7 @@ def get_customer(username):
     return ''
 
 
-def create_contributor(contributor):
+def create_contributor(contributor, affiliation):
     with open('./publications/contributors.json'
               ) as contributor_template_file:
         contributor_template = json.load(contributor_template_file)
@@ -241,6 +241,8 @@ def create_contributor(contributor):
         new_contributor['email'] = contributor
         new_contributor['identity']['id'] = arp_dict[contributor]["cristinid"]
         new_contributor['identity']['name'] = arp_dict[contributor]["name"]
+        if affiliation != '':
+            new_contributor['affiliations'][0]['id'] = affiliation
         return new_contributor
 
 
@@ -255,7 +257,10 @@ def create_publication_data(publication_template, test_publication, username, cu
 
     if test_publication['contributor'] != '':
         contributor = test_publication['contributor']
-        new_contributor = create_contributor(contributor=contributor)
+        affiliation = ''
+        if 'affiliation' in test_publication:
+            affiliation = test_publication['affiliation']
+        new_contributor = create_contributor(contributor=contributor, affiliation=affiliation)
         new_publication['entityDescription']['contributors'].append(
             new_contributor)
 
