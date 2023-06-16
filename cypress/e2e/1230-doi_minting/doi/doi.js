@@ -15,22 +15,14 @@ const published = 'published';
 const unpublished = 'unpublished';
 const filename = 'example.txt';
 
-// Common steps
-
+//   @1251
+//   Scenario: Creator opens a Registration with a DOI request
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.login(userDraftDoi);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
-  cy.get('[data-testid^=result-list-item]')
-    .first()
-    .within(() => {
-      cy.get('p > a').first().click();
-    });
+  cy.get('[data-testid^=result-list-item]').first().click();
 });
 
-// End common steps
-
-//   @1251
-//   Scenario: Creator opens a Registration with a DOI request
 When('they click the Edit Registration button', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.editButton}]`).click();
 });

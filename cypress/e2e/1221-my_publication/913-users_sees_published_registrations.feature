@@ -8,7 +8,6 @@ Feature: User sees published Registrations
         Then they see a list of all published Registrations with the fields
             | Title   |
             | Status  |
-            | Created |
         And they see list items with Status
             # | Deleted   |
             | Published |
