@@ -47,6 +47,7 @@ Feature: Curator navigates to the Landing Page for Registration
 
     @test
     @no_restriction
+    @doi_request
     Scenario: Curator Rejects a DOI Request
         Given a Curator opens the Landing Page of a Registration
         And the Registration is Published
