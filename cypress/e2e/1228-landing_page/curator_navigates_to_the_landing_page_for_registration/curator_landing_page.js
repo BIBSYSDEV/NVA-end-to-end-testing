@@ -25,6 +25,7 @@ Then('the Registration is Published', () => {
 
 Before(() => {
   cy.wrap(registratorPublishesWorkflow).as('workflow');
+  cy.wrap('').as('doiRequest');
 });
 
 Before({ tags: '@no_restriction' }, () => {
@@ -41,6 +42,9 @@ Before({ tags: '@all_restrictions' }, () => {
   cy.wrap(curatorPublishesWorkflow).as('workflow');
 });
 
+Before({tags: '@doi_request'}, () => {
+  cy.wrap(true).as('doiRequest');
+})
 
 // end common steps
 
@@ -52,17 +56,17 @@ Given('a Curator opens the Landing Page of a Registration', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-  cy.location('pathname').as('path');
-  cy.get('@path').then((path) => {
-    cy.login(userCurator);
-    cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
-    cy.visit(path, {
-      auth: {
-        username: Cypress.env('DEVUSER'),
-        password: Cypress.env('DEVPASSWORD'),
-      },
-    });
-  });
+  cy.get('@doiRequest').then(doiRequest => {
+    if (doiRequest) {
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();      
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();      
+    }
+  })
+  cy.login(userCurator);
+  cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
 });
 And('the Registration has a Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).should('exist');
@@ -94,12 +98,9 @@ Given('a Curator from a customer with Workflow {string}', (workflow) => {
 Given('they opens the Landing Page of a Registration', () => {
   cy.get('@path').then((path) => {
     cy.login(userCurator);
-    cy.visit(path, {
-      auth: {
-        username: Cypress.env('DEVUSER'),
-        password: Cypress.env('DEVPASSWORD'),
-      },
-    });
+    cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
+    cy.getDataTestId(dataTestId.header.tasksLink).click();
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   });
 });
 And('the Registration has a Publishing Request', () => {
@@ -155,16 +156,11 @@ And('the Decline DOI button is enabled', () => {
 Given('a Curator opens the Landing Page of a Registration', () => { });
 And('the Registration is Published', () => { });
 And('the Registration has a DOI Request', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
 });
 When('they approve the DOI Request', () => {
-  cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.contains(title, {timeout : 30000}).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('not.exist');
 });
 Then('the DOI is findable', () => {
   cy.get('[data-testid=logo]').click();
