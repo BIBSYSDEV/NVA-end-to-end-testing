@@ -1,5 +1,5 @@
 import { Before } from "cypress-cucumber-preprocessor/steps";
-import { userCurator } from "../../../support/constants";
+import { userCurator, userCuratorWithAuthor } from "../../../support/constants";
 import { dataTestId } from "../../../support/dataTestIds";
 
 const requestTypes = {
@@ -10,15 +10,24 @@ const requestTypes = {
 
 Before(() => {
     cy.login(userCurator);
-    cy.getDataTestId(dataTestId.header.tasksLink).click();
 });
 
 //   Scenario: Curator opens their Worklist
-When('the Curator opens their Worklist', () => { });
-Then('the Curator see that the Worklist is Scoped', () => { });
+When('the Curator opens their Worklist', () => {
+    cy.getDataTestId(dataTestId.header.tasksLink).click();
+});
+Then('the Curator see that the Worklist is Scoped', () => {
+    cy.contains('Limited to: "BIBSYS"')
+ });
 And('the Worklist contains Requests of type:', (dataTable) => {
+    const messageTypes = {
+        'Approval': 'Publishing Requests',
+        'Support': 'Support Requests',
+        'DOI': 'DOIRequests',
+    }
     dataTable.rawTable.forEach(value => {
-        cy.contains(requestTypes[value[0]]);
+        cy.filterMessages(messageTypes[value[0]]),
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
     })
 });
     // | Approval |
