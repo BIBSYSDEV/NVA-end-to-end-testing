@@ -3,6 +3,7 @@
 import { dataTestId } from "../../../support/dataTestIds"
 
 const visitStartPage = () => {
+    cy.setLocalStorage('i18nextLng', 'eng');
     cy.visit('/', {
         auth: {
             username: Cypress.env('DEVUSER'),
@@ -31,11 +32,12 @@ When('they see the search result list', () => {
     cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
 })
 Then('they can see values for:', (dataTable) => {
+    const pad = (value) => `0${value}`.slice(-2);
     const date = new Date();
     const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`
     const values = {
-        'Resource Type': 'Vitenskapelig artikkel',
-        'Publication date': dateValue,
+        'Resource Type': 'Academic article',
+        'Publication date': '31.12.2020',
         'Title': 'Search result',
         'Contributors': 'Publish registration TestUser',
         'Abstract': 'Abstract',
@@ -66,27 +68,80 @@ Then('they see the landing page for the Registration', () => {
 })
 
 //      Scenario: A User uses facets to filter search results
-Given('a User searches for Registrations', () => { })
-When('they select the {string} for:', (facet) => { })
+Given('a User searches for Registrations', () => {
+    visitStartPage()
+    cy.getDataTestId(dataTestId.startPage.searchField).type('search result{enter}');
+})
+When('they select the facet for {string}:', (facet) => {
+    const facets = {
+        'Resource type': dataTestId.startPage.typeFacets,
+        'Institution': dataTestId.startPage.institutionFacets,
+    }
+    cy.wrap(facet).as('facet');
+    cy.getDataTestId(facets[facet]).within(() => {
+        cy.get('[data-testid^=facet-item] > div').first().click();
+    });
+})
 //  | Resource type |
 //  | Institution |
-Then('they see Registrations filtered with the chosen facet', () => { })
+Then('they see Registrations filtered with the chosen facet', () => {
+    cy.get('@facet').then((facet) => {
+        const resultCount = {
+            'Resource type': 2,
+            'Institution': 3,
+        }
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', resultCount[facet]);
+    })
+})
 
 //      Scenario: A user adds a filter to search results
-Given('a User searches for Registrations', () => {
-    visitStartPage();
-})
+Given('a User searches for Registrations', () => { })
 When('they select the option to add a filter', () => {
-    cy.get('button').filter(':contains("Add filter")').click();
+    cy.getDataTestId(dataTestId.startPage.advancedSearch.addFilterButton).click();
 })
-Then('they they can add filter for fields:', () => { })
+Then('they they can add filter for fields:', (dataTable) => {
+    const fieldValues = {
+        'Title': 'entityDescription.mainTitle',
+        'Abstract': 'entityDescription.abstract',
+        'Keywords': 'entityDescription.tags',
+        'Contributor': 'entityDescription.contributors.identity.name',
+        'Publication Year': 'entityDescription.publicationDate.year',
+
+    }
+    cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedFieldSelect).click();
+    dataTable.rawTable.forEach((value) => {
+        cy.get(`[data-value="${fieldValues[value[0]]}"]`);
+    })
+    cy.contains('Title').click();
+})
 //  | Title |
 //  | Abstract |
 //  | Keywords |
 //  | Contributor |
 //  | Publication Year |
-And('they can use the operators:', () => { })
+And('they can use the operators:', (dataTable) => {
+    cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedOperatorSelect).click();
+    dataTable.rawTable.forEach(value => {
+        cy.contains(value[0]);
+    })
+})
 //  | Contains |
 //  | Does not contain |
+
+// Scenario: A User filters a search result
+Given('a User searches for Registrations', () => { })
+And('they add a filter to the search', () => {
+    cy.getDataTestId(dataTestId.startPage.advancedSearch.addFilterButton).click();
+    cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedFieldSelect).click();
+    cy.get('[data-value="entityDescription.mainTitle"]').click();
+    cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedValueField).type('anthology');
+})
+When('they invoke the filter', () => {
+    cy.getDataTestId(dataTestId.startPage.advancedSearch.searchButton).last().click();
+})
+Then('they see a search result list with filtered search results', () => {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', 2);
+})
+
 
 

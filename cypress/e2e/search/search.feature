@@ -23,6 +23,7 @@ Feature: Scenarios for search
         When they select one of the Registrations
         Then they see the landing page for the Registration
 
+    @test
     Scenario Outline: A User uses facets to filter search results
         Given a User searches for Registrations
         When they select the facet for "<Facet>":
@@ -32,17 +33,24 @@ Feature: Scenarios for search
             | Resource type |
             | Institution   |
 
-Scenario: A user adds a filter to search results
-    Given a User searches for Registrations
-    When they select the option to add a filter
-    Then they they can add filter for fields:
-        | Title            |
-        | Abstract         |
-        | Keywords         |
-        | Contributor      |
-        | Publication Year |
-    And they can use the operators:
-        | Contains         |
-        | Does not contain |
+    @test
+    Scenario: A User adds a filter to search results
+        Given a User searches for Registrations
+        When they select the option to add a filter
+        Then they they can add filter for fields:
+            | Title            |
+            | Abstract         |
+            | Keywords         |
+            | Contributor      |
+            | Publication Year |
+        And they can use the operators:
+            | Contains         |
+            | Does not contain |
 
+    @test
+    Scenario: A User filters a search result
+        Given a User searches for Registrations
+        And they add a filter to the search
+        When they invoke the filter
+        Then they see a search result list with filtered search results
 
