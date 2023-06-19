@@ -253,6 +253,15 @@ Cypress.Commands.add('addFeideId', (username) => {
     });
 });
 
+Cypress.Commands.add('mockPersonSearch', (userId) => {
+  cy.intercept(
+    `https://api.${stage}.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
+    mockPersonFeideIdSearch(userId)
+  );
+  cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?name=*`, mockPersonNameSearch(userId));
+});
+
+
 Cypress.Commands.add('findScenario', () => {
   let scenario = '';
   if (window.testState.currentScenario.tags && window.testState.currentScenario.tags.length > 0) {
