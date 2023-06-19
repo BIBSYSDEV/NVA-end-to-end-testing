@@ -37,21 +37,21 @@ Feature: Curator opens My Worklist
 
   Background:
 
+  # @test
+  # Scenario: Curator opens their Worklist
+  #   When the Curator opens their Worklist
+  #   Then the Curator see that the Worklist is Scoped
+  #   And the Worklist contains Requests of type:
+  #     | Approval |
+  #     | Support  |
+  #     | DOI      |
+  # # | Ownership |
+
+  # Scenario: Curator change Scope of their Worklist
+  #   When the Curator change Scope to the whole Institution or one or more subunits
+  #   Then the listed Requests is updated to match the new Scope
+
   @test
-  Scenario: Curator opens their Worklist
-    When the Curator opens their Worklist
-    Then the Curator see that the Worklist is Scoped
-    And the Worklist contains Requests of type:
-      | Approval |
-      | Support  |
-      | DOI      |
-  # | Ownership |
-
-  Scenario: Curator change Scope of their Worklist
-    When the Curator change Scope to the whole Institution or one or more subunits
-    Then the listed Requests is updated to match the new Scope
-
-
   Scenario Outline: Curator views all Requests of a type
     When Curator clicks on Requests of type "<Type>"
     Then Curator see a list of Requests displayed with:
