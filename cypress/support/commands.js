@@ -266,36 +266,6 @@ Cypress.Commands.add('findScenario', () => {
   cy.wrap(scenario).as('scenario');
 });
 
-// Commands for mocking
-
-Cypress.Commands.add('addMockOrcid', (username) => {
-  cy.window()
-    .its('store')
-    .invoke('getState')
-    .then((state) => {
-      const { authority } = state.user;
-      authority.orcids.push('test_orcid');
-      cy.window().its('store').invoke('dispatch', {
-        type: 'set authority data',
-        authority: authority,
-      });
-    });
-});
-
-Cypress.Commands.add('mockPersonSearch', (userId) => {
-  cy.intercept(
-    `https://api.${stage}.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
-    mockPersonFeideIdSearch(userId)
-  );
-  cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?name=*`, mockPersonNameSearch(userId));
-});
-
-Cypress.Commands.add('mockJournalSearch', () => {
-  cy.fixture(journalSearchMockFile).then((journals) => {
-    cy.intercept(`https://api.${stage}.nva.aws.unit.no/publication-channels/journal*`, journals);
-  });
-});
-
 Cypress.Commands.add('changeUserInstitution', (institution) => {
   cy.window()
     .its('store')
@@ -319,7 +289,8 @@ const fillInField = (field) => {
       }
       break;
     case 'date':
-      cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, todayDatePicker());
+      const pickDate = (field['value'].length > 4) ? todayDatePicker() : field['value'];
+      cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, pickDate);
       break;
     case 'search':
       cy.getDataTestId(field['fieldTestId']).should('be.visible').type(field['value'], { delay: 1 });
