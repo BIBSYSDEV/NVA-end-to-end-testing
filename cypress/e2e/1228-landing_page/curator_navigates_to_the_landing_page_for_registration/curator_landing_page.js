@@ -59,8 +59,8 @@ Given('a Curator opens the Landing Page of a Registration', () => {
   cy.get('@doiRequest').then(doiRequest => {
     if (doiRequest) {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();      
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();      
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
     }
   })
   cy.login(userCurator);
@@ -100,6 +100,7 @@ Given('they opens the Landing Page of a Registration', () => {
     cy.login(userCurator);
     cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
+    cy.filterMessages('Publishing requests');
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   });
 });
