@@ -331,7 +331,9 @@ const fillInField = (field) => {
             key === dataTestId.registrationWizard.resourceType.dateFromField ||
             key === dataTestId.registrationWizard.resourceType.dateToField
           ) {
-            cy.chooseDatePicker(`[data-testid=${key}]`, todayDatePicker());
+            const value = field['add']['fields'][key];
+            const pickDate = (value.length > 4) ? todayDatePicker() : value;
+            cy.chooseDatePicker(`[data-testid=${key}]`, pickDate);
           } else if (key === dataTestId.registrationWizard.resourceType.concertAddWork) {
             cy.getDataTestId(key).click();
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`)

@@ -23,7 +23,7 @@ And('the Worklist contains Requests of type:', (dataTable) => {
     const messageTypes = {
         'Approval': 'Publishing Requests',
         'Support': 'Support Requests',
-        'DOI': 'DOIRequests',
+        'DOI': 'DoiRequests',
     }
     dataTable.rawTable.forEach(value => {
         cy.filterMessages(messageTypes[value[0]]),

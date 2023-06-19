@@ -38,7 +38,6 @@ Feature: Curator opens My Worklist
   Background:
 
   @test
-  @TEST_NP-4430
   Scenario: Curator opens their Worklist
     When the Curator opens their Worklist
     Then the Curator see that the Worklist is Scoped
@@ -48,31 +47,27 @@ Feature: Curator opens My Worklist
       | DOI      |
   # | Ownership |
 
-  # @TEST_NP-4428
-  # Scenario: Curator change Scope of their Worklist
-  #   When the Curator change Scope to the whole Institution or one or more subunits
-  #   Then the listed Requests is updated to match the new Scope
+  Scenario: Curator change Scope of their Worklist
+    When the Curator change Scope to the whole Institution or one or more subunits
+    Then the listed Requests is updated to match the new Scope
 
-  # @TEST_NP-4431
-  # @357
-  # @updated
-  # #Replaces @1353, 1354, 2756 and 531
-  # Scenario Outline: Curator views all Requests of a type
-  #   When Curator clicks on Requests of type "<Type>"
-  #   Then Curator see a list of Requests displayed with:
-  #     | Request status            |
-  #     | Registration title        |
-  #     | Submitter name            |
-  #     | Request Submitter Date    |
-  #     | Beginning of last message |
-  #     | Owner name                |
-  #   And they see that each Request can be opened
-  #   Examples:
-  #     | Type      |
-  #     | Approval  |
-  #     # Må handtere at Editor kan tillate alle å publisere - kva skjer da med Approvals?
-  #     | Support   |
-  #     | DOI       |
+
+  Scenario Outline: Curator views all Requests of a type
+    When Curator clicks on Requests of type "<Type>"
+    Then Curator see a list of Requests displayed with:
+      | Request status            |
+      | Registration title        |
+      | Submitter name            |
+      | Request Submitter Date    |
+      | Beginning of last message |
+      | Owner name                |
+    And they see that each Request can be opened
+    Examples:
+      | Type      |
+      | Approval  |
+      # Må handtere at Editor kan tillate alle å publisere - kva skjer da med Approvals?
+      | Support   |
+      | DOI       |
   #     | Ownership |
 
   # @TEST_NP-4427
