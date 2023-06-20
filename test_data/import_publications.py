@@ -267,13 +267,7 @@ def create_publication_data(publication_template, test_publication, username, cu
     file = {
         'administrativeAgreement': False,
         'identifier': 'location',
-        'license': {
-            'identifier': 'CC0',
-            'labels': {
-                'nb': 'CC0'
-            },
-            'type': 'License'
-        },
+        'license': "https://creativecommons.org/licenses/by/4.0",
         'mimeType': 'application/pdf',
         'name': 'test_file_name',
         'publisherAuthority': False,
