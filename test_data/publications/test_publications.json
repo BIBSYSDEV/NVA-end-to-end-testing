@@ -63,7 +63,8 @@
     "owner": "test-user-draft-doi@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-draft-doi@test.no",
-    "title": "Published registration requesting DOI"
+    "title": "Published registration requesting DOI",
+    "doi": "requested"
   },
   {
     "publication_type": "Journal",

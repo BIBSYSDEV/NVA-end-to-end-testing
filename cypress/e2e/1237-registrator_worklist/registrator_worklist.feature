@@ -28,16 +28,17 @@ Feature: Registrator worklist
     #         | Go to Publication |
     #         | Archive           |
 
-    # Scenario: Creator closes a message
-    #     Given that the Creator Opens a message from My Messages
-    #     When they click the Close button
-    #     Then they see the Worklist
+    Scenario: Creator closes a message
+        Given that the Creator Opens a message from My Messages
+        When they click the Close button
+        Then they see the Worklist
 
     @test
     Scenario: Creator opens a Registration with a DOI request
         Given that the Creator Opens a DOI request entry from My Messages
         When they click the Edit Registration button
         Then the Registration is opened in the Wizard on the first tab
+
 
     # Scenario: Creator deletes a DOI request
     #     Given that the Creator opens My Worklist

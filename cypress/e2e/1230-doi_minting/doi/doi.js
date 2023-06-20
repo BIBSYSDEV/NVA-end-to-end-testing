@@ -205,34 +205,13 @@ And('they see the Submission tab', () => { });
 And('they see the Create DOI button is enabled', () => { });
 And('they see the Decline DOI button is enabled', () => { });
 
-//   @512
-//   Scenario: A Curator approves a DOI request
-Given('that a Curator opens a Registration from a DOI Request Worklist Item', () => {
-  cy.login(userCuratorDraftDoi);
-  cy.get(`[data-testid=${dataTestId.header.worklistLink}]`).click();
-  cy.get('[data-testid^=message-title]').filter(`:contains(${publishedRegistrationWithDoi})`).click();
-  cy.get('[data-testid^=go-to-registration]').filter(':visible').first().click();
-});
-When('they click Create DOI', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.createDoiButton}]`).first().click();
-  cy.reload();
-});
-Then('they see the Landing Page for Registration', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.status}]`).should('be.visible');
-});
-And('the Registration has a DOI Link', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
-});
-
-And('the Request DOI item is marked as Approved in their Worklist', () => {
-  cy.get(`[data-testid=${dataTestId.header.worklistLink}]`).click();
-});
-
-//   @1244
-//   Scenario: A Curator declines a DOI request
-Given('that a Curator enters a decline comment on a DOI request', () => { });
-When('they click Save', () => { });
-Then('the DOI request is marked as "Declined"', () => { });
-And('the request in the User\'s Worklist is updated to "Declined"', () => { });
-And("the request is removed from the Curator's Worklist", () => { });
-And('they see their Worklist', () => { });
+// Scenario: Owner navigates to the Landing page and requests a DOI
+Given ('that the Creator navigates to the Landing page for published Registration without DOI', () => {})
+And ('they are the Owner of the Registration', () => {})
+And ('open "Request a DOI" dialog', () => {})
+And ('optional add a message to the Curator', () => {})
+When ('the user click the Send Button', () => {})
+Then ('the Landing page is displayed', () => {})
+And ('the "Request a DOI" button is no longer visible', () => {})
+And ('the request is listed in My Messages', () => {})
+And ('the request is listed in Curator Worklist', () => {})

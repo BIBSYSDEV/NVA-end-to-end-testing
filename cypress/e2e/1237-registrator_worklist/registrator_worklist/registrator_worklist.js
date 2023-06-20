@@ -82,9 +82,19 @@ And('they see that each item in the list is expandable', () => { });
 //             | Archive           |
 
 //     Scenario: Creator closes a message
-//         Given that the Creator Opens a message from My Messages
-//         When they click the Close button
-//         Then they see the Worklist
+Given('that the Creator Opens a message from My Messages', () => {
+  cy.login(userMessages);
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).click();
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
+});
+When('they click the Close button', () => {
+  cy.get('[title=tasks]').click();
+});
+Then('they see the Worklist', () => {
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
+});
 
 //     Scenario: Creator opens a Registration with a DOI request
 Given('that the Creator Opens a DOI request entry from My Messages', () => {

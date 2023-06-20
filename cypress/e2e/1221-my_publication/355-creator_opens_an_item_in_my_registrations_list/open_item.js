@@ -15,7 +15,7 @@ And('is on the page My Registrations', () => {
 When('they click Edit on an item', () => {
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
-Then('they see the item is opened in the Wizard', () => {});
+Then('they see the item is opened in the Wizard', () => { });
 And('they see the Description tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`);
 });
@@ -31,6 +31,19 @@ And('they see fields:', (dataTable) => {
 
 // Scenario: Creator sees Validation Errors for Registration
 And('they are on the page My Registrations', () => {
+  cy.openMyRegistrations();
+  cy.get('tr')
+    .filter(`:contains("Registration with validation error ${today}")`)
+    .within(() => {
+      cy.get('[data-testid^=edit-registration]').first().click({ force: true });
+    });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
+    cy.getDataTestId('CancelIcon').click();
+  })
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.openMyRegistrations();
 });
 And('they see a List of Registrations', () => {
@@ -49,9 +62,7 @@ And('they see the Registration is opened in Edit Mode', () => {
 And('they see the Registration has Validation Errors', () => {
   cy.get('[data-testid=error-tab]').should('exist');
 });
-Then('they see a List of all Validation Errors', () => {
-});
-And('they see that tabs with Validation Errors are marked with an Error Icon', () => {
+Then('they see that tabs with Validation Errors are marked with an Error Icon', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).within(() => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.errorStep}]`);
   });

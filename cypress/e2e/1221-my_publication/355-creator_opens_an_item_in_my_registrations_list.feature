@@ -1,8 +1,6 @@
 Feature: Creator opens an item in My Registrations list
 
-    @TEST_NP-4119
     @test
-    @355
     Scenario: Creator opens an item in My Registrations list
         Given that the user is logged in as Creator
         And is on the page My Registrations
@@ -17,7 +15,6 @@ Feature: Creator opens an item in My Registrations list
             | Primary language for content |
 
     @test
-    @TEST_NP-4116
     Scenario: Creator sees Validation Errors for Registration
         Given that the user is logged in as Creator
         And they are on the page My Registrations
@@ -25,5 +22,4 @@ Feature: Creator opens an item in My Registrations list
         When they click Edit on a Registration
         And they see the Registration is opened in Edit Mode
         And they see the Registration has Validation Errors
-        Then they see a List of all Validation Errors
-        And they see that tabs with Validation Errors are marked with an Error Icon
+        Then they see that tabs with Validation Errors are marked with an Error Icon
