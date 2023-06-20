@@ -516,7 +516,7 @@ Cypress.Commands.add('checkLandingPage', () => {
       const field = registrationFields[key][subkey];
       if (field['landingPageTestId']) {
         if (field['landingPageTestId'] === dataTestId.registrationLandingPage.license) {
-          cy.getDataTestId(field.landingPageTestId).get(`[title="${field.value}"]`);
+          cy.getDataTestId(field.landingPageTestId).get(`[title^="${field.value}"]`);
         } else if (field['landingPageTestId'] === dataTestId.registrationLandingPage.title) {
           cy.getDataTestId(dataTestId.registrationLandingPage.registrationSubtype)
             .parent()
