@@ -42,6 +42,7 @@ And('they are on the page My Registrations', () => {
     cy.getDataTestId('CancelIcon').click();
   })
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.get('.MuiAlert-message').should('be.visible');
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.openMyRegistrations();
