@@ -337,7 +337,8 @@
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
-    "title": "Test Antologi"
+    "title": "Test Antologi",
+    "publisher": "https://api.dev.nva.aws.unit.no/publication-channels/publisher/26781/2023"
   },
   {
     "publication_type": "Reference",
@@ -348,7 +349,8 @@
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
-    "title": "Test Antologi"
+    "title": "Test Antologi",
+    "publisher": "https://api.dev.nva.aws.unit.no/publication-channels/publisher/26781/2023"
   },
   {
     "publication_type": "Journal",

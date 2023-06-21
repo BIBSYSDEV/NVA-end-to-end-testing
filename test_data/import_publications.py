@@ -254,6 +254,11 @@ def create_publication_data(publication_template, test_publication, username, cu
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
     new_publication['publisher']['id'] = customer
     new_publication['status'] = status
+    if 'publisher' in test_publication:
+        new_publication['entityDescription']['reference']['publicationContext']['publisher'] = {
+            'type': 'Publisher',
+            'id': 'https://api.dev.nva.aws.unit.no/publication-channels/publisher/26781/2023'
+        }
 
     if test_publication['contributor'] != '':
         contributor = test_publication['contributor']
