@@ -154,7 +154,7 @@ And('the Resource has Validation Errors', () => {
 });
 And('the Resource is a draft', () => {
   cy.getDataTestId('tasks-panel').within(() => {
-    cy.contains('Publishing request - Draft');
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('be.disabled');
   });
 });
 Then('they see a List of all Validation Errors for the Resource', () => {

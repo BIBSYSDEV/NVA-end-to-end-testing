@@ -62,11 +62,16 @@ Given('a Curator opens the Landing Page of a Registration', () => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
     }
+    cy.login(userCurator);
+    cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
+    cy.getDataTestId(dataTestId.header.tasksLink).click();
+    if(doiRequest) {
+      cy.filterMessages('DoiRequests');
+    } else {
+      cy.filterMessages('Publishing Requests');
+    }
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   })
-  cy.login(userCurator);
-  cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
 });
 And('the Registration has a Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).should('exist');
