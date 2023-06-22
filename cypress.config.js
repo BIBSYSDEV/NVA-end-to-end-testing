@@ -6,6 +6,8 @@ module.exports = defineConfig({
     TAGS: 'not @ignore and @test',
   },
   defaultCommandTimeout: 20000,
+  viewportWidth: 1600,
+  viewportHeight: 1200,
   video: true,
   reporter: '../node_modules/mochawesome/src/mochawesome.js',
   reporterOptions: {

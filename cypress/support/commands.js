@@ -534,16 +534,6 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
     const mobilePickerSelector = `[data-testid=CalendarIcon]`;
     const isMobile = $body.find(mobilePickerSelector).length === 0;
     if (isMobile) {
-      // The MobileDatePicker component has readonly inputs and needs to
-      // be opened and clicked on edit so its inputs can be edited
-      // cy.get(mobilePickerSelector).click();
-      // cy.get('[role="dialog"] [aria-label="calendar view is open, go to text input view"]').click();
-      // cy.get(`[role="dialog"] ${selector}`, { force: true })
-      //   .last()
-      //   .find('input')
-      //   .parent()
-      //   .type(value, { force: true });
-      // cy.contains('[role="dialog"] button', 'OK').click();
       cy.get(selector).click();
       cy.get('[role=dialog]').then(($dialog) => {
         const selectDay = $dialog.find('.MuiPickersDay-today').length > 0

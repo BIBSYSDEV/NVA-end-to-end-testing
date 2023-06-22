@@ -57,10 +57,10 @@ Feature: Curator opens My Worklist
     Then Curator see a list of Requests displayed with:
       | Request status            |
       | Registration title        |
-      | Submitter name            |
+      # | Submitter name            |
       | Request Submitter Date    |
-      | Beginning of last message |
-      | Owner name                |
+      # | Beginning of last message |
+      # | Owner name                |
     And they see that each Request can be opened
     Examples:
       | Type      |

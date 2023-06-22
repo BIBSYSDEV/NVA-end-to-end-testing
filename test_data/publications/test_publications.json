@@ -360,7 +360,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-publish-registration@test.no",
     "title": "Draft registration - DOI request",
     "doi": "reserved"
   },
@@ -372,7 +372,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-publish-registration@test.no",
     "title": "Draft registration - Publishing Request",
     "ticket": {
       "type": "PublishingRequest",
@@ -387,7 +387,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-publish-registration@test.no",
     "title": "Draft registration - Publishing Request approved",
     "ticket": {
       "type": "PublishingRequest",
@@ -402,7 +402,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-publish-registration",
     "title": "Draft registration - Publishing Request rejected",
     "ticket": {
       "type": "PublishingRequest",
@@ -417,7 +417,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-publish-registration@test.no",
     "title": "Draft registration- Support ticket",
     "ticket": {
       "type": "GeneralSupportCase",
@@ -432,7 +432,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-publish-registration@test.no",
     "title": "Draft registration- Support ticket",
     "ticket": {
       "type": "GeneralSupportCase",
@@ -447,7 +447,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-publish-registration@test.no",
     "title": "Draft registration- Support ticket closed",
     "ticket": {
       "type": "GeneralSupportCase",
@@ -473,7 +473,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-publish-registration@test.no",
     "title": "Draft registration - Publishing Request rejected",
     "ticket": {
       "type": "PublishingRequest",
@@ -488,7 +488,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-messages@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-messages@test.no",
     "title": "Registration - Publishing Request approved",
     "ticket": {
       "type": "PublishingRequest",
@@ -503,7 +503,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-messages@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-messages@test.no",
     "title": "Registration - Support request resolved",
     "ticket": {
       "type": "GeneralSupportCase",
@@ -518,7 +518,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-messages@test.no",
     "status": "DRAFT",
-    "contributor": "",
+    "contributor": "test-user-messages@test.no",
     "title": "Registration - Support request pending",
     "ticket": {
       "type": "GeneralSupportCase",
