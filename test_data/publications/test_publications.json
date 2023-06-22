@@ -402,7 +402,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
-    "contributor": "test-user-publish-registration",
+    "contributor": "test-user-publish-registration@test.no",
     "title": "Draft registration - Publishing Request rejected",
     "ticket": {
       "type": "PublishingRequest",
