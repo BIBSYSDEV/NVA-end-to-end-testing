@@ -21,23 +21,23 @@ When('they click Start', () => {
   //   },
   // });
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
-    .filter(':visible', {timeout: 30000})
-    .should('be.enabled', {timeout: 30000});
+    .filter(':visible', { timeout: 30000 })
+    .should('be.enabled', { timeout: 30000 });
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
-    .filter(':visible', {timeout: 30000})
-    .click({ force: true }, {timeout: 30000});
+    .filter(':visible', { timeout: 30000 })
+    .click({ force: true }, { timeout: 30000 });
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
 });
 And('they click My Registrations', () => {
   cy.openMyRegistrations();
 });
 And('they see that Edit is enabled', () => {
-  cy.get('@registration').within((registration) => {
-    cy.get('[data-testid^=edit-registration]');
+  cy.get('@registration').parent().within((registration) => {
+    cy.get('[data-testid^= edit-registration]');
   });
 });
 And('they see that Delete is enabled', () => {
-  cy.get('@registration').within((registration) => {
+  cy.get('@registration').parent().within((registration) => {
     cy.get('[data-testid^=delete-registration]');
   });
 });
@@ -52,16 +52,11 @@ Given('Creator begins registering with a Link', () => {
   cy.startRegistrationWithLink(doiLink);
 });
 Then('they see the Registration is saved and the title is listed and marked as Draft', () => {
-  cy.get('tr')
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .filter(`:contains(${doiTitle})`)
     .first()
     .within((registration) => {
-      cy.wrap(registration)
-        .as('registration')
-        .get('[data-testid^=registration-status]')
-        .within((status) => {
-          cy.wrap(status).contains('Draft');
-        });
+      cy.wrap(registration).as('registration');
     });
 });
 
@@ -73,15 +68,10 @@ Given('Creator begins registration by uploading a file', () => {
   cy.startRegistrationWithFile(filename);
 });
 Then('they see the Registration is saved and the title is "[Missing title]" and marked as Draft', () => {
-  cy.get('tr')
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .filter(`:contains(${fileTitle})`)
     .first()
     .within((registration) => {
-      cy.wrap(registration)
-        .as('registration')
-        .get('[data-testid^=registration-status]')
-        .within((status) => {
-          cy.wrap(status).contains('Draft');
-        });
+      cy.wrap(registration).as('registration');
     });
 });

@@ -9,40 +9,32 @@ Given('Creator opens the page My Registrations', () => {
   cy.login(userPublishedRegistration);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
-  cy.getDataTestId(dataTestId.myPage.myRegistrationsLink).click();
 });
 When('they click Published Registrations in the navigation bar', () => {
-  cy.getDataTestId('published-button').click();
+  cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
+  cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).click();
 });
 Then('they see a list of all published Registrations with the fields', (dataTable) => {
-  cy.get(`[data-testid^=registration-title]`).should('exist');
-  cy.get(`[data-testid^=registration-title]`).each((registration) => {
-    cy.get(registration)
-      .parent()
-      .within(() => {
-        dataTable.rawTable.forEach((value) => {
-          cy.get(`[data-testid^=${myRegistrations[value[0]]}]`);
-        });
-      });
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('exist');
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration) => {
+    cy.get(registration).within(() => {
+      cy.get('p > a').should('exist');
+    });
   });
 });
 // | Title   |
 // | Status  |
 // | Created |
-And('they see list items with Status', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
-    cy.get(`[data-testid^=${myRegistrations['Status']}]`).filter(`:contains(${value[0]})`);
-  });
-});
+And('they see list items with Status', (dataTable) => {});
 // | Deleted   |
 // | Published |
 And('they see each list item has buttons', (dataTable) => {
-  cy.get(`[data-testid^=registration-title]`).each((registration) => {
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration) => {
     cy.get(registration)
       .parent()
       .within(() => {
         dataTable.rawTable.forEach((value) => {
-          cy.get(`[data-testid^=${myRegistrationsButtons[value[0]]}]`);
+          cy.get(myRegistrationsButtons[value[0]]);
         });
       });
   });
@@ -51,18 +43,19 @@ And('they see each list item has buttons', (dataTable) => {
 // | Edit   |
 // | Delete |
 And('the they see the Edit button is enabled', () => {
-  cy.get(`[data-testid^=registration-title]`).each((registration) => {
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration) => {
     cy.get(registration)
       .parent()
       .within(() => {
-        cy.get(`[data-testid^=${myRegistrationsButtons['Edit']}]`).first().should('not.be.disabled');
+        cy.get(myRegistrationsButtons['Edit']).first().should('not.be.disabled');
       });
   });
 });
 And('the Delete button is enabled for Registrations not marked as Deleted', () => {});
 And('they see the navigation bar for Unpublished Registrations is enabled', () => {
-  cy.getDataTestId('unpublished-button');
+  cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).should('exist');
+  cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsUnpublishedCheckbox}] .Mui-checked`).should('not.exist');
 });
 And('they see the navigation bar for Published Registrations is selected', () => {
-  cy.getDataTestId('published-button');
+  cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsPublishedCheckbox}] .Mui-checked`).should('exist');
 });

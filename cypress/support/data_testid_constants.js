@@ -101,8 +101,8 @@ export const myRegistrations = {
 };
 
 export const myRegistrationsButtons = {
-  'Show': 'open-registration',
-  'Edit': 'edit-registration',
+  'Show': 'p > a',
+  'Edit': '[data-testid^=edit-registration]',
 };
 
 export const resourceTypes = {
@@ -634,4 +634,4 @@ export const contributorTypes = {
   'Distributor': 'Distributor',
   'Related person': 'RelatedPerson',
   'Researcher': 'Researcher',
-}
+};

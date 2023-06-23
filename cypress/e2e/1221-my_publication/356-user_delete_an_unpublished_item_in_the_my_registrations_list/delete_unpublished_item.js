@@ -6,20 +6,21 @@ Given('Creator opens My Registrations', () => {
   cy.openMyRegistrations();
 });
 When('they click Delete on an item', () => {
-  cy.get('[data-testid^=registration-title]')
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .contains('Delete registration')
     .parent()
-    .parent()
-    .within((presentationLine) => {
-      cy.get('[data-testid^=delete-registration]').click({ force: true });
+    .within(() => {
+      cy.get('[data-testid^=delete-registration]').click();
     });
 });
 And('they see a confirmation pop-up is opened', () => {
   cy.get('[data-testid=confirm-delete-dialog]').should('be.visible');
 });
 And('they select Yes', () => {
-  cy.get('[data-testid=accept-button]').click({ force: true });
+  cy.get('[data-testid=accept-button]').click();
 });
 Then('they see that the Registration is deleted', () => {
-  cy.get('[data-testid^=registration-title]').contains('Delete registration').should('not.exist');
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
+    .contains('Delete registration')
+    .should('not.exist');
 });
