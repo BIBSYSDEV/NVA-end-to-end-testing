@@ -228,13 +228,14 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 Cypress.Commands.add('selectRegistration', (title, type) => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
-  cy.getDataTestId(dataTestId.myPage.myRegistrationsLink).click();
-  cy.getDataTestId(`${type}-button`).click();
-  cy.get('[data-testid^=registration-title]')
+  if(type === 'published') {
+    cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
+    cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).click();
+  }
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .filter(`:contains(${title})`)
-    .parent()
     .within(() => {
-      cy.get('[data-testid^=open-registration]').first().click();
+      cy.get('p > a').first().click();
     });
 });
 

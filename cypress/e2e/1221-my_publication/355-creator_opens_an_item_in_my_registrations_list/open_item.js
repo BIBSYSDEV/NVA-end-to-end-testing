@@ -32,8 +32,9 @@ And('they see fields:', (dataTable) => {
 // Scenario: Creator sees Validation Errors for Registration
 And('they are on the page My Registrations', () => {
   cy.openMyRegistrations();
-  cy.get('tr')
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .filter(`:contains("Registration with validation error ${today}")`)
+    .parent()
     .within(() => {
       cy.get('[data-testid^=edit-registration]').first().click({ force: true });
     });
@@ -51,8 +52,9 @@ And('they see a List of Registrations', () => {
   cy.get('[data-testid^=edit-registration]').should('have.length.above', 0);
 });
 When('they click Edit on a Registration', () => {
-  cy.get('tr')
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .filter(`:contains("Registration with validation error ${today}")`)
+    .parent()
     .within(() => {
       cy.get('[data-testid^=edit-registration]').first().click({ force: true });
     });

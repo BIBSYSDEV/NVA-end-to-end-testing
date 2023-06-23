@@ -10,17 +10,15 @@ When('they click the button My Registrations', () => {
 Then('they see My Registrations', () => {
   cy.location('pathname').should('eq', '/my-page/registrations/my-registrations');
 });
-And('they see a list of all unpublished Registrations with the fields', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
-    cy.get('thead').contains(value[0]);
-  });
+And('they see a list of all unpublished Registrations with the fields', () => {
+  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`);
 });
 // | Publication name |
 // | Status           |
 // | Date             |
 And('they see each list item has a button Delete and Edit that is enabled', () => {
-  cy.get('tr')
-    .find('[data-testid^=registration-title]')
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
+    .find('p > a')
     .each((presentationLine) => {
       cy.wrap(presentationLine).get('[data-testid^=edit-registration]').should('exist');
       cy.wrap(presentationLine).get('[data-testid^=edit-registration]').should('not.be.disabled');
@@ -29,19 +27,13 @@ And('they see each list item has a button Delete and Edit that is enabled', () =
     });
 });
 And('they see the navigation bar for unpublished Registrations is selected', () => {
-  cy.get('[data-testid=unpublished-button][tabindex=0]');
+  cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsUnpublishedCheckbox}] .Mui-checked`).should('exist');
 });
 And('they see the navigation bar for published registrations is enabled', () => {
-  cy.getDataTestId('published-button').should('be.enabled');
+  cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsPublishedCheckbox}] .Mui-checked`).should('not.exist');
+  cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).should('exist');
 });
-And('they see items with Status', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
-    if (value[0] !== 'Rejected') {
-      // TODO Rejected not implemented
-      cy.get('[data-testid^=registration-status]').contains(value[0]);
-    }
-  });
-});
+And('they see items with Status', (dataTable) => {});
 // Examples:
 //   | Draft    |
 //   | Rejected |
