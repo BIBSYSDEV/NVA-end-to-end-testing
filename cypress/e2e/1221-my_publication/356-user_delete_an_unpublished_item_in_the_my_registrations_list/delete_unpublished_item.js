@@ -6,8 +6,7 @@ Given('Creator opens My Registrations', () => {
   cy.openMyRegistrations();
 });
 When('they click Delete on an item', () => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .contains('Delete registration')
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(':contains("Delete registration")')
     .parent()
     .within(() => {
       cy.get('[data-testid^=delete-registration]').click();
