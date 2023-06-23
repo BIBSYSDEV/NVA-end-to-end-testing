@@ -37,19 +37,19 @@ Feature: Curator opens My Worklist
 
   Background:
 
-  # @test
-  # Scenario: Curator opens their Worklist
-  #   When the Curator opens their Worklist
-  #   Then the Curator see that the Worklist is Scoped
-  #   And the Worklist contains Requests of type:
-  #     | Approval |
-  #     | Support  |
-  #     | DOI      |
-  # # | Ownership |
+  @test
+  Scenario: Curator opens their Worklist
+    When the Curator opens their Worklist
+    Then the Curator see that the Worklist is Scoped
+    And the Worklist contains Requests of type:
+      | Approval |
+      | Support  |
+      | DOI      |
+  # | Ownership |
 
-  # Scenario: Curator change Scope of their Worklist
-  #   When the Curator change Scope to the whole Institution or one or more subunits
-  #   Then the listed Requests is updated to match the new Scope
+  Scenario: Curator change Scope of their Worklist
+    When the Curator change Scope to the whole Institution or one or more subunits
+    Then the listed Requests is updated to match the new Scope
 
   @test
   Scenario Outline: Curator views all Requests of a type
@@ -68,24 +68,20 @@ Feature: Curator opens My Worklist
       # Må handtere at Editor kan tillate alle å publisere - kva skjer da med Approvals?
       | Support   |
       | DOI       |
-  #     | Ownership |
+      # | Ownership |
 
-  # @TEST_NP-4427
-  # @needJiraTag
-  # Scenario: Curator opens a unassigned Request
-  #   When the Curator open a unassigned Request
-  #   Then the Curator is assigned the Request
-  #   And the Request Status is set to "Active"
+  @test
+  Scenario: Curator opens a unassigned Request
+    When the Curator open a unassigned Request
+    Then the Curator is assigned the Request
+    And the Request Status is set to "Active"
 
-  # @TEST_NP-4435
-  # Scenario: Curator unassigns a Request
-  #   When the Curator selects "Mark request unread"
-  #   Then the Request Status is set to "New"
-  #   And the Request is unassigned the Curator
+  @test
+  Scenario: Curator unassigns a Request
+    When the Curator selects "Mark request unread"
+    Then the Request Status is set to "New"
+    And the Request is unassigned the Curator
 
-  # @TEST_NP-4439
-  # @1252
-  # @updated
   # Scenario: Curator open a assigned Request
   #   When the Curator selects a Request
   #   Then the Request is expanded
