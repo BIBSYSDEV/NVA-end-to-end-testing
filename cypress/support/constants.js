@@ -51,6 +51,7 @@ export const userNoRole = 'test-user-with-no-role@test.no';
 export const userRemoveOrcid = 'test-user-remove-existing-orcid@test.no';
 export const userNonCustomer = 'test-user-not-customer@test.no';
 export const userDraftDoi = 'test-user-draft-doi@test.no';
+export const userDraftDoi2 = 'test-user-draft-doi-2@test.no';
 export const userCuratorDraftDoi = 'test-user-curator-draft-doi@test.no';
 export const userResourceTypeBook = 'test-user-resource-type-book@test.no';
 export const userResourceTypeChapter = 'test-user-resource-type-chapter@test.no';
@@ -146,6 +147,7 @@ export const user = {
   [userRemoveOrcid]: { ...userData, name: 'TestUser, Remove orcid' },
   [userNonCustomer]: { ...userData, name: 'TestUser, Not customer' },
   [userDraftDoi]: { ...userData, name: 'TestUser, Draft DOI' },
+  [userDraftDoi2]: { ...userData, name: 'TestUser, Draft DOI 2' },
   [userCuratorDraftDoi]: { ...userData, name: 'TestUser, Curator Draft DOI' },
   [userResourceTypeBook]: { ...userData, name: 'TestUser, Resource type book' },
   [userResourceTypeChapter]: { ...userData, name: 'TestUser, Resource type chapter' },

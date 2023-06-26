@@ -1,5 +1,5 @@
 import { today } from '../../../support/commands';
-import { userCuratorDraftDoi, userDraftDoi } from '../../../support/constants';
+import { userCuratorDraftDoi, userDraftDoi2 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: DOI related scenarios moved from MVP feature
@@ -18,7 +18,7 @@ const filename = 'example.txt';
 //   @1251
 //   Scenario: Creator opens a Registration with a DOI request
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
-  cy.login(userDraftDoi);
+  cy.login(userDraftDoi2);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.get('[data-testid^=result-list-item]').first().click();
 });
@@ -34,7 +34,7 @@ Then('the Registration is opened in the Wizard on the first tab', () => {
 //   Scenario: Owner opens the "Request a DOI" dialog
 
 Given('that a Creator navigates to the Landing Page for Registration for published Registration without DOI', () => {
-  cy.login(userDraftDoi);
+  cy.login(userDraftDoi2);
   cy.selectRegistration(publicRegistrationWithoutDoi, published);
 });
 And('they are the Owner of this Registration', () => { });
@@ -56,7 +56,7 @@ And('they see a "Send Request" button', () => {
 //   @1232
 //   Scenario: Owner navigates to the Landing Page for Registration and requests a DOI
 Given('that the Creator navigates to the Landing Page for Registration for published Registration without DOI', () => {
-  cy.login(userDraftDoi);
+  cy.login(userDraftDoi2);
   cy.selectRegistration(publicRegistrationRequestingDoi, published);
 });
 And('open "Request a DOI" dialog', () => {
@@ -96,7 +96,7 @@ And('the request is listed in Curator Worklist', () => {
 //   @1233
 //   Scenario: Owner navigates to the Landing Page for Registration for unpublished Registration without DOI
 Given('that the Owner view Landing Page for Registration', () => {
-  cy.login(userDraftDoi);
+  cy.login(userDraftDoi2);
 });
 And('the Registration is not Published', () => {
   cy.selectRegistration(draftRegistrationWithoutDoi, unpublished);
@@ -115,7 +115,7 @@ Then('they see buttons for Draft a DOI and Edit Registration', () => {
 //   @1234
 //   Scenario: Owner drafts a DOI for an unpublished Registration
 Given('that the Owner View Landing Page for Registration for unpublished Registration without DOI', () => {
-  cy.login(userDraftDoi);
+  cy.login(userDraftDoi2);
   cy.selectRegistration(registrationTitle, unpublished);
 });
 And('they are the Owner of the Registration', () => { });
@@ -143,7 +143,7 @@ And('the Draft DOI is not a link', () => {
 //   @1235
 // Scenario: Owner navigates to the submission tab and publish a Registration with a drafted DOI
 Given('that the Owner navigates to Submission tab', () => {
-  cy.login(userDraftDoi);
+  cy.login(userDraftDoi2);
 });
 And('the Registration has status Draft', () => {
   cy.selectRegistration(draftRegistrationPublishWithRequestedDoi, unpublished);

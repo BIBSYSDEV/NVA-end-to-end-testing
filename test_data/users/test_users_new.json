@@ -206,6 +206,17 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "Draft DOI 2",
+    "nin": "03033826663",
+    "username": "test-user-draft-doi-2@test.no",
+    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+
+  {
+    "lastName": "TestUser",
     "firstName": "Save Registration",
     "nin": "18096220606",
     "username": "test-user-save-registration@test.no",
