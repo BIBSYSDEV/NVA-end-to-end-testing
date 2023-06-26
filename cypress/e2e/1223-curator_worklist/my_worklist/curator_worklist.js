@@ -64,7 +64,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable) => {
 //   | Request Submitter Date    |
 //   | Beginning of last message |
 //   | Owner name                |
-And('they see that each Request can be opened', () => {});
+And('they see that each Request can be opened', () => { });
 // Examples:
 //   | Type      |
 //   | Approval  |
@@ -104,7 +104,7 @@ When('the Curator selects "Mark request unread"', () => {
     .filter(':contains("ST")')
     .should('not.exist');
 });
-Then('the Request Status is set to "New"', () => {});
+Then('the Request Status is set to "New"', () => { });
 And('the Request is unassigned the Curator', () => {
   cy.get('[title=Tasks]').click();
   cy.getDataTestId(dataTestId.tasksPage.searchMode.newUserDialogsButton).click();
@@ -112,3 +112,17 @@ And('the Request is unassigned the Curator', () => {
   cy.getDataTestId(dataTestId.tasksPage.searchMode.myUserDialogsButton).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
 });
+
+// Scenario: Curator open a assigned Request
+When('the Curator selects a Request', () => {
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+});
+Then('the Request is expanded', () => { });
+And('the assigned Curator is viewed', () => { });
+And('previous messages are displayed chronologically with:', () => { });
+// | Submitter name          |
+// | Submitter Date and Time |
+// | The full message        |
+And('the Curator can reply to a message', () => { });
+And('the Curator can open the Requests Resource', () => { });
+And('the Curator can change the Status of the Request', () => { });

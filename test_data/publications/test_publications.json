@@ -376,7 +376,8 @@
     "title": "Draft registration - Publishing Request",
     "ticket": {
       "type": "PublishingRequest",
-      "status": "Requested"
+      "status": "Requested",
+      "text": "Pending publishing request"
     }
   },
   {
@@ -391,7 +392,8 @@
     "title": "Draft registration - Publishing Request approved",
     "ticket": {
       "type": "PublishingRequest",
-      "status": "Approved"
+      "status": "Approved",
+      "text": "Approved publishing request"
     }
   },
   {
@@ -406,37 +408,8 @@
     "title": "Draft registration - Publishing Request rejected",
     "ticket": {
       "type": "PublishingRequest",
-      "status": "Rejected"
-    }
-  },
-  {
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-publish-registration@test.no",
-    "status": "DRAFT",
-    "contributor": "test-user-publish-registration@test.no",
-    "title": "Draft registration- Support ticket",
-    "ticket": {
-      "type": "GeneralSupportCase",
-      "status": "Requested"
-    }
-  },
-  {
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-publish-registration@test.no",
-    "status": "DRAFT",
-    "contributor": "test-user-publish-registration@test.no",
-    "title": "Draft registration- Support ticket",
-    "ticket": {
-      "type": "GeneralSupportCase",
-      "status": "Requested"
+      "status": "Rejected",
+      "text": "Pending support request"
     }
   },
   {
@@ -451,7 +424,8 @@
     "title": "Draft registration- Support ticket closed",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "Closed"
+      "status": "Closed",
+      "text": "Closed support request"
     }
   },
   {
@@ -477,7 +451,8 @@
     "title": "Draft registration - Publishing Request rejected",
     "ticket": {
       "type": "PublishingRequest",
-      "status": "Rejected"
+      "status": "Rejected",
+      "text": "Rejected publishing request"
     }
   },
   {
@@ -492,7 +467,8 @@
     "title": "Registration - Publishing Request approved",
     "ticket": {
       "type": "PublishingRequest",
-      "status": "Approved"
+      "status": "Approved",
+      "text": "Approved publishing request"
     }
   },
   {
@@ -507,7 +483,8 @@
     "title": "Registration - Support request resolved",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "Completed"
+      "status": "Completed",
+      "text": "Completed support request"
     }
   },
   {
@@ -522,7 +499,8 @@
     "title": "Registration - Support request pending",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "Pending"
+      "status": "Pending",
+      "text": "Pending support request"
     }
   },
   {

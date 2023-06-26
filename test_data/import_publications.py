@@ -352,7 +352,8 @@ def create_publications():
                     identifier=identifier,
                     username=username,
                     type=test_publication['ticket']['type'],
-                    status=test_publication['ticket']['status']
+                    status=test_publication['ticket']['status'],
+                    text=test_publication['ticket']['status']
                 )
             if 'doi' in test_publication:
                 if test_publication['doi'] == 'created':
@@ -419,13 +420,13 @@ def approve_doi(identifier):
         print('DoiRequest not found in tickets')
 
 
-def create_ticket(identifier, username, type, status):
+def create_ticket(identifier, username, type, status, text):
     print(f'{identifier} - {username} - {type} - {status}')
     request_bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {request_bearer_token}'
     ticket_payload = {
         'type': type,
-        'message': 'Test'
+        'message': text
     }
     response = requests.post(create_ticket_endpoint.format(STAGE, identifier),
                              json=ticket_payload, headers=headers)
