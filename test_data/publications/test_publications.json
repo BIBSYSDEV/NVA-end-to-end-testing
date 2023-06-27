@@ -95,9 +95,9 @@
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-cancel-delete@test.no",
+    "owner": "test-user-cancel-delete@test.no",
     "status": "DRAFT",
-    "contributor": "test-user-with-cancel-delete@test.no",
+    "contributor": "test-user-cancel-delete@test.no",
     "title": "Cancel delete registration"
   },
   {
