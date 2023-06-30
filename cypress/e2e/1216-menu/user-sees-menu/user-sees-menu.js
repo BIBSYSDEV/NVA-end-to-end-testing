@@ -66,7 +66,7 @@ And('they have no NVA role', () => {
 // @346
 // Scenario: User sees the menu for Creator
 And('they have the "Creator" role', () => {
-  cy.login(userWithMenu);
+  cy.login(userTestMenu);
   cy.wrap(creatorMenu).as('MENU');
 });
 
