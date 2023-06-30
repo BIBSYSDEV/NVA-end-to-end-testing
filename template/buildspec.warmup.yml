@@ -65,3 +65,10 @@ phases:
 
       # GET search tickets
       - curl -S -s -o /dev/null -i -X GET https://api.{$env}.nva.aws.unit.no/search/tickets -H "Accept:application/json" -H "Authorization:Bearer {$TOKEN}"
+
+      # GET project list
+      - curl -S -s -o /dev/null -i -X GET https://api.{$env}.nva.aws.unit.no/cristin/project -H "Accept:application/json"
+
+      # POST project
+      - curl -S -s -o /dev/null -i -X POST https://api.{$env}.nva.aws.unit.no/cristin/project -H "Content-Type::application/json" -H "Authorization:Bearer {$TOKEN}" -d '{}'
+
