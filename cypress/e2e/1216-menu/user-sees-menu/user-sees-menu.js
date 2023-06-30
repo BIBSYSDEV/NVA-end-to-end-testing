@@ -1,7 +1,7 @@
 import {
   userCuratorWithAuthor,
   userNoRole,
-  userWithAuthor,
+  userMenu,
   adminUser,
   userInstAdminWithAuthor,
 } from '../../../support/constants';
@@ -66,7 +66,7 @@ And('they have no NVA role', () => {
 // @346
 // Scenario: User sees the menu for Creator
 And('they have the "Creator" role', () => {
-  cy.login(userWithAuthor);
+  cy.login(userWithMenu);
   cy.wrap(creatorMenu).as('MENU');
 });
 
