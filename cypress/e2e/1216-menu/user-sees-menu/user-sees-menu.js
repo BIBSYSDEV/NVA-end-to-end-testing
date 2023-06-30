@@ -1,7 +1,7 @@
 import {
   userCuratorWithAuthor,
   userNoRole,
-  userMenu,
+  userTestMenu,
   adminUser,
   userInstAdminWithAuthor,
 } from '../../../support/constants';
