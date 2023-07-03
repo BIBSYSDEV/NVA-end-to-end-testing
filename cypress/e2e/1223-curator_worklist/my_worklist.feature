@@ -82,50 +82,46 @@ Feature: Curator opens My Worklist
   #   Then the Request Status is set to "New"
   #   And the Request is unassigned the Curator
 
-  @test
-  Scenario: Curator open a assigned Request
-    When the Curator selects a Request
-    Then the Request is expanded
-    And the assigned Curator is viewed
-    And previous messages are displayed chronologically with:
-      | Submitter name          |
-      | Submitter Date and Time |
-      | The full message        |
-    And the Curator can reply to a message
-    And the Curator can open the Requests Resource
-    And the Curator can change the Status of the Request
+  # Scenario: Curator open a assigned Request
+  #   When the Curator selects a Request
+  #   Then the Request is expanded
+  #   And the assigned Curator is viewed
+  #   And previous messages are displayed chronologically with:
+  #     | Submitter name          |
+  #     | Submitter Date and Time |
+  #     | The full message        |
+  #   And the Curator can reply to a message
+  #   And the Curator can open the Requests Resource
+  #   And the Curator can change the Status of the Request
 
-  # @TEST_NP-4433
+  # @test
   # Scenario Outline: Curator open the Request's Resource
+  #   Given the Curator receives a Request of type "<Type>"
   #   When the Curator opens the Requests Resource
-  #   And the Resource have a Request of type "<Type>"
   #   Then the Landing Page of the Resource is viewed
   #   And the Curator has the option to "<Action>"
   #   And the Curator can Decline the Request
-  #   And the Resource "<Type>" Button "<Action>" is visible
   #   Examples:
   #     | Type      | Action       |
   #     | Approval  | Publish      |
   #     | DOI       | Mint DOI     |
-  #     | Ownership | Change owner |
+  #     # | Ownership | Change owner |
 
-  # @TEST_NP-4434
-  # Scenario: User gets an answer to a Support Request
-  #   When the Curator sends an answer of type "Support"
-  #   Then the Request status is set to "Answered"
-  #   And the User can read the answer in My Messages
+  @test
+  Scenario: User gets an answer to a Support Request
+    When the Curator sends an answer of type "Support"
+    Then the Request status is set to "Answered"
+    And the User can read the answer in My Messages
 
-  # @TEST_NP-4429
   # Scenario: User gets an answer to a Request
   #   When the Curator writes an answer
   #   And sends it to the User
   #   And the Request Type is:
   #     | Approval  |
   #     | DOI       |
-  #     | Ownership |
+  #     # | Ownership |
   #   Then the User can see the answer in My Messages
 
-  # @TEST_NP-4440
   # Scenario Outline: Curator change Status on a Request
   #   When Curator selects a new status "<Status>" on a Request
   #   Then the status of the Request is set to "<Status>"
@@ -134,18 +130,16 @@ Feature: Curator opens My Worklist
   #     | Archived |
   #     | Deleted  |
 
-  # @TEST_NP-4432
   # Scenario: Curator receives assignment of responses to requests they have previously responded to
   #   When the Curator:
   #     | Sends an answer          |
   #     | Publishes a resource     |
   #     | Mints a DOI              |
   #     | Declines a DOI           |
-  #     | Changes Owner            |
-  #     | Declines change of owner |
+  #     # | Changes Owner            |
+  #     # | Declines change of owner |
   #   Then the Curator is Assigned the Request
 
-  # @TEST_NP-4438
   # Scenario: Curator receives Requests in their scope
   #   Given the Request is of type:
   #     | Approval |
@@ -154,7 +148,6 @@ Feature: Curator opens My Worklist
   #   When the Requests' Submitter is Affilliated within the Curators Scope
   #   Then the Request is part of the Curators Worklist
 
-  # @TEST_NP-4426
   # Scenario: Curator receives Requests they have been assigned from outside their scope
   #   Given the Request is of type:
   #     | Approval |
@@ -163,13 +156,11 @@ Feature: Curator opens My Worklist
   #   When the Curator is assigned the Request
   #   Then the Request is part of the Curators Worklist
 
-  # @TEST_NP-4436
   # Scenario: Curator receives Ownership requests within their scope
   #   Given the Request is of type "Ownership"
   #   When the Affilliation of the Owner of the Resource associated with the Request is within Curators Scope
   #   Then the Request is part of the Curators Worklist
 
-  # @TEST_NP-4437
   # Scenario: Curator receives Ownership requests they have been assigned from outside their scope
   #   Given the Request is of type "Ownership"
   #   When the Curator is assigned the Request
