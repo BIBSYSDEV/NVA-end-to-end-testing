@@ -83,20 +83,21 @@ Feature: Administrator manage Persons, employments, and roles
 	# 	And there is an option to close this dialog
 	# 	And there is an option to save the changes
 
-	@test
-	Scenario: Administrator views other employments at current Institution
-		Given the Person viewed got multiple employments at current Institution
-		When the Administrator scrolls through the multiple employments
-		Then details about each employment is displayed
-		And other details about the Person and his roles are static
+	# @test
+	# Scenario: Administrator views other employments at current Institution
+	# 	Given the Person viewed got multiple employments at current Institution
+	# 	When the Administrator scrolls through the multiple employments
+	# 	Then details about each employment is displayed
+	# 	And other details about the Person and his roles are static
 
-	# Scenario: Administrator adds another employment
-	# 	When the Administrator uses option to add a new employment
-	# 	Then a form with following fields are displayed
-	# 		| employment position |
-	# 		| employment fraction |
-	# 		| start-date          |
-	# 		| end-date            |
+	@test
+	Scenario: Administrator adds another employment
+		When the Administrator uses option to add a new employment
+		Then a form with following fields are displayed
+			| employment position |
+			| employment fraction |
+			| start-date          |
+			| end-date            |
 
 	# Scenario: Administrator fills in required information about new employment
 	# 	Given Administrator adds another employment

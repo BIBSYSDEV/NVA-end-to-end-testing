@@ -99,3 +99,22 @@ And('other details about the Person and his roles are static', () => {
     cy.get('input').should('have.value', '081267*****');
   })
 });
+
+// Scenario: Administrator adds another employment
+When ('the Administrator uses option to add a new employment', () => {
+  cy.getDataTestId(dataTestId.header.basicDataLink).click();
+  cy.getDataTestId(dataTestId.basicData.addEmployeeLink).click();
+})
+Then ('a form with following fields are displayed', (dataTable) => {
+  const fieldList = {
+    'employment position': dataTestId.basicData.personAdmin.position,
+    'employment fraction': dataTestId.basicData.personAdmin.positionPercent,
+    'start-date': dataTestId.basicData.personAdmin.startDate,
+    'end-date': dataTestId.basicData.personAdmin.endDate,
+  }
+  cy.testDataTestidList(dataTable, fieldList);
+})
+  // | employment position |
+  // | employment fraction |
+  // | start-date          |
+  // | end-date            |
