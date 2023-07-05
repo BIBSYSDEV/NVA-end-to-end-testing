@@ -1,9 +1,9 @@
-import { userInstAdminWithAuthor } from '../../../support/constants';
+import { userSecondInstAdminWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Background:
 Given('an Administrator is logged in', () => {
-  cy.login(userInstAdminWithAuthor);
+  cy.login(userSecondInstAdminWithAuthor);
 });
 
 // Scenario: Create or edit a Person and his emplyment and roles
@@ -46,7 +46,9 @@ And(
     cy.getDataTestId(dataTestId.basicData.personAdmin.endDate).should('be.visible');
   }
 );
-And('there is an option to view other employments at current institution', () => {});
+And('there is an option to view other employments at current institution', () => {
+  cy.getDataTestId('NavigateNextIcon');
+});
 And('there is an option to add a new employment', () => {});
 And('the Persons different roles at this institution is listed', () => {
   cy.getDataTestId(dataTestId.basicData.personAdmin.roleSelector).should('be.visible');
@@ -69,4 +71,31 @@ And('there is an option to save the changes', () => {
   cy.get('[role=dialog]').within(() => {
     cy.get('button').filter(':contains("Save")').should('be.visible');
   });
+});
+
+// Scenario: Administrator views other employments at current Institution
+Given('the Person viewed got multiple employments at current Institution', () => {
+  cy.getDataTestId(dataTestId.header.basicDataLink).click();
+  cy.get('[datatest-id=person-register-search-bar]').type('Eirik Nilsen');
+  cy.getDataTestId('EditIcon').should('have.length', 1);
+  cy.getDataTestId('EditIcon').first().click();
+});
+When('the Administrator scrolls through the multiple employments', () => {
+  cy.getDataTestId('NavigateNextIcon').click();
+});
+Then('details about each employment is displayed', () => {
+  cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).within(() => {
+    cy.get('input').should('have.value', 1);
+  })
+});
+And('other details about the Person and his roles are static', () => {
+  cy.getDataTestId(dataTestId.basicData.personAdmin.firstName).within(() => {
+    cy.get('input').should('have.value', 'Eirik');
+  })
+  cy.getDataTestId(dataTestId.basicData.personAdmin.lastName).within(() => {
+    cy.get('input').should('have.value', 'Nilsen');
+  })
+  cy.getDataTestId(dataTestId.basicData.nationalIdentityNumberField).within(() => {
+    cy.get('input').should('have.value', '081267*****');
+  })
 });

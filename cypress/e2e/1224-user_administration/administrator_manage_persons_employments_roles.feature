@@ -68,26 +68,27 @@ Feature: Administrator manage Persons, employments, and roles
 	# 	When the Administrator look up or search and selects the Person
 	# 	Then Create or edit a Person and his emplyment and roles
 
-	@test
-	Scenario: Create or edit a Person and his emplyment and roles
-		When the Administrator wish to edit or add a new Person
-		Then the Administrator sees the Person s name and Person Number
-		And the Person Number is displayed as date of birth followed by 5 stars
-		And there is an option to view the last 5 digits of the Person Number
-		And possible other employments at other institutions are briefly documented
-		And the employment at current institution is shown with affiliation, employment-position and -fraction, start- and end-date
-		And there is an option to view other employments at current institution
-		And there is an option to add a new employment
-		And the Persons different roles at this institution is listed
-		And the Roles may be toggled on or off
-		And there is an option to close this dialog
-		And there is an option to save the changes
+	# @test
+	# Scenario: Create or edit a Person and his emplyment and roles
+	# 	When the Administrator wish to edit or add a new Person
+	# 	Then the Administrator sees the Person s name and Person Number
+	# 	And the Person Number is displayed as date of birth followed by 5 stars
+	# 	And there is an option to view the last 5 digits of the Person Number
+	# 	And possible other employments at other institutions are briefly documented
+	# 	And the employment at current institution is shown with affiliation, employment-position and -fraction, start- and end-date
+	# 	And there is an option to view other employments at current institution
+	# 	And there is an option to add a new employment
+	# 	And the Persons different roles at this institution is listed
+	# 	And the Roles may be toggled on or off
+	# 	And there is an option to close this dialog
+	# 	And there is an option to save the changes
 
-	# Scenario: Administrator views other employments at current Institution
-	# 	Given the Person viewed got multiple employments at current Institution
-	# 	When the Administrator scrolls through the multiple employments
-	# 	Then details about each employment is displayed
-	# 	And other details about the Person and his roles are static
+	@test
+	Scenario: Administrator views other employments at current Institution
+		Given the Person viewed got multiple employments at current Institution
+		When the Administrator scrolls through the multiple employments
+		Then details about each employment is displayed
+		And other details about the Person and his roles are static
 
 	# Scenario: Administrator adds another employment
 	# 	When the Administrator uses option to add a new employment

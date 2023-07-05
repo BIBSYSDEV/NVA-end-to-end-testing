@@ -313,8 +313,8 @@
   {
     "lastName": "TestUser",
     "firstName": "Second Institution-admin-1",
-    "nin": "09043726657",
-    "username": "test-user-second-inst-admin-1@test.no",
+    "nin": "07065314406",
+    "username": "test-user-second-inst-admin@test.no",
     "role": [
       {
         "type": "Role",
@@ -322,83 +322,8 @@
       }
     ],
     "orcid": true,
-    "orgNumber": "5991",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-  },
-  {
-    "lastName": "TestUser",
-    "firstName": "Second Institution-admin-2",
-    "nin": "05075214407",
-    "username": "test-user-second-inst-admin-2@test.no",
-    "role": [
-      {
-        "type": "Role",
-        "rolename": "Institution-admin"
-      }
-    ],
-    "orcid": true,
-    "orgNumber": "5991",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-  },
-  {
-    "lastName": "TestUser",
-    "firstName": "Second Institution-admin-3",
-    "nin": "27018638725",
-    "username": "test-user-second-inst-admin-3@test.no",
-    "role": [
-      {
-        "type": "Role",
-        "rolename": "Institution-admin"
-      }
-    ],
-    "orcid": true,
-    "orgNumber": "5991",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-  },
-  {
-    "lastName": "TestUser",
-    "firstName": "Second Institution-admin-4",
-    "nin": "20112088092",
-    "username": "test-user-second-inst-admin-4@test.no",
-    "role": [
-      {
-        "type": "Role",
-        "rolename": "Institution-admin"
-      }
-    ],
-    "orcid": true,
-    "orgNumber": "5991",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-  },
-  {
-    "lastName": "TestUser",
-    "firstName": "Second Institution-admin-5",
-    "nin": "06022435424",
-    "username": "test-user-second-inst-admin-5@test.no",
-    "role": [
-      {
-        "type": "Role",
-        "rolename": "Institution-admin"
-      }
-    ],
-    "orcid": true,
-    "orgNumber": "5991",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-  },
-  {
-    "lastName": "TestUser",
-    "firstName": "Second Institution-admin-6",
-    "nin": "05021770746",
-    "username": "test-user-second-inst-admin-6@test.no",
-    "role": [
-      {
-        "type": "Role",
-        "rolename": "Institution-admin"
-      }
-    ],
-    "orcid": true,
-    "orgNumber": "5991",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+    "orgNumber": "20754",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20754.0.0.0"
   },
   {
     "lastName": "TestUser",
