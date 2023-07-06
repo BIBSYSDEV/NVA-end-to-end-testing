@@ -327,6 +327,21 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "Institution-admin",
+    "nin": "13033826634",
+    "username": "test-user-inst-admin-customer-test@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Institution-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "5991",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
     "firstName": "Second Institution Curator 1",
     "nin": "30071702886",
     "username": "test-user-second-inst-curator-1@test.no",

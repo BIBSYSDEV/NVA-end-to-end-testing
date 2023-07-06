@@ -68,27 +68,27 @@ Feature: Administrator manage Persons, employments, and roles
 	# 	When the Administrator look up or search and selects the Person
 	# 	Then Create or edit a Person and his emplyment and roles
 
-	# @test
-	# Scenario: Create or edit a Person and his emplyment and roles
-	# 	When the Administrator wish to edit or add a new Person
-	# 	Then the Administrator sees the Person s name and Person Number
-	# 	And the Person Number is displayed as date of birth followed by 5 stars
-	# 	And there is an option to view the last 5 digits of the Person Number
-	# 	And possible other employments at other institutions are briefly documented
-	# 	And the employment at current institution is shown with affiliation, employment-position and -fraction, start- and end-date
-	# 	And there is an option to view other employments at current institution
-	# 	And there is an option to add a new employment
-	# 	And the Persons different roles at this institution is listed
-	# 	And the Roles may be toggled on or off
-	# 	And there is an option to close this dialog
-	# 	And there is an option to save the changes
+	@test
+	Scenario: Create or edit a Person and his emplyment and roles
+		When the Administrator wish to edit or add a new Person
+		Then the Administrator sees the Person s name and Person Number
+		And the Person Number is displayed as date of birth followed by 5 stars
+		And there is an option to view the last 5 digits of the Person Number
+		And possible other employments at other institutions are briefly documented
+		And the employment at current institution is shown with affiliation, employment-position and -fraction, start- and end-date
+		And there is an option to view other employments at current institution
+		And there is an option to add a new employment
+		And the Persons different roles at this institution is listed
+		And the Roles may be toggled on or off
+		And there is an option to close this dialog
+		And there is an option to save the changes
 
-	# @test
-	# Scenario: Administrator views other employments at current Institution
-	# 	Given the Person viewed got multiple employments at current Institution
-	# 	When the Administrator scrolls through the multiple employments
-	# 	Then details about each employment is displayed
-	# 	And other details about the Person and his roles are static
+	@test
+	Scenario: Administrator views other employments at current Institution
+		Given the Person viewed got multiple employments at current Institution
+		When the Administrator scrolls through the multiple employments
+		Then details about each employment is displayed
+		And other details about the Person and his roles are static
 
 	@test
 	Scenario: Administrator adds another employment
@@ -104,33 +104,37 @@ Feature: Administrator manage Persons, employments, and roles
 	# 	When the Administrator fills inn the form
 	# 	Then a new affiliation is ready to be stored
 
-	# Scenario: Administrator grants or removes a Persons roles
-	# 	Given Administrator edit a Person at his institution
-	# 	When the Administrator toggles on or off one of the following roles
-	# 		| Curator       |
-	# 		| Editor        |
-	# 		| Administrator |
-	# 	Then the role is added or removed from the Person
-	# 	And the role Registrator cannot be removed
+	@test
+	Scenario: Administrator grants or removes a Persons roles
+		Given Administrator edit a Person at his institution
+		When the Administrator toggles on or off one of the following roles
+			| Curator       |
+			| Editor        |
+			| Administrator |
+		Then the role is added or removed from the Person
+		And the role Registrator cannot be removed
 
-	# Scenario: Administrator close the edit Person dialog
-	# 	Given Administrator edit a Person at his institution
-	# 	And the Administrator has added or changed information in the dialog
-	# 	When the Administrator uses one of the close options
-	# 	Then a dialog informing about loss of data is displayed
-	# 	And the Administrator can choose to close or abort the close action
+	@test
+	Scenario: Administrator close the edit Person dialog
+		Given Administrator edit a Person at his institution
+		And the Administrator has added or changed information in the dialog
+		When the Administrator uses one of the close options
+		Then a dialog informing about loss of data is displayed
+		And the Administrator can choose to close or abort the close action
 
-	# Scenario: Administrator saves the changes to a Person
-	# 	Given Administrator edit a Person at his institution
-	# 	And the Administrator has added or changed information in the dialog
-	# 	And the save option is activated
-	# 	When the Administrator uses the save options
-	# 	Then all changes are stored
+	@test
+	Scenario: Administrator saves the changes to a Person
+		Given Administrator edit a Person at his institution
+		And the Administrator has added or changed information in the dialog
+		And the save option is activated
+		When the Administrator uses the save options
+		Then all changes are stored
 
-	# Scenario: Administrator uses search to locate person
-	# 	Given Default start screen on Basic data
-	# 	When the Administrator fills inn the search field
-	# 	Then the list is updated accordingly regarding person name
+	@test
+	Scenario: Administrator uses search to locate person
+		Given Default start screen on Basic data
+		When the Administrator fills inn the search field
+		Then the list is updated accordingly regarding person name
 
 	# Scenario: Administrator opens the option to filter the list of Persons
 	# 	When the Administrator open the filter option
