@@ -1018,7 +1018,12 @@
     "firstName": "Contributors",
     "nin": "21103726694",
     "username": "test-user-contributors@test.no",
-    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "role": [
+      { "type": "Role", "rolename": "Creator" },
+      { "type": "Role", "rolename": "Curator" },
+      { "type": "Role", "rolename": "Curator-thesis" },
+      { "type": "Role", "rolename": "Curator-thesis-embargo" }
+    ],
     "orcid": true,
     "orgNumber": "20202",
     "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
