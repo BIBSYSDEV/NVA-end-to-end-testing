@@ -37,16 +37,16 @@ phases:
       - curl  -i -X PUT https://${API_DOMAIN}/publication/0184be6e2eeb-dc2a295d-dfb0-4f0d-b0ec-5bea756356b3 -H "Content-Type:application/json" -H "Authorization:Bearer {TOKEN}" -d '{"type":"NonExistingType"}'
 
       # GET publication
-      - curl  -i -X GET https://${API_DOMAIN}/publication/0184be6e2eeb-dc2a295d-dfb0-4f0d-b0ec-5bea756356b3 -H "Accept:application/json"
+      - curl -S -s -o /dev/null -i -X GET https://${API_DOMAIN}/publication/0184be6e2eeb-dc2a295d-dfb0-4f0d-b0ec-5bea756356b3 -H "Accept:application/json"
 
       # GET publication by-owner
       - curl -i -X GET https://${API_DOMAIN}/publication/by-owner -H "Content-Type:application/json" -H "Authorization:Bearer {$TOKEN}"
 
       # GET organization
-      - curl  -i -X GET https://${API_DOMAIN}/cristin/organization/20754.0.0.0 -H "Accept:application/json"
+      - curl -S -s -o /dev/null -i -X GET https://${API_DOMAIN}/cristin/organization/20754.0.0.0 -H "Accept:application/json"
 
       # GET organization persons
-      - curl  -i -X GET https://${API_DOMAIN}/cristin/organization/20754.0.0.0/persons -H "Accept:application/json"
+      - curl -S -s -o /dev/null -i -X GET https://${API_DOMAIN}/cristin/organization/20754.0.0.0/persons -H "Accept:application/json"
 
       # GET customer
       - curl   -i -X GET https://${API_DOMAIN}/customer -H "Content-Type:application/json" -H "Authorization:Bearer {$TOKEN}"
@@ -58,19 +58,19 @@ phases:
       - curl   -i -X GET https://${API_DOMAIN}/customer/0baf8fcb-b18d-4c09-88bb-956b4f659103/vocabularies -H "Content-Type:application/json" -H "Authorization:Bearer {$TOKEN}"
 
       # GET person
-      - curl  -i -X GET https://${API_DOMAIN}/cristin/person/1136806 -H "Accept:application/json"
+      - curl -S -s -o /dev/null -i -X GET https://${API_DOMAIN}/cristin/person/1136806 -H "Accept:application/json"
 
       # GET search person
-      - curl  -i -X GET https://${API_DOMAIN}/cristin/person?name=test -H "Accept:application/json"
+      - curl -S -s -o /dev/null -i -X GET https://${API_DOMAIN}/cristin/person?name=test -H "Accept:application/json"
 
       # GET search publication
-      - curl  -i -X GET https://${API_DOMAIN}/search/resources -H "Accept:application/json"
+      - curl -S -s -o /dev/null -i -X GET https://${API_DOMAIN}/search/resources -H "Accept:application/json"
 
       # GET search tickets
       - curl  -i -X GET https://${API_DOMAIN}/search/tickets -H "Accept:application/json" -H "Authorization:Bearer {$TOKEN}"
 
       # GET project list
-      - curl  -i -X GET https://${API_DOMAIN}/cristin/project -H "Accept:application/json"
+      - curl -S -s -o /dev/null -i -X GET https://${API_DOMAIN}/cristin/project -H "Accept:application/json"
 
       # POST project
       - curl  -i -X POST https://${API_DOMAIN}/cristin/project -H "Content-Type::application/json" -H "Authorization:Bearer {$TOKEN}" -d '{}'
