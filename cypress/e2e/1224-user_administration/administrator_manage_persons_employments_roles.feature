@@ -35,21 +35,22 @@ Feature: Administrator manage Persons, employments, and roles
 	Background:
 		Given an Administrator is logged in
 
-	# Scenario: Default start screen on Basic data
-	# 	When an Administrator enters the Basic data menu
-	# 	Then the Administrator see a list of Persons employed at his institution
-	# 	And each Person s internal identifier, name, and external identifier is displayed
-	# 	And the external identifier is a Person Number
-	# 	# (future) or an - in case of only an ORCID
-	# 	And the Person Number is displayed as date of birth followed by 5 stars (*)
-	# 	And each Person s name is followed by the ORCID-logo if an ORCID is connected
-	# 	And each Persons employments sub-unit-affiliation at current institution is displayed
-	# 	And Persons with more than one employment at current institution has an "show more"-option
-	# 	And each Person has an option to edit
-	# 	And there is a search option to locate some persons
-	# 	And the menu has an option to filter the list
-	# 	And the menu has an option to employ a new Person
-	# 	And the column titles can be used to sort the list
+	@test
+	Scenario: Default start screen on Basic data
+		When an Administrator enters the Basic data menu
+		Then the Administrator see a list of Persons employed at his institution
+		And each Person s internal identifier, name, and external identifier is displayed
+		And the external identifier is a Person Number
+		# (future) or an - in case of only an ORCID
+		And the Person Number is displayed as date of birth followed by 5 stars (*)
+		And each Person s name is followed by the ORCID-logo if an ORCID is connected
+		And each Persons employments sub-unit-affiliation at current institution is displayed
+		And Persons with more than one employment at current institution has an "show more"-option
+		And each Person has an option to edit
+		And there is a search option to locate some persons
+		And the menu has an option to filter the list
+		And the menu has an option to employ a new Person
+		And the column titles can be used to sort the list
 
 	# Scenario: Administrator uses the "show more"-option on multiple employments at current Institution
 	# 	When the Administrator activate the "show more"-option

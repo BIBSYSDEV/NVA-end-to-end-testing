@@ -7,6 +7,47 @@ Given('an Administrator is logged in', () => {
 });
 
 const userName = 'Eirik Nilsen';
+
+// Scenario: Default start screen on Basic data
+When ('an Administrator enters the Basic data menu', () => {
+  cy.getDataTestId(dataTestId.header.basicDataLink).click();
+})
+Then ('the Administrator see a list of Persons employed at his institution', () => {
+  cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).should('have.length.above', 0);
+})
+And ('each Person s internal identifier, name, and external identifier is displayed', () => {
+  cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).each((person) => {
+      cy.wrap(person).parent().within(() => {
+          cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).should('exist');
+          cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.name('')}]`).should('exist');
+          cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.nin('')}]`).should('exist');
+      })
+  })
+})
+And ('the external identifier is a Person Number', () => {
+  cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.nin('')}]`).first().invoke('text').should('have.length', 11);
+})
+And ('the Person Number is displayed as date of birth followed by 5 stars \\(*)', () => {
+  cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.nin('')}]`).first().invoke('text').should('contain', '*****');
+})
+And ('each Person s name is followed by the ORCID-logo if an ORCID is connected', () => {})
+And ('each Persons employments sub-unit-affiliation at current institution is displayed', () => {})
+And ('Persons with more than one employment at current institution has an "show more"-option', () => {})
+And ('each Person has an option to edit', () => {
+  cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.nin('')}]`).first().parent().within(() => {
+      cy.getDataTestId('EditIcon').should('exist');
+  })
+})
+And ('there is a search option to locate some persons', () => {
+  cy.get('[datatest-id=person-register-search-bar]').should('exist');
+})
+And ('the menu has an option to filter the list', () => {})
+And ('the menu has an option to employ a new Person', () => {
+  cy.getDataTestId(dataTestId.basicData.addEmployeeLink).should('exist')
+})
+And ('the column titles can be used to sort the list', () => {})
+
+
 // Scenario: Create or edit a Person and his emplyment and roles
 When('the Administrator wish to edit or add a new Person', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
