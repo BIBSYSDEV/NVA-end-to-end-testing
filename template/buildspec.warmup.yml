@@ -21,7 +21,6 @@ phases:
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')
       - export CYPRESS_AWS_SESSION_TOKEN=$(cat Credentials | jq -r '.Credentials.SessionToken')
       - export CYPRESS_AWS_REGION='eu-west-1'
-      # Remove search indices from previous test runs
   build:
     commands:
       # Get token
