@@ -127,7 +127,7 @@ When('the Administrator scrolls through the multiple employments', () => {
 });
 Then('details about each employment is displayed', () => {
   cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).within(() => {
-    cy.get('input').should('have.value', 100);
+    cy.get('input').should('have.value', 50);
   });
 });
 And('other details about the Person and his roles are static', () => {
