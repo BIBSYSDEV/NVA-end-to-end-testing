@@ -42,7 +42,7 @@ Given('Creator without rights to register thesis navigates to Resource Type tab'
 })
 Then('they are unable to select resource type:', (dataTable) => {
   dataTable.rawTable.forEach((type) => {
-    cy.get(`[data-testid=${studentThesisSubtypes[type[0]]}]`);
+    cy.get(`[data-testid=${studentThesisSubtypes[type[0]]}`).should('have.class', 'Mui-disabled');
   })
 })
 // | Bachelor thesis      |
