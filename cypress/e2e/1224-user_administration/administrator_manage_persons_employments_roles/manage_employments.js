@@ -9,43 +9,43 @@ Given('an Administrator is logged in', () => {
 const userName = 'Eirik Nilsen';
 
 // Scenario: Default start screen on Basic data
-When ('an Administrator enters the Basic data menu', () => {
+When('an Administrator enters the Basic data menu', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
 })
-Then ('the Administrator see a list of Persons employed at his institution', () => {
+Then('the Administrator see a list of Persons employed at his institution', () => {
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).should('have.length.above', 0);
 })
-And ('each Person s internal identifier, name, and external identifier is displayed', () => {
+And('each Person s internal identifier, name, and external identifier is displayed', () => {
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).each((person) => {
-      cy.wrap(person).parent().within(() => {
-          cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).should('exist');
-          cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.name('')}]`).should('exist');
-          cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.nin('')}]`).should('exist');
-      })
+    cy.wrap(person).parent().within(() => {
+      cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).should('exist');
+      cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.name('')}]`).should('exist');
+      cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.nin('')}]`).should('exist');
+    })
   })
 })
-And ('the external identifier is a Person Number', () => {
+And('the external identifier is a Person Number', () => {
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.nin('')}]`).first().invoke('text').should('have.length', 11);
 })
-And ('the Person Number is displayed as date of birth followed by 5 stars \\(*)', () => {
+And('the Person Number is displayed as date of birth followed by 5 stars \\(*)', () => {
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.nin('')}]`).first().invoke('text').should('contain', '*****');
 })
-And ('each Person s name is followed by the ORCID-logo if an ORCID is connected', () => {})
-And ('each Persons employments sub-unit-affiliation at current institution is displayed', () => {})
-And ('Persons with more than one employment at current institution has an "show more"-option', () => {})
-And ('each Person has an option to edit', () => {
+And('each Person s name is followed by the ORCID-logo if an ORCID is connected', () => { })
+And('each Persons employments sub-unit-affiliation at current institution is displayed', () => { })
+And('Persons with more than one employment at current institution has an "show more"-option', () => { })
+And('each Person has an option to edit', () => {
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.nin('')}]`).first().parent().within(() => {
-      cy.getDataTestId('EditIcon').should('exist');
+    cy.getDataTestId('EditIcon').should('exist');
   })
 })
-And ('there is a search option to locate some persons', () => {
+And('there is a search option to locate some persons', () => {
   cy.get('[datatest-id=person-register-search-bar]').should('exist');
 })
-And ('the menu has an option to filter the list', () => {})
-And ('the menu has an option to employ a new Person', () => {
+And('the menu has an option to filter the list', () => { })
+And('the menu has an option to employ a new Person', () => {
   cy.getDataTestId(dataTestId.basicData.addEmployeeLink).should('exist')
 })
-And ('the column titles can be used to sort the list', () => {})
+And('the column titles can be used to sort the list', () => { })
 
 
 // Scenario: Create or edit a Person and his emplyment and roles
@@ -91,7 +91,7 @@ And(
 And('there is an option to view other employments at current institution', () => {
   cy.getDataTestId('NavigateNextIcon');
 });
-And('there is an option to add a new employment', () => {});
+And('there is an option to add a new employment', () => { });
 And('the Persons different roles at this institution is listed', () => {
   cy.getDataTestId(dataTestId.basicData.personAdmin.roleSelector).should('be.visible');
 });
@@ -196,7 +196,7 @@ And('the role Registrator cannot be removed', () => {
 });
 
 // Scenario: Administrator close the edit Person dialog
-Given('Administrator edit a Person at his institution', () => {});
+Given('Administrator edit a Person at his institution', () => { });
 And('the Administrator has added or changed information in the dialog', () => {
   cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).type('{selectall}50');
 });
@@ -204,14 +204,15 @@ When('the Administrator uses one of the close options', () => {
   cy.get('[role=dialog]').within(() => {
     cy.get('button').filter(':contains("Cancel")').click();
   });
+  cy.get('[role=dialog]').should('not.exist');
 });
-Then('a dialog informing about loss of data is displayed', () => {});
-And('the Administrator can choose to close or abort the close action', () => {});
+Then('a dialog informing about loss of data is displayed', () => { });
+And('the Administrator can choose to close or abort the close action', () => { });
 
 // Scenario: Administrator saves the changes to a Person
-Given('Administrator edit a Person at his institution', () => {});
-And('the Administrator has added or changed information in the dialog', () => {});
-And('the save option is activated', () => {});
+Given('Administrator edit a Person at his institution', () => { });
+And('the Administrator has added or changed information in the dialog', () => { });
+And('the save option is activated', () => { });
 When('the Administrator uses the save options', () => {
   cy.get('[role=dialog]').within(() => {
     cy.get('button').filter(':contains("Save")').click();
@@ -233,16 +234,16 @@ Then('all changes are stored', () => {
 });
 
 // Scenario: Administrator uses search to locate person
-Given ('Default start screen on Basic data', () => {
+Given('Default start screen on Basic data', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
 })
-When ('the Administrator fills inn the search field', () => {
+When('the Administrator fills inn the search field', () => {
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).then(resultList => {
     cy.wrap(resultList.length).as('results');
   });
   cy.get('[datatest-id=person-register-search-bar]').type(`{selectall}${userName}`);
 })
-Then ('the list is updated accordingly regarding person name', () => {
+Then('the list is updated accordingly regarding person name', () => {
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).should('have.length', 1);
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.name('')}]`).filter(`:contains(${userName})`).should('have.length', 1);
 })
