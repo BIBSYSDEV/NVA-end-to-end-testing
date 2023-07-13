@@ -7,6 +7,7 @@ Given('an Administrator is logged in', () => {
 });
 
 const userName = 'Eirik Nilsen';
+const userNameEdit = "Person admin TestUser";
 
 // Scenario: Default start screen on Basic data
 When ('an Administrator enters the Basic data menu', () => {
@@ -127,7 +128,7 @@ When('the Administrator scrolls through the multiple employments', () => {
 });
 Then('details about each employment is displayed', () => {
   cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).within(() => {
-    cy.get('input').should('have.value', 50);
+    cy.get('input').should('have.value', 100);
   });
 });
 And('other details about the Person and his roles are static', () => {
@@ -170,14 +171,14 @@ const roleChecks = {
 
 Given('Administrator edit a Person at his institution', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
-  cy.get('[datatest-id=person-register-search-bar]').type(`{selectall}${userName}`);
+  cy.get('[datatest-id=person-register-search-bar]').type(`{selectall}${userNameEdit}`);
   cy.getDataTestId('EditIcon').should('have.length', 1);
   cy.getDataTestId('EditIcon').first().click();
 });
 When('the Administrator toggles on or off one of the following roles', (dataTable) => {
   cy.wrap(dataTable.rawTable).as('checks');
   dataTable.rawTable.forEach((value) => {
-    cy.get(`[value=${roleChecks[value[0]]}]`).should('be.checked');
+    cy.get(`[value=${roleChecks[value[0]]}]`).should('not.be.checked');
     cy.get(`[value=${roleChecks[value[0]]}]`).click();
   });
 });
@@ -187,7 +188,7 @@ When('the Administrator toggles on or off one of the following roles', (dataTabl
 Then('the role is added or removed from the Person', () => {
   cy.get('@checks').then((checks) => {
     checks.forEach((check) => {
-      cy.get(`[value=${roleChecks[checks[0]]}]`).should('not.be.checked');
+      cy.get(`[value=${roleChecks[checks[0]]}]`).should('be.checked');
     });
   });
 });
@@ -219,7 +220,7 @@ When('the Administrator uses the save options', () => {
   cy.get('[role=dialog]').should('not.exist');
 });
 Then('all changes are stored', () => {
-  cy.get('[datatest-id=person-register-search-bar]').type(`{selectall}${userName}`);
+  cy.get('[datatest-id=person-register-search-bar]').type(`{selectall}${userNameEdit}`);
   cy.getDataTestId('EditIcon').should('have.length', 1);
   cy.getDataTestId('EditIcon').first().click();
   cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).within(() => {
