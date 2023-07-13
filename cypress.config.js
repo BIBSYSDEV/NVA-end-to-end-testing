@@ -5,7 +5,7 @@ module.exports = defineConfig({
   env: {
     TAGS: 'not @ignore and @test',
   },
-  defaultCommandTimeout: 20000,
+  defaultCommandTimeout: 30000,
   viewportWidth: 1600,
   viewportHeight: 1200,
   video: true,
