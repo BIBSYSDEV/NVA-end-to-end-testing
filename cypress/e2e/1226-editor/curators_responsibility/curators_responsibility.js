@@ -13,9 +13,9 @@ import { dataTestId } from '../../../support/dataTestIds';
 //     I want to manage which curators is responsible for which parts of the institution
 
 //     Background:
-Given ('a logged in Editor', () => {
+Given('a logged in Editor', () => {
   cy.login(userEditor);
-})
+});
 
 // Scenario: Editor views curators and area of responsibility
 Given('the Institusion have Curators registered', () => {
@@ -24,13 +24,16 @@ Given('the Institusion have Curators registered', () => {
 When("the Editor opens the institution's responsibility menu item", () => {
   cy.getDataTestId(dataTestId.editor.areaOfResponsibilityLinkButton).click();
 });
-Then('the Editor sees a list that contains', (dataTable) => {});
+Then('the Editor sees a list that contains', (dataTable) => {
+  cy.get('table > tbody > tr > td').first().should('not.be.empty');
+  cy.get('table > tbody > tr > td').first().next().should('not.be.empty');
+});
 // | Curator's name                             |
 // | Curator's ORCID symbol (if present)        |
 // | Curator's affiliation                      |
 // | Curator's area of responsibility           |
 // | Option to add an area of responsibility    |
-And('an option to search to locate Curators', () => {});
+And('an option to add rights to edit thesis', () => {});
 
 // Scenario: Editor activates a Curator in the list
 Given('Editor views curators and area of responsibility', () => {});
