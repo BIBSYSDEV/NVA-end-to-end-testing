@@ -56,6 +56,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
+  cy.wait(10000);
   cy.get('@doiRequest').then(doiRequest => {
     if (doiRequest) {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();

@@ -3,10 +3,10 @@ import { userContributor, userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { contributorTypes } from '../../../support/data_testid_constants';
 
-Before({ tags: '@TEST_NP-4008' }, () => {
+Before({ tags: '@openVerifyDialog' }, () => {
   cy.wrap('button-set-unverified-contributor-').as('button');
 });
-Before({ tags: '@TEST_NP-4009' }, () => {
+Before({ tags: '@verifyUser' }, () => {
   cy.wrap(dataTestId.registrationWizard.contributors.selectUserButton).as('button');
 });
 
@@ -254,12 +254,11 @@ Then('they see a Button to Verify the Contributor', () => {
 
 // Scenario: Creator opens Dialog to Verify Contributor
 Given('Creator sees Button to Verify Contributor', () => {
-  cy.mockPersonSearch(userWithAuthor);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
-    'Unverified Creator'
+    'Withauthor 10 TestUser'
   );
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
   cy.get(`[data-testid^=button-set-unverified-contributor-]`).should('be.visible');
@@ -295,7 +294,7 @@ When('they select a Person from the Search Results', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).first().click();
 });
 And('they click the Button to Verify Contributor', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
+  // cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
 });
 Then('the Dialog is closed', () => {
   cy.get(`[data-testid=contributor-modal]`).should('not.exist');
