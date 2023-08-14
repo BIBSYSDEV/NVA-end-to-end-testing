@@ -29,10 +29,11 @@ When('they look at any page in NVA', () => {
 });
 Then('they see a Dropdown Menu with items:', (dataTable) => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).should('exist');
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click({ force: true });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get('@MENU').then((menu) => {
     cy.testDataTestidList(dataTable, menu);
   });
+  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
 });
 And('they see Menu items:', (dataTable) => {
   cy.testDataTestidList(dataTable, mainButtons);
