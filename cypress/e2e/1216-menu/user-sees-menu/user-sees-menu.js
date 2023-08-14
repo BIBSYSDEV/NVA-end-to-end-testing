@@ -4,6 +4,7 @@ import {
   userTestMenu,
   adminUser,
   userInstAdminWithAuthor,
+  userEditor,
 } from '../../../support/constants';
 import {
   adminMenu,
@@ -27,19 +28,11 @@ When('they look at any page in NVA', () => {
     },
   });
 });
-Then('they see a Dropdown Menu with items:', (dataTable) => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).should('exist');
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get('@MENU').then((menu) => {
-    cy.testDataTestidList(dataTable, menu);
-  });
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-});
 And('they see Menu items:', (dataTable) => {
   cy.testDataTestidList(dataTable, mainButtons);
 });
 And('they see the Language selector', () => {
-  cy.get(`[data-testid=${dataTestId.header.languageButton}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.header.languageButton).should('be.visible', { force: true });
 });
 // End common steps
 
@@ -54,38 +47,46 @@ Given('that the User is not logged in', () => {
   });
 });
 Then('they see the Log in Button', () => {
-  cy.get(`[data-testid=${dataTestId.header.logInButton}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.header.logInButton).should('be.visible');
 });
 
-// @345
+// Scenario: User have option to log out
+Then ('they have an option to log out', () => {
+  cy.getDataTestId(dataTestId.header.menuButton).should('exist');
+  cy.getDataTestId(dataTestId.header.menuButton).click();
+  cy.getDataTestId(dataTestId.header.logOutLink).should('be.visible');
+})
+
+
 // Scenario: User without any role sees menu
 And('they have no NVA role', () => {
   cy.login(userNoRole);
   cy.wrap(userMenu).as('MENU');
 });
 
-// @346
 // Scenario: User sees the menu for Creator
 And('they have the "Creator" role', () => {
   cy.login(userTestMenu);
   cy.wrap(creatorMenu).as('MENU');
 });
 
-// @347
 // Scenario: User sees the menu for Curator
 And('they have the "Curator" Role', () => {
   cy.login(userCuratorWithAuthor);
   cy.wrap(curatorMenu).as('MENU');
 });
 
-// @348
 // Scenario: User sees the menu for Institution-admin
 And('they have the "Institution-admin" role', () => {
   cy.login(userInstAdminWithAuthor);
   cy.wrap(instAdminMenu).as('MENU');
 });
 
-// @350
+And('they have the "Editor" role', () => {
+  cy.login(userEditor);
+  cy.wrap(instAdminMenu).as('MENU');
+});
+
 // Scenario: User sees the menu for Application administrator
 And('they have the "App-admin" role', () => {
   cy.login(adminUser);
