@@ -124,7 +124,7 @@ Given('the Person viewed got multiple employments at current Institution', () =>
   cy.getDataTestId('EditIcon').first().click();
 });
 When('the Administrator scrolls through the multiple employments', () => {
-  cy.getDataTestId('NavigateNextIcon').click();
+  cy.get('[title=Next]').click();
 });
 Then('details about each employment is displayed', () => {
   cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).within(() => {
