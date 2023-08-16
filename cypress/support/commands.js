@@ -455,13 +455,6 @@ Cypress.Commands.add('checkContributors', (contributorRoles) => {
   contributorRoles.forEach((role) => {
     roleIndex++;
     const name = `Withauthor ${roleIndex} `;
-    // if (contributorRoles.length > 5) {
-    //   cy.contains('Search by name')
-    //     .parent()
-    //     .within(() => {
-    //       cy.get('input').clear().type(name, { delay: 1 });
-    //     });
-    // }
     cy.get(`[value=${role}]`)
       .parent()
       .parent()
