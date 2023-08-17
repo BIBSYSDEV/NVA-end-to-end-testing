@@ -633,5 +633,17 @@
     "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "title": "Search result - Journal",
     "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-edit-registration@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Edit registration"
   }
 ]

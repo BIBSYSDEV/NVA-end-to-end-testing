@@ -98,6 +98,7 @@ export const userProjectManager = 'test-user-project-manager@test.no';
 export const userMessages = 'test-user-messages@test.no';
 export const userCancelDelete = 'test-user-cancel-delete@test.no';
 export const userTestMenu = 'test-user-menu@test.no';
+export const userEditRegistration = "test-user-edit-registration@test.no"
 
 const userData = {
   name: '',
@@ -196,4 +197,5 @@ export const user = {
   [userMessages]: { ...userData, name: 'TestUser, Messages' },
   [userCancelDelete]: { ...userData, name: 'TestUser, Cancel delete' },
   [userTestMenu]: { ...userData, name: 'TestUser, Menu' },
+  [userEditRegistration]: { ...userData, name: 'TestUser, Edit registration' }
 };
