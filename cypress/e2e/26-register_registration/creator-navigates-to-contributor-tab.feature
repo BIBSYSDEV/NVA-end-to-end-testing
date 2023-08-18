@@ -134,3 +134,9 @@ Feature: Creator navigates to Contributors tab
     Then the Dialog is closed
     And they see the Contributor is now verified
     And all current Affiliations are listed for the Contributor
+
+  Scenario: Creator searches for registered Contributor
+    Given a registration with several registrered Contributors
+    When a User opens the Registration wizard in the Contributor tab
+    And they search for a Contributor
+    Then the Contributor is displayed in the list of Contributors

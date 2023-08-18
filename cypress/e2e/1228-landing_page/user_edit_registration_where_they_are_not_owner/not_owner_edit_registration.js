@@ -3,7 +3,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature; User edit registrations where they are not owner
 
-const registrationTitle = 'Edit registration';
+const registrationTitle = 'Edit registration not owner';
 
 // Scenario: Curator see option to edit a Registration from own institution
 Given('User is logged in as Curator', () => {
