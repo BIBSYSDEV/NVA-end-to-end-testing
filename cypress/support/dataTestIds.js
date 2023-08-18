@@ -210,6 +210,7 @@ export const dataTestId = {
       addSelfButton: 'add-self-button',
       addUnverifiedContributorButton: 'add-unverified-contributor-button',
       authorRadioButton: 'author-radio-button',
+      contributorSearchField: 'contributor-search-field',
       correspondingCheckbox: 'author-corresponding-checkbox',
       verifyAffiliationButton: 'button-set-unverified-affiliation',
       verifyContributorButton: (name) => `button-set-unverified-contributor-${name}`,

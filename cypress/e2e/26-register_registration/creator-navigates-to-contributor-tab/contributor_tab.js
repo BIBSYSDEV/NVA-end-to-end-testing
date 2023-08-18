@@ -19,7 +19,7 @@ Before(() => {
 
 // Feature: Creator navigates to Contributors tab
 // Common steps
-Given('Creator begins registering a Registration in the Wizard', () => {});
+Given('Creator begins registering a Registration in the Wizard', () => { });
 When('they navigate to the Contributors tab', () => {
   cy.get('[data-testid=nav-tabpanel-contributors]').click();
 });
@@ -164,11 +164,11 @@ Then('the selected Author identity is added to the list of Authors', () => {
 And('they navigate to the Resources tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
-And('they select Resource Type "Book"', () => {});
-And('they select Registration Subtype "Monograph"', () => {});
+And('they select Resource Type "Book"', () => { });
+And('they select Registration Subtype "Monograph"', () => { });
 
 //   Scenario: Creator adds an Creator to the list of Creators for Resource Type Chapter
-And('they select the Resource Type', (dataTable) => {});
+And('they select the Resource Type', (dataTable) => { });
 And('they select the Registration Subtype "Chapter in anthology"', () => {
   cy.get(`[data-testid=resource-type-chip-AcademicMonograph]`).click();
   cy.get('[data-testid=resource-type-chip-AcademicChapter]').click();
@@ -199,7 +199,7 @@ Then('the selected Author identity is added to the list of Editors', () => {
 
 //   @2204
 //   Scenario: Creator adds a Supervisor to the list of Supervisors for Resource Type Student Thesis
-And('they select Resource Type "Student Thesis"', () => {});
+And('they select Resource Type "Student Thesis"', () => { });
 And('they select any Registration Subtype', () => {
   cy.get('[data-testid=resource-type-chip-AcademicMonograph]').click();
   cy.get('[data-testid=resource-type-chip-DegreeMaster]').click();
@@ -304,4 +304,34 @@ And('they see the Contributor is now verified', () => {
 });
 And('all current Affiliations are listed for the Contributor', () => {
   cy.contains('Unit');
+});
+
+const filename = 'example.txt';
+
+// Scenario: Creator searches for registered Contributor
+Given('a registration with several registrered Contributors', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+  let index = 0;
+  while (index < 6) {
+    index++;
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`withauthor ${index} testuser{enter}`);
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).first().click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+  }
+});
+When('a User opens the Registration wizard in the Contributor tab', () => { })
+And('they search for a Contributor', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.contributorSearchField).within(() => {
+    cy.get('input').type('Withauthor 3 testuser');
+  });
+});
+Then('the Contributor is displayed in the list of Contributors', () => {
+  cy.contains('Withauthor 3 TestUser').should('be.visible');
+
+  cy.contains('Withauthor 1 TestUser').should('not.exist');
+  cy.contains('Withauthor 2 TestUser').should('not.exist');
+  cy.contains('Withauthor 4 TestUser').should('not.exist');
+  cy.contains('Withauthor 5 TestUser').should('not.exist');
+  cy.contains('Withauthor 6 TestUser').should('not.exist');
 });
