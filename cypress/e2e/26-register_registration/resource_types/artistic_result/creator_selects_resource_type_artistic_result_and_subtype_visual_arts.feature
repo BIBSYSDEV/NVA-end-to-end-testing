@@ -1,5 +1,6 @@
 Feature: Creator selects Resource type Artistic Result and subtype Visual Arts
 
+  @test
   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Visual Arts"
     Given Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"
     When they select Resource Subtype "Visual Arts"
@@ -16,6 +17,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Visual Arts
       | Other                |
     And they can add an Exhibition
 
+  @test
   Scenario: Creator adds an Exhibition
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Visual Arts"
     When they add an Exhibition with details for:

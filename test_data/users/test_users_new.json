@@ -1137,5 +1137,15 @@
     "orcid": false,
     "orgNumber": "20202",
     "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Visual arts",
+    "nin": "16028738726",
+    "username": "test-user-visual-arts@test.no",
+    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
   }
 ]
