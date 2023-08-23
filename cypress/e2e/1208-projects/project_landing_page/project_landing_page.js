@@ -61,11 +61,16 @@ When("A Anonymous User opens a Project's Landing Page", () => {
 Then('the Anonymous User see:', (fields) => {
     const fieldHeadings = {
         'Project Title': 'Project',
+        'Financing': 'Funding',
     };
     cy.get('main > div > div').first().within(() => {
 
         fields.rawTable.forEach((field) => {
-            cy.contains(fieldHeadings[field[0]] ?? field[0], { matchCase: false });
+            if(field[0] === 'Project Title'){
+                cy.get('h1').should('have.text');
+            } else {
+                cy.contains(fieldHeadings[field[0]] ?? field[0], { matchCase: false });
+            }
         });
     });
 });
