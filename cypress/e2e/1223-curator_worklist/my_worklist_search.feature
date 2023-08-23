@@ -9,9 +9,6 @@ Feature: Curator searches in My Worklist
             | DOI       |
             | Ownership |
 
-    @TEST_NP-4135
-    @2795
-    @updated
     Scenario Outline: Curator searches in Requests from My Worklist
         When a Curator searches for a term that match at least one Request in their Worklist
         Then the Curator sees "<RequestStatus>" listed as "<Status>" Checkboxes

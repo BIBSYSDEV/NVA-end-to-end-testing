@@ -1,5 +1,5 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userCurator, userMessages} from '../../../support/constants';
+import { userCurator, userMessages } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 const messageTypes = {
@@ -77,8 +77,10 @@ When('the Curator open a unassigned Request', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 });
 Then('the Curator is assigned the Request', () => {
-  cy.getDataTestId('message-field').type('Test message{enter}');
-  cy.get('ul > li > p').filter(':contains("Test message")').should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
+    cy.getDataTestId('message-field').type('Test message{enter}');
+    cy.get('ul > li > p').filter(':contains("Test message")').should('be.visible');
+  });
 });
 And('the Request Status is set to "Active"', () => {
   cy.contains('Message sent');
@@ -93,21 +95,24 @@ When('the Curator selects "Mark request unread"', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.searchMode.myUserDialogsButton).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');
-  cy.wait(1000);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
-    cy.getDataTestId('CloseIcon').click({ force: true });
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');
+    cy.wait(1000);
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
+      cy.getDataTestId('CloseIcon').click({ force: true });
+    });
   });
   cy.contains('Successfully updated curator');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator)
     .filter(':contains("ST")')
     .should('not.exist');
+
 });
 Then('the Request Status is set to "New"', () => { });
 And('the Request is unassigned the Curator', () => {
   cy.get('[title=Tasks]').click();
-  cy.getDataTestId(dataTestId.tasksPage.searchMode.newUserDialogsButton).click();
+  cy.getDataTestId(dataTestId.tasksPage.searchMode.allUserDialogsButton).click();
   cy.wait(3000);
   cy.getDataTestId(dataTestId.tasksPage.searchMode.myUserDialogsButton).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
