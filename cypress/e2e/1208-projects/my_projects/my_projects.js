@@ -91,7 +91,7 @@ Then('the User is presented the Landing Page for the Project', () => {
 // Scenario: User Edits a Project in the Project Wizard
 Given('User navigate to My Page and selects Project registrations', () => { });
 When('the User activate the option to Edit a project', () => {
-    cy.getDataTestId('EditIcon').click();
+    cy.getDataTestId('EditIcon').first().click();
 });
 Then('the Project is opend in the Project Wizard', () => {
     cy.contains('Edit project');

@@ -60,11 +60,11 @@ Feature: Project Landing Page
         When the User has the "<Role>" role for the project
         Then they can see an Edit button
         Examples:
-            | Role                  |
+            | Role            |
             # | Curator               |
             # | Project Owner         |
-            | Project Manager       |
-            # | Local Project Manager |
+            | Project Manager |
+    # | Local Project Manager |
 
     # Scenario Outline: Privileged user sees Delete button for Project
     #     Given User opens Landing Page for Project
@@ -104,15 +104,15 @@ Feature: Project Landing Page
             | Role        |
             | Affiliation |
 
-@test
-Scenario: User sees Project Manager for a Project
-    Given User expand Participants for a Project
-    When they see a Project Manager
-    Then they see fields:
-        | Start Date |
+    @test
+    Scenario: User sees Project Manager for a Project
+        Given User expand Participants for a Project
+        When they see a Project Manager
+        Then they see fields:
+            | Start Date |
 
-@test
-Scenario: User expand Results for a Project
-    Given User opens Landing Page for Project
-    When they expand "Results"
-    Then they see a list of Results
+    @test
+    Scenario: User expand Results for a Project
+        Given User opens Landing Page for Project
+        When they expand "Results"
+        Then they see a list of Results

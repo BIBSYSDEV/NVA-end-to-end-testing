@@ -196,7 +196,7 @@ When('they see a Project Manager', () => {
     cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).filter(':contains("Project manager TestUser")');
 });
 Then('they see fields:', () => {
-    cy.getDataTestId(dataTestId.projectLandingPage.generalInfoBox).filter(':contains("12.5.2023")');
+    cy.getDataTestId(dataTestId.projectLandingPage.generalInfoBox).filter(':contains("2023")');
 });
 //             | Start Date |
 

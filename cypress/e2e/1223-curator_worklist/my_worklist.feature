@@ -94,33 +94,33 @@ Feature: Curator opens My Worklist
   #   And the Curator can open the Requests Resource
   #   And the Curator can change the Status of the Request
 
-  # @test
-  # Scenario Outline: Curator open the Request's Resource
-  #   Given the Curator receives a Request of type "<Type>"
-  #   When the Curator opens the Requests Resource
-  #   Then the Landing Page of the Resource is viewed
-  #   And the Curator has the option to "<Action>"
-  #   And the Curator can Decline the Request
-  #   Examples:
-  #     | Type      | Action       |
-  #     | Approval  | Publish      |
-  #     | DOI       | Mint DOI     |
-  #     # | Ownership | Change owner |
+  @test
+  Scenario Outline: Curator open the Request's Resource
+    Given the Curator receives a Request of type "<Type>"
+    When the Curator opens the Requests Resource
+    Then the Landing Page of the Resource is viewed
+    And the Curator has the option to "<Action>"
+    And the Curator can Decline the Request
+    Examples:
+      | Type      | Action       |
+      | Approval  | Publish      |
+      | DOI       | Mint DOI     |
+      # | Ownership | Change owner |
 
-  # @test
-  # Scenario: User gets an answer to a Support Request
-  #   When the Curator sends an answer of type "Support"
-  #   Then the Request status is set to "Answered"
-  #   And the User can read the answer in My Messages
+  @test
+  Scenario: User gets an answer to a Support Request
+    When the Curator sends an answer of type "Support"
+    Then the Request status is set to "Answered"
+    And the User can read the answer in My Messages
 
-  # Scenario: User gets an answer to a Request
-  #   When the Curator writes an answer
-  #   And sends it to the User
-  #   And the Request Type is:
-  #     | Approval  |
-  #     | DOI       |
-  #     # | Ownership |
-  #   Then the User can see the answer in My Messages
+  Scenario: User gets an answer to a Request
+    When the Curator writes an answer
+    And sends it to the User
+    And the Request Type is:
+      | Approval  |
+      | DOI       |
+      # | Ownership |
+    Then the User can see the answer in My Messages
 
   # Scenario Outline: Curator change Status on a Request
   #   When Curator selects a new status "<Status>" on a Request
