@@ -1,5 +1,5 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userCurator, userMessages } from '../../../support/constants';
+import { userCurator2, userMessages } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 const messageTypes = {
@@ -9,7 +9,7 @@ const messageTypes = {
 };
 
 Before(() => {
-  cy.login(userCurator);
+  cy.login(userCurator2);
 });
 
 //   Scenario: Curator opens their Worklist

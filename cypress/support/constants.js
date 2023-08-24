@@ -90,6 +90,7 @@ export const userSaveResearchData = 'test-user-save-research-data@test.no';
 export const userSaveExhibition = 'test-user-save-exhibition@test.no';
 export const userPublishNoRights = 'test-user-publish-no-rights@test.no';
 export const userCurator = 'test-user-second-inst-curator-5@test.no';
+export const userCurator2 = 'test-user-second-inst-curator-4@test.no';
 export const userPublishRegistration = 'test-user-publish-registration@test.no';
 export const userResearchDataset = 'test-user-research-dataset@test.no';
 export const userSecondEditor = 'test-user-second-editor@test.no';
@@ -190,6 +191,7 @@ export const user = {
   [userSaveExhibition]: { ...userData, name: 'TestUser, Save exhibition' },
   [userPublishNoRights]: { ...userData, name: 'TestUser, Publish registration no rights' },
   [userCurator]: { ...userData, name: 'TestUser, Curator 1' },
+  [userCurator2]: { ...userData, name: 'TestUser, Curator 2' },
   [userPublishRegistration]: { ...userData, name: 'TestUser, Publish registration' },
   [userResearchDataset]: { ...userData, name: 'TestUser, Research dataset' },
   [userSecondEditor]: { ...userData, name: 'TestUser, Second Institution-Editor' },
