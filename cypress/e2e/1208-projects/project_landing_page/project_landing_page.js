@@ -66,7 +66,7 @@ Then('the Anonymous User see:', (fields) => {
     cy.get('main > div > div').first().within(() => {
 
         fields.rawTable.forEach((field) => {
-            if(field[0] === 'Project Title'){
+            if (field[0] === 'Project Title') {
                 cy.get('h1').should('have.text');
             } else {
                 cy.contains(fieldHeadings[field[0]] ?? field[0], { matchCase: false });
@@ -187,29 +187,30 @@ Then('they see a list of Participants and their:', (participantInfo) => {
 //             | Affiliation |
 
 //     Scenario: User sees Project Manager for a Project
-Given('User expand Participants for a Project', () => { });
-When('they see a Project Manager', () => { });
-Then('they see fields:', () => { });
+Given('User expand Participants for a Project', () => {
+    selectProject(userProjectManager);
+    cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
+});
+When('they see a Project Manager', () => {
+    cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).filter(':contains("Project manager")');
+    cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).filter(':contains("Project manager TestUser")');
+});
+Then('they see fields:', () => {
+    cy.getDataTestId(dataTestId.projectLandingPage.generalInfoBox).filter(':contains("12.5.2023")');
+});
 //             | Start Date |
 
 //     Scenario: User expand Results for a Project
-Given('User opens Landing Page for Project', () => { });
-When('they expand "Results"', () => { });
-Then('they see a list of Results', () => { });
-
-//     Scenario Outline: User Publish a Draft Project
-Given('User opens Landing Page for a Draft Project', () => { });
-And('it has all required fields:', () => { });
-//             | Title                    |
-//             | Coordinating Institution |
-//             | Start Date               |
-//             | Project Manager          |
-And('User has role {string} in the project', () => { });
-When('the User clicks on the Publish Button', () => { });
-Then('the project status is Published', () => { });
-And('the Landing Page is publicly accessible', () => { });
-//         Examples:
-//             | Role            |
-//             | Curator         |
-//             | Project Owner   |
-//             | Project Manager |
+Given('User opens Landing Page for Project', () => {
+});
+When('they expand "Results"', () => {
+    selectProject(userProjectManager);
+    cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).click();
+});
+Then('they see a list of Results', () => {
+    cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).filter(':contains("Results (32)")').within(() => {
+        cy.get('ul').first().within(() => {
+            cy.get('li').should('have.length', 5);
+        });
+    });
+});

@@ -37,6 +37,7 @@ Feature: User My Projects
             | Local Project Manager |
             | Participants          |
 
+    @test
     Scenario: User navigate to My Page and selects Project registrations
         When a User navigate to My Page and selects Project registrations
         Then the User sees all active projects where the User has one of the following roles:

@@ -7,7 +7,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 Given('A User is logged in', () => { });
 And('the User got one of the following roles:', () => {
     cy.login(userProjectManager);
- });
+});
 // | Registrator           |
 // | Project Owner         |
 // | Project Manager       |
@@ -18,9 +18,11 @@ And('the User got one of the following roles:', () => {
 When('a User navigate to My Page and selects Project registrations', () => {
     cy.getDataTestId(dataTestId.header.myPageLink).click();
     cy.getDataTestId(dataTestId.myPage.myProfileAccordion).click();
-    cy.getDataTestId(dataTestId.myPage.myProjectRegistrationsLink).click();
+    cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
 });
-Then('the User sees all active projects where the User has one of the following roles:', () => { });
+Then('the User sees all active projects where the User has one of the following roles:', () => {
+    cy.get('li').should('have.length.above', 0);
+});
 // | Project Owner         |
 // | Project Manager       |
 // | Local Project Manager |
@@ -29,9 +31,15 @@ And('the User has an option to create a new project', () => {
     cy.getDataTestId(dataTestId.myPage.createProjectButton);
 });
 And('the User see a search field to locate projects', () => { });
-And('the User can select a list of Active Projects', () => { });
-And('the User can select a list of Concluded Projects', () => { });
-And('the User can select a list of Draft Projects', () => { });
+And('the User can select a list of Active Projects', () => {
+    cy.getDataTestId(dataTestId.myPage.myProjectRegistrationsOngoingCheckbox).should('be.visible');
+});
+And('the User can select a list of Concluded Projects', () => {
+    cy.getDataTestId(dataTestId.myPage.myProjectRegistrationsConcludedCheckbox).should('be.visible');
+});
+And('the User can select a list of Draft Projects', () => {
+    cy.getDataTestId(dataTestId.myPage.myProjectRegistrationsNotStartedCheckbox).should('be.visible');
+});
 
 // Scenario: User inspects a listed Project
 Given('User navigate to My Page and selects Project registrations', () => {
@@ -41,7 +49,7 @@ Given('User navigate to My Page and selects Project registrations', () => {
 });
 When('the User inspects a listed project', () => {
     cy.get('ul > li').first().as('project');
- });
+});
 Then("the User see can see each Project's:", (info) => {
     const projectInfo = {
         'Title': 'Project for testing',
@@ -81,7 +89,7 @@ Then('the User is presented the Landing Page for the Project', () => {
 });
 
 // Scenario: User Edits a Project in the Project Wizard
-Given('User navigate to My Page and selects Project registrations', () => {});
+Given('User navigate to My Page and selects Project registrations', () => { });
 When('the User activate the option to Edit a project', () => {
     cy.getDataTestId('EditIcon').click();
 });
