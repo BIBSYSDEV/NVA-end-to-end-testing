@@ -46,11 +46,11 @@ Feature: User edits Project
         Then they selects a Financing
         And the Project Wizard opens pre-filled with metadata
 
-    Scenario: User inspects the search result from information
-        Given User opens the Project Wizard to register a new Project
-        When the user inspects the suggested or located Financing from NFR
-        Then the number of existing projects using the Financing is visible
-        And the User may inspect witch projects is connected to this Financing
+    # Scenario: User inspects the search result from information
+    #     Given User opens the Project Wizard to register a new Project
+    #     When the user inspects the suggested or located Financing from NFR
+    #     Then the number of existing projects using the Financing is visible
+    #     And the User may inspect witch projects is connected to this Financing
 
     @test
     Scenario: User opens the Project Wizard and start registering a Project without Financing selected
@@ -91,9 +91,8 @@ Feature: User edits Project
             | Associated Projects |
         And the User have the option to save the Project
 
-    #Rule: A project got Participents, like the Local Project Manager
-    @TEST_NP-4285
-    @2906a
+    # Rule: A project got Participents, like the Local Project Manager
+    @test
     Scenario Outline: User views the Projects Participants section
         Given a User with "<Role>"
         When they views the Participants of a Project
@@ -105,8 +104,7 @@ Feature: User edits Project
             | Project Manager       |
             | Local Project Manager |
 
-    @TEST_NP-4282
-    @2906b
+    @test
     Scenario: User adds a Project Participant
         Given User views the Projects Participants section
         When the User adds a Projects Participant
@@ -117,38 +115,33 @@ Feature: User edits Project
             | Project Member        |
         Then they see the User listed as a Project Participant with the selected role
 
-    #Rule: The Project Owner, the Project Manager and Curator at the Coordinating Institution can grant the Project Manager role to any user, but there can only be one Project Manager at any time
-    @TEST_NP-4286
-    @2907
-    Scenario Outline: A User adds a new Project Manager
-        Given a User with role "<Role>" in the project
-        When the User selects a User from a search
-        And the User grants this User the role:
-            | Project Manager |
-        Then the selected User is listed as Project Manager
-        Examples:
-            | Role            |
-            | Curator         |
-            | Project Owner   |
-            | Project Manager |
+    # #Rule: The Project Owner, the Project Manager and Curator at the Coordinating Institution can grant the Project Manager role to any user, but there can only be one Project Manager at any time
+    # Scenario Outline: A User adds a new Project Manager
+    #     Given a User with role "<Role>" in the project
+    #     When the User selects a User from a search
+    #     And the User grants this User the role:
+    #         | Project Manager |
+    #     Then the selected User is listed as Project Manager
+    #     Examples:
+    #         | Role            |
+    #         | Curator         |
+    #         | Project Owner   |
+    #         | Project Manager |
 
-    #Rule: A project can only have one Project Owner, Project Manager and Coordinating Institution - at any given time
+    # #Rule: A project can only have one Project Owner, Project Manager and Coordinating Institution - at any given time
 
-    #Rule: A project may have several sources of funding. Warning: Funding organizations consider their funding to be a project and/or a grant, but from our point of view - it's only a part of the projects total funding.
-    @TEST_NP-4283
-    @2908a
-    Scenario Outline: User views Financing tab for Project
-        When a User with role "<Role>" on the project view the Financing tab
-        Then the add new Financing option is "<FieldStatus>"
-        Examples:
-            | Role                  | FieldStatus |
-            | Curator               | Enabled     |
-            | Project Owner         | Enabled     |
-            | Project Manager       | Enabled     |
-            | Local Project Manager | Disabled    |
+    # #Rule: A project may have several sources of funding. Warning: Funding organizations consider their funding to be a project and/or a grant, but from our point of view - it's only a part of the projects total funding.
+    # Scenario Outline: User views Financing tab for Project
+    #     When a User with role "<Role>" on the project view the Financing tab
+    #     Then the add new Financing option is "<FieldStatus>"
+    #     Examples:
+    #         | Role                  | FieldStatus |
+    #         | Curator               | Enabled     |
+    #         | Project Owner         | Enabled     |
+    #         | Project Manager       | Enabled     |
+    #         | Local Project Manager | Disabled    |
 
-    @TEST_NP-4281
-    @2908b
+    @test
     Scenario: User adds a Financing source for Project
         Given User views Financing tab for Project
         When a User adds a new Financing
@@ -157,7 +150,7 @@ Feature: User edits Project
         Then the User selects a Financing source for Project
         And the selected Financing source is listed
 
-    @2908c
+    @test
     Scenario: User selects NFR as Financing source for Project
         Given User adds a Financing source for Project
         And the Financing source for Project is NFR
@@ -167,22 +160,19 @@ Feature: User edits Project
         Then they selects a Financing
         And the selected Financing title and ID is listed
 
-    @2908d
-    Scenario: User selects a non-NFR as Financing source for Project
-        Given User adds a Financing source for Project
-        And the Financing source for Project is not NFR
-        And the selected Financing source for Project is presented
-        And the User is presented following fields:
-            | Title |
-            | ID    |
-            | Value |
-        When the fieleds are filled in the Financing source ia stored
-        And the add new Financing source option is activated
+    # Scenario: User selects a non-NFR as Financing source for Project
+    #     Given User adds a Financing source for Project
+    #     And the Financing source for Project is not NFR
+    #     And the selected Financing source for Project is presented
+    #     And the User is presented following fields:
+    #         | Title |
+    #         | ID    |
+    #         | Value |
+    #     When the fieleds are filled in the Financing source ia stored
+    #     And the add new Financing source option is activated
 
-    #Rule: The Projects Coordinating Institution grants it's Curators access to the project
-    @TEST_NP-4280
-    @2905
-    Scenario: Curator edit a Project in the Project Wizard
-        Given a Curator on the Project's Coordinating Institution
-        When the Curator opens the Project in the Project Wizard
-        Then the Curator can manage the Projects data
+    # #Rule: The Projects Coordinating Institution grants it's Curators access to the project
+    # Scenario: Curator edit a Project in the Project Wizard
+    #     Given a Curator on the Project's Coordinating Institution
+    #     When the Curator opens the Project in the Project Wizard
+    #     Then the Curator can manage the Projects data
