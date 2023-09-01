@@ -8,6 +8,9 @@ const messageTypes = {
   'DOI': 'DoiRequests',
 };
 
+const filename = 'example.txt';
+const registrationTitle = 'Support message registration';
+
 Before(() => {
   cy.login(userCurator2);
 });
@@ -176,6 +179,16 @@ const curatorAnswer = 'Test Curator answered';
 
 // Scenario: User gets an answer to a Support Request
 When('the Curator sends an answer of type "Support"', () => {
+  cy.login(userMessages);
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(filename, registrationTitle);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
+  cy.getDataTestId('message-field').last().type('Test message');
+  cy.getDataTestId('send-button').last().click();
+  cy.contains('Message sent');
+
+  cy.login(userCurator2);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
