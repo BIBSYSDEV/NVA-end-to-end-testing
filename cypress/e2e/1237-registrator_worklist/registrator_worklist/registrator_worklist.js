@@ -6,6 +6,9 @@ const doiRequests = 'DoiRequests';
 const publishingRequests = 'Publishing Requests';
 const supportRequests = 'Support Requests';
 
+const filename = 'example.txt';
+const registrationTitle = 'Registration with messages';
+
 const filterMessages = ((messageType) => {
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).then($button => {
     const publishingRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
@@ -31,6 +34,18 @@ const filterMessages = ((messageType) => {
 //     Scenario Outline: Creator opens My Messages
 Given('that the user is logged in as Creator', () => {
   cy.login(userMessages);
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(filename, registrationTitle);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
+  cy.getDataTestId('message-field').last().type('Test message');
+  cy.getDataTestId('send-button').last().click();
+  cy.contains('Message sent');
+  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
 });
 When('they click the menu item My Messages', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
@@ -66,20 +81,6 @@ And("they see that items' status is one of:", (dataTable) => {
 //             | Publishing Requests | Approved, Rejected, Requested |
 //             | Support Requests | Pending, Resolved             |
 And('they see that each item in the list is expandable', () => { });
-
-//     Scenario: Creator views details of an item in the Messages list
-//         Given that the Creator opens My Messages
-//         When they expand an item
-//         Then they see the item's Publication title
-//         And they see a list of Messages between Creator and Curator with fields:
-//             | Message   |
-//             | Submitter |
-//             | Date      |
-//         And they see an input field for Answer
-//         And they see buttons
-//             | Send Answer       |
-//             | Go to Publication |
-//             | Archive           |
 
 //     Scenario: Creator closes a message
 Given('that the Creator Opens a message from My Messages', () => {
