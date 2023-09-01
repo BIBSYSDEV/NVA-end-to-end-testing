@@ -187,6 +187,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getDataTestId('message-field').last().type('Test message');
   cy.getDataTestId('send-button').last().click();
   cy.contains('Message sent');
+  cy.wait(10000);
 
   cy.login(userCurator2);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
