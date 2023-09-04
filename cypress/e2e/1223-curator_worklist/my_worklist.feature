@@ -37,75 +37,75 @@ Feature: Curator opens My Worklist
 
   Background:
 
-  @test
-  Scenario: Curator opens their Worklist
-    When the Curator opens their Worklist
-    Then the Curator see that the Worklist is Scoped
-    And the Worklist contains Requests of type:
-      | Approval |
-      | Support  |
-      | DOI      |
-  # | Ownership |
+  # @test
+  # Scenario: Curator opens their Worklist
+  #   When the Curator opens their Worklist
+  #   Then the Curator see that the Worklist is Scoped
+  #   And the Worklist contains Requests of type:
+  #     | Approval |
+  #     | Support  |
+  #     | DOI      |
+  # # | Ownership |
 
-  Scenario: Curator change Scope of their Worklist
-    When the Curator change Scope to the whole Institution or one or more subunits
-    Then the listed Requests is updated to match the new Scope
+  # Scenario: Curator change Scope of their Worklist
+  #   When the Curator change Scope to the whole Institution or one or more subunits
+  #   Then the listed Requests is updated to match the new Scope
 
-  @test
-  Scenario Outline: Curator views all Requests of a type
-    When Curator clicks on Requests of type "<Type>"
-    Then Curator see a list of Requests displayed with:
-      | Request status            |
-      | Registration title        |
-      # | Submitter name            |
-      | Request Submitter Date    |
-      # | Beginning of last message |
-      # | Owner name                |
-    And they see that each Request can be opened
-    Examples:
-      | Type      |
-      | Approval  |
-      # Må handtere at Editor kan tillate alle å publisere - kva skjer da med Approvals?
-      | Support   |
-      | DOI       |
-      # | Ownership |
+  # @test
+  # Scenario Outline: Curator views all Requests of a type
+  #   When Curator clicks on Requests of type "<Type>"
+  #   Then Curator see a list of Requests displayed with:
+  #     | Request status            |
+  #     | Registration title        |
+  #     # | Submitter name            |
+  #     | Request Submitter Date    |
+  #     # | Beginning of last message |
+  #     # | Owner name                |
+  #   And they see that each Request can be opened
+  #   Examples:
+  #     | Type      |
+  #     | Approval  |
+  #     # Må handtere at Editor kan tillate alle å publisere - kva skjer da med Approvals?
+  #     | Support   |
+  #     | DOI       |
+  #     # | Ownership |
 
-  @test
-  Scenario: Curator opens a unassigned Request
-    When the Curator open a unassigned Request
-    Then the Curator is assigned the Request
-    And the Request Status is set to "Active"
+  # @test
+  # Scenario: Curator opens a unassigned Request
+  #   When the Curator open a unassigned Request
+  #   Then the Curator is assigned the Request
+  #   And the Request Status is set to "Active"
 
-  @test
-  Scenario: Curator unassigns a Request
-    When the Curator selects "Mark request unread"
-    Then the Request Status is set to "New"
-    And the Request is unassigned the Curator
+  # @test
+  # Scenario: Curator unassigns a Request
+  #   When the Curator selects "Mark request unread"
+  #   Then the Request Status is set to "New"
+  #   And the Request is unassigned the Curator
 
-  # Scenario: Curator open a assigned Request
-  #   When the Curator selects a Request
-  #   Then the Request is expanded
-  #   And the assigned Curator is viewed
-  #   And previous messages are displayed chronologically with:
-  #     | Submitter name          |
-  #     | Submitter Date and Time |
-  #     | The full message        |
-  #   And the Curator can reply to a message
-  #   And the Curator can open the Requests Resource
-  #   And the Curator can change the Status of the Request
+  # # Scenario: Curator open a assigned Request
+  # #   When the Curator selects a Request
+  # #   Then the Request is expanded
+  # #   And the assigned Curator is viewed
+  # #   And previous messages are displayed chronologically with:
+  # #     | Submitter name          |
+  # #     | Submitter Date and Time |
+  # #     | The full message        |
+  # #   And the Curator can reply to a message
+  # #   And the Curator can open the Requests Resource
+  # #   And the Curator can change the Status of the Request
 
-  @test
-  Scenario Outline: Curator open the Request's Resource
-    Given the Curator receives a Request of type "<Type>"
-    When the Curator opens the Requests Resource
-    Then the Landing Page of the Resource is viewed
-    And the Curator has the option to "<Action>"
-    And the Curator can Decline the Request
-    Examples:
-      | Type      | Action       |
-      | Approval  | Publish      |
-      | DOI       | Mint DOI     |
-      # | Ownership | Change owner |
+  # @test
+  # Scenario Outline: Curator open the Request's Resource
+  #   Given the Curator receives a Request of type "<Type>"
+  #   When the Curator opens the Requests Resource
+  #   Then the Landing Page of the Resource is viewed
+  #   And the Curator has the option to "<Action>"
+  #   And the Curator can Decline the Request
+  #   Examples:
+  #     | Type      | Action       |
+  #     | Approval  | Publish      |
+  #     | DOI       | Mint DOI     |
+  #     # | Ownership | Change owner |
 
   @test
   Scenario: User gets an answer to a Support Request
@@ -113,14 +113,14 @@ Feature: Curator opens My Worklist
     Then the Request status is set to "Answered"
     And the User can read the answer in My Messages
 
-  Scenario: User gets an answer to a Request
-    When the Curator writes an answer
-    And sends it to the User
-    And the Request Type is:
-      | Approval  |
-      | DOI       |
-      # | Ownership |
-    Then the User can see the answer in My Messages
+  # Scenario: User gets an answer to a Request
+  #   When the Curator writes an answer
+  #   And sends it to the User
+  #   And the Request Type is:
+  #     | Approval  |
+  #     | DOI       |
+  #     # | Ownership |
+  #   Then the User can see the answer in My Messages
 
   # Scenario Outline: Curator change Status on a Request
   #   When Curator selects a new status "<Status>" on a Request

@@ -10,6 +10,11 @@ export const dataTestId = {
       checkboxIssn: 'duplicate-search-issn-checkbox',
       checkboxTitle: 'duplicate-search-title-checkbox',
       checkboxYear: 'duplicate-search-year-checkbox',
+      filter: {
+        importedRadio: 'imported-radio',
+        notImportedRadio: 'not-imported-radio',
+        notApplicableRadio: 'not-applicable-radio',
+      },
       resetButton: 'duplicate-search-reset-button',
       resultItem: 'central-import-result-item',
       searchButton: 'duplicate-search-retry-button',
@@ -466,14 +471,22 @@ export const dataTestId = {
     researchProfileLink: 'research-profile-link',
   },
   tasksPage: {
+    nvi: {
+      statusFilter: {
+        approvedCheckbox: 'approved-checkbox',
+        pendingCheckbox: 'pending-checkbox',
+        rejectedCheckbox: 'rejected-checkbox',
+      },
+    },
+    nviAccordion: 'nvi-accordion',
     userDialogAccordion: 'user-dialog-accordion',
     searchMode: {
       allUserDialogsButton: 'all-user-dialogs-button',
       myUserDialogsButton: 'my-user-dialogs-button',
     },
     statusSearch: {
-      closedCheckbox: 'new-status-checkbox',
-      completedCheckbox: 'new-status-checkbox',
+      closedCheckbox: 'closed-status-checkbox',
+      completedCheckbox: 'completed-status-checkbox',
       newCheckbox: 'new-status-checkbox',
       pendingCheckbox: 'pending-status-checkbox',
     },
