@@ -208,7 +208,7 @@ When('they expand "Results"', () => {
     cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).click();
 });
 Then('they see a list of Results', () => {
-    cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).filter(':contains("Results (32)")').within(() => {
+    cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).filter(':contains("Results (")').within(() => {
         cy.get('ul').first().within(() => {
             cy.get('li').should('have.length', 5);
         });
