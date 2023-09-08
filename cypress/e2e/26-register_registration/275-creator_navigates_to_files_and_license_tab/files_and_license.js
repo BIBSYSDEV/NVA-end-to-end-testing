@@ -106,10 +106,10 @@ Given('Creator adds a file', () => {
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });
 When('they see the file in the list of files', () => {
-  cy.getDataTestId(uploaded-file-row).filter(`:contains(${fileName})`).should('be.visible');
+  cy.getDataTestId('uploaded-file-row').filter(`:contains(${fileName})`).should('be.visible');
 });
 Then('they can see information about:', (dataTable) => {
-  cy.getDataTestId(uploaded-file-row)
+  cy.getDataTestId('uploaded-file-row')
     .filter(`:contains(${fileName})`)
     .within(() => {
       cy.testDataTestidList(dataTable, fileFields);
@@ -127,10 +127,10 @@ Given('Creator open a Registration with a file', () => {
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });
 And('navigates to Files and License tab', () => {
-  cy.getDataTestId(uploaded-file-row).filter(`:contains(${fileName})`).should('exist');
+  cy.getDataTestId('uploaded-file-row').filter(`:contains(${fileName})`).should('exist');
 });
 When('they remove a file', () => {
-  cy.getDataTestId(uploaded-file-row)
+  cy.getDataTestId('uploaded-file-row')
     .filter(`:contains(${fileName})`)
     .within(() => {
       cy.get('[data-testid=CancelIcon]').click();
@@ -138,5 +138,5 @@ When('they remove a file', () => {
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
 });
 Then('they no longer see the file in the list of files', () => {
-  cy.getDataTestId(uploaded-file-row).should('not.exist');
+  cy.getDataTestId('uploaded-file-row').should('not.exist');
 });
