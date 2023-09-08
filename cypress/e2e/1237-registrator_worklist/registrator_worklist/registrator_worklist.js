@@ -26,7 +26,7 @@ const filterMessages = ((messageType) => {
     ((supportFilter && !(messageType === supportRequests)) || (!supportFilter && messageType === supportRequests)) &&
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
   });
-};
+});
 
 //     Scenario Outline: Creator opens My Messages
 Given('that the user is logged in as Creator', () => {
