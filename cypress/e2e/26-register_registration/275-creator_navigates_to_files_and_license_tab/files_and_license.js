@@ -95,7 +95,7 @@ When('they add a file to the File upload widget', () => {
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });
 Then('they can see the file in the list of files', () => {
-  cy.getDataTestId(uploaded-file-row).filter(`:contains(${fileName})`).should('be.visible');
+  cy.getDataTestId('uploaded-file-row').filter(`:contains(${fileName})`).should('be.visible');
 });
 
 // Scenario: Creator sees information about file
