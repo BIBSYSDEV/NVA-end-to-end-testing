@@ -8,6 +8,9 @@ const messageTypes = {
   'DOI': 'DoiRequests',
 };
 
+const filename = 'example.txt';
+const registrationTitle = 'Support message registration';
+
 Before(() => {
   cy.login(userCurator2);
 });
@@ -176,6 +179,17 @@ const curatorAnswer = 'Test Curator answered';
 
 // Scenario: User gets an answer to a Support Request
 When('the Curator sends an answer of type "Support"', () => {
+  cy.login(userMessages);
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(filename, registrationTitle);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
+  cy.getDataTestId('message-field').last().type('Test message');
+  cy.getDataTestId('send-button').last().click();
+  cy.contains('Message sent');
+  cy.wait(10000);
+
+  cy.login(userCurator2);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
@@ -187,9 +201,8 @@ Then('the Request status is set to "Answered"', () => {
   cy.login(userMessages);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.filterMessages('Support Requests');
-  cy.getDataTestId(dataTestId.tasksPage.statusSearch.newCheckbox).first().click();
-  cy.getDataTestId(dataTestId.tasksPage.statusSearch.pendingCheckbox).click();
-  cy.getDataTestId(dataTestId.tasksPage.statusSearch.completedCheckbox).siblings().next().next().first().click();
+  cy.getDataTestId(dataTestId.tasksPage.statusSearch.completedCheckbox).click();
+  cy.getDataTestId(dataTestId.tasksPage.statusSearch.closedCheckbox).click();
 })
 And('the User can read the answer in My Messages', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).parent().parent().filter(`:contains(${curatorAnswer})`);
