@@ -656,5 +656,41 @@
     "contributor": "test-user-edit-registration@test.no",
     "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Edit registration not owner"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-favorite@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-favorite@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Favorite result 1"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-favorite@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-favorite@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Favorite result 2"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-favorite@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-favorite@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Favorite result 3"
   }
 ]

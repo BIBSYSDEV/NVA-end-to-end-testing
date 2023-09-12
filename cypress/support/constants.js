@@ -101,6 +101,7 @@ export const userCancelDelete = 'test-user-cancel-delete@test.no';
 export const userTestMenu = 'test-user-menu@test.no';
 export const userEditRegistration = "test-user-edit-registration@test.no"
 export const userVisualArts = "test-user-visual-arts@test.no"
+export const userFavorite = "test-user-favorite@test.no"
 
 const userData = {
   name: '',
@@ -202,5 +203,6 @@ export const user = {
   [userTestMenu]: { ...userData, name: 'TestUser, Menu' },
   [userEditRegistration]: { ...userData, name: 'TestUser, Edit registration' },
   [userVisualArts]: { ...userData, name: 'TestUser, Visual arts' },
+  [userFavorite]: { ...userData, name: 'TestUser, Favorite' },
 
 };
