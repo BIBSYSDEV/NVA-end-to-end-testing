@@ -122,6 +122,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
     tempPassword = 'P%1234abcd'
 
     client = boto3.client('cognito-idp')
+    print(f'Username: {username}')
 
     try:
         response = client.admin_get_user(
