@@ -1161,7 +1161,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Favorite 1",
-    "nin": "21053826617",
+    "nin": "25083949050",
     "username": "test-user-favorite-1@test.no",
     "role": [{ "type": "Role", "rolename": "Creator" }],
     "orcid": false,
@@ -1171,7 +1171,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Favorite 2",
-    "nin": "16085314428",
+    "nin": "02111099947",
     "username": "test-user-favorite-2@test.no",
     "role": [{ "type": "Role", "rolename": "Creator" }],
     "orcid": false,
