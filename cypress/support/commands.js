@@ -228,7 +228,7 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 Cypress.Commands.add('selectRegistration', (title, type) => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
-  if(type === 'published') {
+  if (type === 'published') {
     cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
     cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).click();
   }
@@ -448,9 +448,9 @@ Cypress.Commands.add('checkField', (field) => {
 Cypress.Commands.add('checkContributors', (contributorRoles) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
   cy.get(`[data-testid=${dataTestId.common.pagination}]`).within(() => {
-    cy.get('.MuiBox-root > .MuiInputBase-root > .MuiSelect-select').click({force: true});
+    cy.get('.MuiBox-root > .MuiInputBase-root > .MuiSelect-select').click({ force: true });
   })
-  cy.get('[data-value="100"]').click({force: true});
+  cy.get('[data-value="100"]').click({ force: true });
   let roleIndex = 0;
   contributorRoles.forEach((role) => {
     roleIndex++;

@@ -8,6 +8,7 @@ Feature: User marks results as favorites
     And they have an option to mark them as a favorite
 
   @test
+  @second
   Scenario: User marks a result as a favorite
     Given the User sees own results on their User profile
     When they mark a result as a favorite
@@ -15,6 +16,7 @@ Feature: User marks results as favorites
     And the favorite results are displayed at the top of the list of results
 
   @test
+  @third
   Scenario: User unmarks a result as a favorite
     Given the User sees own results on their User profile
     And they have results marked as favorites
