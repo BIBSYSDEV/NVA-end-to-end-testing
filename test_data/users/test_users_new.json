@@ -1157,5 +1157,25 @@
     "orcid": false,
     "orgNumber": "20202",
     "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Favorite",
+    "nin": "21053826617",
+    "username": "test-user-favorite-1@test.no",
+    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Favorite",
+    "nin": "16085314428",
+    "username": "test-user-favorite-2@test.no",
+    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
   }
 ]

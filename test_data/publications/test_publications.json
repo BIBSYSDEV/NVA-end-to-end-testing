@@ -692,5 +692,77 @@
     "contributor": "test-user-favorite@test.no",
     "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Favorite result 3"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-favorite-1@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-favorite-1@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Favorite result 4"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-favorite-1@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-favorite-1@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Favorite result 5"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-favorite-1@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-favorite-1@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Favorite result 6"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-favorite-2@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-favorite-2@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Favorite result 7"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-favorite-2@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-favorite-2@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Favorite result 8"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-favorite-2@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-favorite-2@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Favorite result 9"
   }
 ]
