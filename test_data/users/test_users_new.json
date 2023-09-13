@@ -1160,7 +1160,7 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "Favorite",
+    "firstName": "Favorite 1",
     "nin": "21053826617",
     "username": "test-user-favorite-1@test.no",
     "role": [{ "type": "Role", "rolename": "Creator" }],
@@ -1170,7 +1170,7 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "Favorite",
+    "firstName": "Favorite 2",
     "nin": "16085314428",
     "username": "test-user-favorite-2@test.no",
     "role": [{ "type": "Role", "rolename": "Creator" }],
