@@ -1177,5 +1177,15 @@
     "orcid": false,
     "orgNumber": "20202",
     "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Delete Registrations",
+    "nin": "16122120450",
+    "username": "test-user-delete-registrations@test.no",
+    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "orcid": false,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
   }
 ]

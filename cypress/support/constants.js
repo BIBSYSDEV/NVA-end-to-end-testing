@@ -99,11 +99,12 @@ export const userProjectManager = 'test-user-project-manager@test.no';
 export const userMessages = 'test-user-messages@test.no';
 export const userCancelDelete = 'test-user-cancel-delete@test.no';
 export const userTestMenu = 'test-user-menu@test.no';
-export const userEditRegistration = "test-user-edit-registration@test.no"
-export const userVisualArts = "test-user-visual-arts@test.no"
-export const userFavorite = "test-user-favorite@test.no"
-export const userFavorite1 = "test-user-second-favorite@test.no"
-export const userFavorite2 = "test-user-third-favorite@test.no"
+export const userEditRegistration = 'test-user-edit-registration@test.no';
+export const userVisualArts = 'test-user-visual-arts@test.no';
+export const userFavorite = 'test-user-favorite@test.no';
+export const userFavorite1 = 'test-user-second-favorite@test.no';
+export const userFavorite2 = 'test-user-third-favorite@test.no';
+export const userDeleteRegistrations = 'test-user-delete-registrations@test.no';
 
 const userData = {
   name: '',
@@ -208,5 +209,5 @@ export const user = {
   [userFavorite]: { ...userData, name: 'TestUser, Favorite' },
   [userFavorite1]: { ...userData, name: 'TestUser, Second Favorite' },
   [userFavorite2]: { ...userData, name: 'TestUser, Third Favorite' },
-
+  [userDeleteRegistrations]: { ...userData, name: 'TestUser, Delete Registrations' },
 };
