@@ -1,5 +1,5 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userEditor } from '../../../support/constants';
+import { userSecondEditor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Editor opens Editor Administration
@@ -28,7 +28,7 @@ const menuItems = {
 
 //     Background:
 Given('a logged in Editor', () => {
-  cy.login(userEditor);
+  cy.login(userSecondEditor);
 });
 
 // Scenario: Editor opens institutions configuration
@@ -53,7 +53,7 @@ And('they may also see', () => { });
 // | Institution's Feide domain     |
 And('the Editor sees a menu with following options', (dataTable) => {
   dataTable.rawTable.forEach((menuItem) => {
-    if(menuItem[0] !== "Curator's responsibility") {
+    if (menuItem[0] !== "Curator's responsibility") {
       cy.getDataTestId(menuItems[menuItem[0]]);
     }
   });
