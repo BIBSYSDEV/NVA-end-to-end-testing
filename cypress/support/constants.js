@@ -63,6 +63,7 @@ export const userResourceTypeReport = 'test-user-resource-type-report@test.no';
 export const userResourceTypeArchitecture = 'test-user-resource-type-architecture@test.no';
 export const userViewRegistration = 'test-user-view-registration@test.no';
 export const userEditor = 'test-user-editor@test.no';
+export const userThirdEditor = 'test-user-third-editor@test.no';
 export const userMyRegistrations = 'test-user-my-registrations@test.no';
 export const userFetchDoi = 'test-user-doi-fetch@test.no';
 export const userContributor = 'test-user-contributor@test.no';
@@ -168,6 +169,7 @@ export const user = {
   [userResourceTypeArchitecture]: { ...userData, name: 'TestUser, Resource type architecture' },
   [userViewRegistration]: { ...userData, name: 'TestUser, View registration' },
   [userEditor]: { ...userData, name: 'TestUser, Editor' },
+  [userThirdEditor]: { ...userData, name: 'TestUser, Third Editor' },
   [userMyRegistrations]: { ...userData, name: 'TestUser, MyRegistrations' },
   [userFetchDoi]: { ...userData, name: 'TestUser, Fetch Doi' },
   [userContributor]: { ...userData, name: 'TestUser, Contributor' },
