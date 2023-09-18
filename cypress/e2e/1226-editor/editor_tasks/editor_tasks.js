@@ -185,6 +185,7 @@ Then('the publications policy is:', () => {
 
 // Scenario: Editor defines publishing rights
 Given('a Editor views the Editor page', () => {
+  cy.login(userSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
@@ -207,6 +208,7 @@ And('the Editor is notified that a new policy is activated', () => {
       cy.getDataTestId('snackbar-success');
     }
   });
+  cy.wait(3000);
 });
 
 const vocabularies = {
