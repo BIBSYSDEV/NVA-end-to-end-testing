@@ -57,7 +57,6 @@ Feature: Creator navigates to Files and License tab
     When they add a file to the File upload widget
     Then they can see the file in the list of files
 
-  @TEST_NP-13337
   @test
   Scenario: Creator sees information about file
     Given Creator adds a file
@@ -66,7 +65,6 @@ Feature: Creator navigates to Files and License tab
       # | Version      |
       | Terms of use |
 
-  @TEST_NP-12277
   @test
   Scenario: Creator removes a file
     Given Creator open a Registration with a file

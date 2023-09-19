@@ -1,6 +1,5 @@
 Feature: Creator adds a Contributor
 
-    @TEST_NP-3992
     @test
     Scenario Outline: Creator opens the Add Contributor Dialog
         Given Creator navigates to Contributors tab

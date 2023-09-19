@@ -32,6 +32,7 @@ Feature: Scenarios for search
             | Facet         |
             | Resource type |
             | Institution   |
+            | Contributor   |
 
     @test
     Scenario: A User adds a filter to search results

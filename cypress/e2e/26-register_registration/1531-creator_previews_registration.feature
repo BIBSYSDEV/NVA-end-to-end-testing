@@ -1,8 +1,6 @@
 Feature: Creator previews Registration
 
-    @TEST_NP-3990
     @test
-    @1531
     Scenario: Creator previews Registration
         Given that a Creator views a Registration
         And they navigate to the Files and License tab

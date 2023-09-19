@@ -76,6 +76,7 @@ When('they select the facet for {string}:', (facet) => {
     const facets = {
         'Resource type': dataTestId.startPage.typeFacets,
         'Institution': dataTestId.startPage.institutionFacets,
+        'Contributor': dataTestId.startPage.contributorFacets,
     }
     cy.wrap(facet).as('facet');
     cy.getDataTestId(facets[facet]).within(() => {
@@ -83,12 +84,14 @@ When('they select the facet for {string}:', (facet) => {
     });
 })
 //  | Resource type |
-//  | Institution |
+//  | Institution   |
+//  | Contributor   |
 Then('they see Registrations filtered with the chosen facet', () => {
     cy.get('@facet').then((facet) => {
         const resultCount = {
             'Resource type': 2,
             'Institution': 3,
+            'Contributor': 3,
         }
         cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', resultCount[facet]);
     })

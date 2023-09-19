@@ -1,8 +1,6 @@
 Feature: Creator begins registering a Registration
 
-  @TEST_NP-4016
   @test
-  @443
   Scenario Outline: Creator begins registering a Registration in the Wizard
     Given Creator begins registering a Registration
     And they have selected "<Method>" for starting the Wizard
@@ -14,9 +12,7 @@ Feature: Creator begins registering a Registration
       | Upload file          |
       | Empty Registration   |
 
-  @TEST_NP-4012
   @test
-  @226
   Scenario: Creator begins registering a Registration
     Given that the user is logged in
     And they have Role Creator
@@ -27,9 +23,7 @@ Feature: Creator begins registering a Registration
     And they see an Expansion panel for Link to resource
     And they see an Expansion panel for Empty Registration
 
-  @TEST_NP-4013
   @test
-  @385
   Scenario: Creator begins registration by uploading a file
     Given Creator begins registering a Registration
     When they click Upload file
@@ -39,9 +33,7 @@ Feature: Creator begins registering a Registration
     And they see the Remove button
     And they see the Start button is enabled
 
-  @TEST_NP-4014
   @test
-  @228/439/440/441/441/442/2208/2370
   Scenario Outline: Creator begins registering with a Link from a Source
     Given Creator begins registering a Registration
     And they expand the Expansion panel for Link to resource
@@ -59,8 +51,6 @@ Feature: Creator begins registering a Registration
       | schema.org                                         | https://e24.no/boers-og-finans/i/AdyrPM/syv-av-tangens-11-referanser-deltok-paa-luksusseminaret |
 
   @test
-  @TEST_NP-4015
-  @3393
   Scenario: Creator begins registration with an empty Registration
     Given Creator begins registering a Registration
     When they expand the Expansion panel for Empty Registration
