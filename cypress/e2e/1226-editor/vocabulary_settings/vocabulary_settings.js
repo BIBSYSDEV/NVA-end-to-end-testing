@@ -27,7 +27,7 @@ Given('a logged in Editor', () => {
     cy.login(userEditor);
 })
 
-// Scenario Outline: Editor sees fields for Vocabulary settings
+// Scenario: Editor sees fields for Vocabulary settings
 Given('Editor opens Editor Administration', () => {
     cy.getDataTestId(dataTestId.header.editorLink).click();
 })
