@@ -1202,5 +1202,28 @@
     "orcid": false,
     "orgNumber": "20202",
     "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "NVI-curator",
+    "nin": "02046038382",
+    "username": "test-user-nvi-curator@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      },
+      {
+        "type": "Role",
+        "rolename": "NVI-curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "5991",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
   }
 ]

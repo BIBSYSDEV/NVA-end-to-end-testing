@@ -106,6 +106,7 @@ export const userFavorite = 'test-user-favorite@test.no';
 export const userFavorite1 = 'test-user-second-favorite@test.no';
 export const userFavorite2 = 'test-user-third-favorite@test.no';
 export const userDeleteRegistrations = 'test-user-delete-registrations@test.no';
+export const userNviCurator = 'test-user-nvi-curator@test.no';
 
 const userData = {
   name: '',
@@ -212,4 +213,5 @@ export const user = {
   [userFavorite1]: { ...userData, name: 'TestUser, Second Favorite' },
   [userFavorite2]: { ...userData, name: 'TestUser, Third Favorite' },
   [userDeleteRegistrations]: { ...userData, name: 'TestUser, Delete Registrations' },
+  [userNviCurator]: { ...userData, name: 'TestUser, Nvi-curator' },
 };
