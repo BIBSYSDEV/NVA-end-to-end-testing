@@ -1219,7 +1219,7 @@
       },
       {
         "type": "Role",
-        "rolename": "NVI-curator"
+        "rolename": "Nvi-curator"
       }
     ],
     "orcid": true,

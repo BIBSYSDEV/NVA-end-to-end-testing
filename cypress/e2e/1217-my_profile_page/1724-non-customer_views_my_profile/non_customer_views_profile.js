@@ -1,7 +1,7 @@
 import { userNonCustomer } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
-Given('that a User is logged in with Feide', () => {
+Given('that a User is logged in', () => {
   cy.login(userNonCustomer);
 });
 And('their Institution is not a Customer of NVA', () => {});
