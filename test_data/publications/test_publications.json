@@ -811,6 +811,18 @@
     "status": "DRAFT",
     "contributor": "test-user-nvi-curator@test.no",
     "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
-    "title": "NVI Candidate"
+    "title": "NVI Candidate 1"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-nvi-curator@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-nvi-curator@test.no",
+    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "title": "NVI Candidate 2"
   }
 ]
