@@ -808,7 +808,7 @@
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-nvi-curator@test.no",
-    "status": "DRAFT",
+    "status": "PUBLISHED",
     "contributor": "test-user-nvi-curator@test.no",
     "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "title": "NVI Candidate 1"
@@ -820,7 +820,7 @@
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-nvi-curator@test.no",
-    "status": "DRAFT",
+    "status": "PUBLISHED",
     "contributor": "test-user-nvi-curator@test.no",
     "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "title": "NVI Candidate 2"
