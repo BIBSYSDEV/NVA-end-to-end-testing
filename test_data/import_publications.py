@@ -15,8 +15,8 @@ publications_tablename = ssm.get_parameter(Name='/test/ResourceTable',
                                            WithDecryption=False)['Parameter']['Value']
 user_tablename = ssm.get_parameter(Name='/test/UserTable',
                                    WithDecryption=False)['Parameter']['Value']
-# nvi_tablename = ssm.get_parameter(Name='/test/NviTable',
-#                                    WithDecryption=False)['Parameter']['Value']
+nvi_tablename = ssm.get_parameter(Name='/test/NviTable',
+                                   WithDecryption=False)['Parameter']['Value']
 s3_bucket_name = ssm.get_parameter(Name='/test/ResourceS3Bucket',
                                    WithDecryption=False)['Parameter']['Value']
 STAGE = ssm.get_parameter(Name='/test/Stage',
@@ -218,21 +218,21 @@ def delete_publications():
                     STRING: primary_sort_key
                 }
             })
-    # candidates = scan_candidates()
-    # for candidate in candidates:
-    #     primary_partition_key = candidate['PrimaryKeyHashKey'][STRING]
-    #     primary_sort_key = candidate['PrimaryKeyRangeKey'][STRING]
-    #     print(f'deleting nvi candidate {primary_partition_key}')
-    #     response = dynamodb_client.delete_item(
-    #         TableName=nvi_tablename,
-    #         Key={
-    #             'PrimaryKeyHashKey': {
-    #                 STRING: primary_partition_key
-    #             },
-    #             'PrimaryKeyRangeKey': {
-    #                 STRING: primary_sort_key
-    #             }
-    #         })
+    candidates = scan_candidates()
+    for candidate in candidates:
+        primary_partition_key = candidate['PrimaryKeyHashKey'][STRING]
+        primary_sort_key = candidate['PrimaryKeyRangeKey'][STRING]
+        print(f'deleting nvi candidate {primary_partition_key}')
+        response = dynamodb_client.delete_item(
+            TableName=nvi_tablename,
+            Key={
+                'PrimaryKeyHashKey': {
+                    STRING: primary_partition_key
+                },
+                'PrimaryKeyRangeKey': {
+                    STRING: primary_sort_key
+                }
+            })
     return
 
 
@@ -285,6 +285,16 @@ def create_publication_data(publication_template, test_publication, username, cu
     print(new_publication['entityDescription']['mainTitle'])
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
+
+    year = date.today().strftime('%Y')
+    month = date.today().strftime('%m')
+    day = date.today().strftime('%d')
+    new_publication['entityDescription']['publicationDate'] = {
+        'type': 'PublicationDate',
+        'year': year,
+        'month': month,
+        'day': day 
+    }
     new_publication['publisher']['id'] = customer
     new_publication['status'] = status
     if 'publisher' in test_publication:
