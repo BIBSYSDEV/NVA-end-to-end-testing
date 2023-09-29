@@ -35,9 +35,10 @@ Then('they can see values for:', (dataTable) => {
     const pad = (value) => `0${value}`.slice(-2);
     const date = new Date();
     const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`
+    
     const values = {
         'Resource Type': 'Academic article',
-        'Publication date': '12/31/2020',
+        'Publication date': dateValue,
         'Title': 'Search result',
         'Contributors': 'Publish registration TestUser',
         'Abstract': 'Abstract',

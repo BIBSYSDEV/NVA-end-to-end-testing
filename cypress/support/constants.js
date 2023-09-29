@@ -106,7 +106,7 @@ export const userFavorite = 'test-user-favorite@test.no';
 export const userFavorite1 = 'test-user-second-favorite@test.no';
 export const userFavorite2 = 'test-user-third-favorite@test.no';
 export const userDeleteRegistrations = 'test-user-delete-registrations@test.no';
-export const userNviCurator = 'test-user-nvi-curator@test.no';
+export const userNviCurator = 'test-user-nvi@test.no';
 
 const userData = {
   name: '',

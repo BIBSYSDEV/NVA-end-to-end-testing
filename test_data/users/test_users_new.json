@@ -1206,16 +1206,12 @@
   {
     "lastName": "TestUser",
     "firstName": "NVI-curator",
-    "nin": "02046038382",
-    "username": "test-user-nvi-curator@test.no",
+    "nin": "11064832362",
+    "username": "test-user-nvi@test.no",
     "role": [
       {
         "type": "Role",
-        "rolename": "Curator"
-      },
-      {
-        "type": "Role",
-        "rolename": "Editor"
+        "rolename": "Creator"
       },
       {
         "type": "Role",
@@ -1223,7 +1219,7 @@
       }
     ],
     "orcid": true,
-    "orgNumber": "5991",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+    "orgNumber": "194",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/194.0.0.0"
   }
 ]

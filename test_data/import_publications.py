@@ -36,6 +36,7 @@ reserve_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/doi'
 create_ticket_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
 update_ticket_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket/{}'
 tickets_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/tickets'
+period_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/scientific-index/period'
 upload_create = upload_endpoint.format(STAGE, 'create')
 upload_prepare = upload_endpoint.format(STAGE, 'prepare')
 upload_complete = upload_endpoint.format(STAGE, 'complete')
@@ -76,10 +77,23 @@ headers = {
     'accept': 'application/json'
 }
 
-
 STRING = 'S'
 MAP = 'M'
 
+year = date.today().strftime('%Y')
+month = date.today().strftime('%m')
+day = date.today().strftime('%d')
+endDate = date(2023, 1, 31)
+endDate = endDate.replace(endDate.year + 1)
+periodEndDate = endDate.strftime('%Y-%m-%dT00:00:00Z')
+
+def set_nvi_period():
+    print(f'Setting NVI periot to {year} - {endDate}')
+    payload = {
+        "publishingYear": year,
+        "reportingDate": periodEndDate
+    }
+    response = requests.post(url=period_endpoint, json=payload, headers=headers)
 
 def map_user_to_arp():
     with open('./users/test_users_new.json') as user_file:
@@ -286,14 +300,11 @@ def create_publication_data(publication_template, test_publication, username, cu
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
 
-    year = date.today().strftime('%Y')
-    month = date.today().strftime('%m')
-    day = date.today().strftime('%d')
     new_publication['entityDescription']['publicationDate'] = {
         'type': 'PublicationDate',
         'year': year,
         'month': month,
-        'day': day 
+        'day': day
     }
     new_publication['publisher']['id'] = customer
     new_publication['status'] = status
@@ -512,6 +523,7 @@ def run():
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
+    set_nvi_period()
     read_customers()
     map_user_to_arp()
     upload_file()

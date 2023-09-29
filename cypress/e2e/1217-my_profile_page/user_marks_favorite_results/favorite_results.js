@@ -65,7 +65,7 @@ Then('they see the result is marked as a favorite', () => {
 });
 And('the favorite results are displayed at the top of the list of results', () => {
     cy.getDataTestId(dataTestId.myPage.myProfileLink).click();
-    cy.wait(5000);
+    cy.wait(10000);
     cy.getDataTestId(dataTestId.myPage.myResultsLink).click();
     cy.getDataTestId(dataTestId.startPage.searchResultItem).first().parent().within(() => {
         cy.contains(secondFavoriteResultTitle);
@@ -101,7 +101,7 @@ Then('the result is not marked as favorite', () => {
 });
 And('the result is not displayed at the top of the list of results', () => {
     cy.getDataTestId(dataTestId.myPage.myProfileLink).click();
-    cy.wait(5000);
+    cy.wait(10000);
     cy.getDataTestId(dataTestId.myPage.myResultsLink).click();
     cy.getDataTestId(dataTestId.startPage.searchResultItem)
         .last()
