@@ -13,7 +13,7 @@ Given('an logged-in Curator at an NVI-Institution', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.wait(10000);
+  cy.wait(30000);
 });
 
 // Scenario: Curator views NVI-report status at own Institution

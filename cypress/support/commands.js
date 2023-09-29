@@ -194,7 +194,10 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
   title = title ? `${title} ${today}` : `Title ${today}`;
   cy.get('[data-testid=registration-title-field]').type(title, { delay: 0 });
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, '01.01.2020');
+  const pad = (value) => `0${value}`.slice(-2);
+  const date = new Date();
+  const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, dateValue);
 
   // Reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });

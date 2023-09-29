@@ -11,6 +11,8 @@ dynamodb_client = boto3.client('dynamodb')
 s3_client = boto3.client('s3')
 ssm = boto3.client('ssm')
 cognito_client = boto3.client('cognito-idp')
+lambda_client = boto3.client('lambda')
+
 publications_tablename = ssm.get_parameter(Name='/test/ResourceTable',
                                            WithDecryption=False)['Parameter']['Value']
 user_tablename = ssm.get_parameter(Name='/test/UserTable',
@@ -25,6 +27,7 @@ USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
 CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
+deleteNviIndexLambda = 'master-pipelines-NvaNvi-1-DeleteNviCandidateIndexH-JCRtwve4nuWF'
 publication_template_file_name = './publications/new_test_registration.json'
 test_publications_file_name = './publications/test_publications.json'
 person_query = 'https://api.{}.nva.aws.unit.no/cristin/person/identityNumber'
@@ -94,6 +97,13 @@ def set_nvi_period():
         "reportingDate": periodEndDate
     }
     response = requests.post(url=period_endpoint, json=payload, headers=headers)
+    print(response)
+
+def reset_nvi_search_index():
+    print('Resetting NVI index...')
+    response = lambda_client.invoke(FunctionName=deleteNviIndexLambda)
+    if response['StatusCode'] != 200:
+        print(response)
 
 def map_user_to_arp():
     with open('./users/test_users_new.json') as user_file:
@@ -520,15 +530,16 @@ def read_customers():
 
 
 def run():
+    reset_nvi_search_index()
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
-    set_nvi_period()
     read_customers()
     map_user_to_arp()
     upload_file()
     delete_publications()
     create_publications()
+    set_nvi_period()
 
 
 if __name__ == '__main__':
