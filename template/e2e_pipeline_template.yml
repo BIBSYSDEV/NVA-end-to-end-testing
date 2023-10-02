@@ -182,6 +182,10 @@ Resources:
                   - 'ssm:getParameters'
                 Effect: Allow
                 Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'lambda:InvokeFunction'
+                Resource: '*'
 
   CodeBuildServiceRole:
     Type: AWS::IAM::Role
