@@ -241,8 +241,8 @@ Resources:
                 Action:
                   - 'lambda:InvokeFunction'
                 Resource:
-                  - !Sub "arn:aws:lambda:eu-west-1:${AWS::AccountId}:function:master-pipelines-NvaSearchApiClientPip-InitHandler-LEwtReql7EUp"
-                  - !Sub "arn:aws:lambda:eu-west-1:${AWS::AccountId}:function:master-pipelines-NvaSearchApi-DeleteIndicesHandler-EKKiXwO7Iu8y"
+                  - !Sub 'arn:aws:lambda:eu-west-1:${AWS::AccountId}:function:master-pipelines-NvaSearchApiClientPip-InitHandler-LEwtReql7EUp'
+                  - !Sub 'arn:aws:lambda:eu-west-1:${AWS::AccountId}:function:master-pipelines-NvaSearchApi-DeleteIndicesHandler-EKKiXwO7Iu8y'
         - PolicyName: e2eTest
           PolicyDocument:
             Version: '2012-10-17'
@@ -287,6 +287,10 @@ Resources:
                   - 'codebuild:BatchGetBuildBatches'
                   - 'codebuild:StopBuild'
                   - 'codebuild:RetryBuild'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'lambda:InvokeFunction'
                 Resource: '*'
 
   TestrunnerRole:
