@@ -15,6 +15,7 @@ export const dataTestId = {
         notImportedRadio: 'not-imported-radio',
         notApplicableRadio: 'not-applicable-radio',
       },
+      importCandidateButton: 'import-candidate-button',
       resetButton: 'duplicate-search-reset-button',
       resultItem: 'central-import-result-item',
       searchButton: 'duplicate-search-retry-button',
@@ -47,6 +48,7 @@ export const dataTestId = {
       shortNameField: 'short-name-field',
     },
     nationalIdentityNumberField: 'national-identity-number-field',
+    nviPeriodsLink: 'nvi-periods-link',
     personAdmin: {
       cristinId: (id) => `cristin-id-${id}`,
       employments: (id) => (id ? `employments-${id}` : 'employments'),
@@ -441,10 +443,12 @@ export const dataTestId = {
   },
   myPage: {
     createProjectButton: 'create-project-button',
+    addPromotedPublicationButton: 'edit-promoted-publication-button',
     messagesAccordion: 'messages-accordion',
     myProfileLink: 'my-profile-link',
     myProfile: {
       cristinIdField: 'cristin-id-field',
+      deleteProfilePictureButton: 'delete-profile-picture-button',
       editPreferredNameButton: 'edit-preferred-name-button',
       fullNameField: 'full-name-field',
       noActiveEmploymentsText: 'no-active-employments-text',
@@ -453,7 +457,11 @@ export const dataTestId = {
       saveProfileChangesButton: 'save-profile-changes-button',
       showFullNinButton: 'show-full-nin-button',
       telephoneField: 'telephone-field',
+      updateProfilePictureButton: 'update-profile-picture-button',
+      uploadProfilePictureButton: 'update-profile-picture-button',
+      removeProfilePictureDialog: 'confirm-remove-profile-picture-dialog',
     },
+    myFieldAndBackgroundLink: 'my-field-and-background-link',
     myProfileAccordion: 'my-profile-accordion',
     myProjectRegistrationsLink: 'my-project-registrations-link',
     myProjectRegistrationsConcludedCheckbox: 'my-project-registrations-concluded-checkbox',
@@ -472,10 +480,19 @@ export const dataTestId = {
   },
   tasksPage: {
     nvi: {
+      dialoguePanel: {
+        noteField: 'note-field',
+        sendNoteButton: 'send-note-button',
+      },
       statusFilter: {
-        approvedCheckbox: 'approved-checkbox',
-        pendingCheckbox: 'pending-checkbox',
-        rejectedCheckbox: 'rejected-checkbox',
+        approvedRadio: 'approved-radio',
+        approvedCollaborationRadio: 'approved-collaboration-radio',
+        assignedRadio: 'assigned-radio',
+        assignedCollaborationRadio: 'assigned-collaboration-radio',
+        pendingRadio: 'pending-radio',
+        pendingCollaborationRadio: 'pending-collaboration-radio',
+        rejectedRadio: 'rejected-radio',
+        rejectedCollaborationRadio: 'rejected-collaboration-radio',
       },
     },
     nviAccordion: 'nvi-accordion',
