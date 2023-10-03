@@ -536,15 +536,15 @@ def read_customers():
 
 def run():
     reset_nvi_search_index()
-    # print('publications...')
+    print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
-    set_nvi_period()
-    # read_customers()
-    # map_user_to_arp()
-    # upload_file()
-    # delete_publications()
-    # create_publications()
+    # set_nvi_period()
+    read_customers()
+    map_user_to_arp()
+    upload_file()
+    delete_publications()
+    create_publications()
 
 
 if __name__ == '__main__':
