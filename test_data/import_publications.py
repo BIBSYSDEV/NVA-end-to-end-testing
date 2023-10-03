@@ -5,7 +5,7 @@ import requests
 import os
 import common
 import time
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 
 dynamodb_client = boto3.client('dynamodb')
 s3_client = boto3.client('s3')
@@ -83,10 +83,14 @@ headers = {
 STRING = 'S'
 MAP = 'M'
 
-year = date.today().strftime('%Y')
-month = date.today().strftime('%m')
-day = date.today().strftime('%d')
-endDate = date(2023, 1, 31)
+today = datetime.now()
+year = today.strftime('%Y')
+month = today.strftime('%m')
+day = today.strftime('%d')
+endYear = today.year
+endDate = date(endYear, 1, 31)
+today = today + timedelta(minutes=+1)
+startDate = today.strftime('%Y-%m-%dT%H:%M:59Z')
 endDate = endDate.replace(endDate.year + 1)
 periodEndDate = endDate.strftime('%Y-%m-%dT00:00:00Z')
 
@@ -94,10 +98,11 @@ def set_nvi_period():
     print(f'Setting NVI periot to {year} - {endDate}')
     payload = {
         "publishingYear": year,
-        "reportingDate": periodEndDate
+        "reportingDate": periodEndDate,
+        "startDate": startDate
     }
     response = requests.post(url=period_endpoint, json=payload, headers=headers)
-    print(response)
+    print(response.__dict__)
 
 def reset_nvi_search_index():
     print('Resetting NVI index...')
@@ -531,15 +536,15 @@ def read_customers():
 
 def run():
     reset_nvi_search_index()
-    print('publications...')
+    # print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
-    read_customers()
-    map_user_to_arp()
-    upload_file()
-    delete_publications()
-    create_publications()
     set_nvi_period()
+    # read_customers()
+    # map_user_to_arp()
+    # upload_file()
+    # delete_publications()
+    # create_publications()
 
 
 if __name__ == '__main__':
