@@ -28,30 +28,30 @@ Feature: Validation of an NVI resource
 	Background:
 		Given an logged-in Curator at an NVI-Institution
 
-	# @test
-	# Scenario: Curator views NVI-report status at own Institution
-	# 	When a Curator uses the option to view the NVI-Report status at own Institution
-	# 	Then the Curator sees a visualization of current progress compared with last year
-	# 	And it contains number of Validated Resources
-	# 	And it contains number of Nominated Resources
-	# 	And it contains number of Candidate Resources
+	@test
+	Scenario: Curator views NVI-report status at own Institution
+		When a Curator uses the option to view the NVI-Report status at own Institution
+		Then the Curator sees a visualization of current progress compared with last year
+		And it contains number of Validated Resources
+		And it contains number of Nominated Resources
+		And it contains number of Candidate Resources
 
 
 	# Scenario: Curator views list of Resources Validated for NVI-reporting
 	# 	When a Curator uses the option to view the list of Validated Resources
 	# 	Then the Curator sees a list of Resources that are Validated by all Institutions that are affiliated to the Resource by Authors
 
-	# @test
-	# Scenario: Curator views a NVI-candidate
-	#   When the Curator views the list of Candidates
-	# 	And select one of the Candidates
-	# 	Then the Curator can see the details of the Candidate
-	# 	And the calculated number of points for the Candidate
-	# 	And the Curator have an option to approve the Candidate
-	# 	And the Curator have an option to reject the Candidate
-	# 	And the Curator have an option to add a note to the Candidate
+	@test
+	Scenario: Curator views a NVI-candidate
+	  When the Curator views the list of Candidates
+		And select one of the Candidates
+		Then the Curator can see the details of the Candidate
+		And the calculated number of points for the Candidate
+		And the Curator have an option to approve the Candidate
+		And the Curator have an option to reject the Candidate
+		And the Curator have an option to add a note to the Candidate
 
-# @test
+@test
 Scenario: Curator approves NVI-candidate
 	When a Curator views a NVI-candidate
 	And uses the option to approve the NVI-candidate
