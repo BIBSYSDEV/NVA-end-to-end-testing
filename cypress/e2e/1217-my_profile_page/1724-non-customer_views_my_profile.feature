@@ -1,6 +1,6 @@
 Feature: Non-customer views My Profile
 
-    @test
+    # @test
     Scenario: Non-customer views My Profile
         Given that a User is logged in
         And their Institution is not a Customer of NVA

@@ -3,17 +3,19 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 
 const filename = 'example.json';
-const registrationTitle = `New NVI candidate ${uuidv4()}`;
 
 // Background:
 Given('an logged-in Curator at an NVI-Institution', () => {
+  const uuid = uuidv4();
+  cy.wrap(uuid).as('uuid');
+  const registrationTitle = `New NVI candidate ${uuid}`;
   cy.login(userNviCurator);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.wait(30000);
+  cy.wait(15000);
 });
 
 // Scenario: Curator views NVI-report status at own Institution
@@ -56,13 +58,59 @@ And('the calculated number of points for the Candidate', () => {
       cy.contains('1,0');
     });
 });
-And('the Curator have an option to approve the Candidate', () => {});
+And('the Curator have an option to approve the Candidate', () => {
+  cy.get('button').filter(":contains('Approve')");
+});
+And('the Curator have an option to reject the Candidate', () => {
+  cy.get('button').filter(":contains('Reject')");
+});
+And('the Curator have an option to add a note to the Candidate', () => {
+  cy.get('[data-testid=message-field]');
+});
 
 // Scenario: Curator approves NVI-candidate
-When('a Curator views a NVI-candidate', () => {});
-And('uses the option to approve the NVI-candidate', () => {});
-Then('the NVI candidate is removed from the list of Candidate Resources', () => {});
-And('is added to the list of approved Resources', () => {});
+When('a Curator views a NVI-candidate', () => {
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.get('@uuid').then((uuid) => {
+    cy.get('a').filter(`:contains(${uuid})`).click();
+  })
+});
+And('uses the option to approve the NVI-candidate', () => {
+  cy.get('button').filter(":contains('Approve')").click();
+  cy.contains('Approved');
+});
+Then('the NVI candidate is removed from the list of Candidate Resources', () => {
+  cy.wait(10000);
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.pendingRadio).click();
+  cy.get('@uuid').then((uuid) => {
+    cy.get('a').filter(`:contains(${uuid})`).should('not.exist');
+  });
+});
+And('is added to the list of approved Resources', () => {
+  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.approvedRadio).click();
+  cy.get('@uuid').then((uuid) => {
+    cy.get('a').filter(`:contains(${uuid})`).should('be.visible');
+  })
+});
+
+// Scenario: Curator rejects NVI-candidate
+When('a Curator views a NVI-candidate', () => {
+});
+And('uses the option to reject the NVI-candidate', () => {
+  cy.get('button').filter(":contains('Reject')").click();
+  cy.get('[data-testid=message-field]').type('Candidate rejected{enter}');
+  cy.get('[data-testid=message-text]').filter(`:contains('Candidate rejected')`);
+});
+Then('the NVI candidate is removed from the list of Candidate Resources', () => {
+});
+And('is added to the list of rejected Resources', () => {
+  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.rejectedRadio).click();
+  cy.get('@uuid').then((uuid) => {
+    cy.get('a').filter(`:contains(${uuid})`).should('be.visible');
+  })
+});
 
 // Scenario: Curator view to-do list of Resources Nominated to be part of the NVI-report
 When('a Curator uses the option to view the list of Nominated Resources', () => {});
