@@ -27,4 +27,5 @@ phases:
   build:
     commands:
       - cd test_data
+      - pip install babel
       - python create_test_data.py

@@ -6,6 +6,7 @@ import os
 import common
 import time
 from datetime import datetime, date, timedelta
+import babel
 
 dynamodb_client = boto3.client('dynamodb')
 s3_client = boto3.client('s3')
@@ -89,20 +90,23 @@ month = today.strftime('%m')
 day = today.strftime('%d')
 endYear = today.year
 endDate = date(endYear, 1, 31)
-today = today + timedelta(minutes=+1)
-startDate = today.strftime('%Y-%m-%dT%H:%M:59Z')
 endDate = endDate.replace(endDate.year + 1)
 periodEndDate = endDate.strftime('%Y-%m-%dT00:00:00Z')
 
 def set_nvi_period():
     print(f'Setting NVI periot to {year} - {endDate}')
+    babel.Locale('nb', 'NO')
+    startTime = datetime.now() + timedelta(minutes=+1)
+    startDate = startTime.strftime('%Y-%m-%dT%H:%M:59Z')
+    print(startDate)
     payload = {
         "publishingYear": year,
         "reportingDate": periodEndDate,
         "startDate": startDate
     }
-    response = requests.post(url=period_endpoint, json=payload, headers=headers)
-    print(response.__dict__)
+    # response = requests.post(url=period_endpoint, json=payload, headers=headers)
+    # if response.status_code != 201:
+    #     print(response.__dict__)
 
 def reset_nvi_search_index():
     print('Resetting NVI index...')
