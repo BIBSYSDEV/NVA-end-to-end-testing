@@ -55,7 +55,7 @@ And('the calculated number of points for the Candidate', () => {
   cy.contains('Publication points')
     .parent()
     .within(() => {
-      cy.contains('1,0');
+      cy.contains('1.0');
     });
 });
 And('the Curator have an option to approve the Candidate', () => {
