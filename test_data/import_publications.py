@@ -547,8 +547,8 @@ def run():
     map_user_to_arp()
     upload_file()
     delete_publications()
-    set_nvi_period()
     create_publications()
+    set_nvi_period()
 
 
 if __name__ == '__main__':
