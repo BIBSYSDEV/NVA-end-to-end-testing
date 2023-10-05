@@ -16,5 +16,5 @@ And('they see field for Message', () => {
   cy.getDataTestId('message-field').should('exist');
 });
 And('they see a "Send Request" button', () => {
-  cy.getDataTestId('sendIcon').should('exist');
+  cy.getDataTestId('SendIcon').should('exist');
 });
