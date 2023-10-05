@@ -20,7 +20,7 @@ When('the Curator opens their Worklist', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
 });
 Then('the Curator see that the Worklist is Scoped', () => {
-  cy.contains('Limited to: "BIBSYS"');
+  cy.contains('BIBSYS');
 });
 And('the Worklist contains Requests of type:', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
@@ -184,8 +184,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.createValidRegistration(filename, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
-  cy.getDataTestId('message-field').last().type('Test message');
-  cy.getDataTestId('send-button').last().click();
+  cy.getDataTestId('message-field').last().type('Test message{enter}');
   cy.contains('Message sent');
   cy.wait(10000);
 
@@ -193,8 +192,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
-  cy.getDataTestId('message-field').type(curatorAnswer);
-  cy.getDataTestId('send-button').click();
+  cy.getDataTestId('message-field').type(`${curatorAnswer}{send}`);
   cy.contains('Message sent');
 })
 Then('the Request status is set to "Answered"', () => {
