@@ -94,7 +94,7 @@ endDate = endDate.replace(endDate.year + 1)
 periodEndDate = endDate.strftime('%Y-%m-%dT00:00:00Z')
 
 def set_nvi_period():
-    print(f'Setting NVI periot to {year} - {endDate}')
+    print(f'Setting NVI period to {year} - {endDate}')
     babel.Locale('nb', 'NO')
     startTime = datetime.now() + timedelta(minutes=+1)
     startDate = startTime.strftime('%Y-%m-%dT%H:%M:59Z')
@@ -548,6 +548,8 @@ def run():
     upload_file()
     delete_publications()
     create_publications()
+    bearer_token = common.login(username=username)
+    headers['Authorization'] = f'Bearer {bearer_token}'
     set_nvi_period()
 
 
