@@ -104,9 +104,9 @@ def set_nvi_period():
         "reportingDate": periodEndDate,
         "startDate": startDate
     }
-    # response = requests.post(url=period_endpoint, json=payload, headers=headers)
-    # if response.status_code != 201:
-    #     print(response.__dict__)
+    response = requests.post(url=period_endpoint, json=payload, headers=headers)
+    if response.status_code != 201:
+        print(response.__dict__)
 
 def reset_nvi_search_index():
     print('Resetting NVI index...')
