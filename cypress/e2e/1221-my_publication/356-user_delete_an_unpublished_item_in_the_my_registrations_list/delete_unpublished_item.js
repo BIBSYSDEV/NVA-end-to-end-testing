@@ -21,7 +21,7 @@ And('they select Yes', () => {
   cy.get('[data-testid=accept-button]').click();
 });
 Then('they see that the Registration is deleted', () => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', 3);
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', 1);
 });
 
 // Scenario: Creator deletes all Draft Registrations
