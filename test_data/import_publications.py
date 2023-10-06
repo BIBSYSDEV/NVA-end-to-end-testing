@@ -20,6 +20,8 @@ user_tablename = ssm.get_parameter(Name='/test/UserTable',
                                    WithDecryption=False)['Parameter']['Value']
 nvi_tablename = ssm.get_parameter(Name='/test/NviTable',
                                    WithDecryption=False)['Parameter']['Value']
+favorites_tablename = ssm.get_parameter(Name='/test/FavoritesTable',
+                                   WithDecryption=False)['Parameter']['Value']
 s3_bucket_name = ssm.get_parameter(Name='/test/ResourceS3Bucket',
                                    WithDecryption=False)['Parameter']['Value']
 STAGE = ssm.get_parameter(Name='/test/Stage',
@@ -233,6 +235,23 @@ def scan_candidates():
             scanned_candidates.append(item)
 
     return scanned_candidates
+
+def scan_favorites():
+    print('scanning favorites')
+    paginator = dynamodb_client.get_paginator('scan')
+    operation_parameters = {
+        'TableName': favorites_tablename
+    }
+    favorites = []
+    for response in paginator.paginate(**operation_parameters):
+        favorites.append(response['Items'])
+
+    scanned_favorites = []
+    for favoritelist in favorites:
+        for item in favoritelist:
+            scanned_favorites.append(item)
+
+    return scanned_favorites
 
 def delete_publications():
     resources = scan_resources()

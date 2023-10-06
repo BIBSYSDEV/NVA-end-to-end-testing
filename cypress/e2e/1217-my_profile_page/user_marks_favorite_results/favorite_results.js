@@ -64,9 +64,7 @@ Then('they see the result is marked as a favorite', () => {
     });
 });
 And('the favorite results are displayed at the top of the list of results', () => {
-    cy.getDataTestId(dataTestId.myPage.myProfileLink).click();
-    cy.wait(10000);
-    cy.getDataTestId(dataTestId.myPage.myResultsLink).click();
+    cy.reload();
     cy.getDataTestId(dataTestId.startPage.searchResultItem).first().parent().within(() => {
         cy.contains(secondFavoriteResultTitle);
         cy.getDataTestId('StarIcon');
@@ -90,6 +88,7 @@ When('they unmark a favorite result', () => {
         .parent()
         .within(() => {
             cy.getDataTestId('edit-promoted-publication-button').click();
+            cy.wait(3000)
         });
 });
 Then('the result is not marked as favorite', () => {
@@ -100,9 +99,7 @@ Then('the result is not marked as favorite', () => {
         });
 });
 And('the result is not displayed at the top of the list of results', () => {
-    cy.getDataTestId(dataTestId.myPage.myProfileLink).click();
-    cy.wait(10000);
-    cy.getDataTestId(dataTestId.myPage.myResultsLink).click();
+    cy.reload();
     cy.getDataTestId(dataTestId.startPage.searchResultItem)
         .last()
         .parent()
