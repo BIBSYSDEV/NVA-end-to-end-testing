@@ -192,7 +192,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
-  cy.getDataTestId('message-field').type(`${curatorAnswer}{send}`);
+  cy.getDataTestId('message-field').type(`${curatorAnswer}{enter}`);
   cy.contains('Message sent');
 })
 Then('the Request status is set to "Answered"', () => {
