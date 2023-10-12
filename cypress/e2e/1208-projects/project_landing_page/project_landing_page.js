@@ -14,7 +14,9 @@ const users = {
 
 const selectProject = (user) => {
     cy.login(user);
-    cy.get('section > div > div > button').filter(':contains("Project")').click();
+    cy.contains('Result').click();
+    // cy.get('button').filter(':contains("Result")').click();
+    cy.get('[data-value=project').click();
     cy.getDataTestId(dataTestId.startPage.searchField).type('Project for testing 20230512{enter}');
     cy.contains('Project for testing').click();
 }
@@ -34,7 +36,9 @@ Given('An Anonymous User is on the NVA start page', () => {
     });
 });
 When('the Anonymous User navigates to the Project search page', () => {
-    cy.get('button').filter(':contains("Project")').click();
+    cy.contains('Result').click();
+    // cy.get('button').filter(':contains("Result")').click();
+    cy.get('[data-value=project').click();
 });
 And('enters a search term for a Project', () => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
@@ -55,7 +59,9 @@ When("A Anonymous User opens a Project's Landing Page", () => {
             password: Cypress.env('DEVPASSWORD'),
         },
     });
-    cy.get('button').filter(':contains("Project")').click();
+    cy.contains('Result').click();
+    // cy.get('button').filter(':contains("Result")').click();
+    cy.get('[data-value=project').click();
     cy.get('ul > li > div > p > a').first().click();
 });
 Then('the Anonymous User see:', (fields) => {
