@@ -53,5 +53,6 @@ And('the Editor is notified that a new policy is activated', () => {
     if (strategy !== publishStrategies[Object.keys(publishStrategies)[0]]) {
       cy.getDataTestId('snackbar-success');
     }
-  })
+  });
+  cy.getDataTestId('dataTestId.editor.workflowRegistratorPublishesAll').click({ force: true });
 });
