@@ -16,13 +16,15 @@ const fields = [
 const exhibitionContributorRoles = [
   'ProjectLeader',
   'Curator',
-  'LightDesigner',
-  'SoundDesigner',
+  'Conservator',
+  'Registrar',
+  'MuseumEducator',
+  'CollaborationPartner',
+  'ExhibitionDesigner',
   'Designer',
-  'Architect',
-  'InteriorArchitect',
+  'Writer',
   'Photographer',
-  'Sponsor',
+  'AudioVisualContributor',
   'RoleOther',
 ];
 
