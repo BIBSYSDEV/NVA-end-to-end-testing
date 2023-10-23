@@ -74,3 +74,6 @@ phases:
       # POST project
       - curl -S -s -o /dev/null -i -X POST https://${API_DOMAIN}/cristin/project -H "Content-Type::application/json" -H "Authorization:Bearer ${TOKEN}" -d '{}'
 
+      # GET NVI candidates
+      - curl -S -s -o /dev/null -i -X GET https://${API_DOMAIN}/scientific-index/candidate?year=2023&affiliations=https%3A%2F%2F${API_DOMAIN}%2Fcristin%2Forganization%2F20754.0.0.0&size=1&offset=0 -H "Authorization:Bearer ${TOKEN}"
+
