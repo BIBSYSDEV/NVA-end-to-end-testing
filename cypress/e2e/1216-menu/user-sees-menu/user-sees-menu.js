@@ -32,7 +32,8 @@ And('they see Menu items:', (dataTable) => {
   cy.testDataTestidList(dataTable, mainButtons);
 });
 And('they see the Language selector', () => {
-  cy.getDataTestId(dataTestId.header.languageButton).should('be.visible', { force: true });
+  cy.get('button').filter(':lang("nb")').should('be.visible');
+  cy.get('button').filter(':lang("en")').should('be.visible');
 });
 // End common steps
 
@@ -51,7 +52,7 @@ Then('they see the Log in Button', () => {
 });
 
 // Scenario: User have option to log out
-Then ('they have an option to log out', () => {
+Then('they have an option to log out', () => {
   cy.getDataTestId(dataTestId.header.menuButton).should('exist');
   cy.getDataTestId(dataTestId.header.menuButton).click();
   cy.getDataTestId(dataTestId.header.logOutLink).should('be.visible');
