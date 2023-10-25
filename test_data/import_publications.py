@@ -30,7 +30,7 @@ USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
                                  WithDecryption=False)['Parameter']['Value']
 CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
-deleteNviIndexLambda = 'master-pipelines-NvaNvi-1-DeleteNviCandidateIndexH-JCRtwve4nuWF'
+deleteNviIndexLambda = 'master-pipelines-NvaNvi-1-DeleteNviCandidateIndexH-zfxYODFdVnjs'
 publication_template_file_name = './publications/new_test_registration.json'
 test_publications_file_name = './publications/test_publications.json'
 person_query = 'https://api.{}.nva.aws.unit.no/cristin/person/identityNumber'

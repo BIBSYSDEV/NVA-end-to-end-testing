@@ -46,7 +46,8 @@ def create_user(client):
                     MessageAction='SUPPRESS'
                 )
                 client.admin_set_user_password(
-                    Password='P_' + str(uuid.uuid4()),
+                    # Password='P_' + str(uuid.uuid4()),
+                    Password='P_1234_abcd',
                     UserPoolId=USER_POOL_ID,
                     Username=username,
                     Permanent=True,
