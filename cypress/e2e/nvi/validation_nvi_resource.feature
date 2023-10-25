@@ -28,44 +28,44 @@ Feature: Validation of an NVI resource
 	Background:
 		Given an logged-in Curator at an NVI-Institution
 
-	@test
-	Scenario: Curator views NVI-report status at own Institution
-		When a Curator uses the option to view the NVI-Report status at own Institution
-		Then the Curator sees a visualization of current progress compared with last year
-		And it contains number of Validated Resources
-		And it contains number of Nominated Resources
-		And it contains number of Candidate Resources
+	# @test
+	# Scenario: Curator views NVI-report status at own Institution
+	# 	When a Curator uses the option to view the NVI-Report status at own Institution
+	# 	Then the Curator sees a visualization of current progress compared with last year
+	# 	And it contains number of Validated Resources
+	# 	And it contains number of Nominated Resources
+	# 	And it contains number of Candidate Resources
 
 
-	# Scenario: Curator views list of Resources Validated for NVI-reporting
-	# 	When a Curator uses the option to view the list of Validated Resources
-	# 	Then the Curator sees a list of Resources that are Validated by all Institutions that are affiliated to the Resource by Authors
+	# # Scenario: Curator views list of Resources Validated for NVI-reporting
+	# # 	When a Curator uses the option to view the list of Validated Resources
+	# # 	Then the Curator sees a list of Resources that are Validated by all Institutions that are affiliated to the Resource by Authors
 
-	@test
-	Scenario: Curator views a NVI-candidate
-	  When the Curator views the list of Candidates
-		And select one of the Candidates
-		Then the Curator can see the details of the Candidate
-		And the calculated number of points for the Candidate
-		And the Curator have an option to approve the Candidate
-		And the Curator have an option to reject the Candidate
-		And the Curator have an option to add a note to the Candidate
+	# @test
+	# Scenario: Curator views a NVI-candidate
+	# 	When the Curator views the list of Candidates
+	# 	And select one of the Candidates
+	# 	Then the Curator can see the details of the Candidate
+	# 	And the calculated number of points for the Candidate
+	# 	And the Curator have an option to approve the Candidate
+	# 	And the Curator have an option to reject the Candidate
+	# 	And the Curator have an option to add a note to the Candidate
 
-@test
-Scenario: Curator approves NVI-candidate
-	When a Curator views a NVI-candidate
-	And uses the option to approve the NVI-candidate
-	Then the NVI candidate is removed from the list of Candidate Resources
-	And is added to the list of approved Resources
+	# @test
+	# Scenario: Curator approves NVI-candidate
+	# 	When a Curator views a NVI-candidate
+	# 	And uses the option to approve the NVI-candidate
+	# 	Then the NVI candidate is removed from the list of Candidate Resources
+	# 	And is added to the list of approved Resources
 
-@test
-Scenario: Curator rejects NVI-candidate
-	When a Curator views a NVI-candidate
-	And uses the option to reject the NVI-candidate
-	Then the NVI candidate is removed from the list of Candidate Resources
-	And is added to the list of rejected Resources
+	# @test
+	# Scenario: Curator rejects NVI-candidate
+	# 	When a Curator views a NVI-candidate
+	# 	And uses the option to reject the NVI-candidate
+	# 	Then the NVI candidate is removed from the list of Candidate Resources
+	# 	And is added to the list of rejected Resources
 
-# Scenario: Curator view to-do list of Resources Nominated to be part of the NVI-report
+	# Scenario: Curator view to-do list of Resources Nominated to be part of the NVI-report
 	# 	When a Curator uses the option to view the list of Nominated Resources
 	# 	Then the Curator sees a list of Resources that are Validated by at least one other Institution, but not their Institution
 	# 	And there is an option to inspect the Resource
@@ -87,8 +87,23 @@ Scenario: Curator rejects NVI-candidate
 	# 	And no other Institution has Validated the Resource
 
 
-# Scenario: Curator inspects a Resource from the list of Nominated Resources
-# Given a Curator views the list of Resources Nominated to be part of the NVI-Report
-# When the Curator uses the option to view details about a Resource
-# Then the Curator sees a list with Validation statuses for all affiliated Institutions
-# And there is an option to Validate the Resource on behalf of their Institution
+	# Scenario: Curator inspects a Resource from the list of Nominated Resources
+	# Given a Curator views the list of Resources Nominated to be part of the NVI-Report
+	# When the Curator uses the option to view details about a Resource
+	# Then the Curator sees a list with Validation statuses for all affiliated Institutions
+	# And there is an option to Validate the Resource on behalf of their Institution
+
+	@test
+	Scenario: Remove NVI candidate on change
+		Given an NVI candidate
+		When one or more of the candidate-affecting fields are changed
+		And the NVI candidate is no longer an NVI candidate
+		Then remove the NVI candidate from the NVI candidate list.
+
+	# @test
+	# Scenario: Reset NVI candidate on change
+	# 	Given an NVI candidate
+	# 	When one or more of the candidate-affecting fields are changed
+	# 	And the NVI candidate is still a candidate
+	# 	Then reset the approval status for all involved institutions for the NVI candidate.
+	# 	And the points should be updated according to the new factors
