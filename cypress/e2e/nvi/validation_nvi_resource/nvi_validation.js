@@ -214,4 +214,6 @@ Then('reset the approval status for all involved institutions for the NVI candid
     });
   });
 });
-And('the points should be updated according to the new factors', () => {});
+And('the points should be updated according to the new factors', () => {
+  cy.contains('2.0');
+});
