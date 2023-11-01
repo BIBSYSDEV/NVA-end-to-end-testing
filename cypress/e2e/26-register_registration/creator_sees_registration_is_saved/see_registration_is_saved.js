@@ -1,5 +1,6 @@
 import { userSaveRegistration } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { v4 as uuidv4 } from 'uuid';
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 const doiTitle = 'The Structure of Ordinary Water';
@@ -74,4 +75,22 @@ Then('they see the Registration is saved and the title is "[Missing title]" and 
     .within((registration) => {
       cy.wrap(registration).as('registration');
     });
+});
+
+const title = `Published Registration ${uuidv4()}`;
+// Scenario: Creator sees Registration is findable
+Given('Creator register a Registration', () => {
+  cy.login(userSaveRegistration);
+  cy.startWizardWithEmptyRegistration(filename);
+  cy.createValidRegistration(filename, title);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+});
+When('they publish the Registration', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
+});
+Then('the Registration is findable', () => {
+  cy.getDataTestId('logo').click();
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).should('be.visible');
 });

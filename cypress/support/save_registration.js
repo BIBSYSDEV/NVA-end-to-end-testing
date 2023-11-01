@@ -172,7 +172,7 @@ export const resourceTypeFields = {
     fieldTestId: dataTestId.registrationWizard.resourceType.seriesField,
     elementType: 'search',
     landingPageTestId: '',
-    value: 'ACS Central Science',
+    value: 'Data Handling in Science and Technology',
   },
   seriesNumber: {
     type: 'text',
