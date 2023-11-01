@@ -15,6 +15,8 @@ Then('they see My Profile', () => {
 });
 And('they see their Profile page which includes information for', (dataTable) => {
   cy.testDataTestidList(dataTable, profilePageFields);
+  cy.get('button').filter(':lang("nb")').should('be.visible');
+  cy.get('button').filter(':lang("en")').should('be.visible');
 });
 // | Real name          |
 // | Feide ID           |

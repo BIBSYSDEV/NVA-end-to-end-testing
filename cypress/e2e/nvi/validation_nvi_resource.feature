@@ -100,10 +100,10 @@ Feature: Validation of an NVI resource
 		And the NVI candidate is no longer an NVI candidate
 		Then remove the NVI candidate from the NVI candidate list.
 
-	# @test
-	# Scenario: Reset NVI candidate on change
-	# 	Given an NVI candidate
-	# 	When one or more of the candidate-affecting fields are changed
-	# 	And the NVI candidate is still a candidate
-	# 	Then reset the approval status for all involved institutions for the NVI candidate.
-	# 	And the points should be updated according to the new factors
+	@test
+	Scenario: Reset NVI candidate on change
+		Given an NVI candidate
+		When one or more of the candidate-affecting fields are changed
+		And the NVI candidate is still a candidate
+		Then reset the approval status for all involved institutions for the NVI candidate.
+		And the points should be updated according to the new factors

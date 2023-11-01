@@ -14,4 +14,4 @@ Feature: User opens the page My Profile
             # | ORCID         |
             | Roles     |
             # | Organizations |
-            | Language  |
+            # | Language  |
