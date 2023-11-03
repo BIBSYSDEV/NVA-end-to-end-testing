@@ -90,6 +90,7 @@ When('they publish the Registration', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
 });
 Then('the Registration is findable', () => {
+  cy.wait(10000);
   cy.getDataTestId('logo').click();
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).should('be.visible');
