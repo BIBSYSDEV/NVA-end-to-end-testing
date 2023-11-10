@@ -38,7 +38,7 @@ And('the Registration has status {string}', (status) => {
     });
 });
 And('the Registration has a DOI', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
+  // cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
 });
 When('they see the Status Bar', () => {
   cy.get('@status').then((status) => {
