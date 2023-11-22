@@ -156,7 +156,7 @@ Given('an NVI candidate', () => {
 });
 When('one or more of the candidate-affecting fields are changed', () => {
   cy.getDataTestId('EditIcon').click();
-  cy.getDataTestId(dataTestId.basicData.confirmDialog.acceptButton).click();
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 And('the NVI candidate is no longer an NVI candidate', () => {
