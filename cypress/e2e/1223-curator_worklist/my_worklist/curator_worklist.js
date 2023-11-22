@@ -89,7 +89,7 @@ And('the Request Status is set to "Active"', () => {
   cy.contains('Message sent');
   cy.wait(3000);
   cy.get('[title=Tasks]').click();
-  cy.getDataTestId(dataTestId.tasksPage.searchMode.myUserDialogsButton).click();
+  cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
 });
 
