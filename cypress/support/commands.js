@@ -3,7 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import Amplify from 'aws-amplify';
 import { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
-import { mockPersonFeideIdSearch, mockPersonNameSearch, journalSearchMockFile } from './mock_data';
+import {
+  mockPersonFeideIdSearch,
+  mockPersonNameSearch,
+  journalSearchMockFile,
+} from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
@@ -17,7 +21,6 @@ const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'e2e';
 
-const passwords = {};
 
 AWS.config.update({
   accessKeyId: awsAccessKeyId,
@@ -42,9 +45,9 @@ export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
 export const todayDatePicker = () => {
   const pad = (value) => `0${value}`.slice(-2);
   const date = new Date();
-  const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
+  const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`
   return dateValue;
-};
+}
 
 Cypress.Commands.add('connectAuthor', () => {
   cy.get(`[data-testid=create-author-button]`).click();
@@ -77,62 +80,56 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
-    const randomPassword = `P%${uuidv4()}`;
+      const randomPassword = `P%${uuidv4()}`;
 
-    const authorizeUser = {
-      AuthFlow: authFlow,
-      ClientId: clientId,
-      AuthParameters: {
-        USERNAME: userId,
-        PASSWORD: randomPassword,
-      },
-    };
+      const authorizeUser = {
+        AuthFlow: authFlow,
+        ClientId: clientId,
+        AuthParameters: {
+          USERNAME: userId,
+          PASSWORD: randomPassword,
+        },
+      };
 
-    const passwordParams = {
-      Password: randomPassword,
-      UserPoolId: userPoolId,
-      Username: userId,
-      Permanent: true,
-    };
+      const passwordParams = {
+        Password: randomPassword,
+        UserPoolId: userPoolId,
+        Username: userId,
+        Permanent: true,
+      };
 
-    let tries = 0;
-    let trying = false;
-    do {
-      const userPassword = passwords[userId]
-        ? passwords[userId]
-        : () =>
-            identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+      let tries = 0;
+      let trying = false;
+      do {
+        identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+          if (data) {
+            identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
               if (data) {
-                passwords[userId] = randomPassword;
-                return randomPassword;
-              } else {
-                trying = true;
-                console.log('fail.. set password');
-                reject(err);
-              }
-
-              identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-                if (data) {
-                  if (!data.ChallengeName) {
-                    await Auth.signIn(userId, userPassword);
-                    resolve(data.AuthenticationResult.IdToken);
-                  } else {
-                    trying = true;
-                    console.log('fail.. challenge');
-                    reject(err);
-                  }
+                if (!data.ChallengeName) {
+                  await Auth.signIn(userId, randomPassword);
+                  resolve(data.AuthenticationResult.IdToken);
                 } else {
                   trying = true;
-                  console.log('fail.. init auth');
+                  console.log('fail.. challenge');
                   reject(err);
                 }
-              });
+              } else {
+                trying = true;
+                console.log('fail.. init auth');
+                reject(err);
+              }
             });
-      tries++;
-      if (tries > 3) {
-        trying = false;
-      }
-    } while (trying);
+          } else {
+            trying = true;
+            console.log('fail.. set password');
+            reject(err);
+          }
+        });
+        tries++;
+        if (tries > 3) {
+          trying = false;
+        }
+      } while (trying);
   });
 });
 
@@ -566,7 +563,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       // cy.contains('[role="dialog"] button', 'OK').click();
       cy.get(selector).click();
       cy.get('[role=dialog]').then(($dialog) => {
-        const selectDay = $dialog.find('.MuiPickersDay-today').length > 0;
+        const selectDay = $dialog.find('.MuiPickersDay-today').length > 0
         const selectYear = $dialog.find('.Mui-selected').length > 0;
         if (selectDay) {
           cy.get('.MuiPickersDay-today').click();
@@ -579,7 +576,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
           //   cy.get(selector).type(value, { force: true });
           // }
         }
-      });
+      })
     } else {
       cy.get(selector).type(value);
     }
