@@ -605,3 +605,28 @@ Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
   cy.getDataTestId(dataTestId.editor.workflowRegistratorRequiresApproval).click({ force: true });
 });
+
+const doiRequests = 'DoiRequests';
+const publishingRequests = 'Publishing Requests';
+const supportRequests = 'Support Requests';
+
+Cypress.Commands.add('filterMessages', (messageType) => {
+  cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).then($button => {
+    const publishingRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
+    ((publishingRequestFilter && !(messageType === publishingRequests)) ||
+      (!publishingRequestFilter && (messageType === publishingRequests))) &&
+      cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
+  });
+  cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).then($button => {
+    const doiRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
+    ((doiRequestFilter && !(messageType === doiRequests)) ||
+      (!doiRequestFilter && (messageType === doiRequests))) &&
+      cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+  });
+  cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).then($button => {
+    const supportFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
+    ((supportFilter && !(messageType === supportRequests)) ||
+      (!supportFilter && (messageType === supportRequests))) &&
+      cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
+  });
+});
