@@ -101,7 +101,7 @@ export const registrationFields = {
       fieldTestId: dataTestId.registrationWizard.files.selectLicenseField,
       elementType: 'search',
       landingPageTestId: dataTestId.registrationLandingPage.license,
-      value: 'CC BY',
+      value: 'CC BY (4.0)',
     },
   },
 };
