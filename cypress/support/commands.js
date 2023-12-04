@@ -186,7 +186,6 @@ Cypress.Commands.add('logoutCognito', () => {
 Cypress.Commands.add('openMyRegistrations', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
-  cy.getDataTestId(dataTestId.myPage.myRegistrationsLink).click();
 });
 
 Cypress.Commands.add('createValidRegistration', (fileName, title) => {
