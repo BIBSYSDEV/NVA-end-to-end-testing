@@ -200,7 +200,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 
   cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges byggforskningsinstitutt');
   cy.contains('Norges byggforskningsinstitutt').click({ force: true });
 
   // Contributors
