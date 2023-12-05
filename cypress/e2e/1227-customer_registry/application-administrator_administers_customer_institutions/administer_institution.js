@@ -3,6 +3,14 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { institutionFields } from '../../../support/data_testid_constants';
 // Feature: Application Administrator administers Customer Institutions
 
+const sectors = {
+  'University and college': dataTestId.basicData.institutionAdmin.sectorChip('UHI'),
+  'Health sector': dataTestId.basicData.institutionAdmin.sectorChip('HEALTH'),
+  'Institute sector': dataTestId.basicData.institutionAdmin.sectorChip('INSTITUTE'),
+  'Archives, Libraries and Museums': dataTestId.basicData.institutionAdmin.sectorChip('ABM'),
+  'Other': dataTestId.basicData.institutionAdmin.sectorChip('OTHER'),
+}
+
 // Common steps
 Given('that the user is logged in as Application Administrator', () => {
   cy.login(adminUser);
@@ -10,6 +18,18 @@ Given('that the user is logged in as Application Administrator', () => {
 
 And('they see fields:', (table) => {
   cy.testDataTestidList(table, institutionFields);
+});
+And('they see Sector options:', (table) => {
+  cy.testDataTestidList(table, sectors);
+});
+// | University and college          |
+// | Health sector                   |
+// | Institute sector                |
+// | Archives, Libraries and Museums |
+// | Other                           |
+And('they see options for NVI reporting', () => {
+  cy.getDataTestId(dataTestId.basicData.institutionAdmin.nviInstitutionCheckbox).should('be.visible');
+  cy.getDataTestId(dataTestId.basicData.institutionAdmin.rboInstitutionCheckbox).should('be.visible');
 });
 
 // End common steps
@@ -51,17 +71,17 @@ Then('they see the Add Institution page', () => {
   cy.location('pathname').should('equal', '/basic-data/institutions');
   cy.location('search').should('equal', '?id=new');
 });
-And('they see fields:', (table) => {});
+And('they see fields:', (table) => { });
 // | Name in organization registry |
 // | Display name                  |
-// | Short display name            |
 // | Archive name                  |
 // | Feide Organization ID         |
 // | ROR ID                        |
-And('they see login options:', () => {});
-// | Feide   |
-// | MinID   |
-// | HelseID |
+And('they see Sector options:', () => { });
+// | University and college          |
+// | Health sector                   |
+// | Institute sector                |
+// | Archives, Libraries and Museums |
 And('a button Create that is enabled', () => {
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.saveButton).should('be.enabled');
 });
@@ -73,17 +93,19 @@ When('they open a Customer Institution', () => {
   cy.getDataTestId(dataTestId.basicData.customers.editInstitutionButton('test-institution-2')).click();
   // cy.getDataTestId(dataTestId.basicData.institutionAdmin.)
 });
-Then('they see fields:', (table) => {});
+Then('they see fields:', (table) => { });
 // | Name in organization registry |
 // | Display name                  |
 // | Short display name            |
 // | Archive name                  |
 // | Feide Organization ID         |
 // | ROR ID                        |
-And('they see login options:', () => {});
-// | Feide   |
-// | MinID   |
-// | HelseID |
+And('they see Sector options:', () => { });
+// | University and college          |
+// | Health sector                   |
+// | Institute sector                |
+// | Archives, Libraries and Museums |
+And('they see options for NVI reporting', () => { });
 And('they see the Save button', () => {
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.saveButton).should('be.visible');
 });

@@ -25,14 +25,16 @@ Feature: Application Administrator administers Customer Institutions
     And they see fields:
       | Name in organization registry |
       | Display name                  |
-      | Short display name            |
       | Archive name                  |
       | Feide Organization ID         |
       | ROR ID                        |
-    And they see login options:
-      # | Feide   |
-      # | MinID   |
-      # | HelseID |
+    And they see Sector options:
+      | University and college          |
+      | Health sector                   |
+      | Institute sector                |
+      | Archives, Libraries and Museums |
+      | Other                           |
+    And they see options for NVI reporting
     And a button Create that is enabled
 
   @TEST_NP-4162
@@ -48,10 +50,13 @@ Feature: Application Administrator administers Customer Institutions
       | Archive name                  |
       | Feide Organization ID         |
       | ROR ID                        |
-    And they see login options:
-      | Feide   |
-      | MinID   |
-      | HelseID |
+    And they see Sector options:
+      | University and college          |
+      | Health sector                   |
+      | Institute sector                |
+      | Archives, Libraries and Museums |
+      | Other                           |
+    And they see options for NVI reporting
     And they see the Save button
     And they see the list of current Institution Administrators
     And every Institution Administrator has a Remove button
