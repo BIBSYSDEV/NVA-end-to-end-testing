@@ -46,7 +46,6 @@ Feature: Application Administrator administers Customer Institutions
     Then they see fields:
       | Name in organization registry |
       | Display name                  |
-      | Short display name            |
       | Archive name                  |
       | Feide Organization ID         |
       | ROR ID                        |
