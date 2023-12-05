@@ -77,6 +77,8 @@ And('they see that each Request can be opened', () => { });
 // Scenario: Curator opens a unassigned Request
 When('the Curator open a unassigned Request', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+  cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 });
 Then('the Curator is assigned the Request', () => {
@@ -96,7 +98,7 @@ And('the Request Status is set to "Active"', () => {
 // Scenario: Curator unassigns a Request
 When('the Curator selects "Mark request unread"', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.searchMode.myUserDialogsButton).click();
+  cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');
@@ -115,9 +117,9 @@ When('the Curator selects "Mark request unread"', () => {
 Then('the Request Status is set to "New"', () => { });
 And('the Request is unassigned the Curator', () => {
   cy.get('[title=Tasks]').click();
-  cy.getDataTestId(dataTestId.tasksPage.searchMode.allUserDialogsButton).click();
+  cy.getDataTestId(dataTestId.tasksPage.searchMode.allTasksButton).click();
   cy.wait(3000);
-  cy.getDataTestId(dataTestId.tasksPage.searchMode.myUserDialogsButton).click();
+  cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
 });
 
@@ -192,7 +194,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
-  cy.getDataTestId('message-field').type(`${curatorAnswer}{enter}`);
+  cy.getDataTestId('message-field').last().type(`${curatorAnswer}{enter}`);
   cy.contains('Message sent');
 })
 Then('the Request status is set to "Answered"', () => {
