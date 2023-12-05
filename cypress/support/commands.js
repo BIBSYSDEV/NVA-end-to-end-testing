@@ -227,7 +227,6 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 Cypress.Commands.add('selectRegistration', (title, type) => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
-  cy.getDataTestId(dataTestId.myPage.myRegistrationsLink).click();
   cy.getDataTestId(`${type}-button`).click();
   cy.get('[data-testid^=registration-title]')
     .filter(`:contains(${title})`)
