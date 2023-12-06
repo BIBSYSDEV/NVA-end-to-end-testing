@@ -351,7 +351,11 @@ const fillInField = (field) => {
             key === dataTestId.registrationWizard.resourceType.dateFromField ||
             key === dataTestId.registrationWizard.resourceType.dateToField
           ) {
-            cy.chooseDatePicker(`[data-testid=${key}]`, todayDatePicker());
+            if(field == resourceTypeFields['bookPrintedMatter']) {
+              cy.getDataTestId(key).type(field['add']['fields'][key]);
+            } else {
+              cy.chooseDatePicker(`[data-testid=${key}]`, todayDatePicker());
+            }
           } else if (key === dataTestId.registrationWizard.resourceType.concertAddWork) {
             cy.getDataTestId(key).click();
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`)
