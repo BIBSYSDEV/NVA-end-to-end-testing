@@ -10,7 +10,7 @@ import {
 } from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
-import { registrationFields } from './save_registration';
+import { registrationFields, resourceTypeFields } from './save_registration';
 import { userSecondEditor, tokens, addToken } from './constants';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
