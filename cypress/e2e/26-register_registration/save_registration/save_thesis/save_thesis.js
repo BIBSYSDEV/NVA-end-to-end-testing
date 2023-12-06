@@ -2,14 +2,14 @@ import { userSaveThesis } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 
-const commonFields = [resourceTypeFields.publisher, resourceTypeFields.isbn, resourceTypeFields.pages];
+const commonFields = [resourceTypeFields.publisher, resourceTypeFields.pages];
 
 const fields = {
   'DegreeBachelor': [...commonFields],
   'DegreeMaster': [...commonFields],
-  'DegreePhd': [...commonFields, resourceTypeFields.seriesTitle, resourceTypeFields.seriesNumber],
-  'DegreeLicentiate': [...commonFields, resourceTypeFields.seriesTitle, resourceTypeFields.seriesNumber],
-  'OtherStudentWork': [...commonFields],
+  'DegreePhd': [...commonFields, resourceTypeFields.isbn, resourceTypeFields.seriesTitle, resourceTypeFields.seriesNumber],
+  'DegreeLicentiate': [...commonFields, resourceTypeFields.isbn, resourceTypeFields.seriesTitle, resourceTypeFields.seriesNumber],
+  'OtherStudentWork': [...commonFields, resourceTypeFields.isbn],
 };
 
 const commonContributorRoles = ['Creator', 'Supervisor', 'ContactPerson', 'RightsHolder', 'RoleOther'];

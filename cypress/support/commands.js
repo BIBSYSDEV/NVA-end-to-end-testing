@@ -287,7 +287,7 @@ Cypress.Commands.add('mockPersonSearch', (userId) => {
     `https://api.${stage}.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
     mockPersonFeideIdSearch(userId)
   );
-  cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?name=*`, mockPersonNameSearch(userId));
+  cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?results=10&page=1&name=*`, mockPersonNameSearch(userId));
 });
 
 Cypress.Commands.add('mockJournalSearch', () => {
