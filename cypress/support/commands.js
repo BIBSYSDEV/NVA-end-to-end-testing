@@ -3,11 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Amplify from 'aws-amplify';
 import { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
-import {
-  mockPersonFeideIdSearch,
-  mockPersonNameSearch,
-  journalSearchMockFile,
-} from './mock_data';
+import { mockPersonFeideIdSearch, mockPersonNameSearch, journalSearchMockFile } from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
 import { registrationFields, resourceTypeFields } from './save_registration';
@@ -20,7 +16,6 @@ const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
 const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'e2e';
-
 
 AWS.config.update({
   accessKeyId: awsAccessKeyId,
@@ -41,13 +36,15 @@ const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
 const authFlow = 'USER_PASSWORD_AUTH';
 
+const passwords = {};
+
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
 export const todayDatePicker = () => {
   const pad = (value) => `0${value}`.slice(-2);
   const date = new Date();
-  const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`
+  const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
   return dateValue;
-}
+};
 
 Cypress.Commands.add('connectAuthor', () => {
   cy.get(`[data-testid=create-author-button]`).click();
@@ -80,17 +77,9 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
-      const randomPassword = `P%${uuidv4()}`;
-
-      const authorizeUser = {
-        AuthFlow: authFlow,
-        ClientId: clientId,
-        AuthParameters: {
-          USERNAME: userId,
-          PASSWORD: randomPassword,
-        },
-      };
-
+    let randomPassword = `P%${uuidv4()}`;
+    if (!passwords[userId]) {
+      console.log('Setting password...');
       const passwordParams = {
         Password: randomPassword,
         UserPoolId: userPoolId,
@@ -98,11 +87,21 @@ Cypress.Commands.add('loginCognito', (userId) => {
         Permanent: true,
       };
 
-      let tries = 0;
-      let trying = false;
-      do {
-        identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
-          if (data) {
+      passwords[userId] = randomPassword;
+      identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+        if (data) {
+          const authorizeUser = {
+            AuthFlow: authFlow,
+            ClientId: clientId,
+            AuthParameters: {
+              USERNAME: userId,
+              PASSWORD: randomPassword,
+            },
+          };
+
+          let tries = 0;
+          let trying = false;
+          do {
             identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
               if (data) {
                 if (!data.ChallengeName) {
@@ -119,9 +118,45 @@ Cypress.Commands.add('loginCognito', (userId) => {
                 reject(err);
               }
             });
+            tries++;
+            if (tries > 3) {
+              trying = false;
+            }
+          } while (trying);
+        } else {
+          trying = true;
+          console.log('fail.. set password');
+          reject(err);
+        }
+      });
+    } else {
+      console.log('Retrieving password...');
+      randomPassword = passwords[userId];
+      const authorizeUser = {
+        AuthFlow: authFlow,
+        ClientId: clientId,
+        AuthParameters: {
+          USERNAME: userId,
+          PASSWORD: randomPassword,
+        },
+      };
+
+      let tries = 0;
+      let trying = false;
+      do {
+        identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+          if (data) {
+            if (!data.ChallengeName) {
+              await Auth.signIn(userId, randomPassword);
+              resolve(data.AuthenticationResult.IdToken);
+            } else {
+              trying = true;
+              console.log('fail.. challenge');
+              reject(err);
+            }
           } else {
             trying = true;
-            console.log('fail.. set password');
+            console.log('fail.. init auth');
             reject(err);
           }
         });
@@ -130,6 +165,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
           trying = false;
         }
       } while (trying);
+    }
   });
 });
 
@@ -199,7 +235,9 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 
   cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Norges byggforskningsinstitutt');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField)
+    .click({ force: true })
+    .type('Norges byggforskningsinstitutt');
   cy.contains('Norges byggforskningsinstitutt').click({ force: true });
 
   // Contributors
@@ -287,7 +325,10 @@ Cypress.Commands.add('mockPersonSearch', (userId) => {
     `https://api.${stage}.nva.aws.unit.no/person?feideid=${userId.replace('@', '%40')}`,
     mockPersonFeideIdSearch(userId)
   );
-  cy.intercept(`https://api.${stage}.nva.aws.unit.no/cristin/person?results=10&page=1&name=*`, mockPersonNameSearch(userId));
+  cy.intercept(
+    `https://api.${stage}.nva.aws.unit.no/cristin/person?results=10&page=1&name=*`,
+    mockPersonNameSearch(userId)
+  );
 });
 
 Cypress.Commands.add('mockJournalSearch', () => {
@@ -351,7 +392,7 @@ const fillInField = (field) => {
             key === dataTestId.registrationWizard.resourceType.dateFromField ||
             key === dataTestId.registrationWizard.resourceType.dateToField
           ) {
-            if(field == resourceTypeFields['bookPrintedMatter']) {
+            if (field == resourceTypeFields['bookPrintedMatter']) {
               cy.getDataTestId(key).type(field['add']['fields'][key]);
             } else {
               cy.chooseDatePicker(`[data-testid=${key}]`, todayDatePicker());
@@ -568,7 +609,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       // cy.contains('[role="dialog"] button', 'OK').click();
       cy.get(selector).click();
       cy.get('[role=dialog]').then(($dialog) => {
-        const selectDay = $dialog.find('.MuiPickersDay-today').length > 0
+        const selectDay = $dialog.find('.MuiPickersDay-today').length > 0;
         const selectYear = $dialog.find('.Mui-selected').length > 0;
         if (selectDay) {
           cy.get('.MuiPickersDay-today').click();
@@ -581,7 +622,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
           //   cy.get(selector).type(value, { force: true });
           // }
         }
-      })
+      });
     } else {
       cy.get(selector).type(value);
     }
@@ -617,22 +658,20 @@ const publishingRequests = 'Publishing Requests';
 const supportRequests = 'Support Requests';
 
 Cypress.Commands.add('filterMessages', (messageType) => {
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).then($button => {
+  cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).then(($button) => {
     const publishingRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
     ((publishingRequestFilter && !(messageType === publishingRequests)) ||
-      (!publishingRequestFilter && (messageType === publishingRequests))) &&
+      (!publishingRequestFilter && messageType === publishingRequests)) &&
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
   });
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).then($button => {
+  cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).then(($button) => {
     const doiRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
-    ((doiRequestFilter && !(messageType === doiRequests)) ||
-      (!doiRequestFilter && (messageType === doiRequests))) &&
+    ((doiRequestFilter && !(messageType === doiRequests)) || (!doiRequestFilter && messageType === doiRequests)) &&
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
   });
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).then($button => {
+  cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).then(($button) => {
     const supportFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
-    ((supportFilter && !(messageType === supportRequests)) ||
-      (!supportFilter && (messageType === supportRequests))) &&
+    ((supportFilter && !(messageType === supportRequests)) || (!supportFilter && messageType === supportRequests)) &&
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
   });
 });
