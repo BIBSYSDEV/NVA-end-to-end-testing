@@ -4,7 +4,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 
 import { descriptionFields } from '../../../support/data_testid_constants';
 
-const projectName = 'Testprosjekt NVA';
+const projectName = 'Testprosjekt';
 const institutionName = 'Institutt for nordisk og mediefag';
 
 Before(() => {
@@ -49,7 +49,7 @@ And('they see the tab Contributors is clickable', () => {
 And('they see the tab Files and License is clickable', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).should('be.enabled');
 });
-And('they see a Button for creating a new Project is enabled', () => {});
+And('they see a Button for creating a new Project is enabled', () => { });
 And('they see Next is enabled', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).should('be.enabled');
 });
@@ -125,7 +125,7 @@ Then('they see the Project is removed from the list of selected Projects', () =>
 });
 
 // Scenario: Creator opens dropdown with Allowed Vocabularies
-And('their Institution has a Vocabulary set as "Allowed"', () => {});
+And('their Institution has a Vocabulary set as "Allowed"', () => { });
 When('they click "Add Vocabulary"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.description.addVocabularyButton}]`).click();
@@ -156,7 +156,7 @@ Then('they see an input field for the selected Vocabulary', () => {
 Given('Creator begins Wizard registration', () => {
   cy.startWizardWithEmptyRegistration();
 });
-And('their Institution has a Vocabulary set as "Default"', () => {});
+And('their Institution has a Vocabulary set as "Default"', () => { });
 When('the User navigates to Description tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).click();
 });
@@ -240,7 +240,7 @@ Then('the Dialog is closed', () => {
 And('they see a confirmation message that the Project was created', () => {
   cy.getDataTestId('snackbar-success');
 });
-And('they see the Project is listed under Project Associations', () => {});
+And('they see the Project is listed under Project Associations', () => { });
 
 // Scenario: Creator adds funding
 And('they add funding', () => {
