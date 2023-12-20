@@ -4,7 +4,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 
 import { descriptionFields } from '../../../support/data_testid_constants';
 
-const projectName = 'Testprosjekt';
+const projectName = 'Project for testing 20230512';
 const institutionName = 'Institutt for nordisk og mediefag';
 
 Before(() => {

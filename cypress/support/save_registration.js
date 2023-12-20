@@ -57,7 +57,7 @@ export const registrationFields = {
       fieldTestId: dataTestId.registrationWizard.description.projectSearchField,
       elementType: 'search',
       landingPageTestId: dataTestId.registrationLandingPage.projectsAccordion,
-      value: 'Testprosjekt',
+      value: 'Project for testing 20230512',
     },
   },
   'files and license': {
