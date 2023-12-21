@@ -1,80 +1,80 @@
 // // Feature: Project Landing Page
 
-import { userCurator, userProjectManager } from "../../../support/constants";
-import { dataTestId } from "../../../support/dataTestIds";
+import { userCurator, userProjectManager } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
 
 const panelHeadings = {
-    'Participants': 'Project participants',
-    'Associated Projects': 'Related projects',
+  'Participants': 'Project participants',
+  'Associated Projects': 'Related projects',
 };
 
 const users = {
-    'Project Manager': userProjectManager,
-}
-
-const selectProject = (user) => {
-    cy.login(user);
-    cy.contains('Result').click();
-    cy.get('[data-value=project').click();
-    cy.getDataTestId(dataTestId.startPage.searchField).type('Project for testing 20230512{enter}');
-    cy.contains('Project for testing').click();
-}
+  'Project Manager': userProjectManager,
+};
 
 const projectTitle = 'Project for testing 20230512';
+const selectProject = (user) => {
+  cy.login(user);
+  cy.contains('Result').click();
+  cy.get('[data-value=project]').click();
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
+  cy.contains('Project for testing').click();
+};
 
 // Scenario: An Anonymous User searches for a Project
 Given('An Anonymous User is on the NVA start page', () => {
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.setLocalStorage('beta', 'true');
-    cy.visit('/', {
-        auth: {
-            username: Cypress.env('DEVUSER'),
-            password: Cypress.env('DEVPASSWORD'),
-        },
-    });
+  cy.setLocalStorage('i18nextLng', 'eng');
+  cy.setLocalStorage('previouslyLoggedIn', 'true');
+  cy.setLocalStorage('beta', 'true');
+  cy.visit('/', {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
+    },
+  });
 });
 When('the Anonymous User navigates to the Project search page', () => {
-    cy.contains('Result').click();
-    cy.get('[data-value=project').click();
+  cy.contains('Result').click();
+  cy.get('[data-value=project]').click();
 });
 And('enters a search term for a Project', () => {
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
 });
 Then('a search result with the Project is displayed', () => {
-    cy.get('li').filter(`:contains(${projectTitle})`)
+  cy.get('li').filter(`:contains(${projectTitle})`);
 });
-
 
 //     Scenario: User opens Landing Page for Project
 When("A Anonymous User opens a Project's Landing Page", () => {
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.setLocalStorage('beta', 'true');
-    cy.visit('/', {
-        auth: {
-            username: Cypress.env('DEVUSER'),
-            password: Cypress.env('DEVPASSWORD'),
-        },
-    });
-    cy.contains('Result').click();
-    cy.get('[data-value=project').click();
-    cy.get('ul > li > div > p > a').first().click();
+  cy.setLocalStorage('i18nextLng', 'eng');
+  cy.setLocalStorage('previouslyLoggedIn', 'true');
+  cy.setLocalStorage('beta', 'true');
+  cy.visit('/', {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
+    },
+  });
+  cy.contains('Result').click();
+  cy.get('[data-value=project').click();
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
+  cy.contains('Project for testing').click();
 });
 Then('the Anonymous User see:', (fields) => {
-    const fieldHeadings = {
-        'Project Title': 'Project',
-        'Financing': 'Funding',
-    };
-    cy.get('main > div > div').first().within(() => {
-
-        fields.rawTable.forEach((field) => {
-            if (field[0] === 'Project Title') {
-                cy.get('h1').should('have.text');
-            } else {
-                cy.contains(fieldHeadings[field[0]] ?? field[0], { matchCase: false });
-            }
-        });
+  const fieldHeadings = {
+    'Project Title': 'Project',
+    'Financing': 'Funding',
+  };
+  cy.get('main > div > div')
+    .first()
+    .within(() => {
+      fields.rawTable.forEach((field) => {
+        if (field[0] === 'Project Title') {
+          cy.get('h1').should('have.text', projectTitle);
+        } else {
+          cy.contains(fieldHeadings[field[0]] ?? field[0], { matchCase: false });
+        }
+      });
     });
 });
 //             | Project Title            |
@@ -84,10 +84,12 @@ Then('the Anonymous User see:', (fields) => {
 //             | Financing                |
 //             | PRoject Category         |
 And('the Anonymous User see expandable panels for:', (panels) => {
-    cy.get('main > div > div').first().within(() => {
-        panels.rawTable.forEach((panel) => {
-            cy.contains(panelHeadings[panel[0]] ?? panel[0], { matchCase: false });
-        });
+  cy.get('main > div > div')
+    .first()
+    .within(() => {
+      panels.rawTable.forEach((panel) => {
+        cy.contains(panelHeadings[panel[0]] ?? panel[0], { matchCase: false });
+      });
     });
 });
 //             | Summary             |
@@ -96,13 +98,17 @@ And('the Anonymous User see expandable panels for:', (panels) => {
 //             # | Data Management Plan |
 //             | Associated Projects |
 And('the Anonymous User see counts of:', (counts) => {
-    cy.get('main > div > div').first().within(() => {
-        counts.rawTable.forEach((count) => {
-            cy.contains(panelHeadings[count[0]] ?? count[0], { matchCase: false }).parent().within(() => {
-                cy.contains('(');
-                cy.contains(')');
-            })
-        })
+  cy.get('main > div > div')
+    .first()
+    .within(() => {
+      counts.rawTable.forEach((count) => {
+        cy.contains(panelHeadings[count[0]] ?? count[0], { matchCase: false })
+          .parent()
+          .within(() => {
+            cy.contains('(');
+            cy.contains(')');
+          });
+      });
     });
 });
 //             | Participants        |
@@ -110,15 +116,15 @@ And('the Anonymous User see counts of:', (counts) => {
 //             | Associated Projects |
 
 //     Scenario Outline: Privileged user sees Edit button for Project
-Given('User opens Landing Page for Project', () => { });
+Given('User opens Landing Page for Project', () => {});
 When('the User has the {string} role for the project', (role) => {
-    if (users[role]) {
-        selectProject(users[role]);
-    }
+  if (users[role]) {
+    selectProject(users[role]);
+  }
 });
 Then('they can see an Edit button', () => {
-    cy.getDataTestId(dataTestId.projectLandingPage.editProjectButton).should('be.visible');
-    cy.getDataTestId(dataTestId.projectLandingPage.editProjectButton).should('be.enabled');
+  cy.getDataTestId(dataTestId.projectLandingPage.editProjectButton).should('be.visible');
+  cy.getDataTestId(dataTestId.projectLandingPage.editProjectButton).should('be.enabled');
 });
 //         Examples:
 //             | Role                  |
@@ -128,9 +134,9 @@ Then('they can see an Edit button', () => {
 //             | Local Project Manager |
 
 //     Scenario Outline: Privileged user sees Delete button for Project
-Given('User opens Landing Page for Project', () => { });
-When('the User has the {string} role for the project', () => { });
-Then('they can see a Delete button', () => { });
+Given('User opens Landing Page for Project', () => {});
+When('the User has the {string} role for the project', () => {});
+Then('they can see a Delete button', () => {});
 //         Examples:
 //             | Role            |
 //             | Curator         |
@@ -138,52 +144,52 @@ Then('they can see a Delete button', () => { });
 //             | Project Manager |
 
 //     Scenario: Privileged user clicks the Delete Button for a Project
-Given('Privileged user sees Delete button for Project', () => { });
-When('they click the Delete Button', () => { });
-Then('they see a Confirm Dialog', () => { });
+Given('Privileged user sees Delete button for Project', () => {});
+When('they click the Delete Button', () => {});
+Then('they see a Confirm Dialog', () => {});
 
 //     Scenario: Privileged user deletes a Project
-Given('Privileged user clicks the Delete Button for a Project', () => { });
-When('they Confirm the action', () => { });
-Then('the Confirm Dialog is closed', () => { });
-And('the Project is marked deleted', () => { });
-And('The Project is removed from the Projects list', () => { });
+Given('Privileged user clicks the Delete Button for a Project', () => {});
+When('they Confirm the action', () => {});
+Then('the Confirm Dialog is closed', () => {});
+And('the Project is marked deleted', () => {});
+And('The Project is removed from the Projects list', () => {});
 
 //     Scenario: User expand Summary for a Project
-Given('User opens Landing Page for Project', () => { });
+Given('User opens Landing Page for Project', () => {});
 When('they expand "Summary"', () => {
-    selectProject(userProjectManager);
-    cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).click();
+  selectProject(userProjectManager);
+  cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).click();
 });
 Then('they see "Scientific summary"', () => {
-    cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).within(() => {
-        cy.contains('Scientific summary', { matchCase: false });
-    })
+  cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).within(() => {
+    cy.contains('Scientific summary', { matchCase: false });
+  });
 });
 And('they see "Popular science summary"', () => {
-    cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).within(() => {
-        cy.contains('Popular science summary', { matchCase: false });
-    })
+  cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).within(() => {
+    cy.contains('Popular science summary', { matchCase: false });
+  });
 });
 
 //     Scenario: User expand Participants for a Project
-Given('User opens Landing Page for Project', () => { });
+Given('User opens Landing Page for Project', () => {});
 When('they expand "Participants"', () => {
-    selectProject(userProjectManager);
-    cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
+  selectProject(userProjectManager);
+  cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
 });
 Then('they see a list of Participants and their:', (participantInfo) => {
-    const participantValues = {
-        'Name': 'Project manager TestUser',
-        'Role': 'Project manager',
-        'Affiliation': 'Unit – The Norwegian Directorate for ICT and Joint Services in Higher Education and Research',
-    }
+  const participantValues = {
+    'Name': 'Project manager TestUser',
+    'Role': 'Project manager',
+    'Affiliation': 'Unit – The Norwegian Directorate for ICT and Joint Services in Higher Education and Research',
+  };
 
-    participantInfo.rawTable.forEach(info => {
-        cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).within(() => {
-            cy.contains(participantValues[info[0]], { matchCase: false });
-        })
-    })
+  participantInfo.rawTable.forEach((info) => {
+    cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).within(() => {
+      cy.contains(participantValues[info[0]], { matchCase: false });
+    });
+  });
 });
 //             | Name        |
 //             | Role        |
@@ -191,29 +197,32 @@ Then('they see a list of Participants and their:', (participantInfo) => {
 
 //     Scenario: User sees Project Manager for a Project
 Given('User expand Participants for a Project', () => {
-    selectProject(userProjectManager);
-    cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
+  selectProject(userProjectManager);
+  cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
 });
 When('they see a Project Manager', () => {
-    cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).filter(':contains("Project manager")');
-    cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).filter(':contains("Project manager TestUser")');
+  cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).filter(':contains("Project manager")');
+  cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).filter(':contains("Project manager TestUser")');
 });
 Then('they see fields:', () => {
-    cy.getDataTestId(dataTestId.projectLandingPage.generalInfoBox).filter(':contains("2023")');
+  cy.getDataTestId(dataTestId.projectLandingPage.generalInfoBox).filter(':contains("2023")');
 });
 //             | Start Date |
 
 //     Scenario: User expand Results for a Project
-Given('User opens Landing Page for Project', () => {
-});
+Given('User opens Landing Page for Project', () => {});
 When('they expand "Results"', () => {
-    selectProject(userProjectManager);
-    cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).click();
+  selectProject(userProjectManager);
+  cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).click();
 });
 Then('they see a list of Results', () => {
-    cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).filter(':contains("Results (")').within(() => {
-        cy.get('ul').first().within(() => {
-            cy.get('li').should('have.length', 5);
+  cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion)
+    .filter(':contains("Results (")')
+    .within(() => {
+      cy.get('ul')
+        .first()
+        .within(() => {
+          cy.get('li').should('have.length', 5);
         });
     });
 });

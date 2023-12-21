@@ -393,6 +393,7 @@ const fillInField = (field) => {
             key === dataTestId.registrationWizard.resourceType.dateToField
           ) {
             if (field == resourceTypeFields['bookPrintedMatter']) {
+              cy.log('Book printed matter');
               cy.getDataTestId(key).type(field['add']['fields'][key]);
             } else {
               cy.chooseDatePicker(`[data-testid=${key}]`, todayDatePicker());

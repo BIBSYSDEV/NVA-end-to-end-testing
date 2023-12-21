@@ -37,7 +37,7 @@ Feature: Project Landing Page
     Scenario: User opens Landing Page for Project
         When A Anonymous User opens a Project's Landing Page
         Then the Anonymous User see:
-            # | Project Title            |
+            | Project Title            |
             | Coordinating Institution |
             | Project Manager          |
             | Project Period           |
