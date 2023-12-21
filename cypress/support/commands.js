@@ -89,6 +89,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
 
       passwords[userId] = randomPassword;
       identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+        let trying = false;
         if (data) {
           const authorizeUser = {
             AuthFlow: authFlow,
@@ -100,7 +101,6 @@ Cypress.Commands.add('loginCognito', (userId) => {
           };
 
           let tries = 0;
-          let trying = false;
           do {
             identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
               if (data) {

@@ -75,7 +75,7 @@ export const userLogout = 'test-user-logout@test.no';
 export const userPerformingArts = 'test-user-performing-arts@test.no';
 export const userRequestSupport = 'test-user-open-request-support@test.no';
 export const userOpenMyRegistrations = 'test-user-open-my-registrations@test.no';
-export const userResearchDataDmp = 'test-user-research-data-dmp@test.no';
+export const userResearchDataDmp = 'test-user-dmp@test.no';
 export const userPublishedRegistration = 'test-user-published-registration@test.no';
 export const userLiteraryArts = 'test-user-literary-arts@test.no';
 export const userFilesAndLicense = 'test-user-files-and-license@test.no';
@@ -182,7 +182,7 @@ export const user = {
   [userPerformingArts]: { ...userData, name: 'TestUser, Performing arts' },
   [userRequestSupport]: { ...userData, name: 'TestUser, Request support' },
   [userOpenMyRegistrations]: { ...userData, name: 'TestUser, Open my registrations' },
-  [userResearchDataDmp]: { ...userData, name: 'TestUser, Research data dmp' },
+  [userResearchDataDmp]: { ...userData, name: 'TestUser, DMP' },
   [userPublishedRegistration]: { ...userData, name: 'TestUser, Published registration' },
   [userLiteraryArts]: { ...userData, name: 'TestUser, Literary arts' },
   [userFilesAndLicense]: { ...userData, name: 'TestUser, Files and license' },
