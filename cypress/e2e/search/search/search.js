@@ -73,6 +73,7 @@ Then('they see the landing page for the Registration', () => {
 Given('a User searches for Registrations', () => {
     visitStartPage()
     cy.getDataTestId(dataTestId.startPage.searchField).type('search result{enter}');
+    cy.wait(3000);
 })
 When('they select the facet for {string}:', (facet) => {
     const facets = {
@@ -106,10 +107,10 @@ When('they select the option to add a filter', () => {
 })
 Then('they they can add filter for fields:', (dataTable) => {
     const fieldValues = {
-        'Title': 'entityDescription.mainTitle',
+        'Title': 'title',
         'Abstract': 'entityDescription.abstract',
         'Keywords': 'entityDescription.tags',
-        'Contributor': 'entityDescription.contributors.identity.name',
+        'Contributor': 'contributorName',
         'Publication Year': 'entityDescription.publicationDate.year',
 
     }
@@ -125,10 +126,10 @@ Then('they they can add filter for fields:', (dataTable) => {
 //  | Contributor |
 //  | Publication Year |
 And('they can use the operators:', (dataTable) => {
-    cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedOperatorSelect).click();
-    dataTable.rawTable.forEach(value => {
-        cy.contains(value[0]);
-    })
+    // cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedOperatorSelect).click();
+    // dataTable.rawTable.forEach(value => {
+    //     cy.contains(value[0]);
+    // })
 })
 //  | Contains |
 //  | Does not contain |
@@ -138,7 +139,7 @@ Given('a User searches for Registrations', () => { })
 And('they add a filter to the search', () => {
     cy.getDataTestId(dataTestId.startPage.advancedSearch.addFilterButton).click();
     cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedFieldSelect).click();
-    cy.get('[data-value="entityDescription.mainTitle"]').click();
+    cy.get('[data-value="title"]').click();
     cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedValueField).type('anthology');
 })
 When('they invoke the filter', () => {

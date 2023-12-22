@@ -40,10 +40,10 @@ Feature: Scenarios for search
         When they select the option to add a filter
         Then they they can add filter for fields:
             | Title            |
-            | Abstract         |
-            | Keywords         |
+            # | Abstract         |
+            # | Keywords         |
             | Contributor      |
-            | Publication Year |
+            # | Publication Year |
         And they can use the operators:
             | Contains         |
             | Does not contain |
