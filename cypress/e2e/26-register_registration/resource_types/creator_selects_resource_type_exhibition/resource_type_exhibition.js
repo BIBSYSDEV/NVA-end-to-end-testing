@@ -1,5 +1,5 @@
 import { dataTestId } from "../../../../support/dataTestIds";
-import { userWithAuthor } from '../../../../support/constants'
+import { userSaveExhibition } from '../../../../support/constants'
 
 // Feature: Creator selects Resource tyoe "Exhibition"
 
@@ -21,7 +21,7 @@ const announcementFields = {
 
 //     Scenario: Creator navigates to the Resource Type tab and selects Resource type "Exhibition"
 Given('Creator starts registering a Registration', () => {
-    cy.login(userWithAuthor);
+    cy.login(userSaveExhibition);
     cy.getDataTestId(dataTestId.header.newRegistrationLink).click();
     cy.getDataTestId(dataTestId.registrationWizard.new.emptyRegistrationAccordion).click();
 });
@@ -35,7 +35,7 @@ Then('they see a Exhibition types:', () => {
 
 //     Scenario: Creator selects Resource type ExhibitionProduction
 Given('Creator navigates to the Resource Type tab and selects Resource type "Exhibition"', () => {
-    cy.login(userWithAuthor);
+    cy.login(userSaveExhibition);
     cy.getDataTestId(dataTestId.header.newRegistrationLink).click();
     cy.getDataTestId(dataTestId.registrationWizard.new.emptyRegistrationAccordion).click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
@@ -84,7 +84,7 @@ And('the can add manifestations of types:', (dataTable) => {
 
 //     Scenario: Creator adds ExhibitionMentionInPublication to an ExhibitionProduction
 Given('Creator selects Resource type ExhibitionProduction', () => {
-    cy.login(userWithAuthor);
+    cy.login(userSaveExhibition);
     cy.getDataTestId(dataTestId.header.newRegistrationLink).click();
     cy.getDataTestId(dataTestId.registrationWizard.new.emptyRegistrationAccordion).click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
