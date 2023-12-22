@@ -1,5 +1,5 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userEditor } from '../../../support/constants';
+import { userEditor1 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Editor manages curators area of responsibility
@@ -14,7 +14,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 
 //     Background:
 Given('a logged in Editor', () => {
-  cy.login(userEditor);
+  cy.login(userEditor1);
 });
 
 // Scenario: Editor views curators and area of responsibility

@@ -1,5 +1,5 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userEditor } from '../../../support/constants';
+import { userEditor2 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Editor sees DOI configuration
@@ -22,7 +22,7 @@ const doiInformation = {
 
 //     Background:
 Given('a logged in Editor', () => {
-  cy.login(userEditor);
+  cy.login(userEditor2);
   cy.getDataTestId(dataTestId.header.editorLink).click();
 })
 

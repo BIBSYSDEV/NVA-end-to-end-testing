@@ -1,4 +1,4 @@
-import { userEditor } from '../../../support/constants';
+import { userEditor4} from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Editor decide on institutions Vocabulary settings
@@ -24,7 +24,7 @@ const vocabularyStatus = {
 
 //     Background:
 Given('a logged in Editor', () => {
-    cy.login(userEditor);
+    cy.login(userEditor4);
 })
 
 // Scenario: Editor sees fields for Vocabulary settings

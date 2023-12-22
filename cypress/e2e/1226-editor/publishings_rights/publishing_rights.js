@@ -1,4 +1,4 @@
-import { userEditor, userSecondEditor } from '../../../support/constants';
+import { userEditor3, userSecondEditor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Editor decides who gets publishing rights
@@ -20,7 +20,7 @@ Given('an Institution with one or more Editor roles', () => {
 
 // Scenario: Default publishing rights
 When('the Editor of an Institution hasn’t chosen a policy', () => {
-  cy.login(userEditor);
+  cy.login(userEditor3);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();

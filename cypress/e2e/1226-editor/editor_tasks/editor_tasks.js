@@ -168,7 +168,6 @@ const publishStrategies = {
 };
 
 Given('an Institution with one or more Editor roles', () => {
-  // cy.login(userSecondEditor);
 });
 
 // Scenario: Default publishing rights

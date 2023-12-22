@@ -63,7 +63,14 @@ export const userResourceTypeReport = 'test-user-resource-type-report@test.no';
 export const userResourceTypeArchitecture = 'test-user-resource-type-architecture@test.no';
 export const userViewRegistration = 'test-user-view-registration@test.no';
 export const userEditor = 'test-user-editor@test.no';
+export const userSecondEditor = 'test-user-second-editor@test.no';
 export const userThirdEditor = 'test-user-third-editor@test.no';
+export const userFourthEditor = 'test-user-fourth-editor@test.no';
+export const userEditor1 = 'test-user-editor-1@test.no';
+export const userEditor2 = 'test-user-editor-2@test.no';
+export const userEditor3 = 'test-user-editor-3@test.no';
+export const userEditor4 = 'test-user-editor-4@test.no';
+export const userEditor5 = 'test-user-editor-5@test.no';
 export const userMyRegistrations = 'test-user-my-registrations@test.no';
 export const userFetchDoi = 'test-user-doi-fetch@test.no';
 export const userContributor = 'test-user-contributor@test.no';
@@ -94,7 +101,6 @@ export const userCurator = 'test-user-second-inst-curator-5@test.no';
 export const userCurator2 = 'test-user-second-inst-curator-4@test.no';
 export const userPublishRegistration = 'test-user-publish-registration@test.no';
 export const userResearchDataset = 'test-user-research-dataset@test.no';
-export const userSecondEditor = 'test-user-second-editor@test.no';
 export const userContributors = 'test-user-contributors@test.no';
 export const userProjectManager = 'test-user-project-manager@test.no';
 export const userMessages = 'test-user-messages@test.no';
@@ -170,7 +176,14 @@ export const user = {
   [userResourceTypeArchitecture]: { ...userData, name: 'TestUser, Resource type architecture' },
   [userViewRegistration]: { ...userData, name: 'TestUser, View registration' },
   [userEditor]: { ...userData, name: 'TestUser, Editor' },
+  [userSecondEditor]: { ...userData, name: 'TestUser, Second Institution-Editor' },
   [userThirdEditor]: { ...userData, name: 'TestUser, Third Editor' },
+  [userFourthEditor]: { ...userData, name: 'TestUser, Fourth Editor' },
+  [userEditor1]: { ...userData, name: 'TestUser, Editor 1' },
+  [userEditor2]: { ...userData, name: 'TestUser, Editor 2' },
+  [userEditor3]: { ...userData, name: 'TestUser, Editor 3' },
+  [userEditor4]: { ...userData, name: 'TestUser, Editor 4' },
+  [userEditor5]: { ...userData, name: 'TestUser, Editor 5' },
   [userMyRegistrations]: { ...userData, name: 'TestUser, MyRegistrations' },
   [userFetchDoi]: { ...userData, name: 'TestUser, Fetch Doi' },
   [userContributor]: { ...userData, name: 'TestUser, Contributor' },
@@ -201,7 +214,6 @@ export const user = {
   [userCurator2]: { ...userData, name: 'TestUser, Curator 2' },
   [userPublishRegistration]: { ...userData, name: 'TestUser, Publish registration' },
   [userResearchDataset]: { ...userData, name: 'TestUser, Research dataset' },
-  [userSecondEditor]: { ...userData, name: 'TestUser, Second Institution-Editor' },
   [userContributors]: { ...userData, name: 'TestUser, Contributors' },
   [userProjectManager]: { ...userData, name: 'TestUser, Project manager' },
   [userMessages]: { ...userData, name: 'TestUser, Messages' },

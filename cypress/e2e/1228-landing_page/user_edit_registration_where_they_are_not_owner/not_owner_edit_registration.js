@@ -1,4 +1,4 @@
-import { userCuratorWithAuthor, userEditRegistration, userEditor } from '../../../support/constants';
+import { userCuratorWithAuthor, userEditRegistration, userEditor5 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature; User edit registrations where they are not owner
@@ -23,7 +23,7 @@ Then('they have the option to edit the Registration', () => {
 
 // Scenario: Editor see option to edit a Registration
 Given('User is logged in as Editor', () => {
-    cy.login(userEditor);
+    cy.login(userEditor5);
 });
 When('they open the landing page for a Registration', () => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
@@ -61,7 +61,7 @@ Then('the Registration is opened in the Registration wizard', () => {
 
 // Scenario: Editor edit a Registration
 Given('Editor open landing page for a Registration', () => {
-    cy.login(userEditor);
+    cy.login(userEditor5);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
