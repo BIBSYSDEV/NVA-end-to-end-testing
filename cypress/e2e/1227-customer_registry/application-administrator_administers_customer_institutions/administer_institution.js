@@ -1,4 +1,4 @@
-import { adminUser } from '../../../support/constants';
+import { adminUser1 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { institutionFields } from '../../../support/data_testid_constants';
 // Feature: Application Administrator administers Customer Institutions
@@ -13,7 +13,7 @@ const sectors = {
 
 // Common steps
 Given('that the user is logged in as Application Administrator', () => {
-  cy.login(adminUser);
+  cy.login(adminUser1);
 });
 
 And('they see fields:', (table) => {

@@ -46,6 +46,7 @@ export const userCuratorWithAuthor = 'test-user-curator@test.no';
 export const userInstAdminWithAuthor = 'test-user-first-inst-admin@test.no';
 export const userSecondInstAdminWithAuthor = 'test-user-second-inst-admin@test.no';
 export const adminUser = 'test-user-app-admin@test.no';
+export const adminUser1 = 'test-user-app-admin-1@test.no';
 export const testUser = 'test-user-login@test.no';
 export const userNoRole = 'test-user-with-no-role@test.no';
 export const userRemoveOrcid = 'test-user-remove-existing-orcid@test.no';
@@ -160,6 +161,7 @@ export const user = {
   [userInstAdminWithAuthor]: { ...userData, name: 'TestUser, Institution-admin' },
   [userSecondInstAdminWithAuthor]: { ...userData, name: 'TestUser, Second Institution-admin-1' },
   [adminUser]: { ...userData, name: 'TestUser, App-admin' },
+  [adminUser1]: { ...userData, name: 'TestUser, App-admin 1' },
   [userNoRole]: { ...userData, name: 'TestUser, No role' },
   [userRemoveOrcid]: { ...userData, name: 'TestUser, Remove orcid' },
   [userNonCustomer]: { ...userData, name: 'TestUser, Not customer' },

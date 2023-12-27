@@ -257,6 +257,21 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "App-admin 1",
+    "nin": "03093826603",
+    "username": "test-user-app-admin-1@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "App-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
     "firstName": "Curator",
     "nin": "12124945168",
     "username": "test-user-curator@test.no",
