@@ -39,6 +39,7 @@ const authFlow = 'USER_PASSWORD_AUTH';
 const passwords = {};
 
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
+export const formatedToday = today.slice(6) + '.' + today.slice(4,6) + '.' + today.slice(0,4);
 export const todayDatePicker = () => {
   const pad = (value) => `0${value}`.slice(-2);
   const date = new Date();
@@ -229,7 +230,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
   title = title ? `${title} ${today}` : `Title ${today}`;
   cy.get('[data-testid=registration-title-field]').type(title, { delay: 0 });
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, '01.01.2020');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, formatedToday);
 
   // Reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
@@ -237,8 +238,8 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField)
     .click({ force: true })
-    .type('Norges byggforskningsinstitutt');
-  cy.contains('Norges byggforskningsinstitutt').click({ force: true });
+    .type('1476-4687');
+  cy.contains('1476-4687').click({ force: true });
 
   // Contributors
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });

@@ -3,6 +3,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 
 const filename = 'example.json';
+const natureIssn = '1476-4687';
 
 // Background:
 Given('an logged-in Curator at an NVI-Institution', () => {
@@ -56,7 +57,7 @@ And('the calculated number of points for the Candidate', () => {
   cy.contains('Publication points')
     .parent()
     .within(() => {
-      cy.contains('1.0');
+      cy.contains('3,0');
     });
 });
 And('the Curator have an option to approve the Candidate', () => {
