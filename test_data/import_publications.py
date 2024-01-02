@@ -31,6 +31,7 @@ USER_POOL_ID = ssm.get_parameter(Name='/CognitoUserPoolId',
 CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 deleteNviIndexLambda = 'master-pipelines-NvaNvi-1-DeleteNviCandidateIndexH-zfxYODFdVnjs'
+nviInitHandlerLambda = 'master-pipelines-NvaNvi-1V33HP5I7F42I--InitHandler-IX8ystUbVaIG'
 publication_template_file_name = './publications/new_test_registration.json'
 test_publications_file_name = './publications/test_publications.json'
 person_query = 'https://api.{}.nva.aws.unit.no/cristin/person/identityNumber'
@@ -113,6 +114,9 @@ def set_nvi_period():
 def reset_nvi_search_index():
     print('Resetting NVI index...')
     response = lambda_client.invoke(FunctionName=deleteNviIndexLambda)
+    if response['StatusCode'] != 200:
+        print(response)
+    response = lambda_client.invoke(FunctionName=nviInitHandlerLambda)
     if response['StatusCode'] != 200:
         print(response)
 
