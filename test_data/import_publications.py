@@ -100,16 +100,17 @@ def set_nvi_period():
     print(f'Setting NVI period to {year} - {endDate}')
     babel.Locale('nb', 'NO')
     startTime = datetime.now() + timedelta(minutes=+1)
-    startDate = startTime.strftime('%Y-%m-%dT%H:%M:59Z')
-    print(startDate)
-    payload = {
-        "publishingYear": year,
-        "reportingDate": periodEndDate,
-        "startDate": startDate
-    }
-    response = requests.post(url=period_endpoint, json=payload, headers=headers)
-    if response.status_code != 201:
-        print(response.__dict__)
+    if datetime.now().day == 1 and datetime.now().month == 1:
+        startDate = startTime.strftime('%Y-%m-%dT%H:%M:59Z')
+        print(startDate)
+        payload = {
+            "publishingYear": year,
+            "reportingDate": periodEndDate,
+            "startDate": startDate
+        }
+        response = requests.post(url=period_endpoint, json=payload, headers=headers)
+        if response.status_code != 201:
+            print(response.__dict__)
 
 def reset_nvi_search_index():
     print('Resetting NVI index...')

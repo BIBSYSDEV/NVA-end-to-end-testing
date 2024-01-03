@@ -38,10 +38,10 @@ const authFlow = 'USER_PASSWORD_AUTH';
 
 const passwords = {};
 
+const pad = (value) => `0${value}`.slice(-2);
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
-export const formatedToday = today.slice(6) + '.' + today.slice(4,6) + '.' + today.slice(0,4);
+export const formatedToday = pad(new Date().getDate() + 1) + '.' + today.slice(4, 6) + '.' + today.slice(0, 4);
 export const todayDatePicker = () => {
-  const pad = (value) => `0${value}`.slice(-2);
   const date = new Date();
   const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
   return dateValue;
@@ -236,9 +236,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 
   cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField)
-    .click({ force: true })
-    .type('1476-4687');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('1476-4687');
   cy.contains('1476-4687').click({ force: true });
 
   // Contributors
