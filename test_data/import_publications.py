@@ -278,17 +278,18 @@ def delete_publications():
     for candidate in candidates:
         primary_partition_key = candidate['PrimaryKeyHashKey'][STRING]
         primary_sort_key = candidate['PrimaryKeyRangeKey'][STRING]
-        print(f'deleting nvi candidate {primary_partition_key}')
-        response = dynamodb_client.delete_item(
-            TableName=nvi_tablename,
-            Key={
-                'PrimaryKeyHashKey': {
-                    STRING: primary_partition_key
-                },
-                'PrimaryKeyRangeKey': {
-                    STRING: primary_sort_key
-                }
-            })
+        if primary_partition_key != 'PERIOD':
+            print(f'deleting nvi candidate {primary_partition_key}')
+            response = dynamodb_client.delete_item(
+                TableName=nvi_tablename,
+                Key={
+                    'PrimaryKeyHashKey': {
+                        STRING: primary_partition_key
+                    },
+                    'PrimaryKeyRangeKey': {
+                        STRING: primary_sort_key
+                    }
+                })
     return
 
 
@@ -562,7 +563,7 @@ def read_customers():
 
 
 def run():
-    reset_nvi_search_index()
+    # reset_nvi_search_index()
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
