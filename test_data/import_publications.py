@@ -97,10 +97,10 @@ endDate = endDate.replace(endDate.year + 1)
 periodEndDate = endDate.strftime('%Y-%m-%dT00:00:00Z')
 
 def set_nvi_period():
-    print(f'Setting NVI period to {year} - {endDate}')
     babel.Locale('nb', 'NO')
     startTime = datetime.now() + timedelta(minutes=+1)
     if datetime.now().day == 1 and datetime.now().month == 1:
+        print(f'Setting NVI period to {year} - {endDate}')
         startDate = startTime.strftime('%Y-%m-%dT%H:%M:59Z')
         print(startDate)
         payload = {
