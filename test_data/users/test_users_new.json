@@ -407,6 +407,21 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "Institution-admin performance",
+    "nin": "22093826616",
+    "username": "test-user-inst-admin-performance@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Institution-admin"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
     "firstName": "Second Institution-editor",
     "nin": "02103726681",
     "username": "test-user-second-editor@test.no",

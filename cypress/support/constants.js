@@ -45,6 +45,7 @@ export const userWithInstitutionRemoveInstitution = 'test-user-with-institution-
 export const userCuratorWithAuthor = 'test-user-curator@test.no';
 export const userInstAdminWithAuthor = 'test-user-first-inst-admin@test.no';
 export const userSecondInstAdminWithAuthor = 'test-user-second-inst-admin@test.no';
+export const userInstAdminPerformance = 'test-user-inst-admin-performance@test.no';
 export const adminUser = 'test-user-app-admin@test.no';
 export const adminUser1 = 'test-user-app-admin-1@test.no';
 export const testUser = 'test-user-login@test.no';
@@ -115,6 +116,7 @@ export const userFavorite2 = 'test-user-third-favorite@test.no';
 export const userDeleteRegistrations = 'test-user-delete-registrations@test.no';
 export const userNviCurator = 'test-user-nvi@test.no';
 
+
 const userData = {
   name: '',
   orgunitids: ['https://api.cristin.no/v2/institutions/1111111111'],
@@ -160,6 +162,7 @@ export const user = {
   [userCuratorWithAuthor]: { ...userData, name: 'TestUser, Curator' },
   [userInstAdminWithAuthor]: { ...userData, name: 'TestUser, Institution-admin' },
   [userSecondInstAdminWithAuthor]: { ...userData, name: 'TestUser, Second Institution-admin-1' },
+  [userInstAdminPerformance]: { ...userData, name: 'TestUser, Institution-admin performance' },
   [adminUser]: { ...userData, name: 'TestUser, App-admin' },
   [adminUser1]: { ...userData, name: 'TestUser, App-admin 1' },
   [userNoRole]: { ...userData, name: 'TestUser, No role' },
