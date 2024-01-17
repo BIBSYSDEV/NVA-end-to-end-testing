@@ -3,7 +3,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 
 const filename = 'example.json';
-const journalSearch = 'ACS chemical biology';
+const journalSearch = 'ACS Chemical Biology';
 
 // Background:
 Given('an logged-in Curator at an NVI-Institution', () => {
@@ -193,8 +193,8 @@ And('the NVI candidate is still a candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
     cy.getDataTestId('CancelIcon').click();
   });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('ACS chemical biology');
-  cy.contains('ACS chemical biology').last().click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('ACS Chemical Biology');
+  cy.contains('ACS Chemical Biology').last().click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.contains('Updated registration');

@@ -1,8 +1,13 @@
 {
   "APP-ADMIN": {
-    "M": {
       "accessRights": {
-        "L": []
+        "SS": [
+          "act-as",
+          "customers",
+          "external-clients",
+          "import",
+          "nvi-admin"
+          ]
       },
       "name": {
         "S": "App-admin"
@@ -16,40 +21,189 @@
       "type": {
         "S": "ROLE"
       }
-    }
   },
   "CURATOR": {
-    "M": {
-      "accessRights": {
-        "L": [
-          {
-            "S": "APPROVE_DOI_REQUEST"
-          },
-          {
-            "S": "REJECT_DOI_REQUEST"
-          }
-        ]
-      },
-      "name": {
-        "S": "Curator"
-      },
       "PrimaryKeyHashKey": {
         "S": "ROLE#Curator"
       },
       "PrimaryKeyRangeKey": {
         "S": "ROLE#Curator"
       },
+      "accessRights": {
+        "SS": [
+          "doi",
+          "publishing",
+          "resource",
+          "support"
+          ]
+      },
+      "name": {
+        "S": "Support-Curator"
+      },
       "type": {
         "S": "ROLE"
       }
+  },
+  "SUPPORT-CURATOR": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#Support-Curator"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#Support-Curator"
+    },
+    "accessRights": {
+      "SS": [
+        "resource",
+        "support"
+      ]
+    },
+    "name": {
+      "S": "Support-Curator"
+    },
+    "type": {
+      "S": "ROLE"
+    }
+  },
+  "CURATOR-IMPORT-CANDIDATE": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#Curator-Import-candidate"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#Curator-Import-candidate"
+    },
+    "accessRights": {
+      "SS": [
+        "PROCESS_IMPORT_CANDIDATE"
+      ]
+    },
+    "name": {
+      "S": "Curator-Import-candidate"
+    },
+    "type": {
+      "S": "ROLE"
+    }
+  },
+  "FILE-CURATOR": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#File-Curator"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#File-Curator"
+    },
+    "accessRights": {
+      "SS": [
+        "publishing"
+      ]
+    },
+    "name": {
+      "S": "File-Curator"
+    },
+    "type": {
+      "S": "ROLE"
+    }
+  },
+  "NVI-CURATOR": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#Nvi-Curator"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#Nvi-Curator"
+    },
+    "accessRights": {
+      "SS": [
+        "nvi-candidates",
+        "resource"
+      ]
+    },
+    "name": {
+      "S": "Nvi-Curator"
+    },
+    "type": {
+      "S": "ROLE"
+    }
+  },
+  "CURATOR-THESIS": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#Curator-thesis"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#Curator-thesis"
+    },
+    "accessRights": {
+      "SS": [
+        "degree"
+      ]
+    },
+    "name": {
+      "S": "Curator-thesis"
+    },
+    "type": {
+      "S": "ROLE"
+    }
+  },
+  "CURATOR-THESIS-EMBARGO": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#Curator-thesis-embargo"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#Curator-thesis-embargo"
+    },
+    "accessRights": {
+      "SS": [
+        "degree-embargo"
+      ]
+    },
+    "name": {
+      "S": "Curator-thesis-embargo"
+    },
+    "type": {
+      "S": "ROLE"
+    }
+  },
+  "DOI-CURATOR": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#Doi-Curator"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#Doi-Curator"
+    },
+    "accessRights": {
+      "SS": [
+        "doi",
+        "resource"
+      ]
+    },
+    "name": {
+      "S": "Doi-Curator"
+    },
+    "type": {
+      "S": "ROLE"
+    }
+  },
+  "INTERNAL-IMPORTER": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#Internal-importer"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#Internal-importer"
+    },
+    "accessRights": {
+      "SS": [
+        "import"
+      ]
+    },
+    "name": {
+      "S": "Internal-importer"
+    },
+    "type": {
+      "S": "ROLE"
     }
   },
   "CREATOR": {
-    "M": {
       "accessRights": {
-        "L": [
+        "SS": [
           {
-            "S": "READ_DOI_REQUEST"
+            "resources"
           }
         ]
       },
@@ -65,12 +219,13 @@
       "type": {
         "S": "ROLE"
       }
-    }
   },
   "INST-ADMIN": {
-    "M": {
       "accessRights": {
-        "L": []
+        "SS": [
+          "own-affiliation",
+          "resource"
+          ]
       },
       "name": {
         "S": "Institution-admin"
@@ -84,12 +239,13 @@
       "type": {
         "S": "ROLE"
       }
-    }
   },
   "EDITOR": {
-    "M": {
       "accessRights": {
-        "L": []
+        "SS": [
+          "own-affiliation",
+          "resource-all"
+          ]
       },
       "name": {
         "S": "Editor"
@@ -104,5 +260,4 @@
         "S": "ROLE"
       }
     }
-  }
 }

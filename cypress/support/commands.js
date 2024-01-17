@@ -236,8 +236,8 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 
   cy.getDataTestId('resource-type-chip-AcademicArticle').click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('ACS chemical biology');
-  cy.contains('ACS chemical biology').click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('ACS Chemical Biology');
+  cy.contains('ACS Chemical Biology').click({ force: true });
 
   // Contributors
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
