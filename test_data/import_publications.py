@@ -437,6 +437,7 @@ def create_publications():
             )
             response = put_item(
                 new_publication=new_publication, username=username)
+            print(response)
             identifier = response['identifier']
             if test_publication['status'] == 'PUBLISHED':
                 print(f'publishing...{identifier}')

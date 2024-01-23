@@ -36,7 +36,6 @@
     "username": "test-user-resource-type-degree@test.no",
     "role": [
       { "type": "Role", "rolename": "Creator" },
-      { "type": "Role", "rolename": "Curator" },
       { "type": "Role", "rolename": "Curator-thesis" },
       { "type": "Role", "rolename": "Curator-thesis-embargo" }
     ],
@@ -92,7 +91,7 @@
     "role": [
       {
         "type": "Role",
-        "rolename": "Curator"
+        "rolename": "Doi-curator"
       }
     ],
     "orcid": true,
@@ -278,7 +277,19 @@
     "role": [
       {
         "type": "Role",
-        "rolename": "Curator"
+        "rolename": "Support-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "File-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
       }
     ],
     "orcid": true,
@@ -458,7 +469,19 @@
     "role": [
       {
         "type": "Role",
-        "rolename": "Curator"
+        "rolename": "Support-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "File-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
       }
     ],
     "orcid": true,
@@ -473,7 +496,19 @@
     "role": [
       {
         "type": "Role",
-        "rolename": "Curator"
+        "rolename": "Support-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "File-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
       }
     ],
     "orcid": true,
@@ -488,7 +523,19 @@
     "role": [
       {
         "type": "Role",
-        "rolename": "Curator"
+        "rolename": "Support-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "File-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
       }
     ],
     "orcid": true,
@@ -503,7 +550,19 @@
     "role": [
       {
         "type": "Role",
-        "rolename": "Curator"
+        "rolename": "Support-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "File-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
       }
     ],
     "orcid": true,
@@ -518,7 +577,19 @@
     "role": [
       {
         "type": "Role",
-        "rolename": "Curator"
+        "rolename": "Support-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "File-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
       }
     ],
     "orcid": true,
@@ -533,7 +604,19 @@
     "role": [
       {
         "type": "Role",
-        "rolename": "Curator"
+        "rolename": "Support-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "File-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
       }
     ],
     "orcid": true,
@@ -797,7 +880,6 @@
     "username": "test-user-contributor@test.no",
     "role": [
       { "type": "Role", "rolename": "Creator" },
-      { "type": "Role", "rolename": "Curator" },
       { "type": "Role", "rolename": "Curator-thesis" },
       { "type": "Role", "rolename": "Curator-thesis-embargo" }
     ],
@@ -972,7 +1054,6 @@
     "username": "test-user-save-thesis@test.no",
     "role": [
       { "type": "Role", "rolename": "Creator" },
-      { "type": "Role", "rolename": "Curator" },
       { "type": "Role", "rolename": "Curator-thesis" },
       { "type": "Role", "rolename": "Curator-thesis-embargo" }
     ],
@@ -1125,7 +1206,6 @@
     "username": "test-user-contributors@test.no",
     "role": [
       { "type": "Role", "rolename": "Creator" },
-      { "type": "Role", "rolename": "Curator" },
       { "type": "Role", "rolename": "Curator-thesis" },
       { "type": "Role", "rolename": "Curator-thesis-embargo" }
     ],

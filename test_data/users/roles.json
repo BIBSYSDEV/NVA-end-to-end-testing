@@ -180,6 +180,65 @@
       "S": "ROLE"
     }
   },
+  "SUPPORT-CURATOR": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#Support-Curator"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#Support-Curator"
+    },
+    "accessRights": {
+      "SS": [
+        "resource",
+        "support"
+      ]
+    },
+    "name": {
+      "S": "Support-Curator"
+    },
+    "type": {
+      "S": "ROLE"
+    }
+  },
+  "PUBLISHING-CURATOR": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#Publishing-Curator"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#Publishing-Curator"
+    },
+    "accessRights": {
+      "SS": [
+        "publishing",
+        "resource"
+      ]
+    },
+    "name": {
+      "S": "Publishing-Curator"
+    },
+    "type": {
+      "S": "ROLE"
+    }
+  },
+  "FILE-CURATOR": {
+    "PrimaryKeyHashKey": {
+      "S": "ROLE#File-Curator"
+    },
+    "PrimaryKeyRangeKey": {
+      "S": "ROLE#File-Curator"
+    },
+    "accessRights": {
+      "SS": [
+        "publishing"
+      ]
+    },
+    "name": {
+      "S": "File-Curator"
+    },
+    "type": {
+      "S": "ROLE"
+    }
+  },
   "INTERNAL-IMPORTER": {
     "PrimaryKeyHashKey": {
       "S": "ROLE#Internal-importer"
