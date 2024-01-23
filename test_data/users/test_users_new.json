@@ -91,7 +91,7 @@
     "role": [
       {
         "type": "Role",
-        "rolename": "Doi-curator"
+        "rolename": "Doi-Curator"
       }
     ],
     "orcid": true,
@@ -1375,7 +1375,7 @@
       },
       {
         "type": "Role",
-        "rolename": "Nvi-curator"
+        "rolename": "Nvi-Curator"
       }
     ],
     "orcid": true,
