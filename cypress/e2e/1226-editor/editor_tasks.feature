@@ -35,16 +35,16 @@ Scenario: Editor opens institutions configuration
     And they may also see
         | Institution's Feide domain |
     And the Editor sees a menu with following options
-        | Institutions configuration |
-        | Vocabulary settings        |
-        | Publishing strategi        |
-        | DOI configuration          |
-        | Curator's responsibility   |
+        | Institution name         |
+        | Vocabulary settings      |
+        | Publishing strategi      |
+        | DOI configuration        |
+        | Curator's responsibility |
     #        | change owner of registration |
     #        | Sletting av publikasjoner    |
     # | NVI-rapportering           |
     #        | Lisenser og filer            |
-    And "Institutions configuration" is the active choice
+    And "Institution name" is the active choice
 
 @firstEditor
 @test

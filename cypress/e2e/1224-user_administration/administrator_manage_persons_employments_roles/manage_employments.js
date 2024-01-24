@@ -164,7 +164,10 @@ Then('a form with following fields are displayed', (dataTable) => {
 
 // Scenario: Administrator grants or removes a Persons roles
 const roleChecks = {
-  'Curator': 'Curator',
+  'Publishing Curator': 'Publishing-Curator',
+  'DOI Curator': 'Doi-Curator',
+  'Support Curator': 'Support-Curator',
+  'NVI Curator': 'Nvi-curator',
   'Editor': 'Editor',
   'Administrator': 'Institution-admin',
 };

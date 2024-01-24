@@ -1375,7 +1375,7 @@
       },
       {
         "type": "Role",
-        "rolename": "Nvi-Curator"
+        "rolename": "Nvi-curator"
       }
     ],
     "orcid": true,
