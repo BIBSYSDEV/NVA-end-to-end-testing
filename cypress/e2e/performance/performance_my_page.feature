@@ -6,16 +6,17 @@ Feature: Performance test My page
     And select Dialogue
     Then Messages to the user are presented within 3 seconds
 
-  Scenario: User views result registrations on My page
+  @test
+  Scenario: User views result Registrations on My page
     Given logged in user
     When they navigate to My page
-    And they select Result registrations
+    And they select Result Registrations
     Then the users draft Registrations are presented within 3 seconds
 
-  Scenario: User views result registrations on My page
+  Scenario: User views project Registrations on My page
     Given logged in user
     When they navigate to My page
-    And they select Project registrations
+    And they select Project Registrations
     Then the users Projects are presented within 3 seconds
 
   Scenario: User views Research profile on My page
