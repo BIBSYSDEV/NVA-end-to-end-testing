@@ -167,7 +167,7 @@ const roleChecks = {
   'Publishing Curator': 'Publishing-Curator',
   'DOI Curator': 'Doi-Curator',
   'Support Curator': 'Support-Curator',
-  'NVI Curator': 'Nvi-curator',
+  'NVI Curator': 'Nvi-Curator',
   'Editor': 'Editor',
   'Administrator': 'Institution-admin',
 };
