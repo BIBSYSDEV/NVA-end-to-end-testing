@@ -1365,7 +1365,7 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "NVI-curator",
+    "firstName": "NVI-Curator",
     "nin": "11064832362",
     "username": "test-user-nvi@test.no",
     "role": [
@@ -1375,7 +1375,7 @@
       },
       {
         "type": "Role",
-        "rolename": "Nvi-curator"
+        "rolename": "Nvi-Curator"
       }
     ],
     "orcid": true,

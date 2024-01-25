@@ -3,7 +3,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 
 const filename = 'example.json';
-const journalSearch = 'ACS Chemical Biology';
+const journalSearch = 'ACS chemical biology';
 
 // Background:
 Given('an logged-in Curator at an NVI-Institution', () => {
@@ -17,7 +17,7 @@ Given('an logged-in Curator at an NVI-Institution', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-  cy.wait(15000);
+  cy.wait(3000);
 });
 
 // Scenario: Curator views NVI-report status at own Institution
@@ -86,7 +86,7 @@ And('uses the option to approve the NVI-candidate', () => {
   cy.contains('Approved');
 });
 Then('the NVI candidate is removed from the list of Candidate Resources', () => {
-  cy.wait(10000);
+  cy.wait(3000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.pendingRadio).click();
   cy.get('@uuid').then((uuid) => {
@@ -174,7 +174,7 @@ And('the NVI candidate is no longer an NVI candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.contains('Updated registration');
-  cy.wait(15000);
+  cy.wait(3000);
 });
 Then('remove the NVI candidate from the NVI candidate list.', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -198,7 +198,7 @@ And('the NVI candidate is still a candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.contains('Updated registration');
-  cy.wait(15000);
+  cy.wait(3000);
 });
 Then('reset the approval status for all involved institutions for the NVI candidate.', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();

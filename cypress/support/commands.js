@@ -180,6 +180,12 @@ Cypress.Commands.add('login', (userId) => {
         username: Cypress.env('DEVUSER'),
         password: Cypress.env('DEVPASSWORD'),
       },
+      onBerforeLoad(win) {
+        if (browser.family === 'chromium' && browser.name !== 'electron') {
+          launchOptions.preferences.default.intl = { accept_languages: "en_US" }
+          return launchOptions
+        }
+      },
     });
   });
 });
