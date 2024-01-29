@@ -274,11 +274,13 @@ Cypress.Commands.add('selectRegistration', (title, type) => {
     cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
     cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).click();
   }
-  cy.get('[data-testid^=registration-title]')
+  cy.get('[data-testid^=result-list-item]')
     .filter(`:contains(${title})`)
-    .parent()
+    .first()
     .within(() => {
-      cy.get('[data-testid^=open-registration]').first().click();
+      cy.get('p > a')
+        .first()
+        .click();
     });
 });
 
