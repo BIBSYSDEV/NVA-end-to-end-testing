@@ -20,6 +20,7 @@ const filename = 'example.txt';
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.login(userDraftDoi2);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
   cy.get('[data-testid^=result-list-item]').first().click();
 });
 

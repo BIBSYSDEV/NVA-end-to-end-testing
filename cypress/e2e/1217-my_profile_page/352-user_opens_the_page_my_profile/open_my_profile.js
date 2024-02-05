@@ -7,11 +7,10 @@ Given('that the user is logged in', () => {
 });
 When('they click the menu item My user profile', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
-  cy.getDataTestId(dataTestId.myPage.myProfileAccordion).click();
   cy.getDataTestId(dataTestId.myPage.myProfileLink).click();
 });
 Then('they see My Profile', () => {
-  cy.location('pathname').should('contain', '/my-page/my-profile');
+  cy.location('pathname').should('contain', '/my-page/profile/personalia');
 });
 And('they see their Profile page which includes information for', (dataTable) => {
   cy.testDataTestidList(dataTable, profilePageFields);

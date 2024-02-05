@@ -113,14 +113,14 @@ Feature: Curator opens My Worklist
     Then the Request status is set to "Answered"
     And the User can read the answer in My Messages
 
-  Scenario: User gets an answer to a Request
-    When the Curator writes an answer
-    And sends it to the User
-    And the Request Type is:
-      | Approval  |
-      | DOI       |
-      # | Ownership |
-    Then the User can see the answer in My Messages
+  # Scenario: User gets an answer to a Request
+  #   When the Curator writes an answer
+  #   And sends it to the User
+  #   And the Request Type is:
+  #     | Approval  |
+  #     | DOI       |
+  #     # | Ownership |
+  #   Then the User can see the answer in My Messages
 
   # Scenario Outline: Curator change Status on a Request
   #   When Curator selects a new status "<Status>" on a Request

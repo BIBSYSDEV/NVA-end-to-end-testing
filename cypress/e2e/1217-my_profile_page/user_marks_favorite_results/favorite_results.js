@@ -7,7 +7,6 @@ import { dataTestId } from "../../../support/dataTestIds";
 const navigateToMyProfile = () => {
     cy.login(user);
     cy.getDataTestId(dataTestId.header.myPageLink).click();
-    cy.getDataTestId(dataTestId.myPage.myProfileAccordion).click();
 }
 
 const clearFavoredResults = () => {

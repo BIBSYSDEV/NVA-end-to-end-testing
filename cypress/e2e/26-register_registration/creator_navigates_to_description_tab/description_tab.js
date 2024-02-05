@@ -211,7 +211,7 @@ And('they select a Coordinating Institution', () => {
   cy.contains('Unit – The Norwegian Directorate for ICT and Joint Services in Higher Education and Research').click();
 });
 And('​they select a Project Manager', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.contributorsSearchField).type('testuser');
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.contributorsSearchField).type('withauthor testuser');
   cy.contains('Withauthor Testuser', { matchCase: false }).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.contributorAffiliationField).click();
   cy.contains('Unit – The Norwegian Directorate for ICT and Joint Services in Higher Education and Research').click();

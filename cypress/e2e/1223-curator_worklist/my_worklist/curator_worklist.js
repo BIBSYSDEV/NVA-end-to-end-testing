@@ -200,6 +200,7 @@ When('the Curator sends an answer of type "Support"', () => {
 Then('the Request status is set to "Answered"', () => {
   cy.login(userMessages);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.tasksPage.statusSearch.completedCheckbox).click();
   cy.getDataTestId(dataTestId.tasksPage.statusSearch.closedCheckbox).click();

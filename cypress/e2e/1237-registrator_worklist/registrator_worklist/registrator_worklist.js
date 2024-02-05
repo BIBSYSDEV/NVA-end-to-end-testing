@@ -45,6 +45,7 @@ Given('that the user is logged in as Creator', () => {
 });
 When('they click the menu item My Messages', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 });
 Then('they see the My Messages page', () => {
   cy.location('pathname').should('contain', 'my-messages');
