@@ -174,7 +174,7 @@ const roleChecks = {
 
 Given('Administrator edit a Person at his institution', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
-  cy.get('[datatest-id=person-register-search-bar]').type(`{selectall}${userNameEdit}`);
+  cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).type(`{selectall}${userNameEdit}`);
   cy.getDataTestId('EditIcon').should('have.length', 1);
   cy.getDataTestId('EditIcon').first().click();
 });
