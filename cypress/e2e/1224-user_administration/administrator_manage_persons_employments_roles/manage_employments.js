@@ -40,7 +40,7 @@ And('each Person has an option to edit', () => {
   })
 })
 And('there is a search option to locate some persons', () => {
-  cy.get('[datatest-id=person-register-search-bar]').should('exist');
+  cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).should('exist');
 })
 And('the menu has an option to filter the list', () => { })
 And('the menu has an option to employ a new Person', () => {
@@ -52,7 +52,7 @@ And('the column titles can be used to sort the list', () => { })
 // Scenario: Create or edit a Person and his emplyment and roles
 When('the Administrator wish to edit or add a new Person', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
-  cy.get('[datatest-id=person-register-search-bar]').type(`{selectall}${userName}`);
+  cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).type(`{selectall}${userName}`);
   cy.getDataTestId('EditIcon').should('have.length', 1);
   cy.getDataTestId('EditIcon').first().click();
 });
@@ -119,7 +119,7 @@ And('there is an option to save the changes', () => {
 // Scenario: Administrator views other employments at current Institution
 Given('the Person viewed got multiple employments at current Institution', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
-  cy.get('[datatest-id=person-register-search-bar]').type(`{selectall}${userName}`);
+  cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).type(`{selectall}${userName}`);
   cy.getDataTestId('EditIcon').should('have.length', 1);
   cy.getDataTestId('EditIcon').first().click();
 });
@@ -224,7 +224,7 @@ When('the Administrator uses the save options', () => {
   cy.get('[role=dialog]').should('not.exist');
 });
 Then('all changes are stored', () => {
-  cy.get('[datatest-id=person-register-search-bar]').type(`{selectall}${userNameEdit}`);
+  cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).type(`{selectall}${userNameEdit}`);
   cy.getDataTestId('EditIcon').should('have.length', 1);
   cy.getDataTestId('EditIcon').first().click();
   cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).within(() => {
@@ -245,7 +245,7 @@ When('the Administrator fills inn the search field', () => {
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).then(resultList => {
     cy.wrap(resultList.length).as('results');
   });
-  cy.get('[datatest-id=person-register-search-bar]').type(`{selectall}${userName}`);
+  cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).type(`{selectall}${userName}`);
 })
 Then('the list is updated accordingly regarding person name', () => {
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.cristinId('')}]`).should('have.length', 1);
