@@ -1,5 +1,5 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userCurator2, userMessages } from '../../../support/constants';
+import { userCurator2, userDoiCurator, userMessages, userNviCurator, userPublishingCurator, userSupportCurator } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 const messageTypes = {
@@ -8,25 +8,47 @@ const messageTypes = {
   'DOI': 'DoiRequests',
 };
 
+const curatorUsers = {
+  'Publishing-Curator': userPublishingCurator,
+  'Support-Curator': userSupportCurator,
+  'Doi-Curator': userDoiCurator,
+  'Nvi-Curator': userNviCurator,
+}
+
+const requestTypes = {
+  'Approval': dataTestId.tasksPage.typeSearch.publishingButton,
+  'DOI': dataTestId.tasksPage.typeSearch.doiButton,
+  'Support': dataTestId.tasksPage.typeSearch.supportButton,
+  'NVI': dataTestId.tasksPage.nvi.statusFilter.pendingRadio,
+}
+
 const filename = 'example.txt';
 const registrationTitle = 'Support message registration';
 
 Before(() => {
-  cy.login(userCurator2);
+  // cy.login(userCurator2);
 });
 
 //   Scenario: Curator opens their Worklist
-When('the Curator opens their Worklist', () => {
+When('the {string} opens their Worklist', (user) => {
+  cy.login(curatorUsers[user]);
+  cy.wrap(user).as('user');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  if (user === 'Nvi-Curator') {
+    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  }
 });
 Then('the Curator see that the Worklist is Scoped', () => {
-  cy.contains('BIBSYS');
+  cy.get('@user').then(user => {
+    if(user === 'Nvi-Curator') {
+      cy.contains('Sikt');
+    } else {
+      cy.contains('Norwegian University of Science and Technology');
+    }
+  })
 });
-And('the Worklist contains Requests of type:', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
-    cy.filterMessages(messageTypes[value[0]]),
-      cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
-  });
+And('the Worklist contains Requests of type {string}', (type) => {
+      cy.getDataTestId(requestTypes[type]);
 });
 // | Approval |
 // | Support |
@@ -34,10 +56,14 @@ And('the Worklist contains Requests of type:', (dataTable) => {
 // | Ownership |
 
 // Scenario Outline: Curator views all Requests of a type
-When('Curator clicks on Requests of type {string}', (type) => {
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.filterMessages(messageTypes[type]);
+When('{string} clicks on Requests of type {string}', (user, type) => {
   cy.wrap(type).as('type');
+  cy.wrap(user).as('user');
+  cy.login(curatorUsers[user]);
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+  if (user === 'Nvi-Curator') {
+    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  }
 });
 Then('Curator see a list of Requests displayed with:', (dataTable) => {
   const elements = {

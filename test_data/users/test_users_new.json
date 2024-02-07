@@ -1381,5 +1381,62 @@
     "orcid": true,
     "orgNumber": "194",
     "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/194.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Publishing-Curator",
+    "nin": "23091802813",
+    "username": "test-user-publishing-curator@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "194",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Support-Curator",
+    "nin": "07127848011",
+    "username": "test-user-support-curator@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Support-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "194",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "DOI-Curator",
+    "nin": "28052288039",
+    "username": "test-user-doi-curator@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "194",
+    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
   }
 ]
