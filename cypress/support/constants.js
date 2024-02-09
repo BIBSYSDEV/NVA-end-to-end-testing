@@ -114,9 +114,9 @@ export const userFavorite1 = 'test-user-second-favorite@test.no';
 export const userFavorite2 = 'test-user-third-favorite@test.no';
 export const userDeleteRegistrations = 'test-user-delete-registrations@test.no';
 export const userNviCurator = 'test-user-nvi@test.no';
-export const userPublishingCurator = 'test-user-publishing-curator@test.no';
-export const userSupportCurator = 'test-user-support-curator@test.no';
-export const userDoiCurator = 'test-user-doi-curator@test.no';
+export const userPublishingCurator = 'test-user-publishing-cur@test.no';
+export const userSupportCurator = 'test-user-support-cur@test.no';
+export const userDoiCurator = 'test-user-doi-cur@test.no';
 
 const userData = {
   name: '',

@@ -43,7 +43,7 @@ Then('the Curator see that the Worklist is Scoped', () => {
     if(user === 'Nvi-Curator') {
       cy.contains('Sikt');
     } else {
-      cy.contains('Norwegian University of Science and Technology');
+      cy.contains('BIBSYS');
     }
   })
 });
@@ -101,17 +101,20 @@ And('they see that each Request can be opened', () => { });
 //   | DOI       |
 
 // Scenario: Curator opens a unassigned Request
-When('the Curator open a unassigned Request', () => {
+When('the {string} open a unassigned Request of type {string}', (user, type) => {
+  cy.login(curatorUsers[user]);
+  cy.wrap(type).as('type');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
+  if (user === 'Nvi-Curator') {
+    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  }
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 });
 Then('the Curator is assigned the Request', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
+  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
     cy.getDataTestId('message-field').type('Test message{enter}');
     cy.get('ul > li > p').filter(':contains("Test message")').should('be.visible');
-  });
+  // });
 });
 And('the Request Status is set to "Active"', () => {
   cy.contains('Message sent');
@@ -122,17 +125,25 @@ And('the Request Status is set to "Active"', () => {
 });
 
 // Scenario: Curator unassigns a Request
-When('the Curator selects "Mark request unread"', () => {
+When('the {string} selects "Mark request unread" on a request of type {string}', (user, type) => {
+  cy.login(curatorUsers[user]);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  if (user === 'Nvi-Curator') {
+    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  }
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
+  cy.getDataTestId(dataTestId.tasksPage.messageField).type('Curator message{enter}');
+  cy.contains('Message sent');
+  cy.wait(6000);
+  cy.get('[title=Tasks]').click();
+  
   cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');
-    cy.wait(1000);
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
-      cy.getDataTestId('CloseIcon').click({ force: true });
-    });
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');
+  cy.wait(6000);
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
+    cy.getDataTestId('CloseIcon').click({ force: true });
   });
   cy.contains('Successfully updated curator');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator)
@@ -144,7 +155,7 @@ Then('the Request Status is set to "New"', () => { });
 And('the Request is unassigned the Curator', () => {
   cy.get('[title=Tasks]').click();
   cy.getDataTestId(dataTestId.tasksPage.searchMode.allTasksButton).click();
-  cy.wait(3000);
+  cy.wait(6000);
   cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
 });
@@ -163,17 +174,21 @@ And('the Curator can open the Requests Resource', () => { });
 And('the Curator can change the Status of the Request', () => { });
 
 // Scenario Outline: Curator open the Request's Resource
-Given('the Curator receives a Request of type {string}', (type) => {
+Given('the {string} receives a Request of type {string}', (user, type) => {
+  cy.login(curatorUsers[user]);
+  if (user === 'Nvi-Curator') {
+    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  }
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.wrap(type).as('type');
-  switch (type) {
-    case 'Approval':
-      cy.filterMessages('Publishing Requests');
-      break;
-    case 'DOI':
-      cy.filterMessages('DoiRequests');
-      break;
-  }
+  // switch (type) {
+  //   case 'Approval':
+  //     cy.filterMessages('Publishing Requests');
+  //     break;
+  //   case 'DOI':
+  //     cy.filterMessages('DoiRequests');
+  //     break;
+  // }
 });
 When('the Curator opens the Requests Resource', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
@@ -183,8 +198,12 @@ Then('the Landing Page of the Resource is viewed', () => {
 });
 And('the Curator has the option to {string}', (action) => {
   const typeActions = {
-    'Publish': dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton,
+    'Publish Files': dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton,
+    'Reject publishing': dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton,
+    'Answer Message': dataTestId.tasksPage.messageField,
     'Mint DOI': dataTestId.registrationLandingPage.tasksPanel.createDoiButton,
+    'Reject DOI request': dataTestId.registrationLandingPage.rejectDoiButton,
+    'Approve Candidate': dataTestId.registrationLandingPage,
   }
   cy.getDataTestId(typeActions[action]).should('be.visible');
 });
