@@ -40,7 +40,7 @@ When('the {string} opens their Worklist', (user) => {
 });
 Then('the Curator see that the Worklist is Scoped', () => {
   cy.get('@user').then(user => {
-    if(user === 'Nvi-Curator') {
+    if (user === 'Nvi-Curator') {
       cy.contains('Sikt');
     } else {
       cy.contains('BIBSYS');
@@ -48,7 +48,7 @@ Then('the Curator see that the Worklist is Scoped', () => {
   })
 });
 And('the Worklist contains Requests of type {string}', (type) => {
-      cy.getDataTestId(requestTypes[type]);
+  cy.getDataTestId(requestTypes[type]);
 });
 // | Approval |
 // | Support |
@@ -66,26 +66,39 @@ When('{string} clicks on Requests of type {string}', (user, type) => {
   }
 });
 Then('Curator see a list of Requests displayed with:', (dataTable) => {
-  const elements = {
-    'Request status': 'div > div > p',
-    'Registration title': 'div > p',
-    'Submitter name': 'div > div > div',
-    'Request Submitter Date': 'div > p',
-    'Beginning of last message': '',
-    'Owner name': '',
-  };
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .first()
-    .within((message) => {
-      cy.get('@type').then((type) => {
-        if (type === 'Support') {
-          elements['Request status'] = 'div > p';
-        }
-        dataTable.rawTable.forEach((value) => {
-          cy.get(elements[value[0]]).should('be.visible');
+  cy.get('@user').then(user => {
+    cy.get('@type').then((type) => {
+      const elements = {
+        'Request status': 'div > div > p',
+        'Registration title': 'div > p',
+        'Submitter name': 'div > div > div',
+        'Request Submitter Date': 'div > p',
+        'Beginning of last message': '',
+        'Owner name': '',
+      };
+      cy.log(user);
+      if (user === 'Nvi-Curator') {
+        cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+          cy.get('li').first().within(() => {
+            cy.get('div > span');
+            cy.get('div > p').should('have.length', 4);
+            cy.get('div > p > a').should('have.length', 2);
+          });
         });
-      });
+      } else {
+        cy.getDataTestId(dataTestId.startPage.searchResultItem)
+          .first()
+          .within((message) => {
+            if (type === 'Support') {
+              elements['Request status'] = 'div > p';
+            }
+            dataTable.rawTable.forEach((value) => {
+              cy.get(elements[value[0]]).should('be.visible');
+            });
+          });
+      }
     });
+  });
 });
 //   | Request status            |
 //   | Registration title        |
@@ -112,8 +125,8 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
 });
 Then('the Curator is assigned the Request', () => {
   // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
-    cy.getDataTestId('message-field').type('Test message{enter}');
-    cy.get('ul > li > p').filter(':contains("Test message")').should('be.visible');
+  cy.getDataTestId('message-field').type('Test message{enter}');
+  cy.get('ul > li > p').filter(':contains("Test message")').should('be.visible');
   // });
 });
 And('the Request Status is set to "Active"', () => {
@@ -136,7 +149,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.contains('Message sent');
   cy.wait(6000);
   cy.get('[title=Tasks]').click();
-  
+
   cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');

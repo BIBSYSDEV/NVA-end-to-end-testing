@@ -1,47 +1,248 @@
 {
-  "type": "Publication",
-  "status": "DRAFT",
-  "owner": "<owner_id>",
-  "projects": [
-    {
-      "type": "ResearchProject",
-      "id": "https://api.e2e.nva.aws.unit.no/cristin/project/2674874",
-      "name": "Project for testing 20230512"
-    }
+  "type":"Publication",
+  "identifier":"018dab8d7097-fefcbc1a-9e3f-4cfc-a2f6-5d4dd8118b6b",
+  "status":"DRAFT",
+  "resourceOwner":{
+     "owner":"43419@20754.0.0.0",
+     "ownerAffiliation":"https://api.e2e.nva.aws.unit.no/cristin/organization/20754.0.0.0"
+  },
+  "publisher":{
+     "type":"Organization",
+     "id":"https://api.e2e.nva.aws.unit.no/customer/bb3d0c0c-5065-4623-9b98-5810983c2478"
+  },
+  "createdDate":"2024-02-15T06:56:29.847070020Z",
+  "modifiedDate":"2024-02-15T06:56:29.847070020Z",
+  "projects":[
+
   ],
-  "publisher": {
-    "type": "Organization",
-    "id": "<nva_org_url>"
+  "fundings":[
+
+  ],
+  "subjects":[
+
+  ],
+  "associatedArtifacts":[],
+  "additionalIdentifiers":[
+
+  ],
+  "allowedOperations":[
+
+  ],
+  "publicationNotes":[
+
+  ],
+  "@context":{
+     "@vocab":"https://nva.sikt.no/ontology/publication#",
+     "xsd":"http://www.w3.org/2001/XMLSchema#",
+     "id":"@id",
+     "type":"@type",
+     "affiliations":{
+        "@id":"affiliation",
+        "@container":"@set"
+     },
+     "activeFrom":{
+        "@type":"xsd:dateTime"
+     },
+     "activeTo":{
+        "@type":"xsd:dateTime"
+     },
+     "associatedArtifacts":{
+        "@id":"associatedArtifact",
+        "@container":"@set"
+     },
+     "additionalIdentifiers":{
+        "@id":"additionalIdentifier",
+        "@container":"@set"
+     },
+     "publicationNotes":{
+        "@id":"publicationNote",
+        "@container":"@set"
+     },
+     "alternativeTitles":{
+        "@id":"alternativeTitle",
+        "@container":"@language"
+     },
+     "approvals":{
+        "@id":"approval",
+        "@container":"@set"
+     },
+     "approvalStatus":{
+        "@type":"@vocab",
+        "@context":{
+           "@vocab":"https://nva.sikt.no/ontology/publication#"
+        }
+     },
+     "approvedBy":{
+        "@type":"@vocab",
+        "@context":{
+           "@vocab":"https://nva.sikt.no/ontology/approvals-body#"
+        }
+     },
+     "architectureOutput":{
+        "@id":"architectureOutput",
+        "@container":"@set"
+     },
+     "compliesWith":{
+        "@id":"compliesWith",
+        "@container":"@set"
+     },
+     "concertProgramme":{
+        "@id":"concertProgramme",
+        "@container":"@set"
+     },
+     "contributors":{
+        "@id":"contributor",
+        "@container":"@set"
+     },
+     "createdDate":{
+        "@type":"xsd:dateTime"
+     },
+     "date":{
+        "@type":"xsd:dateTime"
+     },
+     "doi":{
+        "@type":"@id"
+     },
+     "duplicateOf":{
+        "@type":"@id"
+     },
+     "embargoDate":{
+        "@type":"xsd:dateTime"
+     },
+     "from":{
+        "@type":"xsd:dateTime"
+     },
+     "handle":{
+        "@type":"@id"
+     },
+     "indexedDate":{
+        "@type":"xsd:dateTime"
+     },
+     "isbnList":{
+        "@id":"isbn",
+        "@container":"@set"
+     },
+     "labels":{
+        "@id":"label",
+        "@container":"@language"
+     },
+     "language":{
+        "@type":"@id"
+     },
+     "link":{
+        "@type":"@id"
+     },
+     "manifestations":{
+        "@id":"manifestation",
+        "@container":"@set"
+     },
+     "metadataSource":{
+        "@type":"@id"
+     },
+     "modifiedDate":{
+        "@type":"xsd:dateTime"
+     },
+     "musicalWorks":{
+        "@id":"musicalWork",
+        "@container":"@set"
+     },
+     "ownerAffiliation":{
+        "@type":"@id"
+     },
+     "outputs":{
+        "@id":"output",
+        "@container":"@set"
+     },
+     "publishedDate":{
+        "@type":"xsd:dateTime"
+     },
+     "nameType":{
+        "@type":"@vocab",
+        "@context":{
+           "@vocab":"https://nva.sikt.no/ontology/publication#"
+        }
+     },
+     "projects":{
+        "@id":"project",
+        "@container":"@set"
+     },
+     "fundings":{
+        "@id":"funding",
+        "@container":"@set"
+     },
+     "related":{
+        "@id":"related",
+        "@container":"@set"
+     },
+     "referencedBy":{
+        "@id":"referencedBy",
+        "@container":"@set"
+     },
+     "role":{
+        "@type":"@vocab",
+        "@context":{
+           "@vocab":"https://nva.sikt.no/ontology/publication#"
+        }
+     },
+     "source":{
+        "@type":"@id"
+     },
+     "status":{
+        "@type":"@vocab",
+        "@context":{
+           "@vocab":"https://nva.sikt.no/ontology/publication#"
+        }
+     },
+     "subjects":{
+        "@id":"subject",
+        "@type":"@id",
+        "@container":"@set"
+     },
+     "tags":{
+        "@id":"tag",
+        "@container":"@set"
+     },
+     "to":{
+        "@type":"xsd:dateTime"
+     },
+     "trackList":{
+        "@id":"trackList",
+        "@container":"@set"
+     },
+     "venues":{
+        "@id":"venue",
+        "@container":"@set"
+     }
   },
-  "createdDate": "2021-06-08T10:19:38.633284Z",
-  "associatedArtifacts": [],
-  "modifiedDate": "2021-06-08T11:46:42.963805Z",
-  "doi": "https://doi.org/testdoi",
-  "entityDescription": {
-    "type": "EntityDescription",
-    "mainTitle": "Test registration",
-    "language": "http://lexvo.org/id/iso639-3/eng",
-    "date": {
-      "type": "PublicationDate",
-      "year": "2020",
-      "month": "12",
-      "day": "31"
-    },
-    "contributors": [],
-    "tags": ["keyword"],
-    "description": "Description",
-    "reference" : {
-      "type" : "Reference",
-      "publicationContext" : {
-        "type" : "Journal",
-        "id" : "https://api.e2e.nva.aws.unit.no/publication-channels/journal/437597/2023"
-      },
-      "publicationInstance" : {
-        "type" : "AcademicArticle"
-      }
-    },
-    "npiSubjectHeading": "010",
-    "abstract": "Abstract"
-  },
-  "modelVersion": "0.14.9"
+  "id":"https://api.e2e.nva.aws.unit.no/publication/018dab8d7097-fefcbc1a-9e3f-4cfc-a2f6-5d4dd8118b6b",
+  "entityDescription":{
+     "mainTitle":"test",
+     "publicationDate":{
+        "type":"PublicationDate",
+        "year":"2024",
+        "month":"2",
+        "day":"15"
+     },
+     "reference":{
+        "publicationContext":{
+           "type":"Journal",
+           "id":"https://api.e2e.nva.aws.unit.no/publication-channels-v2/journal/1864A370-80CA-4BE5-9CB7-40B0CCEF23CA/2024"
+        },
+        "publicationInstance":{
+           "type":"AcademicArticle",
+           "articleNumber":"",
+           "issue":"",
+           "pages":{
+              "type":"Range",
+              "begin":"",
+              "end":""
+           },
+           "volume":"",
+           "corrigendumFor":""
+        },
+        "type":"Reference"
+     },
+     "contributors":[],
+     "type":"EntityDescription"
+  }
 }

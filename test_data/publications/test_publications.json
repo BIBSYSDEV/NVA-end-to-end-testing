@@ -407,7 +407,7 @@
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
     "title": "Test Antologi",
-    "publisher": "https://api.dev.nva.aws.unit.no/publication-channels/publisher/26781/2023"
+    "publisher": "https://api.e2e.nva.aws.unit.no/publication-channels/publisher/26781/2023"
   },
   {
     "publication_type": "Reference",
@@ -419,7 +419,7 @@
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
     "title": "Test Antologi",
-    "publisher": "https://api.dev.nva.aws.unit.no/publication-channels/publisher/26781/2023"
+    "publisher": "https://api.e2e.nva.aws.unit.no/publication-channels/publisher/26781/2023"
   },
   {
     "publication_type": "Journal",
@@ -626,7 +626,7 @@
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "status": "PUBLISHED",
     "contributor": "test-user-publish-registration@test.no",
     "title": "Search result - Anthology",
@@ -641,7 +641,7 @@
     "owner": "test-user-publish-registration@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-publish-registration@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "title": "Search result - Journal",
     "doi": "requested"
   },
@@ -654,7 +654,7 @@
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-edit-registration@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Edit registration not owner"
   },
   {
@@ -666,7 +666,7 @@
     "owner": "test-user-favorite@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-favorite@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Favorite result 1"
   },
   {
@@ -678,7 +678,7 @@
     "owner": "test-user-favorite@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-favorite@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Favorite result 2"
   },
   {
@@ -690,7 +690,7 @@
     "owner": "test-user-favorite@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-favorite@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Favorite result 3"
   },
   {
@@ -702,7 +702,7 @@
     "owner": "test-user-second-favorite@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-second-favorite@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Favorite result 4"
   },
   {
@@ -714,7 +714,7 @@
     "owner": "test-user-second-favorite@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-second-favorite@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Favorite result 5"
   },
   {
@@ -726,7 +726,7 @@
     "owner": "test-user-second-favorite@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-second-favorite@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Favorite result 6"
   },
   {
@@ -738,7 +738,7 @@
     "owner": "test-user-third-favorite@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-third-favorite@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Favorite result 7"
   },
   {
@@ -750,7 +750,7 @@
     "owner": "test-user-third-favorite@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-third-favorite@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Favorite result 8"
   },
   {
@@ -762,7 +762,7 @@
     "owner": "test-user-third-favorite@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-third-favorite@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Favorite result 9"
   },
   {
@@ -774,7 +774,7 @@
     "owner": "test-user-delete-registrations@test.no",
     "status": "DRAFT",
     "contributor": "test-user-delete-registrations@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Delete registration 1"
   },
   {
@@ -786,7 +786,7 @@
     "owner": "test-user-delete-registrations@test.no",
     "status": "DRAFT",
     "contributor": "test-user-delete-registrations@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Delete registration 2"
   },
   {
@@ -798,7 +798,7 @@
     "owner": "test-user-delete-registrations@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-delete-registrations@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Delete registration 3"
   },
   {
@@ -810,7 +810,31 @@
     "owner": "test-user-nvi@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-nvi@test.no",
-    "affiliation": "https://api.dev.nva.aws.unit.no/cristin/organization/194.0.0.0",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
     "title": "NVI candidate 1"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-nvi@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-nvi@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
+    "title": "NVI candidate 2"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-nvi@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-nvi@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
+    "title": "NVI candidate 3"
   }
 ]

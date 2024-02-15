@@ -1,7 +1,7 @@
 {
   "affiliations": [
     {
-      "id": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+      "id": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
       "type": "Organization"
     }
   ],
@@ -10,9 +10,12 @@
   "identity": {
     "id": "#####################",
     "name": "#####################",
+    "verificationStatus" : "Verified",
     "type": "Identity"
   },
-  "role": "Creator",
+  "role": {
+    "type": "Creator"
+  },
   "sequence": "1",
   "type": "Contributor"
 }
