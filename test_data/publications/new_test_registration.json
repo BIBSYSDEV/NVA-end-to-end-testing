@@ -232,11 +232,6 @@
            "type":"AcademicArticle",
            "articleNumber":"",
            "issue":"",
-           "pages":{
-              "type":"Range",
-              "begin":"",
-              "end":""
-           },
            "volume":"",
            "corrigendumFor":""
         },
