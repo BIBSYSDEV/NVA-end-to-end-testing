@@ -37,11 +37,11 @@ export const adminMenu = {
 };
 
 export const profilePageFields = {
-  'Real name': 'full-name-field',
+  'Real name': dataTestId.myPage.myProfile.editPreferredNameButton,
   'Feide ID': 'cristin-id-field',
-  'Email': 'user-id',
-  'ORCID': 'orcid-line',
-  'Roles': 'user-role-creator',
+  'Email': dataTestId.myPage.myProfile.emailField,
+  'ORCID': 'button-create-connect-orcid',
+  'Roles': dataTestId.myPage.userRolesAndHelpLink,
   'Organizations': 'institution-presentation',
   'Language': 'language-button',
 };

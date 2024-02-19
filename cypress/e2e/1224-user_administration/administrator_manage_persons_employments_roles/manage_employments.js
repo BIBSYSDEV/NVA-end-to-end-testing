@@ -228,7 +228,7 @@ Then('all changes are stored', () => {
   cy.getDataTestId('EditIcon').should('have.length', 1);
   cy.getDataTestId('EditIcon').first().click();
   cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).within(() => {
-    cy.get('input').should('have.value', 50);
+    cy.get('input').should('have.value', 100);
   });
   cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).type('{selectall}100');
   cy.get('[role=dialog]').within(() => {

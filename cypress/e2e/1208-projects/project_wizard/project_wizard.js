@@ -43,7 +43,7 @@ When('the User selects Create new Project', () => {
 });
 Then('they see the Project Wizard start page', () => {
   cy.get('[role=dialog').within(() => {
-    cy.contains('Create project');
+    cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton);
   });
 });
 And('they can select:', (options) => {

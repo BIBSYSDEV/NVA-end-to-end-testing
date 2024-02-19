@@ -176,9 +176,9 @@ const projectFields = {
 
 // Scenario: Creator opens Dialog for creating a new Project
 When('they click Button for creating a new Project', () => {
-  cy.contains('Create project').click();
-  cy.contains('Empty registration').click();
-  cy.get('button').filter(':contains("Start")').click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.createProjectButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
 });
 Then('they see a Dialog with input fields:', (dataTable) => {
   cy.testDataTestidList(dataTable, projectFields);
@@ -199,9 +199,9 @@ And('they see a Save Button', () => {
 // Scenario: Creator creates a new Project
 Given('Creator opens Dialog for creating a new Project', () => {
   cy.startWizardWithEmptyRegistration();
-  cy.contains('Create project').click();
-  cy.contains('Empty registration').click();
-  cy.get('button').filter(':contains("Start")').click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.createProjectButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
 });
 When('they enter a Project Title', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.titleField).type('Project title');
