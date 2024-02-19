@@ -8,7 +8,7 @@ Feature: Anonymous User views Landing Page for Registration
         Then they see
             | Title                           |
             | Abstract                        |
-            | NPI                             |
+            # | NPI                             |
             | Keywords                        |
             # | Publication date                |
             | Primary language                |

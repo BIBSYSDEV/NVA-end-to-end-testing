@@ -174,14 +174,17 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.get('[title=Tasks]').click();
 
   cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
-  if (user === 'Nvi-Curator') {
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
-      cy.get('li > div > p > a').filter(`:contains(${title})`).click();
-    });
-  } else {
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
-  }
+  cy.get('@title').then(title => {
+
+    if (user === 'Nvi-Curator') {
+      cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+      cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+        cy.get('li > div > p > a').filter(`:contains(${title})`).click();
+      });
+    } else {
+      cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+    }
+  });
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');
   cy.wait(6000);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
