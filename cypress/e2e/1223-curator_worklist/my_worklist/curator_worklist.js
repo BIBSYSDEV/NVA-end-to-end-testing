@@ -76,7 +76,6 @@ Then('Curator see a list of Requests displayed with:', (dataTable) => {
         'Beginning of last message': '',
         'Owner name': '',
       };
-      cy.log(user);
       if (user === 'Nvi-Curator') {
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
           cy.get('li').first().within(() => {
@@ -116,6 +115,7 @@ And('they see that each Request can be opened', () => { });
 // Scenario: Curator opens a unassigned Request
 When('the {string} open a unassigned Request of type {string}', (user, type) => {
   cy.login(curatorUsers[user]);
+  cy.wrap(user).as('user');
   cy.wrap(type).as('type');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
@@ -134,32 +134,54 @@ Then('the Curator is assigned the Request', () => {
   // });
 });
 And('the Request Status is set to "Active"', () => {
-  cy.contains('Message sent');
-  cy.wait(3000);
-  cy.get('[title=Tasks]').click();
-  cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
+  cy.get('@user').then(user => {
+    if (user === 'Nvi-Curator') {
+      cy.contains('Note saved successfully')
+    } else {
+      cy.contains('Message sent');
+    }
+    cy.wait(3000);
+    cy.get('[title=Tasks]').click();
+    cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
+  })
 });
 
 // Scenario: Curator unassigns a Request
 When('the {string} selects "Mark request unread" on a request of type {string}', (user, type) => {
   cy.login(curatorUsers[user]);
+  cy.wrap(user).as('user');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+      cy.get('li > div > p > a').first().invoke('text').as('title');
       cy.get('li > div > p > a').first().click();
     });
   } else {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
+      cy.get('p').invoke('text').as('title');
+    });
     cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   }
   cy.getDataTestId(dataTestId.tasksPage.messageField).type('Curator message{enter}');
-  cy.contains('Message sent');
+  if (user === 'Nvi-Curator') {
+    cy.contains('Note saved successfully');
+  } else {
+    cy.contains('Message sent');
+  }
   cy.wait(6000);
   cy.get('[title=Tasks]').click();
 
   cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
+  if (user === 'Nvi-Curator') {
+    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+      cy.get('li > div > p > a').filter(`:contains(${title})`).click();
+    });
+  } else {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+  }
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');
   cy.wait(6000);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
@@ -178,7 +200,17 @@ And('the Request is unassigned the Curator', () => {
   cy.getDataTestId(dataTestId.tasksPage.searchMode.allTasksButton).click();
   cy.wait(6000);
   cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
+  cy.get('@user').then(user => {
+    cy.get('@title').then(title => {
+      if (user === 'Nvi-Curator') {
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
+          cy.get('li').filter(`:contains(${title})`).should('not.exist');
+        });
+      } else {
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).should('not.exist');
+      }
+    });
+  });
 });
 
 // Scenario: Curator open a assigned Request
