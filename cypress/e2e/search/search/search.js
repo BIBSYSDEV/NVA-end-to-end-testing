@@ -42,7 +42,7 @@ Then('they can see values for:', (dataTable) => {
         'Publication date': dateValue,
         'Title': 'Search result',
         'Contributors': 'Publish registration TestUser',
-        'Abstract': 'Abstract',
+        'Abstract': 'Test registration abstract',
     }
     cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
         dataTable.rawTable.forEach(value => {

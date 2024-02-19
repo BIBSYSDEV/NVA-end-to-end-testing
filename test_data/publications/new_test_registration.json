@@ -235,9 +235,9 @@
            "volume":"",
            "corrigendumFor":""
         },
-        "abstract" : "Abstract",
         "type":"Reference"
      },
+     "abstract" : "Abstract",
      "contributors":[],
      "type":"EntityDescription"
   }

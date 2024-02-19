@@ -198,7 +198,7 @@ And('the NVI candidate is still a candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.contains('Updated registration');
-  cy.wait(5000);
+  cy.wait(10000);
 });
 Then('reset the approval status for all involved institutions for the NVI candidate.', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();

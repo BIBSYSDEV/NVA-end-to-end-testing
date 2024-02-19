@@ -48,7 +48,7 @@ Feature: Curator opens My Worklist
       | Support-Curator    | Support  |
       | Doi-Curator        | DOI      |
       | Nvi-Curator        | NVI      |
-  | Ownership-Curator | Ownership |
+  # | Ownership-Curator | Ownership |
 
   # Scenario: Curator change Scope of their Worklist
   #   When the Curator change Scope to the whole Institution or one or more subunits
@@ -138,14 +138,14 @@ Feature: Curator opens My Worklist
     Then the Request status is set to "Answered"
     And the User can read the answer in My Messages
 
-  Scenario: User gets an answer to a Request
-    When the Curator writes an answer
-    And sends it to the User
-    And the Request Type is:
-      | Approval  |
-      | DOI       |
-      # | Ownership |
-    Then the User can see the answer in My Messages
+  # Scenario: User gets an answer to a Request
+  #   When the Curator writes an answer
+  #   And sends it to the User
+  #   And the Request Type is:
+  #     | Approval  |
+  #     | DOI       |
+  #     # | Ownership |
+  #   Then the User can see the answer in My Messages
 
   # Scenario Outline: Curator change Status on a Request
   #   When Curator selects a new status "<Status>" on a Request

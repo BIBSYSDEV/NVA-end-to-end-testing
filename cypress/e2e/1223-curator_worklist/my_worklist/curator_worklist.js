@@ -120,8 +120,12 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+      cy.get('li > div > p > a').first().click();
+    });
+  } else {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   }
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 });
 Then('the Curator is assigned the Request', () => {
   // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
@@ -143,8 +147,12 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+      cy.get('li > div > p > a').first().click();
+    });
+  } else {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   }
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId(dataTestId.tasksPage.messageField).type('Curator message{enter}');
   cy.contains('Message sent');
   cy.wait(6000);
@@ -189,10 +197,11 @@ And('the Curator can change the Status of the Request', () => { });
 // Scenario Outline: Curator open the Request's Resource
 Given('the {string} receives a Request of type {string}', (user, type) => {
   cy.login(curatorUsers[user]);
+  cy.wrap(user).as('user');
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   }
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.wrap(type).as('type');
   // switch (type) {
   //   case 'Approval':
@@ -204,7 +213,16 @@ Given('the {string} receives a Request of type {string}', (user, type) => {
   // }
 });
 When('the Curator opens the Requests Resource', () => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
+  cy.get('@user').then(user => {
+    if (user === 'Nvi-Curator') {
+      cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+      cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+        cy.get('li > div > p > a').first().click();
+      });
+    } else {
+      cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
+    }
+  });
 });
 Then('the Landing Page of the Resource is viewed', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.registrationSubtype).should('exist');
@@ -216,7 +234,8 @@ And('the Curator has the option to {string}', (action) => {
     'Answer Message': dataTestId.tasksPage.messageField,
     'Mint DOI': dataTestId.registrationLandingPage.tasksPanel.createDoiButton,
     'Reject DOI request': dataTestId.registrationLandingPage.rejectDoiButton,
-    'Approve Candidate': dataTestId.registrationLandingPage,
+    'Approve Candidate': dataTestId.tasksPage.nvi.approveButton,
+    'Reject Candidate': dataTestId.tasksPage.nvi.rejectButton,
   }
   cy.getDataTestId(typeActions[action]).should('be.visible');
 });
