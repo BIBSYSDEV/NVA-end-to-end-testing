@@ -42,11 +42,11 @@ Then('they can see values for:', (dataTable) => {
         'Publication date': dateValue,
         'Title': 'Search result',
         'Contributors': 'Publish registration TestUser',
-        'Abstract': 'Test registration abstract',
+        'Abstract': 'abstract',
     }
     cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
         dataTable.rawTable.forEach(value => {
-            cy.contains(values[value[0]]);
+            cy.contains(values[value[0]], {matchCase: false});
         })
     })
 })

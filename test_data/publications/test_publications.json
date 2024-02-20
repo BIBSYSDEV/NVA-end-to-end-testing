@@ -565,7 +565,39 @@
     "owner": "test-user-messages@test.no",
     "status": "DRAFT",
     "contributor": "test-user-messages@test.no",
-    "title": "Registration - Support request pending",
+    "title": "Registration - Support request pending 1",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Pending",
+      "text": "Pending support request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-messages@test.no",
+    "title": "Registration - Support request pending 2",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Pending",
+      "text": "Pending support request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-messages@test.no",
+    "title": "Registration - Support request pending 3",
     "ticket": {
       "type": "GeneralSupportCase",
       "status": "Pending",
