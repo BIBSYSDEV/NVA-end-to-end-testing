@@ -114,6 +114,7 @@ export const userFavorite1 = 'test-user-second-favorite@test.no';
 export const userFavorite2 = 'test-user-third-favorite@test.no';
 export const userDeleteRegistrations = 'test-user-delete-registrations@test.no';
 export const userNviCurator = 'test-user-nvi@test.no';
+export const userNviCurator2 = 'test-user-nvi-2@test.no';
 export const userPublishingCurator = 'test-user-publishing-cur@test.no';
 export const userSupportCurator = 'test-user-support-cur@test.no';
 export const userDoiCurator = 'test-user-doi-cur@test.no';
@@ -231,6 +232,7 @@ export const user = {
   [userFavorite2]: { ...userData, name: 'TestUser, Third Favorite' },
   [userDeleteRegistrations]: { ...userData, name: 'TestUser, Delete Registrations' },
   [userNviCurator]: { ...userData, name: 'TestUser, Nvi-curator' },
+  [userNviCurator2]: { ...userData, name: 'TestUser, Nvi-curator 2' },
   [userDoiCurator]: { ...userData, name: 'TestUser, DOI-curator' },
   [userPublishingCurator]: { ...userData, name: 'TestUser, Publishing-curator' },
   [userSupportCurator]: { ...userData, name: 'TestUser, Support-curator' },
