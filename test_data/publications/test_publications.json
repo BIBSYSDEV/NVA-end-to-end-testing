@@ -836,5 +836,53 @@
     "contributor": "test-user-nvi@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
     "title": "NVI candidate 3"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-resource-owner@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Delete registration resource owner"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Delete registration verified contributor"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-resource-owner@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Edit registration resource owner"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Edit registration verified contributor"
   }
 ]
