@@ -117,6 +117,12 @@ export const userNviCurator = 'test-user-nvi@test.no';
 export const userPublishingCurator = 'test-user-publishing-cur@test.no';
 export const userSupportCurator = 'test-user-support-cur@test.no';
 export const userDoiCurator = 'test-user-doi-cur@test.no';
+export const userVerifiedContributor = 'test-user-verified-contributor@test.no';
+export const userCuratorDegree = 'test-user-curator-degree@test.no';
+export const userEditorDelete = 'test-user-editor-delete@test.no';
+export const userCuratorResourceOwner = 'test-user-curator-resource-owner@test.no';
+export const userCuratorInstitution = 'test-user-curator-institution@test.no';
+export const userResourceOwner = 'test-user-resource-owner@test.no';
 
 const userData = {
   name: '',
@@ -234,4 +240,10 @@ export const user = {
   [userDoiCurator]: { ...userData, name: 'TestUser, DOI-curator' },
   [userPublishingCurator]: { ...userData, name: 'TestUser, Publishing-curator' },
   [userSupportCurator]: { ...userData, name: 'TestUser, Support-curator' },
+  [userVerifiedContributor]: { ...userData, name: 'TestUser, Verified contributor' },
+  [userCuratorInstitution]: { ...userData, name: 'TestUser, Curator (institution)' },
+  [userCuratorResourceOwner]: { ...userData, name: 'TestUser, Curator (resource owner)' },
+  [userResourceOwner]: { ...userData, name: 'TestUser, Resource owner' },
+  [userEditorDelete]: { ...userData, name: 'TestUser, Editor delete' },
+  [userCuratorDegree]: { ...userData, name: 'TestUser, Curator degree' },
 };

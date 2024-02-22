@@ -1,8 +1,6 @@
 Feature: Application Administrator administers Customer Institutions
 
-  @TEST_NP-4161
   @test
-  @365
   Scenario: Application Administrator opens Institutions
     Given that the user is logged in as Application Administrator
     When they click the menu item Institutions
@@ -14,18 +12,19 @@ Feature: Application Administrator administers Customer Institutions
     And they see a button Edit that is enabled for each Institution
     And they see a button Add institution that is enabled
 
-  @TEST_NP-4147
   @test
-  @366
   Scenario: Application Administrator adds a Customer Institution
     Given that the user is logged in as Application Administrator
     And they click the menu item Institutions
     When they click Add Institution
     Then they see the Add Institution page
+    And they can search for institution
+    And they see information for
+      | The institution's Norwegian name |
+      | The institution's English name   |
+      | Institution short name           |
+      | The institution's code           |
     And they see fields:
-      | Name in organization registry |
-      | Display name                  |
-      | Archive name                  |
       | Feide Organization ID         |
       | ROR ID                        |
     And they see Sector options:
@@ -37,16 +36,16 @@ Feature: Application Administrator administers Customer Institutions
     And they see options for NVI reporting
     And a button Create that is enabled
 
-  @TEST_NP-4162
   @test
-  @574
   Scenario: Application Administrator opens a Customer Institution
     Given that the user is logged in as Application Administrator
     When they open a Customer Institution
-    Then they see fields:
-      | Name in organization registry |
-      | Display name                  |
-      | Archive name                  |
+    Then they see information for
+      | The institution's Norwegian name |
+      | The institution's English name   |
+      | Institution short name           |
+      | The institution's code           |
+    And they see fields:
       | Feide Organization ID         |
       | ROR ID                        |
     And they see Sector options:

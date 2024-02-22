@@ -15,7 +15,11 @@ const sectors = {
 Given('that the user is logged in as Application Administrator', () => {
   cy.login(adminUser1);
 });
-
+Then('they see information for', (table) => {
+  table.rawTable.forEach(heading => {
+    cy.get('h2').filter(`:contains(${heading})`);
+  })
+})
 And('they see fields:', (table) => {
   cy.testDataTestidList(table, institutionFields);
 });
@@ -71,6 +75,9 @@ Then('they see the Add Institution page', () => {
   cy.location('pathname').should('equal', '/basic-data/institutions');
   cy.location('search').should('equal', '?id=new');
 });
+And('they can search for institution', () => {
+  cy.getDataTestId(dataTestId.organization.searchField);
+})
 And('they see fields:', (table) => { });
 // | Name in organization registry |
 // | Display name                  |

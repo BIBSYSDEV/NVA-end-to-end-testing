@@ -559,7 +559,7 @@ export const landingPageFields = {
   'Abstract': dataTestId.registrationLandingPage.abstractAccordion,
   'NPI': dataTestId.registrationLandingPage.npi,
   'Keywords': dataTestId.registrationLandingPage.keywords,
-  'Publication date': dataTestId.registrationLandingPage.publicationDate,
+  'Publication date': dataTestId.registrationLandingPage.generalInfo,
   'Primary language': dataTestId.registrationLandingPage.primaryLanguage,
   'Projects': dataTestId.registrationLandingPage.projectsAccordion,
   'Registration subtype': dataTestId.registrationLandingPage.registrationSubtype,

@@ -1,8 +1,6 @@
 Feature: Anonymous User views Landing Page for Registration
 
-    @TEST_NP-4164
     @test
-    @881
     Scenario: Anonymous User views Landing Page for Registration
         When an Anonymous user navigates to a Landing Page for a Resource
         Then they see
@@ -10,7 +8,7 @@ Feature: Anonymous User views Landing Page for Registration
             | Abstract                        |
             # | NPI                             |
             | Keywords                        |
-            # | Publication date                |
+            | Publication date                |
             | Primary language                |
             | Projects                        |
             | Registration subtype            |
