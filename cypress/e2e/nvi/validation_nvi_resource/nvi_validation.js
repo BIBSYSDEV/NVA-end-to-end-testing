@@ -1,4 +1,4 @@
-import { userNviCurator } from '../../../support/constants';
+import { userNviCurator2 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,7 +10,7 @@ Given('an logged-in Curator at an NVI-Institution', () => {
   const uuid = uuidv4();
   cy.wrap(uuid).as('uuid');
   const registrationTitle = `New NVI candidate ${uuid}`;
-  cy.login(userNviCurator);
+  cy.login(userNviCurator2);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
