@@ -1461,7 +1461,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Verified contributor",
-    "nin": "11064832362",
+    "nin": "23127848017",
     "username": "test-user-verified-contributor@test.no",
     "role": [
       {
@@ -1476,7 +1476,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Resource owner",
-    "nin": "11064832362",
+    "nin": "03111939534",
     "username": "test-user-resource-owner@test.no",
     "role": [
       {
@@ -1491,7 +1491,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Curator (institution)",
-    "nin": "11064832362",
+    "nin": "29082535444",
     "username": "test-user-curator-institution@test.no",
     "role": [
       {
@@ -1510,7 +1510,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Curator (resource owner)",
-    "nin": "11064832362",
+    "nin": "13062288072",
     "username": "test-user-curator-resource-owner@test.no",
     "role": [
       {
@@ -1529,7 +1529,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Editor delete",
-    "nin": "11064832362",
+    "nin": "20088738722",
     "username": "test-user-editor-delete@test.no",
     "role": [
       {
@@ -1548,7 +1548,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Curator Degree",
-    "nin": "11064832362",
+    "nin": "31103826686",
     "username": "test-user-curator-degree@test.no",
     "role": [
       {
