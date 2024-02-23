@@ -340,6 +340,7 @@ def create_publication_data(publication_template, test_publication, username, cu
     new_publication = copy.deepcopy(publication_template)
     new_publication['entityDescription']['mainTitle'] = f'{test_publication["title"]} {today}'
     print(new_publication['entityDescription']['mainTitle'])
+    new_publication['entityDescription']['reference']['type'] = test_publication['publication_type']
     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
 

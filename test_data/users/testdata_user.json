@@ -8,11 +8,17 @@
       {
         "type": "Role",
         "rolename": "App-admin"
-      },{
-        "type": "Role",
-        "rolename": "Creator"
-      },{
-        "type": "Role",
+        },
+        {
+          "type": "Role",
+          "rolename": "Creator"
+        },
+          {
+            "type": "Role",
+            "rolename": "Curator-thesis"
+          },
+          {
+              "type": "Role",
         "rolename": "Institution-admin"
       }
     ],

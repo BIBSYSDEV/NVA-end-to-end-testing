@@ -1176,54 +1176,5 @@
     "contributor": "test-user-verified-contributor@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Change status registration Editor"
-  },
-
-  {
-    "publication_type": "DegreePhd",
-    "publication_context_type": "Degree",
-    "publication_instance_type": "DegreePhd",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-resource-owner@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-verified-contributor@test.no",
-    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "title": "Edit Degree"
-  },
-  {
-    "publication_type": "DegreePhd",
-    "publication_context_type": "Degree",
-    "publication_instance_type": "DegreePhd",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-resource-owner@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-verified-contributor@test.no",
-    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "title": "Unpublish Degree"
-  },
-  {
-    "publication_type": "DegreePhd",
-    "publication_context_type": "Degree",
-    "publication_instance_type": "DegreePhd",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-resource-owner@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-verified-contributor@test.no",
-    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "title": "Republish Degree"
-  },
-  {
-    "publication_type": "DegreePhd",
-    "publication_context_type": "Degree",
-    "publication_instance_type": "DegreePhd",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-resource-owner@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-verified-contributor@test.no",
-    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "title": "Change status Degree"
   }
 ]

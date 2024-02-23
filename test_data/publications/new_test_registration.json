@@ -241,7 +241,6 @@
         "type":"Reference"
      },
      "abstract" : "Abstract",
-     "tags" : [ "Test registration keyword" ],
      "contributors":[],
      "type":"EntityDescription"
   }
