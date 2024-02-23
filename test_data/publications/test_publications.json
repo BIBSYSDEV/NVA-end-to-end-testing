@@ -869,6 +869,7 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
     "title": "NVI candidate 3"
   },
+
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -877,9 +878,9 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-resource-owner@test.no",
+    "contributor": "test-user-verified-contributor@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "title": "Delete registration resource owner"
+    "title": "Delete registration Editor"
   },
   {
     "publication_type": "Journal",
@@ -891,8 +892,47 @@
     "status": "PUBLISHED",
     "contributor": "test-user-verified-contributor@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "title": "Delete registration verified contributor"
+    "title": "Delete registration non-editor"
   },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Edit thesis registration"
+  },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Delete thesis registration Curator Degree"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Delete thesis registration non-curator Degree"
+  },
+
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -913,8 +953,277 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-resource-owner@test.no",
     "status": "PUBLISHED",
+    "contributor": "test-user-resource-owner@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Unpublish registration resource owner"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-resource-owner@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Republish registration resource owner"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-resource-owner@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Change status registration resource owner"
+  },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
     "contributor": "test-user-verified-contributor@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Edit registration verified contributor"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Unpublish registration verified contributor"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Republish registration verified contributor"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Change status registration verified contributor"
+  },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Edit registration Curator (resource owner)"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Unpublish registration Curator (resource owner)"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Republish registration Curator (resource owner)"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Change status registration Curator (resource owner)"
+  },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Edit registration Curator (institution)"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Unpublish registration Curator (institution)"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Republish registration Curator (institution)"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Change status registration Curator (institution)"
+  },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Edit registration Editor"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Unpublish registration Editor"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Republish registration Editor"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Change status registration Editor"
+  },
+
+  {
+    "publication_type": "DegreePhd",
+    "publication_context_type": "Degree",
+    "publication_instance_type": "DegreePhd",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Edit Degree"
+  },
+  {
+    "publication_type": "DegreePhd",
+    "publication_context_type": "Degree",
+    "publication_instance_type": "DegreePhd",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Unpublish Degree"
+  },
+  {
+    "publication_type": "DegreePhd",
+    "publication_context_type": "Degree",
+    "publication_instance_type": "DegreePhd",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Republish Degree"
+  },
+  {
+    "publication_type": "DegreePhd",
+    "publication_context_type": "Degree",
+    "publication_instance_type": "DegreePhd",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-verified-contributor@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Change status Degree"
   }
 ]
