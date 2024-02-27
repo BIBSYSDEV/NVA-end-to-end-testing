@@ -103,7 +103,7 @@ Then('they see Registrations filtered with the chosen facet', () => {
 //      Scenario: A user adds a filter to search results
 Given('a User searches for Registrations', () => { })
 When('they select the option to add a filter', () => {
-    cy.getDataTestId(dataTestId.startPage.advancedSearch.addFilterButton).click();
+    cy.getDataTestId(dataTestId.startPage.advancedSearch.activateFilterButton).click();
 })
 Then('they they can add filter for fields:', (dataTable) => {
     const fieldValues = {
@@ -137,7 +137,7 @@ And('they can use the operators:', (dataTable) => {
 // Scenario: A User filters a search result
 Given('a User searches for Registrations', () => { })
 And('they add a filter to the search', () => {
-    cy.getDataTestId(dataTestId.startPage.advancedSearch.addFilterButton).click();
+    cy.getDataTestId(dataTestId.startPage.advancedSearch.activateFilterButton).click();
     cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedFieldSelect).click();
     cy.get('[data-value="title"]').click();
     cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedValueField).type('anthology');
