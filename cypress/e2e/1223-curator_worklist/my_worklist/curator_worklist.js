@@ -146,7 +146,7 @@ And('the Request Status is set to "Active"', () => {
       cy.contains('Message sent');
     }
     cy.wait(3000);
-    cy.get(dataTestId.header.tasksLink).click();
+    cy.getDataTestId(dataTestId.header.tasksLink).click();
     if (user === 'Nvi-Curator') {
     } else {
       cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
@@ -160,6 +160,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   const title = `Unassign ${user} ${type}`;
+  cy.wrap(title).as('title');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
@@ -183,17 +184,14 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.get('[title=Tasks]').click();
 
   cy.getDataTestId(dataTestId.tasksPage.searchMode.myTasksButton).click();
-  cy.get('@title').then(title => {
-
-    if (user === 'Nvi-Curator') {
-      cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-      cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
-        cy.get('li > div > p > a').filter(`:contains(${title})`).click();
-      });
-    } else {
-      cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
-    }
-  });
+  if (user === 'Nvi-Curator') {
+    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+      cy.get('li > div > p > a').filter(`:contains(${title})`).click();
+    });
+  } else {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).first().click();
+  }
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');
   cy.wait(6000);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();

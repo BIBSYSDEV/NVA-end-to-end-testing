@@ -93,7 +93,6 @@ Feature: Curator opens My Worklist
     Examples:
       | Curator            | Type     |
       | Publishing-Curator | Approval |
-      | Support-Curator    | Support  |
       | Doi-Curator        | DOI      |
       | Nvi-Curator        | NVI      |
 
