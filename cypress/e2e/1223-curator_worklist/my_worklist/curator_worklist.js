@@ -245,25 +245,21 @@ Given('the {string} receives a Request of type {string}', (user, type) => {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   }
   cy.wrap(type).as('type');
-  // switch (type) {
-  //   case 'Approval':
-  //     cy.filterMessages('Publishing Requests');
-  //     break;
-  //   case 'DOI':
-  //     cy.filterMessages('DoiRequests');
-  //     break;
-  // }
+  const title = `Open ${user} ${type}`;
+  cy.wrap(title).as('title')
 });
 When('the Curator opens the Requests Resource', () => {
   cy.get('@user').then(user => {
-    if (user === 'Nvi-Curator') {
-      cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-      cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
-        cy.get('li > div > p > a').first().click();
-      });
-    } else {
-      cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
-    }
+    cy.get('@title').then(title => {
+      if (user === 'Nvi-Curator') {
+        cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+        cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains("${title}")`).first().within(() => {
+          cy.get('li > div > p > a').first().click();
+        });
+      } else {
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
+      }
+    });
   });
 });
 Then('the Landing Page of the Resource is viewed', () => {
