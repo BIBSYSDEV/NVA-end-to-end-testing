@@ -12,7 +12,6 @@ Then('the "Request support" dialog is opened', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.supportModal).should('be.visible');
 });
 And('they see field for Message', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId('message-field').should('exist');
 });
 And('they see a "Send Request" button', () => {

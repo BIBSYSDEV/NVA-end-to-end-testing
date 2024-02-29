@@ -54,7 +54,8 @@ Given('Creator navigates to Files and License tab', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
 });
 When('they wish to mark that a Resource have no File or Linked Resource', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.files.noFilesOrLinksButton).click();
+  cy.getDataTestId('CheckBoxOutlineBlankIcon').parent().click();
+  // cy.getDataTestId(dataTestId.registrationWizard.files.noFilesOrLinksButton).click();
 });
 Then('they see a warning message that the Resource will have no File or Linked Resource', () => {
   cy.getDataTestId(dataTestId.registrationWizard.files.noFilesOrLinksWarning);
