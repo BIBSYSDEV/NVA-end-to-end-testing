@@ -171,6 +171,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
 });
 
 Cypress.Commands.add('login', (userId) => {
+  cy.log(userId);
   cy.loginCognito(userId).then(() => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
@@ -179,12 +180,6 @@ Cypress.Commands.add('login', (userId) => {
       auth: {
         username: Cypress.env('DEVUSER'),
         password: Cypress.env('DEVPASSWORD'),
-      },
-      onBerforeLoad(win) {
-        if (browser.family === 'chromium' && browser.name !== 'electron') {
-          launchOptions.preferences.default.intl = { accept_languages: "en_US" }
-          return launchOptions
-        }
       },
     });
   });

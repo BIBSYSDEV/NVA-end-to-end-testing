@@ -118,12 +118,12 @@ export const userNviCurator2 = 'test-user-nvi-2@test.no';
 export const userPublishingCurator = 'test-user-publishing-cur@test.no';
 export const userSupportCurator = 'test-user-support-cur@test.no';
 export const userDoiCurator = 'test-user-doi-cur@test.no';
-export const userVerifiedContributor = 'test-user-verified-contributor@test.no';
-export const userCuratorDegree = 'test-user-curator-degree@test.no';
-export const userEditorDelete = 'test-user-editor-delete@test.no';
-export const userCuratorResourceOwner = 'test-user-curator-resource-owner@test.no';
-export const userCuratorInstitution = 'test-user-curator-institution@test.no';
-export const userResourceOwner = 'test-user-resource-owner@test.no';
+export const userVerifiedContributor = 'test-user-verified-contributor-access@test.no';
+export const userCuratorDegree = 'test-user-curator-degree-access@test.no';
+export const userEditorDelete = 'test-user-editor-delete-access@test.no';
+export const userCuratorResourceOwner = 'test-user-curator-resource-owner-access@test.no';
+export const userCuratorInstitution = 'test-user-curator-institution-access@test.no';
+export const userResourceOwner = 'test-user-resource-owner-access@test.no';
 
 const userData = {
   name: '',

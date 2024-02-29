@@ -253,10 +253,12 @@ When('the Curator opens the Requests Resource', () => {
     cy.get('@title').then(title => {
       if (user === 'Nvi-Curator') {
         cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains("${title}")`).first().within(() => {
           cy.get('li > div > p > a').first().click();
         });
       } else {
+        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
       }
     });
