@@ -1184,9 +1184,9 @@
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-access-publish-registration@test.no",
+    "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
-    "contributor": "test-user-access-publish-registration@test.no",
+    "contributor": "test-user-publish-registration@test.no",
     "title": "Publishing-Curator Publish Files",
     "ticket": {
       "type": "PublishingRequest",
@@ -1194,7 +1194,7 @@
       "text": "Pending publishing request"
     }
   },
-  
+
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
