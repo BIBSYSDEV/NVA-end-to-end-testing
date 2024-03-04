@@ -17,6 +17,8 @@ const users = {
 Given('{string} open landing page for Registration', (user) => {
     cy.login(users[user]);
     cy.wrap(user).as('user');
+    cy.log(user)
+    cy.log(users[user])
 });
 When('they {string} and want to edit the Registration', (condition) => {
     cy.get('@user').then(user => {

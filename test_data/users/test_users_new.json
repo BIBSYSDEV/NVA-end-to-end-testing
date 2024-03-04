@@ -1458,11 +1458,12 @@
     "orgNumber": "5991",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
   },
+
   {
     "lastName": "TestUser",
-    "firstName": "Verified contributor access",
-    "nin": "23111064539",
-    "username": "test-user-verified-contributor-access@test.no",
+    "firstName": "Access Verified contributor",
+    "nin": "06062220412",
+    "username": "test-user-access-verified-contributor@test.no",
     "role": [
       {
         "type": "Role",
@@ -1475,9 +1476,9 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "Resource owner access",
-    "nin": "03064005552",
-    "username": "test-user-resource-owner-access@test.no",
+    "firstName": "Access Resource owner",
+    "nin": "24097820089",
+    "username": "test-user-access-resource-owner@test.no",
     "role": [
       {
         "type": "Role",
@@ -1490,9 +1491,9 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "Curator institution access",
-    "nin": "09022266958",
-    "username": "test-user-curator-institution-access@test.no",
+    "firstName": "Access Curator institution",
+    "nin": "24062615474",
+    "username": "test-user-access-curator-institution@test.no",
     "role": [
       {
         "type": "Role",
@@ -1509,9 +1510,9 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "Curator resource owner access",
-    "nin": "24010384741",
-    "username": "test-user-curator-resource-owner-access@test.no",
+    "firstName": "Access Curator resource owner",
+    "nin": "28078614767",
+    "username": "test-user-access-curator-resource-owner@test.no",
     "role": [
       {
         "type": "Role",
@@ -1528,9 +1529,9 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "Editor delete access",
-    "nin": "02097440282",
-    "username": "test-user-editor-delete-access@test.no",
+    "firstName": "Access Editor delete",
+    "nin": "10127527933",
+    "username": "test-user-access-editor-delete@test.no",
     "role": [
       {
         "type": "Role",
@@ -1547,9 +1548,9 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "Curator Degree access",
-    "nin": "23020441968",
-    "username": "test-user-curator-degree-access@test.no",
+    "firstName": "Access Curator Degree",
+    "nin": "26111064546",
+    "username": "test-user-access-curator-degree@test.no",
     "role": [
       {
         "type": "Role",
