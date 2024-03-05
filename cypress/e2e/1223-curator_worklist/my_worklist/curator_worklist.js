@@ -318,9 +318,6 @@ Then('the Request status is set to "Answered"', () => {
   cy.login(userMessages);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
-  cy.filterMessages('Support Requests');
-  cy.getDataTestId(dataTestId.tasksPage.statusSearch.completedCheckbox).click();
-  cy.getDataTestId(dataTestId.tasksPage.statusSearch.closedCheckbox).click();
 })
 And('the User can read the answer in My Messages', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).parent().parent().filter(`:contains(${curatorAnswer})`);

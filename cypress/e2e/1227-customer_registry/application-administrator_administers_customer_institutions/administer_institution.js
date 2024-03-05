@@ -24,7 +24,9 @@ And('they see fields:', (table) => {
   cy.testDataTestidList(table, institutionFields);
 });
 And('they see Sector options:', (table) => {
+  cy.getDataTestId(dataTestId.basicData.institutionAdmin.sectorField).click();
   cy.testDataTestidList(table, sectors);
+  cy.getDataTestId(sectors['University and college']).click();
 });
 // | University and college          |
 // | Health sector                   |
@@ -117,7 +119,7 @@ And('they see the Save button', () => {
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.saveButton).should('be.visible');
 });
 And('they see the list of current Institution Administrators', () => {
-  cy.get('tr').filter(':contains("Institution-admin TestUser")').should('have.length.above', 0);
+  cy.get('li').filter(':contains("Institution-admin TestUser")').should('have.length.above', 0);
 });
 And('every Institution Administrator has a Remove button', () => {
   cy.get(`[data-testid^=button-remove-role-Institution-admin-]`).should('have.length.above', 0);

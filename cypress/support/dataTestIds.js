@@ -48,6 +48,7 @@ export const dataTestId = {
       rorField: 'ror-field',
       saveButton: 'save-button',
       sectorChip: (sector) => `sector-chip-${sector}`,
+      sectorField: 'sector-field',
     },
     nationalIdentityNumberField: 'national-identity-number-field',
     nviPeriod: {
@@ -77,7 +78,7 @@ export const dataTestId = {
     personRegisterLink: 'person-register-link',
     personRegisterSearchBar: 'person-register-search-bar',
   },
-  common: { pagination: 'pagination' },
+  common: { pagination: 'pagination', save: 'save', cancel: 'cancel' },
   confirmDialog: {
     acceptButton: 'accept-button',
     cancelButton: 'cancel-button',
@@ -137,16 +138,21 @@ export const dataTestId = {
       addFilterButton: 'add-filter-button',
       advancedFieldSelect: 'advanced-field-select',
       advancedValueField: 'advanced-value-field',
+      fundingSourceField: 'funding-source-field',
+      journalField: 'journal-field',
       publicationLanguageField: 'publication-language-field',
+      publisherField: 'publisher-field',
       removeFacetButton: 'remove-facet-button',
       removeFilterButton: 'remove-filter-button',
       searchButton: 'search-button',
+      seriesField: 'series-field',
     },
     advancedSearchAccordion: 'advanced-search-accordion',
     categoryFacets: 'category-facets',
     contributorFacets: 'contributor-facets',
     coordinatingFacets: 'coordinating-facets',
     facetItem: (value) => `facet-item-${value}`,
+    filesFacets: 'files-facets',
     filterAccordion: 'filter-accordion',
     fundingFacets: 'funding-facets',
     fundingSourceFacets: 'funding-source-facets',
@@ -187,6 +193,7 @@ export const dataTestId = {
   },
   registrationLandingPage: {
     abstractAccordion: 'abstract-accordion',
+    addLinkOrFilesButton: 'add-link-or-files-button',
     authorLink: (id) => `presentation-author-link-${id}`,
     contributors: 'public-registration-contributors',
     cristinLink: 'cristin-link',
@@ -213,6 +220,7 @@ export const dataTestId = {
     keywords: 'public-registration-keywords',
     license: 'public-registration-license',
     linkedInButton: 'linkedin-button',
+    noLinkOrFilesWarning: 'no-link-or-files-warning-typhography',
     npi: 'public-registration-npi',
     openFileButton: 'open-file-button',
     primaryLanguage: 'public-registration-primary-language',
@@ -494,6 +502,9 @@ export const dataTestId = {
     createProjectButton: 'create-project-button',
     addPromotedPublicationButton: 'edit-promoted-publication-button',
     messagesAccordion: 'messages-accordion',
+    myMessages: {
+      ticketStatusField: 'ticket-status-field',
+    },
     myProfileLink: 'my-profile-link',
     myProfile: {
       cristinIdField: 'cristin-id-field',
@@ -539,6 +550,7 @@ export const dataTestId = {
       correctionListAccordion: 'correction-list-accordion',
       correctionListRadioButton: 'correction-list-radio-button',
     },
+    curatorSelector: 'curator-selector',
     messageField: 'message-field',
     messageSendButton: 'send-note-button',
     nvi: {
@@ -585,6 +597,7 @@ export const dataTestId = {
   unpublishActions: {
     openUnpublishModalButton: 'open-unpublish-modal-button',
     unpublishJustificationTextField: 'unpublish-registration-justification-textfield',
+    showUnpublishButtonButton: 'show-unpublish-button-button',
     submitButton: 'submit-unpublish-request-button',
   },
 };

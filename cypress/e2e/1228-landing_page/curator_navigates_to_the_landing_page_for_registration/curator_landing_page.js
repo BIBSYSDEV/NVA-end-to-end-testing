@@ -71,6 +71,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
     } else {
       cy.filterMessages('Publishing Requests');
     }
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   })
 });
@@ -107,6 +108,7 @@ Given('they opens the Landing Page of a Registration', () => {
     cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.filterMessages('Publishing requests');
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   });
 });
@@ -188,6 +190,7 @@ And('the Registration has a DOI Request', () => { });
 When('they reject the DOI Request', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
   cy.contains(title).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();
 });
