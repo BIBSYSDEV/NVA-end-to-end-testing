@@ -29,6 +29,7 @@ const enterSearchTerm = () => {
 
 const selectContributor = () => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectEverythingForContributor).first().click();
+    cy.getDataTestId('CheckCircleIcon');
 }
 
 const creatorSelectContributorType = () => {
@@ -178,7 +179,7 @@ Then('they see a List of Contributors matching the search term', () => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectEverythingForContributor).should('have.length.above', 0);
 })
 And('they see number of hits and the search term', () => {
-    cy.contains('results for "Withauthor TestUser');
+    cy.contains('Showing 1-10 of 16');
 })
 And('they see Previous Publications by the Contributors', () => {
     cy.contains('other registrations')
@@ -192,7 +193,6 @@ Given('Creator searches for a Contributor', () => {
     searchForContributor();
 })
 When('they click on a Contributor from the search result', () => {
-    selectContributor()
 })
 Then('they see the "Add" Button is enabled', () => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).should('be.enabled');
