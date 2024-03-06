@@ -21,9 +21,6 @@ phases:
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')
       - export CYPRESS_AWS_SESSION_TOKEN=$(cat Credentials | jq -r '.Credentials.SessionToken')
       - export CYPRESS_AWS_REGION=${AWS_REGION}
-      # Remove search indices from previous test runs
-      - aws lambda invoke --function-name master-pipelines-NvaSearchApi-DeleteIndicesHandler-EKKiXwO7Iu8y -
-      - aws lambda invoke --function-name master-pipelines-NvaSearchApiClientPip-InitHandler-LEwtReql7EUp -
   build:
     commands:
       - cd test_data
