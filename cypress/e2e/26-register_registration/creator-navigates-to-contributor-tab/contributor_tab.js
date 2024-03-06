@@ -151,7 +151,7 @@ And('they search for Author in the Author Search Dialog', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('TestUser, Contributor');
 });
 And('they select an Author identity', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).first().click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectEverythingForContributor}]`).first().click();
 });
 And('they click "Add"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
@@ -275,7 +275,7 @@ And("they see a search field prefilled with the selected Contributor's name", ()
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).should('be.visible');
 });
 And('they see a list of Persons matching the search', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectEverythingForContributor}]`).should('be.visible');
 });
 
 // Scenario: Creator verifies Contributor
@@ -291,7 +291,7 @@ Given('Creator opens Dialog to Verify Contributor', () => {
   cy.get(`[data-testid^=button-set-unverified-contributor-]`).first().click();
 });
 When('they select a Person from the Search Results', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.authorRadioButton}]`).first().click();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectEverythingForContributor}]`).first().click();
 });
 And('they click the Button to Verify Contributor', () => {
   // cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
@@ -316,7 +316,7 @@ Given('a registration with several registrered Contributors', () => {
     index++;
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`withauthor ${index} testuser{enter}`);
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).first().click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectEverythingForContributor).first().click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
   }
 });

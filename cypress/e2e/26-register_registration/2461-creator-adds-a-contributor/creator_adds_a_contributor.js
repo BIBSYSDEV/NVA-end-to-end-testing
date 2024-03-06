@@ -28,7 +28,7 @@ const enterSearchTerm = () => {
 }
 
 const selectContributor = () => {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).first().click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectEverythingForContributor).first().click();
 }
 
 const creatorSelectContributorType = () => {
@@ -175,7 +175,7 @@ When('they enter a search term', () => {
     enterSearchTerm();
 })
 Then('they see a List of Contributors matching the search term', () => {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton).should('have.length.above', 0);
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectEverythingForContributor).should('have.length.above', 0);
 })
 And('they see number of hits and the search term', () => {
     cy.contains('results for "Withauthor TestUser');

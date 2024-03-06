@@ -76,30 +76,32 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
     createUrl = f'{apiUrl}cristin/person'
     headers = createHeaders(accessToken=accessToken)
     existingPerson = findCristinPerson(accessToken=accessToken, nin=nin)
+    print(firstName + ' ' + lastName)
+    print(existingPerson.json())
     cristinPersonId = ''
-    if existingPerson.status_code == 404:
-        print('Creating Cristin person...')
-        payload = createCristinPayload(
-            nin=nin, firstName=firstName, lastName=lastName)
-        response = requests.post(url=createUrl, headers=headers, json=payload)
-        if response.status_code != 201:
-            print(payload)
-            print(response.text)
-        cristinPersonId = response.json()['id'].replace(
-            f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
-        time.sleep(10)
-    if not cristinPersonId == '':
-        updateAffiliations = True
-        if 'affiliations' in existingPerson.json():
-            updateAffiliations = not organizationExists(
-                existingPerson.json()['affiliations'], cristinOrgId)
-        if updateAffiliations:
-            updateUrl = f'{apiUrl}cristin/person/{cristinPersonId}/employment'
-            payload = createCristinEmploymentPayload(organization=cristinOrgId)
-            response = requests.post(
-                url=updateUrl, json=payload, headers=headers)
-    else:
-        print('Employment exists...')
+    # if existingPerson.status_code == 404:
+    #     print('Creating Cristin person...')
+    #     payload = createCristinPayload(
+    #         nin=nin, firstName=firstName, lastName=lastName)
+    #     response = requests.post(url=createUrl, headers=headers, json=payload)
+    #     if response.status_code != 201:
+    #         print(payload)
+    #         print(response.text)
+    #     cristinPersonId = response.json()['id'].replace(
+    #         f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
+    #     time.sleep(10)
+    # if not cristinPersonId == '':
+    #     updateAffiliations = True
+    #     if 'affiliations' in existingPerson.json():
+    #         updateAffiliations = not organizationExists(
+    #             existingPerson.json()['affiliations'], cristinOrgId)
+    #     if updateAffiliations:
+    #         updateUrl = f'{apiUrl}cristin/person/{cristinPersonId}/employment'
+    #         payload = createCristinEmploymentPayload(organization=cristinOrgId)
+    #         response = requests.post(
+    #             url=updateUrl, json=payload, headers=headers)
+    # else:
+    #     print('Employment exists...')
 
     return cristinPersonId
 
@@ -183,9 +185,9 @@ def importUsers(test_users_file_name):
 
             createCristinPerson(accessToken=accessToken, nin=nin,
                                 firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId)
-            if not 'cristinUser' in test_user:
-                createNvaUser(accessToken=accessToken, nin=nin,
-                              customer=customer, roles=roles, username=username)
+            # if not 'cristinUser' in test_user:
+            #     createNvaUser(accessToken=accessToken, nin=nin,
+            #                   customer=customer, roles=roles, username=username)
 
 
 def createNin():

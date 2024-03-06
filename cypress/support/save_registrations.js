@@ -214,7 +214,7 @@
 //     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectContributorType).click();
 //     cy.get(`[data-value=${role}]`).click();
 //     cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`Withauthor ${index}`);
-//     cy.getDataTestId(dataTestId.registrationWizard.contributors.authorRadioButton)
+//     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectEverythingForContributor)
 //       .filter(`:contains('Withauthor ${index} ')`)
 //       .first()
 //       .click();
