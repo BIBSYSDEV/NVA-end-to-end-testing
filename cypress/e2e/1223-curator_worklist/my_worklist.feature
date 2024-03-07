@@ -37,41 +37,41 @@ Feature: Curator opens My Worklist
 
   Background:
 
-  # @test
-  # Scenario Outline: Curator opens their Worklist
-  #   When the "<Curator>" opens their Worklist
-  #   Then the Curator see that the Worklist is Scoped
-  #   And the Worklist contains Requests of type "<Type>"
-  #   Examples:
-  #     | Curator            | Type     |
-  #     | Publishing-Curator | Approval |
-  #     | Support-Curator    | Support  |
-  #     | Doi-Curator        | DOI      |
-  #     | Nvi-Curator        | NVI      |
-  # # | Ownership-Curator | Ownership |
+  @test
+  Scenario Outline: Curator opens their Worklist
+    When the "<Curator>" opens their Worklist
+    Then the Curator see that the Worklist is Scoped
+    And the Worklist contains Requests of type "<Type>"
+    Examples:
+      | Curator            | Type     |
+      | Publishing-Curator | Approval |
+      | Support-Curator    | Support  |
+      | Doi-Curator        | DOI      |
+      | Nvi-Curator        | NVI      |
+  # | Ownership-Curator | Ownership |
 
-  # # Scenario: Curator change Scope of their Worklist
-  # #   When the Curator change Scope to the whole Institution or one or more subunits
-  # #   Then the listed Requests is updated to match the new Scope
+  # Scenario: Curator change Scope of their Worklist
+  #   When the Curator change Scope to the whole Institution or one or more subunits
+  #   Then the listed Requests is updated to match the new Scope
 
-  # @test
-  # Scenario Outline: Curator views all Requests of a type
-  #   When "<Curator>" clicks on Requests of type "<Type>"
-  #   Then Curator see a list of Requests displayed with:
-  #     | Request status         |
-  #     | Registration title     |
-  #     # | Submitter name            |
-  #     | Request Submitter Date |
-  #   # | Beginning of last message |
-  #   # | Owner name                |
-  #   And they see that each Request can be opened
-  #   Examples:
-  #     | Curator            | Type     |
-  #     | Publishing-Curator | Approval |
-  #     | Support-Curator    | Support  |
-  #     | Doi-Curator        | DOI      |
-  #     | Nvi-Curator        | NVI      |
-  # # | Ownership |
+  @test
+  Scenario Outline: Curator views all Requests of a type
+    When "<Curator>" clicks on Requests of type "<Type>"
+    Then Curator see a list of Requests displayed with:
+      | Request status         |
+      | Registration title     |
+      # | Submitter name            |
+      | Request Submitter Date |
+    # | Beginning of last message |
+    # | Owner name                |
+    And they see that each Request can be opened
+    Examples:
+      | Curator            | Type     |
+      | Publishing-Curator | Approval |
+      | Support-Curator    | Support  |
+      | Doi-Curator        | DOI      |
+      | Nvi-Curator        | NVI      |
+  # | Ownership |
 
   @test
   Scenario Outline: Curator opens a unassigned Request
