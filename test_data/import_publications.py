@@ -393,6 +393,8 @@ def create_publication_data(publication_template, test_publication, username, cu
         embargoDate = date.today() + timedelta(days=2)
         dateString = embargoDate.strftime('%Y-%m-%dT00:00:00Z')
         file['embargoDate'] = dateString
+    if 'fileStatus' in test_publication:
+        file['type'] = test_publication['fileStatus']
 
     file['name'] = fileTypes[fileType]['fileName']
     file['mimeType'] = fileTypes[fileType]['mimeType']

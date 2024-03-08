@@ -277,6 +277,9 @@ And('the Curator has the option to {string}', (action) => {
     'Approve Candidate': dataTestId.tasksPage.nvi.approveButton,
     'Reject Candidate': dataTestId.tasksPage.nvi.rejectButton,
   }
+  if(action === 'Answer Message') {
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
+  }
   cy.getDataTestId(typeActions[action]).should('be.visible');
 });
 And('the Curator can Decline the Request', () => {
