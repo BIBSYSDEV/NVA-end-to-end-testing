@@ -115,7 +115,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
     }
     headers = createHeaders(accessToken=accessToken)
     response = requests.post(url=url, json=payload, headers=headers)
-    if not response.status_code == 200:
+    if not response.status_code == 201:
         print(payload)
         print(response.json())
 
