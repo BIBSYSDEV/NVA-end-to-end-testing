@@ -41,7 +41,7 @@ Then('they can see values for:', (dataTable) => {
         'Resource Type': 'Academic article',
         'Publication date': dateValue,
         'Title': 'Search result',
-        'Contributors': 'Publish registration TestUser',
+        'Contributors': 'PublishRegistration TestUser',
         'Abstract': 'abstract',
     }
     cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
@@ -73,7 +73,7 @@ Then('they see the landing page for the Registration', () => {
 Given('a User searches for Registrations', () => {
     visitStartPage()
     cy.getDataTestId(dataTestId.startPage.searchField).type('search result{enter}');
-    cy.wait(3000);
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).should('be.visible');
 })
 When('they select the facet for {string}:', (facet) => {
     const facets = {
@@ -108,11 +108,17 @@ When('they select the option to add a filter', () => {
 Then('they they can add filter for fields:', (dataTable) => {
     const fieldValues = {
         'Title': 'title',
-        'Abstract': 'entityDescription.abstract',
-        'Keywords': 'entityDescription.tags',
+        'Abstract': 'abstract',
+        'Keywords': 'tags',
         'Contributor': 'contributorName',
-        'Publication Year': 'entityDescription.publicationDate.year',
-
+        'ISBN': 'isbn',
+        'ISSN': 'issn',
+        'DOI': 'doi',
+        'Handle': 'handle',
+        'Funding': 'fundingIdentifier',
+        'Course': 'course',
+        'Cristin identifier': 'cristinIdentifier',
+        'Identifier': 'id',
     }
     cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedFieldSelect).click();
     dataTable.rawTable.forEach((value) => {

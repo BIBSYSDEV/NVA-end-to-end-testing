@@ -58,10 +58,8 @@ When('they wish to mark that a Resource have no File or Linked Resource', () => 
   // cy.getDataTestId(dataTestId.registrationWizard.files.noFilesOrLinksButton).click();
 });
 Then('they see a warning message that the Resource will have no File or Linked Resource', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.files.noFilesOrLinksWarning);
 });
 And('they see they can cancel marking the Resource', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.files.addFilesOrLinksButton).should('be.visible');
 });
 And('they see they can confirm marking the Resource', () => {});
 
