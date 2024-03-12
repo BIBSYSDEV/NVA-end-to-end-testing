@@ -1245,6 +1245,33 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "Project WIzard",
+    "nin": "09076714980",
+    "username": "test-user-project-wizard@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Support-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "File-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "5991",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
     "firstName": "Project manager",
     "nin": "06118638792",
     "username": "test-user-project-manager@test.no",
