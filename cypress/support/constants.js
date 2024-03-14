@@ -125,6 +125,8 @@ export const userEditorDelete = 'test-user-access-editor-delete@test.no';
 export const userCuratorResourceOwner = 'test-user-access-curator-resource-owner@test.no';
 export const userCuratorInstitution = 'test-user-access-curator-institution@test.no';
 export const userResourceOwner = 'test-user-access-resource-owner@test.no';
+export const userAdminRRS = 'test-user-admin-rrs@test.no';
+export const userAuthorRRS = 'test-user-author-rrs@test.no';
 
 const userData = {
   name: '',
@@ -250,4 +252,6 @@ export const user = {
   [userResourceOwner]: { ...userData, name: 'TestUser, Access Resource owner' },
   [userEditorDelete]: { ...userData, name: 'TestUser, Access Editor delete' },
   [userCuratorDegree]: { ...userData, name: 'TestUser, Access Curator degree' },
+  [userAdminRRS]: { ...userData, name: 'TestUser, Admin RRS' },
+  [userAuthorRRS]: { ...userData, name: 'TestUser, Author RRS' },
 };

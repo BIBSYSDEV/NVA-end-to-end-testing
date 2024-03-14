@@ -1591,5 +1591,40 @@
     "orcid": true,
     "orgNumber": "20202",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+
+  {
+    "lastName": "TestUser",
+    "firstName": "Admin RRS",
+    "nin": "14099426609",
+    "username": "test-user-admin-rrs@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Author RRS",
+    "nin": "04051199958",
+    "username": "test-user-author-rrs@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
   }
 ]

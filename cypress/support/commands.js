@@ -226,7 +226,7 @@ Cypress.Commands.add('openMyRegistrations', () => {
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
 });
 
-Cypress.Commands.add('createValidRegistration', (fileName, title) => {
+Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) => {
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
   title = title ? `${title} ${today}` : `Title ${today}`;
@@ -250,7 +250,11 @@ Cypress.Commands.add('createValidRegistration', (fileName, title) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
   cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
-    cy.get('input[type=radio]').last().click();
+    if (fileVersion === 'Accepted') {
+      cy.get('input[type=radio]').first().click();
+    } else if (fileVersion !== 'Not set'){
+      cy.get('input[type=radio]').last().click();
+    }
   });
   cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
   cy.get('[data-testid=license-item]').first().click({ force: true });
