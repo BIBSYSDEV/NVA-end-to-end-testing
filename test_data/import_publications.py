@@ -384,7 +384,8 @@ def create_publication_data(publication_template, test_publication, username, cu
         'publisherAuthority': False,
         'size': 'test_file_size',
         'type': 'PublishedFile',
-        'administrativeAgreement': False
+        'administrativeAgreement': False,
+        "publisherVersion" : "PublishedVersion",
     }
     fileType = 'pdf'
     if 'fileType' in test_publication:
