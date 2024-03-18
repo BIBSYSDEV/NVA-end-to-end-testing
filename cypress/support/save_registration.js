@@ -150,7 +150,7 @@ export const resourceTypeFields = {
     fieldTestId: dataTestId.registrationWizard.resourceType.scientificSubjectField,
     elementType: 'search',
     landingPageTestId: dataTestId.registrationLandingPage.npi,
-    value: 'Computer engineering',
+    value: 'Mathematics',
   },
   isbn: {
     type: 'text',
