@@ -127,6 +127,7 @@ export const userCuratorInstitution = 'test-user-access-curator-institution@test
 export const userResourceOwner = 'test-user-access-resource-owner@test.no';
 export const userAdminRRS = 'test-user-admin-rrs@test.no';
 export const userAuthorRRS = 'test-user-author-rrs@test.no';
+export const userEmbargo = 'test-user-author-embargo@test.no';
 
 const userData = {
   name: '',
@@ -254,4 +255,5 @@ export const user = {
   [userCuratorDegree]: { ...userData, name: 'TestUser, Access Curator degree' },
   [userAdminRRS]: { ...userData, name: 'TestUser, Admin RRS' },
   [userAuthorRRS]: { ...userData, name: 'TestUser, Author RRS' },
+  [userEmbargo]: { ...userData, name: 'TestUser, Author Embargo' },
 };

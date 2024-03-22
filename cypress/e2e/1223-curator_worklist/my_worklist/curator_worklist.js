@@ -36,6 +36,8 @@ When('the {string} opens their Worklist', (user) => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  } else {
+    // cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).type('{downarrow}{enter}{esc}');
   }
 });
 Then('the Curator see that the Worklist is Scoped', () => {

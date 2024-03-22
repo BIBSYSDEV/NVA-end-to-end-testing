@@ -1626,5 +1626,20 @@
     "orcid": true,
     "orgNumber": "20202",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Author Embargo",
+    "nin": "30101471663",
+    "username": "test-user-author-embargo@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
   }
 ]
