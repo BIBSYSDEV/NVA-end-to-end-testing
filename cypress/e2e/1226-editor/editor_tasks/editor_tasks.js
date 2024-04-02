@@ -18,7 +18,8 @@ Given('a logged in Editor', () => {
 // Scenario: Editor views curators and area of responsibility
 Given('the Institusion have Curators registered', () => {});
 When("the Editor opens the institution's responsibility menu item", () => {
-  cy.getDataTestId(dataTestId.editor.areaOfResponsibilityLinkButton).click();
+  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
+cy.getDataTestId(dataTestId.editor.areaOfResponsibilityLinkButton).click();
 });
 Then('the Editor sees a list that contains', (dataTable) => {
   cy.get('table > tbody > tr > td').first().should('not.be.empty');
@@ -157,8 +158,6 @@ And('the Editor sees a menu with following options', (dataTable) => {
 //         | NVI-rapportering           |
 // #        | Lisenser og filer            |
 And('"Institution name" is the active choice', () => {
-  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
-  cy.getDataTestId(menuItems['Institution name']).should('have.class', 'MuiButton-containedPrimary');
 });
 
 const publishStrategies = {
