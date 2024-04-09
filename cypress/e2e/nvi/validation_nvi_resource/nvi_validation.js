@@ -78,6 +78,7 @@ When('a Curator views a NVI-candidate', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.get('@uuid').then((uuid) => {
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
     cy.get('a').filter(`:contains(${uuid})`).click();
   });
 });
@@ -90,7 +91,7 @@ Then('the NVI candidate is removed from the list of Candidate Resources', () => 
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.pendingRadio).click();
   cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId('search-field').type(`${uuid}{enter}`);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
     cy.get('a').filter(`:contains(${uuid})`).should('not.exist');
   });
 });
