@@ -129,16 +129,16 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
       cy.get('li > div > p > a').first().click();
     });
   } else {
+    cy.get('[value=BIBSYS]');
+    cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).click();
   }
 });
 Then('the Curator is assigned the Request', () => {
-  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
   cy.getDataTestId('message-field').type('Test message{enter}');
   cy.get('ul > li > p').filter(':contains("Test message")').should('be.visible');
-  // });
 });
 And('the Request Status is set to "Active"', () => {
   cy.get('@user').then(user => {
@@ -151,6 +151,9 @@ And('the Request Status is set to "Active"', () => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     if (user === 'Nvi-Curator') {
     } else {
+      cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click();
+      cy.get('[data-value=Completed]').click();
+      cy.get('[data-value=Completed]').type('{esc}');
       cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
     }
   })
