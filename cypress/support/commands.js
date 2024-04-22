@@ -33,6 +33,7 @@ const amplifyConfig = {
 };
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
+const secretsManager = new AWS.SecretsManager();
 
 const authFlow = 'USER_PASSWORD_AUTH';
 
@@ -78,67 +79,77 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
     Amplify.configure(amplifyConfig);
-    let randomPassword = `P%${uuidv4()}`;
-    if (!passwords[userId]) {
-      console.log('Setting password...');
-      const passwordParams = {
-        Password: randomPassword,
-        UserPoolId: userPoolId,
-        Username: userId,
-        Permanent: true,
-      };
+    // let testUserPassword = `P%${uuidv4()}`;
+    const secretsManagerParams = {
+      SecretId: 'TestUserPassword',
+    }
+    let testUserPassword = secretsManager.getSecretValue(secretsManagerParams, (err, data) => {
+      if (data) {
+        console.log( `SecretsString = ${data.SecretString}`);
+      } else {
+        reject(err);
+      }
+    })
+    // if (!passwords[userId]) {
+    //   console.log('Setting password...');
+    //   const passwordParams = {
+    //     Password: testUserPassword,
+    //     UserPoolId: userPoolId,
+    //     Username: userId,
+    //     Permanent: true,
+    //   };
 
-      passwords[userId] = randomPassword;
-      identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
-        let trying = false;
-        if (data) {
-          const authorizeUser = {
-            AuthFlow: authFlow,
-            ClientId: clientId,
-            AuthParameters: {
-              USERNAME: userId,
-              PASSWORD: randomPassword,
-            },
-          };
+      // passwords[userId] = testUserPassword;
+      // identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+      //   let trying = false;
+      //   if (data) {
+      //     const authorizeUser = {
+      //       AuthFlow: authFlow,
+      //       ClientId: clientId,
+      //       AuthParameters: {
+      //         USERNAME: userId,
+      //         PASSWORD: testUserPassword,
+      //       },
+      //     };
 
-          let tries = 0;
-          do {
-            identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-              if (data) {
-                if (!data.ChallengeName) {
-                  await Auth.signIn(userId, randomPassword);
-                  resolve(data.AuthenticationResult.IdToken);
-                } else {
-                  trying = true;
-                  console.log('fail.. challenge');
-                  reject(err);
-                }
-              } else {
-                trying = true;
-                console.log('fail.. init auth');
-                reject(err);
-              }
-            });
-            tries++;
-            if (tries > 3) {
-              trying = false;
-            }
-          } while (trying);
-        } else {
-          trying = true;
-          console.log('fail.. set password');
-          reject(err);
-        }
-      });
-    } else {
+      //     let tries = 0;
+      //     do {
+      //       identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+      //         if (data) {
+      //           if (!data.ChallengeName) {
+      //             await Auth.signIn(userId, testUserPassword);
+      //             resolve(data.AuthenticationResult.IdToken);
+      //           } else {
+      //             trying = true;
+      //             console.log('fail.. challenge');
+      //             reject(err);
+      //           }
+      //         } else {
+      //           trying = true;
+      //           console.log('fail.. init auth');
+      //           reject(err);
+      //         }
+      //       });
+      //       tries++;
+      //       if (tries > 3) {
+      //         trying = false;
+      //       }
+      //     } while (trying);
+      //   } else {
+      //     trying = true;
+      //     console.log('fail.. set password');
+      //     reject(err);
+      //   }
+      // });
+    // } else {
       console.log('Retrieving password...');
-      randomPassword = passwords[userId];
+      // randomPassword = passwords[userId];
       const authorizeUser = {
         AuthFlow: authFlow,
         ClientId: clientId,
         AuthParameters: {
           USERNAME: userId,
-          PASSWORD: randomPassword,
+          PASSWORD: testUserPassword,
         },
       };
 
@@ -148,7 +159,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
         identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
           if (data) {
             if (!data.ChallengeName) {
-              await Auth.signIn(userId, randomPassword);
+              await Auth.signIn(userId, testUserPassword);
               resolve(data.AuthenticationResult.IdToken);
             } else {
               trying = true;
@@ -166,7 +177,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
           trying = false;
         }
       } while (trying);
-    }
+    // }
   });
 });
 

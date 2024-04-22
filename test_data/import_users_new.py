@@ -19,8 +19,11 @@ USERS_ROLES_TABLE_NAME = ssm.get_parameter(Name='/test/UserTable',
 customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
                                        WithDecryption=False)['Parameter']['Value']
 
-print(USERS_ROLES_TABLE_NAME)
 
+USER_PASSWORD = f'P_{str(uuid.uuid4())}'
+
+secretsmanager = boto3.client('secretsmanager')
+secretsmanager.put_secret_value(SecretId='TestUserPassword', SecretString=USER_PASSWORD)
 
 def createHeaders(accessToken):
     return {
@@ -119,8 +122,6 @@ def createNvaUser(accessToken, nin, customer, roles, username):
         print(payload)
         print(response.json())
 
-    tempPassword = 'P%1234abcd'
-
     client = boto3.client('cognito-idp')
     print(f'Username: {username}')
 
@@ -148,7 +149,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
         client.admin_set_user_password(
             UserPoolId=USER_POOL_ID,
             Username=username,
-            Password=tempPassword
+            Password=USER_PASSWORD
         )
 
 

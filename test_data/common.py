@@ -14,15 +14,12 @@ username = 'test-user-with-author@test.no'
 clientId = '1nbiuinkdappc61f8igc82mie8'
 secret = '10lcd99qlhu86qfkbicci0gtoit0fqmai40r7dnrm1nm04d8m9v7'
 
+secretsmanager = boto3.client('secretsmanager')
+USER_PASSWORD = secretsmanager.get_secret_value(SecretId='TestUserPassword')['SecretString']
+print(USER_PASSWORD)
+
 def login(username):
     client = boto3.client('cognito-idp')
-    password = f'P_{str(uuid.uuid4())}'
-    client.admin_set_user_password(
-        Password=password,
-        UserPoolId=USER_POOL_ID,
-        Username=username,
-        Permanent=True,
-    )
     trying = True
     count = 0
     while trying:
@@ -32,7 +29,7 @@ def login(username):
                 ClientId=CLIENT_ID,
                 AuthParameters={
                     'USERNAME': username,
-                    'PASSWORD': password
+                    'PASSWORD': USER_PASSWORD
                 }
             )
             return response['AuthenticationResult']['AccessToken']

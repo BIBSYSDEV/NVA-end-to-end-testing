@@ -173,6 +173,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
       cy.get('li > div > p > a').first().click();
     });
   } else {
+    cy.get('[value=BIBSYS]');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   }
