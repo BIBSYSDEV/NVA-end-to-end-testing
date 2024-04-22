@@ -21,6 +21,7 @@ customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
 
 
 USER_PASSWORD = f'P_{str(uuid.uuid4())}'
+print(USER_PASSWORD)
 
 secretsmanager = boto3.client('secretsmanager')
 secretsmanager.put_secret_value(SecretId='TestUserPassword', SecretString=USER_PASSWORD)
@@ -124,6 +125,7 @@ def createNvaUser(accessToken, nin, customer, roles, username):
 
     client = boto3.client('cognito-idp')
     print(f'Username: {username}')
+    print(USER_PASSWORD)
 
     try:
         response = client.admin_get_user(

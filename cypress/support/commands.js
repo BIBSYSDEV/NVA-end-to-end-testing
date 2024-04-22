@@ -83,101 +83,106 @@ Cypress.Commands.add('loginCognito', (userId) => {
     const secretsManagerParams = {
       SecretId: 'TestUserPassword',
     }
-    let testUserPassword = secretsManager.getSecretValue(secretsManagerParams, (err, data) => {
+    let testUserPassword = '';
+    secretsManager.getSecretValue(secretsManagerParams, (err, data) => {
       if (data) {
-        console.log( `SecretsString = ${data.SecretString}`);
+        console.log(`SecretsString = ${data.SecretString}`);
+        testUserPassword = data.SecretString
+        console.log(`testUserPassword = "${testUserPassword}"`);
+
+        // if (!passwords[userId]) {
+        //   console.log('Setting password...');
+        //   const passwordParams = {
+        //     Password: testUserPassword,
+        //     UserPoolId: userPoolId,
+        //     Username: userId,
+        //     Permanent: true,
+        //   };
+
+        // passwords[userId] = testUserPassword;
+        // identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
+        //   let trying = false;
+        //   if (data) {
+        //     const authorizeUser = {
+        //       AuthFlow: authFlow,
+        //       ClientId: clientId,
+        //       AuthParameters: {
+        //         USERNAME: userId,
+        //         PASSWORD: testUserPassword,
+        //       },
+        //     };
+
+        //     let tries = 0;
+        //     do {
+        //       identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+        //         if (data) {
+        //           if (!data.ChallengeName) {
+        //             await Auth.signIn(userId, testUserPassword);
+        //             resolve(data.AuthenticationResult.IdToken);
+        //           } else {
+        //             trying = true;
+        //             console.log('fail.. challenge');
+        //             reject(err);
+        //           }
+        //         } else {
+        //           trying = true;
+        //           console.log('fail.. init auth');
+        //           reject(err);
+        //         }
+        //       });
+        //       tries++;
+        //       if (tries > 3) {
+        //         trying = false;
+        //       }
+        //     } while (trying);
+        //   } else {
+        //     trying = true;
+        //     console.log('fail.. set password');
+        //     reject(err);
+        //   }
+        // });
+        // } else {
+        console.log('Retrieving password...');
+        // randomPassword = passwords[userId];
+        const authorizeUser = {
+          AuthFlow: authFlow,
+          ClientId: clientId,
+          AuthParameters: {
+            USERNAME: userId,
+            PASSWORD: testUserPassword,
+          },
+        };
+        console.log(authorizeUser);
+
+        let tries = 0;
+        let trying = false;
+        do {
+          identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
+            if (data) {
+              if (!data.ChallengeName) {
+                await Auth.signIn(userId, testUserPassword);
+                resolve(data.AuthenticationResult.IdToken);
+              } else {
+                trying = true;
+                console.log('fail.. challenge');
+                reject(err);
+              }
+            } else {
+              trying = true;
+              console.log('fail.. init auth');
+              reject(err);
+            }
+          });
+          tries++;
+          if (tries > 3) {
+            trying = false;
+          }
+        } while (trying);
+        // }
       } else {
         reject(err);
       }
-    })
-    // if (!passwords[userId]) {
-    //   console.log('Setting password...');
-    //   const passwordParams = {
-    //     Password: testUserPassword,
-    //     UserPoolId: userPoolId,
-    //     Username: userId,
-    //     Permanent: true,
-    //   };
-
-      // passwords[userId] = testUserPassword;
-      // identityServiceProvider.adminSetUserPassword(passwordParams, (err, data) => {
-      //   let trying = false;
-      //   if (data) {
-      //     const authorizeUser = {
-      //       AuthFlow: authFlow,
-      //       ClientId: clientId,
-      //       AuthParameters: {
-      //         USERNAME: userId,
-      //         PASSWORD: testUserPassword,
-      //       },
-      //     };
-
-      //     let tries = 0;
-      //     do {
-      //       identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-      //         if (data) {
-      //           if (!data.ChallengeName) {
-      //             await Auth.signIn(userId, testUserPassword);
-      //             resolve(data.AuthenticationResult.IdToken);
-      //           } else {
-      //             trying = true;
-      //             console.log('fail.. challenge');
-      //             reject(err);
-      //           }
-      //         } else {
-      //           trying = true;
-      //           console.log('fail.. init auth');
-      //           reject(err);
-      //         }
-      //       });
-      //       tries++;
-      //       if (tries > 3) {
-      //         trying = false;
-      //       }
-      //     } while (trying);
-      //   } else {
-      //     trying = true;
-      //     console.log('fail.. set password');
-      //     reject(err);
-      //   }
-      // });
-    // } else {
-      console.log('Retrieving password...');
-      // randomPassword = passwords[userId];
-      const authorizeUser = {
-        AuthFlow: authFlow,
-        ClientId: clientId,
-        AuthParameters: {
-          USERNAME: userId,
-          PASSWORD: testUserPassword,
-        },
-      };
-
-      let tries = 0;
-      let trying = false;
-      do {
-        identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-          if (data) {
-            if (!data.ChallengeName) {
-              await Auth.signIn(userId, testUserPassword);
-              resolve(data.AuthenticationResult.IdToken);
-            } else {
-              trying = true;
-              console.log('fail.. challenge');
-              reject(err);
-            }
-          } else {
-            trying = true;
-            console.log('fail.. init auth');
-            reject(err);
-          }
-        });
-        tries++;
-        if (tries > 3) {
-          trying = false;
-        }
-      } while (trying);
-    // }
+    });
   });
 });
 
@@ -263,7 +268,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
   cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
     if (fileVersion === 'Accepted') {
       cy.get('input[type=radio]').first().click();
-    } else if (fileVersion !== 'Not set'){
+    } else if (fileVersion !== 'Not set') {
       cy.get('input[type=radio]').last().click();
     }
   });
