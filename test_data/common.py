@@ -16,7 +16,6 @@ CUSTOMER_TABLENAME = ssm.get_parameter(Name='/test/CustomerTable',
 
 def login(username):
     USER_PASSWORD = secretsmanager.get_secret_value(SecretId='TestUserPassword')['SecretString']
-    print(USER_PASSWORD)
     client = boto3.client('cognito-idp')
     trying = True
     count = 0
@@ -32,6 +31,16 @@ def login(username):
             )
             return response['AuthenticationResult']['AccessToken']
         except:
+            print('failed login...')
+            print(response)
+            try:
+                client.admin_set_user_password(
+                    UserPoolId=USER_POOL_ID,
+                    Username=username,
+                    Password=USER_PASSWORD
+                )
+            except:
+                print('failed setting password')
             count+=1
             if count == 3: trying = False
     return ''
@@ -50,6 +59,6 @@ def getBackendAccessToken():
         'Content-Type': 'application/x-www-form-urlencoded'
     }
 
-    response = requests.post(url, headers=headers, data=payload, auth=(CLIENT_ID, CLIENT_SECRET))
+    response = requests.post(url, headers=headers, data=payload, auth=(BACKEND_CLIENT_ID, CLIENT_SECRET))
 
     return response.json()['access_token']

@@ -19,12 +19,8 @@ USERS_ROLES_TABLE_NAME = ssm.get_parameter(Name='/test/UserTable',
 customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
                                        WithDecryption=False)['Parameter']['Value']
 
-
-USER_PASSWORD = f'P_{str(uuid.uuid4())}'
-print(USER_PASSWORD)
-
 secretsmanager = boto3.client('secretsmanager')
-secretsmanager.put_secret_value(SecretId='TestUserPassword', SecretString=USER_PASSWORD)
+USER_PASSWORD = secretsmanager.get_secret_value(SecretId='TestUserPassword')['SecretString']
 
 def createHeaders(accessToken):
     return {
@@ -125,7 +121,6 @@ def createNvaUser(accessToken, nin, customer, roles, username):
 
     client = boto3.client('cognito-idp')
     print(f'Username: {username}')
-    print(USER_PASSWORD)
 
     try:
         response = client.admin_get_user(
@@ -148,11 +143,16 @@ def createNvaUser(accessToken, nin, customer, roles, username):
             ],
             MessageAction='SUPPRESS'
         )
+    print('setting password')
+    try:
         client.admin_set_user_password(
             UserPoolId=USER_POOL_ID,
             Username=username,
-            Password=USER_PASSWORD
+            Password=USER_PASSWORD,
+            Permanent=True
         )
+    except:
+        print('Failed setting password')
 
 
 def importUsers(test_users_file_name):
@@ -205,7 +205,6 @@ def deleteUsers(admin):
     for user in users:
         if 'affiliation' in user:
             affiliation = user['affiliation']['S']
-            # if 'familyName' in user and '5991' in affiliation:
             familyName = user['familyName']['S']
             givenName = user['givenName']['S']
             if not admin and givenName == 'Create testdata':
@@ -237,4 +236,8 @@ if __name__ == '__main__':
             admin = sys.argv[2]
     else:
         test_users_file_name = './users/test_users_new.json'
+    if admin:
+        USER_PASSWORD = f'P_{str(uuid.uuid4())}'
+        secretsmanager.put_secret_value(SecretId='TestUserPassword', SecretString=USER_PASSWORD)
+
     run(test_users_file_name, admin)
