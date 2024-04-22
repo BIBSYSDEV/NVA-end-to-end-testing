@@ -323,6 +323,16 @@ Resources:
                   - 'cognito-idp:AdminCreateUser'
                   - 'cognito-idp:ListUsers'
                 Resource: '*'
+        - PolicyName: secretsPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'ssm:GetParameters'
+                  - 'secretsmanager:GetSecretValue'
+                Resource: '*'
+
 
   ArtifactStoreBucket:
     Type: AWS::S3::Bucket
