@@ -71,6 +71,8 @@ Given('a Curator opens the Landing Page of a Registration', () => {
     } else {
       cy.filterMessages('Publishing Requests');
     }
+    cy.get('[value=BIBSYS]');
+    cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   })
@@ -107,7 +109,8 @@ Given('they opens the Landing Page of a Registration', () => {
     cy.login(userCurator);
     cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.filterMessages('Publishing requests');
+    cy.get('[value=BIBSYS]');
+    cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   });
@@ -146,9 +149,12 @@ Given('that a Curator views their Worklist', () => {
   cy.login(userCurator);
   cy.wait(5000)
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.get('[value=BIBSYS]');
+  cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
 });
 And('they have selected the DOI Requests tab', () => { });
 And('they have expanded an Message', () => {
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${doiRequestTitle}{enter}`, { delay: 0 });
   cy.contains(doiRequestTitle).click();
 });
 When('they click "Go to registration"', () => {
@@ -168,6 +174,9 @@ And('the Registration has a DOI Request', () => {
 });
 When('they approve the DOI Request', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.get('[value=BIBSYS]');
+  cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
   cy.contains(title, {timeout : 30000}).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).click();
 });
@@ -190,6 +199,8 @@ And('the Registration has a DOI Request', () => { });
 When('they reject the DOI Request', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.get('[value=BIBSYS]');
+  cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
   cy.contains(title).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();

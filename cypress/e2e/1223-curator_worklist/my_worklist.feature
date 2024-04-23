@@ -92,9 +92,9 @@ Feature: Curator opens My Worklist
     And the Request is unassigned the Curator
     Examples:
       | Curator            | Type     |
-      # | Publishing-Curator | Approval |
+      | Publishing-Curator | Approval |
       | Doi-Curator        | DOI      |
-  #     | Nvi-Curator        | NVI      |
+      | Nvi-Curator        | NVI      |
 
   # Scenario Outline: Curator open a assigned Request
   #   When the "<Curator>" selects a Request of type "<Type>"
