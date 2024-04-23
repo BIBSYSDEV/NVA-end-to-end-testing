@@ -74,9 +74,9 @@ export const registrationFields = {
       fieldTestId: dataTestId.registrationWizard.files.version,
       elementType: 'radio',
       landingPageTestId: dataTestId.registrationLandingPage.version,
-      value: 'Published',
+      value: 'PublishedVersion',
       checkbox: {
-        selected: 'first',
+        selected: 'last',
       },
     },
     'author agreement': {

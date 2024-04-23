@@ -404,7 +404,12 @@ const fillInField = (field) => {
             cy.get('input').first().click({ force: true });
           });
           break;
-        case 'check':
+          case 'last':
+            cy.getDataTestId(field['fieldTestId'], { timeout: 30000 }).within(() => {
+              cy.get('input').last().click({ force: true });
+            });
+            break;
+          case 'check':
           if (field['value']) {
             cy.getDataTestId(field['fieldTestId']).click({ force: true });
           }
@@ -450,13 +455,23 @@ Cypress.Commands.add('checkField', (field) => {
       cy.get('[data-testid=uploaded-file-row]').should('contain', value);
       break;
     case 'radio':
-      cy.get(`[data-testid=${field['fieldTestId']}] span`)
+      if (field['checkbox']['selected'] === 'first') {
+        cy.get(`[data-testid=${field['fieldTestId']}] span`)
+          .parent()
+          .first()
+          .within(() => {
+            cy.get('input').should('be.checked');
+            cy.get(`[value=${value}]`);
+          });
+      } else {
+        cy.get(`[data-testid=${field['fieldTestId']}] span`)
         .parent()
-        .first()
+        .last()
         .within(() => {
-          cy.contains(value);
           cy.get('input').should('be.checked');
+          cy.get(`[value=${value}]`);
         });
+      }
       break;
     case 'checkbox':
       cy.get(`[data-testid=${field['fieldTestId']}] span`)

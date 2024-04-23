@@ -40,7 +40,7 @@ And('fill in values for all fields', () => {
     cy.fillInResourceType(resourceType, fields[resourceType]);
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     cy.fillInContributors(contributorRoles);
-    const hasFileVersion = resourceType === 'AcademicArticle';
+    const hasFileVersion = resourceType === 'AcademicArticle' || resourceType === 'AcademicLiteratureReview';
     cy.fillInCommonFields(hasFileVersion);
   });
 });
@@ -62,7 +62,7 @@ And('they can see the values in the Registration Wizard', () => {
       if (subkey !== 'tab') {
         cy.get('@resourceType').then((resourceType) => {
           const field = registrationFields[key][subkey];
-          if (subkey !== 'version' || resourceType === 'AcademicArticle') {
+          if (subkey !== 'version' || resourceType === 'AcademicArticle' || resourceType === 'AcademicLiteratureReview') {
             cy.checkField(field);
           }
         });
