@@ -45,7 +45,8 @@ Then('the Curator see that the Worklist is Scoped', () => {
     if (user === 'Nvi-Curator') {
       cy.contains('Sikt');
     } else {
-      cy.contains('BIBSYS');
+      cy.get('[value=BIBSYS]');
+      cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     }
   })
 });

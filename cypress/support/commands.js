@@ -559,6 +559,7 @@ Cypress.Commands.add('checkLandingPage', () => {
 });
 
 Cypress.Commands.add('chooseDatePicker', (selector, value) => {
+  const selectYear = (value.length === 4);
   cy.get('body').then(($body) => {
     const mobilePickerSelector = `[data-testid=CalendarIcon]`;
     const isMobile = $body.find(mobilePickerSelector).length === 0;
@@ -575,9 +576,9 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       // cy.contains('[role="dialog"] button', 'OK').click();
       cy.get(selector).click();
       cy.get('[role=dialog]').then(($dialog) => {
-        const selectDay = $dialog.find('.MuiPickersDay-today').length > 0;
-        const selectYear = $dialog.find('.Mui-selected').length > 0;
-        if (selectDay) {
+        // const selectDay = $dialog.find('.MuiPickersDay-today').length > 0;
+        // const selectYear = $dialog.find('.Mui-selected').length > 0;
+        if (!selectYear) {
           cy.get('.MuiPickersDay-today').click();
           cy.contains('[role="dialog"] button', 'OK').click();
         } else {
