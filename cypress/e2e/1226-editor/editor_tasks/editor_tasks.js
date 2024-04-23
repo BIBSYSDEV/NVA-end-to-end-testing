@@ -16,7 +16,7 @@ Given('a logged in Editor', () => {
 });
 
 // Scenario: Editor views curators and area of responsibility
-Given('the Institusion have Curators registered', () => {});
+Given('the Institusion have Curators registered', () => { });
 When("the Editor opens the institution's responsibility menu item", () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.curatorsSettingsLinkButton).click();
@@ -29,7 +29,7 @@ Then('the Editor sees a list that contains', (dataTable) => {
 // | Curator's affiliation                      |
 // | Curator's area of responsibility           |
 // | Option to add an area of responsibility    |
-And('an option to add rights to edit thesis', () => {});
+And('an option to add rights to edit thesis', () => { });
 
 const doiInformation = {
   'DataCite Member ID': {
@@ -43,17 +43,17 @@ const doiInformation = {
 };
 
 // Scenario: Editor opens institutions DOI configuration
-Given("the Institution don't have an DOI configuration", () => {});
+Given("the Institution don't have an DOI configuration", () => { });
 When("the Editor opens the institution's DOI configuration menu item", () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.doiLinkButton).click();
 });
-Then('the Editor sees a link to Sikt to order DOI service', () => {});
-And('some other text informing about the DOI service', () => {});
+Then('the Editor sees a link to Sikt to order DOI service', () => { });
+And('some other text informing about the DOI service', () => { });
 
 // Scenario: Editor opens institutions DOI configuration
-Given('the Institution has an DOI configuration', () => {});
-When("the Editor opens the institution's DOI configuration menu item", () => {});
+Given('the Institution has an DOI configuration', () => { });
+When("the Editor opens the institution's DOI configuration menu item", () => { });
 Then('the Editor sees following information', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
     cy.contains(doiInformation[value[0]].title);
@@ -84,7 +84,7 @@ const menuItems = {
 };
 
 // Scenario: Editor opens institutions configuration
-When("the Editor opens the institution's configuration menu item", () => {});
+When("the Editor opens the institution's configuration menu item", () => { });
 Then('the Editor sees one or many registered official names in Bokmål, English, Nynorsk or Northern Sámi', () => {
   cy.getDataTestId(dataTestId.editor.institutionsNameLinkButton).click();
   cy.contains("The institution's Norwegian name");
@@ -98,10 +98,11 @@ And('they see all of', (dataTable) => {
 // | Institution's short name       |
 // | Institution's ROR              |
 // | Institution's author intentity |
-And('they may also see', () => {});
+And('they may also see', () => {
+  cy.contains('Unique Feide ID');
+});
 // | Institution's Feide domain     |
 And('the Editor sees a menu with following options', (dataTable) => {
-  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   dataTable.rawTable.forEach((menuItem) => {
     if (menuItem[0] !== "Curator's responsibility") {
       cy.getDataTestId(menuItems[menuItem[0]]);
