@@ -404,12 +404,12 @@ const fillInField = (field) => {
             cy.get('input').first().click({ force: true });
           });
           break;
-          case 'last':
-            cy.getDataTestId(field['fieldTestId'], { timeout: 30000 }).within(() => {
-              cy.get('input').last().click({ force: true });
-            });
-            break;
-          case 'check':
+        case 'last':
+          cy.getDataTestId(field['fieldTestId'], { timeout: 30000 }).within(() => {
+            cy.get('input').last().click({ force: true });
+          });
+          break;
+        case 'check':
           if (field['value']) {
             cy.getDataTestId(field['fieldTestId']).click({ force: true });
           }
@@ -465,12 +465,12 @@ Cypress.Commands.add('checkField', (field) => {
           });
       } else {
         cy.get(`[data-testid=${field['fieldTestId']}] span`)
-        .parent()
-        .last()
-        .within(() => {
-          cy.get('input').should('be.checked');
-          cy.get(`[value=${value}]`);
-        });
+          .parent()
+          .last()
+          .within(() => {
+            cy.get('input').should('be.checked');
+            cy.get(`[value=${value}]`);
+          });
       }
       break;
     case 'checkbox':
@@ -593,17 +593,20 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       cy.get('[role=dialog]').then(($dialog) => {
         // const selectDay = $dialog.find('.MuiPickersDay-today').length > 0;
         // const selectYear = $dialog.find('.Mui-selected').length > 0;
-        if (!selectYear) {
-          cy.get('.MuiPickersDay-today').click();
-          cy.contains('[role="dialog"] button', 'OK').click();
+        const typableField = !($dialog.find('.MuiPickersDay-today').length > 0 || $dialog.find('.Mui-selected').length > 0)
+        if (typableField) {
+          cy.get(selector).within(() => {
+            cy.get('input').type(value, { force: true });
+          });
         } else {
-          if (selectYear) {
-            cy.get('.Mui-selected').click();
+          if (!selectYear) {
+            cy.get('.MuiPickersDay-today').click();
             cy.contains('[role="dialog"] button', 'OK').click();
           } else {
-            cy.get(selector).within(() => {
-              cy.get('input').type(value, { force: true });
-            });
+            if (selectYear) {
+              cy.get('.Mui-selected').click();
+              cy.contains('[role="dialog"] button', 'OK').click();
+            }
           }
         }
       });

@@ -347,7 +347,7 @@ export const resourceTypeFields = {
       fields: {
         [dataTestId.registrationWizard.resourceType.awardName]: 'Test prize/award',
         [dataTestId.registrationWizard.resourceType.awardOrganizer]: 'Test award organizer',
-        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
+        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '2021',
         [dataTestId.registrationWizard.resourceType.awardRanking]: 'Test award ranking',
         [dataTestId.registrationWizard.resourceType.awardOther]: 'Test award other',
       },
