@@ -56,7 +56,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-  cy.wait(10000);
+  cy.wait(15000);
   cy.get('@doiRequest').then(doiRequest => {
     if (doiRequest) {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
@@ -103,6 +103,7 @@ Given('a Curator from a customer with Workflow {string}', (workflow) => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.location('pathname').as('path');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.wait(15000);
 });
 Given('they opens the Landing Page of a Registration', () => {
   cy.get('@path').then((path) => {

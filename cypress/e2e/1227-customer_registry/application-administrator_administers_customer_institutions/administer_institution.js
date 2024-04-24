@@ -99,8 +99,11 @@ And('a button Create that is enabled', () => {
 When('they open a Customer Institution', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
   cy.getDataTestId(dataTestId.basicData.adminInstitutionsLink).click();
-  cy.getDataTestId(dataTestId.basicData.customers.editInstitutionButton('test-institution-2')).click();
-  // cy.getDataTestId(dataTestId.basicData.institutionAdmin.)
+  cy.getDataTestId(dataTestId.basicData.customers.customerList).within(() => {
+    cy.get('tr').filter(':contains("Test Institution 2")').within(() => {
+      cy.get('a').click();
+    })
+  })
 });
 Then('they see fields:', (table) => { });
 // | Name in organization registry |
