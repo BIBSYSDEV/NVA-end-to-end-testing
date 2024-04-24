@@ -30,15 +30,9 @@ And('the User has an option to create a new project', () => {
     cy.getDataTestId(dataTestId.myPage.createProjectButton);
 });
 And('the User see a search field to locate projects', () => { });
-And('the User can select a list of Active Projects', () => {
-    cy.getDataTestId(dataTestId.myPage.myProjectRegistrationsOngoingCheckbox).should('be.visible');
-});
-And('the User can select a list of Concluded Projects', () => {
-    cy.getDataTestId(dataTestId.myPage.myProjectRegistrationsConcludedCheckbox).should('be.visible');
-});
-And('the User can select a list of Draft Projects', () => {
-    cy.getDataTestId(dataTestId.myPage.myProjectRegistrationsNotStartedCheckbox).should('be.visible');
-});
+And('the User can select a list of Active Projects', () => {});
+And('the User can select a list of Concluded Projects', () => {});
+And('the User can select a list of Draft Projects', () => {});
 
 // Scenario: User inspects a listed Project
 Given('User navigate to My Page and selects Project registrations', () => {

@@ -353,17 +353,6 @@ const fillInField = (field) => {
           if (key === dataTestId.registrationWizard.resourceType.subtypeField) {
             cy.getDataTestId(key).click();
             cy.get(`[data-value=${field['add']['fields'][key]}]`).click();
-          } else if (
-            key === dataTestId.registrationWizard.resourceType.outputInstantDateField ||
-            key === dataTestId.registrationWizard.resourceType.dateFromField ||
-            key === dataTestId.registrationWizard.resourceType.dateToField
-          ) {
-            if (field == resourceTypeFields['bookPrintedMatter']) {
-              cy.log('Book printed matter');
-              cy.getDataTestId(key).type(field['add']['fields'][key]);
-            } else {
-              cy.chooseDatePicker(`[data-testid=${key}]`, todayDatePicker());
-            }
           } else if (key === dataTestId.registrationWizard.resourceType.concertAddWork) {
             cy.getDataTestId(key).click();
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`)
