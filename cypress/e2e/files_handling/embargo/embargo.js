@@ -39,11 +39,11 @@ import { dataTestId } from "../../../support/dataTestIds";
             cy.startWizardWithEmptyRegistration();
             cy.createValidRegistration(filename, title)
             cy.getDataTestId(dataTestId.registrationWizard.files.expandFileRowButton).click();
-            cy.chooseDatePicker(dataTestId.registrationWizard.files.embargoDateField, futureDate);
-            cy.getDataTestId(dataTestId.registrationWizard.files.legalNoteField).type('Legal note future date');
+            cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.files.embargoDateField}]`, futureDate);
             cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
+            cy.wait(10000);
             cy.getDataTestId('logo').click();
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
             cy.getDataTestId(dataTestId.startPage.searchResultItem)

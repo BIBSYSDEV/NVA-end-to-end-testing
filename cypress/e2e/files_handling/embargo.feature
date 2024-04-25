@@ -18,6 +18,7 @@ Feature: Embargo of files
         Then they see a message that the files will be available at the embargo date
         # And they see the note for legal clarification
 
+    @test
     Scenario: User view a Registration with embargoed files, embargo date current date or in the past
         Given a User view the landing page for a Registration with embargoed files
         When the embargo date is the current date or in the past
