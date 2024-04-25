@@ -116,6 +116,8 @@ And('the number of files is visible', () => { });
 And('an Approval Request is sent to the Curator', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.get('[value=BIBSYS]');
+  cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   cy.get('button').filter(':contains("DOI Request")').click();
   cy.get('button').filter(':contains("Support")').click();
   cy.contains(title);
