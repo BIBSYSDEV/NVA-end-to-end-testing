@@ -41,7 +41,8 @@ const passwords = {};
 
 const pad = (value) => `0${value}`.slice(-2);
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
-export const formatedToday = pad(new Date().getDate() + 1) + '.' + today.slice(4, 6) + '.' + today.slice(0, 4);
+const date = new Date();
+export const formatedToday = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
 export const todayDatePicker = () => {
   const date = new Date();
   const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
