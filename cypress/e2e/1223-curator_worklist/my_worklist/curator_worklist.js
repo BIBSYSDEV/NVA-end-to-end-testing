@@ -66,6 +66,9 @@ When('{string} clicks on Requests of type {string}', (user, type) => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  } else {
+    cy.get('[value=BIBSYS]');
+    cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   }
 });
 Then('Curator see a list of Requests displayed with:', (dataTable) => {

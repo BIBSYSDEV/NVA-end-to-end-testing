@@ -120,6 +120,7 @@ And('an Approval Request is sent to the Curator', () => {
   cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   cy.get('button').filter(':contains("DOI Request")').click();
   cy.get('button').filter(':contains("Support")').click();
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.contains(title);
 });
 And(
