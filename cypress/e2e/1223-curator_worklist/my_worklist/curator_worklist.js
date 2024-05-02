@@ -138,7 +138,7 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
   }
 });
 Then('the Curator is assigned the Request', () => {
-  cy.getDataTestId('message-field').type('Test message{enter}');
+  cy.getDataTestId('message-field').last().type('Test message{enter}');
   cy.get('ul > li > p').filter(':contains("Test message")').should('be.visible');
 });
 And('the Request Status is set to "Active"', () => {
@@ -175,6 +175,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     });
   } else {
     cy.get('[value=BIBSYS]');
+    cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   }
@@ -184,7 +185,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type('{downArrow}{enter}')
   cy.wait(3000)
-  cy.getDataTestId(dataTestId.tasksPage.messageField).type('Curator message{enter}');
+  cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('Curator message{enter}');
   if (user === 'Nvi-Curator') {
     cy.contains('Note saved successfully');
   } else {
@@ -250,6 +251,17 @@ Given('the {string} receives a Request of type {string}', (user, type) => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  } else {
+    cy.get('[value=BIBSYS]');
+    cy.getDataTestId('ticket-status-field').click();
+    cy.get('[data-value=New]').click();
+    cy.get('[data-value=Closed]').click();
+    cy.get('[data-value=Completed]').click();
+    cy.get('[data-value=Completed]').type('{esc}');
+    cy.getDataTestId(dataTestId.tasksPage.curatorSelector).click();
+    cy.getDataTestId(dataTestId.tasksPage.curatorSelector).within(() => {
+      cy.getDataTestId('CloseIcon').click();
+    });
   }
   cy.wrap(type).as('type');
   const title = `Open ${user} ${type}`;
@@ -319,6 +331,8 @@ When('the Curator sends an answer of type "Support"', () => {
 
   cy.login(userCurator2);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.get('[value=BIBSYS]');
+  cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId('message-field').last().type(`${curatorAnswer}{enter}`);

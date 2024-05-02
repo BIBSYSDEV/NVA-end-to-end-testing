@@ -569,7 +569,7 @@
     "title": "Registration - Support request pending 1",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "Pending",
+      "status": "New",
       "text": "Pending support request"
     }
   },
@@ -585,7 +585,7 @@
     "title": "Registration - Support request pending 2",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "Pending",
+      "status": "New",
       "text": "Pending support request"
     }
   },
@@ -601,7 +601,7 @@
     "title": "Registration - Support request pending 3",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "Pending",
+      "status": "New",
       "text": "Pending support request"
     }
   },
@@ -1226,7 +1226,7 @@
     "title": "Support-Curator Answer Message",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "Pending",
+      "status": "New",
       "text": "Pending support request"
     }
   },
@@ -1307,7 +1307,7 @@
     "title": "Unassign Support-Curator Support",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "Pending",
+      "status": "New",
       "text": "Pending support request"
     }
   },
@@ -1361,13 +1361,13 @@
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-messages@test.no",
-    "status": "DRAFT",
+    "status": "PUBLISHED",
     "contributor": "test-user-messages@test.no",
     "title": "Open Support-Curator Support",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "Pending",
+      "status": "New",
       "text": "Open Support-Curator Support"
     }
   },
