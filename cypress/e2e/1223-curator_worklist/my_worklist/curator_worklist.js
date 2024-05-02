@@ -123,7 +123,7 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.wrap(type).as('type');
-  const title = `Open ${user} ${type}`
+  const title = `Open unassigned ${user} ${type}`
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
@@ -281,6 +281,7 @@ When('the Curator opens the Requests Resource', () => {
         });
       } else {
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+        cy.wait(3000);
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
       }
     });
@@ -347,6 +348,7 @@ Then('the Request status is set to "Answered"', () => {
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 })
 And('the User can read the answer in My Messages', () => {
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`)
   cy.getDataTestId(dataTestId.startPage.searchResultItem).parent().parent().filter(`:contains(${curatorAnswer})`);
 })
 

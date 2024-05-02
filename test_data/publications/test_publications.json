@@ -1353,6 +1353,23 @@
       "status": "Requested",
       "text": "Open Publishing-Curator Approval"
     }
+  }{
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Open Publishing-Curator Approval",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "fileStatus": "UnpublishedFile",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Requested",
+      "text": "Open unassigned Publishing-Curator Approval"
+    }
   },
   {
     "publication_type": "Journal",
@@ -1380,8 +1397,38 @@
     "owner": "test-user-messages@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-messages@test.no",
+    "title": "Open Support-Curator Support",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "New",
+      "text": "Open unassigned Support-Curator Support"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "title": "Open Doi-Curator DOI",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "title": "Open unassigned Doi-Curator DOI",
     "doi": "requested"
   },
   {
@@ -1395,5 +1442,17 @@
     "contributor": "test-user-nvi@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
     "title": "Open Nvi-Curator NVI"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-nvi@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-nvi@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
+    "title": "Open unassigned Nvi-Curator NVI"
   }
 ]
