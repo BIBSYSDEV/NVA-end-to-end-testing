@@ -1353,7 +1353,8 @@
       "status": "Requested",
       "text": "Open Publishing-Curator Approval"
     }
-  }{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
