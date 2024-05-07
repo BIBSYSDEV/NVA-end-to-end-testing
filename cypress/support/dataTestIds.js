@@ -146,6 +146,7 @@ export const dataTestId = {
   startPage: {
     advancedSearch: {
       activateFilterButton: 'activate-filter-button',
+      downloadResultsButton: 'download-results-button',
       addFilterButton: 'add-filter-button',
       advancedFieldSelect: 'advanced-field-select',
       advancedValueField: 'advanced-value-field',
@@ -362,6 +363,7 @@ export const dataTestId = {
       legalNoteField: 'legal-note-field',
       licenseHelpButton: 'license-help-button',
       licenseItem: 'license-item',
+      licenseItemShowOlderVersion: 'license-item-show-older-versions',
       licenseModal: 'license-modal',
       linkToResourceField: 'link-to-resource-field',
       removeFileButton: 'button-remove-file',
@@ -526,6 +528,8 @@ export const dataTestId = {
     messagesAccordion: 'messages-accordion',
     myMessages: {
       ticketStatusField: 'ticket-status-field',
+      ticketFilterFromDatePicker: 'ticket-filter-from-date-picker',
+      ticketFilterToDatePicker: 'ticket-filter-to-date-picker',
     },
     myProfileLink: 'my-profile-link',
     myProfile: {
