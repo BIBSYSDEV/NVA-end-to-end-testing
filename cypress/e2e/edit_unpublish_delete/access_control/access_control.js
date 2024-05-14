@@ -58,7 +58,7 @@ When('they {string} and want to unpublish the Registration', (condition) => {
 });
 Then('they have an option to unpublish the Registration', () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
-    cy.get('[data-testid=MoreHorizIcon]').click();
+    cy.getDataTestId(dataTestId.unpublishActions.showUnpublishButtonButton).click();
 })
 And('when they use the option to unpublish the Registration is no longer published', () => {
     cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
