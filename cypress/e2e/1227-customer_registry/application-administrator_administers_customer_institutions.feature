@@ -22,11 +22,11 @@ Feature: Application Administrator administers Customer Institutions
     And they see information for
       | The institution's Norwegian name |
       | The institution's English name   |
-      | Institution short name           |
-      | The institution's code           |
+      | Short name                       |
+      | Code           |
     And they see fields:
-      | Feide Organization ID         |
-      | ROR ID                        |
+      | Feide Organization ID |
+      | ROR ID                |
     And they see Sector options:
       | University and college          |
       | Health sector                   |
@@ -43,11 +43,11 @@ Feature: Application Administrator administers Customer Institutions
     Then they see information for
       | The institution's Norwegian name |
       | The institution's English name   |
-      | Institution short name           |
-      | The institution's code           |
+      | Short name                       |
+      | Code           |
     And they see fields:
-      | Feide Organization ID         |
-      | ROR ID                        |
+      | Feide Organization ID |
+      | ROR ID                |
     And they see Sector options:
       | University and college          |
       | Health sector                   |

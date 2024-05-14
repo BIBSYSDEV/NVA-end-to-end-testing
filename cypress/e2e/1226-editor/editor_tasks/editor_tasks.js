@@ -66,9 +66,9 @@ And('some other text informing about the DOI service', () => {
 });
 
 const information = {
-  "Institution's short name": 'Institution short name',
+  "Institution's short name": 'Short name',
   "Institution's ROR": 'Research Organization Registry (ROR)',
-  "Institution's author intentity": "The institution's code",
+  "Institution's author intentity": "Code",
 };
 
 const menuItems = {
