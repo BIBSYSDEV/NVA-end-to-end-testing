@@ -37,64 +37,64 @@ Feature: Curator opens My Worklist
 
   Background:
 
-  # @test
-  # Scenario Outline: Curator opens their Worklist
-  #   When the "<Curator>" opens their Worklist
-  #   Then the Curator see that the Worklist is Scoped
-  #   And the Worklist contains Requests of type "<Type>"
-  #   Examples:
-  #     | Curator            | Type     |
-  #     | Publishing-Curator | Approval |
-  #     | Support-Curator    | Support  |
-  #     | Doi-Curator        | DOI      |
-  #     | Nvi-Curator        | NVI      |
-  # # | Ownership-Curator | Ownership |
+  @test
+  Scenario Outline: Curator opens their Worklist
+    When the "<Curator>" opens their Worklist
+    Then the Curator see that the Worklist is Scoped
+    And the Worklist contains Requests of type "<Type>"
+    Examples:
+      | Curator            | Type     |
+      | Publishing-Curator | Approval |
+      | Support-Curator    | Support  |
+      | Doi-Curator        | DOI      |
+      | Nvi-Curator        | NVI      |
+  # | Ownership-Curator | Ownership |
 
-  # # Scenario: Curator change Scope of their Worklist
-  # #   When the Curator change Scope to the whole Institution or one or more subunits
-  # #   Then the listed Requests is updated to match the new Scope
+  # Scenario: Curator change Scope of their Worklist
+  #   When the Curator change Scope to the whole Institution or one or more subunits
+  #   Then the listed Requests is updated to match the new Scope
 
-  # @test
-  # Scenario Outline: Curator views all Requests of a type
-  #   When "<Curator>" clicks on Requests of type "<Type>"
-  #   Then Curator see a list of Requests displayed with:
-  #     | Request status         |
-  #     | Registration title     |
-  #     # | Submitter name            |
-  #     | Request Submitter Date |
-  #   # | Beginning of last message |
-  #   # | Owner name                |
-  #   And they see that each Request can be opened
-  #   Examples:
-  #     | Curator            | Type     |
-  #     | Publishing-Curator | Approval |
-  #     | Support-Curator    | Support  |
-  #     | Doi-Curator        | DOI      |
-  #     | Nvi-Curator        | NVI      |
-  # # | Ownership |
+  @test
+  Scenario Outline: Curator views all Requests of a type
+    When "<Curator>" clicks on Requests of type "<Type>"
+    Then Curator see a list of Requests displayed with:
+      | Request status         |
+      | Registration title     |
+      # | Submitter name            |
+      | Request Submitter Date |
+    # | Beginning of last message |
+    # | Owner name                |
+    And they see that each Request can be opened
+    Examples:
+      | Curator            | Type     |
+      | Publishing-Curator | Approval |
+      | Support-Curator    | Support  |
+      | Doi-Curator        | DOI      |
+      | Nvi-Curator        | NVI      |
+  # | Ownership |
 
-  # @test
-  # Scenario Outline: Curator opens a unassigned Request
-  #   When the "<Curator>" open a unassigned Request of type "<Type>"
-  #   Then the Curator is assigned the Request
-  #   And the Request Status is set to "Active"
-  #   Examples:
-  #     | Curator            | Type     |
-  #     | Publishing-Curator | Approval |
-  #     | Support-Curator    | Support  |
-  #     | Doi-Curator        | DOI      |
-  #     | Nvi-Curator        | NVI      |
+  @test
+  Scenario Outline: Curator opens a unassigned Request
+    When the "<Curator>" open a unassigned Request of type "<Type>"
+    Then the Curator is assigned the Request
+    And the Request Status is set to "Active"
+    Examples:
+      | Curator            | Type     |
+      | Publishing-Curator | Approval |
+      | Support-Curator    | Support  |
+      | Doi-Curator        | DOI      |
+      | Nvi-Curator        | NVI      |
 
-  # @test
-  # Scenario Outline: Curator unassigns a Request
-  #   When the "<Curator>" selects "Mark request unread" on a request of type "<Type>"
-  #   Then the Request Status is set to "New"
-  #   And the Request is unassigned the Curator
-  #   Examples:
-  #     | Curator            | Type     |
-  #     | Publishing-Curator | Approval |
-  #     | Doi-Curator        | DOI      |
-  #     | Nvi-Curator        | NVI      |
+  @test
+  Scenario Outline: Curator unassigns a Request
+    When the "<Curator>" selects "Mark request unread" on a request of type "<Type>"
+    Then the Request Status is set to "New"
+    And the Request is unassigned the Curator
+    Examples:
+      | Curator            | Type     |
+      | Publishing-Curator | Approval |
+      | Doi-Curator        | DOI      |
+      | Nvi-Curator        | NVI      |
 
   # Scenario Outline: Curator open a assigned Request
   #   When the "<Curator>" selects a Request of type "<Type>"
@@ -122,20 +122,20 @@ Feature: Curator opens My Worklist
     And the Curator has the option to "<Action>"
     Examples:
       | Curator            | Type     | Action             |
-      # | Publishing-Curator | Approval | Publish Files      |
-      # | Publishing-Curator | Approval | Reject publishing  |
-      # | Support-Curator    | Support  | Answer Message     |
-      # | Doi-Curator        | DOI      | Mint DOI           |
-      # | Doi-Curator        | DOI      | Reject DOI request |
+      | Publishing-Curator | Approval | Publish Files      |
+      | Publishing-Curator | Approval | Reject publishing  |
+      | Support-Curator    | Support  | Answer Message     |
+      | Doi-Curator        | DOI      | Mint DOI           |
+      | Doi-Curator        | DOI      | Reject DOI request |
       | Nvi-Curator        | NVI      | Approve Candidate  |
       | Nvi-Curator        | NVI      | Reject Candidate   |
   # | Ownership | Change owner |
 
-  # @test
-  # Scenario: User gets an answer to a Support Request
-  #   When the Curator sends an answer of type "Support"
-  #   Then the Request status is set to "Answered"
-  #   And the User can read the answer in My Messages
+  @test
+  Scenario: User gets an answer to a Support Request
+    When the Curator sends an answer of type "Support"
+    Then the Request status is set to "Answered"
+    And the User can read the answer in My Messages
 
 # Scenario: User gets an answer to a Request
 #   When the Curator writes an answer
