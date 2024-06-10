@@ -34,7 +34,7 @@ When('they see the search result list', () => {
 Then('they can see values for:', (dataTable) => {
     const pad = (value) => `0${value}`.slice(-2);
     const date = new Date();
-    const dateValue = `${date.getDate()}.${pad(date.getMonth() + 1)}.${pad(date.getFullYear())}`
+    const dateValue = `${Pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`
 
     const values = {
         'Resource Type': 'Academic article',
