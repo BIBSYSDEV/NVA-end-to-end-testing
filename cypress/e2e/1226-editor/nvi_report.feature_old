@@ -21,14 +21,12 @@ Feature: NVI Report
 # 		When an Editor uses the option to view the current status of the NVI process
 # 		Then the Editor recives the NVI report at this point of time
 
-	@TEST_NP-4154
-	Scenario: Editor concludes the ongoing NVI process at their Institution
-		When an Editor uses the option to conclude the current NVI process
-		And the Editor confirms their intention to conclude the current NVI process
-		Then the Institution is marked as concluded for current year's NVI report
-		And all future NVI-related actions performed by Curators at Editor's Institution affect the next reporting period
+	# Scenario: Editor concludes the ongoing NVI process at their Institution
+	# 	When an Editor uses the option to conclude the current NVI process
+	# 	And the Editor confirms their intention to conclude the current NVI process
+	# 	Then the Institution is marked as concluded for current year's NVI report
+	# 	And all future NVI-related actions performed by Curators at Editor's Institution affect the next reporting period
 
-	@TEST_NP-4155
-	Scenario: Editor view past NVI-reports from own Institution
-		When an Editor uses the option to fetch an NVI report for a given year
-		Then the Editor can choose between "view the report" or "download"
+	# Scenario: Editor view past NVI-reports from own Institution
+	# 	When an Editor uses the option to fetch an NVI report for a given year
+	# 	Then the Editor can choose between "view the report" or "download"
