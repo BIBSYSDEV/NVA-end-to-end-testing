@@ -80,9 +80,9 @@ Feature: User My Projects
         When the User activate the option to Edit a project
         Then the Project is opend in the Project Wizard
 
-Scenario: User search in My Projects
-    When a User enter a search term in the search field on My Projects
-    Then the User see Projects matching the search term in the Project's:
-        | Title                    |
-        | Coordinating Institution |
-        | Participants             |
+# Scenario: User search in My Projects
+#     When a User enter a search term in the search field on My Projects
+#     Then the User see Projects matching the search term in the Project's:
+#         | Title                    |
+#         | Coordinating Institution |
+#         | Participants             |

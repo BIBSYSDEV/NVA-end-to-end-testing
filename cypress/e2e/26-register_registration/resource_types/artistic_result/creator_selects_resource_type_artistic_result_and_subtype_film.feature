@@ -1,6 +1,5 @@
 Feature: Creator selects Resource type Artistic Result and subtype Film
 
-  @TEST_NP-13236
   @test
   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Film"
     Given Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"
@@ -21,7 +20,6 @@ Feature: Creator selects Resource type Artistic Result and subtype Film
     And they can edit existing Exhibitions
     And they can delete existing Exhibitions
 
-  @TEST_NP-13237
   @test
   Scenario: Creator adds a Broadcast to a Film
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Film"
@@ -30,7 +28,6 @@ Feature: Creator selects Resource type Artistic Result and subtype Film
       | Date      |
     Then the Broadcast is listed under Exhibitions
 
-  @TEST_NP-13238
   @test
   Scenario: Creator adds an Cinematic release to a Film
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Film"
@@ -39,7 +36,6 @@ Feature: Creator selects Resource type Artistic Result and subtype Film
       | Date  |
     Then the Cinematic release is listed under Exhibitions
 
-  @TEST_NP-13239
   @test
   Scenario: Creator adds an Other release to a Film
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Film"

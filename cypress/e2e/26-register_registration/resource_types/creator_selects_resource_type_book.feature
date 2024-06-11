@@ -1,6 +1,5 @@
 Feature: Creator selects Resource type Book
 
-    @TEST_NP-4046
     @test
     Scenario: Creator navigates to the Resource Type tab and sees Resource types for "Book"
         Given Creator navigates to Resource Type tab
@@ -14,7 +13,6 @@ Feature: Creator selects Resource type Book
             | Encyclopedia              |
             | Exhibition catalog        |
 
-    @TEST_NP-4045
     @test
     Scenario: Creator sees fields for Book
         Given Creator navigates to the Resource Type tab and sees Resource types for "Book"
@@ -27,7 +25,6 @@ Feature: Creator selects Resource type Book
             | Series                |
             | Series number         |
 
-    @TEST_NP-4043
     @test
     Scenario: Creator sees that fields for Book are validated on Resource Type tab
         Given Creator sees fields for Book
@@ -36,7 +33,6 @@ Feature: Creator selects Resource type Book
             | Publisher      |
             | NPI discipline |
 
-    @TEST_NP-4047
     @test
     Scenario: Creator selects Resource subtype Academic Monograph
         Given Creator navigates to the Resource Type tab and sees Resource types for "Book"

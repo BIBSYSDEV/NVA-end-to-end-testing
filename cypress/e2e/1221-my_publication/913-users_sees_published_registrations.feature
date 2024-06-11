@@ -1,6 +1,5 @@
 Feature: User sees published Registrations
 
-    @TEST_NP-4121
     @test
     Scenario: User sees published Registrations
         Given Creator opens the page My Registrations

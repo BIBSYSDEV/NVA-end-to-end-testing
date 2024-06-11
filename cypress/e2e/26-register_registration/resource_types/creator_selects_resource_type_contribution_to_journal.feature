@@ -1,6 +1,5 @@
 Feature: Creator selects Resource type Contribution to journal
 
-    @TEST_NP-4060
     @test
     Scenario: Creator navigates to the Resource Type tab and see list of Journal types
         Given Creator begins registering a Registration in the Wizard
@@ -31,7 +30,6 @@ Feature: Creator selects Resource type Contribution to journal
             # Konferanseabstrakt (ConferenceAbstract)
             | Conference abstract        |
 
-    @TEST_NP-4052
     @test
     Scenario: Creator sees fields for Journal type
         Given Creator navigates to the Resource Type tab and see list of Journal types
@@ -55,7 +53,6 @@ Feature: Creator selects Resource type Contribution to journal
             | Pages to                 |
             | Article number           |
 
-    @TEST_NP-4053
     @test
     Scenario: Creator sees that fields for Journal article are validated
         Given Creator sees fields for Journal type
@@ -66,7 +63,6 @@ Feature: Creator selects Resource type Contribution to journal
             | Search field for Journal |
         And they can see error messages for fields "Pages from" and "Pages to"
 
-    @TEST_NP-4059
     @test
     Scenario: Creator sees fields for Resource subtype "Corrigendum"
         Given Creator navigates to the Resource Type tab and see list of Journal types
@@ -80,7 +76,6 @@ Feature: Creator selects Resource type Contribution to journal
             | Article number                   |
         And they see a disabled field for Journal based on selected Journal article
 
-    @TEST_NP-4056
     @test
     Scenario: Creator sees that fields for Resource subtype "Corrigendum" are validated
         Given Creator sees fields for Resource subtype "Corrigendum"
@@ -90,7 +85,6 @@ Feature: Creator selects Resource type Contribution to journal
             | Search field for Journal article |
         And they can see error messages for fields "Pages from" and "Pages to"
 
-    @TEST_NP-4057
     @test
     Scenario Outline: Creator sees extra fields for Norwegian Science Index (NVI) compatible Journal types
         Given Creator navigates to the Resource Type tab and see list of Journal types

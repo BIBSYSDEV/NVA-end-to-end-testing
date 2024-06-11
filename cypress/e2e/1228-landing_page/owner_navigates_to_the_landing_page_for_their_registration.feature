@@ -14,14 +14,14 @@ Feature: Owner navigates to the Landing Page for their Resource
         And the Registration has "Draft" Status
         Then they see a "Publish" option
 
-    # @test
-    @file_restrictions
-    Scenario: Owner wants to publish their Resource, pending Approval
-        When the Owner previews the Resource's Landing Page
-        And the Registration has "Draft" Status
-        And there is a pending Approval Request on the Resource
-        Then they see a "Publishing pending" notice
-        And the user is informed that progress can be viewed in My Messages
+    # # @test
+    # @file_restrictions
+    # Scenario: Owner wants to publish their Resource, pending Approval
+    #     When the Owner previews the Resource's Landing Page
+    #     And the Registration has "Draft" Status
+    #     And there is a pending Approval Request on the Resource
+    #     Then they see a "Publishing pending" notice
+    #     And the user is informed that progress can be viewed in My Messages
 
     # @test
     @all_restrictions
@@ -60,12 +60,12 @@ Feature: Owner navigates to the Landing Page for their Resource
         Then they see a List of all Validation Errors for the Resource
         And they see a "Edit registration" button
 
-    Scenario: Owner sees the option to transfer Ownership of a Resource
-        When the Owner views the Landing Page
-        Then the Owner sees a option to transfer Ownership of Resource
+    # Scenario: Owner sees the option to transfer Ownership of a Resource
+    #     When the Owner views the Landing Page
+    #     Then the Owner sees a option to transfer Ownership of Resource
 
-    Scenario: Owner transfers Ownership of a Resource
-        When the Owner uses the option to transfer Ownership of current Resource
-        Then the Owner must acknowledges that this is a final action
-        And the Owner must select a new Owner
-        And the ownership is transfered to new Owner
+    # Scenario: Owner transfers Ownership of a Resource
+    #     When the Owner uses the option to transfer Ownership of current Resource
+    #     Then the Owner must acknowledges that this is a final action
+    #     And the Owner must select a new Owner
+    #     And the ownership is transfered to new Owner

@@ -14,17 +14,17 @@ Feature: Creator navigates to Files and License tab
     And they see Previous is enabled
     And they see Save is enabled
 
-  Scenario Outline: Creator looks up a valid Link as a Linked Resource
-    Given Creator navigates to Files and License tab
-    When they enter "<Link>" in the Linked Resource field
-    And they click the Add Link Button
-    Then the Link is listed under Linked Resources
-    And they see that the URL is "<URL>"
-    And they see a Button to remove the Link
-    Examples:
-      | Link                                      |
-      | https://github.com/BIBSYSDEV/NVA-Frontend |
-      | https://www.nrk.no/                       |
+  # Scenario Outline: Creator looks up a valid Link as a Linked Resource
+  #   Given Creator navigates to Files and License tab
+  #   When they enter "<Link>" in the Linked Resource field
+  #   And they click the Add Link Button
+  #   Then the Link is listed under Linked Resources
+  #   And they see that the URL is "<URL>"
+  #   And they see a Button to remove the Link
+  #   Examples:
+  #     | Link                                      |
+  #     | https://github.com/BIBSYSDEV/NVA-Frontend |
+  #     | https://www.nrk.no/                       |
 
   @test
   Scenario: Creator marks that a Resource has no File or Linked Resource

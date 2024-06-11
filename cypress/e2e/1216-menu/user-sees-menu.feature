@@ -51,7 +51,6 @@ Feature: User sees menu
             | My page    |
         And they see the Language selector
 
-    @TEST_NP-4105
     @test
     Scenario: User sees the menu for Editor
         Given that the user is logged in

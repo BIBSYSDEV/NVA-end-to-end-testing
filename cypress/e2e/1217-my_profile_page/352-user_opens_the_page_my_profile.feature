@@ -1,8 +1,6 @@
 Feature: User opens the page My Profile
 
-    @TEST_NP-4108
     @test
-    @352
     Scenario: User opens the page My Profile
         Given that the user is logged in
         When they click the menu item My user profile

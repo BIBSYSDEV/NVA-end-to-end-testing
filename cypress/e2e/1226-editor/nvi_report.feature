@@ -16,10 +16,10 @@ Feature: NVI Report
 		Given a logged-in Editor at an NVI-Institution
 		And the Editor views the Editor page
 
-  @needJiraTag
-	Scenario: Editor views current status on the ongoing NVI process at their Institution
-		When an Editor uses the option to view the current status of the NVI process
-		Then the Editor recives the NVI report at this point of time
+#   @needJiraTag
+# 	Scenario: Editor views current status on the ongoing NVI process at their Institution
+# 		When an Editor uses the option to view the current status of the NVI process
+# 		Then the Editor recives the NVI report at this point of time
 
 	@TEST_NP-4154
 	Scenario: Editor concludes the ongoing NVI process at their Institution

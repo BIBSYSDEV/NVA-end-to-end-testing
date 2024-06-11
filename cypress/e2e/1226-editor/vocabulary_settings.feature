@@ -11,9 +11,7 @@ Feature: Editor decide on institutions Vocabulary settings
     Background:
         Given a logged in Editor
 
-    @TEST_NP-4156
     @test
-    @2445
     Scenario: Editor sees fields for Vocabulary settings
         Given Editor opens Editor Administration
         And they see Vocabulary settings

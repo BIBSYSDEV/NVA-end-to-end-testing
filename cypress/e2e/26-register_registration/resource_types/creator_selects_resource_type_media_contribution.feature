@@ -1,6 +1,5 @@
 Feature: Creator selects Resource type Media Contribution
 
-  @TEST_NP-4072
   @test
   Scenario: Creator navigates to the Resource Type tab and selects Resource type "Media Contribution"
     Given Creator navigates to Resource Type tab
@@ -13,7 +12,6 @@ Feature: Creator selects Resource type Media Contribution
       | Podcast                      |
       | Participation in Radio or TV |
 
-  @TEST_NP-4073
   @test
   Scenario: Creator navigates to the Resource Type tab and selects a Resource subtype for Media Contribution
     Given Creator navigates to the Resource Type tab and selects Resource type "Media Contribution"

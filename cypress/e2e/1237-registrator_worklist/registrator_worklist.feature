@@ -28,10 +28,10 @@ Feature: Registrator worklist
     #         | Go to Publication |
     #         | Archive           |
 
-    Scenario: Creator closes a message
-        Given that the Creator Opens a message from My Messages
-        When they click the Close button
-        Then they see the Worklist
+    # Scenario: Creator closes a message
+    #     Given that the Creator Opens a message from My Messages
+    #     When they click the Close button
+    #     Then they see the Worklist
 
     @test
     Scenario: Creator opens a Registration with a DOI request
@@ -48,11 +48,11 @@ Feature: Registrator worklist
     #     And the Landing Page for Publication has an enabled "Request DOI" button
 
     # @test
-    Scenario: Creator adds a new message on a message thread
-        Given that a User is logged in as Creator
-        And they open My Messages page
-        And they open a DOI request item in the Messages list
-        And they see previous messages between Creator and Curator(s)
-        When they enter a new message
-        And they click the Send Answer button
-        Then they see that the new message is added to the Messages list
+    # Scenario: Creator adds a new message on a message thread
+    #     Given that a User is logged in as Creator
+    #     And they open My Messages page
+    #     And they open a DOI request item in the Messages list
+    #     And they see previous messages between Creator and Curator(s)
+    #     When they enter a new message
+    #     And they click the Send Answer button
+    #     Then they see that the new message is added to the Messages list
