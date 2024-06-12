@@ -2,7 +2,7 @@ import { userSavePartOfBook } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 
-const fields = [resourceTypeFields.partOf, resourceTypeFields.pagesFrom, resourceTypeFields.pagesTo];
+const fields = [resourceTypeFields.partOf, resourceTypeFields.scientificField, resourceTypeFields.pagesFrom, resourceTypeFields.pagesTo];
 
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
