@@ -76,9 +76,9 @@ Given('a User searches for Registrations', () => {
 })
 When('they select the facet for {string}:', (facet) => {
     const facets = {
-        'Resource type': dataTestId.startPage.typeFacets,
-        'Institution': dataTestId.startPage.institutionFacets,
-        'Contributor': dataTestId.startPage.contributorFacets,
+        'Resource type': dataTestId.aggregations.typeFacets,
+        'Institution': dataTestId.aggregations.institutionFacets,
+        'Contributor': dataTestId.aggregations.contributorFacets,
     }
     cy.wrap(facet).as('facet');
     cy.getDataTestId(facets[facet]).within(() => {
