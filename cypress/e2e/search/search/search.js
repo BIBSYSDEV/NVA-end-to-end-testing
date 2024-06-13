@@ -73,6 +73,7 @@ Given('a User searches for Registrations', () => {
     visitStartPage()
     cy.getDataTestId(dataTestId.startPage.searchField).type('search result{enter}');
     cy.getDataTestId(dataTestId.startPage.searchResultItem).should('be.visible');
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).first().should('contain.text', 'Search result');
 })
 When('they select the facet for {string}:', (facet) => {
     const facets = {
