@@ -179,7 +179,6 @@ And('the NVI candidate is no longer an NVI candidate', () => {
 });
 Then('remove the NVI candidate from the NVI candidate list.', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.approvedRadio).click();
   cy.get('@uuid').then((uuid) => {
