@@ -569,7 +569,7 @@
     "title": "Registration - Support request pending 1",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "New",
+      "status": "Pending",
       "text": "Pending support request"
     }
   },
@@ -585,7 +585,7 @@
     "title": "Registration - Support request pending 2",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "New",
+      "status": "Pending",
       "text": "Pending support request"
     }
   },
@@ -601,7 +601,7 @@
     "title": "Registration - Support request pending 3",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "New",
+      "status": "Pending",
       "text": "Pending support request"
     }
   },
@@ -1228,7 +1228,7 @@
     "title": "Support-Curator Answer Message",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "New",
+      "status": "Pending",
       "text": "Pending support request"
     }
   },
@@ -1309,7 +1309,7 @@
     "title": "Unassign Support-Curator Support",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "New",
+      "status": "Pending",
       "text": "Pending support request"
     }
   },
@@ -1387,7 +1387,7 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "New",
+      "status": "Pending",
       "text": "Open Support-Curator Support"
     }
   },
@@ -1400,11 +1400,11 @@
     "owner": "test-user-messages@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-messages@test.no",
-    "title": "Open Support-Curator Support",
+    "title": "Open unassigned Support-Curator Support",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "ticket": {
       "type": "GeneralSupportCase",
-      "status": "New",
+      "status": "Pending",
       "text": "Open unassigned Support-Curator Support"
     }
   },
