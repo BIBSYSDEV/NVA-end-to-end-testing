@@ -107,8 +107,8 @@ And('is added to the list of approved Resources', () => {
 When('a Curator views a NVI-candidate', () => { });
 And('uses the option to reject the NVI-candidate', () => {
   cy.get('button').filter(":contains('Reject')").click();
-  cy.get('[data-testid=message-field]').type('Candidate rejected{enter}');
-  cy.get('[data-testid=message-text]').filter(`:contains('Candidate rejected')`);
+  cy.getDataTestId(dataTestId.tasksPage.nvi.rejectionModalTextField).type('Candidate rejected');
+  cy.getDataTestId(dataTestId.tasksPage.nvi.rejectionModalRejectButton).click();
 });
 Then('the NVI candidate is removed from the list of Candidate Resources', () => { });
 And('is added to the list of rejected Resources', () => {
