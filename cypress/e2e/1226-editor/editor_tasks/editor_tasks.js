@@ -86,8 +86,8 @@ const menuItems = {
 When("the Editor opens the institution's configuration menu item", () => { });
 Then('the Editor sees one or many registered official names in Bokmål, English, Nynorsk or Northern Sámi', () => {
   cy.getDataTestId(dataTestId.editor.institutionsNameLinkButton).click();
-  cy.contains("The institution's Norwegian name");
-  cy.contains("The institution's English name");
+  cy.contains("Norwegian name");
+  cy.contains("English name");
 });
 And('they see all of', (dataTable) => {
   dataTable.rawTable.forEach((value) => {
