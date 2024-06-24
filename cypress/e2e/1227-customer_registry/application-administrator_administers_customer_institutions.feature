@@ -20,9 +20,9 @@ Feature: Application Administrator administers Customer Institutions
     Then they see the Add Institution page
     And they can search for institution
     And they see information for
-      | The institution's Norwegian name |
-      | The institution's English name   |
-      | Short name                       |
+      | Norwegian name |
+      | English name   |
+      | Short name     |
       | Code           |
     And they see fields:
       | Feide Organization ID |
@@ -41,9 +41,9 @@ Feature: Application Administrator administers Customer Institutions
     Given that the user is logged in as Application Administrator
     When they open a Customer Institution
     Then they see information for
-      | The institution's Norwegian name |
-      | The institution's English name   |
-      | Short name                       |
+      | Norwegian name |
+      | English name   |
+      | Short name     |
       | Code           |
     And they see fields:
       | Feide Organization ID |
