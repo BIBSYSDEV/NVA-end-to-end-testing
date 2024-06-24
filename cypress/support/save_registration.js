@@ -79,16 +79,16 @@ export const registrationFields = {
         selected: 'last',
       },
     },
-    'author agreement': {
-      type: 'checkbox',
-      fieldTestId: dataTestId.registrationWizard.files.administrativeAgreement,
-      elementType: 'checkbox',
-      landingPageTestId: dataTestId.registrationLandingPage.administrativeAgreement,
-      value: false,
-      checkbox: {
-        selected: 'check',
-      },
-    },
+    // 'author agreement': {
+    //   type: 'checkbox',
+    //   fieldTestId: dataTestId.registrationWizard.files.administrativeAgreement,
+    //   elementType: 'checkbox',
+    //   landingPageTestId: dataTestId.registrationLandingPage.administrativeAgreement,
+    //   value: false,
+    //   checkbox: {
+    //     selected: 'check',
+    //   },
+    // },
     // 'date': {
     //   type: 'date',
     //   fieldTestId: dataTestId.registrationWizard.files.embargoDateField,
