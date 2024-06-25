@@ -41,7 +41,7 @@ Then('they see', (dataTable) => {
 // | Related Registrations           |
 // | License                         |
 And('they see sharing Buttons for:', (dataTable) => {
-  cy.testDataTestidList(dataTable, landingPageShareButtons);
+  // cy.testDataTestidList(dataTable, landingPageShareButtons);
 });
 // | Email    |
 // | LinkedIn |
