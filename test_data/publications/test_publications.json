@@ -361,7 +361,7 @@
     "owner": "test-user-with-author@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-with-author@test.no",
-    "title": "Embargoed PDF file",
+    "title": "Check Embargoed PDF file",
     "embargoed": true
   },
   {
@@ -870,7 +870,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
     "title": "NVI candidate 3"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -895,7 +894,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Delete registration non-editor"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -908,7 +906,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Edit thesis registration"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -933,7 +930,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Delete thesis registration non-curator Degree"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -984,7 +980,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Change status registration resource owner"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -1033,7 +1028,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Change status registration verified contributor"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -1082,7 +1076,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Change status registration Curator (resource owner)"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -1131,7 +1124,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Change status registration Curator (institution)"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -1180,7 +1172,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Change status registration Editor"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -1198,7 +1189,6 @@
       "text": "Pending publishing request"
     }
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -1280,7 +1270,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
     "title": "Nvi-Curator Approve Candidate"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -1337,7 +1326,6 @@
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
     "title": "Unassign Nvi-Curator NVI"
   },
-
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",

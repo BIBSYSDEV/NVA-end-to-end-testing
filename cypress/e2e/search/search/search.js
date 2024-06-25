@@ -25,7 +25,7 @@ Then('they see a list of Registratons', () => {
 //      Scenario: A User sees search results
 Given('a User has searched for Registrations', () => {
     visitStartPage();
-    cy.getDataTestId(dataTestId.startPage.searchField).type('search result{enter}');
+    cy.getDataTestId(dataTestId.startPage.searchField).type('search result journal publishregistration{enter}');
 })
 When('they see the search result list', () => {
     cy.getDataTestId('search-results');

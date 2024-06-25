@@ -127,7 +127,7 @@ And('the downloaded File is displayed', (file) => {
 
 // Scenario: Lock Embargoed Files
 And('the Registration contains a File that is Embargoed', () => {
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`Embargoed PDF file ${today}{enter}`);
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`Check Embargoed PDF file ${today}{enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains("Embargoed PDF file ${today}")`)
     .first()
