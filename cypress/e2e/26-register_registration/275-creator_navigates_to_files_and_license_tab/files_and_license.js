@@ -132,7 +132,7 @@ When('they remove a file', () => {
   cy.getDataTestId('uploaded-file-row')
     .filter(`:contains(${fileName})`)
     .within(() => {
-      cy.get('[data-testid=CancelIcon]').click();
+      cy.getDataTestId(dataTestId.registrationWizard.files.deleteFile).click();
     });
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
 });
