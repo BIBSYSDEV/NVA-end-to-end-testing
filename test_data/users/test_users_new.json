@@ -877,7 +877,7 @@
     "lastName": "TestUser",
     "firstName": "Contributor",
     "nin": "19021241736",
-    "username": "test-user-contributor@test.no",
+    "username": "test-user-contributors@test.no",
     "role": [
       { "type": "Role", "rolename": "Creator" },
       { "type": "Role", "rolename": "Curator-thesis" },
@@ -1201,20 +1201,6 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "Contributors",
-    "nin": "21103726694",
-    "username": "test-user-contributors@test.no",
-    "role": [
-      { "type": "Role", "rolename": "Creator" },
-      { "type": "Role", "rolename": "Curator-thesis" },
-      { "type": "Role", "rolename": "Curator-thesis-embargo" }
-    ],
-    "orcid": true,
-    "orgNumber": "20202",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
-  },
-  {
-    "lastName": "TestUser",
     "firstName": "Publish registration no rights",
     "nin": "07078638723",
     "username": "test-user-publish-no-rights@test.no",
@@ -1489,8 +1475,8 @@
   {
     "lastName": "TestUser",
     "firstName": "Access Verified contributor",
-    "nin": "06062220412",
-    "username": "test-user-access-verified-contributor@test.no",
+    "nin": "05033926652",
+    "username": "test-user-access-verified-contributors@test.no",
     "role": [
       {
         "type": "Role",
@@ -1499,7 +1485,7 @@
     ],
     "orcid": true,
     "orgNumber": "194",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0"
   },
   {
     "lastName": "TestUser",

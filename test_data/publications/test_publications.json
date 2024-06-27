@@ -878,8 +878,8 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
-    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "contributor": "test-user-access-verified-contributors@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
     "title": "Delete registration Editor"
   },
   {
@@ -890,7 +890,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Delete registration non-editor"
   },
@@ -902,7 +902,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Edit thesis registration"
   },
@@ -914,7 +914,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Delete thesis registration Curator Degree"
   },
@@ -926,7 +926,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Delete thesis registration non-curator Degree"
   },
@@ -988,7 +988,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Edit registration verified contributor"
   },
@@ -1000,7 +1000,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Unpublish registration verified contributor"
   },
@@ -1012,7 +1012,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Republish registration verified contributor"
   },
@@ -1024,7 +1024,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Change status registration verified contributor"
   },
@@ -1036,7 +1036,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Edit registration Curator (resource owner)"
   },
@@ -1048,7 +1048,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Unpublish registration Curator (resource owner)"
   },
@@ -1060,7 +1060,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Republish registration Curator (resource owner)"
   },
@@ -1072,7 +1072,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Change status registration Curator (resource owner)"
   },
@@ -1084,7 +1084,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Edit registration Curator (institution)"
   },
@@ -1096,7 +1096,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Unpublish registration Curator (institution)"
   },
@@ -1108,7 +1108,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Republish registration Curator (institution)"
   },
@@ -1120,7 +1120,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Change status registration Curator (institution)"
   },
@@ -1132,7 +1132,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Edit registration Editor"
   },
@@ -1144,7 +1144,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Unpublish registration Editor"
   },
@@ -1156,7 +1156,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Republish registration Editor"
   },
@@ -1168,7 +1168,7 @@
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-access-verified-contributor@test.no",
+    "contributor": "test-user-access-verified-contributors@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Change status registration Editor"
   },
