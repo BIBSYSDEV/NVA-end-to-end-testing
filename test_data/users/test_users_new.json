@@ -281,10 +281,6 @@
       },
       {
         "type": "Role",
-        "rolename": "File-Curator"
-      },
-      {
-        "type": "Role",
         "rolename": "Doi-Curator"
       },
       {
@@ -473,10 +469,6 @@
       },
       {
         "type": "Role",
-        "rolename": "File-Curator"
-      },
-      {
-        "type": "Role",
         "rolename": "Doi-Curator"
       },
       {
@@ -497,10 +489,6 @@
       {
         "type": "Role",
         "rolename": "Support-Curator"
-      },
-      {
-        "type": "Role",
-        "rolename": "File-Curator"
       },
       {
         "type": "Role",
@@ -527,10 +515,6 @@
       },
       {
         "type": "Role",
-        "rolename": "File-Curator"
-      },
-      {
-        "type": "Role",
         "rolename": "Doi-Curator"
       },
       {
@@ -551,10 +535,6 @@
       {
         "type": "Role",
         "rolename": "Support-Curator"
-      },
-      {
-        "type": "Role",
-        "rolename": "File-Curator"
       },
       {
         "type": "Role",
@@ -581,10 +561,6 @@
       },
       {
         "type": "Role",
-        "rolename": "File-Curator"
-      },
-      {
-        "type": "Role",
         "rolename": "Doi-Curator"
       },
       {
@@ -605,10 +581,6 @@
       {
         "type": "Role",
         "rolename": "Support-Curator"
-      },
-      {
-        "type": "Role",
-        "rolename": "File-Curator"
       },
       {
         "type": "Role",
@@ -1252,10 +1224,6 @@
       {
         "type": "Role",
         "rolename": "Support-Curator"
-      },
-      {
-        "type": "Role",
-        "rolename": "File-Curator"
       },
       {
         "type": "Role",
