@@ -96,7 +96,6 @@ Cypress.Commands.add('loginCognito', (userId) => {
             PASSWORD: testUserPassword,
           },
         };
-        console.log(authorizeUser);
 
         let tries = 0;
         let trying = false;
@@ -321,7 +320,15 @@ Cypress.Commands.add('changeUserInstitution', (institution) => {
 const fillInField = (field) => {
   switch (field['type']) {
     case 'text':
-      cy.getDataTestId(field['fieldTestId']).should('be.visible').type(field['value'], { delay: 1 });
+      let value = field['value'];
+      if (field.fieldTestId === dataTestId.registrationWizard.description.titleField) {
+        cy.get('@titleId').then(titleId => {
+          value = `${value} ${titleId}`;
+          cy.getDataTestId(field['fieldTestId']).should('be.visible').type(value, { delay: 1 });
+        })
+      } else {
+        cy.getDataTestId(field['fieldTestId']).should('be.visible').type(value, { delay: 1 });
+      }
       if (field.fieldTestId === dataTestId.registrationWizard.resourceType.externalLinkField) {
         cy.getDataTestId(dataTestId.registrationWizard.resourceType.externalLinkAddButton).click();
       }
@@ -411,14 +418,20 @@ const fillInField = (field) => {
   }
 };
 
-Cypress.Commands.add('checkField', (field) => {
+Cypress.Commands.add('checkField', (field, titleId) => {
   const value = field['landingPageValue'] ?? field['value'];
   switch (field['elementType']) {
     case 'input':
       if (field.fieldTestId === dataTestId.registrationWizard.resourceType.externalLinkField) {
         cy.contains(value);
       } else {
-        cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', value);
+        if (field.fieldTestId === dataTestId.registrationWizard.description.titleField) {
+          cy.get('@titleId').then(titleId => {
+            cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', `${value} ${titleId}`);
+          })
+        } else {
+          cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', value);
+        }
       }
       break;
     case 'date':

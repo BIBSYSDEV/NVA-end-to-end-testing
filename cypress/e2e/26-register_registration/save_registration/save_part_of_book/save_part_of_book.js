@@ -1,6 +1,7 @@
 import { userSavePartOfBook } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
+import { v4 as uuidv4 } from 'uuid';
 
 const fields = [resourceTypeFields.partOf, resourceTypeFields.scientificField, resourceTypeFields.pagesFrom, resourceTypeFields.pagesTo];
 
@@ -8,7 +9,9 @@ const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Part of book
 Given('Author begins registering a Registration', () => {
-  cy.login(userSavePartOfBook);
+  const titleId = uuidv4();
+  cy.wrap(titleId).as('titleId');
+cy.login(userSavePartOfBook);
   cy.startWizardWithEmptyRegistration();
 });
 And('selects {string}', (resourceType) => {

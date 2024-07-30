@@ -1,6 +1,7 @@
 import { userSaveJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
+import { v4 as uuidv4 } from 'uuid';
 
 const commonFields = [
   resourceTypeFields.volume,
@@ -29,6 +30,8 @@ const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Publication in Journal
 Given('Author begins registering a Registration', () => {
+  const titleId = uuidv4();
+  cy.wrap(titleId).as('titleId');
   cy.login(userSaveJournal);
   cy.startWizardWithEmptyRegistration();
 });

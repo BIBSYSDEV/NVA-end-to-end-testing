@@ -1,6 +1,7 @@
 import { userSaveReport } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
+import { v4 as uuidv4 } from 'uuid';
 
 const commonFields = [
   resourceTypeFields.publisher,
@@ -32,6 +33,8 @@ const reportContributorRoles = {
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Report
 Given('Author begins registering a Registration', () => {
+  const titleId = uuidv4();
+  cy.wrap(titleId).as('titleId');
   cy.login(userSaveReport);
   cy.startWizardWithEmptyRegistration();
 });

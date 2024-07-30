@@ -8,7 +8,7 @@ export const registrationFields = {
       fieldTestId: dataTestId.registrationWizard.description.titleField,
       elementType: 'input',
       landingPageTestId: dataTestId.registrationLandingPage.title,
-      value: 'Test registration title',
+      value: `Test registration title`,
     },
     'abstract': {
       type: 'text',
@@ -69,16 +69,16 @@ export const registrationFields = {
       landingPageTestId: dataTestId.registrationLandingPage.filesAccordion,
       value: 'example.json',
     },
-    'version': {
-      type: 'checkbox',
-      fieldTestId: dataTestId.registrationWizard.files.version,
-      elementType: 'radio',
-      landingPageTestId: dataTestId.registrationLandingPage.version,
-      value: 'PublishedVersion',
-      checkbox: {
-        selected: 'last',
-      },
-    },
+    // 'version': {
+    //   type: 'checkbox',
+    //   fieldTestId: dataTestId.registrationWizard.files.version,
+    //   elementType: 'radio',
+    //   landingPageTestId: dataTestId.registrationLandingPage.version,
+    //   value: 'PublishedVersion',
+    //   checkbox: {
+    //     selected: 'last',
+    //   },
+    // },
     // 'author agreement': {
     //   type: 'checkbox',
     //   fieldTestId: dataTestId.registrationWizard.files.administrativeAgreement,
