@@ -43,7 +43,7 @@ And('fill in values for all fields', () => {
     cy.fillInResourceType(resourceType, fields[resourceType]);
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     cy.fillInContributors(contributorRoles);
-    const hasFileVersion = resourceType === 'AcademicArticle' || resourceType === 'AcademicLiteratureReview';
+    const hasFileVersion = true;
     cy.fillInCommonFields(hasFileVersion);
   });
 });

@@ -41,7 +41,8 @@ And('fill in values for all fields', () => {
     const contributorRoles = bookContributorRoles[resourceType];
     cy.fillInContributors(contributorRoles);
   });
-  cy.fillInCommonFields();
+  const hasFileVersion = true;
+  cy.fillInCommonFields(hasFileVersion);
 });
 When('they saves Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();

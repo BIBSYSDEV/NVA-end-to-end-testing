@@ -23,7 +23,8 @@ And('fill in values for all fields', () => {
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     cy.fillInContributors(contributorRoles);
   });
-  cy.fillInCommonFields();
+  const hasFileVersion = true;
+  cy.fillInCommonFields(hasFileVersion);
 });
 When('they saves Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
