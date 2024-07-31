@@ -152,7 +152,7 @@ When('the Creator navigates to the Landing Page', () => {
 });
 And('the Resource has Validation Errors', () => {
   cy.getDataTestId('tasks-panel').within(() => {
-    cy.getDataTestId('WarningIcon');
+    cy.getDataTestId('ErrorIcon');
   });
 });
 And('the Resource is a draft', () => {

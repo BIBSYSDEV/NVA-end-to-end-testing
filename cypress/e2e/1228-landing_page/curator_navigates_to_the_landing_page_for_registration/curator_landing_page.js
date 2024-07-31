@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Before } from 'cypress-cucumber-preprocessor/steps';
 
 const fileName = 'example.txt';
-const title = `Curator published registration ${uuidv4()}`;
+const title = `Curator published registration`;
 const doiRequestTitle = `Curator published registration ${uuidv4()}`;
 const curatorPublishesWorkflow = 'curator approves publishing';
 const registratorPublishesWorkflow = 'registrator publishes';
@@ -52,7 +52,7 @@ Before({tags: '@doi_request'}, () => {
 Given('a Curator opens the Landing Page of a Registration', () => {
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title);
+  cy.createValidRegistration(fileName, `${title} ${uuidv4()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
@@ -99,7 +99,7 @@ Given('a Curator from a customer with Workflow {string}', (workflow) => {
   }
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title);
+  cy.createValidRegistration(fileName, `${title} ${uuidv4()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.location('pathname').as('path');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();

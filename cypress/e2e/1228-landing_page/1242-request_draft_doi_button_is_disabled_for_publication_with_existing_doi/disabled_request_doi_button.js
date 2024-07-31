@@ -21,7 +21,6 @@ And('the Registration has status {string}', (status) => {
   cy.wrap(status).as('status');
   cy.getDataTestId('my-registrations-unpublished-checkbox').then((unPublishedCheckBox) => {
     const unPublished = unPublishedCheckBox.find('.Mui-checked').length > 0;
-    cy.log(unPublished);
     ((status === 'Draft' && !unPublished) || (status === 'Published' && unPublished)) &&
       cy.getDataTestId('my-registrations-unpublished-checkbox').click();
   });
