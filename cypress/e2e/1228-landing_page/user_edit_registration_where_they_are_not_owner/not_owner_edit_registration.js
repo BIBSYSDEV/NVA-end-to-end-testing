@@ -12,7 +12,7 @@ Given('User is logged in as Curator', () => {
 When('they open the landing page for a Registration from own institution', () => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
     })
 });
@@ -28,7 +28,7 @@ Given('User is logged in as Editor', () => {
 When('they open the landing page for a Registration', () => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
     })
 });
@@ -40,7 +40,7 @@ Given('Curator open landing page for a Registration from own institution', () =>
     cy.login(userCuratorWithAuthor);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
     })
 });
@@ -64,7 +64,7 @@ Given('Editor open landing page for a Registration', () => {
     cy.login(userEditor5);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
     })
 });
@@ -79,7 +79,7 @@ And('they are not Curator or Editor', () => { });
 When('they open the landing page for a Registration where they are registred as a Contributor', () => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
     })
 });
@@ -92,7 +92,7 @@ Given('a User open landing page for Registration where they are registred as a C
     cy.login(userEditRegistration);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
     })
 });
