@@ -134,7 +134,6 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
     });
   } else {
     cy.get('[value=BIBSYS]');
-    cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).click();
@@ -256,11 +255,6 @@ Given('the {string} receives a Request of type {string}', (user, type) => {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   } else {
     cy.get('[value=BIBSYS]');
-    cy.getDataTestId('ticket-status-field').click();
-    cy.get('[data-value=New]').click();
-    cy.get('[data-value=Closed]').click();
-    cy.get('[data-value=Completed]').click();
-    cy.get('[data-value=Completed]').type('{esc}');
     cy.getDataTestId(dataTestId.tasksPage.curatorSelector).click();
     cy.getDataTestId(dataTestId.tasksPage.curatorSelector).within(() => {
       cy.getDataTestId('CloseIcon').click();
@@ -281,7 +275,6 @@ When('the Curator opens the Requests Resource', () => {
         });
       } else {
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-        cy.wait(3000);
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
       }
     });
@@ -300,7 +293,7 @@ And('the Curator has the option to {string}', (action) => {
     'Approve Candidate': dataTestId.tasksPage.nvi.approveButton,
     'Reject Candidate': dataTestId.tasksPage.nvi.rejectButton,
   }
-  if(action === 'Answer Message') {
+  if (action === 'Answer Message') {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   }
   cy.getDataTestId(typeActions[action]).should('be.visible');
