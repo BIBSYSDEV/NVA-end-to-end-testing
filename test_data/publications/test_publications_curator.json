@@ -1,0 +1,546 @@
+[
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Draft registration - Publishing Request",
+    "fileStatus": "UnpublishedFile",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Requested",
+      "text": "Pending publishing request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Draft registration - Publishing Request approved",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Approved",
+      "text": "Approved publishing request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Draft registration - Publishing Request rejected",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Rejected",
+      "text": "Pending support request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Draft registration- Support ticket closed",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Closed",
+      "text": "Closed support request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "PUBLISHED",
+    "contributor": "",
+    "title": "Published registration BIBSYS"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Draft registration - Publishing Request rejected",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Rejected",
+      "text": "Rejected publishing request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-messages@test.no",
+    "title": "Registration - Publishing Request approved",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Approved",
+      "text": "Approved publishing request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-messages@test.no",
+    "title": "Registration - Support request resolved",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Completed",
+      "text": "Completed support request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-messages@test.no",
+    "title": "Registration - Support request pending 1",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Pending",
+      "text": "Pending support request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-messages@test.no",
+    "title": "Registration - Support request pending 2",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Pending",
+      "text": "Pending support request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-messages@test.no",
+    "title": "Registration - Support request pending 3",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Pending",
+      "text": "Pending support request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
+    "title": "Registration - DOI request request pending",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Published registration requesting DOI",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi-2@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-draft-doi-2@test.no",
+    "title": "Published registration requesting DOI",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "View Landing Page",
+    "doi": "created"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Published registration with DOI",
+    "doi": "created"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi-2@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-draft-doi-2@test.no",
+    "title": "Published registration with DOI",
+    "doi": "created"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Draft registration with DOI",
+    "doi": "reserved"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-draft-doi@test.no",
+    "title": "Draft registration publish with requested DOI",
+    "doi": "reserved"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-draft-doi-2@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-draft-doi-2@test.no",
+    "title": "Draft registration publish with requested DOI",
+    "doi": "reserved"
+  },
+  {
+    "publication_type": "Reference",
+    "publication_context_type": "Book",
+    "publication_instance_type": "BookAnthology",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Search result - Anthology",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Reference",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "ConferenceAbstract",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-with-author@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Search result - Conference abstract",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Reference",
+    "publication_context_type": "Book",
+    "publication_instance_type": "BookAnthology",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "status": "PUBLISHED",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Search result - Anthology",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-publish-registration@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "title": "Search result - Journal",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Publishing-Curator Publish Files",
+    "fileStatus": "UnpublishedFile",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Requested",
+      "text": "Pending publishing request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Publishing-Curator Reject publishing",
+    "fileStatus": "UnpublishedFile",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Requested",
+      "text": "Pending publishing request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-messages@test.no",
+    "title": "Support-Curator Answer Message",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Pending",
+      "text": "Pending support request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
+    "title": "Doi-Curator Mint DOI",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
+    "title": "Doi-Curator Reject DOI request",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Unassign Publishing-Curator Approval",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Requested",
+      "text": "Pending publishing request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-messages@test.no",
+    "title": "Unassign Support-Curator Support",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Pending",
+      "text": "Pending support request"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
+    "title": "Unassign Doi-Curator DOI",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Open Publishing-Curator Approval",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "fileStatus": "UnpublishedFile",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Requested",
+      "text": "Open Publishing-Curator Approval"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-publish-registration@test.no",
+    "status": "DRAFT",
+    "contributor": "test-user-publish-registration@test.no",
+    "title": "Open Publishing-Curator Approval",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "fileStatus": "UnpublishedFile",
+    "ticket": {
+      "type": "PublishingRequest",
+      "status": "Requested",
+      "text": "Open unassigned Publishing-Curator Approval"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
+    "title": "Open Support-Curator Support",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Pending",
+      "text": "Open Support-Curator Support"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
+    "title": "Open unassigned Support-Curator Support",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "ticket": {
+      "type": "GeneralSupportCase",
+      "status": "Pending",
+      "text": "Open unassigned Support-Curator Support"
+    }
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "title": "Open Doi-Curator DOI",
+    "doi": "requested"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-messages@test.no",
+    "status": "PUBLISHED",
+    "contributor": "test-user-messages@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
+    "title": "Open unassigned Doi-Curator DOI",
+    "doi": "requested"
+  }
+]

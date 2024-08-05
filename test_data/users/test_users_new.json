@@ -315,7 +315,7 @@
     "role": [
       {
         "type": "Role",
-        "rolename": "Editor 1"
+        "rolename": "Editor"
       }
     ],
     "orcid": true,
