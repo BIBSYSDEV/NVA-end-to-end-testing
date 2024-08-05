@@ -1,0 +1,12 @@
+[
+    {
+        "publication_type": "Journal",
+        "publication_context_type": "Journal",
+        "publication_instance_type": "AcademicArticle",
+        "owner": "test-user-access-resource-owner@test.no",
+        "status": "PUBLISHED",
+        "contributor": "test-user-access-verified-contributors@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+        "title": "Unpublish registration verified contributor"
+    }
+]

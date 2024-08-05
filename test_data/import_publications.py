@@ -7,6 +7,7 @@ import common
 import time
 from datetime import datetime, date, timedelta
 import babel
+import sys
 
 dynamodb_client = boto3.client('dynamodb')
 s3_client = boto3.client('s3')
@@ -387,29 +388,30 @@ def create_publication_data(publication_template, test_publication, username, cu
         'administrativeAgreement': False,
         "publisherVersion" : "PublishedVersion",
     }
-    fileType = 'pdf'
-    if 'fileType' in test_publication:
-        fileType = test_publication['fileType']
-    if 'embargoed' in test_publication:
-        embargoDate = date.today() + timedelta(days=2)
-        dateString = embargoDate.strftime('%Y-%m-%dT00:00:00Z')
-        file['embargoDate'] = dateString
-    if 'fileStatus' in test_publication:
-        file['type'] = test_publication['fileStatus']
+    if 'fileName' in test_publication:
+        fileType = 'pdf'
+        if 'fileType' in test_publication:
+            fileType = test_publication['fileType']
+        if 'embargoed' in test_publication:
+            embargoDate = date.today() + timedelta(days=2)
+            dateString = embargoDate.strftime('%Y-%m-%dT00:00:00Z')
+            file['embargoDate'] = dateString
+        if 'fileStatus' in test_publication:
+            file['type'] = test_publication['fileStatus']
 
-    file['name'] = fileTypes[fileType]['fileName']
-    file['mimeType'] = fileTypes[fileType]['mimeType']
-    file['identifier'] = locations[fileType]['location']
-    file['size'] = locations[fileType]['filesize']
+        file['name'] = fileTypes[fileType]['fileName']
+        file['mimeType'] = fileTypes[fileType]['mimeType']
+        file['identifier'] = locations[fileType]['location']
+        file['size'] = locations[fileType]['filesize']
 
-    new_publication['associatedArtifacts'].append(file)
-    if 'administrativeAgreement' in test_publication:
-        administrative_file = file.copy()
-        administrative_file['type'] = 'UnpublishableFile'
-        administrative_file['administrativeAgreement'] = test_publication['administrativeAgreement']
-        administrative_file['mimeType'] = fileTypes['pdf']['mimeType']
-        administrative_file['name'] = fileTypes['pdf']['fileName']
-        new_publication['associatedArtifacts'].append(administrative_file)
+        new_publication['associatedArtifacts'].append(file)
+        if 'administrativeAgreement' in test_publication:
+            administrative_file = file.copy()
+            administrative_file['type'] = 'UnpublishableFile'
+            administrative_file['administrativeAgreement'] = test_publication['administrativeAgreement']
+            administrative_file['mimeType'] = fileTypes['pdf']['mimeType']
+            administrative_file['name'] = fileTypes['pdf']['fileName']
+            new_publication['associatedArtifacts'].append(administrative_file)
     return new_publication
 
 
@@ -434,6 +436,7 @@ def create_test_publication(publication_template, test_publication):
 
 
 def create_publications():
+    print(test_publications_file_name)
     with open(publication_template_file_name) as publication_template_file:
         publication_template = json.load(publication_template_file)
 
@@ -588,4 +591,7 @@ def run():
     create_publications()
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        test_publications_file_name = sys.argv[1]
+
     run()
