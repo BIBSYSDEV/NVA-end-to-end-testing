@@ -217,6 +217,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
 });
 Then('the Request Status is set to "New"', () => { });
 And('the Request is unassigned the Curator', () => {
+  cy.wait(6000)
   cy.get('[title=Tasks]').click();
   cy.get('@user').then(user => {
     cy.get('@title').then(title => {

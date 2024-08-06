@@ -1,5 +1,6 @@
-import { userMessages } from '../../../support/constants';
+import { unreadUserMessages, userMessages } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { v4 as uuidv4 } from 'uuid';
 // Feature: Registrator worklist
 
 const doiRequests = 'DoiRequests';
@@ -30,9 +31,9 @@ const filterMessages = ((messageType) => {
 
 //     Scenario Outline: Creator opens My Messages
 Given('that the user is logged in as Creator', () => {
-  cy.login(userMessages);
+  cy.login(unreadUserMessages);
   cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(filename, registrationTitle);
+  cy.createValidRegistration(filename, `${registrationTitle} ${uuidv4()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
@@ -42,6 +43,7 @@ Given('that the user is logged in as Creator', () => {
   cy.getDataTestId('message-field').last().type('Test message{enter}');
   cy.contains('Message sent');
   // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+  cy.wait(6000);
 });
 When('they click the menu item My Messages', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
@@ -71,10 +73,10 @@ And('they see a list of messages with fields:', (dataTable) => {
 //             | Registration title |
 //             | Date               |
 And("they see that items' status is one of:", (dataTable) => {
-  cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click();
-  cy.get('[data-value=Pending]').click();
-  cy.get('[data-value=Closed]').click();
-  cy.get('[data-value=Completed]').click();
+  // cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click();
+  // cy.get('[data-value=Pending]').click();
+  // cy.get('[data-value=Closed]').click();
+  // cy.get('[data-value=Completed]').click();
   cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click({force: true});
 
   dataTable.rawTable.forEach((element) => {

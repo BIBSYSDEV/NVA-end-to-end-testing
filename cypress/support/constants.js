@@ -106,6 +106,7 @@ export const userResearchDataset = 'test-user-research-dataset@test.no';
 export const userContributors = 'test-user-contributors@test.no';
 export const userProjectManager = 'test-user-project-manager@test.no';
 export const userMessages = 'test-user-messages@test.no';
+export const unreadUserMessages = 'test-user-unread-messages@test.no';
 export const userCancelDelete = 'test-user-cancel-delete@test.no';
 export const userTestMenu = 'test-user-menu@test.no';
 export const userEditRegistration = 'test-user-edit-registration@test.no';
@@ -234,6 +235,7 @@ export const user = {
   [userContributors]: { ...userData, name: 'TestUser, Contributors' },
   [userProjectManager]: { ...userData, name: 'TestUser, Project manager' },
   [userMessages]: { ...userData, name: 'TestUser, Messages' },
+  [unreadUserMessages]: { ...userData, name: 'TestUser, Unread Messages' },
   [userCancelDelete]: { ...userData, name: 'TestUser, Cancel delete' },
   [userTestMenu]: { ...userData, name: 'TestUser, Menu' },
   [userEditRegistration]: { ...userData, name: 'TestUser, Edit registration' },

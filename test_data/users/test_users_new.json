@@ -1270,6 +1270,21 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "Unread messages",
+    "nin": "14043926684",
+    "username": "test-user-unread-messages@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "5991",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
     "firstName": "Cancel delete",
     "nin": "30055314485",
     "username": "test-user-cancel-delete@test.no",
