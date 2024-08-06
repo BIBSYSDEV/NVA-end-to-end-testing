@@ -1348,7 +1348,7 @@
     "owner": "test-user-publish-registration@test.no",
     "status": "DRAFT",
     "contributor": "test-user-publish-registration@test.no",
-    "title": "Open Publishing-Curator Approval",
+    "title": "Open unassaigned Publishing-Curator Approval",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
     "fileStatus": "UnpublishedFile",
     "ticket": {

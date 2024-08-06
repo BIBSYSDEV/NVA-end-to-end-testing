@@ -83,7 +83,7 @@ And('they click "Add me as Author"', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addSelfButton}]`).click();
 });
 Then('their Author identity is added to the list of Authors', () => {
-  cy.contains('Contributor TestUser');
+  cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton('Contributors TestUser')}"`)
 });
 And('their current Affiliations are listed', () => {
   cy.contains('Unit');
@@ -110,40 +110,6 @@ Then('they see buttons {string}', (contributorTypes) => {
     cy.get(`[data-value=${contributorTypes[contributorType]}]`).should('be.visible');
   });
 });
-// Examples:
-//   | RegistrationType | RegistrationSubtype       | AddContributorButtons                       |
-//   | Book             | BookAnthology             | Editor                 |
-//   | Book             | AcademicMonograph             | Creator                 |
-//   | Chapter          | ChapterArticle            | Creator                 |
-//   | Chapter          | ChapterConferenceAbstract | Creator                 |
-//   | Degree           | DegreeBachelor            | Creator, Supervisor |
-//   | Degree           | DegreeMaster              | Creator, Supervisor |
-//   | Degree           | DegreePhd                 | Creator, Supervisor |
-//   | Degree           | DegreeLicentiate          | Creator, Supervisor |
-//   | Degree           | OtherStudentWork          | Creator, Supervisor |
-//   | Journal          | FeatureArticle            | Creator, ContactPerson                 |
-//   | Journal          | JournalArticle            | Creator                 |
-//   | Journal          | JournalCorrigendum        | Creator                 |
-//   | Journal          | JournalLeader             | Creator                 |
-//   | Journal          | JournalLetter             | Creator                 |
-//   | Journal          | JournalReview             | Creator                 |
-//   | Journal          | JournalBooklet            | Creator                 |
-//   | Journal          | JournalConferenceAbstract | Creator                 |
-//   | Report           | ReportBasic               | Creator                 |
-//   | Report           | ReportPolicy              | Creator                 |
-//   | Report           | ReportResearch            | Creator                 |
-//   | Report           | ReportAbstractCollection  | Creator                 |
-//   | Report           | ReportWorkingPaper        | Creator                 |
-//   | Presentation     | ConferenceLecture         | Creator                 |
-//   | Presentation     | ConferencePoster          | Creator                 |
-//   | Presentation     | Lecture                   | Creator                 |
-//   | Presentation     | OtherPresentation         | Creator                 |
-//   | Artistic         | ArtisticDesign            | Contributor                             |
-//   | Media            | Interview                 | Creator                 |
-//   | Media            | Blog                      | Creator                 |
-//   | Media            | Podcast                   | Contributor                             |
-//   | Media            | ProgrammeManagement       | Contributor                             |
-//   | Media            | ProgrammeParticipation    | Contributor                             |
 
 //   @419
 //   Scenario: Creator adds an Author to the list of Authors
