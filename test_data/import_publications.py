@@ -387,6 +387,7 @@ def create_publication_data(publication_template, test_publication, username, cu
         'type': 'PublishedFile',
         'administrativeAgreement': False,
         "publisherVersion" : "PublishedVersion",
+        "legalNote" : "Legal note",
     }
     if 'file_name' in test_publication:
         fileType = 'pdf'
