@@ -83,9 +83,6 @@ Given('Creator navigates to the Resource Type tab and see list of Journal types'
 When('they select either of:', (dataTable) => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
 })
-And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
-});
 
 // Scenario: Creator sees that fields for Journal article are validated
 Given('Creator sees fields for Journal type', () => {
@@ -164,28 +161,11 @@ When('they select type to be {string}:', (type) => {
   });
   const resourceType = elements.join('');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(resourceType)).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('ACS Chemical Biology');
+  cy.contains('ACS Chemical Biology').last().click();
 })
+Then('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviSuccess}]`).should('be.visible');
+});
 // | Academic article           |
 // | Academic literature review |
-// And they see the Norwegian Science Index (NVI) evaluation status
-
-
-// @1659
-// Scenario Outline: Creator sees fields for Norwegian Science Index (NVI) incompatible Resource subtype
-And('they select Resource subtype {string}', (subtype) => {
-  cy.wrap(subtype).as('subtype');
-  cy.get(`[data-testid=${journalSubtypes[subtype]}]`).click({ force: true });
-  cy.get('@link').then((link) => {
-    link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
-  })
-});
-// Examples:
-//     | Subtype         |
-//     | Feature article |
-//     | Comment         |
-//     | Book review     |
-//     | Leader          |
-//     | Corrigendum     |
-//     | Booklet         |
-
-// Scenario Outline: Creator sees that fields for Norwegian Science Index (NVI) incompatible Resource subtype are validated
