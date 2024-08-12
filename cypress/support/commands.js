@@ -134,7 +134,7 @@ Cypress.Commands.add('login', (userId) => {
   cy.loginCognito(userId).then(() => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
-    cy.setLocalStorage('beta', 'true');
+    // cy.setLocalStorage('beta', 'true');
     cy.visit(`/`, {
       auth: {
         username: Cypress.env('DEVUSER'),

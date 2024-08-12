@@ -405,7 +405,6 @@ def create_publication_data(publication_template, test_publication, username, cu
         file['identifier'] = locations[fileType]['location']
         file['size'] = locations[fileType]['filesize']
 
-        new_publication['associatedArtifacts'].append(file)
         if 'administrativeAgreement' in test_publication:
             administrative_file = file.copy()
             administrative_file['type'] = 'UnpublishableFile'
@@ -413,6 +412,9 @@ def create_publication_data(publication_template, test_publication, username, cu
             administrative_file['mimeType'] = fileTypes['pdf']['mimeType']
             administrative_file['name'] = fileTypes['pdf']['fileName']
             new_publication['associatedArtifacts'].append(administrative_file)
+        else:
+            new_publication['associatedArtifacts'].append(file)
+
     return new_publication
 
 
