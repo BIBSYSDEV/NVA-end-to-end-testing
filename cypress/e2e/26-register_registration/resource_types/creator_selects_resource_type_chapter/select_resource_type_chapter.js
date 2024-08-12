@@ -86,5 +86,7 @@ When('they select Content type "Academic chapter"', () => {
   // cy.get(`[data-testid=${chapterContentTypes['Academic Chapter']}]`).click();
 });
 And('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.partOfField}]`).type('Antologi');
+  cy.contains('Antologi').first().click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
 });

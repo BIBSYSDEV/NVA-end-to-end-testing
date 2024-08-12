@@ -73,5 +73,7 @@ When('they select type "Academic Monograph"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
 });
 Then('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('sintef akademisk forlag');
+  cy.contains('SINTEF akademisk forlag').click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
 });
