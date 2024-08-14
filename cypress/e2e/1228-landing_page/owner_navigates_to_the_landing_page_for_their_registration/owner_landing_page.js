@@ -161,7 +161,7 @@ And('the Resource is a draft', () => {
   });
 });
 Then('they see a List of all Validation Errors for the Resource', () => {
-  cy.getDataTestId('error-list').should('be.visible');
+  cy.getDataTestId('ErrorIcon').should('be.visible');
 });
 And('they see a "Edit registration" button', () => {
   cy.getDataTestId('back-to-wizard-button').should('be.visible');
