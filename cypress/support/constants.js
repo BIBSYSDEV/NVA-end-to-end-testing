@@ -123,12 +123,18 @@ export const userDoiCurator = 'test-user-doi-cur@test.no';
 export const userVerifiedContributor = 'test-user-access-verified-contributors@test.no';
 export const userCuratorDegree = 'test-user-access-curator-degree@test.no';
 export const userEditorDelete = 'test-user-access-editor-delete@test.no';
-export const userCuratorResourceOwner = 'test-user-access-curator-resource-owner@test.no';
+export const userCuratorResourceOwner = 'test-user-access-curator-resourceowner@test.no';
 export const userCuratorInstitution = 'test-user-access-curator-institution@test.no';
 export const userResourceOwner = 'test-user-access-resource-owner@test.no';
 export const userAdminRRS = 'test-user-admin-rrs@test.no';
 export const userAuthorRRS = 'test-user-author-rrs@test.no';
 export const userEmbargo = 'test-user-author-embargo@test.no';
+export const userPublicationCuratorMessages = 'test-user-publication-curator-messages@test-no';
+export const userDOICuratorMessages = 'test-user-doi-curator-messages@test-no';
+export const userSupportCuratorMessages = 'test-user-support-curator-messages@test-no';
+export const userPublicationMessages = 'test-user-publication-messages@test-no';
+export const userDOIMessages = 'test-user-curator-messages@test-no';
+export const userSupportMessages = 'test-user-curator-messages@test-no';
 
 const userData = {
   name: '',
@@ -258,4 +264,10 @@ export const user = {
   [userAdminRRS]: { ...userData, name: 'TestUser, Admin RRS' },
   [userAuthorRRS]: { ...userData, name: 'TestUser, Author RRS' },
   [userEmbargo]: { ...userData, name: 'TestUser, Author Embargo' },
+  [userPublicationCuratorMessages]: { ...userData, name: 'TestUser, PublicationCurator Messages' },
+  [userDOICuratorMessages]: { ...userData, name: 'TestUser, DoiCurator Messages' },
+  [userSupportCuratorMessages]: { ...userData, name: 'TestUser, SupportCurator Messages' },
+  [userPublicationMessages]: { ...userData, name: 'TestUser, Publication Messages' },
+  [userDOIMessages]: { ...userData, name: 'TestUser, Doi Messages' },
+  [userSupportMessages]: { ...userData, name: 'TestUser, Support Messages' },
 };

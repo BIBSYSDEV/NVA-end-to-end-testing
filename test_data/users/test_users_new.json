@@ -1521,8 +1521,8 @@
   {
     "lastName": "TestUser",
     "firstName": "Access Curator resource owner",
-    "nin": "28078614767",
-    "username": "test-user-access-curator-resource-owner@test.no",
+    "nin": "18022635405",
+    "username": "test-user-access-curator-resourceowner@test.no",
     "role": [
       {
         "type": "Role",
@@ -1535,7 +1535,7 @@
     ],
     "orcid": true,
     "orgNumber": "194",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0"
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
   },
   {
     "lastName": "TestUser",
