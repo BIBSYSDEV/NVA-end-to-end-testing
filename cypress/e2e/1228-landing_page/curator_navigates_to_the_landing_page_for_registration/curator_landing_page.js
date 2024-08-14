@@ -42,7 +42,7 @@ Before({ tags: '@all_restrictions' }, () => {
   cy.wrap(curatorPublishesWorkflow).as('workflow');
 });
 
-Before({tags: '@doi_request'}, () => {
+Before({ tags: '@doi_request' }, () => {
   cy.wrap(true).as('doiRequest');
 })
 
@@ -52,7 +52,9 @@ Before({tags: '@doi_request'}, () => {
 Given('a Curator opens the Landing Page of a Registration', () => {
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, `${title} ${uuidv4()}`);
+  const registrationTitle = `${title} ${uuidv4()}`;
+  cy.wrap(registrationTitle).as('registrationTitle');
+  cy.createValidRegistration(fileName, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
@@ -66,15 +68,15 @@ Given('a Curator opens the Landing Page of a Registration', () => {
     cy.login(userCurator);
     cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    if(doiRequest) {
+    if (doiRequest) {
       cy.filterMessages('DoiRequests');
     } else {
       cy.filterMessages('Publishing Requests');
     }
     cy.get('[value=BIBSYS]');
     cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
+    cy.getDataTestId(dataTestId.startPage.searchField).type(registrationTitle, { delay: 0 });
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
   })
 });
 And('the Registration has a Publishing Request', () => {
@@ -99,7 +101,9 @@ Given('a Curator from a customer with Workflow {string}', (workflow) => {
   }
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, `${title} ${uuidv4()}`);
+  const registrationTitle = `${title} ${uuidv4()}`;
+  cy.wrap(registrationTitle).as('registrationTitle')
+  cy.createValidRegistration(fileName, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.location('pathname').as('path');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
@@ -112,8 +116,10 @@ Given('they opens the Landing Page of a Registration', () => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.get('[value=BIBSYS]');
     cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
+    cy.get('@registrationTitle').then(registrationTitle => {
+      cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 0 });
+      cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
+    })
   });
 });
 And('the Registration has a Publishing Request', () => {
@@ -178,19 +184,24 @@ When('they approve the DOI Request', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
   cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
-  cy.contains(title, {timeout : 30000}).click();
+  cy.get('@registrationTitle').then(searchTitle => {
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
+    cy.contains(searchTitle, { timeout: 30000 }).click();
+  });
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).click();
 });
 Then('the DOI is findable', () => {
   cy.get('[data-testid=logo]').click();
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
-  cy.getDataTestId('result-list-item')
-    .filter(`:contains(${title})`)
-    .first()
-    .within(() => {
-      cy.get('a').first().click();
-    });
+  cy.wait(5000);
+  cy.get('@registrationTitle').then(searchTitle => {
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
+    cy.getDataTestId('result-list-item')
+      .filter(`:contains(${searchTitle})`)
+      .first()
+      .within(() => {
+        cy.get('a').first().click();
+      });
+  })
   cy.contains('https://handle.stage.datacite.org');
 });
 
@@ -203,8 +214,10 @@ When('they reject the DOI Request', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
   cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`, { delay: 0 });
-  cy.contains(title).click();
+  cy.get('@registrationTitle').then(searchTitle => {
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
+    cy.contains(searchTitle).click();
+  })
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();
 });
 Then('the reserved DOI is removed from the Registration', () => {
