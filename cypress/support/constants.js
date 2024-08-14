@@ -257,7 +257,7 @@ export const user = {
   [userSupportCurator]: { ...userData, name: 'TestUser, Support-curator' },
   [userVerifiedContributor]: { ...userData, name: 'TestUser, Access Verified contributor' },
   [userCuratorInstitution]: { ...userData, name: 'TestUser, Access Curator institution' },
-  [userCuratorResourceOwner]: { ...userData, name: 'TestUser, Access Curator resource owner' },
+  [userCuratorResourceOwner]: { ...userData, name: 'TestUser, Access Curator resourceowner' },
   [userResourceOwner]: { ...userData, name: 'TestUser, Access Resource owner' },
   [userEditorDelete]: { ...userData, name: 'TestUser, Access Editor delete' },
   [userCuratorDegree]: { ...userData, name: 'TestUser, Access Curator degree' },
