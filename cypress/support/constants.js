@@ -130,11 +130,11 @@ export const userAdminRRS = 'test-user-admin-rrs@test.no';
 export const userAuthorRRS = 'test-user-author-rrs@test.no';
 export const userEmbargo = 'test-user-author-embargo@test.no';
 export const userPublicationCuratorMessages = 'test-user-publication-curator-messages@test-no';
-export const userDOICuratorMessages = 'test-user-doi-curator-messages@test-no';
+export const userDOICuratorMessages = 'test-user-doicurator-messages@test-no';
 export const userSupportCuratorMessages = 'test-user-support-curator-messages@test-no';
 export const userPublicationMessages = 'test-user-publication-messages@test-no';
-export const userDOIMessages = 'test-user-curator-messages@test-no';
-export const userSupportMessages = 'test-user-curator-messages@test-no';
+export const userDOIMessages = 'test-user-doi-messages@test-no';
+export const userSupportMessages = 'test-user-support-messages@test-no';
 
 const userData = {
   name: '',
