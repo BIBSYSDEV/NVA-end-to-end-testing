@@ -449,6 +449,8 @@ Cypress.Commands.add('checkField', (field, titleId) => {
         field.fieldTestId === dataTestId.registrationWizard.resourceType.compliesWithField
       ) {
         cy.contains(value);
+      } else if (field.fieldTestId === dataTestId.registrationWizard.description.projectSearchField) {
+        cy.getDataTestId(dataTestId.registrationWizard.description.removeProjectButton).parent().contains(value);
       } else {
         cy.get(`[data-testid=${field['fieldTestId']}] div`).should('contain', value);
       }
