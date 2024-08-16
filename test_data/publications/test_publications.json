@@ -1440,22 +1440,5 @@
     "contributor": "test-user-nvi@test.no",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/194.0.0.0",
     "title": "Open unassigned Nvi-Curator NVI"
-  },
-  {
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-support-messages@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-support-messages@test.no",
-    "title": "Support message",
-    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "ticket": {
-      "type": "GeneralSupportCase",
-      "status": "Pending",
-      "text": "Open Support-Curator Support"
-    }
   }
 ]
