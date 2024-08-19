@@ -84,7 +84,7 @@ And('a User with the role Creator send a {string} request', (type) => {
     }
 });
 Then('the User with role {string} see that the number of unassigned tasks are increased', (role) => {
-    cy.login(curatorUsers[role];)
+    cy.login(curatorUsers[role]);
     cy.get('@taskNumbers').then(taskNumbers => {
         const value = Number(taskNumbers) + 1;
         cy.getDataTestId(dataTestId.header.tasksLink).within(() => {
