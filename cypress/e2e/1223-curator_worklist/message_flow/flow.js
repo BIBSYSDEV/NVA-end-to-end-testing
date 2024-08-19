@@ -76,7 +76,7 @@ And('a User with the role Creator send a {string} request', (type) => {
         case DOI_REQUEST:
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-            cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
             break;
         case SUPPORT_REQUEST:
             cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
@@ -114,7 +114,7 @@ Given('a User with the role Creator sends a {string} request', (type) => {
         case DOI_REQUEST:
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-            cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
             break;
         case SUPPORT_REQUEST:
             cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
