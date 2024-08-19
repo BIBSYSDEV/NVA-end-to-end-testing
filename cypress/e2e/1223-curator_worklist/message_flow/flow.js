@@ -89,6 +89,7 @@ Then('the User with role {string} see that the number of unassigned tasks are in
         const value = Number(taskNumbers) + 1;
         cy.getDataTestId(dataTestId.header.tasksLink).within(() => {
             cy.get('span > span > span').should('exist');
+            cy.get('span > span > span').filter(':contains("0")').should('not.exist');
             cy.get('span > span > span').filter(`:contains("${value.toString()}")`);
         });
     });
