@@ -552,7 +552,7 @@ Cypress.Commands.add('fillInContributors', (contributorRoles) => {
     cy.get(`[data-value=${role}]`).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`Withauthor ${index}`);
     cy.get('tbody > tr').filter(`:contains('Withauthor ${index} ')`).within(() => {
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectEverythingForContributor).click();
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     })
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
   });

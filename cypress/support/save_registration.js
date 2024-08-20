@@ -115,7 +115,7 @@ export const contributorsCommon = {
     add: {
       searchFieldTestId: 'search-field',
       searchValue: 'TestUser',
-      resultsTestId: dataTestId.registrationWizard.contributors.selectEverythingForContributor,
+      resultsTestId: dataTestId.registrationWizard.contributors.selectPersonForContributor,
       selectButtonTestId: dataTestId.registrationWizard.contributors.selectUserButton,
     },
   },
@@ -131,7 +131,7 @@ export const contributorsCommon = {
       },
       searchFieldTestId: 'search-field',
       searchValue: 'TestUser',
-      resultsTestId: dataTestId.registrationWizard.contributors.selectEverythingForContributor,
+      resultsTestId: dataTestId.registrationWizard.contributors.selectPersonForContributor,
       selectButtonTestId: dataTestId.registrationWizard.contributors.selectUserButton,
     },
   },
