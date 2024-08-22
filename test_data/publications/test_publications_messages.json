@@ -1,0 +1,46 @@
+[
+    {
+        "publication_type": "Journal",
+        "publication_context_type": "Journal",
+        "publication_instance_type": "AcademicArticle",
+        "file_identifier": "lorem_ipsum",
+        "file_name": "lorem_ipsum.txt",
+        "owner": "test-user-doi-messages-sintef@test.no",
+        "status": "PUBLISHED",
+        "contributor": "test-user-doi-messages-sintef@test.no",
+        "title": "Published registration with DOI",
+        "doi": "requested"
+    },
+    {
+        "publication_type": "Journal",
+        "publication_context_type": "Journal",
+        "publication_instance_type": "AcademicArticle",
+        "file_identifier": "lorem_ipsum",
+        "file_name": "lorem_ipsum.txt",
+        "owner": "test-user-support-messages-sintef@test.no",
+        "status": "DRAFT",
+        "contributor": "test-user-support-messages-sintef@test.no",
+        "title": "Registration - Support request pending 3",
+        "ticket": {
+            "type": "GeneralSupportCase",
+            "status": "Pending",
+            "text": "Pending support request"
+        }
+    },
+    {
+        "publication_type": "Journal",
+        "publication_context_type": "Journal",
+        "publication_instance_type": "AcademicArticle",
+        "file_identifier": "lorem_ipsum",
+        "file_name": "lorem_ipsum.txt",
+        "owner": "test-user-support-messages-sintef@test.no",
+        "status": "DRAFT",
+        "contributor": "test-user-support-messages-sintef@test.no",
+        "title": "Registration - Support request pending 3",
+        "ticket": {
+            "type": "PublishingRequest",
+            "status": "Pending",
+            "text": "Pending publishing request"
+        }
+    }
+]
