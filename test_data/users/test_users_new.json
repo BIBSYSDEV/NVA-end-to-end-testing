@@ -1628,8 +1628,8 @@
   {
     "lastName": "TestUser",
     "firstName": "PublicationCurator Messages",
-    "nin": "20101885721",
-    "username": "test-user-publication-curator-messages@test.no",
+    "nin": "07069823410",
+    "username": "test-user-publication-curator-messages-sintef@test.no",
     "role": [
       {
         "type": "Role",
@@ -1641,14 +1641,14 @@
       }
     ],
     "orcid": true,
-    "orgNumber": "20202",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+    "orgNumber": "7401",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
   },
   {
     "lastName": "TestUser",
     "firstName": "DoiCurator Messages",
-    "nin": "22102716209",
-    "username": "test-user-doicurator-messages@test.no",
+    "nin": "27101885785",
+    "username": "test-user-doicurator-messages-sintef@test.no",
     "role": [
       {
         "type": "Role",
@@ -1660,14 +1660,14 @@
       }
     ],
     "orcid": true,
-    "orgNumber": "20202",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+    "orgNumber": "7401",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
   },
   {
     "lastName": "TestUser",
     "firstName": "SupportCurator Messages",
-    "nin": "31059823429",
-    "username": "test-user-support-curator-messages@test.no",
+    "nin": "05091058687",
+    "username": "test-user-support-curator-messages-sintef@test.no",
     "role": [
       {
         "type": "Role",
@@ -1679,15 +1679,15 @@
       }
     ],
     "orcid": true,
-    "orgNumber": "20202",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+    "orgNumber": "7401",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
   }
   ,
   {
     "lastName": "TestUser",
     "firstName": "Publication Messages",
-    "nin": "01063404493",
-    "username": "test-user-publication-messages@test.no",
+    "nin": "01086805991",
+    "username": "test-user-publication-messages-sintef@test.no",
     "role": [
       {
         "type": "Role",
@@ -1695,14 +1695,14 @@
       }
     ],
     "orcid": true,
-    "orgNumber": "20202",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+    "orgNumber": "7401",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
   },
   {
     "lastName": "TestUser",
     "firstName": "Doi Messages",
-    "nin": "20057645114",
-    "username": "test-user-doi-messages@test.no",
+    "nin": "23092818918",
+    "username": "test-user-doi-messages-sintef@test.no",
     "role": [
       {
         "type": "Role",
@@ -1710,14 +1710,14 @@
       }
     ],
     "orcid": true,
-    "orgNumber": "20202",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+    "orgNumber": "7401",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
   },
   {
     "lastName": "TestUser",
     "firstName": "Support Messages",
-    "nin": "17053437605",
-    "username": "test-user-support-messages@test.no",
+    "nin": "04091653090",
+    "username": "test-user-support-messages-sintef@test.no",
     "role": [
       {
         "type": "Role",
@@ -1725,7 +1725,7 @@
       }
     ],
     "orcid": true,
-    "orgNumber": "20202",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+    "orgNumber": "7401",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
   }
 ]
