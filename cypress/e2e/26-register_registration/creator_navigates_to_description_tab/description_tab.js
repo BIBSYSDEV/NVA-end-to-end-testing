@@ -101,8 +101,8 @@ When('they select a Project from the Search results', () => {
   cy.get('[data-testid^=project-option]').filter(`:contains(${projectName})`).first().click({ force: true });
 });
 Then('the selected Project is added to the list of selected Projects', () => {
-  cy.get('[data-testid^=project-chip]').should('have.length', 1);
-  cy.get('[data-testid^=project-chip]').contains(projectName);
+  cy.get('[data-testid^=project-link]').should('have.length', 1);
+  cy.get('[data-testid^=project-link]').contains(projectName);
 });
 
 // Scenario: Creator removes a Project
@@ -114,14 +114,17 @@ Given('Creator adds a Project', () => {
   cy.get('[data-testid^=project-option]').filter(`:contains(${projectName})`).first().click({ force: true });
 });
 When('they click the Remove Project icon', () => {
-  cy.get('[data-testid^=project-chip]')
+  cy.get('[data-testid^=project-link]')
     .filter(`:contains(${projectName})`)
+    .parent()
+    .parent()
+    .parent()
     .within((project) => {
-      cy.wrap(project).get('svg').click({ force: true });
+      cy.wrap(project).getDataTestId('CancelIcon').click({ force: true });
     });
 });
 Then('they see the Project is removed from the list of selected Projects', () => {
-  cy.get('[data-testid^=project-chip]').should('not.exist');
+  cy.get('[data-testid^=project-link]').should('not.exist');
 });
 
 // Scenario: Creator opens dropdown with Allowed Vocabularies
@@ -206,12 +209,14 @@ Given('Creator opens Dialog for creating a new Project', () => {
 When('they enter a Project Title', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.titleField).type('Project title');
 });
-And('they select a Coordinating Institution', () => {});
+And('they select a Coordinating Institution', () => { });
 And('​they select a Project Manager', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.contributorsSearchField).type('withauthor testuser');
   cy.contains('Withauthor Testuser', { matchCase: false }).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.contributorAffiliationField).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addAffiliationButton).click();
+  cy.getDataTestId(dataTestId.organization.searchField).type('norwegian directorate for ICT');
   cy.contains('Unit – The Norwegian Directorate for ICT and Joint Services in Higher Education and Research').click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelectedAffiliationButton).click();
 });
 And('they set a Start Date', () => {
   cy.chooseDatePicker(
