@@ -547,7 +547,7 @@ def create_ticket(identifier, username, type, status, text):
                              json=ticket_payload, headers=headers)
     check_response(response, 201)
     if status != status_requested and status != status_approved:
-        request_bearer_token = common.login(username=username_curator_inst_2)
+        request_bearer_token = common.login(username=username)
         headers['Authorization'] = f'Bearer {request_bearer_token}'
         tickets = requests.get(tickets_endpoint.format(
             STAGE, identifier), headers=headers).json()
