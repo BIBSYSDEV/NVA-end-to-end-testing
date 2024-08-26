@@ -173,7 +173,7 @@ Then('they can see an input field for the Default Vocabulary', () => {
 const projectFields = {
   'Project Title': dataTestId.registrationWizard.description.projectForm.titleField,
   'Coordinating Institution': dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField,
-  'Project Manager': dataTestId.registrationWizard.description.projectForm.contributorsSearchField,
+  'Project Manager': dataTestId.registrationWizard.description.projectForm.addParticipantButton,
   'Start Date': dataTestId.registrationWizard.description.projectForm.startDateField,
 };
 
@@ -211,12 +211,9 @@ When('they enter a Project Title', () => {
 });
 And('they select a Coordinating Institution', () => { });
 And('​they select a Project Manager', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.contributorsSearchField).type('withauthor testuser');
-  cy.contains('Withauthor Testuser', { matchCase: false }).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addAffiliationButton).click();
-  cy.getDataTestId(dataTestId.organization.searchField).type('norwegian directorate for ICT');
-  cy.contains('Unit – The Norwegian Directorate for ICT and Joint Services in Higher Education and Research').click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelectedAffiliationButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
 });
 And('they set a Start Date', () => {
   cy.chooseDatePicker(
