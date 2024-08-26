@@ -33,9 +33,9 @@
         "publication_instance_type": "AcademicArticle",
         "file_identifier": "lorem_ipsum",
         "file_name": "lorem_ipsum.txt",
-        "owner": "test-user-publishing-messages-sintef@test.no",
+        "owner": "test-user-publication-messages-sintef@test.no",
         "status": "DRAFT",
-        "contributor": "test-user-publishing-messages-sintef@test.no",
+        "contributor": "test-user-publication-messages-sintef@test.no",
         "title": "Registration - Publishing request",
         "ticket": {
             "type": "PublishingRequest",

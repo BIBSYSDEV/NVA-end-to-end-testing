@@ -129,12 +129,12 @@ export const userResourceOwner = 'test-user-access-resource-owner@test.no';
 export const userAdminRRS = 'test-user-admin-rrs@test.no';
 export const userAuthorRRS = 'test-user-author-rrs@test.no';
 export const userEmbargo = 'test-user-author-embargo@test.no';
-export const userPublicationCuratorMessages = 'test-user-publication-curator-messages-sintef@test-no';
-export const userDOICuratorMessages = 'test-user-doicurator-messages-sintef@test-no';
-export const userSupportCuratorMessages = 'test-user-support-curator-messages-sintef@test-no';
-export const userPublicationMessages = 'test-user-publication-messages-sintef@test-no';
-export const userDOIMessages = 'test-user-doi-messages-sintef@test-no';
-export const userSupportMessages = 'test-user-support-messages-sintef@test-no';
+export const userPublicationCuratorMessages = 'test-user-publication-curator-messages-sintef@test.no';
+export const userDOICuratorMessages = 'test-user-doicurator-messages-sintef@test.no';
+export const userSupportCuratorMessages = 'test-user-support-curator-messages-sintef@test.no';
+export const userPublicationMessages = 'test-user-publication-messages-sintef@test.no';
+export const userDOIMessages = 'test-user-doi-messages-sintef@test.no';
+export const userSupportMessages = 'test-user-support-messages-sintef@test.no';
 
 const userData = {
   name: '',
