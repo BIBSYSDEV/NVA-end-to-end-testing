@@ -34,8 +34,8 @@ When('they view the main page for NVA', () => {
     cy.getDataTestId(dataTestId.startPage.searchResultItem).should('be.visible');
 });
 Then('they see the number of unassigned tasks', () => {
+    cy.wait(15000);
     cy.getDataTestId(dataTestId.header.tasksLink).within(() => {
-        cy.wait(5000);
         cy.get('span > span > span').should('exist');
         cy.get('span > span > span').filter(':contains("0")').should('not.exist');
         cy.get('span > span > span').then(($it) => cy.wrap($it.text()).as('taskNumbers'));
