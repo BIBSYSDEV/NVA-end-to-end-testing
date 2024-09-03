@@ -7,6 +7,8 @@ const fileName = 'example.txt';
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(userFilesAndLicense);
   cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
 });
 When('they navigate to the Files and License tab', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
@@ -51,6 +53,8 @@ And('they see Save is enabled', () => {
 Given('Creator navigates to Files and License tab', () => {
   cy.login(userFilesAndLicense);
   cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
 });
 When('they wish to mark that a Resource have no File or Linked Resource', () => {
@@ -101,6 +105,8 @@ Then('they can see the file in the list of files', () => {
 Given('Creator adds a file', () => {
   cy.login(userFilesAndLicense);
   cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });
@@ -122,6 +128,8 @@ Then('they can see information about:', (dataTable) => {
 Given('Creator open a Registration with a file', () => {
   cy.login(userFilesAndLicense);
   cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });
