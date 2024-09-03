@@ -212,7 +212,7 @@ When('they enter a Project Title', () => {
 And('they select a Coordinating Institution', () => { });
 And('​they select a Project Manager', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.contributorsSearchField).type('withauthor testuser');
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('withauthor testuser');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
 });
 And('they set a Start Date', () => {

@@ -72,7 +72,7 @@ Given('User navigate to My Page and selects Project registrations', () => {
     cy.getDataTestId(dataTestId.myPage.myProjectsLink).click();
 });
 When("the User selects a Project's presentation", () => {
-    cy.get('ul > li > div > p > a').first().click();
+    cy.get('ul > li > div > div > p > a').first().click();
 });
 Then('the User is presented the Landing Page for the Project', () => {
     cy.location('pathname').should('contain', 'projects');

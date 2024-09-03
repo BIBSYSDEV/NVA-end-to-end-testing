@@ -33,6 +33,7 @@ Given('the Registration has no DOI', () => {
 When('they request a DOI', () => {
   cy.getDataTestId('doi-request-accordion', { timeOut: 30000 }).click();
   cy.getDataTestId('button-toggle-reserve-doi').click();
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
 });
 Then('they can see a reserved DOI', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.doiLink).should('be.visible');

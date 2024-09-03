@@ -25,7 +25,7 @@ const projectSearchFields = {
 };
 
 // Background:
-Given('A User is logged in', () => {});
+Given('A User is logged in', () => { });
 And('the User got one of the following roles:', () => {
   cy.login(userProjectWizard);
 });
@@ -82,21 +82,21 @@ And('the Project Wizard opens pre-filled with metadata', () => {
 });
 
 // Scenario: User starts to register a Project with a located Financing from NFR
-Given('User opens the Project Wizard to register a new Project', () => {});
-When('they activate the search field, a list of Financings where the user has a role is presented', () => {});
-And('they execute a search', () => {});
-Then('they selects a Financing', () => {});
-And('the Project Wizard opens pre-filled with metadata', () => {});
+Given('User opens the Project Wizard to register a new Project', () => { });
+When('they activate the search field, a list of Financings where the user has a role is presented', () => { });
+And('they execute a search', () => { });
+Then('they selects a Financing', () => { });
+And('the Project Wizard opens pre-filled with metadata', () => { });
 
 // Scenario: User inspects the search result from information
-Given('User opens the Project Wizard to register a new Project', () => {});
-When('the user inspects the suggested or located Financing from NFR', () => {});
-Then('the number of existing projects using the Financing is visible', () => {});
-And('the User may inspect witch projects is connected to this Financing', () => {});
+Given('User opens the Project Wizard to register a new Project', () => { });
+When('the user inspects the suggested or located Financing from NFR', () => { });
+Then('the number of existing projects using the Financing is visible', () => { });
+And('the User may inspect witch projects is connected to this Financing', () => { });
 
 // Scenario: User opens the Project Wizard and start registering a Project without Financing selected
-Given('User opens the Project Wizard to register a new Project', () => {});
-When('they open the Project Wizard to register a new Project', () => {});
+Given('User opens the Project Wizard to register a new Project', () => { });
+When('they open the Project Wizard to register a new Project', () => { });
 And('they selects Empty registration', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
@@ -169,9 +169,9 @@ And('the User have the option to save the Project', () => {
 });
 
 // Scenario Outline: User views the Projects Participants section
-Given('a User with {string}', (role) => {});
-When('they views the Participants of a Project', () => {});
-Then('they see see an option to add Project Participants', () => {});
+Given('a User with {string}', (role) => { });
+When('they views the Participants of a Project', () => { });
+Then('they see see an option to add Project Participants', () => { });
 // Examples:
 //     | Role                  |
 //     | Curator               |
@@ -186,7 +186,8 @@ Given('User views the Projects Participants section', () => {
   cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.contributorsSearchField).type(
+  cy, getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(
     'project manager testuser'
   );
   cy.contains('Project manager TestUser').click();
@@ -202,17 +203,17 @@ And('the User enter a name in a search field', () => {
 And('the User selects a User from the search results', () => {
   cy.contains('Withauthor TestUser').click();
 });
-And('the User grants this User one of the following roles:', () => {});
+And('the User grants this User one of the following roles:', () => { });
 // | Local Project Manager |
 // | Project Member        |
-Then('they see the User listed as a Project Participant with the selected role', () => {});
+Then('they see the User listed as a Project Participant with the selected role', () => { });
 
 // Scenario Outline: A User adds a new Project Manager
-Given('a User with role {string} in the project', () => {});
-When('the User selects a User from a search', () => {});
-And('the User grants this User the role:', () => {});
+Given('a User with role {string} in the project', () => { });
+When('the User selects a User from a search', () => { });
+And('the User grants this User the role:', () => { });
 // | Project Manager |
-Then('the selected User is listed as Project Manager', () => {});
+Then('the selected User is listed as Project Manager', () => { });
 // Examples:
 //     | Role            |
 //     | Curator         |
@@ -220,8 +221,8 @@ Then('the selected User is listed as Project Manager', () => {});
 //     | Project Manager |
 
 // Scenario Outline: User views Financing tab for Project
-When('a User with role {string} on the project view the Financing tab', () => {});
-Then('the add new Financing option is {string}', () => {});
+When('a User with role {string} on the project view the Financing tab', () => { });
+Then('the add new Financing option is {string}', () => { });
 // Examples:
 // | Role                  | FieldStatus |
 // | Curator               | Enabled     |
@@ -242,8 +243,8 @@ When('a User adds a new Financing', () => {
   cy.wait(2000);
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
 });
-And('the User is presented a list of Financing sources', () => {});
-And('NFR is listed first', () => {});
+And('the User is presented a list of Financing sources', () => { });
+And('NFR is listed first', () => { });
 Then('the User selects a Financing source for Project', () => {
   cy.contains('Research Council of Norway').click();
 });
@@ -256,36 +257,36 @@ And('the selected Financing source is listed', () => {
 
 // Scenario: User selects NFR as Financing source for Project
 Given('User adds a Financing source for Project', () => {
-    cy.getDataTestId(dataTestId.header.myPageLink).click();
-    cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
-    cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.description.addFundingButton).click();
-    cy.wait(5000);
-    cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
+  cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.addFundingButton).click();
+  cy.wait(5000);
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
 });
 And('the Financing source for Project is NFR', () => {
-    cy.contains('Research Council of Norway').click();
+  cy.contains('Research Council of Norway').click();
 });
-When('they activate the search field, a list of Financings where the user has a role is presented', () => {});
-Then('they selects a Financing', () => {});
+When('they activate the search field, a list of Financings where the user has a role is presented', () => { });
+Then('they selects a Financing', () => { });
 And('the selected Financing title and ID is listed', () => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.description.fundingIdField}] > div > input`).should('have.value', '285528');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.description.fundingIdField}] > div > input`).should('have.value', '285528');
 });
 
 // Scenario: User selects a non-NFR as Financing source for Project
-Given('User adds a Financing source for Project', () => {});
-And('the Financing source for Project is not NFR', () => {});
-And('the selected Financing source for Project is presented', () => {});
-And('the User is presented following fields:', () => {});
+Given('User adds a Financing source for Project', () => { });
+And('the Financing source for Project is not NFR', () => { });
+And('the selected Financing source for Project is presented', () => { });
+And('the User is presented following fields:', () => { });
 //   | Title |
 //   | ID    |
 //   | Value |
-When('the fieleds are filled in the Financing source ia stored', () => {});
-And('the add new Financing source option is activated', () => {});
+When('the fieleds are filled in the Financing source ia stored', () => { });
+And('the add new Financing source option is activated', () => { });
 
 // Scenario: Curator edit a Project in the Project Wizard
-Given("a Curator on the Project's Coordinating Institution", () => {});
-When('the Curator opens the Project in the Project Wizard', () => {});
-Then('the Curator can manage the Projects data', () => {});
+Given("a Curator on the Project's Coordinating Institution", () => { });
+When('the Curator opens the Project in the Project Wizard', () => { });
+Then('the Curator can manage the Projects data', () => { });
