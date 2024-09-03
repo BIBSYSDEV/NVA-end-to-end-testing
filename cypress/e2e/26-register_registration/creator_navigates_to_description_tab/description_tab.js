@@ -214,6 +214,7 @@ And('​they select a Project Manager', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('withauthor testuser');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
+  cy.getDataTestId(dataTestId.projectForm.selectContributorButton).click();
 });
 And('they set a Start Date', () => {
   cy.chooseDatePicker(

@@ -186,7 +186,7 @@ Given('User views the Projects Participants section', () => {
   cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
-  cy, getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(
     'project manager testuser'
   );
