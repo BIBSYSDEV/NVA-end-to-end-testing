@@ -13,7 +13,6 @@ import {
 
 // Common steps:
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Architecture"', () => {
-  cy.setLocalStorage('beta', true);
   cy.login(userResourceTypeArchitecture);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).click();
@@ -23,7 +22,6 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 
 //   Scenario: Creator navigates to the Resource Type tab And('selects Resource subtype "Architecture"
 Given('the creator wants to add an Artistic Result - Architecture', () => {
-  cy.setLocalStorage('beta', true);
   cy.login(userResourceTypeArchitecture);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).click();

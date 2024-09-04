@@ -25,7 +25,6 @@ const selectProject = (user) => {
 Given('An Anonymous User is on the NVA start page', () => {
   cy.setLocalStorage('i18nextLng', 'eng');
   cy.setLocalStorage('previouslyLoggedIn', 'true');
-  cy.setLocalStorage('beta', 'true');
   cy.visit('/', {
     auth: {
       username: Cypress.env('DEVUSER'),
@@ -48,7 +47,6 @@ Then('a search result with the Project is displayed', () => {
 When("A Anonymous User opens a Project's Landing Page", () => {
   cy.setLocalStorage('i18nextLng', 'eng');
   cy.setLocalStorage('previouslyLoggedIn', 'true');
-  cy.setLocalStorage('beta', 'true');
   cy.visit('/', {
     auth: {
       username: Cypress.env('DEVUSER'),

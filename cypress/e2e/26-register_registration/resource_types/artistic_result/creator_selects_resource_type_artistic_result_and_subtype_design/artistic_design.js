@@ -16,7 +16,6 @@ const addVenue = () => {
 
 // Common steps:
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Design"', () => {
-  cy.setLocalStorage('beta', true);
   cy.login(userDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
@@ -25,7 +24,6 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Design"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
-  cy.setLocalStorage('beta', true);
   cy.login(userDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();

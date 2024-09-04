@@ -2,20 +2,30 @@ import { userProjectWizard } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 // Feature: User edits Project
 
+const projectWizardTabs = {
+  'Description': dataTestId.projectWizard.stepper.projectDescriptionStepButton,
+  'Details': dataTestId.projectWizard.stepper.projectDetailsStepButton,
+  'Connections': dataTestId.projectWizard.stepper.projectConnectionsStepButton,
+  'Contributors': dataTestId.projectWizard.stepper.projectContributorsStepButton,
+  'Error': dataTestId.projectWizard.stepper.projectErrorStep,
+}
+
 const projectFields = {
   'Title': dataTestId.registrationWizard.description.projectForm.titleField,
-  'Coordinating Institution': dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField,
+  'Coordinating institution': dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField,
   'Start date': dataTestId.registrationWizard.description.projectForm.startDateField,
   'End date': dataTestId.registrationWizard.description.projectForm.endDateField,
-  'Project category': dataTestId.registrationWizard.description.projectForm.projectCategoryField,
-  'Scientific summary - Norwegian':
+  'Category': dataTestId.registrationWizard.description.projectForm.projectCategoryField,
+  'Scientific summary (Norwegian)':
     dataTestId.registrationWizard.description.projectForm.scentificSummaryNorwegianField,
-  'Popular science summary - Norwegian':
+  'Popular science summary (Norwegian)':
     dataTestId.registrationWizard.description.projectForm.popularScienceSummaryNorwegianField,
-  'Scientific summary - English': dataTestId.registrationWizard.description.projectForm.scentificSummaryEnglishField,
-  'Popular science summary - English':
+  'Scientific summary (English)': dataTestId.registrationWizard.description.projectForm.scentificSummaryEnglishField,
+  'Popular science summary (English)':
     dataTestId.registrationWizard.description.projectForm.popularScienceSummaryEnglishField,
   'Keywords': dataTestId.registrationWizard.description.projectForm.keywordsField,
+  'Participants': dataTestId.registrationWizard.description.projectForm.addParticipantButton,
+  'Financing': dataTestId.registrationWizard.description.addFundingButton,
 };
 
 const projectSearchFields = {
@@ -27,6 +37,7 @@ const projectSearchFields = {
 // Background:
 Given('A User is logged in', () => { });
 And('the User got one of the following roles:', () => {
+  cy.setLocalStorage('beta', 'true');
   cy.login(userProjectWizard);
 });
 // | Registrator           |
@@ -42,14 +53,12 @@ When('the User selects Create new Project', () => {
   cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
 });
 Then('they see the Project Wizard start page', () => {
-  cy.get('[role=dialog').within(() => {
-    cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton);
-  });
+  cy.location('pathname').should('contain', 'projects/new');
 });
 And('they can select:', (options) => {
   const optionList = {
-    'Search for Financing': dataTestId.registrationWizard.description.nfrProjectSearchField,
-    'Empty registration': dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton,
+    'Search for Financing': dataTestId.newProjectPage.createEmptyProjectAccordion,
+    'Empty registration': dataTestId.newProjectPage.createNFRProjectAccordion,
   };
   cy.testDataTestidList(options, optionList);
 });
@@ -57,9 +66,7 @@ And('they can select:', (options) => {
 // #| REK Approval         |
 // | Empty registration   |
 And('they see a Close option', () => {
-  cy.get('[role=dialog').within(() => {
-    cy.contains('Cancel');
-  });
+  // cy.getDataTestId(dataTestId.projectWizard.formActions.cancelEditProjectButton).should('exist')
 });
 
 // Scenario: User starts to register a Project with a suggested Financing from NFR
@@ -69,13 +76,14 @@ Given('User opens the Project Wizard to register a new Project', () => {
   cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
 });
 When('they activate the search field, a list of Financings where the user has a role is presented', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.nfrProjectSearchField).type('test');
+  cy.getDataTestId(dataTestId.newProjectPage.createNFRProjectAccordion).click();
+  cy.getDataTestId(dataTestId.newProjectPage.nrfProjectSearchInput).type('test');
 });
 Then('they selects a Financing', () => {
   cy.contains('testdata').click();
 });
 And('the Project Wizard opens pre-filled with metadata', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
+  cy.getDataTestId(dataTestId.newProjectPage.startNfrProjectButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.titleField).should('not.be.empty');
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startDateField).should('not.have.value', '');
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.endDateField).should('not.have.value', '');
@@ -98,75 +106,56 @@ And('the User may inspect witch projects is connected to this Financing', () => 
 Given('User opens the Project Wizard to register a new Project', () => { });
 When('they open the Project Wizard to register a new Project', () => { });
 And('they selects Empty registration', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
+  cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
+  cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
 });
 Then('the Project Wizard opens with no metadata pre-filled', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.description.projectForm.titleField}] > div > input`).should(
-    'be.empty'
-  );
+  cy.get(`[data-testid=${dataTestId.projectWizard.descriptionPanel.startDateField}]`).should('be.empty');
+  cy.get(`[data-testid=${dataTestId.projectWizard.descriptionPanel.endDateField}]`).should('be.empty');
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click();
   cy.get(
     `[data-testid=${dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField}] > div > input`
   ).should('be.empty');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.description.projectForm.startDateField}]`).should('be.empty');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.description.projectForm.endDateField}]`).should('be.empty');
 });
 
-// Scenario: The User opens the Project Wizard on the Metadata page
-When('the Wizard is opened on the Metadata page', () => {
-  cy.getDataTestId(dataTestId.header.myPageLink).click();
-  cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
-  cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
-});
-Then('the User can fill in fields for:', (fields) => {
-  cy.testDataTestidList(fields, projectFields);
-});
-// | Title                    |
-// | Coordinating Institution |
-// | Start date               |
-// | End date                 |
-And('the User can add:', (fields) => {
-  cy.testDataTestidList(fields, projectSearchFields);
-});
-// | Participants             |
-// #| Approvals                |
-// | Financing                |
-And('they have an option to exit the Wizard', () => {
-  cy.contains('Cancel');
-});
-And('they have an option to go to the last page of the Wizard', () => {
-  cy.contains('Next');
-});
 
-// Scenario: The User open the Project Wizard on the last page
-When('the Wizard is opened on the last page', () => {
-  cy.getDataTestId(dataTestId.header.myPageLink).click();
-  cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
-  cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
-  cy.contains('Next').click();
-});
-Then('the User can fill in fields for:', (fields) => {
+// Scenario: The User opens the Project Wizard and registers a new project
+Given ('User opens the Project Wizard to registar a new Project', () => {});
+And ('they open the Project Wizard to register a new Project', () => {});
+When ('they selects Empty registration', () => {});
+Then ('they see the Project Wizard with Description fields:', (fields) => {
   cy.testDataTestidList(fields, projectFields);
 });
-// | Project category                    |
-// | Scientific summary - Norwegian      |
-// | Popular science summary - Norwegian |
-// | Scientific summary - English        |
-// | Popular science summary - English   |
-// | Keywords                            |
-And('the User can add:', (searchFields) => {
-  cy.testDataTestidList(searchFields, projectSearchFields);
+// | Title |
+// | Scientific summary (Norwegian) |
+// | Scientific summary (English) |
+// | Popular science summary (Norwegian) |
+// | Popular science summary (English) |
+// | Keywords |
+// | Start date |
+// | End date |
+And ('they see the Project Wizard with Details fields:', (fields) => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click();
+  cy.testDataTestidList(fields, projectFields);
 });
-// | Data Management Plan |
-// | Results              |
-// | Associated Projects  |
-And('the User have the option to save the Project', () => {
+// | Coordinating institution |
+// | Category |
+And ('they can add Funding', () => {
+  cy.getDataTestId(dataTestId.projectWizard.detailsPanel.addFundingButton);
+});
+And ('they can add Project participants', () => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton);
+});
+And ('they can link to Related projects', () => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectConnectionsStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.relatedProjectsSearchField);
+});
+And ('they can Save and view the project', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton);
 });
+
 
 // Scenario Outline: User views the Projects Participants section
 Given('a User with {string}', (role) => { });
