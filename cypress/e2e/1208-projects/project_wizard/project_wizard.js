@@ -121,10 +121,10 @@ Then('the Project Wizard opens with no metadata pre-filled', () => {
 
 
 // Scenario: The User opens the Project Wizard and registers a new project
-Given ('User opens the Project Wizard to registar a new Project', () => {});
-And ('they open the Project Wizard to register a new Project', () => {});
-When ('they selects Empty registration', () => {});
-Then ('they see the Project Wizard with Description fields:', (fields) => {
+Given('User opens the Project Wizard to registar a new Project', () => { });
+And('they open the Project Wizard to register a new Project', () => { });
+When('they selects Empty registration', () => { });
+Then('they see the Project Wizard with Description fields:', (fields) => {
   cy.testDataTestidList(fields, projectFields);
 });
 // | Title |
@@ -135,67 +135,58 @@ Then ('they see the Project Wizard with Description fields:', (fields) => {
 // | Keywords |
 // | Start date |
 // | End date |
-And ('they see the Project Wizard with Details fields:', (fields) => {
+And('they see the Project Wizard with Details fields:', (fields) => {
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click();
   cy.testDataTestidList(fields, projectFields);
 });
 // | Coordinating institution |
 // | Category |
-And ('they can add Funding', () => {
+And('they can add Funding', () => {
   cy.getDataTestId(dataTestId.projectWizard.detailsPanel.addFundingButton);
 });
-And ('they can add Project participants', () => {
+And('they can add Project participants', () => {
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton);
 });
-And ('they can link to Related projects', () => {
+And('they can link to Related projects', () => {
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectConnectionsStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.relatedProjectsSearchField);
 });
-And ('they can Save and view the project', () => {
+And('they can Save and view the project', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton);
 });
 
 
-// Scenario Outline: User views the Projects Participants section
-Given('a User with {string}', (role) => { });
-When('they views the Participants of a Project', () => { });
-Then('they see see an option to add Project Participants', () => { });
-// Examples:
-//     | Role                  |
-//     | Curator               |
-//     | Project Owner         |
-//     | Project Manager       |
-//     | Local Project Manager |
 
 // Scenario: User adds a Project Participant
 Given('User views the Projects Participants section', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
   cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(
-    'project manager testuser'
-  );
-  cy.contains('Project manager TestUser').click();
+  cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
+  cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
 });
 When('the User adds a Projects Participant', () => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
 });
 And('the User enter a name in a search field', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.contributorsSearchField)
-    .last()
-    .type('withauthor testuser');
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('withauthor testuser');
 });
 And('the User selects a User from the search results', () => {
-  cy.contains('Withauthor TestUser').click();
+  cy.contains('Withauthor TestUser').parent().within(() => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+  })
 });
-And('the User grants this User one of the following roles:', () => { });
+And('the User grants this User one of the following roles:', () => {
+  cy.getDataTestId(dataTestId.projectForm.selectContributorButton).click();
+});
 // | Local Project Manager |
 // | Project Member        |
-Then('they see the User listed as a Project Participant with the selected role', () => { });
+Then('they see the User listed as a Project Participant with the selected role', () => {
+  cy.contains('Withauthor TestUser');
+});
 
 // Scenario Outline: A User adds a new Project Manager
 Given('a User with role {string} in the project', () => { });
@@ -224,12 +215,16 @@ Given('User views Financing tab for Project', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
   cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
+  cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
+  cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
 });
 When('a User adds a new Financing', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.addFundingButton).click();
-  cy.wait(2000);
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click();
+  cy.getDataTestId(dataTestId.projectWizard.detailsPanel.addFundingButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).within(() => {
+    cy.get('textarea').first().should('be.enabled');
+  })
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
 });
 And('the User is presented a list of Financing sources', () => { });
@@ -249,19 +244,27 @@ Given('User adds a Financing source for Project', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
   cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.addFundingButton).click();
-  cy.wait(5000);
-  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
+  cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
+  cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click();
+  cy.getDataTestId(dataTestId.projectWizard.detailsPanel.addFundingButton).click();
 });
 And('the Financing source for Project is NFR', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).within(() => {
+    cy.get('textarea').first().should('be.enabled');
+  })
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
   cy.contains('Research Council of Norway').click();
 });
-When('they activate the search field, a list of Financings where the user has a role is presented', () => { });
-Then('they selects a Financing', () => { });
+When('they activate the search field', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.nfrProjectSearchField).type('User Testing Tool');
+});
+Then('they selects a NFR project', () => {
+  cy.contains('User Testing Tool').click();
+});
 And('the selected Financing title and ID is listed', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.description.fundingIdField}] > div > input`).should('have.value', '285528');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.description.fundingIdField}] > div > input`).should('have.value', '222925');
 });
 
 // Scenario: User selects a non-NFR as Financing source for Project
