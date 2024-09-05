@@ -82,14 +82,14 @@ Feature: User edits Project
   @test
   Scenario: User adds a Project Participant
     Given User views the Projects Participants section
+    When the User adds a Project manager
+    And the User searches for a project manager
+    And the User selects a Project manager from the search results
+    Then they see the Person listed as Project manager
     When the User adds a Projects Participant
-    And the User enter a name in a search field
-    And the User selects a User from the search results
-    And the User grants this User one of the following roles:
-      | Local Project Manager |
-      | Project Member        |
-    Then they see the User listed as a Project Participant with the selected role
-
+    And the User searches for a Project participant
+    And the User selects a Participant from the search results
+    Then they see the Person listed as a Project Participant with the selected role
   # #Rule: The Project Owner, the Project Manager and Curator at the Coordinating Institution can grant the Project Manager role to any user, but there can only be one Project Manager at any time
   # Scenario Outline: A User adds a new Project Manager
   #     Given a User with role "<Role>" in the project

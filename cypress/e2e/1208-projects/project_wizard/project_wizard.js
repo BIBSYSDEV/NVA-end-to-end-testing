@@ -147,6 +147,7 @@ And('they can add Funding', () => {
 And('they can add Project participants', () => {
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton);
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addProjectManagerButton);
 });
 And('they can link to Related projects', () => {
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectConnectionsStepButton).click();
@@ -166,27 +167,39 @@ Given('User views the Projects Participants section', () => {
   cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
   cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
   cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
-});
-When('the User adds a Projects Participant', () => {
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
+});
+When ('the User adds a Project manager', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addProjectManagerButton).click();
+});
+And ('the User searches for a project manager', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Project manager testuser');
+});
+And ('the User selects a Project manager from the search results', () => {
+  cy.contains('Project manager TestUser').parent().within(() => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+  })
+  cy.getDataTestId(dataTestId.projectForm.addProjectManagerButton).last().click();
+});
+Then ('they see the Person listed as Project manager', () => {
+  cy.contains('Project manager TestUser');
+});
+When ('the User adds a Projects Participant', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
 });
-And('the User enter a name in a search field', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('withauthor testuser');
+And ('the User searches for a Project participant', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Withauthor testuser');
 });
-And('the User selects a User from the search results', () => {
+And ('the User selects a Participant from the search results', () => {
   cy.contains('Withauthor TestUser').parent().within(() => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
   })
-});
-And('the User grants this User one of the following roles:', () => {
   cy.getDataTestId(dataTestId.projectForm.selectContributorButton).click();
 });
-// | Local Project Manager |
-// | Project Member        |
-Then('they see the User listed as a Project Participant with the selected role', () => {
+Then ('they see the Person listed as a Project Participant with the selected role', () => {
   cy.contains('Withauthor TestUser');
 });
+
 
 // Scenario Outline: A User adds a new Project Manager
 Given('a User with role {string} in the project', () => { });
