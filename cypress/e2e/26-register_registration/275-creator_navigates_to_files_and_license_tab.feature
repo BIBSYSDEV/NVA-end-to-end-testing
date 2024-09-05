@@ -14,18 +14,6 @@ Feature: Creator navigates to Files and License tab
     And they see Previous is enabled
     And they see Save is enabled
 
-  # Scenario Outline: Creator looks up a valid Link as a Linked Resource
-  #   Given Creator navigates to Files and License tab
-  #   When they enter "<Link>" in the Linked Resource field
-  #   And they click the Add Link Button
-  #   Then the Link is listed under Linked Resources
-  #   And they see that the URL is "<URL>"
-  #   And they see a Button to remove the Link
-  #   Examples:
-  #     | Link                                      |
-  #     | https://github.com/BIBSYSDEV/NVA-Frontend |
-  #     | https://www.nrk.no/                       |
-
   @test
   Scenario: Creator marks that a Resource has no File or Linked Resource
     Given Creator navigates to Files and License tab
@@ -39,17 +27,6 @@ Feature: Creator navigates to Files and License tab
     When they upload a File
     And they mark the File with Administrative Agreement
     Then the File is not presented on the Landing Page
-
-  # @test
-  # Scenario Outline: Creator looks up an invalid Link as Linked Resource
-  #   Given Creator navigates to Files and License tab
-  #   When they enter "<Link>" in the Linked Resource field
-  #   And they click the Add Link Button
-  #   Then they see an error message that the Link could not be added
-
-    # Examples:
-    #   | Link                       |
-    #   | https://github.com/xxx/yyy |
 
   @test
   Scenario: Creator adds a file

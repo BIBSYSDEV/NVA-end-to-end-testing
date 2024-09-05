@@ -7,7 +7,7 @@ Feature: User sees menu
         Then they see the Log in Button
         And they see the Language selector
 
-    # @test
+    @test
     Scenario: User have option to log out
         Given that the user is logged in
         When they look at any page in NVA

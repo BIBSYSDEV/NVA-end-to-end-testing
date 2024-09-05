@@ -132,18 +132,18 @@ Feature: User edits Project
     When they activate the search field
     Then they selects a NFR project
     And the selected Financing title and ID is listed
-#   # Scenario: User selects a non-NFR as Financing source for Project
-#   #     Given User adds a Financing source for Project
-#   #     And the Financing source for Project is not NFR
-#   #     And the selected Financing source for Project is presented
-#   #     And the User is presented following fields:
-#   #         | Title |
-#   #         | ID    |
-#   #         | Value |
-#   #     When the fieleds are filled in the Financing source ia stored
-#   #     And the add new Financing source option is activated
-#   # #Rule: The Projects Coordinating Institution grants it's Curators access to the project
-#   # Scenario: Curator edit a Project in the Project Wizard
-#   #     Given a Curator on the Project's Coordinating Institution
-#   #     When the Curator opens the Project in the Project Wizard
-#   #     Then the Curator can manage the Projects data
+  # Scenario: User selects a non-NFR as Financing source for Project
+  #     Given User adds a Financing source for Project
+  #     And the Financing source for Project is not NFR
+  #     And the selected Financing source for Project is presented
+  #     And the User is presented following fields:
+  #         | Title |
+  #         | ID    |
+  #         | Value |
+  #     When the fieleds are filled in the Financing source ia stored
+  #     And the add new Financing source option is activated
+  # #Rule: The Projects Coordinating Institution grants it's Curators access to the project
+  # Scenario: Curator edit a Project in the Project Wizard
+  #     Given a Curator on the Project's Coordinating Institution
+  #     When the Curator opens the Project in the Project Wizard
+  #     Then the Curator can manage the Projects data

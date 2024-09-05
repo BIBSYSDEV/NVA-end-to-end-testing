@@ -66,28 +66,6 @@ Feature: Project Landing Page
             | Project Manager |
     # | Local Project Manager |
 
-    # Scenario Outline: Privileged user sees Delete button for Project
-    #     Given User opens Landing Page for Project
-    #     When the User has the "<Role>" role for the project
-    #     Then they can see a Delete button
-    #     Examples:
-    #         | Role            |
-    #         | Curator         |
-    #         | Project Owner   |
-    #         | Project Manager |
-
-    # Scenario: Privileged user clicks the Delete Button for a Project
-    #     Given Privileged user sees Delete button for Project
-    #     When they click the Delete Button
-    #     Then they see a Confirm Dialog
-
-    # Scenario: Privileged user deletes a Project
-    #     Given Privileged user clicks the Delete Button for a Project
-    #     When they Confirm the action
-    #     Then the Confirm Dialog is closed
-    #     And the Project is marked deleted
-    #     And The Project is removed from the Projects list
-
     @test
     Scenario: User expand Summary for a Project
         Given User opens Landing Page for Project

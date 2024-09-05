@@ -5,6 +5,7 @@ import {
   adminUser,
   userInstAdminWithAuthor,
   userEditor,
+  userWithAuthor,
 } from '../../../support/constants';
 import {
   adminMenu,
@@ -53,6 +54,7 @@ Then('they see the Log in Button', () => {
 
 // Scenario: User have option to log out
 Then('they have an option to log out', () => {
+  cy.login(userWithAuthor);
   cy.getDataTestId(dataTestId.header.menuButton).should('exist');
   cy.getDataTestId(dataTestId.header.menuButton).click();
   cy.getDataTestId(dataTestId.header.logOutLink).should('be.visible');
