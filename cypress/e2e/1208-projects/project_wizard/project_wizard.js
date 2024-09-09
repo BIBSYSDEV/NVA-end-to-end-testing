@@ -89,18 +89,6 @@ And('the Project Wizard opens pre-filled with metadata', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.endDateField).should('not.have.value', '');
 });
 
-// Scenario: User starts to register a Project with a located Financing from NFR
-Given('User opens the Project Wizard to register a new Project', () => { });
-When('they activate the search field, a list of Financings where the user has a role is presented', () => { });
-And('they execute a search', () => { });
-Then('they selects a Financing', () => { });
-And('the Project Wizard opens pre-filled with metadata', () => { });
-
-// Scenario: User inspects the search result from information
-Given('User opens the Project Wizard to register a new Project', () => { });
-When('the user inspects the suggested or located Financing from NFR', () => { });
-Then('the number of existing projects using the Financing is visible', () => { });
-And('the User may inspect witch projects is connected to this Financing', () => { });
 
 // Scenario: User opens the Project Wizard and start registering a Project without Financing selected
 Given('User opens the Project Wizard to register a new Project', () => { });
@@ -169,59 +157,252 @@ Given('User views the Projects Participants section', () => {
   cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
 });
-When ('the User adds a Project manager', () => {
+When('the User adds a Project manager', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addProjectManagerButton).click();
 });
-And ('the User searches for a project manager', () => {
+And('the User searches for a project manager', () => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Project manager testuser');
 });
-And ('the User selects a Project manager from the search results', () => {
+And('the User selects a Project manager from the search results', () => {
   cy.contains('Project manager TestUser').parent().within(() => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
-  })
+  });
   cy.getDataTestId(dataTestId.projectForm.addProjectManagerButton).last().click();
 });
-Then ('they see the Person listed as Project manager', () => {
+Then('they see the Person listed as Project manager', () => {
   cy.contains('Project manager TestUser');
 });
-When ('the User adds a Projects Participant', () => {
+When('the User adds a Projects Participant', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
 });
-And ('the User searches for a Project participant', () => {
+And('the User searches for a Project participant', () => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Withauthor testuser');
 });
-And ('the User selects a Participant from the search results', () => {
+And('the User selects a Participant from the search results', () => {
   cy.contains('Withauthor TestUser').parent().within(() => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
-  })
+  });
   cy.getDataTestId(dataTestId.projectForm.selectContributorButton).click();
 });
-Then ('they see the Person listed as a Project Participant with the selected role', () => {
+Then('they see the Person listed as a Project Participant with the selected role', () => {
   cy.contains('Withauthor TestUser');
 });
 
+const TITLE = 'Title';
+const SCIENTIFIC_SUMMARY_NORWEGIAN = 'Scientific summary (Norwegian)';
+const SCIENTIFIC_SUMMARY_ENGLISH = 'Scientific summary (English)';
+const POPULAR_SCIENCE_SUMMARY_NORWEGIAN = 'Popular science summary (Norwegian)';
+const POPULAR_SCIENCE_SUMMARY_ENGLISH = 'Popular science summary (English)';
+const KEYWORDS = 'Keywords';
+const START_DATE = 'Start date';
+const END_DATE = 'End date';
 
-// Scenario Outline: A User adds a new Project Manager
-Given('a User with role {string} in the project', () => { });
-When('the User selects a User from a search', () => { });
-And('the User grants this User the role:', () => { });
-// | Project Manager |
-Then('the selected User is listed as Project Manager', () => { });
-// Examples:
-//     | Role            |
-//     | Curator         |
-//     | Project Owner   |
-//     | Project Manager |
 
-// Scenario Outline: User views Financing tab for Project
-When('a User with role {string} on the project view the Financing tab', () => { });
-Then('the add new Financing option is {string}', () => { });
-// Examples:
-// | Role                  | FieldStatus |
-// | Curator               | Enabled     |
-// | Project Owner         | Enabled     |
-// | Project Manager       | Enabled     |
-// | Local Project Manager | Disabled    |
+const descriptionFields = {
+  'Title': {
+    value: 'E2E test project',
+    dataTestId: dataTestId.projectWizard.descriptionPanel.titleField,
+  },
+  'Scientific summary (Norwegian)': {
+    value: 'Scientific summary (Norwegian)',
+    dataTestId: dataTestId.projectWizard.descriptionPanel.scientificSummaryNorwegianField,
+  },
+  'Scientific summary (English)': {
+    value: 'Scientific summary (English)',
+    dataTestId: dataTestId.projectWizard.descriptionPanel.scientificSummaryEnglishField,
+  },
+  'Popular science summary (Norwegian)': {
+    value: 'Popular science summary (Norwegian)',
+    dataTestId: dataTestId.projectWizard.descriptionPanel.popularScienceSummaryNorwegianField,
+  },
+  'Popular science summary (English)': {
+    value: 'Popular science summary (English)',
+    dataTestId: dataTestId.projectWizard.descriptionPanel.popularScienceSummaryEnglishField,
+  },
+  'Keywords': {
+    value: 'Odontologi',
+    dataTestId: dataTestId.projectWizard.descriptionPanel.keywordsField,
+  },
+  'Start date': {
+    value: '01.01.2024',
+    dataTestId: dataTestId.projectWizard.descriptionPanel.startDateField,
+  },
+  'End date': {
+    value: '01.02.2024',
+    dataTestId: dataTestId.projectWizard.descriptionPanel.endDateField,
+  },
+}
+
+const detailsFields = {
+  'Coordinating institution': {
+    value: 'Sikt - Norwegian Agency',
+    dataTestId: dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField,
+  },
+  'Category': {
+    value: 'Basic Research',
+    dataTestId: dataTestId.projectWizard.detailsPanel.projectCategoryField,
+  },
+  'Funding': {
+    value: 'User Testing Tool',
+    dataTestId: dataTestId.projectWizard.detailsPanel.addFundingButton,
+  },
+}
+
+const projectManager = 'Project manager TestUser';
+const projectParticipant = 'Withauthor TestUser';
+const linkedProject = 'Project for testing 20230512'
+const SIKT = 'Sikt - Norwegian Agency for Shared Services in Education and Research';
+const NFR = 'Research Council of Norway';
+
+// Scenario: User sees that a Project is created with correct values
+Given('User opens the Project Wizard to register a new Project', () => { });
+When('they fill inn values for Description:', (fields) => {
+  cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type(descriptionFields['Title'].value);
+  cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectDescriptionStepButton).click();
+  fields.rawTable.forEach(value => {
+    const field = value[0];
+    if (field === 'Keywords') {
+      cy.getDataTestId(descriptionFields[field].dataTestId).type(descriptionFields[field].value);
+      cy.contains(descriptionFields[field].value).click();
+    } else if (field === 'Start date') {
+      cy.chooseDatePicker(`[data-testid=${descriptionFields[field].dataTestId}]`, descriptionFields[field].value);
+    } else if (field === 'End date') {
+      cy.chooseDatePicker(`[data-testid=${descriptionFields[field].dataTestId}]`, descriptionFields[field].value);
+    } else if (field !== 'Title') {
+      cy.getDataTestId(descriptionFields[field].dataTestId).type(descriptionFields[field].value);
+    }
+  });
+});
+// | Title                               |
+// | Scientific summary (Norwegian)      |
+// | Scientific summary (English)        |
+// | Popular science summary (Norwegian) |
+// | Popular science summary (English)   |
+// | Keywords                            |
+// | Start date                          |
+// | End date                            |
+And('they fill inn values for Details:', () => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click();
+  cy.getDataTestId(detailsFields['Coordinating institution'].dataTestId).type(detailsFields['Coordinating institution'].value);
+  cy.contains(detailsFields['Coordinating institution'].value).click();
+  cy.getDataTestId(detailsFields['Category'].dataTestId).type(detailsFields['Category'].value);
+  cy.contains(detailsFields['Category'].value).click();
+  cy.getDataTestId(detailsFields['Funding'].dataTestId).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).within(() => {
+    cy.get('textarea').first().should('be.enabled');
+  });
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
+  cy.contains(NFR).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.nfrProjectSearchField).type(detailsFields['Funding'].value);
+  cy.contains(detailsFields['Funding'].value).click();
+});
+// | Coordinating institution |
+// | Category                 |
+// | Funding                  |
+And('they add Participants', () => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addProjectManagerButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(projectManager);
+  cy.contains(projectManager).parent().within(() => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+  });
+  cy.getDataTestId(dataTestId.projectForm.addProjectManagerButton).last().click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(projectParticipant);
+  cy.contains(projectParticipant).parent().within(() => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+  });
+  cy.getDataTestId(dataTestId.projectForm.selectContributorButton).last().click();
+});
+And('they add Connections', () => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectConnectionsStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.relatedProjectsSearchField).type('project for testing');
+  cy.contains(linkedProject).click();
+});
+And('they save the Project', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton).click();
+  cy.contains('Project created');
+});
+Then('they see all the filled inn values on the Project presentation page', () => {
+  cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).click();
+  cy.getDataTestId(dataTestId.projectLandingPage.relatedProjectsAccordion).click();
+  cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
+  cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
+  const landingPageDescriptionFields = [
+    TITLE,
+    SCIENTIFIC_SUMMARY_ENGLISH,
+    POPULAR_SCIENCE_SUMMARY_ENGLISH,
+    KEYWORDS,
+    START_DATE,
+    END_DATE,
+  ];
+  landingPageDescriptionFields.forEach(field => cy.contains(descriptionFields[field].value));
+  cy.contains(projectManager);
+  cy.contains(projectParticipant);
+  cy.contains(detailsFields['Coordinating institution'].value);
+  cy.contains(detailsFields['Category'].value);
+  cy.contains(NFR);
+  cy.contains(linkedProject);
+});
+When('they edit the Project', () => {
+  cy.getDataTestId(dataTestId.projectLandingPage.editProjectButton).click();
+});
+Then('they see the values on the Description page is the same that they filled in', (fields) => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectDescriptionStepButton).click();
+  fields.rawTable.forEach(value => {
+    const field = value[0];
+    if (field === 'Start date' || field === 'End date') {
+      cy.getDataTestId(descriptionFields[field].dataTestId).should('have.value', descriptionFields[field].value);
+    } else {
+      cy.contains(descriptionFields[field].value);
+    }
+  })
+});
+// | Title                               |
+// | Scientific summary (Norwegian)      |aw
+// | Scientific summary (English)        |
+// | Popular science summary (Norwegian) |
+// | Popular science summary (English)   |
+// | Keywords                            |
+// | Start date                          |
+// | End date                            |
+And('they see the values on the Details page is the same that they filled in', (fields) => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click();
+  fields.rawTable.forEach(value => {
+    const field = value[0];
+    switch (field) {
+      case 'Coordinating institution':
+        cy.getDataTestId(detailsFields[field].dataTestId).within(() => {
+          cy.get('div > input').should('have.value', SIKT);
+        });
+        break;
+      case 'Category':
+        cy.getDataTestId(detailsFields[field].dataTestId).should('contain', detailsFields[field].value);
+        break;
+      case 'Funding':
+        cy.getDataTestId(dataTestId.projectWizard.detailsPanel.fundingIdField).within(() => {
+          cy.get('div > input').should('have.value', '222925');
+        })
+        break;
+    }
+  })
+
+});
+// | Coordinating institution |
+// | Category                 |
+// | Funding                  |
+And('they see the Participants they added', () => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
+  cy.contains(projectManager);
+  cy.contains(projectParticipant);
+ });
+And('they see the Connections they added', () => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectConnectionsStepButton).click();
+  cy.contains(linkedProject);
+});
+
 
 // Scenario: User adds a Financing source for Project
 Given('User views Financing tab for Project', () => {
@@ -237,7 +418,7 @@ When('a User adds a new Financing', () => {
   cy.getDataTestId(dataTestId.projectWizard.detailsPanel.addFundingButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).within(() => {
     cy.get('textarea').first().should('be.enabled');
-  })
+  });
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
 });
 And('the User is presented a list of Financing sources', () => { });
@@ -266,7 +447,7 @@ Given('User adds a Financing source for Project', () => {
 And('the Financing source for Project is NFR', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).within(() => {
     cy.get('textarea').first().should('be.enabled');
-  })
+  });
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
   cy.contains('Research Council of Norway').click();
 });
