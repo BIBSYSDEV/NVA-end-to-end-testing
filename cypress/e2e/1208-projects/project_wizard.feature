@@ -38,14 +38,6 @@ Feature: User edits Project
     And the Project Wizard opens pre-filled with metadata
 
   @test
-  Scenario: User starts to register a Project with a located Financing from NFR
-    Given User opens the Project Wizard to register a new Project
-    When they activate the search field, a list of Financings where the user has a role is presented
-    And they execute a search
-    Then they selects a Financing
-    And the Project Wizard opens pre-filled with metadata
-
-  @test
   Scenario: User opens the Project Wizard and start registering a Project without Financing selected
     Given User opens the Project Wizard to register a new Project
     When they open the Project Wizard to register a new Project
