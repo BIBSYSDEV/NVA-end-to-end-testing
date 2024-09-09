@@ -248,7 +248,7 @@ const detailsFields = {
   },
 }
 
-const projectManager = 'Project manager TestUser';
+const projectManager = 'Project Wizard TestUser';
 const projectParticipant = 'Withauthor TestUser';
 const linkedProject = 'Project for testing 20230512'
 const SIKT = 'Sikt - Norwegian Agency for Shared Services in Education and Research';

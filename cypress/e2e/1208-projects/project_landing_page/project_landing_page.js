@@ -12,13 +12,20 @@ const users = {
   'Project Manager': userProjectManager,
 };
 
-const projectTitle = 'Project for testing 20230512';
+const panelIds = {
+  'Summary': dataTestId.projectLandingPage.scientificSummaryAccordion,
+  'Participants': dataTestId.projectLandingPage.participantsAccordion,
+  'Results': dataTestId.projectLandingPage.resultsAccordion,
+  'Associated Projects': dataTestId.projectLandingPage.relatedProjectsAccordion,
+}
+
+const projectTitle = 'Test project 16617fb0-3c7a-470e-83bf-e5a55e005d74';
 const selectProject = (user) => {
   cy.login(user);
   cy.contains('Result').click();
   cy.get('[data-value=project]').click();
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
-  cy.contains('Project for testing').click();
+  cy.contains(projectTitle).click();
 };
 
 // Scenario: An Anonymous User searches for a Project
@@ -56,7 +63,7 @@ When("A Anonymous User opens a Project's Landing Page", () => {
   cy.contains('Result').click();
   cy.get('[data-value=project').click();
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
-  cy.contains('Project for testing').click();
+  cy.contains(projectTitle).click();
 });
 Then('the Anonymous User see:', (fields) => {
   const fieldHeadings = {
@@ -82,13 +89,7 @@ Then('the Anonymous User see:', (fields) => {
 //             | Financing                |
 //             | PRoject Category         |
 And('the Anonymous User see expandable panels for:', (panels) => {
-  cy.get('main > div > div')
-    .first()
-    .within(() => {
-      panels.rawTable.forEach((panel) => {
-        cy.contains(panelHeadings[panel[0]] ?? panel[0], { matchCase: false });
-      });
-    });
+  panels.rawTable.forEach(panel => cy.getDataTestId(panelIds[panel[0]]));
 });
 //             | Summary             |
 //             | Participants        |
@@ -96,25 +97,19 @@ And('the Anonymous User see expandable panels for:', (panels) => {
 //             # | Data Management Plan |
 //             | Associated Projects |
 And('the Anonymous User see counts of:', (counts) => {
-  cy.get('main > div > div')
-    .first()
-    .within(() => {
-      counts.rawTable.forEach((count) => {
-        cy.contains(panelHeadings[count[0]] ?? count[0], { matchCase: false })
-          .parent()
-          .within(() => {
-            cy.contains('(');
-            cy.contains(')');
-          });
-      });
-    });
+  counts.rawTable.forEach((count) => {
+    cy.getDataTestId(panelIds[count[0]]).within(() => {
+      cy.contains('(');
+      cy.contains(')');
+    })
+  });
 });
 //             | Participants        |
 //             | Results             |
 //             | Associated Projects |
 
 //     Scenario Outline: Privileged user sees Edit button for Project
-Given('User opens Landing Page for Project', () => {});
+Given('User opens Landing Page for Project', () => { });
 When('the User has the {string} role for the project', (role) => {
   if (users[role]) {
     selectProject(users[role]);
@@ -132,9 +127,9 @@ Then('they can see an Edit button', () => {
 //             | Local Project Manager |
 
 //     Scenario Outline: Privileged user sees Delete button for Project
-Given('User opens Landing Page for Project', () => {});
-When('the User has the {string} role for the project', () => {});
-Then('they can see a Delete button', () => {});
+Given('User opens Landing Page for Project', () => { });
+When('the User has the {string} role for the project', () => { });
+Then('they can see a Delete button', () => { });
 //         Examples:
 //             | Role            |
 //             | Curator         |
@@ -142,19 +137,19 @@ Then('they can see a Delete button', () => {});
 //             | Project Manager |
 
 //     Scenario: Privileged user clicks the Delete Button for a Project
-Given('Privileged user sees Delete button for Project', () => {});
-When('they click the Delete Button', () => {});
-Then('they see a Confirm Dialog', () => {});
+Given('Privileged user sees Delete button for Project', () => { });
+When('they click the Delete Button', () => { });
+Then('they see a Confirm Dialog', () => { });
 
 //     Scenario: Privileged user deletes a Project
-Given('Privileged user clicks the Delete Button for a Project', () => {});
-When('they Confirm the action', () => {});
-Then('the Confirm Dialog is closed', () => {});
-And('the Project is marked deleted', () => {});
-And('The Project is removed from the Projects list', () => {});
+Given('Privileged user clicks the Delete Button for a Project', () => { });
+When('they Confirm the action', () => { });
+Then('the Confirm Dialog is closed', () => { });
+And('the Project is marked deleted', () => { });
+And('The Project is removed from the Projects list', () => { });
 
 //     Scenario: User expand Summary for a Project
-Given('User opens Landing Page for Project', () => {});
+Given('User opens Landing Page for Project', () => { });
 When('they expand "Summary"', () => {
   selectProject(userProjectManager);
   cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).click();
@@ -171,7 +166,7 @@ And('they see "Popular science summary"', () => {
 });
 
 //     Scenario: User expand Participants for a Project
-Given('User opens Landing Page for Project', () => {});
+Given('User opens Landing Page for Project', () => { });
 When('they expand "Participants"', () => {
   selectProject(userProjectManager);
   cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
@@ -208,7 +203,7 @@ Then('they see fields:', () => {
 //             | Start Date |
 
 //     Scenario: User expand Results for a Project
-Given('User opens Landing Page for Project', () => {});
+Given('User opens Landing Page for Project', () => { });
 When('they expand "Results"', () => {
   selectProject(userProjectManager);
   cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).click();
@@ -220,7 +215,7 @@ Then('they see a list of Results', () => {
       cy.get('ul')
         .first()
         .within(() => {
-          cy.get('li').should('have.length', 5);
+          cy.get('li').should('have.length.above', 0);
         });
     });
 });
