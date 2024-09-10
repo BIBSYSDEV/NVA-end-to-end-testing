@@ -30,9 +30,9 @@ And('the User has an option to create a new project', () => {
     cy.getDataTestId(dataTestId.myPage.createProjectButton);
 });
 And('the User see a search field to locate projects', () => { });
-And('the User can select a list of Active Projects', () => {});
-And('the User can select a list of Concluded Projects', () => {});
-And('the User can select a list of Draft Projects', () => {});
+And('the User can select a list of Active Projects', () => { });
+And('the User can select a list of Concluded Projects', () => { });
+And('the User can select a list of Draft Projects', () => { });
 
 // Scenario: User inspects a listed Project
 Given('User navigate to My Page and selects Project registrations', () => {
@@ -46,7 +46,7 @@ Then("the User see can see each Project's:", (info) => {
     const projectInfo = {
         'Title': 'E2E test project',
         'Project participants': 'Project manager TestUser',
-        'Coordinating Institution': 'Unit - Norwegian Agency for Shared Services in Education and Research',
+        'Coordinating Institution': 'Sikt - Norwegian Agency for Shared Services in Education and Research',
     }
     cy.get('@project').within(() => {
         info.rawTable.forEach(element => {
@@ -91,6 +91,6 @@ Then('the Project is opend in the Project Wizard', () => {
 // Scenario: User search in My Projects
 When('a User enter a search term in the search field on My Projects', () => { });
 Then("the User see Projects matching the search term in the Project's:", () => { });
-            // | Title                    |
-            // | Coordinating Institution |
-            // | Participants             |
+// | Title                    |
+// | Coordinating Institution |
+// | Participants             |
