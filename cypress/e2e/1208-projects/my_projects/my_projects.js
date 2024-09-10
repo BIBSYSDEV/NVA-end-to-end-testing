@@ -44,9 +44,9 @@ When('the User inspects a listed project', () => {
 });
 Then("the User see can see each Project's:", (info) => {
     const projectInfo = {
-        'Title': 'Test project 16617fb0-3c7a-470e-83bf-e5a55e005d74',
-        'Project participants': 'Project Wizard TestUser',
-        'Coordinating Institution': 'Sikt - Norwegian Agency for Shared Services in Education and Research',
+        'Title': 'E2E test project',
+        'Project participants': 'Project manager TestUser',
+        'Coordinating Institution': 'Unit - Norwegian Agency for Shared Services in Education and Research',
     }
     cy.get('@project').within(() => {
         info.rawTable.forEach(element => {

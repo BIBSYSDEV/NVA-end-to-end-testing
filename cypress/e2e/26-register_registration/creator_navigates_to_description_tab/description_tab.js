@@ -211,10 +211,10 @@ When('they enter a Project Title', () => {
 });
 And('they select a Coordinating Institution', () => { });
 And('​they select a Project Manager', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addProjectManagerButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('withauthor testuser');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
-  cy.getDataTestId(dataTestId.projectForm.selectContributorButton).click();
+  cy.getDataTestId(dataTestId.projectForm.addProjectManagerButton).last().click();
 });
 And('they set a Start Date', () => {
   cy.chooseDatePicker(
@@ -240,7 +240,9 @@ Then('the Dialog is closed', () => {
 And('they see a confirmation message that the Project was created', () => {
   cy.getDataTestId('snackbar-success');
 });
-And('they see the Project is listed under Project Associations', () => { });
+And('they see the Project is listed under Project Associations', () => {
+  cy.contains('Project title');
+ });
 
 // Scenario: Creator adds funding
 And('they add funding', () => {
