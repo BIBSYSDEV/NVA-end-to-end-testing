@@ -193,10 +193,11 @@ And('the NVI candidate is still a candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
     cy.getDataTestId('CancelIcon').click();
   });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('ACS Chemical Biology');
-  cy.contains('ACS Chemical Biology').last().click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('ACM Journal of Data and Information Quality');
+  cy.contains('ACM Journal of Data and Information Quality (Print ISSN: 1936-1955, Online ISSN: 1936-1963)').last().click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.contains('Updated registration');
   cy.wait(10000);
 });
@@ -215,5 +216,5 @@ Then('reset the approval status for all involved institutions for the NVI candid
   });
 });
 And('the points should be updated according to the new factors', () => {
-  cy.contains('3.0');
+  cy.contains('1.0');
 });

@@ -107,3 +107,12 @@ Feature: Validation of an NVI resource
 		And the NVI candidate is still a candidate
 		Then reset the approval status for all involved institutions for the NVI candidate.
 		And the points should be updated according to the new factors
+
+	# Scenario: Creator can not change certain values in an approved NVI candidate
+	# 	Given a User without Curator role
+	# 	And a NVI candidate in an open NVI reporting period that is approved by all involved institutions
+	# 	When they edit the NVI candidate
+	# 	Then they are not allowed to change:
+	# 		| Publication channel    |
+	# 		| Publication date       |
+	# 		| Validated contributors |
