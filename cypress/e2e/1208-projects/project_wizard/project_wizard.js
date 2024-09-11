@@ -66,7 +66,7 @@ And('they can select:', (options) => {
 // #| REK Approval         |
 // | Empty registration   |
 And('they see a Close option', () => {
-  // cy.getDataTestId(dataTestId.projectWizard.formActions.cancelEditProjectButton).should('exist')
+  cy.getDataTestId(dataTestId.projectForm.cancelNewProjectButton).should('exist');
 });
 
 // Scenario: User starts to register a Project with a suggested Financing from NFR
@@ -476,3 +476,39 @@ And('the add new Financing source option is activated', () => { });
 Given("a Curator on the Project's Coordinating Institution", () => { });
 When('the Curator opens the Project in the Project Wizard', () => { });
 Then('the Curator can manage the Projects data', () => { });
+
+const participants = {
+  'Project manager': {
+    name: 'Project manager TestUser',
+    add: () => cy.getDataTestId(dataTestId.projectForm.addProjectManagerButton).click(),
+    selectData: () => cy.getDataTestId(dataTestId.projectForm.addProjectManagerButton).last().click(),
+  },
+  'Project participant': {
+    name: 'Project WIzard TestUser',
+    add: () => cy.getDataTestId(dataTestId.projectForm.addParticipantButton).click(),
+    selectData: () => cy.getDataTestId(dataTestId.projectForm.selectContributorButton).click(),
+  }
+}
+
+// Scenario: User selects a sub-unit for a Participants
+Given ('User opens the Project Wizard to registar a new Project', () => {});
+When ('they add Participants for:', (roles) => {
+  cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type(descriptionFields['Title'].value);
+  cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
+  roles.rawTable.forEach(role => {
+    const participant = role[0];
+    participants[participant].add();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(participants[participant].name);
+    cy.contains(participants[participant].name).parent().within(() => {
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+    });
+     participants[participant].selectData(); 
+  })
+});
+  // | Project manager     |
+  // | Project participant |
+Then ('they can set the affiliation of the Participants to a sub-unit:', () => {});
+  // | Project manager     |
+  // | Project participant |
