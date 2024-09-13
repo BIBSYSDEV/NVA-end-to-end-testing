@@ -46,7 +46,7 @@ Then('the Curator see that the Worklist is Scoped', () => {
       cy.contains('Sikt');
     } else {
       cy.get('[value=BIBSYS]');
-      cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+      // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     }
   })
 });
@@ -68,7 +68,7 @@ When('{string} clicks on Requests of type {string}', (user, type) => {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   } else {
     cy.get('[value=BIBSYS]');
-    cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+    // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   }
 });
 Then('Curator see a list of Requests displayed with:', (dataTable) => {
@@ -177,7 +177,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     });
   } else {
     cy.get('[value=BIBSYS]');
-    cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+    // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   }
@@ -328,7 +328,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.login(userCurator2);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
-  cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+  // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId('message-field').last().type(`${curatorAnswer}{enter}`);
