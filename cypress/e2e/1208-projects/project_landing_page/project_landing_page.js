@@ -117,7 +117,6 @@ When('the User has the {string} role for the project', (role) => {
 });
 Then('they can see an Edit button', () => {
   cy.getDataTestId(dataTestId.projectLandingPage.editProjectButton).should('be.visible');
-  cy.getDataTestId(dataTestId.projectLandingPage.editProjectButton).should('be.enabled');
 });
 //         Examples:
 //             | Role                  |

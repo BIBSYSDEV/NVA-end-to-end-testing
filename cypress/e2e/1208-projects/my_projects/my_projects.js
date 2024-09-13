@@ -85,7 +85,7 @@ When('the User activate the option to Edit a project', () => {
     cy.getDataTestId('EditIcon').first().click();
 });
 Then('the Project is opend in the Project Wizard', () => {
-    cy.contains('Edit project');
+    cy.location('pathname').should('contain', '/edit');
 });
 
 // Scenario: User search in My Projects

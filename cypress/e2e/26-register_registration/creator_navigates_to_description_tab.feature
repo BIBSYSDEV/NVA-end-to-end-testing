@@ -73,27 +73,18 @@ Feature: Creator navigates to Description tab
   Scenario: Creator opens Dialog for creating a new Project
     Given Creator begins Wizard registration and navigates to Description tab
     When they click Button for creating a new Project
-    Then they see a Dialog with input fields:
-      | Project Title            |
-      | Coordinating Institution |
-      | Project Manager          |
-      | Start Date               |
-    # | Internal reference       |
-    And they see a Cancel Button
-    And they see a Save Button
+    Then they see the Project wizard
 
   @test
   Scenario: Creator creates a new Project
     Given Creator opens Dialog for creating a new Project
     When they enter a Project Title
-    And they select a Coordinating Institution
-    And ​they select a Project Manager
     And they set a Start Date
     And they set a End Date
+    And they select a Coordinating Institution
+    And ​they select a Project Manager
     And they click Save
-    Then the Dialog is closed
-    And they see a confirmation message that the Project was created
-    And they see the Project is listed under Project Associations
+    Then the landing page for the Project is presented
 
   @test
   Scenario: Creator adds funding

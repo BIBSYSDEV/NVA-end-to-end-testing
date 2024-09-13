@@ -179,38 +179,32 @@ const projectFields = {
 
 // Scenario: Creator opens Dialog for creating a new Project
 When('they click Button for creating a new Project', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.createProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.createProjectButton).invoke('removeAttr', 'target').click();
+  cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
+  cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
 });
-Then('they see a Dialog with input fields:', (dataTable) => {
-  cy.testDataTestidList(dataTable, projectFields);
-});
-// | Project Title            |
-// | Coordinating Institution |
-// | Project Manager          |
-// | Start Date               |
-// | Internal reference       |
-And('they see a Cancel Button', () => {
-  cy.get('button').filter(':contains("Cancel")');
-});
-And('they see a Save Button', () => {
-  cy.get('button').filter(':contains("Next")').click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton);
+Then('they see the Project wizard', () => {
+  cy.location('pathname').should('contain', '/projects/new');
 });
 
 // Scenario: Creator creates a new Project
 Given('Creator opens Dialog for creating a new Project', () => {
   cy.startWizardWithEmptyRegistration();
-  cy.getDataTestId(dataTestId.registrationWizard.description.createProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startWithEmptyProjectButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startCreateProjectButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.createProjectButton).invoke('removeAttr', 'target').click();
+  cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
+  cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
 });
 When('they enter a Project Title', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.titleField).type('Project title');
 });
-And('they select a Coordinating Institution', () => { });
+And('they select a Coordinating Institution', () => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click()
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField).type('sikt');
+  cy.contains('Sikt - Norwegian Agency for Shared Services in Education and Research').click();
+});
 And('​they select a Project Manager', () => {
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click()
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addProjectManagerButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('withauthor testuser');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
@@ -229,20 +223,16 @@ And('they set a End Date', () => {
   );
 });
 And('they click Save', () => {
-  cy.get('button').filter(':contains("Next")').click();
+  cy.getDataTestId(dataTestId.common.doubleNextButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton).click();
 });
-Then('the Dialog is closed', () => {
+Then('the landing page for the Project is presented', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton, { timeOut: 20000 }).should(
     'not.exist'
   );
+  cy.location('pathname').should('contain', 'projects');
+  cy.location('search').should('contain', '?id=');
 });
-And('they see a confirmation message that the Project was created', () => {
-  cy.getDataTestId('snackbar-success');
-});
-And('they see the Project is listed under Project Associations', () => {
-  cy.contains('Project title');
- });
 
 // Scenario: Creator adds funding
 And('they add funding', () => {
