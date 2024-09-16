@@ -128,14 +128,14 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    // cy.wait(3000);
+    cy.wait(3000);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains("${title}")`).within(() => {
       cy.get('li > div > p > a').first().click();
     });
   } else {
     cy.get('[value=BIBSYS]');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    // cy.wait(3000);
+    cy.wait(3000);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).click();
   }
 });
@@ -184,10 +184,12 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).should('be.visible');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
+  cy.wait(3000);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type('{downArrow}{enter}')
   cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('Curator message{enter}');
   if (user === 'Nvi-Curator') {
     cy.contains('Note saved successfully');
+    cy.wait(5000);
   } else {
     cy.contains('Message sent');
   }

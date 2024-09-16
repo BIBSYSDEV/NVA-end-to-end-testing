@@ -1346,16 +1346,11 @@
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
     "owner": "test-user-publish-registration@test.no",
-    "status": "DRAFT",
+    "status": "PUBLISHED",
     "contributor": "test-user-publish-registration@test.no",
-    "title": "Open unassaigned Publishing-Curator Approval",
+    "title": "Open unassigned Publishing-Curator Approval",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
-    "fileStatus": "UnpublishedFile",
-    "ticket": {
-      "type": "PublishingRequest",
-      "status": "Requested",
-      "text": "Open unassigned Publishing-Curator Approval"
-    }
+    "fileStatus": "UnpublishedFile"
   },
   {
     "publication_type": "Journal",
