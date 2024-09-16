@@ -80,8 +80,14 @@ Then('the Concert is listed under Exhibitions', () => {
 });
 
 // Scenario: Creator selects that a Concert is part of a series/tour
-When('they select "Part of a series/tour"', () => { });
-Then('they see field:', () => { });
+When('they select "Part of a series/tour"', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.addConcertShowButton).click();
+});
+Then('they see field:', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.concertSeriesCheckbox).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.dateFromField);
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.dateToField);
+});
 // | Date from |
 // | Date end  |
 

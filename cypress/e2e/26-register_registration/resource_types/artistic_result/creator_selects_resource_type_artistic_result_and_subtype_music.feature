@@ -27,7 +27,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
       | Premiere |
     Then the Concert is listed under Exhibitions
 
-  # @test
+  @test
   Scenario: Creator selects that a Concert is part of a series/tour
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
     When they select "Part of a series/tour"
