@@ -20,7 +20,7 @@ Feature: Curator navigates to the Landing Page for Registration
     Examples:
       | Workflow                              | RegistrationStatus | FileStatus  |
       | Registrator can only publish metadata | Published          | Unpublished |
-            # | Only Curator can publish              | Draft              | Unpublished |
+  # | Only Curator can publish              | Draft              | Unpublished |
 
   @test @no_restriction
   Scenario: Curator opens a Registration from a DOI Request

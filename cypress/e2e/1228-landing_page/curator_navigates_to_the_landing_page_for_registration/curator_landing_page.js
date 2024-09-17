@@ -74,7 +74,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
       cy.filterMessages('Publishing Requests');
     }
     cy.get('[value=BIBSYS]');
-    cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+    // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(registrationTitle, { delay: 0 });
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
   })
@@ -115,7 +115,7 @@ Given('they opens the Landing Page of a Registration', () => {
     cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.get('[value=BIBSYS]');
-    cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+    // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     cy.get('@registrationTitle').then(registrationTitle => {
       cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 0 });
       cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
@@ -157,7 +157,7 @@ Given('that a Curator views their Worklist', () => {
   cy.wait(5000)
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
-  cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+  // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
 });
 And('they have selected the DOI Requests tab', () => { });
 And('they have expanded an Message', () => {
@@ -183,7 +183,7 @@ When('they approve the DOI Request', () => {
   cy.wait(10000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
-  cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+  // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   cy.get('@registrationTitle').then(searchTitle => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
     cy.contains(searchTitle, { timeout: 30000 }).click();
@@ -213,12 +213,16 @@ When('they reject the DOI Request', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
-  cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+  // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   cy.get('@registrationTitle').then(searchTitle => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
     cy.contains(searchTitle).click();
   })
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).parent().parent().within(() => {
+    cy.get('textarea').first().type('DOI rejected');
+  });
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
 });
 Then('the reserved DOI is removed from the Registration', () => {
   cy.contains('https://handle.stage.datacite.org').should('not.exist');
