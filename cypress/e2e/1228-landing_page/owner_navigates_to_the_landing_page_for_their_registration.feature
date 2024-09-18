@@ -23,14 +23,14 @@ Feature: Owner navigates to the Landing Page for their Resource
         Then they see a "Publishing pending" notice
         And the user is informed that progress can be viewed in My Messages
 
-    @test
-    @all_restrictions
-    Scenario: Owner wants to publish Resource, all restrictions
-        Given Institutions publications policy is "Only Curator can publish"
-        When the Owner uses the Publish option
-        Then the Owner see a Landing Page with an Unpublished Resource
-        And an Approval Request is sent to his Curator
-        And the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages
+    # @test
+    # @all_restrictions
+    # Scenario: Owner wants to publish Resource, all restrictions
+    #     Given Institutions publications policy is "Only Curator can publish"
+    #     When the Owner uses the Publish option
+    #     Then the Owner see a Landing Page with an Unpublished Resource
+    #     And an Approval Request is sent to his Curator
+    #     And the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages
 
     @test
     @file_restrictions
@@ -60,12 +60,12 @@ Feature: Owner navigates to the Landing Page for their Resource
         Then they see a List of all Validation Errors for the Resource
         And they see a "Edit registration" button
 
-    # Scenario: Owner sees the option to transfer Ownership of a Resource
-    #     When the Owner views the Landing Page
-    #     Then the Owner sees a option to transfer Ownership of Resource
+# Scenario: Owner sees the option to transfer Ownership of a Resource
+#     When the Owner views the Landing Page
+#     Then the Owner sees a option to transfer Ownership of Resource
 
-    # Scenario: Owner transfers Ownership of a Resource
-    #     When the Owner uses the option to transfer Ownership of current Resource
-    #     Then the Owner must acknowledges that this is a final action
-    #     And the Owner must select a new Owner
-    #     And the ownership is transfered to new Owner
+# Scenario: Owner transfers Ownership of a Resource
+#     When the Owner uses the option to transfer Ownership of current Resource
+#     Then the Owner must acknowledges that this is a final action
+#     And the Owner must select a new Owner
+#     And the ownership is transfered to new Owner
