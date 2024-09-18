@@ -1,13 +1,12 @@
 import * as AWS from 'aws-sdk';
-import { v4 as uuidv4 } from 'uuid';
 import Amplify from 'aws-amplify';
 import { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import { mockPersonFeideIdSearch, mockPersonNameSearch, journalSearchMockFile } from './mock_data';
 import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
-import { registrationFields, resourceTypeFields } from './save_registration';
-import { userSecondEditor, tokens, addToken } from './constants';
+import { registrationFields } from './save_registration';
+import { userSecondEditor } from './constants';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -48,30 +47,6 @@ export const todayDatePicker = () => {
   const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
   return dateValue;
 };
-
-Cypress.Commands.add('connectAuthor', () => {
-  cy.get(`[data-testid=create-author-button]`).click();
-  cy.get('[data-testid=modal_next]').click();
-});
-
-Cypress.Commands.add('skipOrcid', () => {
-  cy.get('[data-testid=skip-connect-to-orcid]').click();
-});
-
-Cypress.Commands.add('setLanguage', () => {
-  cy.getDataTestId(dataTestId.header.generalMenuButton).click();
-  cy.getDataTestId(dataTestId.header.myProfileLink).click();
-  cy.get('[data-testid=language-selector]').click();
-  cy.get('[data-testid=user-language-eng]').click();
-});
-
-Cypress.Commands.add('checkMenu', (table) => {
-  cy.getDataTestId(dataTestId.header.generalMenuButton).click();
-  table.forEach((row) => {
-    const menuItem = row[0];
-    cy.get('li').should('contain.text', menuItem);
-  });
-});
 
 Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
   cy.get(`[data-testid=${dataTestId}]`, options);
@@ -134,7 +109,6 @@ Cypress.Commands.add('login', (userId) => {
   cy.loginCognito(userId).then(() => {
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
-    // cy.setLocalStorage('beta', 'true');
     cy.visit(`/`, {
       auth: {
         username: Cypress.env('DEVUSER'),
@@ -242,48 +216,7 @@ Cypress.Commands.add('selectRegistration', (title, type) => {
     });
 });
 
-Cypress.Commands.add('addFeideId', (username) => {
-  cy.window()
-    .its('store')
-    .invoke('getState')
-    .then((state) => {
-      const { authority } = state.user;
-      authority.feideids.push(username);
-      cy.window().its('store').invoke('dispatch', {
-        type: 'set authority data',
-        authority: authority,
-      });
-    });
-});
-
-Cypress.Commands.add('findScenario', () => {
-  let scenario = '';
-  if (window.testState.currentScenario.tags && window.testState.currentScenario.tags.length > 0) {
-    scenario = window.testState.currentScenario.tags[0].name;
-  } else {
-    scenario = window.testState.currentScenario.name;
-    if (scenario.includes('(example')) {
-      scenario = scenario.substring(0, scenario.indexOf('(example')).trim();
-    }
-  }
-  cy.wrap(scenario).as('scenario');
-});
-
 // Commands for mocking
-
-Cypress.Commands.add('addMockOrcid', (username) => {
-  cy.window()
-    .its('store')
-    .invoke('getState')
-    .then((state) => {
-      const { authority } = state.user;
-      authority.orcids.push('test_orcid');
-      cy.window().its('store').invoke('dispatch', {
-        type: 'set authority data',
-        authority: authority,
-      });
-    });
-});
 
 Cypress.Commands.add('mockPersonSearch', (userId) => {
   cy.intercept(
@@ -302,19 +235,6 @@ Cypress.Commands.add('mockJournalSearch', () => {
   });
 });
 
-Cypress.Commands.add('changeUserInstitution', (institution) => {
-  cy.window()
-    .its('store')
-    .invoke('getState')
-    .then((state) => {
-      const { authority } = state.user;
-      authority.orgunitids = [`https://api.cristin.no/v2/institutions/${institution}`];
-      cy.window().its('store').invoke('dispatch', {
-        type: 'set authority data',
-        authority: authority,
-      });
-    });
-});
 
 const fillInField = (field) => {
   switch (field['type']) {
@@ -583,20 +503,8 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
     const mobilePickerSelector = `[data-testid=CalendarIcon]`;
     const isMobile = $body.find(mobilePickerSelector).length === 0;
     if (isMobile) {
-      // The MobileDatePicker component has readonly inputs and needs to
-      // be opened and clicked on edit so its inputs can be edited
-      // cy.get(mobilePickerSelector).click();
-      // cy.get('[role="dialog"] [aria-label="calendar view is open, go to text input view"]').click();
-      // cy.get(`[role="dialog"] ${selector}`, { force: true })
-      //   .last()
-      //   .find('input')
-      //   .parent()
-      //   .type(value, { force: true });
-      // cy.contains('[role="dialog"] button', 'OK').click();
       cy.get(selector).click();
       cy.get('[role=dialog]').then(($dialog) => {
-        // const selectDay = $dialog.find('.MuiPickersDay-today').length > 0;
-        // const selectYear = $dialog.find('.Mui-selected').length > 0;
         const typableField = !($dialog.find('.MuiPickersDay-today').length > 0 || $dialog.find('.Mui-selected').length > 0)
         if (typableField) {
           cy.get(selector).within(() => {

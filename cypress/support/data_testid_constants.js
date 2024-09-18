@@ -234,8 +234,8 @@ export const artisticSubtypes = {
   'Artistic result - Film': 'resource-type-chip-MovingPicture',
   'Artistic result - Music': 'resource-type-chip-MusicPerformance',
   'Artistic result - Performing art': 'resource-type-chip-PerformingArts',
-  'Artistic result - Writing art': 'resource-type-chip-WritingArt',
-  'Artistic result - Visual art': 'resource-type-chip-VisualArt',
+  'Artistic result - Writing art': 'resource-type-chip-LiteraryArts',
+  'Artistic result - Visual art': 'resource-type-chip-VisualArts',
 };
 
 export const architectureTypes = {

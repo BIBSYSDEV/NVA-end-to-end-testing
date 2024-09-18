@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { Before } from 'cypress-cucumber-preprocessor/steps';
 
 const fileName = 'example.txt';
-const title = `Publication - ${uuid()}`;
+const title = `Publication - `;
 
 // Feature: Owner navigates to the Landing Page for their Registration
 
@@ -43,13 +43,11 @@ Then('they can see a reserved DOI', () => {
 When("the Owner previews the Resource's Landing Page", () => {
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title);
+  cy.createValidRegistration(fileName, `${title} ${uuid()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 And('the Registraion has "Draft" Status', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-    cy.contains('Publication - Draft');
-  });
+  cy.contains('file and selected license are waiting to be verified');
 });
 Then('they see a "Publish" option', () => {
   cy.getDataTestId('button-publish-registration').should('be.visible');
@@ -63,9 +61,8 @@ And('there is a pending Approval Request on the Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
 });
 Then('they see a "Publishing pending" notice', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-    cy.contains('Publishing request - Draft');
-  });
+  cy.contains('Published metadata');
+  cy.contains(('1 file published')).should('not.exist');
 });
 And('the user is informed that progress can be viewed in My Messages', () => { });
 
@@ -73,7 +70,7 @@ And('the user is informed that progress can be viewed in My Messages', () => { }
 Given('Institutions publications policy is "Only Curator can publish"', () => {
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title);
+  cy.createValidRegistration(fileName, `${title} ${uuid()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 When('the Owner uses the Publish option', () => {
@@ -98,7 +95,7 @@ And(
 Given('Institutions publications policy is "Registrator can only publish metadata"', () => {
   cy.login(userPublishNoRights);
   cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title);
+  cy.createValidRegistration(fileName, `${title} ${uuid()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 When('the Owner uses the Publish option', () => {
@@ -109,7 +106,7 @@ Then('the Owner sees a Landing Page with a Published Resource', () => {
 });
 And("the Resource's status is Published", () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-    cy.contains('Publication - published', { timeOut: 20000 });
+    cy.contains('Published metadata', { timeOut: 20000 });
   });
 });
 And("the Resource's files, license and embargo date are locked with a pending approval notification", () => { });
@@ -133,7 +130,7 @@ And(
 Given('Institutions publications policy is "Registrator has full publishing rights"', () => {
   cy.login(userDraftDoi);
   cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName);
+  cy.createValidRegistration(fileName, `${title} ${uuid()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 Then('the Resource\'s status is "Published"', () => { });

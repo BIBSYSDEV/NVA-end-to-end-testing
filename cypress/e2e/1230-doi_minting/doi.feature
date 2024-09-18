@@ -34,16 +34,16 @@ Feature: DOI related scenarios
     When they click the Edit Registration button
     Then the Registration is opened in the Wizard on the first tab
 
-  # # @test
-  # Scenario: Owner drafts a DOI for an unpublished Registration
-  #   Given that the Owner View Landing Page for Registration for unpublished Registration without DOI
-  #   And they are the Owner of the Registration
-  #   When they click the "Draft a DOI" button
-  #   Then the Landing Page for Registration is displayed
-  #   And the "Draft a DOI" button is renamed to "DOI pending" and is disabled
-  #   And the Draft DOI is added to the metadata
-  #   And the Landing Page for Registration contains the Draft DOI
-  #   And the Draft DOI is not a link
+  @test
+  Scenario: Owner drafts a DOI for an unpublished Registration
+    Given that the Owner View Landing Page for Registration for unpublished Registration without DOI
+    And they are the Owner of the Registration
+    When they click the "Draft a DOI" button
+    Then the Landing Page for Registration is displayed
+    And the "Draft a DOI" button is renamed to "DOI pending" and is disabled
+    And the Draft DOI is added to the metadata
+    And the Landing Page for Registration contains the Draft DOI
+    And the Draft DOI is not a link
 
   # Scenario: Creator deletes a DOI request
   #   Given that the Creator opens My Worklist

@@ -80,7 +80,7 @@ Then('the Concert is listed under Exhibitions', () => {
 });
 
 // Scenario: Creator selects that a Concert is part of a series/tour
-When('they select "Part of a series/tour"', () => {
+When('they select "Multiple performances"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.addConcertShowButton).click();
 });
 Then('they see field:', () => {

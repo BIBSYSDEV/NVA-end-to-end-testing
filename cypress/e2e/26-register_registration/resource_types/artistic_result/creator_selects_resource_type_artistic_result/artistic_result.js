@@ -10,7 +10,7 @@ Given('Creator begins registering a Registration in the Wizard with a File', () 
   cy.startWizardWithEmptyRegistration();
 });
 When('Creator navigates to Resource Type tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 When('they select the Resource type "Artistic Result"', () => {
 });
@@ -19,11 +19,11 @@ Then('they see a list of subtypes:', (dataTable) => {
 });
 // | Artistic result - Architecture   |
 // | Artistic result - Design         |
-// # | Artistic result - Film           |
-// # | Artistic result - Music          |
-// # | Artistic result - Performing art |
-// # | Artistic result - Writing art    |
-// # | Artistic result - Visual art     |
+// | Artistic result - Film           |
+// | Artistic result - Music          |
+// | Artistic result - Performing art |
+// | Artistic result - Writing art    |
+// | Artistic result - Visual art     |
 
 // Scenario: Creator selects Other type of work for Resource Type "Artistic result"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {

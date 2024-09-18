@@ -30,7 +30,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
   @test
   Scenario: Creator selects that a Concert is part of a series/tour
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Music"
-    When they select "Part of a series/tour"
+    When they select "Multiple performances"
     Then they see field:
       | Date from |
       | Date end  |

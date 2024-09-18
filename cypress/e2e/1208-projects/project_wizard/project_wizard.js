@@ -248,7 +248,7 @@ const detailsFields = {
   },
 }
 
-const projectManager = 'Project Wizard TestUser';
+const projectManager = 'Project WIzard TestUser';
 const projectParticipant = 'Withauthor TestUser';
 const linkedProject = 'Project for testing 20230512'
 const SIKT = 'Sikt - Norwegian Agency for Shared Services in Education and Research';
@@ -397,7 +397,7 @@ And('they see the Participants they added', () => {
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
   cy.contains(projectManager);
   cy.contains(projectParticipant);
- });
+});
 And('they see the Connections they added', () => {
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectConnectionsStepButton).click();
   cy.contains(linkedProject);
@@ -491,8 +491,8 @@ const participants = {
 }
 
 // Scenario: User selects a sub-unit for a Participants
-Given ('User opens the Project Wizard to registar a new Project', () => {});
-When ('they add Participants for:', (roles) => {
+Given('User opens the Project Wizard to registar a new Project', () => { });
+When('they add Participants for:', (roles) => {
   cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
   cy.getDataTestId(dataTestId.newProjectPage.titleInput).type(descriptionFields['Title'].value);
   cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
@@ -504,11 +504,11 @@ When ('they add Participants for:', (roles) => {
     cy.contains(participants[participant].name).parent().within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });
-     participants[participant].selectData(); 
+    participants[participant].selectData();
   })
 });
-  // | Project manager     |
-  // | Project participant |
-Then ('they can set the affiliation of the Participants to a sub-unit:', () => {});
-  // | Project manager     |
-  // | Project participant |
+// | Project manager     |
+// | Project participant |
+Then('they can set the affiliation of the Participants to a sub-unit:', () => { });
+// | Project manager     |
+// | Project participant |
