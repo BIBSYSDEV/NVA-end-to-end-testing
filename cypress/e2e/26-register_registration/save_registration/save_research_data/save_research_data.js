@@ -10,6 +10,7 @@ const fields = {
     resourceTypeFields.externalLink,
   ],
   'DataSet': [
+    resourceTypeFields.publisher,
     resourceTypeFields.geographicDescription,
     resourceTypeFields.relatedRegistrations,
     resourceTypeFields.relatedDMPs,

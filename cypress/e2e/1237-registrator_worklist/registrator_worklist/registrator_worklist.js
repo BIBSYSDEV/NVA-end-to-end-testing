@@ -136,7 +136,6 @@ And('they open My Messages page', () => {
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 });
 And('they open a DOI request item in the Messages list', () => {
-  cy.getDataTestId(dataTestId.tasksPage.statusSearch.newCheckbox).first().next().next().click();
   filterMessages(supportRequests);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 });
