@@ -56,12 +56,14 @@ When('they {string} and want to unpublish the Registration', (condition) => {
 });
 Then('they have an option to unpublish the Registration', () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
-    cy.getDataTestId(dataTestId.unpublishActions.showUnpublishButtonButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
 })
 And('when they use the option to unpublish the Registration is no longer published', () => {
     cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
     cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Unpublish justification');
-    cy.getDataTestId(dataTestId.unpublishActions.submitButton).click();
+    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+    cy.contains('Updated registration');
+    cy.contains('The result is unpublished');
 })
 // Examples:
 //     | User                     | Condition                                         |

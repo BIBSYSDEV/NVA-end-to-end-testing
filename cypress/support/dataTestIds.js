@@ -196,6 +196,7 @@ export const dataTestId = {
         levelZeroCheckbox: 'level-zero-checkbox',
       },
       searchButton: 'search-button',
+      selectCategoryChip: 'select-category-chip',
       seriesField: 'series-field',
       vocabularyField: 'vocabulary-field',
     },
@@ -282,7 +283,10 @@ export const dataTestId = {
       fundingRemoveButton: 'funding-remove-button',
       addFundingButton: 'add-funding-button',
     },
-    contributorsPanel: {},
+    contributorsPanel: {
+      editAffiliationButton: 'edit-affiliation-button',
+      deleteAffiliationButton: 'delete-affiliation-button',
+    },
     connectionsPanel: {},
   },
   registrationLandingPage: {
@@ -290,7 +294,6 @@ export const dataTestId = {
     addLinkOrFilesButton: 'add-link-or-files-button',
     authorLink: (id) => `presentation-author-link-${id}`,
     contributors: 'public-registration-contributors',
-    cristinLink: 'cristin-link',
     dmpAccordion: 'dmp-accordion',
     doiLink: 'doi-link',
     doiMessageField: 'request-doi-message',
@@ -339,6 +342,7 @@ export const dataTestId = {
       messageSender: 'message-author',
       messageText: 'message-text',
       messageTimestamp: 'message-timestamp',
+      morePublishingActionsButton: 'more-publishing-actions-button',
       panelRoot: 'tasks-panel',
       publishButton: 'button-publish-registration',
       publishingRequestAcceptButton: 'publishing-request-accept-button',
@@ -357,6 +361,7 @@ export const dataTestId = {
       supportAccordion: 'support-accordion',
       tabPanelLog: 'tab-panel-log',
       tabPanelTasks: 'tab-panel-tasks',
+      terminateRegistrationButton: 'terminate-registration-button',
     },
     duplicateRegistrationModal: {
       duplicationModal: 'duplication-modal',
@@ -373,6 +378,7 @@ export const dataTestId = {
       addUnverifiedContributorButton: 'add-unverified-contributor-button',
       contributorSearchField: 'contributor-search-field',
       correspondingCheckbox: 'author-corresponding-checkbox',
+      editAffiliationButton: 'edit-affiliation-button',
       verifyAffiliationButton: 'button-set-unverified-affiliation',
       verifyContributorButton: (name) => `button-set-unverified-contributor-${name}`,
       removeAffiliationButton: 'button-remove-affiliation',
@@ -661,6 +667,8 @@ export const dataTestId = {
   tasksPage: {
     areaOfResponsibilitySelector: 'area-of-responsibility-selector',
     correctionList: {
+      antologyWithoutChapterButton: 'antology-without-chapter-button',
+      booksWithLessThan50PagesButton: 'books-with-less-than-50-pages-button',
       applicableCategoriesWithNonApplicableChannelButton: 'applicable-categories-with-non-applicable-channel-button',
       correctionListAccordion: 'correction-list-accordion',
       correctionListRadioButton: 'correction-list-radio-button',
@@ -722,7 +730,5 @@ export const dataTestId = {
   unpublishActions: {
     openUnpublishModalButton: 'open-unpublish-modal-button',
     unpublishJustificationTextField: 'unpublish-registration-justification-textfield',
-    showUnpublishButtonButton: 'show-unpublish-button-button',
-    submitButton: 'submit-unpublish-request-button',
   },
 };
