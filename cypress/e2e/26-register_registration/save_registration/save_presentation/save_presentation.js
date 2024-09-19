@@ -50,6 +50,7 @@ And('fill in values for all fields', () => {
 When('they saves Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('be.enabled');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
 });
 Then('they can see the values on the Registration Landing Page', () => {
