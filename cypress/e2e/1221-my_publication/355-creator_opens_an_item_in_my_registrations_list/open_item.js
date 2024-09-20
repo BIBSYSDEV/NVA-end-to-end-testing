@@ -42,9 +42,11 @@ And('they are on the page My Registrations', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
     cy.getDataTestId('CancelIcon').click();
   })
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.contains('Updated registration');
   cy.get('.MuiAlert-message').should('be.visible');
+  cy.getDataTestId('ErrorIcon').should('be.visible');
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.openMyRegistrations();
 });
@@ -56,8 +58,9 @@ When('they click Edit on a Registration', () => {
     .filter(`:contains("Registration with validation error ${today}")`)
     .parent()
     .within(() => {
-      cy.get('[data-testid^=edit-registration]').first().click({ force: true });
+      cy.get('p > a').first().click({ force: true });
     });
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
 });
 And('they see the Registration is opened in Edit Mode', () => {
   cy.get('[data-testid=registration-title-field]').should('exist');
