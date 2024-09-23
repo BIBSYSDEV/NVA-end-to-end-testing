@@ -44,7 +44,7 @@ And('they are on the page My Registrations', () => {
   })
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.contains('Updated registration');
+  cy.contains('Registration updated successfully');
   cy.get('.MuiAlert-message').should('be.visible');
   cy.getDataTestId('ErrorIcon').should('be.visible');
   cy.getDataTestId(dataTestId.header.myPageLink).click();

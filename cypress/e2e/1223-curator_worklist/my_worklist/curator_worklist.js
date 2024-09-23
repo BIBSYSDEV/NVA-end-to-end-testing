@@ -208,7 +208,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
     cy.getDataTestId('CloseIcon').click({ force: true });
   });
-  cy.contains('Successfully updated curator');
+  cy.contains('Curator was updated');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator)
     .filter(':contains("ST")')
     .should('not.exist');

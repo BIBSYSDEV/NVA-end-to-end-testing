@@ -174,7 +174,7 @@ And('the NVI candidate is no longer an NVI candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.contains('Updated registration');
+  cy.contains('Registration updated successfully');
   cy.wait(5000);
 });
 Then('remove the NVI candidate from the NVI candidate list.', () => {
@@ -198,7 +198,7 @@ And('the NVI candidate is still a candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.contains('Updated registration');
+  cy.contains('Registration updated successfully');
   cy.wait(10000);
 });
 Then('reset the approval status for all involved institutions for the NVI candidate.', () => {

@@ -67,7 +67,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable) => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
   dataTable.rawTable.forEach((field) => {
     cy.get(`[data-testid=${descriptionFields[field]}]`).parent().parent().within(() => {
-      cy.contains('is required');
+      cy.contains('is mandatory');
     });
   });
 });
