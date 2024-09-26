@@ -62,7 +62,6 @@ And('when they use the option to unpublish the Registration is no longer publish
     cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
     cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Unpublish justification');
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-    cy.contains('Updated registration');
     cy.contains('The result is unpublished');
 })
 // Examples:

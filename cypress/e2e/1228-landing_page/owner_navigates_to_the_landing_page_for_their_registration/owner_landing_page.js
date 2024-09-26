@@ -61,7 +61,7 @@ And('there is a pending Approval Request on the Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
 });
 Then('they see a "Publishing pending" notice', () => {
-  cy.contains('Published metadata');
+  cy.contains('Metadata published');
   cy.contains(('1 file published')).should('not.exist');
 });
 And('the user is informed that progress can be viewed in My Messages', () => { });
@@ -116,7 +116,7 @@ And('an Approval Request is sent to the Curator', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
   // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
-  cy.get('button').filter(':contains("DOI Request")').click();
+  cy.get('button').filter(':contains("DOI")').click();
   cy.get('button').filter(':contains("Support")').click();
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.contains(title);

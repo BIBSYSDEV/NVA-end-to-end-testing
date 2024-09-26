@@ -85,6 +85,7 @@ And('the Registration has a Publishing Request', () => {
 When('they approve the Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).should('not.exist');
+
 });
 And('all files are Published', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.fileVersion).within(() => {
@@ -127,10 +128,13 @@ And('the Registration has a Publishing Request', () => {
 });
 When('they reject the Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectionMessageTextField).type('Publish rejected');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.rejectionDialogConfirmButton).should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.rejectionDialogConfirmButton).click();
 });
 Then('the Registration is {string}', (registrationStatus) => {
   const status = {
-    'Published': 'Published',
+    'Published': 'Publication - Rejected',
     'Draft': 'Publishing request - Draft',
   };
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {

@@ -54,7 +54,7 @@ const filename = 'example.txt';
     });
     And ('save the Rights retention strategy', () => {
         cy.getDataTestId(dataTestId.editor.rrsSaveButton).click();
-        cy.contains('Rights policy updated successfully');
+        cy.contains('Publishing strategy updated successfully');
     })
 
 //   Scenario: User sets version to accepted for file with RRS activated
@@ -128,7 +128,7 @@ const filename = 'example.txt';
 
     });
 
-    // Examples: 
+    // Examples:
     //   | Initial version | Final version | License |
     //   | Accepted        | Published     | None    |
     //   | Published       | Accepted      | CC-BY   |

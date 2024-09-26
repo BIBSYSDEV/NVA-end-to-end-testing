@@ -36,7 +36,9 @@ And('they see the tab Contributors is clickable', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).should('be.visible');
 });
 And('they see the tab Files and License is selected', () => {
-  cy.get('span').filter(':contains("Files and License")', { timeout: 30000 }).should('have.class', 'Mui-active');
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).within(() => {
+    cy.get('span > span > span').should('have.class', 'Mui-active');
+  })
 });
 And('they see the tab Summary is clickable', () => {
   cy.get('[data-testid=nav-tabpanel-submission]').should('be.visible');
@@ -44,7 +46,7 @@ And('they see the tab Summary is clickable', () => {
 And('they see Previous is enabled', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.previousTabButton).should('be.enabled');
 });
-And('they see Next is enabled', () => {});
+And('they see Next is enabled', () => { });
 And('they see Save is enabled', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
@@ -65,7 +67,7 @@ Then('they see a warning message that the Resource will have no File or Linked R
 });
 And('they see they can cancel marking the Resource', () => {
 });
-And('they see they can confirm marking the Resource', () => {});
+And('they see they can confirm marking the Resource', () => { });
 
 // Scenario: Creator marks a File with Administrative Agrement
 When('they upload a File', () => {
@@ -80,14 +82,14 @@ Then('the File is not presented on the Landing Page', () => {
 });
 
 // Scenario Outline: Creator looks up an invalid Link as Linked Resource
-Given('Creator navigates to Files and License tab', () => {});
+Given('Creator navigates to Files and License tab', () => { });
 When('they enter {string} in the Linked Resource field', (link) => {
   cy.getDataTestId(dataTestId.registrationWizard.files.linkToResourceField).type(`${link}{enter}`);
 });
 And('they click the Add Link Button', () => {
   // cy.getDataTestId(dataTestId.registrationWizard.files.addFilesOrLinksButton).click();
 });
-Then('they see an error message that the Link could not be added', () => {});
+Then('they see an error message that the Link could not be added', () => { });
 
 // Examples:
 //   | Link                       |
