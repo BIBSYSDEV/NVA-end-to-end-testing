@@ -178,18 +178,20 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   }
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).should('be.visible');
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
-  cy.wait(3000);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type('{downArrow}{enter}')
-  cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('Curator message{enter}');
-  if (user === 'Nvi-Curator') {
-    cy.contains('Note saved successfully');
-    cy.wait(5000);
-  } else {
-    cy.contains('Message sent');
-  }
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).should('be.visible');
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
+    cy.wait(10000);
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type('{downArrow}{enter}')
+    cy.contains('Curator was updated');
+    cy.wait(10000);
+    cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
+    if (user === 'Nvi-Curator') {
+      cy.contains('Note saved successfully');
+      cy.wait(5000);
+    } else {
+      cy.contains('Message sent');
+    }
   cy.get('[title=Tasks]').click();
 
   if (user === 'Nvi-Curator') {
@@ -208,7 +210,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
     cy.getDataTestId('CloseIcon').click({ force: true });
   });
-  cy.contains('Successfully updated curator');
+  cy.contains('Curator was updated');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator)
     .filter(':contains("ST")')
     .should('not.exist');
@@ -223,9 +225,8 @@ And('the Request is unassigned the Curator', () => {
       if (user === 'Nvi-Curator') {
         cy.get('li').filter(`:contains(${title})`).should('not.exist');
       } else {
-        cy.getDataTestId(dataTestId.tasksPage.curatorSelector).click();
-        cy.contains(`${user} TestUser`, { matchCase: false }).click();
-        cy.contains(title).should('not.exist');
+        cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
+        cy.contains('You have no messages');
       }
     });
   });
