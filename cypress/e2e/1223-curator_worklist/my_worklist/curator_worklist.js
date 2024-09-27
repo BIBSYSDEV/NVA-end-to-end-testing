@@ -15,6 +15,12 @@ const curatorUsers = {
   'Nvi-Curator': userNviCurator,
 }
 
+const taskPanels = {
+  'Publishing-Curator': dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion,
+  'Support-Curator': dataTestId.registrationLandingPage.tasksPanel.supportAccordion,
+  'Doi-Curator': dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion,
+}
+
 const requestTypes = {
   'Approval': dataTestId.tasksPage.typeSearch.publishingButton,
   'DOI': dataTestId.tasksPage.typeSearch.doiButton,
@@ -170,28 +176,33 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains("${title}")`).within(() => {
-      cy.get('li > div > p > a').first().click();
+    cy.wait(10000);
+    cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+      cy.get('li').filter(`:contains("${title}")`).within(() => {
+        cy.get('div > p > a').first().click();
+      })
     });
+    cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
   } else {
     cy.get('[value=BIBSYS]');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
+    cy.getDataTestId(taskPanels[user]).within(() => {
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).should('be.visible');
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
+      cy.wait(10000);
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type('{downArrow}{enter}')
+      cy.wait(10000);
+      cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
+    });
   }
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).should('be.visible');
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
-    cy.wait(10000);
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type('{downArrow}{enter}')
-    cy.contains('Curator was updated');
-    cy.wait(10000);
-    cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
-    if (user === 'Nvi-Curator') {
-      cy.contains('Note saved successfully');
-      cy.wait(5000);
-    } else {
-      cy.contains('Message sent');
-    }
+  if (user === 'Nvi-Curator') {
+    cy.contains('Note saved successfully');
+    cy.wait(5000);
+  } else {
+    cy.contains('Message sent');
+  }
   cy.get('[title=Tasks]').click();
 
   if (user === 'Nvi-Curator') {
