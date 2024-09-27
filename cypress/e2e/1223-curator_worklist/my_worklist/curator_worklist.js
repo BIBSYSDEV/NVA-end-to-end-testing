@@ -149,12 +149,7 @@ Then('the Curator is assigned the Request', () => {
 });
 And('the Request Status is set to "Active"', () => {
   cy.get('@user').then(user => {
-    if (user === 'Nvi-Curator') {
-      cy.contains('Note saved successfully')
-    } else {
-      cy.contains('Message sent');
-    }
-    // cy.wait(3000);
+    cy.getDataTestId('snackbar-success');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     if (user === 'Nvi-Curator') {
     } else {
@@ -198,10 +193,10 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     });
   }
   if (user === 'Nvi-Curator') {
-    cy.contains('Note saved successfully');
+    cy.getDataTestId('snackbar-success');
     cy.wait(5000);
   } else {
-    cy.contains('Message sent');
+    cy.getDataTestId('snackbar-success');
   }
   cy.get('[title=Tasks]').click();
 
@@ -221,7 +216,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
     cy.getDataTestId('CloseIcon').click({ force: true });
   });
-  cy.contains('Curator was updated');
+  cy.getDataTestId('snackbar-success');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator)
     .filter(':contains("ST")')
     .should('not.exist');
@@ -333,7 +328,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId('message-field').last().type('Test message{enter}');
-  cy.contains('Message sent');
+  cy.getDataTestId('snackbar-success');
   cy.wait(10000);
 
   cy.login(userCurator2);
@@ -342,7 +337,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId('message-field').last().type(`${curatorAnswer}{enter}`);
-  cy.contains('Message sent');
+  cy.getDataTestId('snackbar-success');
 })
 Then('the Request status is set to "Answered"', () => {
   cy.login(userMessages);

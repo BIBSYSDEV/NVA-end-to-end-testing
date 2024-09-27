@@ -323,7 +323,7 @@ And('they add Connections', () => {
 });
 And('they save the Project', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton).click();
-  cy.contains('Project created');
+  cy.getDataTestId('snackbar-success');
 });
 Then('they see all the filled inn values on the Project presentation page', () => {
   cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).click();

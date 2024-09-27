@@ -54,7 +54,7 @@ const filename = 'example.txt';
     });
     And ('save the Rights retention strategy', () => {
         cy.getDataTestId(dataTestId.editor.rrsSaveButton).click();
-        cy.contains('Publishing strategy updated successfully');
+        cy.getDataTestId('snackbar-success')
     })
 
 //   Scenario: User sets version to accepted for file with RRS activated

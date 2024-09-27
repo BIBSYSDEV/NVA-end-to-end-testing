@@ -41,8 +41,7 @@ Given('that the user is logged in as Creator', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId('message-field').last().type('Test message{enter}');
-  cy.contains('Message sent');
-  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+  cy.getDataTestId('snackbar-success');
   cy.wait(6000);
 });
 When('they click the menu item My Messages', () => {
