@@ -10,7 +10,7 @@ Feature: Curator tasks and message flow
 
         Examples:
             | Role               |
-            | Publishing-curator |
+            | Publish-curator |
             | DOI-curator        |
             | Support-curator    |
 
@@ -23,7 +23,7 @@ Scenario Outline: Updating message numbers
 
     Examples:
         | Role               | Type         |
-        | Publishing-curator | Publish      |
+        | Publish-curator | Publish      |
         | DOI-curator        | Allocate DOI |
         | Support-curator    | Support      |
 
@@ -36,6 +36,6 @@ Scenario Outline: User dialog with curator
 
     Examples:
         | Role               | Type         |
-        | Publishing-curator | Publish      |
+        | Publish-curator | Publish      |
         | DOI-curator        | Allocate DOI |
         | Support-curator    | Support      |

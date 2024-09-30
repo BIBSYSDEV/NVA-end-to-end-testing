@@ -5,7 +5,7 @@ import { userDOICuratorMessages, userDOIMessages, userPublicationCuratorMessages
 import { v4 as uuidv4 } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
 
-const PUBLISHING_CURATOR = 'Publishing-curator';
+const PUBLISHING_CURATOR = 'Publish-curator';
 const DOI_CURATOR = 'DOI-curator';
 const SUPPORT_CURATOR = 'Support-curator';
 const PUBLISHING_REQUEST = 'Publish';
