@@ -125,7 +125,7 @@ When('they click the "Draft a DOI" button', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.contains('Doi is reserved');
+  cy.contains('DOI is reserved');
 });
 Then('the Landing Page for Registration is displayed', () => { });
 And('the "Draft a DOI" button is renamed to "DOI pending" and is disabled', () => {
