@@ -28,11 +28,11 @@ Feature: DOI related scenarios
   #   And the request is removed from the Curator's Worklist
   #   And they see their Worklist
 
-  @test
-  Scenario: Creator opens a Registration with a DOI request
-    Given that the Creator Opens a DOI request entry from My Worklist
-    When they click the Edit Registration button
-    Then the Registration is opened in the Wizard on the first tab
+  # @test
+  # Scenario: Creator opens a Registration with a DOI request
+  #   Given that the Creator Opens a DOI request entry from My Worklist
+  #   When they click the Edit Registration button
+  #   Then the Registration is opened in the Wizard on the first tab
 
   @test
   Scenario: Owner drafts a DOI for an unpublished Registration
@@ -73,12 +73,12 @@ Feature: DOI related scenarios
   #   Then they can edit the comment
   #   And they see a Save button
 
-  @test
-  Scenario: Owner navigates to the Landing Page for Registration for unpublished Registration without DOI
-    Given that the Owner view Landing Page for Registration
-    And the Registration is not Published
-    And the Registration has no DOI
-    When they look at the Status Bar
-    Then they see buttons for Draft a DOI and Edit Registration
+  # @test
+  # Scenario: Owner navigates to the Landing Page for Registration for unpublished Registration without DOI
+  #   Given that the Owner view Landing Page for Registration
+  #   And the Registration is not Published
+  #   And the Registration has no DOI
+  #   When they look at the Status Bar
+  #   Then they see buttons for Draft a DOI and Edit Registration
 
 

@@ -122,7 +122,10 @@ Given('that the Owner View Landing Page for Registration for unpublished Registr
 And('they are the Owner of the Registration', () => { });
 When('they click the "Draft a DOI" button', () => {
   cy.get('[data-testid=doi-presentation]').should('not.exist');
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.reserveDoiButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+  cy.contains('Doi is reserved');
 });
 Then('the Landing Page for Registration is displayed', () => { });
 And('the "Draft a DOI" button is renamed to "DOI pending" and is disabled', () => {
