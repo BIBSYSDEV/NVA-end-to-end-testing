@@ -184,10 +184,9 @@ And('the Registration is Published', () => { });
 And('the Registration has a DOI Request', () => {
 });
 When('they approve the DOI Request', () => {
-  cy.wait(10000);
+  cy.wait(30000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
-  // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   cy.get('@registrationTitle').then(searchTitle => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
     cy.contains(searchTitle, { timeout: 30000 }).click();
@@ -217,7 +216,6 @@ When('they reject the DOI Request', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
-  // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
   cy.get('@registrationTitle').then(searchTitle => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
     cy.contains(searchTitle).click();
