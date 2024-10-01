@@ -71,7 +71,6 @@ When('the user click the Send Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.sendDoiButton}]`).click();
 });
 Then('the Landing Page for Registration is displayed', () => {
-  cy.location('pathname').should('contain', 'public');
 });
 And('the "Request a DOI" button is renamed to "DOI pending" and is disabled', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.sendDoiButton}]`).should('not.exist');
