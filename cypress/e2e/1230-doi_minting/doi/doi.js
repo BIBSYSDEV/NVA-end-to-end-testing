@@ -139,7 +139,7 @@ And('the Landing Page for Registration contains the Draft DOI', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
 });
 And('the Draft DOI is not a link', () => {
-  cy.contains('(In progress)');
+  cy.contains('(Reserved DOI)');
 });
 //   #Draft DOIs are not acknowledged by the resolving mechanisms (Handle-system)
 
@@ -156,7 +156,7 @@ And('the Registration has a Draft DOI', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`)
     .parent()
     .within(() => {
-      cy.contains('(In progress)');
+      cy.contains('(Reserved DOI)');
     });
 });
 When('the Owner clicks the publish button', () => {
@@ -173,7 +173,7 @@ And('the Draft DOI is still not a link', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`)
     .parent()
     .within(() => {
-      cy.contains('(In progress)');
+      cy.contains('(Reserved DOI)');
     });
 });
 And('the DOI request is listed in the Owners work list', () => {
