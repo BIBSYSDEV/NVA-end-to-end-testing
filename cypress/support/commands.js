@@ -534,6 +534,7 @@ Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
   cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click({ force: true });
+  cy.wait(5000);
 });
 
 Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
@@ -542,6 +543,7 @@ Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
   cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesMetadata).click({ force: true });
+  cy.wait(5000);
 });
 
 Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
