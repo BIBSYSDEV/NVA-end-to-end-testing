@@ -57,7 +57,7 @@ And('they see a list of messages with fields:', (dataTable) => {
       return cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > div > p`).should('not.be.empty');
     },
     'Date': () => {
-      return cy.get('span').last().should('not.be.empty');
+      return cy.get('p').last().should('not.be.empty');
     },
   };
   dataTable.rawTable.forEach((element) => {
