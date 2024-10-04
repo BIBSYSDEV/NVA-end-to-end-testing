@@ -34,7 +34,7 @@ When('they view the main page for NVA', () => {
     cy.getDataTestId(dataTestId.startPage.searchResultItem).should('be.visible');
 });
 Then('they see the number of unassigned tasks', () => {
-    cy.wait(30000);
+    cy.wait(5000);
     cy.getDataTestId(dataTestId.header.tasksLink).within(() => {
         cy.get('span > span > span').should('exist');
         cy.get('span > span > span').filter(':contains("0")').should('not.exist');
@@ -94,6 +94,7 @@ Then('the User with role {string} see that the number of unassigned tasks are in
             cy.get('span > span > span').filter(`:contains("${value.toString()}")`);
         });
     });
+    cy.wait(10000);
 });
 
 // Examples:
