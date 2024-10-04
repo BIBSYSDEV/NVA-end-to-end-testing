@@ -67,6 +67,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
     }
     cy.login(userCurator);
     cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
+    cy.wait(15000);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     if (doiRequest) {
       cy.filterMessages('DoiRequests');
@@ -74,7 +75,6 @@ Given('a Curator opens the Landing Page of a Registration', () => {
       cy.filterMessages('Publishing Requests');
     }
     cy.get('[value=BIBSYS]');
-    cy.wait(10000);
     cy.getDataTestId(dataTestId.startPage.searchField).type(registrationTitle, { delay: 0 });
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
   })

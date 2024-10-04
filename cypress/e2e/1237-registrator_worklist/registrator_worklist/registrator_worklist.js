@@ -54,10 +54,10 @@ Then('they see the My Messages page', () => {
 And('they see a list of messages with fields:', (dataTable) => {
   const elements = {
     'Registration title': () => {
-      return cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > div > span`).should('not.be.empty');
+      return cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > div > p`).should('not.be.empty');
     },
     'Date': () => {
-      return cy.get('span').last().should('not.be.empty');
+      return cy.get('p').last().should('not.be.empty');
     },
   };
   dataTable.rawTable.forEach((element) => {
