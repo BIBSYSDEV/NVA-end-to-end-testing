@@ -135,12 +135,12 @@ export const userSupportCuratorMessages = 'test-user-support-curator-messages-si
 export const userPublicationMessages = 'test-user-publication-messages-sintef@test.no';
 export const userDOIMessages = 'test-user-doi-messages-sintef@test.no';
 export const userSupportMessages = 'test-user-support-messages-sintef@test.no';
-export const uploaderSikt = 'test-user-colaboration-A@test.no';
-export const uploaderUnit = 'test-user-colaboration-B@test.no';
-export const uploaderBibsys = 'test-user-colaboration-C@test.no';
-export const collaborationCuratorSikt = 'test-user-colaboration-curator-A@test.no';
-export const collaborationCuratorUnit = 'test-user-colaboration-curator-B@test.no';
-export const collaborationCuratorBibsys = 'test-user-colaboration-curator-C@test.no';
+export const uploaderBIBSYS = 'test-user-colaboration-BIBSYS@test.no';
+export const uploaderNMBU = 'test-user-colaboration-NMBU@test.no';
+export const uploaderUSN = 'test-user-colaboration-USN@test.no';
+export const collaborationCuratorBIBSYS = 'test-user-colaboration-curator-BIBSYS@test.no';
+export const collaborationCuratorNMBU = 'test-user-colaboration-curator-NMBU@test.no';
+export const collaborationCuratorUSN = 'test-user-colaboration-curator-USN@test.no';
 
 const userData = {
   name: '',
@@ -276,4 +276,10 @@ export const user = {
   [userPublicationMessages]: { ...userData, name: 'TestUser, Publication Messages' },
   [userDOIMessages]: { ...userData, name: 'TestUser, Doi Messages' },
   [userSupportMessages]: { ...userData, name: 'TestUser, Support Messages' },
+  [uploaderBIBSYS]: { ...userData, name: 'TestUser, collaboration A' },
+  [uploaderNMBU]: { ...userData, name: 'TestUser, collaboration B' },
+  [uploaderUSN]: { ...userData, name: 'TestUser, collaboration C' },
+  [collaborationCuratorBIBSYS]: { ...userData, name: 'TestUser, collaboration Curator A' },
+  [collaborationCuratorNMBU]: { ...userData, name: 'TestUser, collaboration Curator B' },
+  [collaborationCuratorUSN]: { ...userData, name: 'TestUser, collaboration Curator C' },
 };
