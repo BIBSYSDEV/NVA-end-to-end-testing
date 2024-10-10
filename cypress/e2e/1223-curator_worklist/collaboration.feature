@@ -11,7 +11,7 @@ Feature: Collaboration between institutions
         And the curator institution C will get a task to approve the file from Uploader C and not from Uploader B
 
 
-    # @test
+    @test
     Scenario: Support requests when collaborating
         Given a Publication is created by institution A with contributors from institutions A, B and C
         When a support message is sent from:
