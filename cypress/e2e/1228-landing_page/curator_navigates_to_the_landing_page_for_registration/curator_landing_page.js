@@ -192,7 +192,6 @@ When('they approve the DOI Request', () => {
     cy.contains(searchTitle, { timeout: 30000 }).click();
   });
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.)
 });
 Then('the DOI is findable', () => {
   cy.get('[data-testid=logo]').click();
