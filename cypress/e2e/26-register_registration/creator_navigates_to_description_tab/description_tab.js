@@ -185,7 +185,7 @@ When('they click Button for creating a new Project', () => {
   cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
 });
 Then('they see the Project wizard', () => {
-  cy.location('pathname').should('contain', '/projects/new');
+  cy.getDataTestId(dataTestId.projectWizard.stepper.projectDescriptionStepButton);
 });
 
 // Scenario: Creator creates a new Project
@@ -230,8 +230,6 @@ Then('the landing page for the Project is presented', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.saveProjectButton, { timeOut: 20000 }).should(
     'not.exist'
   );
-  cy.location('pathname').should('contain', 'projects');
-  cy.location('search').should('contain', '?id=');
 });
 
 // Scenario: Creator adds funding

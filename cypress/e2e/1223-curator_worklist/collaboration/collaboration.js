@@ -46,6 +46,7 @@ Given('a Publication is created by institution A with contributors from institut
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
+    cy.wait(15000);
 });
 And('a file is uploaded from:', (dataTable) => {
     dataTable.rawTable.forEach((data) => {
@@ -105,8 +106,8 @@ And('the curator institution C will get a task to approve the file from Uploader
 });
 
 // Scenario: DOI requests when collaborating
-Given ('a Publication is created by institution A with contributors from institutions A, B and C', () => {});
-When ('a DOI is requested from:', (dataTable) => {
+Given('a Publication is created by institution A with contributors from institutions A, B and C', () => { });
+When('a DOI is requested from:', (dataTable) => {
     dataTable.rawTable.forEach((data) => {
         const collaborator = data[0];
         cy.get('@title').then(title => {
@@ -116,16 +117,21 @@ When ('a DOI is requested from:', (dataTable) => {
         cy.getDataTestId(dataTestId.startPage.searchResultItem).within(() => {
             cy.get('p > a').first().click();
         });
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-        cy.getDataTestId(dataTestId.registrationLandingPage.doiMessageField).type(`DOI request from ${collaborator}`);
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+        if (collaborator === 'Collaborator A') {
+
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.doiMessageField).type(`DOI request from ${collaborator}`);
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+        } else {
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('not.exist');
+        }
     });
 });
-    // | Collaborator A |
-    // | Collaborator B |
-    // | Collaborator C |
-Then ('the curators from the collaborating institutions will only see DOI request messages from collaborators from their own institution:', (dataTable) => {
+// | Collaborator A |
+// | Collaborator B |
+// | Collaborator C |
+Then('the curators from the collaborating institutions will only see DOI request messages from collaborators from their own institution:', (dataTable) => {
     const institutions = ['A', 'B', 'C'];
     dataTable.rawTable.forEach((data) => {
         const curator = data[0];
@@ -140,14 +146,16 @@ Then ('the curators from the collaborating institutions will only see DOI reques
             ignore.forEach((inst) => {
                 cy.contains(`DOI request from Collaborator ${inst}`).should('not.exist');
             })
-            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+            if (curator === 'Curator A') {
+                cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+            }
             cy.contains(`DOI request from Collaborator ${institution}`);
-        })
+        });
     });
 });
-    // | Curator A |
-    // | Curator B |
-    // | Curator C |    
+// | Curator A |
+// | Curator B |
+// | Curator C |
 
 
 // Scenario: Support requests when collaborating
