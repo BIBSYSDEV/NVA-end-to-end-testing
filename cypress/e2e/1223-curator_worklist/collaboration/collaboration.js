@@ -26,6 +26,7 @@ const curators = {
 Given('a Publication is created by institution A with contributors from institutions A, B and C', () => {
     cy.login(uploaderBIBSYS);
     const title = `Collaboration ${uuid()}`;
+    cy.log(title);
     cy.wrap(title).as('title');
     cy.startWizardWithEmptyRegistration();
     cy.createValidRegistration(fileName, title, 'Published');
@@ -195,8 +196,9 @@ Then('the curators from the collaborating institutions will only see support mes
         cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
         cy.get('@title').then((title) => {
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+            cy.getDataTestId(dataTestId.startPage.searchResultItem)
             ignore.forEach((inst) => {
-                cy.contains(`Message from Collaborator ${inst}`).should('not.exist');
+                cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("Message from Collaborator ${inst}")`).should('not.exist');
             })
             cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
             cy.contains(`Message from Collaborator ${institution}`);
@@ -206,3 +208,62 @@ Then('the curators from the collaborating institutions will only see support mes
 // | Curator A |
 // | Curator B |
 // | Curator C |
+
+// Scenario: Visibility of requests when collaborating
+Given('a Publication is created by institution A with contributors from institutions A, B and C', () => { });
+When('a support message is sent from:', () => { });
+//   | Collaborator A |
+//   | Collaborator B |
+//   | Collaborator C |
+And('a response is sent from:', (dataTable) => {
+    const institutions = ['A', 'B', 'C'];
+    dataTable.rawTable.forEach(data => {
+        const curator = data[0];
+        const institution = curator.replace('Curator ', '');
+        const ignore = institutions.filter((inst) => inst !== institution);
+        cy.get('@title').then((title) => {
+            cy.login(curators[curator]);
+            cy.getDataTestId(dataTestId.header.tasksLink).click();
+            cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+            cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
+            cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
+                cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Response from ${curator}{enter}`);
+            });
+            cy.contains('Message sent');
+        });
+    });
+
+});
+// | Curator A |
+// | Curator B |
+// | Curator C |
+
+Then('the collaborators will only see messages responding to their own messages:', (dataTable) => {
+    const institutions = ['A', 'B', 'C'];
+    dataTable.rawTable.forEach(data => {
+        const collaborator = data[0];
+        const curator = data[1];
+        const institution = curator.replace('Curator ', '');
+        const ignore = institutions.filter((inst) => inst !== institution);
+        cy.get('@title').then((title) => {
+            cy.login(collaborators[collaborator]);
+            cy.getDataTestId(dataTestId.header.myPageLink).click();
+            cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
+            cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+            cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
+            cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() =>{
+                cy.contains(`Response from ${curator}`);
+                ignore.forEach((inst) => {
+                    cy.contains(`Message from Collaborator ${inst}`).should('not.exist');
+                });
+            });
+            });
+    });
+});
+//   | Collaborator A | Curator A |
+//   | Collaborator B | Curator B |
+//   | Collaborator C | Curator C |
