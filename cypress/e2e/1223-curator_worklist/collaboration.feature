@@ -11,6 +11,21 @@ Feature: Collaboration between institutions
     And the curator institution C will get a task to approve the file from Uploader C and not from Uploader B
 
   @test
+  Scenario: Users sees messages from their curator
+  Given a Publication is created by institution A with contributors from institutions A, B and C
+  When a file is uploaded from:
+    | Collaborator B |
+    | Collaborator C |
+  And the files are approved with a message from:
+    | Curator A |
+    | Curator B |
+    | Curator C |
+  Then the message is only sent to:
+    | Curator A | Collaborator A |
+    | Curator B | Collaborator B |
+    | Curator C | Collaborator C |
+
+  @test
   Scenario: DOI requests when collaborating
     Given a Publication is created by institution A with contributors from institutions A, B and C
     When a DOI is requested from:

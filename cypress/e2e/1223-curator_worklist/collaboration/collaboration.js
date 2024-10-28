@@ -106,6 +106,59 @@ And('the curator institution C will get a task to approve the file from Uploader
     });
 });
 
+// Scenario: Users sees messages from their curator
+Given('a Publication is created by institution A with contributors from institutions A, B and C', () => { });
+When('a file is uploaded from:', () => { });
+//   | Collaborator B |
+//   | Collaborator C |
+And('the files are approved with a message from:', (dataTable) => {
+    dataTable.rawTable.forEach(data => {
+        const curator = curators[data[0]];
+        cy.login(curator);
+        cy.getDataTestId(dataTestId.header.tasksLink).click();
+        cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+        cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
+        cy.get('@title').then((title) => {
+            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
+                cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Message from ${data[0]}{enter}`);
+            })
+            cy.contains('Message sent');
+        });
+    });
+});
+//   | Curator A |
+//   | Curator B |
+//   | Curator C |
+Then('the message is only sent to:', (dataTable) => {
+    dataTable.rawTable.forEach(data => {
+        const curator = data[0];
+        const collborator = collaborators[data[1]];
+        const institution = curator.replace('Curator ', '');
+        const ignore = ['A', 'B', 'C'].filter((inst) => inst !== institution);
+        cy.login(collborator);
+        cy.get('@title').then(title => {
+            cy.getDataTestId(dataTestId.header.myPageLink).click();
+            cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
+            cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+            cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
+            cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
+                cy.contains(`Message from ${curator}`);
+                ignore.forEach(inst => {
+                    cy.contains(`Message from Curator ${inst}`).should('not.exist');
+                })
+            })
+        })
+    })
+});
+//   | Curator A | Collaborator A |
+//   | Curator B | Collaborator B |
+//   | Curator C | Collaborator C |
+
+
 // Scenario: DOI requests when collaborating
 Given('a Publication is created by institution A with contributors from institutions A, B and C', () => { });
 When('a DOI is requested from:', (dataTable) => {
@@ -255,13 +308,13 @@ Then('the collaborators will only see messages responding to their own messages:
             cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
             cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
-            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() =>{
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
                 cy.contains(`Response from ${curator}`);
                 ignore.forEach((inst) => {
                     cy.contains(`Message from Collaborator ${inst}`).should('not.exist');
                 });
             });
-            });
+        });
     });
 });
 //   | Collaborator A | Curator A |
