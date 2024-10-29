@@ -171,15 +171,16 @@ When('a DOI is requested from:', (dataTable) => {
         cy.getDataTestId(dataTestId.startPage.searchResultItem).within(() => {
             cy.get('p > a').first().click();
         });
-        if (collaborator === 'Collaborator A') {
+        // if (collaborator === 'Collaborator A') {
 
-            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-            cy.getDataTestId(dataTestId.registrationLandingPage.doiMessageField).type(`DOI request from ${collaborator}`);
-            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-        } else {
-            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('not.exist');
-        }
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+        cy.getDataTestId(dataTestId.registrationLandingPage.doiMessageField).type(`DOI request from ${collaborator}`);
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+        // } else {
+        //     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion);
+        //     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('not.exist');
+        // }
     });
 });
 // | Collaborator A |
