@@ -49,7 +49,7 @@ When('the Curator views the list of Candidates', () => {
 });
 And('select one of the Candidates', () => {
   cy.get('@uuid').then(uuid => {
-    cy.getDataTestId('search-field').type(`${uuid}{enter}`);
+    cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
     cy.get('section > ul > li > div > p > a').first().click();
   });
 });
@@ -78,7 +78,7 @@ When('a Curator views a NVI-candidate', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectAll}${uuid}{enter}`);
     cy.get('a').filter(`:contains(${uuid})`).click();
   });
 });
@@ -91,14 +91,14 @@ Then('the NVI candidate is removed from the list of Candidate Resources', () => 
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.pendingRadio).click();
   cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectAll}${uuid}{enter}`);
     cy.get('a').filter(`:contains(${uuid})`).should('not.exist');
   });
 });
 And('is added to the list of approved Resources', () => {
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.approvedRadio).click();
   cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId('search-field').type(`${uuid}{enter}`);
+    cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
     cy.get('a').filter(`:contains(${uuid})`).should('be.visible');
   });
 });
@@ -154,7 +154,7 @@ Given('an NVI candidate', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId('search-field').type(`${uuid}{enter}`);
+    cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
     cy.get('a').filter(`:contains(${uuid})`).click();
   });
   cy.getDataTestId(dataTestId.tasksPage.nvi.approveButton).click();
@@ -206,10 +206,10 @@ Then('reset the approval status for all involved institutions for the NVI candid
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.get('@uuid').then((uuid) => {
     cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.approvedRadio).click();
-    cy.getDataTestId('search-field').type(`${uuid}{enter}`);
+    cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
     cy.get('a').filter(`:contains(${uuid})`).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.pendingRadio).click();
-    cy.getDataTestId('search-field').type(`${uuid}{enter}`);
+    cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
     cy.getDataTestId('nvi-candidates-list').within(() => {
       cy.get('a').filter(`:contains(${uuid})`).click();
     });
