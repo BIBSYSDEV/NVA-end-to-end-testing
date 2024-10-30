@@ -24,7 +24,7 @@ const curators = {
 
 // Scenario Outline: Files are approved by Curators from file uploaders institution
 Given('a Publication is created by institution A with contributors from institutions A, B and C', () => {
-    cy.login(uploaderBIBSYS);
+    cy.setWorkflowRegistratorPublishesMetadata(uploaderBIBSYS);
     const title = `Collaboration ${uuid()}`;
     cy.log(title);
     cy.wrap(title).as('title');

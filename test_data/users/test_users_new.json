@@ -2196,6 +2196,10 @@
       {
         "type": "Role",
         "rolename": "Publishing-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Editor"
       }
     ],
     "orcid": true,
