@@ -528,9 +528,8 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
   });
 });
 
-Cypress.Commands.add('setWorkflowRegistratorPublishesAll', (user) => {
-  const curator = user ? user : userSecondEditor;
-  cy.login(curator);
+Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
+  cy.login(userSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
@@ -538,9 +537,8 @@ Cypress.Commands.add('setWorkflowRegistratorPublishesAll', (user) => {
   cy.wait(5000);
 });
 
-Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', (user) => {
-  const curator = user ? user : userSecondEditor;
-  cy.login(curator);
+Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
+  cy.login(userSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
@@ -548,9 +546,8 @@ Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', (user) => {
   cy.wait(5000);
 });
 
-Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', (user) => {
-  const curator = user ? user : userSecondEditor;
-  cy.login(curator);
+Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
+  cy.login(userSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
