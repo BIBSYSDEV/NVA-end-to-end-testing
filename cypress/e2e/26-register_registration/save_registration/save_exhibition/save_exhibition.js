@@ -9,8 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 const fields = [
   resourceTypeFields.exhibitionProductionSubtype,
   resourceTypeFields.exhibitionProductionBasic,
-  resourceTypeFields.exhibitionProductionMention,
-  resourceTypeFields.exhibitionProductionOtherPresentation,
   // resourceTypeFields.exhibitionProductionCatalog,
 ];
 

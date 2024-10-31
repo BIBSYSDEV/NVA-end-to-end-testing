@@ -22,8 +22,6 @@ Feature: Creator selects Resource tyoe "Exhibition"
         And the can add manifestations of types:
             | ExhibitionCatalog              |
             | ExhibitionBasic                |
-            | ExhibitionMentionInPublication |
-            | ExhibitionOtherPresentation    |
 
     @test
     Scenario: Creator adds ExhibitionMentionInPublication to an ExhibitionProduction
