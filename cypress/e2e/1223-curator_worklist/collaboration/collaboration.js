@@ -66,7 +66,7 @@ And('a file is uploaded from:', (dataTable) => {
         cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${uploadedFileName}`, { force: true });
         cy.getDataTestId(dataTestId.registrationWizard.files.fileRow).filter(`:contains(${uploadedFileName})`).within(() => {
             cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).last().within(() => {
-                cy.get('input[type=radio]').last().click();
+                cy.get('input[type=radio]').first().click();
             });
             cy.getDataTestId(dataTestId.registrationWizard.files.selectLicenseField).last().scrollIntoView().click({ force: true }).type(' ');
         });
