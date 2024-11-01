@@ -89,7 +89,6 @@ Given('Creator selects Resource type ExhibitionProduction', () => {
     cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('ExhibitionProduction')).click();
 });
 When('the add an ExhibitionMentionInPublication', () => {
-    cy.getDataTestId(dataTestId.registrationWizard.resourceType.addPublicationMentionButton).click();
 });
 Then('they can add information of type:', (dataTable) => {
     cy.testDataTestidList(dataTable, announcementFields);
