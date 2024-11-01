@@ -71,8 +71,6 @@ And('the can add manifestations of types:', (dataTable) => {
     const announcements = {
         'ExhibitionBasic': dataTestId.registrationWizard.resourceType.addExhibitionBasicButton,
         'ExhibitionCatalog': dataTestId.registrationWizard.resourceType.addExhibitionCatalogButton,
-        'ExhibitionMentionInPublication': dataTestId.registrationWizard.resourceType.addPublicationMentionButton,
-        'ExhibitionOtherPresentation': dataTestId.registrationWizard.resourceType.addExhibitionOtherPresentationButton,
     }
     cy.get(`[data-value=BasicExhibition]`).click();
     cy.testDataTestidList(dataTable, announcements);
