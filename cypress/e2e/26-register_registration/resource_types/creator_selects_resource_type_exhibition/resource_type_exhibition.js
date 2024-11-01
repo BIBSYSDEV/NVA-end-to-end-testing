@@ -102,7 +102,6 @@ Then('they can add information of type:', (dataTable) => {
 //     Scenario: Creator adds ExhibitionOtherPresentation to an ExhibitionProduction
 Given('Creator selects Resource type ExhibitionProduction', () => { });
 When('the add an ExhibitionOtherPresentation', () => {
-    cy.getDataTestId(dataTestId.registrationWizard.resourceType.addExhibitionOtherPresentationButton).click();
 });
 Then('they can add information of type:', (dataTable) => { });
 //             | Type        |
