@@ -56,9 +56,9 @@ And('a file is uploaded from:', (dataTable) => {
         cy.get('@title').then(title => {
             cy.login(collaborators[collaborator]);
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-        })
-        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
-            cy.get('p > a').first().click();
+            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
+                cy.get('p > a').first().click();
+            });
         });
         cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
         cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
@@ -174,9 +174,9 @@ When('a DOI is requested from:', (dataTable) => {
         cy.get('@title').then(title => {
             cy.login(collaborators[collaborator]);
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-        })
-        cy.getDataTestId(dataTestId.startPage.searchResultItem).within(() => {
-            cy.get('p > a').first().click();
+            cy.getDataTestId(dataTestId.startPage.searchResultItem).within(() => {
+                cy.get('p > a').first().click();
+            });
         });
         // if (collaborator === 'Collaborator A') {
 
