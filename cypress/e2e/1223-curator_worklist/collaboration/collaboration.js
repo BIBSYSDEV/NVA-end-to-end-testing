@@ -56,8 +56,10 @@ And('a file is uploaded from:', (dataTable) => {
         cy.get('@title').then(title => {
             cy.login(collaborators[collaborator]);
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
         })
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
+            cy.get('p > a').first().click();
+        });
         cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
         cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
         const uploadedFileName = `example${collaborator.replace('Collaborator ', '')}.txt`;
@@ -122,7 +124,9 @@ And('the files are approved with a message from:', (dataTable) => {
         cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
         cy.get('@title').then((title) => {
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
+                cy.get('p > a').first().click();
+            });
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
                 cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Message from ${data[0]}{enter}`);
             })
