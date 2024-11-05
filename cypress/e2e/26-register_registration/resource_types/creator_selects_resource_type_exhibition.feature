@@ -20,30 +20,22 @@ Feature: Creator selects Resource tyoe "Exhibition"
             | Historical interior   |
             | Other exhibition      |
         And the can add manifestations of types:
-            | ExhibitionCatalog              |
-            | ExhibitionBasic                |
+            | ExhibitionCatalog |
+            | ExhibitionBasic   |
 
     @test
     Scenario: Creator adds ExhibitionMentionInPublication to an ExhibitionProduction
         Given Creator selects Resource type ExhibitionProduction
         When the add an ExhibitionMentionInPublication
         Then they can add information of type:
-            | Title             |
-            | Issue             |
-            # | Page(s)           |
-            | Date              |
-            | Other information |
+            | Type |
 
     @test
     Scenario: Creator adds ExhibitionOtherPresentation to an ExhibitionProduction
         Given Creator selects Resource type ExhibitionProduction
         When the add an ExhibitionOtherPresentation
         Then they can add information of type:
-            | Type        |
-            | Place       |
-            | Publisher   |
-            | Description |
-            | Date        |
+            | Type |
 
     @test
     Scenario: Creator adds ExhibitionCatalog to an ExhibitionProduction

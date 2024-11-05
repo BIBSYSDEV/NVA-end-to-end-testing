@@ -4,12 +4,11 @@ import { userSaveExhibition } from '../../../../support/constants'
 // Feature: Creator selects Resource tyoe "Exhibition"
 
 const announcementFields = {
-    'Title': dataTestId.registrationWizard.resourceType.outputJournalBookMediumField,
+    'Type': dataTestId.registrationWizard.resourceType.subtypeField,
     'Issue': dataTestId.registrationWizard.resourceType.outputIssueField,
     'Page(s)': dataTestId.registrationWizard.resourceType.outputInstantDateField,
     'Date': dataTestId.registrationWizard.resourceType.outputInstantDateField,
     'Other information': dataTestId.registrationWizard.resourceType.outputDescriptionField,
-    'Type': dataTestId.registrationWizard.resourceType.outputTypeField,
     'Place': dataTestId.registrationWizard.resourceType.placeField,
     'Publisher': dataTestId.registrationWizard.resourceType.publisherNameField,
     'Description': dataTestId.registrationWizard.resourceType.outputDescriptionField,
@@ -77,8 +76,6 @@ And('the can add manifestations of types:', (dataTable) => {
 });
 //             | ExhibitionCatalog              |
 //             | ExhibitionBasic                |
-//             | ExhibitionMentionInPublication |
-//             | ExhibitionOtherPresentation    |
 
 //     Scenario: Creator adds ExhibitionMentionInPublication to an ExhibitionProduction
 Given('Creator selects Resource type ExhibitionProduction', () => {
