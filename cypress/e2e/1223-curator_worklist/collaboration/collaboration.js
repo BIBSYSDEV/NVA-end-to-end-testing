@@ -75,6 +75,7 @@ And('a file is uploaded from:', (dataTable) => {
         cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
         cy.contains(uploadedFileName);
     });
+    cy.wait(15000);
 });
 Then('the curator for institution A will not get a task to approve a publication request', () => {
     cy.login(curators['Curator A']);
@@ -119,6 +120,7 @@ And('the files are approved with a message from:', (dataTable) => {
     dataTable.rawTable.forEach(data => {
         const curator = curators[data[0]];
         cy.login(curator);
+        cy.wait(15000);
         cy.getDataTestId(dataTestId.header.tasksLink).click();
         cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
         cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
