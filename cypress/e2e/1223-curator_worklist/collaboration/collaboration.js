@@ -105,7 +105,7 @@ And('the curator institution C will get a task to approve the file from Uploader
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
     cy.get('@title').then((title) => {
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).click();
         cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
     });
 });
@@ -124,9 +124,7 @@ And('the files are approved with a message from:', (dataTable) => {
         cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
         cy.get('@title').then((title) => {
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
-                cy.get('p > a').first().click();
-            });
+            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
                 cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Message from ${data[0]}{enter}`);
             })
@@ -228,10 +226,10 @@ When('a support message is sent from:', (dataTable) => {
         cy.get('@title').then(title => {
             cy.login(collaborators[collaborator]);
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
+                cy.get('p > a').first().click();
+            });
         })
-        cy.getDataTestId(dataTestId.startPage.searchResultItem).within(() => {
-            cy.get('p > a').first().click();
-        });
         cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
         cy.getDataTestId(dataTestId.registrationWizard.formActions.openSupportButton).click();
         cy.getDataTestId(dataTestId.tasksPage.messageField).within(() => {
