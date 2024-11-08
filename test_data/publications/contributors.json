@@ -1,11 +1,6 @@
 {
-  "affiliations": [
-    {
-      "id": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-      "type": "Organization"
-    }
-  ],
-  "correspondingAuthor": true,
+  "affiliations": [],
+  "correspondingAuthor": false,
   "email": "####################",
   "identity": {
     "id": "#####################",

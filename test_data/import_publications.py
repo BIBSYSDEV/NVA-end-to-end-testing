@@ -333,17 +333,26 @@ def get_customer(username):
     return ''
 
 
-def create_contributor(contributor, affiliation):
+def create_contributor(contributor, affiliation, sequence):
     with open('./publications/contributors.json'
               ) as contributor_template_file:
         contributor_template = json.load(contributor_template_file)
 
         new_contributor = copy.deepcopy(contributor_template)
-        new_contributor['email'] = contributor
-        new_contributor['identity']['id'] = arp_dict[contributor]["cristinid"]
-        new_contributor['identity']['name'] = arp_dict[contributor]["name"]
-        if affiliation != '':
-            new_contributor['affiliations'][0]['id'] = affiliation
+        new_contributor['sequence'] = sequence
+        if contributor in arp_dict:
+            new_contributor['identity']['id'] = arp_dict[contributor]["cristinid"]
+            new_contributor['identity']['name'] = arp_dict[contributor]["name"]
+            if affiliation != '':
+                organization =     {
+                    "id": affiliation,
+                    "type": "Organization"
+                }
+                new_contributor['affiliations'].append(organization)
+        else:
+            new_contributor['identity']['id'] = ''
+            new_contributor['identity']['name'] = contributor
+            new_contributor['identity']['verificationStatus'] = 'NotVerified'
         return new_contributor
 
 
@@ -367,14 +376,24 @@ def create_publication_data(publication_template, test_publication, username, cu
             'id': 'https://api.dev.nva.aws.unit.no/publication-channels/publisher/26781/2023'
         }
 
-    if test_publication['contributor'] != '':
+    if 'contributor' in test_publication:
         contributor = test_publication['contributor']
         affiliation = ''
         if 'affiliation' in test_publication:
             affiliation = test_publication['affiliation']
-        new_contributor = create_contributor(contributor=contributor, affiliation=affiliation)
+        new_contributor = create_contributor(contributor=contributor, affiliation=affiliation, sequence=1)
         new_publication['entityDescription']['contributors'].append(
             new_contributor)
+    if 'contributors' in test_publication:
+        sequence = 0
+        for contributor in test_publication['contributors']:
+            sequence += 1
+            affiliation = ''
+            if 'affiliation' in contributor:
+                affiliation = contributor['affiliation']
+            new_contributor = create_contributor(contributor=contributor['id'], affiliation=affiliation, sequence=sequence)
+            new_publication['entityDescription']['contributors'].append(
+                new_contributor)
 
     file = {
         'administrativeAgreement': False,
