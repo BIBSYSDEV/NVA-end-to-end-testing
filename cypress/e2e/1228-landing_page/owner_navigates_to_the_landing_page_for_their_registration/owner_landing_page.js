@@ -59,6 +59,8 @@ And('the Registration has "Draft" Status', () => { });
 And('there is a pending Approval Request on the Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
+  cy.wait(15000);
+  cy.reload();
 });
 Then('they see a "Publishing pending" notice', () => {
   cy.contains('Metadata published');
@@ -105,6 +107,8 @@ Then('the Owner sees a Landing Page with a Published Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
 });
 And("the Resource's status is Published", () => {
+  cy.wait(15000);
+  cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
     cy.contains('Published metadata', { timeOut: 20000 });
   });

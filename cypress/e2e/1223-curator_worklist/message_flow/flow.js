@@ -71,6 +71,8 @@ And('a User with the role Creator send a {string} request', (type) => {
     cy.createValidRegistration(fileName, title);
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+    cy.wait(15000);
+    cy.reload();
     switch (type) {
         case PUBLISHING_REQUEST:
             break;

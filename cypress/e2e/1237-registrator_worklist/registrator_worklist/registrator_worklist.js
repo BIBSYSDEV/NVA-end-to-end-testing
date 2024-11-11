@@ -36,6 +36,8 @@ Given('that the user is logged in as Creator', () => {
   cy.createValidRegistration(filename, `${registrationTitle} ${uuidv4()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.wait(15000);
+  cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();

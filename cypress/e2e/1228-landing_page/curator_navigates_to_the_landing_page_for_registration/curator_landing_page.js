@@ -172,6 +172,8 @@ When('they click "Go to registration"', () => {
 });
 Then("they see the Landing Page for the DOI Request's Registration", () => { });
 And('the Create DOI button is enabled', () => {
+  cy.wait(15000)
+  cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).should('be.enabled');
 });
 And('the Decline DOI button is enabled', () => {
@@ -191,6 +193,8 @@ When('they approve the DOI Request', () => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
     cy.contains(searchTitle, { timeout: 30000 }).click();
   });
+  cy.wait(15000);
+  cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).click();
 });
 Then('the DOI is findable', () => {
