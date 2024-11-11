@@ -132,6 +132,7 @@ def reset_search_index():
         print(response)
 
 def map_user_to_arp():
+    print('Map users from Cristin')
     with open('./users/test_users_new.json') as user_file:
         users = json.load(user_file)
         for user in users:
@@ -394,6 +395,13 @@ def create_publication_data(publication_template, test_publication, username, cu
             new_contributor = create_contributor(contributor=contributor['id'], affiliation=affiliation, sequence=sequence)
             new_publication['entityDescription']['contributors'].append(
                 new_contributor)
+    if 'scopusId' in test_publication:
+        additionalIdentifier = {
+            "type": "AdditionalIdentifier",
+            "sourceName": "Scopus",
+            "value": test_publication['scopusId']
+        }
+        new_publication['additionalIdentifiers'].append(additionalIdentifier)
 
     file = {
         'administrativeAgreement': False,

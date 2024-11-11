@@ -141,6 +141,10 @@ export const uploaderUSN = 'test-user-colaboration-USN@test.no';
 export const collaborationCuratorBIBSYS = 'test-user-colaboration-curator-BIBSYS@test.no';
 export const collaborationCuratorNMBU = 'test-user-colaboration-curator-NMBU@test.no';
 export const collaborationCuratorUSN = 'test-user-colaboration-curator-USN@test.no';
+export const userNviInstitutionA = 'test-user-NVI-A@test.no';
+export const userNviInstitutionB = 'test-user-NVI-B@test.no';
+export const userNvaInstitutionC = 'test-user-NVA-C@test.no';
+export const userNviCuratorInstitutionA = 'test-user-curator-NVI-A@test.no';
 
 const userData = {
   name: '',
@@ -282,4 +286,8 @@ export const user = {
   [collaborationCuratorBIBSYS]: { ...userData, name: 'TestUser, collaboration Curator A' },
   [collaborationCuratorNMBU]: { ...userData, name: 'TestUser, collaboration Curator B' },
   [collaborationCuratorUSN]: { ...userData, name: 'TestUser, collaboration Curator C' },
+  [userNviInstitutionA]: { ...userData, name: 'TestUser, User NVI-institution A' },
+  [userNviInstitutionB]: { ...userData, name: 'TestUser, User NVI-institution B' },
+  [userNvaInstitutionC]: { ...userData, name: 'TestUser, User NVA-institution C' },
+  [userNviCuratorInstitutionA]: { ...userData, name: 'TestUser, Curator NVI-institution A' },
 };

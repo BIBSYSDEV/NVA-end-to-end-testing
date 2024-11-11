@@ -1,11 +1,11 @@
 // Feature: NVI workflow
 
 import { dataTestId } from "../../../support/dataTestIds";
-import { userNviCurator } from "../../../support/constants";
+import { userNviCuratorInstitutionA } from "../../../support/constants";
 
 // Scenario Outline: Publication NVI status - contributor
 Given('a Curator views the NVI-tasklist', () => {
-    cy.login(userNviCurator);
+    cy.login(userNviCuratorInstitutionA);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
 });
@@ -28,10 +28,11 @@ Then('the Publication has NVI status {string}', (isNviPublication) => {
                 cy.get('@typeOfRegistration').then((typeOfRegistration) => {
                     const title = `${typeOfRegistration} ${category} ${publicationStatus} ${isCollaboration}`;
                     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+                    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
                     if (isNviPublication === 'NVI Publication') {
-                        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`);
+                        cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains(${title})`);
                     } else {
-                        cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
+                        cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('not.exist');
                     }
                 });
             });
