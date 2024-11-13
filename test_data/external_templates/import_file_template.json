@@ -1,0 +1,102 @@
+{
+    "customer":{
+       "name":"uit"
+    },
+    "brageLocation":"10/1",
+    "id":"https://hdl.handle.net/10037/1234",
+    "publishedDate":{
+       "brage":[
+          "2024-06-02T15:30:43Z"
+       ],
+       "nva":"2024-06-02T15:30:43Z"
+    },
+    "publisherAuthority":{
+       
+    },
+    "rightsholder":"Copyright 2024 The Author(s)",
+    "type":{
+       "brage":[
+          "Vitenskapelig artikkel"
+       ],
+       "nva":"ScientificArticle"
+    },
+    "publication":{
+       "publicationContext":{
+          "bragePublisher":"UiT Norges arktiske universitet",
+          "publisher":{
+             "type":"Publisher",
+             "pid":"DB1B17B3-1CA4-4A7A-9CDC-292FDD7B4BE5"
+          }
+       },
+       "partOfSeries":{
+          
+       }
+    },
+    "entityDescription":{
+       "abstracts":[
+          "Test article, Brage import"
+       ],
+       "publicationDate":{
+          "brage":"2024-05-20",
+          "nva":{
+             "type":"PublicationDateNva",
+             "year":"2024",
+             "month":"05",
+             "day":"20"
+          }
+       },
+       "mainTitle":"Test article",
+       "contributors":[
+          {
+             "type":"Contributor",
+             "brageRole":"author",
+             "role":"Creator",
+             "identity":{
+                "type":"Identity",
+                "name":"Kjell H. Halvorsen"
+             },
+             "sequence":1
+          }
+       ],
+       "tags":[
+       ],
+       "publicationInstance":{
+          
+       },
+       "language":{
+          "brage":[
+             "nob"
+          ],
+          "nva":"http://lexvo.org/id/iso639-3/nob"
+       }
+    },
+    "recordContent":{
+       "contentFiles":[
+          {
+             "bundleType":"ORIGINAL",
+             "description":"ORIGINAL",
+             "identifier":"9dff41e8-87bf-4705-b7a3-6fd506a01067",
+             "license":{
+                "brageLicense":"https://creativecommons.org/licenses/by/4.0",
+                "nvaLicense":{
+                   "license":"https://creativecommons.org/licenses/by/4.0",
+                   "type":"License"
+                }
+             },
+             "filename":"example.txt"
+          }
+       ]
+    },
+    "warnings":[
+    ],
+    "prioritizedProperties":[
+       "reference",
+       "mainTitle",
+       "publisher",
+       "alternativeAbstracts",
+       "abstract",
+       "fundings",
+       "tags",
+       "alternativeTitles"
+    ]
+ }
