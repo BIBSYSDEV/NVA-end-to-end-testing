@@ -3,15 +3,13 @@
        "name":"uit"
     },
     "brageLocation":"10/1",
-    "id":"https://hdl.handle.net/10037/1234",
+    "id":"",
     "publishedDate":{
-       "brage":[
-          "2024-06-02T15:30:43Z"
-       ],
-       "nva":"2024-06-02T15:30:43Z"
+       "brage":[],
+       "nva":""
     },
     "publisherAuthority":{
-       
+
     },
     "rightsholder":"Copyright 2024 The Author(s)",
     "type":{
@@ -29,7 +27,7 @@
           }
        },
        "partOfSeries":{
-          
+
        }
     },
     "entityDescription":{
@@ -47,21 +45,11 @@
        },
        "mainTitle":"Test article",
        "contributors":[
-          {
-             "type":"Contributor",
-             "brageRole":"author",
-             "role":"Creator",
-             "identity":{
-                "type":"Identity",
-                "name":"Kjell H. Halvorsen"
-             },
-             "sequence":1
-          }
        ],
        "tags":[
        ],
        "publicationInstance":{
-          
+
        },
        "language":{
           "brage":[
