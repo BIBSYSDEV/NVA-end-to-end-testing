@@ -1,6 +1,6 @@
 {
     "customer":{
-       "name":"uit"
+       "name":"usn"
     },
     "brageLocation":"10/1",
     "id":"",
@@ -20,10 +20,10 @@
     },
     "publication":{
        "publicationContext":{
-          "bragePublisher":"UiT Norges arktiske universitet",
+          "bragePublisher":"Universitetet i Sørøst-Norge",
           "publisher":{
              "type":"Publisher",
-             "pid":"DB1B17B3-1CA4-4A7A-9CDC-292FDD7B4BE5"
+             "pid":"702c4fbe-d51a-4d20-aec8-50beb813ff36"
           }
        },
        "partOfSeries":{

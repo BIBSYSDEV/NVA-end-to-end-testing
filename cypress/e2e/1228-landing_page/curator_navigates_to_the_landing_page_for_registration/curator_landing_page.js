@@ -14,6 +14,8 @@ const registratorPublishesWorkflow = 'registrator publishes';
 // Common steps
 
 Then('the Registration is Published', () => {
+  cy.wait(15000)
+  cy.reload();
   cy.get('@workflow').then((workflow) => {
     if (workflow === curatorPublishesWorkflow) {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
@@ -59,6 +61,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
   cy.wait(15000);
+  cy.reload();
   cy.get('@doiRequest').then(doiRequest => {
     if (doiRequest) {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
@@ -154,6 +157,8 @@ Given('that a Curator views their Worklist', () => {
   cy.createValidRegistration(fileName, doiRequestTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId('button-publish-registration', { timeout: 20000 }).click();
+  cy.wait(15000)
+  cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
@@ -172,8 +177,6 @@ When('they click "Go to registration"', () => {
 });
 Then("they see the Landing Page for the DOI Request's Registration", () => { });
 And('the Create DOI button is enabled', () => {
-  cy.wait(15000)
-  cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).should('be.enabled');
 });
 And('the Decline DOI button is enabled', () => {

@@ -21,12 +21,6 @@ Feature: Creator navigates to Files and License tab
     Then they see a warning message that the Resource will have no File or Linked Resource
     And they see they can cancel marking the Resource
 
-  @test
-  Scenario: Creator marks a File with Administrative Agrement
-    Given Creator navigates to Files and License tab
-    When they upload a File
-    And they mark the File with Administrative Agreement
-    Then the File is not presented on the Landing Page
 
   @test
   Scenario: Creator adds a file

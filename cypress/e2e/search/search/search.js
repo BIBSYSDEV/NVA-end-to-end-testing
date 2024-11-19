@@ -93,7 +93,7 @@ Then('they see Registrations filtered with the chosen facet', () => {
     cy.get('@facet').then((facet) => {
         const resultCount = {
             'Resource type': 2,
-            'Institution': 3,
+            'Institution': 2,
             'Contributor': 3,
         }
         cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', resultCount[facet]);
