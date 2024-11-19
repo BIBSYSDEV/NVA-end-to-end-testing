@@ -114,6 +114,8 @@ Given('a User with the role Creator sends a {string} request', (type) => {
     cy.createValidRegistration(fileName, title);
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+    cy.wait(15000);
+    cy.reload();
     switch (type) {
         case PUBLISHING_REQUEST:
             break;
@@ -123,7 +125,7 @@ Given('a User with the role Creator sends a {string} request', (type) => {
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
             break;
         case SUPPORT_REQUEST:
-            cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
+            cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('Support message{enter}');
             break;
     }
 });
