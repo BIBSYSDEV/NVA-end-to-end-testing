@@ -47,7 +47,6 @@ Feature: Project Landing Page
             | Summary             |
             | Participants        |
             | Results             |
-            # | Data Management Plan |
             | Associated Projects |
         And the Anonymous User see counts of:
             | Participants        |
@@ -61,10 +60,7 @@ Feature: Project Landing Page
         Then they can see an Edit button
         Examples:
             | Role            |
-            # | Curator               |
-            # | Project Owner         |
             | Project Manager |
-    # | Local Project Manager |
 
     @test
     Scenario: User expand Summary for a Project

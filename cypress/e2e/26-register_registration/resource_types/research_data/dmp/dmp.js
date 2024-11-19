@@ -21,22 +21,20 @@ import { dataTestId } from '../../../../../support/dataTestIds';
 Given ('User selects Resource type "Research Data"', () =>{
     cy.login(userResearchDataDmp);
     cy.startWizardWithEmptyRegistration();
-    cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-});  
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+});
 And ('they select DMP as subtype', () =>{
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.resourceTypeChip("DataManagementPlan")}]`).click();
-});  
+    cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip("DataManagementPlan")).click();
+});
 
 // end common steps
 
-	// @TEST_NP-13295
 	// Scenario: User sees a prefilled Publisher field
 		When ('the User sees the Publisher field', () =>{
-        });   
+        });
 		Then ('the corresponding institution is prefilled', () =>{
-        }); 
+        });
 
-	// @TEST_NP-13296
 	// Scenario: User changes the prefilled Publisher
 		When ('the User searches for a Publisher in the Publisher field', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.publisherField}]`).type('Norges forskningsråd');
@@ -48,21 +46,19 @@ And ('they select DMP as subtype', () =>{
             });
         });
 
-	// @TEST_NP-13297
 	// Scenario: User adds zero or more related-references to a resource published in NVA
         When ('the User searches for published Registrations in NVA', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.relatedRegistrationField}]`).type('Antologi');
             cy.contains('Antologi').first().click({ force: true });
         });
         Then ('the User can store any search result as a related-reference', () =>{
-            cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).within(()=>{
+            cy.get(`[data-testid^=${dataTestId.startPage.searchResultItem}]`).within(()=>{
                 cy.contains('Antologi');
             });
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('be.visible');
         });
     // # future scenario will allow use of external IRI, not only internal
 
-	// @TEST_NP-13298
 	// Scenario: User removes a related-references to resource
 		Given ('User adds zero or more related-references to resource published in NVA', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.relatedRegistrationField}]`).type('Antologi');
@@ -71,17 +67,16 @@ And ('they select DMP as subtype', () =>{
 		When ('the User removes a related-reference resource', () =>{
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).click();
             cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
-        }); 
+        });
 		Then ('the related-reference is removed', () =>{
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).should('not.exist');
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('not.exist');
         });
 
-    // @TEST_NP-16254
     // Scenario: User adds an external links to a DMP
         When ('the user types in an external link', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkField}]`).type('https://sikt.no/');
-        }); 
+        });
         And ('the user adds the link', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkAddButton}]`).click();
         });
@@ -93,8 +88,7 @@ And ('they select DMP as subtype', () =>{
         And ('the user has the option to remove the saved link', () =>{
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('be.visible');
         });
-    
-    // @TEST_NP-16255
+
     // Scenario: User removes an external link to a resource
         Given ('User adds an external links to a DMP', () =>{
             cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkField}]`).type('https://sikt.no/');

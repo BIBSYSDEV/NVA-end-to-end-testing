@@ -104,7 +104,7 @@ When('the User searches for published Registrations', () => {
     cy.contains('Antologi').first().click({ force: true });
 });
 Then('the User can store any search result as a use-reference', () => {
-    cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).within(() => {
+    cy.get(`[data-testid^=${dataTestId.startPage.searchResultItem}]`).within(() => {
         cy.contains('Antologi');
     });
     cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('be.visible');
@@ -132,7 +132,7 @@ When('the User searches for published DMPs', () => {
     cy.contains('Test registration DMP').first().click({ force: true });
 });
 Then('the User can store any search result as a comply-to-reference', () => {
-    cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.relatedRegistrationLink('')}]`).within(() => {
+    cy.get(`[data-testid^=${dataTestId.startPage.searchResultItem}]`).within(() => {
         cy.contains('Test registration DMP');
     });
     cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.removeRelationButton('')}]`).should('be.visible');

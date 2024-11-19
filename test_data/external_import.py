@@ -54,7 +54,7 @@ def upload_test_files():
 
 def run():
     print('running')
-    bucketName = 'test-data-282305091481'
+    bucketName = 'brage-migration-input-files-282305091481'
     upload_dir('external_import_files', '', bucketName=bucketName, tag='*')
 
 if __name__ == '__main__':

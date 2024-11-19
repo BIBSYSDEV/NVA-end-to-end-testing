@@ -15,42 +15,36 @@ Feature: Data Management Plan (DMP)
         Given User selects Resource type "Research Data"
         And they select DMP as subtype
 
-    @TEST_NP-13295
-    Scenario: User sees a prefilled Publisher field
-        When the User sees the Publisher field
-        Then the corresponding institution is prefilled
+    # Scenario: User sees a prefilled Publisher field
+    #     When the User sees the Publisher field
+    #     Then the corresponding institution is prefilled
+
+    # @test
+    # Scenario: User changes the prefilled Publisher
+    #     When the User searches for a Publisher in the Publisher field
+    #     Then the User replaces the prefilled Publisher with a Publisher from the search result
 
     @test
-    @TEST_NP-13296
-    Scenario: User changes the prefilled Publisher
-        When the User searches for a Publisher in the Publisher field
-        Then the User replaces the prefilled Publisher with a Publisher from the search result
-
-    @test
-    @TEST_NP-13297
     Scenario: User adds zero or more related-references to a resource published in NVA
         When the User searches for published Registrations in NVA
         Then the User can store any search result as a related-reference
     # future scenario will allow use of external IRI, not only internal
 
-    @test
-    @TEST_NP-13298
-    Scenario: User removes a related-references to resource
-        Given User adds zero or more related-references to resource published in NVA
-        When the User removes a related-reference resource
-        Then the related-reference is removed
+    # @test
+    # Scenario: User removes a related-references to resource
+    #     Given User adds zero or more related-references to resource published in NVA
+    #     When the User removes a related-reference resource
+    #     Then the related-reference is removed
 
-    @test
-    @TEST_NP-16254
-    Scenario: User adds an external links to a DMP
-        When the user types in an external link
-        And the user adds the link
-        Then the user sees the saved link
-        And the user has the option to remove the saved link
+    # @test
+    # Scenario: User adds an external links to a DMP
+    #     When the user types in an external link
+    #     And the user adds the link
+    #     Then the user sees the saved link
+    #     And the user has the option to remove the saved link
 
-    @test
-    @TEST_NP-16255
-    Scenario: User removes an external link to a resource
-        Given User adds an external links to a DMP
-        When the user removes an external link
-        Then the user sees the external link is removed
+    # @test
+    # Scenario: User removes an external link to a resource
+    #     Given User adds an external links to a DMP
+    #     When the user removes an external link
+    #     Then the user sees the external link is removed

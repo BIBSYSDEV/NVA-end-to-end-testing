@@ -1,51 +1,14 @@
 [
-
   {
-    "publication_type": "Reference",
-    "publication_context_type": "Degree",
-    "publication_instance_type": "DegreePhd",
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
+    "owner": "test-user-draft-doi-2@test.no",
     "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "title": "Edit Degree"
-  },
-  {
-    "publication_type": "Reference",
-    "publication_context_type": "Degree",
-    "publication_instance_type": "DegreePhd",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "title": "Unpublish Degree"
-  },
-  {
-    "publication_type": "Reference",
-    "publication_context_type": "Degree",
-    "publication_instance_type": "DegreePhd",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "title": "Republish Degree"
-  },
-  {
-    "publication_type": "Reference",
-    "publication_context_type": "Degree",
-    "publication_instance_type": "DegreePhd",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "title": "Change status Degree"
+    "contributor": "test-user-draft-doi-2@test.no",
+    "title": "Published registration requesting DOI",
+    "doi": "requested"
   }
 ]

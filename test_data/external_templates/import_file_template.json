@@ -1,90 +1,80 @@
 {
-    "customer":{
-       "name":"uit"
+  "customer": {
+    "name": "usn",
+    "id": "https://api.test.nva.aws.unit.no/customer/b3d72c51-c4f2-4aa1-a15a-e9cc9b1f5e1e"
+  },
+  "brageLocation": "10/1",
+  "id": "",
+  "publishedDate": {
+    "brage": [],
+    "nva": ""
+  },
+  "publisherAuthority": {
+   "brage": ["acceptedVersion"],
+   "nva": "AcceptedVersion"
+ },
+ "type": {
+   "brage": ["Peer reviewed", "Journal article"],
+   "nva": "Vitenskapelig artikkel"
+ },
+ "publication": {
+   "issnList": ["1439-7358"],
+   "journal": "Lecture Notes in Computational Science and Engineering",
+   "publicationContext": {
+     "bragePublisher": "Springer",
+     "journal": {
+       "type": "Journal",
+       "pid": "255B0CE1-55A9-4A0F-9B9D-E4F915ABE670"
+     }
+   },
+   "partOfSeries": {}
+ },
+ "entityDescription": {
+    "abstracts": ["Test article, Brage import"],
+    "publicationDate": {
+      "brage": "2024-05-20",
+      "nva": {
+        "type": "PublicationDateNva",
+        "year": "2024",
+        "month": "05",
+        "day": "20"
+      }
     },
-    "brageLocation":"10/1",
-    "id":"",
-    "publishedDate":{
-       "brage":[],
-       "nva":""
-    },
-    "publisherAuthority":{
-
-    },
-    "rightsholder":"Copyright 2024 The Author(s)",
-    "type":{
-       "brage":[
-          "Vitenskapelig artikkel"
-       ],
-       "nva":"ScientificArticle"
-    },
-    "publication":{
-       "publicationContext":{
-          "bragePublisher":"UiT Norges arktiske universitet",
-          "publisher":{
-             "type":"Publisher",
-             "pid":"DB1B17B3-1CA4-4A7A-9CDC-292FDD7B4BE5"
+    "mainTitle": "Test article",
+    "contributors": [],
+    "tags": [],
+    "publicationInstance": {},
+    "language": {
+      "brage": ["nob"],
+      "nva": "http://lexvo.org/id/iso639-3/nob"
+    }
+  },
+  "recordContent": {
+    "contentFiles": [
+      {
+        "bundleType": "ORIGINAL",
+        "description": "ORIGINAL",
+        "identifier": "9dff41e8-87bf-4705-b7a3-6fd506a01067",
+        "license": {
+          "brageLicense": "https://creativecommons.org/licenses/by/4.0",
+          "nvaLicense": {
+            "license": "https://creativecommons.org/licenses/by/4.0",
+            "type": "License"
           }
-       },
-       "partOfSeries":{
-
-       }
-    },
-    "entityDescription":{
-       "abstracts":[
-          "Test article, Brage import"
-       ],
-       "publicationDate":{
-          "brage":"2024-05-20",
-          "nva":{
-             "type":"PublicationDateNva",
-             "year":"2024",
-             "month":"05",
-             "day":"20"
-          }
-       },
-       "mainTitle":"Test article",
-       "contributors":[
-       ],
-       "tags":[
-       ],
-       "publicationInstance":{
-
-       },
-       "language":{
-          "brage":[
-             "nob"
-          ],
-          "nva":"http://lexvo.org/id/iso639-3/nob"
-       }
-    },
-    "recordContent":{
-       "contentFiles":[
-          {
-             "bundleType":"ORIGINAL",
-             "description":"ORIGINAL",
-             "identifier":"9dff41e8-87bf-4705-b7a3-6fd506a01067",
-             "license":{
-                "brageLicense":"https://creativecommons.org/licenses/by/4.0",
-                "nvaLicense":{
-                   "license":"https://creativecommons.org/licenses/by/4.0",
-                   "type":"License"
-                }
-             },
-             "filename":"example.txt"
-          }
-       ]
-    },
-    "warnings":[
-    ],
-    "prioritizedProperties":[
-       "reference",
-       "mainTitle",
-       "publisher",
-       "alternativeAbstracts",
-       "abstract",
-       "fundings",
-       "tags",
-       "alternativeTitles"
+        },
+        "filename": "example.txt"
+      }
     ]
- }
+  },
+  "warnings": [],
+  "prioritizedProperties": [
+    "reference",
+    "mainTitle",
+    "publisher",
+    "alternativeAbstracts",
+    "abstract",
+    "fundings",
+    "tags",
+    "alternativeTitles"
+  ]
+}

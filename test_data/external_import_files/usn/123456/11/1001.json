@@ -1,29 +1,39 @@
 {
     "customer": {
-        "name": "uit"
+        "name": "usn",
+        "id": "https://api.test.nva.aws.unit.no/customer/b3d72c51-c4f2-4aa1-a15a-e9cc9b1f5e1e"
     },
     "brageLocation": "123456/11",
     "id": "https://hdl.handle.net/12345/1001",
     "publishedDate": {
         "brage": [
-            "2024-11-14T01:01:01Z"
+            "2024-11-15T01:01:01Z"
         ],
-        "nva": "2024-11-14T01:01:01Z"
+        "nva": "2024-11-15T01:01:01Z"
     },
-    "publisherAuthority": {},
-    "rightsholder": "Copyright 2024 The Author(s)",
+    "publisherAuthority": {
+        "brage": [
+            "acceptedVersion"
+        ],
+        "nva": "AcceptedVersion"
+    },
     "type": {
         "brage": [
-            "Vitenskapelig artikkel"
+            "Peer reviewed",
+            "Journal article"
         ],
-        "nva": "ScientificArticle"
+        "nva": "Vitenskapelig artikkel"
     },
     "publication": {
+        "issnList": [
+            "1439-7358"
+        ],
+        "journal": "Lecture Notes in Computational Science and Engineering",
         "publicationContext": {
-            "bragePublisher": "UiT Norges arktiske universitet",
-            "publisher": {
-                "type": "Publisher",
-                "pid": "DB1B17B3-1CA4-4A7A-9CDC-292FDD7B4BE5"
+            "bragePublisher": "Springer",
+            "journal": {
+                "type": "Journal",
+                "pid": "255B0CE1-55A9-4A0F-9B9D-E4F915ABE670"
             }
         },
         "partOfSeries": {}
@@ -33,12 +43,12 @@
             "Test article, Brage import"
         ],
         "publicationDate": {
-            "brage": "2024-11-14",
+            "brage": "2024-11-15",
             "nva": {
                 "type": "PublicationDateNva",
                 "year": "2024",
                 "month": "11",
-                "day": "14"
+                "day": "15"
             }
         },
         "mainTitle": "Test import file",
@@ -69,7 +79,7 @@
             {
                 "bundleType": "ORIGINAL",
                 "description": "ORIGINAL",
-                "identifier": "8c447cc8-35f6-481d-bcad-608a075b2ca7",
+                "identifier": "e5d5c7f9-1d55-41fd-a6a5-9add5736d1ea",
                 "license": {
                     "brageLicense": "https://creativecommons.org/licenses/by/4.0",
                     "nvaLicense": {

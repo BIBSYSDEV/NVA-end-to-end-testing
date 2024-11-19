@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 import uuid
 import os
+import shutil
 
 contributor_template = {
         "type":"Contributor",
@@ -52,6 +53,7 @@ def write_files(import_file):
     os.makedirs(file_path)
     with open(f'{file_path}/{metadata_file_name}', 'w') as file:
         file.write(json.dumps(import_file, indent=4))
+    shutil.copyfile('./external_templates/example.txt', f'{file_path}/{file_name}')
 
 def run():
     print('Creating import files')
