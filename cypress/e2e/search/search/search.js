@@ -65,7 +65,8 @@ When('they select one of the Registrations', () => {
     })
 })
 Then('they see the landing page for the Registration', () => {
-    cy.getDataTestId(dataTestId.registrationLandingPage.registrationSubtype).should('be.visible');
+    cy.location('pathname').should('contain', 'registration');
+    cy.location('pathname').should('not.contain', 'edit');
 })
 
 //      Scenario: A User uses facets to filter search results

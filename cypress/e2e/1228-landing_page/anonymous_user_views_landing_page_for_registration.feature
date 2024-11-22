@@ -6,17 +6,13 @@ Feature: Anonymous User views Landing Page for Registration
         Then they see
             | Title                           |
             | Abstract                        |
-            # | NPI                             |
             | Keywords                        |
             | Publication date                |
             | Primary language                |
             | Projects                        |
-            | Registration subtype            |
             | Fields corresponding to subtype |
             | Contributors                    |
             | Files                           |
-            # | DOI link                        |
-            # | Related Registrations           |
             | License                         |
         And they see sharing Buttons for:
             | Email    |

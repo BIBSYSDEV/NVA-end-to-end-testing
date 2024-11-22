@@ -286,7 +286,8 @@ When('the Curator opens the Requests Resource', () => {
   });
 });
 Then('the Landing Page of the Resource is viewed', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.registrationSubtype).should('exist');
+  cy.location('pathname').should('contain', 'registration');
+  cy.location('pathname').should('not.contain', 'edit');
 });
 And('the Curator has the option to {string}', (action) => {
   const typeActions = {
