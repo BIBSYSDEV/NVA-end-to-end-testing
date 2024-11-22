@@ -486,7 +486,7 @@ Cypress.Commands.add('checkLandingPage', () => {
         if (field['landingPageTestId'] === dataTestId.registrationLandingPage.license) {
           cy.getDataTestId(field.landingPageTestId).get(`[title="${field.value}"]`);
         } else if (field['landingPageTestId'] === dataTestId.registrationLandingPage.title) {
-          cy.getDataTestId(dataTestId.registrationLandingPage.registrationSubtype)
+          cy.getDataTestId(dataTestId.registrationLandingPage.editButton)
             .parent()
             .should('contain', field.value);
         } else {

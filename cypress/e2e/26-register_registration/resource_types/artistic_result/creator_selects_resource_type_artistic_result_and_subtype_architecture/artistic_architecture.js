@@ -129,7 +129,7 @@ When('they add an Exhibition with details for:', (dataTable) => {
   cy.get(`[data-testid=${exhibitionTypes['Exhibition']}]`).click({ force: true });
   dataTable.rawTable.forEach((field) => {
     field[0] === 'Date from' || field[0] === 'Date to'
-      ? // ? cy.get(`[data-testid=${exhibitionFields[field[0]]}]`).type('11.11.2011')
+      ? 
       cy.chooseDatePicker(`[data-testid=${exhibitionFields[field[0]]}]`, '11.11.2011')
       : cy.get(`[data-testid=${exhibitionFields[field[0]]}]`).type(`Test Exhibition ${field[0]}`);
   });
