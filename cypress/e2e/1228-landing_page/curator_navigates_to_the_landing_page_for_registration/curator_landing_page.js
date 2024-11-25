@@ -78,7 +78,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
       cy.filterMessages('Publishing Requests');
     }
     cy.get('[value=BIBSYS]');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(registrationTitle, { delay: 0 });
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 0 });
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
   })
 });

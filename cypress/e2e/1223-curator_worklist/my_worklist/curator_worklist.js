@@ -286,8 +286,11 @@ When('the Curator opens the Requests Resource', () => {
   });
 });
 Then('the Landing Page of the Resource is viewed', () => {
-  cy.location('pathname').should('contain', 'registration');
-  cy.location('pathname').should('not.contain', 'edit');
+  cy.get('@type').then((type) => {
+    const path = type === 'NVI' ? 'nvi' : 'dialogue'
+    cy.location('pathname').should('contain', `tasks/${path}`);
+    cy.location('pathname').should('not.contain', 'edit');
+  });
 });
 And('the Curator has the option to {string}', (action) => {
   const typeActions = {

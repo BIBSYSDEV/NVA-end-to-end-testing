@@ -23,6 +23,7 @@ When('an Anonymous user navigates to a Landing Page for a Resource', () => {
     });
 });
 Then('they see', (dataTable) => {
+  cy.contains(landing_page_registration_title);
   cy.testDataTestidList(dataTable, landingPageFields);
 });
 // | Title                           |

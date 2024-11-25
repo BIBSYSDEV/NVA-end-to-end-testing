@@ -4,7 +4,7 @@ Feature: Anonymous User views Landing Page for Registration
     Scenario: Anonymous User views Landing Page for Registration
         When an Anonymous user navigates to a Landing Page for a Resource
         Then they see
-            | Title                           |
+            # | Title                           |
             | Abstract                        |
             | Keywords                        |
             | Publication date                |
