@@ -1,4 +1,4 @@
-Feature: NVI workflow
+Feature: NVI workflow - contributor
 
     @test
     Scenario Outline: Publication NVI status - contributor
@@ -31,4 +31,3 @@ Feature: NVI workflow
             | Scientific Article | Draft             | external institution | Manual Registration | Not NVI Publication |
             | Scientific Article | Unpublished       | external institution | Manual Registration | Not NVI Publication |
             | Scientific Article | Unpublished       | external institution | Import              | Not NVI Publication |
-

@@ -1,4 +1,4 @@
-// Feature: NVI workflow
+// Feature: NVI workflow - contributor
 
 import { dataTestId } from "../../../support/dataTestIds";
 import { userNviCuratorInstitutionA } from "../../../support/constants";
@@ -26,7 +26,7 @@ Then('the Publication has NVI status {string}', (isNviPublication) => {
         cy.get('@publicationStatus').then((publicationStatus) => {
             cy.get('@isCollaboration').then((isCollaboration) => {
                 cy.get('@typeOfRegistration').then((typeOfRegistration) => {
-                    const title = `${typeOfRegistration} ${category} ${publicationStatus} ${isCollaboration}`;
+                    const title = `Registrator ${typeOfRegistration} ${category} ${publicationStatus} ${isCollaboration}`;
                     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
                     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
                     if (isNviPublication === 'NVI Publication') {
