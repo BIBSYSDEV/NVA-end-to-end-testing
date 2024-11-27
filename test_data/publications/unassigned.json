@@ -10,7 +10,7 @@
     "contributor": "test-user-publish-registration@test.no",
     "title": "Unassign Publishing-Curator Approval",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
-    "fileStatus": "UnpublishedFile",
+    "fileStatus": "PendingOpenFile",
     "ticket": {
       "type": "PublishingRequest",
       "status": "Requested",

@@ -323,7 +323,7 @@ def put_item(new_publication, username):
                 print('Too many tries...')
                 print(response.json())
                 raise RuntimeError('Failed to create Registration')
-            return response.json()
+            return response
 
 
 def get_customer(username):
@@ -411,7 +411,7 @@ def create_publication_data(publication_template, test_publication, username, cu
         'name': 'test_file_name',
         'publisherAuthority': False,
         'size': 'test_file_size',
-        'type': 'PublishedFile',
+        'type': 'OpenFile',
         'administrativeAgreement': False,
         "publisherVersion" : "PublishedVersion",
         "legalNote" : "Legal note",
@@ -434,8 +434,7 @@ def create_publication_data(publication_template, test_publication, username, cu
 
         if 'administrativeAgreement' in test_publication:
             administrative_file = file.copy()
-            administrative_file['type'] = 'UnpublishableFile'
-            administrative_file['administrativeAgreement'] = test_publication['administrativeAgreement']
+            administrative_file['type'] = 'InternalFile'
             administrative_file['mimeType'] = fileTypes['pdf']['mimeType']
             administrative_file['name'] = fileTypes['pdf']['fileName']
             new_publication['associatedArtifacts'].append(administrative_file)
@@ -480,8 +479,15 @@ def create_publications():
                 publication_template=publication_template,
                 test_publication=test_publication
             )
-            response = put_item(
+            put_response = put_item(
                 new_publication=new_publication, username=username)
+            if not put_response.status_code == 201 and not put_response.status_code == 200:
+                print(put_response.status_code)
+                print(new_publication)
+                print(put_response.json())
+                break
+            response = put_response.json()
+
             identifier = response['identifier']
             if test_publication['status'] == 'PUBLISHED':
                 print(f'publishing...{identifier}')

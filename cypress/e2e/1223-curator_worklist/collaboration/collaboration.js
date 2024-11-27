@@ -48,7 +48,7 @@ Given('a Publication is created by institution A with contributors from institut
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-    cy.wait(15000);
+    cy.wait(30000);
 });
 And('a file is uploaded from:', (dataTable) => {
     dataTable.rawTable.forEach((data) => {

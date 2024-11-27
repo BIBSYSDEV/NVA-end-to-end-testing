@@ -45,7 +45,7 @@
     "status": "DRAFT",
     "contributor": "test-user-publish-registration@test.no",
     "title": "Draft registration - Publishing Request",
-    "fileStatus": "UnpublishedFile",
+    "fileStatus": "PendingOpenFile",
     "ticket": {
       "type": "PublishingRequest",
       "status": "Requested",
@@ -942,7 +942,7 @@
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "fileStatus": "UnpublishedFile",
+    "fileStatus": "PendingOpenFile",
     "owner": "test-user-access-resource-owner@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-access-resource-owner@test.no",
@@ -1161,7 +1161,7 @@
     "status": "DRAFT",
     "contributor": "test-user-publish-registration@test.no",
     "title": "Publishing-Curator Publish Files",
-    "fileStatus": "UnpublishedFile",
+    "fileStatus": "PendingOpenFile",
     "ticket": {
       "type": "PublishingRequest",
       "status": "Requested",
@@ -1178,7 +1178,7 @@
     "status": "DRAFT",
     "contributor": "test-user-publish-registration@test.no",
     "title": "Publishing-Curator Reject publishing",
-    "fileStatus": "UnpublishedFile",
+    "fileStatus": "PendingOpenFile",
     "ticket": {
       "type": "PublishingRequest",
       "status": "Requested",
@@ -1316,7 +1316,7 @@
     "contributor": "test-user-publish-registration@test.no",
     "title": "Open Publishing-Curator Approval",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
-    "fileStatus": "UnpublishedFile",
+    "fileStatus": "PendingOpenFile",
     "ticket": {
       "type": "PublishingRequest",
       "status": "Requested",
@@ -1334,7 +1334,7 @@
     "contributor": "test-user-publish-registration@test.no",
     "title": "Open unassigned Publishing-Curator Approval",
     "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0",
-    "fileStatus": "UnpublishedFile"
+    "fileStatus": "PendingOpenFile"
   },
   {
     "publication_type": "Journal",
@@ -1428,14 +1428,14 @@
     "owner": "test-user-NVI-A@test.no",
     "status": "PUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
     ],
     "title": "User Manual Registration Scientific Article Published No one"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
@@ -1443,327 +1443,55 @@
     "status": "PUBLISHED",
     "scopusId": "2-s2.0-12345678901",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
     ],
     "title": "User Import Scientific Article Published No one"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "DRAFT",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
     ],
     "title": "User Manual Registration Scientific Article Draft No one"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "UNPUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
     ],
     "title": "User Manual Registration Scientific Article Unpublished No one"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "UNPUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
     ],
     "title": "User Import Registration Scientific Article Unpublished No one"
-},
-
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "PUBLISHED",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVI-B@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-        }
-    ],
-    "title": "User Manual Registration Scientific Article Published NVI-institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "PUBLISHED",
-    "scopusId": "2-s2.0-12345678901",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVI-B@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-        }
-    ],
-    "title": "User Import Scientific Article Published NVI-institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "DRAFT",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVI-B@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-        }
-    ],
-    "title": "User Manual Registration Scientific Article Draft NVI-institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "UNPUBLISHED",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVI-B@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-        }
-    ],
-    "title": "User Manual Registration Scientific Article Unpublished NVI-institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "UNPUBLISHED",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVI-B@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-        }
-    ],
-    "title": "User Import Registration Scientific Article Unpublished NVI-institution"
-},
-
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "PUBLISHED",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVA-C@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
-        }
-    ],
-    "title": "User Manual Registration Scientific Article Published NVA-institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "PUBLISHED",
-    "scopusId": "2-s2.0-12345678901",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVA-C@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
-        }
-    ],
-    "title": "User Import Scientific Article Published NVA-institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "DRAFT",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVA-C@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
-        }
-    ],
-    "title": "User Manual Registration Scientific Article Draft NVA-institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "UNPUBLISHED",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVA-C@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
-        }
-    ],
-    "title": "User Manual Registration Scientific Article Unpublished NVA-institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "UNPUBLISHED",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVA-C@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
-        }
-    ],
-    "title": "User Import Registration Scientific Article Unpublished NVA-institution"
-},
-
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "PUBLISHED",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "External User"
-        }
-    ],
-    "title": "User Manual Registration Scientific Article Published external institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "PUBLISHED",
-    "scopusId": "2-s2.0-12345678901",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "External User"
-        }
-    ],
-    "title": "User Import Scientific Article Published external institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "DRAFT",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "External User"
-        }
-    ],
-    "title": "User Manual Registration Scientific Article Draft external institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "UNPUBLISHED",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "External User"
-        }
-    ],
-    "title": "User Manual Registration Scientific Article Unpublished external institution"
-},
-{
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "owner": "test-user-NVI-A@test.no",
-    "status": "UNPUBLISHED",
-    "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "External User"
-        }
-    ],
-    "title": "User Import Registration Scientific Article Unpublished external institution"
-}
-,
+  },
 
   {
     "publication_type": "Journal",
@@ -1772,14 +1500,284 @@
     "owner": "test-user-NVI-A@test.no",
     "status": "PUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "User Manual Registration Scientific Article Published NVI-institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "User Import Scientific Article Published NVI-institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "DRAFT",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "User Manual Registration Scientific Article Draft NVI-institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "UNPUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "User Manual Registration Scientific Article Unpublished NVI-institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "UNPUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "User Import Registration Scientific Article Unpublished NVI-institution"
+  },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "User Manual Registration Scientific Article Published NVA-institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "User Import Scientific Article Published NVA-institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "DRAFT",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "User Manual Registration Scientific Article Draft NVA-institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "UNPUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "User Manual Registration Scientific Article Unpublished NVA-institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "UNPUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "User Import Registration Scientific Article Unpublished NVA-institution"
+  },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "User Manual Registration Scientific Article Published external institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "User Import Scientific Article Published external institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "DRAFT",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "User Manual Registration Scientific Article Draft external institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "UNPUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "User Manual Registration Scientific Article Unpublished external institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "UNPUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "User Import Registration Scientific Article Unpublished external institution"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Published No one"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
@@ -1787,75 +1785,75 @@
     "status": "PUBLISHED",
     "scopusId": "2-s2.0-12345678901",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
     ],
     "title": "Registrator Import Scientific Article Published No one"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "DRAFT",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Draft No one"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "UNPUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Unpublished No one"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "UNPUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
     ],
     "title": "Registrator Import Registration Scientific Article Unpublished No one"
-},
+  },
 
-{
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "PUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVI-B@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Published NVI-institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
@@ -1863,91 +1861,91 @@
     "status": "PUBLISHED",
     "scopusId": "2-s2.0-12345678901",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVI-B@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
     ],
     "title": "Registrator Import Scientific Article Published NVI-institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "DRAFT",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVI-B@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Draft NVI-institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "UNPUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVI-B@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Unpublished NVI-institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "UNPUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVI-B@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
     ],
     "title": "Registrator Import Registration Scientific Article Unpublished NVI-institution"
-},
+  },
 
-{
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "PUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVA-C@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Published NVA-institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
@@ -1955,90 +1953,90 @@
     "status": "PUBLISHED",
     "scopusId": "2-s2.0-12345678901",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVA-C@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
     ],
     "title": "Registrator Import Scientific Article Published NVA-institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "DRAFT",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVA-C@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Draft NVA-institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "UNPUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVA-C@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Unpublished NVA-institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "UNPUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "test-user-NVA-C@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
     ],
     "title": "Registrator Import Registration Scientific Article Unpublished NVA-institution"
-},
+  },
 
-{
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "PUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "External User"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Published external institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
@@ -2046,65 +2044,204 @@
     "status": "PUBLISHED",
     "scopusId": "2-s2.0-12345678901",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "External User"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
     ],
     "title": "Registrator Import Scientific Article Published external institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "DRAFT",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "External User"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Draft external institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "UNPUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "External User"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
     ],
     "title": "Registrator Manual Registration Scientific Article Unpublished external institution"
-},
-{
+  },
+  {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
     "publication_instance_type": "AcademicArticle",
     "owner": "test-user-NVI-A@test.no",
     "status": "UNPUBLISHED",
     "contributors": [
-        {
-            "id": "test-user-NVI-A@test.no",
-            "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
-        },
-        {
-            "id": "External User"
-        }
+      {
+        "id": "test-user-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
     ],
     "title": "Registrator Import Registration Scientific Article Unpublished external institution"
-}
+  },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
+    ],
+    "title": "Change from unidentified to identified Manual no Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
+    ],
+    "title": "Change from unidentified to identified Import no Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "Change from unidentified to identified Manual NVI institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "Change from unidentified to identified Import NVI institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "Change from unidentified to identified Manual NVI institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "Change from unidentified to identified Import NVI institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "Change from unidentified to identified Manual external institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "Change from unidentified to identified Import external institution Collaboration"
+  }
 ]
