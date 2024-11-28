@@ -73,8 +73,8 @@ Given('a curator opens a non-scientific Result that is a NVI-candidate', () => {
 When('the curator changes the Category from non-scientific to scientific', () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.resourceType.)
- });
+    // cy.getDataTestId(dataTestId.registrationWizard.resourceType.)
+});
 Then('the Result is not a NVI-candidate', () => { });
 
 

@@ -1,0 +1,121 @@
+{
+    "customer": {
+        "name": "uit"
+    },
+    "brageLocation": "10/1",
+    "id": "https://hdl.handle.net/10037/7712",
+    "publishedDate": {
+        "brage": [
+            "2015-06-02T15:30:43Z"
+        ],
+        "nva": "2015-06-02T15:30:43Z"
+    },
+    "publisherAuthority": {},
+    "rightsholder": "Copyright 2014 The Author(s)",
+    "type": {
+        "brage": [
+            "Mastergradsoppgave",
+            "Master thesis"
+        ],
+        "nva": "DegreeMaster"
+    },
+    "publication": {
+        "publicationContext": {
+            "bragePublisher": "UiT Norges arktiske universitet",
+            "publisher": {
+                "type": "Publisher",
+                "pid": "DB1B17B3-1CA4-4A7A-9CDC-292FDD7B4BE5"
+            }
+        },
+        "partOfSeries": {}
+    },
+    "entityDescription": {
+        "abstracts": [
+            "Det eksisterer en rekke forskjellige kriterielister som har til hensikt å redusere bruken av uhensiktsmessige legemidler hos eldre. En slik norskutviklet kriterieliste er NORGEP-listen. Den består av 21 uhensiktsmessige enkeltlegemidler, og 15 uhensiktsmessige legemiddelkombinasjoner. Eldre pasienter gjennomgår både anatomiske og fysiologiskeendringer som påvirker legemidlers farmakokinetikk og farmakodynamikk. Majoriteten av legemidlene på listen er uheldige på grunn av bivirkninger. Det er også kjent at risikoen for bivirkninger øker med økt dosering. Denne masteroppgaven tar utgangspunkt imultidosepakkede legemidler som er forskrevet til eldre pasienter i åpen omsorg og isykehjem. Formålet med oppgaven var å kartlegge og sammenligne hvordan legemidler på NORGEP-listen doseres til pasienter i åpen omsorg og i sykehjem. Det skal også undersøkes om de norske godkjente SPC'ene til de aktuelle legemidlene på NORGEP-listen inneholder doseringsanbefalinger for eldre, og omdisse samsvarer med anbefalingene i Geriatric Dosage Handbook. I tillegg skal man se på om det er noen forskjell på bruken av polyfarmasi mellom de som er i åpen omsorg og de som er i sykehjem, og mellom NORGEP-brukere og ikke-brukere."
+        ],
+        "publicationDate": {
+            "brage": "2014-05-20",
+            "nva": {
+                "type": "PublicationDateNva",
+                "year": "2014",
+                "month": "05",
+                "day": "20"
+            }
+        },
+        "mainTitle": "Doseringer og doseringsanbefalinger av uhensiktsmessige legemidler til eldre",
+        "contributors": [
+            {
+                "type": "Contributor",
+                "brageRole": "advisor",
+                "role": "Supervisor",
+                "identity": {
+                    "type": "Identity",
+                    "name": "Kjell H. Halvorsen"
+                },
+                "sequence": 1
+            },
+            {
+                "type": "Contributor",
+                "brageRole": "author",
+                "role": "Creator",
+                "identity": {
+                    "type": "Identity",
+                    "name": "Marion Kristine Dahl Jensen"
+                },
+                "sequence": 2
+            }
+        ],
+        "tags": [
+            "FAR-3901",
+            "VDP::Medisinske Fag: 700::Helsefag: 800::Samfunnsfarmasi: 812",
+            "VDP::Medical disciplines: 700::Health sciences: 800::Community pharmacy: 812"
+        ],
+        "publicationInstance": {},
+        "language": {
+            "brage": [
+                "nob"
+            ],
+            "nva": "http://lexvo.org/id/iso639-3/nob"
+        }
+    },
+    "recordContent": {
+        "contentFiles": [
+            {
+                "bundleType": "ORIGINAL",
+                "description": "ORIGINAL",
+                "identifier": "9dff41e8-87bf-4705-b7a3-6fd506a01067",
+                "license": {
+                    "brageLicense": "https://creativecommons.org/licenses/by-nc-sa/3.0",
+                    "nvaLicense": {
+                        "license": "https://creativecommons.org/licenses/by-nc-sa/3.0",
+                        "type": "License"
+                    }
+                },
+                "filename": "thesis.pdf"
+            },
+            {
+                "bundleType": "IGNORED",
+                "identifier": "4e65d161-bb56-4265-9b07-8250d4f2d648",
+                "filename": "dublin_core.xml"
+            }
+        ]
+    },
+    "warnings": [
+        {
+            "warningCode": "SUBJECT_WARNING",
+            "details": [
+                "<dcValue element=\"subject\">FAR-3901</dcValue>"
+            ]
+        }
+    ],
+    "prioritizedProperties": [
+        "reference",
+        "mainTitle",
+        "publisher",
+        "alternativeAbstracts",
+        "abstract",
+        "fundings",
+        "tags",
+        "alternativeTitles"
+    ]
+}

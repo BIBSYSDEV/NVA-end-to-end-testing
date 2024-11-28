@@ -1,0 +1,122 @@
+{
+    "customer": {
+        "name": "usn",
+        "id": "https://api.test.nva.aws.unit.no/customer/b3d72c51-c4f2-4aa1-a15a-e9cc9b1f5e1e"
+    },
+    "brageLocation": "123456/17",
+    "id": "https://hdl.handle.net/12345/1007",
+    "publishedDate": {
+        "brage": [
+            "2024-11-21T01:01:01Z"
+        ],
+        "nva": "2024-11-21T01:01:01Z"
+    },
+    "publisherAuthority": {
+        "brage": [
+            "acceptedVersion"
+        ],
+        "nva": "AcceptedVersion"
+    },
+    "type": {
+        "brage": [
+            "Peer reviewed",
+            "Journal article"
+        ],
+        "nva": "Vitenskapelig artikkel"
+    },
+    "publication": {
+        "issnList": [
+            "1554-8937"
+        ],
+        "journal": "ACS Chemical Biology",
+        "publicationContext": {
+            "journal": {
+                "type": "Journal",
+                "pid": "1864a370-80ca-4be5-9cb7-40b0ccef23ca"
+            }
+        },
+        "partOfSeries": {}
+    },
+    "entityDescription": {
+        "abstracts": [
+            "Test article, Brage import"
+        ],
+        "publicationDate": {
+            "brage": "2024-11-21",
+            "nva": {
+                "type": "PublicationDateNva",
+                "year": "2024",
+                "month": "11",
+                "day": "21"
+            }
+        },
+        "mainTitle": "Test import file 8",
+        "contributors": [
+            {
+                "type": "Contributor",
+                "brageRole": "author",
+                "role": "Creator",
+                "identity": {
+                    "type": "Identity",
+                    "name": "colaboration A TestUser",
+                    "identifier": "1685181"
+                },
+                "affiliations": [
+                    {
+                        "type": "Affiliation",
+                        "identifier": "5991"
+                    }
+                ],
+                "sequence": 1
+            },
+            {
+                "type": "Contributor",
+                "brageRole": "author",
+                "role": "Creator",
+                "identity": {
+                    "type": "Identity",
+                    "name": "Eirik Nilsen",
+                    "identifier": ""
+                },
+                "affiliations": [],
+                "sequence": 2
+            }
+        ],
+        "tags": [],
+        "publicationInstance": {},
+        "language": {
+            "brage": [
+                "nob"
+            ],
+            "nva": "http://lexvo.org/id/iso639-3/nob"
+        }
+    },
+    "recordContent": {
+        "contentFiles": [
+            {
+                "bundleType": "ORIGINAL",
+                "description": "ORIGINAL",
+                "identifier": "725ebf6a-363e-41dc-a76a-be4237827d20",
+                "license": {
+                    "brageLicense": "https://creativecommons.org/licenses/by/4.0",
+                    "nvaLicense": {
+                        "license": "https://creativecommons.org/licenses/by/4.0",
+                        "type": "License"
+                    }
+                },
+                "filename": "example.txt"
+            }
+        ]
+    },
+    "warnings": [],
+    "prioritizedProperties": [
+        "reference",
+        "mainTitle",
+        "publisher",
+        "alternativeAbstracts",
+        "abstract",
+        "fundings",
+        "tags",
+        "alternativeTitles"
+    ]
+}
