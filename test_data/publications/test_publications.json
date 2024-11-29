@@ -2114,7 +2114,11 @@
     "status": "PUBLISHED",
     "contributors": [
       {
-        "id": "test-user-change-NVI-A@test.no",
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
         "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
       }
     ],
@@ -2129,7 +2133,11 @@
     "scopusId": "2-s2.0-12345678901",
     "contributors": [
       {
-        "id": "test-user-change-NVI-A@test.no",
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
         "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
       }
     ],
@@ -2143,7 +2151,11 @@
     "status": "PUBLISHED",
     "contributors": [
       {
-        "id": "test-user-change-NVI-A@test.no",
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
         "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
       },
       {
@@ -2162,7 +2174,11 @@
     "scopusId": "2-s2.0-12345678901",
     "contributors": [
       {
-        "id": "test-user-change-NVI-A@test.no",
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
         "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
       },
       {
@@ -2180,7 +2196,11 @@
     "status": "PUBLISHED",
     "contributors": [
       {
-        "id": "test-user-change-NVI-A@test.no",
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
         "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
       },
       {
@@ -2188,7 +2208,7 @@
         "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
       }
     ],
-    "title": "Change from unidentified to identified Manual NVI institution Collaboration"
+    "title": "Change from unidentified to identified Manual NVA institution Collaboration"
   },
   {
     "publication_type": "Journal",
@@ -2199,7 +2219,11 @@
     "scopusId": "2-s2.0-12345678901",
     "contributors": [
       {
-        "id": "test-user-change-NVI-A@test.no",
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
         "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
       },
       {
@@ -2207,7 +2231,7 @@
         "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
       }
     ],
-    "title": "Change from unidentified to identified Import NVI institution Collaboration"
+    "title": "Change from unidentified to identified Import NVA institution Collaboration"
   },
   {
     "publication_type": "Journal",
@@ -2217,7 +2241,11 @@
     "status": "PUBLISHED",
     "contributors": [
       {
-        "id": "test-user-change-NVI-A@test.no",
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
         "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
       },
       {
@@ -2235,7 +2263,11 @@
     "scopusId": "2-s2.0-12345678901",
     "contributors": [
       {
-        "id": "test-user-change-NVI-A@test.no",
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
         "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
       },
       {
@@ -2243,5 +2275,347 @@
       }
     ],
     "title": "Change from unidentified to identified Import external institution Collaboration"
+  },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalReview",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
+    ],
+    "title": "Change from non-scientific to scientific Manual no Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalReview",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
+    ],
+    "title": "Change from non-scientific to scientific Import no Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalReview",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "Change from non-scientific to scientific Manual NVI institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalReview",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "Change from non-scientific to scientific Import NVI institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalReview",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "Change from non-scientific to scientific Manual NVA institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalReview",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "Change from non-scientific to scientific Import NVA institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalReview",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "Change from non-scientific to scientific Manual external institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "JournalReview",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "Change from non-scientific to scientific Import external institution Collaboration"
+  },
+
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
+    ],
+    "title": "Change from scientific to non-scientific Manual no Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
+    ],
+    "title": "Change from scientific to non-scientific Import no Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "Change from scientific to non-scientific Manual NVI institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVI-B@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+      }
+    ],
+    "title": "Change from scientific to non-scientific Import NVI institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "Change from scientific to non-scientific Manual NVA institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "test-user-change-NVA-C@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
+      }
+    ],
+    "title": "Change from scientific to non-scientific Import NVA institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "Change from scientific to non-scientific Manual external institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "scopusId": "2-s2.0-12345678901",
+    "contributors": [
+      {
+        "id": "test-user-change-curator-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "Change User NVI-institution A TestUser",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      },
+      {
+        "id": "External User"
+      }
+    ],
+    "title": "Change from scientific to non-scientific Import external institution Collaboration"
   }
 ]

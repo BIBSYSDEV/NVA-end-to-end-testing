@@ -148,7 +148,7 @@ export const userNviCuratorInstitutionA = 'test-user-curator-NVI-A@test.no';
 export const userChangeNviInstitutionA = 'test-user-change-NVI-A@test.no';
 export const userChangeNviInstitutionB = 'test-user-change-NVI-B@test.no';
 export const userChangeNvaInstitutionC = 'test-user-change-NVA-C@test.no';
-export const userChangeNviCuratorInstitutionA = 'test-change-user-curator-NVI-A@test.no';
+export const userChangeNviCuratorInstitutionA = 'test-user-change-curator-NVI-A@test.no';
 
 const userData = {
   name: '',

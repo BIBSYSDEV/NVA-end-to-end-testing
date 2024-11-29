@@ -108,7 +108,8 @@ def set_nvi_period():
     payload = {
         "publishingYear": year,
         "reportingDate": periodEndDate,
-        "startDate": startDate
+        "startDate": startDate,
+        "type": "NviPeriod"
     }
     response = requests.post(url=period_endpoint, json=payload, headers=headers)
     if response.status_code != 201:
@@ -344,16 +345,16 @@ def create_contributor(contributor, affiliation, sequence):
         if contributor in arp_dict:
             new_contributor['identity']['id'] = arp_dict[contributor]["cristinid"]
             new_contributor['identity']['name'] = arp_dict[contributor]["name"]
-            if affiliation != '':
-                organization =     {
-                    "id": affiliation,
-                    "type": "Organization"
-                }
-                new_contributor['affiliations'].append(organization)
         else:
             new_contributor['identity']['id'] = ''
             new_contributor['identity']['name'] = contributor
             new_contributor['identity']['verificationStatus'] = 'NotVerified'
+        if affiliation != '':
+            organization =     {
+                "id": affiliation,
+                "type": "Organization"
+            }
+            new_contributor['affiliations'].append(organization)
         return new_contributor
 
 

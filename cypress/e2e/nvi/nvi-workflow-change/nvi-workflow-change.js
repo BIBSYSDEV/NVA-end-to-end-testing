@@ -3,7 +3,7 @@
 import { userChangeNviCuratorInstitutionA } from "../../../support/constants";
 import { dataTestId } from "../../../support/dataTestIds";
 
-const unidentifiedContributor = 'User NVI-institution A TestUser'
+const unidentifiedContributor = 'Change User NVI-institution A TestUser'
 let titleRoot = ''
 
 // Scenario Outline: Contributor changes from unidentified to identified
@@ -37,10 +37,12 @@ When('the curator changes a contributor from unidentified to identified', () => 
         });
     });
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+});
+And('saves the changes', () => {
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
-});
+})
 Then('the Result is a NVI-candidate', () => {
     cy.get('@title').then((title) => {
         cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -68,23 +70,45 @@ Then('the Result is a NVI-candidate', () => {
 Given('a curator opens a non-scientific Result that is a NVI-candidate', () => {
     cy.login(userChangeNviCuratorInstitutionA)
     titleRoot = 'Change from non-scientific to scientific'
-
 });
 When('the curator changes the Category from non-scientific to scientific', () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.resourceType.)
- });
-Then('the Result is not a NVI-candidate', () => { });
-
+    cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('JournalReview')).click();
+    cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
+    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+});
 
 // Scenario Outline: Category changes from scientific to non-scientific
-Given('a curator opens a scientific Result that is a NVI-candidate', () => { });
-When('the curator changes the Category from scientific to non-scientific', () => { });
+Given('a curator opens a scientific Result that is a NVI-candidate', () => {
+    cy.login(userChangeNviCuratorInstitutionA)
+    titleRoot = 'Change from scientific to non-scientific'
+});
+When('the curator changes the Category from scientific to non-scientific', () => {
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
+    cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('JournalReview')).click();
+    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+});
+Then('the Result is not a NVI-candidate', () => {
+    cy.get('@title').then((title) => {
+        cy.getDataTestId(dataTestId.header.tasksLink).click();
+        cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`)
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        cy.get('li').filter(`:contains(${title})`).should('not.exist');
+    });
+});
 
 
 // Scenario Outline: Category changes from non-scientific to scientific, contributor changes from unidentified to identified
-Given('a curator opens a non-scientific Result that is a NVI-candidate with unidentified contributor', () => { });
+Given('a curator opens a non-scientific Result that is a NVI-candidate with unidentified contributor', () => {
+    cy.login(userChangeNviCuratorInstitutionA)
+    titleRoot = 'Change from non-scientific to scientific, unidentified to identified'
+
+});
 
 // Scenario Outline: Category changes from scientific to non-scientific, contributor changes from unidentified to identified
 Given('a curator opens a scientific Result that is a NVI-candidate with unidentified contributor', () => { });
