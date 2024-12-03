@@ -8,7 +8,6 @@ Feature: Application Administrator administers Customer Institutions
     And they see a table of all Customer Institutions
     And they see the table contains the fields
       | Name |
-      | Date |
     And they see a button Edit that is enabled for each Institution
     And they see a button Add institution that is enabled
 
