@@ -40,7 +40,8 @@ Given('User navigate to My Page and selects Project registrations', () => {
     cy.getDataTestId(dataTestId.myPage.myProjectsLink).click();
 });
 When('the User inspects a listed project', () => {
-    cy.get('ul > li').first().as('project');
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.get('ul > li > div').first().as('project');
 });
 Then("the User see can see each Project's:", (info) => {
     const projectInfo = {
