@@ -107,6 +107,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
 
 Cypress.Commands.add('login', (userId) => {
   cy.loginCognito(userId).then(() => {
+    cy.wait(1000);
     cy.setLocalStorage('i18nextLng', 'eng');
     cy.setLocalStorage('previouslyLoggedIn', 'true');
     cy.visit(`/`, {
