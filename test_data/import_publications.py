@@ -375,7 +375,12 @@ def create_publication_data(publication_template, test_publication, username, cu
     if 'publisher' in test_publication:
         new_publication['entityDescription']['reference']['publicationContext']['publisher'] = {
             'type': 'Publisher',
-            'id': 'https://api.dev.nva.aws.unit.no/publication-channels/publisher/26781/2023'
+            'id': test_publication['publisher']
+        }
+    if 'series' in test_publication:
+        new_publication['entityDescription']['reference']['publicationContext']['series'] = {
+            'type': 'Series',
+            'id': test_publication['series']
         }
 
     if 'contributor' in test_publication:
@@ -623,7 +628,7 @@ def run():
     read_customers()
     map_user_to_arp()
     upload_file()
-    delete_publications()
+    # delete_publications()
     reset_search_index()
     create_publications()
 

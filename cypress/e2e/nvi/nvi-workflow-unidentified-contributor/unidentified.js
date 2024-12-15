@@ -8,45 +8,100 @@ import { todayDatePicker } from "../../../support/commands";
 // Scenario: Identify publication as NVI candidate
 
 const fileName = 'example.txt';
+const JOURNAL = 'journal';
+const PUBLISHER = 'publisher';
+const SERIES = 'series';
 
 Given('a publication of {string} published in the active period', (type) => {
     cy.login(userChangeNviCuratorInstitutionA);
     cy.wrap(type).as('type');
- });
+});
 And('the publication has at least one publication channel of type {string} with scientific level of one or two', (channel) => {
     cy.wrap(channel).as('channel');
+    cy.startWizardWithEmptyRegistration();
 });
 And('the publication has at least one Author affiliated with an NVI institution', () => {
-    cy.startWizardWithFile(fileName);
     cy.get('@type').then(type => {
         cy.get('@channel').then(channel => {
             const title = `NVI-candidate ${type} ${channel} ${uuid()}`
             cy.wrap(title).as('title');
             cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type(`${title}`)
-            cy.chooseDatePicker(dataTestId.registrationWizard.description.datePublishedField, todayDatePicker());
+            cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, todayDatePicker());
             cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+            cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(type)).click();
             switch (channel) {
-                case 'AcademicArticle':
+                case JOURNAL:
                     cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acs chemical');
                     cy.contains('ACS Chemical Biology').click();
                     break;
-                case 'AcademicChapter':
+                case PUBLISHER:
+                    if (type === 'AcademicChapter') {
+                        cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(`Anthology NVI ${channel}`);
+                        cy.contains(`Anthology NVI ${channel}`).click();
+                    } else {
+                        cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('Det Norske Samlaget');
+                        cy.contains('Det Norske Samlaget').click();
+                    }
+                    cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
+                    cy.contains('Art History').click();
                     break;
-                case 'AcademicLiteratureReview':
-                    break;
-                case 'AcademicMonograph':
-                    break;
-                case 'AcademicCommentary':
+                case SERIES:
+                    if (type === 'AcademicChapter') {
+                        cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(`Anthology NVI ${channel}`);
+                        cy.contains(`Anthology NVI ${channel}`).click();
+                    } else {
+                        cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('Norsk barnebokinstitutt');
+                        cy.contains('Norsk barnebokinstitutt').click();
+                        cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type('Advances in Computer Science Research');
+                        cy.contains('Advances in Computer Science Research').click();
+                    }
+                    cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
+                    cy.contains('Art History').click();
                     break;
             }
             cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
             cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
             cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
+            cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+            cy.getDataTestId('CheckBoxOutlineBlankIcon').parent().click();
+            cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).should('be.enabled');
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then((publishingAccordion) => {
+                if (publishingAccordion.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`).length > 0) {
+                    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+                    cy.wait(5000);
+                }
+            });
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then((publishingAccordion) => {
+                if (publishingAccordion.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`).length > 0) {
+                    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+                    cy.wait(5000);
+                }
+            });
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then((publishingAccordion) => {
+                if (publishingAccordion.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`).length > 0) {
+                    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+                    cy.wait(5000);
+                }
+            });
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).should('not.exist');
         });
     });
 });
-And('the publication is not previously reported', () => { });
-Then('the publication is identified as an NVI candidate', () => { });
+And('the publication is not previously reported', () => { 
+    cy.getDataTestId(dataTestId.header.tasksLink).click();
+    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+});
+Then('the publication is identified as an NVI candidate', () => {
+    cy.get('@title').then(title => {
+        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+        cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+            cy.contains(title);
+        })
+    })
+ });
 
 // Examples:
 //   | Type                                     | Channel   |

@@ -116,6 +116,9 @@ Cypress.Commands.add('login', (userId) => {
         password: Cypress.env('DEVPASSWORD'),
       },
     });
+    if(cy.document().find(`${dataTestId.confirmDialog.acceptButton}]`).length > 0) {
+      cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+    }
   });
 });
 
