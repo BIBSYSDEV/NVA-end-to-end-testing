@@ -116,9 +116,7 @@ Cypress.Commands.add('login', (userId) => {
         password: Cypress.env('DEVPASSWORD'),
       },
     });
-    if(cy.document().find(`${dataTestId.confirmDialog.acceptButton}]`).length > 0) {
-      cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-    }
+    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   });
 });
 
@@ -579,4 +577,26 @@ Cypress.Commands.add('filterMessages', (messageType) => {
     ((supportFilter && !(messageType === supportRequests)) || (!supportFilter && messageType === supportRequests)) &&
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
   });
+});
+
+Cypress.Commands.add('getWorklistItem', (title) => {
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.document().then(doc => {
+    if (doc.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length == 0) {
+      cy.wait(30000);
+      cy.reload();
+    }
+  });
+  return cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`);
+});
+
+Cypress.Commands.add('getNVIWorklistItem', (title) => {
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  if (cy.document().find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length == 0) {
+    cy.wait(30000);
+    cy.reload();
+  }
+  return cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains(${title})`);
 });
