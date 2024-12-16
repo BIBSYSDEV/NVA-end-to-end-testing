@@ -16,6 +16,8 @@ const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'e2e';
 
+console.log
+
 AWS.config.update({
   accessKeyId: awsAccessKeyId,
   secretAccessKey: awsSecretAccessKey,
@@ -117,6 +119,7 @@ Cypress.Commands.add('login', (userId) => {
       },
     });
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('not.exist');
   });
 });
 
