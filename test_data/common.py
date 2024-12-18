@@ -14,6 +14,9 @@ CLIENT_SECRET = secretsmanager.get_secret_value(SecretId='backendClientSecret')[
 CUSTOMER_TABLENAME = ssm.get_parameter(Name='/test/CustomerTable',
                                        WithDecryption=False)['Parameter']['Value']
 
+terms_conditions = '{"termsConditionsUri":"https://nva.sikt.no/terms/2024-10-01"}'
+terms_conditions_endpoint = 'https://api.e2e.nva.aws.unit.no/users-roles/users/mine/accepted-terms'
+
 def login(username):
     USER_PASSWORD = secretsmanager.get_secret_value(SecretId='TestUserPassword')['SecretString']
     client = boto3.client('cognito-idp')
@@ -29,7 +32,15 @@ def login(username):
                     'PASSWORD': USER_PASSWORD
                 }
             )
-            return response['AuthenticationResult']['AccessToken']
+            accessToken = response['AuthenticationResult']['AccessToken']
+            headers = {
+                'Authorization': f'Bearer {accessToken}',
+                'Content-type': 'application/json'
+            }
+           
+            # terms_response = requests.put(terms_conditions_endpoint, headers=headers, data=terms_conditions)
+            # print(terms_response.json())
+            return accessToken
         except:
             print('failed login...')
             print(response)

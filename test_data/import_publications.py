@@ -149,6 +149,7 @@ def map_user_to_arp():
                 headers=headers)
             if query_response.status_code != 200:
                 print(f'GET /person/ {query_response.status_code}')
+                print(query_response.json())
             if query_response.json() != []:
                 person = query_response.json()
                 cristin_id = person['id']
@@ -628,7 +629,7 @@ def run():
     read_customers()
     map_user_to_arp()
     upload_file()
-    # delete_publications()
+    delete_publications()
     reset_search_index()
     create_publications()
 

@@ -107,6 +107,7 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
 def createNvaUser(accessToken, nin, customer, roles, username):
     print('Creating NVA user...')
     url = f'{apiUrl}users-roles/users/'
+    termsUri = 'https://nva.sikt.no/terms/2024-10-01'
     payload = {
         "nationalIdentityNumber": nin,
         "customerId": customer,
@@ -140,6 +141,14 @@ def createNvaUser(accessToken, nin, customer, roles, username):
                 {
                     'Name': 'custom:feideId',
                     'Value': username
+                },
+                {
+                    'Name': "custom:currentTerms",
+                    'Value': termsUri
+                },
+                {
+                    "Name": "custom:acceptedTerms",
+                    "Value": termsUri
                 }
             ],
             MessageAction='SUPPRESS'

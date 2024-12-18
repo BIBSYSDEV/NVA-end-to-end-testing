@@ -30,6 +30,11 @@ const amplifyConfig = {
     region: region,
     userPoolId: userPoolId,
     userPoolWebClientId: clientId,
+    loginWith: {
+      oauth: {
+        scopes: ['openid', 'https://api.nva.unit.no/scopes/frontend', 'aws.cognito.signin.user.admin'],
+      },
+    },
   },
 };
 
@@ -64,7 +69,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
     secretsManager.getSecretValue(secretsManagerParams, (err, data) => {
       if (data) {
         testUserPassword = data.SecretString
-
+        // testUserPassword = 'P_f46addfb-9f75-42c2-aafa-dcf0974a9eb5';
         const authorizeUser = {
           AuthFlow: authFlow,
           ClientId: clientId,
@@ -99,7 +104,6 @@ Cypress.Commands.add('loginCognito', (userId) => {
             trying = false;
           }
         } while (trying);
-        // }
       } else {
         reject(err);
       }
@@ -118,8 +122,8 @@ Cypress.Commands.add('login', (userId) => {
         password: Cypress.env('DEVPASSWORD'),
       },
     });
-    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('not.exist');
+    // cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+    // cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('not.exist');
   });
 });
 

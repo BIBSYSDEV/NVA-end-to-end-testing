@@ -169,3 +169,4 @@ mochawesome-report/
 cypress-combined-report.json
 TestReport/
 test_data/users/__test_users_new.json
+credentials

@@ -13,5 +13,7 @@
   { "Name": "custom:feideId", "Value": "###################" },
   { "Name": "custom:feideTargetedId", "Value": "###################" },
   { "Name": "email", "Value": "###################" },
-  { "Name": "custom:affiliation", "Value": "[member]" }
+  { "Name": "custom:affiliation", "Value": "[member]" },
+  { "Name": "custom:acceptedTerms", "Value": "https://nva.sikt.no/terms/2024-10-01" },
+  { "Name": "custom:currentTerms", "Value": "https://nva.sikt.no/terms/2024-10-01" }
 ]
