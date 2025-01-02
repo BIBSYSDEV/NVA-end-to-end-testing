@@ -16,6 +16,8 @@ CLIENT_ID = ssm.get_parameter(Name='/CognitoUserPoolAppClientId',
                               WithDecryption=False)['Parameter']['Value']
 USERS_ROLES_TABLE_NAME = ssm.get_parameter(Name='/test/UserTable',
                                            WithDecryption=False)['Parameter']['Value']
+TERMS_CONDITION_TABLE_NAME = ssm.get_parameter(Name='/test/TermsConditionsTable',
+                                           WithDecryption=False)['Parameter']['Value']
 customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
                                        WithDecryption=False)['Parameter']['Value']
 
@@ -100,8 +102,43 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
                 url=updateUrl, json=payload, headers=headers)
     else:
         print('Employment exists...')
+        cristinPersonId = existingPerson.json()['id'].replace(
+            f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
 
     return cristinPersonId
+
+def setTermsAndConditions(cristinPersonId):
+    print('Setting terms and conditions')
+    payload = {
+        "id": {
+            "S": "https://api.e2e.nva.aws.unit.no/cristin/person/43419"
+        },
+        "type": {
+            "S": "TermsConditions"
+        },
+        "created": {
+            "S": "2024-12-15T10:47:11.123845930Z"
+        },
+        "modified": {
+            "S": "2024-12-15T10:47:11.123845930Z"
+        },
+        "modifiedBy": {
+            "S": "43419@20754.0.0.0"
+        },
+        "owner": {
+            "S": "43419@20754.0.0.0"
+        },
+        "termsConditionsUri": {
+            "S": "https://nva.sikt.no/terms/2024-10-01"
+        }
+    }
+    payload['id']['S'] = f'https://api.e2e.nva.aws.unit.no/cristin/person/{cristinPersonId}'
+    client = boto3.client('dynamodb')
+    response = client.put_item(
+        TableName = TERMS_CONDITION_TABLE_NAME,
+        Item = payload
+    )
+
 
 
 def createNvaUser(accessToken, nin, customer, roles, username):
@@ -194,8 +231,9 @@ def importUsers(test_users_file_name):
             username = test_user['username']
             print(f'Creating {firstName} {lastName}')
 
-            createCristinPerson(accessToken=accessToken, nin=nin,
+            cristinPersonId = createCristinPerson(accessToken=accessToken, nin=nin,
                                 firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId)
+            setTermsAndConditions(cristinPersonId=cristinPersonId)
             if not 'cristinUser' in test_user:
                 createNvaUser(accessToken=accessToken, nin=nin,
                               customer=customer, roles=roles, username=username)
