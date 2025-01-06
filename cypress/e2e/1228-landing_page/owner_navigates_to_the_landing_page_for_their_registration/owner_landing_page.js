@@ -63,6 +63,7 @@ And('there is a pending Approval Request on the Resource', () => {
   cy.reload();
 });
 Then('they see a "Publishing pending" notice', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
   cy.contains('Metadata published');
   cy.contains(('1 file published')).should('not.exist');
 });
