@@ -194,6 +194,7 @@ And('they see the "Create new Author" Button', () => {
   );
 });
 When('they click "Create new Author"', () => {
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('New Author');
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
 });
 Then('they see fields:', (dataTable) => {
@@ -208,10 +209,10 @@ When('the Registration has an Unverified Contributor', () => {
   cy.mockPersonSearch(userWithAuthor);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type(
     'Unverified Creator'
   );
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
 });
 Then('they see a Button to Verify the Contributor', () => {
@@ -222,10 +223,10 @@ Then('they see a Button to Verify the Contributor', () => {
 Given('Creator sees Button to Verify Contributor', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type(
     'Withauthor 10 TestUser'
   );
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
   cy.get(`[data-testid^=button-set-unverified-contributor-]`).should('be.visible');
 });
@@ -249,10 +250,8 @@ Given('Creator opens Dialog to Verify Contributor', () => {
   cy.mockPersonSearch(userWithAuthor);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Unverified Creator')
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).type(
-    'Unverified Creator'
-  );
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
   cy.get(`[data-testid^=button-set-unverified-contributor-]`).first().click();
 });

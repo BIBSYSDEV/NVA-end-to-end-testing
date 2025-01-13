@@ -532,7 +532,7 @@ def publish_publication(identifier, username):
     }
     response = requests.post(publish_endpoint.format(
         STAGE, identifier), json=payload, headers=headers)
-    print(response)
+    print(response.json())
     check_response(response=response, status_code=201)
 
 def reserve_doi(identifier, username):

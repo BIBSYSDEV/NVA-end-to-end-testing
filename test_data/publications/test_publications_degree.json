@@ -8,7 +8,6 @@
     "owner": "test-user-draft-doi-2@test.no",
     "status": "PUBLISHED",
     "contributor": "test-user-draft-doi-2@test.no",
-    "title": "Published registration requesting DOI",
-    "doi": "requested"
+    "title": "Published registration requesting DOI"
   }
 ]
