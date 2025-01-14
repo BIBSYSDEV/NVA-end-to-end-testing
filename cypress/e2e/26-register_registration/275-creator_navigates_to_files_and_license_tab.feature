@@ -42,3 +42,4 @@ Feature: Creator navigates to Files and License tab
     And navigates to Files and License tab
     When they remove a file
     Then they no longer see the file in the list of files
+
