@@ -90,16 +90,13 @@ And('the publication has at least one Author affiliated with an NVI institution'
         });
     });
 });
-And('the publication is not previously reported', () => { 
+And('the publication is not previously reported', () => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
 });
 Then('the publication is identified as an NVI candidate', () => {
     cy.get('@title').then(title => {
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-        cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
-            cy.contains(title);
-        })
+        cy.getNVIWorklistItem(title);
     })
  });
 

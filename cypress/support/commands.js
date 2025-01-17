@@ -591,8 +591,12 @@ Cypress.Commands.add('filterMessages', (messageType) => {
 Cypress.Commands.add('getWorklistItem', (title) => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.document().then(doc => {
-    if (doc.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length == 0) {
+  cy.get('main').then(doc => {
+    if (doc.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length < 1) {
+      cy.wait(30000);
+      cy.reload();
+    }
+    if (doc.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length < 1) {
       cy.wait(30000);
       cy.reload();
     }
@@ -603,9 +607,15 @@ Cypress.Commands.add('getWorklistItem', (title) => {
 Cypress.Commands.add('getNVIWorklistItem', (title) => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  if (cy.document().find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length == 0) {
-    cy.wait(30000);
-    cy.reload();
-  }
+  cy.get('main').then(doc => {
+    if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
+      cy.wait(30000);
+      cy.reload();
+    }
+    if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
+      cy.wait(30000);
+      cy.reload();
+    }
+  });
   return cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains(${title})`);
 });

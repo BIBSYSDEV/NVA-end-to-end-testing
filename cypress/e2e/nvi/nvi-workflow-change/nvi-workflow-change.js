@@ -47,10 +47,7 @@ Then('the Result is a NVI-candidate', () => {
         cy.getDataTestId(dataTestId.header.tasksLink).click();
         cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`)
-        cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
-            cy.get('li').filter(`:contains(${title})`).should('exist');
-        });
+        cy.getNVIWorklistItem(title);
     });
 });
 
@@ -95,6 +92,16 @@ Then('the Result is not a NVI-candidate', () => {
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`)
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        cy.get('main').then(doc => {
+            if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length > 0) {
+              cy.wait(30000);
+              cy.reload();
+            }
+            if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length > 0) {
+              cy.wait(30000);
+              cy.reload();
+            }
+          });
         cy.get('li').filter(`:contains(${title})`).should('not.exist');
     });
 });
