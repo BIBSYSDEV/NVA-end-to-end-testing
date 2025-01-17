@@ -61,6 +61,7 @@ Then('they have an option to unpublish the Registration', () => {
 And('when they use the option to unpublish the Registration is no longer published', () => {
     cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
     cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Unpublish justification');
+    cy.getDataTestId(dataTestId.unpublishActions.confirmUnpublishCheckbox).click();
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
     cy.contains('The result is unpublished');
 })
