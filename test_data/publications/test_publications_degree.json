@@ -5,9 +5,20 @@
     "publication_instance_type": "AcademicArticle",
     "file_identifier": "lorem_ipsum",
     "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-draft-doi-2@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-draft-doi-2@test.no",
-    "title": "Published registration requesting DOI"
+    "owner": "test-user-editor@test.no",
+    "status": "UNPUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Unpublished registration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-editor@test.no",
+    "status": "DELETED",
+    "contributor": "test-user-with-author@test.no",
+    "title": "Deleted registration"
   }
 ]

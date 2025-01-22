@@ -17,11 +17,15 @@ const selectPortifolio = (portifolio) => {
     portifolios.keys().forEach(key => {
         cy.getDataTestId(portifolios.get(key)).then($element => {
             if (key === portifolio) {
+                cy.log('Select')
+                cy.log($element.find('[data-testid="CheckBoxOutlineBlankIcon"]').length);
                 if ($element.find('[data-testid="CheckBoxOutlineBlankIcon"]').length > 0) {
                     cy.getDataTestId(portifolios.get(key)).click();
                     cy.log(`Select ${key}`);
                 }
             } else {
+                cy.log('Unselect')
+                cy.log($element.find('[data-testid="CheckBoxOutlineBlankIcon"]').length);
                 if ($element.find('[data-testid="CheckBoxIcon"]').length > 0) {
                     cy.getDataTestId(portifolios.get(key)).click();
                     cy.log(`Unselect ${key}`);

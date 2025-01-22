@@ -42,6 +42,7 @@ user_endpoint = 'https://api.{}.nva.aws.unit.no/users-roles/users/{}'
 upload_endpoint = 'https://api.{}.nva.aws.unit.no/upload/{}'
 publication_endpoint = f'https://api.{STAGE}.nva.aws.unit.no/publication'
 publish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
+unpublish_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}'
 reserve_doi_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/doi'
 create_ticket_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket'
 update_ticket_endpoint = 'https://api.{}.nva.aws.unit.no/publication/{}/ticket/{}'
@@ -495,11 +496,24 @@ def create_publications():
                 break
             response = put_response.json()
 
+            bearer_token = common.login(username)
             identifier = response['identifier']
-            if test_publication['status'] == 'PUBLISHED':
+            if test_publication['status'] == 'PUBLISHED' or test_publication['status'] == 'UNPUBLISHED' or test_publication['status'] == 'DELETED':
                 print(f'publishing...{identifier}')
                 response = publish_publication(identifier=identifier,
-                                               username=username)
+                                               bearer_token=bearer_token)
+                print(response)
+            if test_publication['status'] == 'UNPUBLISHED' or test_publication['status'] == 'DELETED':
+                time.sleep(3)
+                print(f'Unpublishing...{identifier}')
+                response = unpublish_publication(identifier=identifier,
+                                               bearer_token=bearer_token)
+                print(response)
+            if test_publication['status'] == 'DELETED':
+                time.sleep(3)
+                print(f'Deleting...{identifier}')
+                response = delete_publication(identifier=identifier,
+                                               bearer_token=bearer_token)
                 print(response)
             if 'ticket' in test_publication:
                 print('creating ticket...')
@@ -524,16 +538,36 @@ def create_publications():
                     request_doi(identifier=identifier, username=username)
 
 
-def publish_publication(identifier, username):
-    publish_bearer_token = common.login(username=username)
+def publish_publication(identifier, bearer_token):
+    publish_bearer_token = bearer_token
     headers['Authorization'] = f'Bearer {publish_bearer_token}'
     payload = {
         'type': 'PublishingRequest'
     }
     response = requests.post(publish_endpoint.format(
         STAGE, identifier), json=payload, headers=headers)
-    print(response.json())
     check_response(response=response, status_code=201)
+
+def unpublish_publication(identifier, bearer_token):
+    unpublish_bearer_token = bearer_token=bearer_token
+    headers['Authorization'] = f'Bearer {unpublish_bearer_token}'
+    payload = {
+        "type": "UnpublishPublicationRequest",
+        "comment": "Unpublishing..."
+    }
+    response = requests.put(unpublish_endpoint.format(
+        STAGE, identifier), json=payload, headers=headers)
+    check_response(response=response, status_code=202)
+
+def delete_publication(identifier, bearer_token):
+    delete_bearer_token = bearer_token
+    headers['Authorization'] = f'Bearer {delete_bearer_token}'
+    payload = {
+        "type": "DeletePublicationRequest"
+    }
+    response = requests.put(unpublish_endpoint.format(
+        STAGE, identifier), json=payload, headers=headers)
+    check_response(response=response, status_code=202)
 
 def reserve_doi(identifier, username):
     request_bearer_token = common.login(username=username)
