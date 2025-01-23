@@ -2931,5 +2931,29 @@
       }
     ],
     "title": "Change from scientific to non-scientific, unidentified to identified Import external institution Collaboration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-editor@test.no",
+    "status": "UNPUBLISHED",
+    "contributor": "test-user-with-author@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Unpublished registration"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "file_identifier": "lorem_ipsum",
+    "file_name": "lorem_ipsum.txt",
+    "owner": "test-user-editor@test.no",
+    "status": "DELETED",
+    "contributor": "test-user-with-author@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Deleted registration"
   }
 ]

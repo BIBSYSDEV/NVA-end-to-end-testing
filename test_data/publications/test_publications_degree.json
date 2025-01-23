@@ -8,6 +8,7 @@
     "owner": "test-user-editor@test.no",
     "status": "UNPUBLISHED",
     "contributor": "test-user-with-author@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Unpublished registration"
   },
   {
@@ -19,6 +20,7 @@
     "owner": "test-user-editor@test.no",
     "status": "DELETED",
     "contributor": "test-user-with-author@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
     "title": "Deleted registration"
   }
 ]
