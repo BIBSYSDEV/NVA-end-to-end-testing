@@ -14,7 +14,7 @@ module.exports = defineConfig({
     overwrite: false,
     html: false,
     json: true,
-    showSkipped: false,
+    showSkipped: true,
   },
   e2e: {
     // We've imported your old cypress plugins here.
