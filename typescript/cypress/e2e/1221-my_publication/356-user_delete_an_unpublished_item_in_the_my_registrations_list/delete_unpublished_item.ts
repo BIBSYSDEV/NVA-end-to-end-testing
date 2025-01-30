@@ -1,5 +1,6 @@
 import { userDeleteRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('Creator opens My Registrations', () => {
   cy.login(userDeleteRegistrations);
@@ -14,10 +15,10 @@ When('they click Delete on an item', () => {
       cy.get('[data-testid^=delete-registration]').click();
     });
 });
-And('they see a confirmation pop-up is opened', () => {
+When('they see a confirmation pop-up is opened', () => {
   cy.get('[data-testid=confirm-delete-dialog]').should('be.visible');
 });
-And('they select Yes', () => {
+When('they select Yes', () => {
   cy.get('[data-testid=accept-button]').click();
 });
 Then('they see that the Registration is deleted', () => {
@@ -30,7 +31,7 @@ When('they select "Delete all drafts"', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
   cy.get('button').filter(':contains("Delete all drafts")').click();
 });
-And('they confirm that they want to Delete all drafts', () => {
+When('they confirm that they want to Delete all drafts', () => {
   cy.get('[data-testid=accept-button]').click();
 });
 Then('all Draft Registration are deleted', () => {

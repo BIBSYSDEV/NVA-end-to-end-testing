@@ -1,5 +1,6 @@
 import { userEditor3, userSecondEditor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 // Feature: Editor decides who gets publishing rights
 
@@ -36,7 +37,7 @@ Given('a Editor views the Editor page', () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
 });
-When('the Editor chooses {string}:', (strategy) => {
+When('the Editor chooses {string}:', (strategy: string) => {
   cy.wrap(publishStrategies[strategy]).as('strategyButton');
   cy.getDataTestId(publishStrategies[strategy]).click({ force: true });
 });
@@ -45,10 +46,10 @@ When('the Editor chooses {string}:', (strategy) => {
 // | Only Curator can publish               |
 Then('the Institutions publications policy is changed accordingly', () => {
   cy.get('@strategyButton').then((button) => {
-    cy.getDataTestId(button).should('be.disabled');
+    cy.getDataTestId(button.toString()).should('be.disabled');
   })
 });
-And('the Editor is notified that a new policy is activated', () => {
+Then('the Editor is notified that a new policy is activated', () => {
   cy.get('@strategyButton').then(strategy => {
     if (strategy !== publishStrategies[Object.keys(publishStrategies)[0]]) {
       cy.getDataTestId('snackbar-success');

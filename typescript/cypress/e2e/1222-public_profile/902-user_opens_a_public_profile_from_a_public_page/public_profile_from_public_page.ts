@@ -1,15 +1,16 @@
 import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { mockPerson } from '../../../support/mock_data';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { v4 as uuid } from 'uuid';
 
-const stage = Cypress.env('STAGE') ?? 'dev';
 const fileName = 'example.txt';
+const title = `Test public profile ${uuid()}`;
 
 Given('the Creator publishes Publication', () => {
   cy.login(userWithAuthor);
   cy.startWizardWithEmptyRegistration();
 
-  cy.createValidRegistration(fileName);
+  cy.createValidRegistration(fileName, title);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');

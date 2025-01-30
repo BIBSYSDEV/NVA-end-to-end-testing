@@ -1,5 +1,6 @@
 import { userEditor4} from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 // Feature: Editor decide on institutions Vocabulary settings
 
@@ -31,19 +32,19 @@ Given('a logged in Editor', () => {
 Given('Editor opens Editor Administration', () => {
     cy.getDataTestId(dataTestId.header.editorLink).click();
 })
-And('they see Vocabulary settings', () => {
+Given('they see Vocabulary settings', () => {
     cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
     cy.getDataTestId(dataTestId.editor.vocabularyLinkButton).click();
 })
-Then('they a list of Vocabularies:', (dataTable) => {
-    dataTable.rawTable.forEach(vocabulary => {
+Then('they a list of Vocabularies:', (dataTable: DataTable) => {
+    dataTable.raw().forEach(vocabulary => {
         cy.getDataTestId(vocabularies[vocabulary[0]]);
     })
 })
 //     | HRCS Activity |
 //     | HRCS Category |
-Then('they can set a Vocabulary to be one of:', (dataTable) => {
-    dataTable.rawTable.forEach(value => {
+Then('they can set a Vocabulary to be one of:', (dataTable: DataTable) => {
+    dataTable.raw().forEach(value => {
         Object.values(vocabularies).forEach(vocabulary => {
             cy.getDataTestId(vocabulary).within(() => {
                 cy.getDataTestId(vocabularyStatus[value[0]]);

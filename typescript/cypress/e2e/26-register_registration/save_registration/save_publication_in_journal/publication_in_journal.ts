@@ -2,6 +2,7 @@ import { userSaveJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 const commonFields = [
   resourceTypeFields.volume,
@@ -12,18 +13,18 @@ const commonFields = [
 ];
 
 const fields = {
-  'AcademicArticle': [...commonFields, resourceTypeFields.journal],
-  'AcademicLiteratureReview': [...commonFields, resourceTypeFields.journal],
-  'JournalLetter': [...commonFields, resourceTypeFields.journal],
-  'JournalReview': [...commonFields, resourceTypeFields.journal],
-  'JournalLeader': [...commonFields, resourceTypeFields.journal],
-  'JournalCorrigendum': [...commonFields, resourceTypeFields.articleTitle],
-  'JournalIssue': [...commonFields, resourceTypeFields.journal],
-  'ConferenceAbstract': [...commonFields, resourceTypeFields.journal],
-  'CaseReport': [...commonFields, resourceTypeFields.journal],
-  'StudyProtocol': [...commonFields, resourceTypeFields.journal],
-  'ProfessionalArticle': [...commonFields, resourceTypeFields.journal],
-  'PopularScienceArticle': [...commonFields, resourceTypeFields.journal],
+  AcademicArticle: [...commonFields, resourceTypeFields.journal],
+  AcademicLiteratureReview: [...commonFields, resourceTypeFields.journal],
+  JournalLetter: [...commonFields, resourceTypeFields.journal],
+  JournalReview: [...commonFields, resourceTypeFields.journal],
+  JournalLeader: [...commonFields, resourceTypeFields.journal],
+  JournalCorrigendum: [...commonFields, resourceTypeFields.articleTitle],
+  JournalIssue: [...commonFields, resourceTypeFields.journal],
+  ConferenceAbstract: [...commonFields, resourceTypeFields.journal],
+  CaseReport: [...commonFields, resourceTypeFields.journal],
+  StudyProtocol: [...commonFields, resourceTypeFields.journal],
+  ProfessionalArticle: [...commonFields, resourceTypeFields.journal],
+  PopularScienceArticle: [...commonFields, resourceTypeFields.journal],
 };
 
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
@@ -35,12 +36,12 @@ Given('Author begins registering a Registration', () => {
   cy.login(userSaveJournal);
   cy.startWizardWithEmptyRegistration();
 });
-And('selects {string}', (resourceType) => {
+Given('selects {string}', (resourceType) => {
   cy.wrap(resourceType).as('resourceType');
 });
-And('fill in values for all fields', () => {
+Given('fill in values for all fields', () => {
   cy.get('@resourceType').then((resourceType) => {
-    cy.fillInResourceType(resourceType, fields[resourceType]);
+    cy.fillInResourceType(resourceType.toString(), fields[resourceType.toString()]);
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     cy.fillInContributors(contributorRoles);
     const hasFileVersion = true;
@@ -54,11 +55,9 @@ When('they saves Registration', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
 });
 Then('they can see the values on the Registration Landing Page', () => {
-  cy.get('@resourceType').then((subtype) => {
-    cy.checkLandingPage(subtype);
-  });
+  cy.checkLandingPage();
 });
-And('they can see the values in the Registration Wizard', () => {
+Then('they can see the values in the Registration Wizard', () => {
   cy.get('[data-testid=button-edit-registration]').click();
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key].tab}]`).click();
@@ -66,7 +65,11 @@ And('they can see the values in the Registration Wizard', () => {
       if (subkey !== 'tab') {
         cy.get('@resourceType').then((resourceType) => {
           const field = registrationFields[key][subkey];
-          if (subkey !== 'version' || resourceType === 'AcademicArticle' || resourceType === 'AcademicLiteratureReview') {
+          if (
+            subkey !== 'version' ||
+            resourceType.toString() === 'AcademicArticle' ||
+            resourceType.toString() === 'AcademicLiteratureReview'
+          ) {
             cy.checkField(field);
           }
         });
@@ -75,7 +78,7 @@ And('they can see the values in the Registration Wizard', () => {
   });
   cy.get('@resourceType').then((subtype) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    fields[subtype].forEach((field) => {
+    fields[subtype.toString()].forEach((field: Object) => {
       cy.checkField(field);
     });
     cy.checkContributors(contributorRoles);

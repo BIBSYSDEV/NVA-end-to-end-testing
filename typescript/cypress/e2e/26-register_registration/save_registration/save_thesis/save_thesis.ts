@@ -2,25 +2,36 @@ import { userSaveThesis } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 const commonFields = [resourceTypeFields.publisher, resourceTypeFields.pages];
 
 const fields = {
-  'DegreeBachelor': [...commonFields],
-  'DegreeMaster': [...commonFields],
-  'DegreePhd': [...commonFields, resourceTypeFields.isbn, resourceTypeFields.seriesTitle, resourceTypeFields.seriesNumber],
-  'DegreeLicentiate': [...commonFields, resourceTypeFields.isbn, resourceTypeFields.seriesTitle, resourceTypeFields.seriesNumber],
-  'OtherStudentWork': [...commonFields, resourceTypeFields.isbn],
+  DegreeBachelor: [...commonFields],
+  DegreeMaster: [...commonFields],
+  DegreePhd: [
+    ...commonFields,
+    resourceTypeFields.isbn,
+    resourceTypeFields.seriesTitle,
+    resourceTypeFields.seriesNumber,
+  ],
+  DegreeLicentiate: [
+    ...commonFields,
+    resourceTypeFields.isbn,
+    resourceTypeFields.seriesTitle,
+    resourceTypeFields.seriesNumber,
+  ],
+  OtherStudentWork: [...commonFields, resourceTypeFields.isbn],
 };
 
 const commonContributorRoles = ['Creator', 'Supervisor', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 const degreeContributorRoles = {
-  'DegreeBachelor': [...commonContributorRoles],
-  'DegreeMaster': [...commonContributorRoles],
-  'DegreePhd': [...commonContributorRoles],
-  'DegreeLicentiate': [...commonContributorRoles],
-  'OtherStudentWork': [...commonContributorRoles],
+  DegreeBachelor: [...commonContributorRoles],
+  DegreeMaster: [...commonContributorRoles],
+  DegreePhd: [...commonContributorRoles],
+  DegreeLicentiate: [...commonContributorRoles],
+  OtherStudentWork: [...commonContributorRoles],
 };
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Thesis
@@ -30,14 +41,14 @@ Given('Author begins registering a Registration', () => {
   cy.login(userSaveThesis);
   cy.startWizardWithEmptyRegistration();
 });
-And('selects {string}', (resourceType) => {
+Given('selects {string}', (resourceType) => {
   cy.wrap(resourceType).as('resourceType');
 });
-And('fill in values for all fields', () => {
+Given('fill in values for all fields', () => {
   cy.get('@resourceType').then((resourceType) => {
-    cy.fillInResourceType(resourceType, fields[resourceType]);
+    cy.fillInResourceType(resourceType.toString(), fields[resourceType.toString()]);
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-    const contributorRoles = degreeContributorRoles[resourceType];
+    const contributorRoles = degreeContributorRoles[resourceType.toString()];
     cy.fillInContributors(contributorRoles);
   });
   cy.fillInCommonFields();
@@ -49,11 +60,9 @@ When('they saves Registration', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
 });
 Then('they can see the values on the Registration Landing Page', () => {
-  cy.get('@resourceType').then((subtype) => {
-    cy.checkLandingPage(subtype);
-  });
+  cy.checkLandingPage();
 });
-And('they can see the values in the Registration Wizard', () => {
+Then('they can see the values in the Registration Wizard', () => {
   cy.get('[data-testid=button-edit-registration]').click();
   Object.keys(registrationFields).forEach((key) => {
     cy.get(`[data-testid=${registrationFields[key].tab}]`).click();
@@ -66,9 +75,9 @@ And('they can see the values in the Registration Wizard', () => {
   });
   cy.get('@resourceType').then((subtype) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-    fields[subtype].forEach((field) => {
+    fields[subtype.toString()].forEach((field) => {
       cy.checkField(field);
     });
-    cy.checkContributors(degreeContributorRoles[subtype]);
+    cy.checkContributors(degreeContributorRoles[subtype.toString()]);
   });
 });

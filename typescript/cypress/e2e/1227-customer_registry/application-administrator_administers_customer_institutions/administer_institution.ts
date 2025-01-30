@@ -1,6 +1,8 @@
 import { adminUser1 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { institutionFields } from '../../../support/data_testid_constants';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+
 // Feature: Application Administrator administers Customer Institutions
 
 const sectors = {
@@ -15,15 +17,15 @@ const sectors = {
 Given('that the user is logged in as Application Administrator', () => {
   cy.login(adminUser1);
 });
-Then('they see information for', (table) => {
-  table.rawTable.forEach(heading => {
+Given('they see information for', (table: DataTable) => {
+  table.raw().forEach(heading => {
     cy.get('h2').filter(`:contains(${heading})`);
   })
 })
-And('they see fields:', (table) => {
+Given('they see fields:', (table: DataTable) => {
   cy.testDataTestidList(table, institutionFields);
 });
-And('they see Sector options:', (table) => {
+Given('they see Sector options:', (table: DataTable) => {
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.sectorField).click();
   cy.testDataTestidList(table, sectors);
   cy.getDataTestId(sectors['University and college']).click();
@@ -33,7 +35,7 @@ And('they see Sector options:', (table) => {
 // | Institute sector                |
 // | Archives, Libraries and Museums |
 // | Other                           |
-And('they see options for NVI reporting', () => {
+Given('they see options for NVI reporting', () => {
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.nviInstitutionCheckbox).should('be.visible');
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.rboInstitutionCheckbox).should('be.visible');
 });
@@ -48,24 +50,24 @@ When('they click the menu item Institutions', () => {
 Then('they see the page Institutions', () => {
   cy.location('pathname').should('equal', '/basic-data/institutions');
 });
-And('they see a table of all Customer Institutions', () => {
+Then('they see a table of all Customer Institutions', () => {
   cy.getDataTestId(dataTestId.basicData.customers.customerList);
 });
-And('they see the table contains the fields', (table) => {
+Then('they see the table contains the fields', (table: DataTable) => {
   cy.getDataTestId(dataTestId.basicData.customers.customerList).within(() => {
-    table.rawTable.forEach((field) => {
+    table.raw().forEach((field) => {
       cy.contains(field[0]);
     });
   });
 });
 // | Name |
 // | Date |
-And('they see a button Edit that is enabled for each Institution', () => {
+Then('they see a button Edit that is enabled for each Institution', () => {
   cy.getDataTestId(dataTestId.basicData.customers.customerList).within(() => {
     cy.get(`[data-testid^=${dataTestId.basicData.customers.editInstitutionButton('')}]`).should('have.length.above', 0);
   });
 });
-And('they see a button Add institution that is enabled', () => {
+Then('they see a button Add institution that is enabled', () => {
   cy.getDataTestId(dataTestId.basicData.addCustomerLink).should('exist');
 });
 
@@ -77,21 +79,21 @@ Then('they see the Add Institution page', () => {
   cy.location('pathname').should('equal', '/basic-data/institutions');
   cy.location('search').should('equal', '?id=new');
 });
-And('they can search for institution', () => {
+Then('they can search for institution', () => {
   cy.getDataTestId(dataTestId.organization.searchField);
 })
-And('they see fields:', (table) => { });
+Then('they see fields:', (table) => { });
 // | Name in organization registry |
 // | Display name                  |
 // | Archive name                  |
 // | Feide Organization ID         |
 // | ROR ID                        |
-And('they see Sector options:', () => { });
+Then('they see Sector options:', () => { });
 // | University and college          |
 // | Health sector                   |
 // | Institute sector                |
 // | Archives, Libraries and Museums |
-And('a button Create that is enabled', () => {
+Then('a button Create that is enabled', () => {
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.saveButton).should('be.enabled');
 });
 
@@ -112,21 +114,21 @@ Then('they see fields:', (table) => { });
 // | Archive name                  |
 // | Feide Organization ID         |
 // | ROR ID                        |
-And('they see Sector options:', () => { });
+Then('they see Sector options:', () => { });
 // | University and college          |
 // | Health sector                   |
 // | Institute sector                |
 // | Archives, Libraries and Museums |
-And('they see options for NVI reporting', () => { });
-And('they see the Save button', () => {
+Then('they see options for NVI reporting', () => { });
+Then('they see the Save button', () => {
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.saveButton).should('be.visible');
 });
-And('they see the list of current Institution Administrators', () => {
+Then('they see the list of current Institution Administrators', () => {
   cy.get('li').filter(':contains("Institution-admin TestUser")').should('have.length.above', 0);
 });
-And('every Institution Administrator has a Remove button', () => {
+Then('every Institution Administrator has a Remove button', () => {
   cy.get(`[data-testid^=button-remove-role-Institution-admin-]`).should('have.length.above', 0);
 });
-And('they see button to add a new Institution Administrator', () => {
+Then('they see button to add a new Institution Administrator', () => {
   cy.getDataTestId('button-open-add-admin').should('be.visible');
 });

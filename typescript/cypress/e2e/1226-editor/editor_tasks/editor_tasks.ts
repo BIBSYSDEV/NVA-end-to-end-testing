@@ -1,5 +1,6 @@
 import { userEditor, userSecondEditor, userThirdEditor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 //     In order to see who is responsible for which parts of the institution
 //     As an Editor
@@ -21,7 +22,7 @@ When("the Editor opens the institution's responsibility menu item", () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.curatorsSettingsLinkButton).click();
 });
-Then('the Editor sees a list that contains', (dataTable) => {
+Then('the Editor sees a list that contains', (dataTable: DataTable) => {
   cy.getDataTestId(dataTestId.editor.editUserButton);
 });
 // | Curator's name                             |
@@ -29,7 +30,7 @@ Then('the Editor sees a list that contains', (dataTable) => {
 // | Curator's affiliation                      |
 // | Curator's area of responsibility           |
 // | Option to add an area of responsibility    |
-And('an option to add rights to edit thesis', () => { });
+Then('an option to add rights to edit thesis', () => { });
 
 const doiInformation = {
   'DataCite Member ID': {
@@ -48,20 +49,20 @@ When("the Editor opens the institution's DOI configuration menu item", () => {
   cy.getDataTestId(dataTestId.editor.doiLinkButton).click();
 });
 Then('the Editor sees a link to Sikt to order DOI service', () => { });
-And('some other text informing about the DOI service', () => { });
+Then('some other text informing about the DOI service', () => { });
 
 // Scenario: Editor opens institutions DOI configuration
 Given('the Institution has an DOI configuration', () => { });
 When("the Editor opens the institution's DOI configuration menu item", () => { });
-Then('the Editor sees following information', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
+Then('the Editor sees following information', (dataTable: DataTable) => {
+  dataTable.raw().forEach((value) => {
     cy.contains(doiInformation[value[0]].title);
     cy.contains(doiInformation[value[0]].value, { matchCase: false });
   });
 });
 // | DataCite Member ID |
 // | Institutions DOI prefix |
-And('some other text informing about the DOI service', () => {
+Then('some other text informing about the DOI service', () => {
   cy.contains('Digital Object Identifier (DOI) is a persistent identifier.');
 });
 
@@ -89,20 +90,20 @@ Then('the Editor sees one or many registered official names in Bokmål, English,
   cy.contains("Norwegian name");
   cy.contains("English name");
 });
-And('they see all of', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
+Then('they see all of', (dataTable: DataTable) => {
+  dataTable.raw().forEach((value) => {
     cy.contains(information[value[0]]);
   });
 });
 // | Institution's short name       |
 // | Institution's ROR              |
 // | Institution's author intentity |
-And('they may also see', () => {
+Then('they may also see', () => {
   cy.contains('Unique Feide ID');
 });
 // | Institution's Feide domain     |
-And('the Editor sees a menu with following options', (dataTable) => {
-  dataTable.rawTable.forEach((menuItem) => {
+Then('the Editor sees a menu with following options', (dataTable: DataTable) => {
+  dataTable.raw().forEach((menuItem) => {
     if (menuItem[0] !== "Curator's responsibility") {
       cy.getDataTestId(menuItems[menuItem[0]]);
     }
@@ -117,7 +118,7 @@ And('the Editor sees a menu with following options', (dataTable) => {
 // #        | Sletting av publikasjoner    |
 //         | NVI-rapportering           |
 // #        | Lisenser og filer            |
-And('"Institution name" is the active choice', () => {
+Then('"Institution name" is the active choice', () => {
 });
 
 const publishStrategies = {
@@ -148,7 +149,7 @@ Given('a Editor views the Editor page', () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
 });
-When('the Editor chooses {string}:', (strategy) => {
+When('the Editor chooses {string}:', (strategy: string) => {
   cy.wrap(publishStrategies[strategy]).as('strategyButton');
   cy.getDataTestId(publishStrategies[strategy]).click({ force: true });
 });
@@ -157,10 +158,10 @@ When('the Editor chooses {string}:', (strategy) => {
 // | Only Curator can publish               |
 Then('the Institutions publications policy is changed accordingly', () => {
   cy.get('@strategyButton').then((button) => {
-    cy.getDataTestId(button).should('be.disabled');
+    cy.getDataTestId(button.toString()).should('be.disabled');
   });
 });
-And('the Editor is notified that a new policy is activated', () => {
+Then('the Editor is notified that a new policy is activated', () => {
   cy.get('@strategyButton').then((strategy) => {
     if (strategy !== publishStrategies[Object.keys(publishStrategies)[0]]) {
       cy.getDataTestId('snackbar-success');
@@ -184,19 +185,19 @@ const vocabularyStatus = {
 Given('Editor opens Editor Administration', () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
 });
-And('they see Vocabulary settings', () => {
+Given('they see Vocabulary settings', () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.vocabularyLinkButton).click();
 });
-Then('they a list of Vocabularies:', (dataTable) => {
-  dataTable.rawTable.forEach((vocabulary) => {
+Then('they a list of Vocabularies:', (dataTable: DataTable) => {
+  dataTable.raw().forEach((vocabulary) => {
     cy.getDataTestId(vocabularies[vocabulary[0]]);
   });
 });
 //     | HRCS Activity |
 //     | HRCS Category |
-Then('they can set a Vocabulary to be one of:', (dataTable) => {
-  dataTable.rawTable.forEach((value) => {
+Then('they can set a Vocabulary to be one of:', (dataTable: DataTable) => {
+  dataTable.raw().forEach((value) => {
     Object.values(vocabularies).forEach((vocabulary) => {
       cy.getDataTestId(vocabulary).within(() => {
         cy.getDataTestId(vocabularyStatus[value[0]]);

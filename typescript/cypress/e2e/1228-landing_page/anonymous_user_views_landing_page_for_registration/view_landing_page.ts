@@ -1,6 +1,7 @@
 import { today } from '../../../support/commands';
 import { dataTestId } from '../../../support/dataTestIds';
-import { landingPageFields, landingPageShareButtons } from '../../../support/data_testid_constants';
+import { landingPageFields } from '../../../support/data_testid_constants';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 const landing_page_registration_title = `View Landing Page ${today}`;
 
@@ -22,7 +23,7 @@ When('an Anonymous user navigates to a Landing Page for a Resource', () => {
       cy.wrap(result).get('a').filter(`:contains(${landing_page_registration_title})`).click();
     });
 });
-Then('they see', (dataTable) => {
+Then('they see', (dataTable: DataTable) => {
   cy.contains(landing_page_registration_title);
   cy.testDataTestidList(dataTable, landingPageFields);
 });
@@ -40,7 +41,7 @@ Then('they see', (dataTable) => {
 // | DOI link                        |
 // | Related Registrations           |
 // | License                         |
-And('they see sharing Buttons for:', (dataTable) => {
+Then('they see sharing Buttons for:', (dataTable: DataTable) => {
   // cy.testDataTestidList(dataTable, landingPageShareButtons);
 });
 // | Email    |

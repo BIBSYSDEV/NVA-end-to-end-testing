@@ -1,6 +1,7 @@
 import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { profilePageFields } from '../../../support/data_testid_constants';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('that the user is logged in', () => {
   cy.login(userWithAuthor);
@@ -12,7 +13,7 @@ When('they click the menu item My user profile', () => {
 Then('they see My Profile', () => {
   cy.location('pathname').should('contain', '/my-page/profile/personalia');
 });
-Then('they see their Profile page which includes information for', (dataTable) => {
+Then('they see their Profile page which includes information for', (dataTable: DataTable) => {
   cy.testDataTestidList(dataTable, profilePageFields);
   cy.get('button').filter(':lang("nb")').should('be.visible');
   cy.get('button').filter(':lang("en")').should('be.visible');

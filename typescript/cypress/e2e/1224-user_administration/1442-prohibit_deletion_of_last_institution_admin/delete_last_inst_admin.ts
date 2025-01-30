@@ -1,11 +1,12 @@
 import { adminUser } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('that an App Admin or Institution Admin opens User Administration', () => {
   cy.login(adminUser);
   cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
 });
-And('they see only one current Institution Admin', () => {
+Given('they see only one current Institution Admin', () => {
   cy.get(`[data-testid=${dataTestId.basicData.adminInstitutionsLink}]`).click();
   cy.get('[data-testid=customer-institutions-list] > tbody > tr > td > p', { timeout: 30000 })
     .filter(':contains("Test Institution")')

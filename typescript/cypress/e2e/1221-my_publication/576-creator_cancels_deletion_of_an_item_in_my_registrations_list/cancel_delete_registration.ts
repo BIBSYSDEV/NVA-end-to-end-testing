@@ -1,5 +1,6 @@
 import { userCancelDelete } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 // Feature: Creator cancels deletion of an item in My Registrations list
 
@@ -8,14 +9,14 @@ import { dataTestId } from '../../../support/dataTestIds';
 Given('that the user is logged in as Creator', () => {
   cy.login(userCancelDelete);
 });
-And('is on the My Registrations page', () => {
+Given('is on the My Registrations page', () => {
   cy.openMyRegistrations();
 });
 When('they click Delete on an item', () => {
   cy.get('[data-testid^=delete-registration]').first().as('registration');
   cy.get('[data-testid^=delete-registration]').first().click({ force: true });
 });
-And('they click No in the confirmation dialog', () => {
+When('they click No in the confirmation dialog', () => {
   cy.getDataTestId(dataTestId.confirmDialog.cancelButton).click({ force: true });
 });
 Then('they see the Registration in My Registrations list', () => {

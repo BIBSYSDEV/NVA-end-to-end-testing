@@ -3,6 +3,7 @@
 import { userEditor, userWithAuthor } from "../../../support/constants";
 import { dataTestId } from "../../../support/dataTestIds";
 import { v4 as uuid } from 'uuid';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 const portifolios = new Map([
     ['Published Results', dataTestId.editor.resultsPortfolioPublishedCheckbox],
@@ -12,19 +13,15 @@ const portifolios = new Map([
 
 const fileName = 'example.txt';
 
-const selectPortifolio = (portifolio) => {
+const selectPortifolio = (portifolio: Object) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    portifolios.keys().forEach(key => {
+    Object.keys(portifolios).forEach(key => {
         cy.getDataTestId(portifolios.get(key)).then($element => {
             if (key === portifolio) {
-                cy.log('Select')
-                cy.log($element.find('[data-testid="CheckBoxOutlineBlankIcon"]').length);
                 if ($element.find('[data-testid="CheckBoxOutlineBlankIcon"]').length > 0) {
                     cy.getDataTestId(portifolios.get(key)).click();
                 }
             } else {
-                cy.log('Unselect')
-                cy.log($element.find('[data-testid="CheckBoxOutlineBlankIcon"]').length);
                 if ($element.find('[data-testid="CheckBoxIcon"]').length > 0) {
                     cy.getDataTestId(portifolios.get(key)).click();
                 }
@@ -43,8 +40,8 @@ When('they view the Result portifolio', () => {
     cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
 
 });
-Then('they can see:', (table) => {
-    table.rawTable.forEach(data => {
+Then('they can see:', (table: DataTable) => {
+    table.raw().forEach(data => {
         selectPortifolio(data[0]);
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);

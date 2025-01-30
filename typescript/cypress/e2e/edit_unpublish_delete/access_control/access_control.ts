@@ -1,5 +1,6 @@
 import { userCuratorDegree, userCuratorInstitution, userCuratorResourceOwner, userEditorDelete, userResourceOwner, userVerifiedContributor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 // Feature: Edit, unpublish or delete Registration
 
@@ -14,7 +15,7 @@ const users = {
 
 
 // Scenario Outline: User edits Registration
-Given('{string} open landing page for Registration', (user) => {
+Given('{string} open landing page for Registration', (user: string) => {
     cy.login(users[user]);
     cy.wrap(user).as('user');
 });
@@ -30,7 +31,7 @@ When('they {string} and want to edit the Registration', (condition) => {
 Then('they have an option to edit the Registration', () => {
     cy.get('[data-testid=EditIcon]');
 });
-And('when they use the option to edit the Registration is opened in the Registration Wizard', () => {
+Then('when they use the option to edit the Registration is opened in the Registration Wizard', () => {
     cy.get('[data-testid=EditIcon]').click();
     cy.location('pathname').should('contain', 'edit');
 });
@@ -58,7 +59,7 @@ Then('they have an option to unpublish the Registration', () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
 })
-And('when they use the option to unpublish the Registration is no longer published', () => {
+Then('when they use the option to unpublish the Registration is no longer published', () => {
     cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
     cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Unpublish justification');
     cy.getDataTestId(dataTestId.unpublishActions.confirmUnpublishCheckbox).click();

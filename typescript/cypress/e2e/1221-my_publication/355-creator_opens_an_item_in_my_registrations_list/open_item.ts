@@ -2,6 +2,7 @@ import { today } from '../../../support/commands';
 import { userMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { descriptionFields } from '../../../support/data_testid_constants';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 // Common step
 Given('that the user is logged in as Creator', () => {
@@ -9,17 +10,17 @@ Given('that the user is logged in as Creator', () => {
 });
 // end common step
 
-And('is on the page My Registrations', () => {
+Given('is on the page My Registrations', () => {
   cy.openMyRegistrations();
 });
 When('they click Edit on an item', () => {
   cy.get('[data-testid^=edit-registration]').first().click({ force: true });
 });
 Then('they see the item is opened in the Wizard', () => { });
-And('they see the Description tab', () => {
+Then('they see the Description tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`);
 });
-And('they see fields:', (dataTable) => {
+Then('they see fields:', (dataTable: DataTable) => {
   cy.testDataTestidList(dataTable, descriptionFields);
 });
 
@@ -30,7 +31,7 @@ And('they see fields:', (dataTable) => {
 // | Primary language for content |
 
 // Scenario: Creator sees Validation Errors for Registration
-And('they are on the page My Registrations', () => {
+Given('they are on the page My Registrations', () => {
   cy.openMyRegistrations();
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .filter(`:contains("Registration with validation error ${today}")`)
@@ -50,7 +51,7 @@ And('they are on the page My Registrations', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.openMyRegistrations();
 });
-And('they see a List of Registrations', () => {
+Given('they see a List of Registrations', () => {
   cy.get('[data-testid^=edit-registration]').should('have.length.above', 0);
 });
 When('they click Edit on a Registration', () => {
@@ -62,10 +63,10 @@ When('they click Edit on a Registration', () => {
     });
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
 });
-And('they see the Registration is opened in Edit Mode', () => {
+When('they see the Registration is opened in Edit Mode', () => {
   cy.get('[data-testid=registration-title-field]').should('exist');
 });
-And('they see the Registration has Validation Errors', () => {
+When('they see the Registration has Validation Errors', () => {
   cy.get('[data-testid=error-tab]').should('exist');
 });
 Then('they see that tabs with Validation Errors are marked with an Error Icon', () => {

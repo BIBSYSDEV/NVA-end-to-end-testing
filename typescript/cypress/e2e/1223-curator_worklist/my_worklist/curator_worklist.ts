@@ -1,4 +1,4 @@
-import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 import { userCurator2, userDoiCurator, userMessages, userNviCurator, userPublishingCurator, userSupportCurator } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
@@ -36,7 +36,7 @@ Before(() => {
 });
 
 //   Scenario: Curator opens their Worklist
-When('the {string} opens their Worklist', (user) => {
+When('the {string} opens their Worklist', (user: string) => {
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -48,14 +48,14 @@ When('the {string} opens their Worklist', (user) => {
 });
 Then('the Curator see that the Worklist is Scoped', () => {
   cy.get('@user').then(user => {
-    if (user === 'Nvi-Curator') {
+    if (user.toString() === 'Nvi-Curator') {
       cy.contains('Sikt');
     } else {
       cy.get('[value=BIBSYS]');
     }
   })
 });
-And('the Worklist contains Requests of type {string}', (type) => {
+Then('the Worklist contains Requests of type {string}', (type: string) => {
   cy.getDataTestId(requestTypes[type]);
 });
 // | Approval |
@@ -64,7 +64,7 @@ And('the Worklist contains Requests of type {string}', (type) => {
 // | Ownership |
 
 // Scenario Outline: Curator views all Requests of a type
-When('{string} clicks on Requests of type {string}', (user, type) => {
+When('{string} clicks on Requests of type {string}', (user: string, type: string) => {
   cy.wrap(type).as('type');
   cy.wrap(user).as('user');
   cy.login(curatorUsers[user]);
@@ -75,7 +75,7 @@ When('{string} clicks on Requests of type {string}', (user, type) => {
     cy.get('[value=BIBSYS]');
   }
 });
-Then('Curator see a list of Requests displayed with:', (dataTable) => {
+Then('Curator see a list of Requests displayed with:', (dataTable: DataTable) => {
   cy.get('@user').then(user => {
     cy.get('@type').then((type) => {
       const elements = {
@@ -86,7 +86,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable) => {
         'Beginning of last message': '',
         'Owner name': '',
       };
-      if (user === 'Nvi-Curator') {
+      if (user.toString() === 'Nvi-Curator') {
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
           cy.get('li').first().within(() => {
             cy.get('div > span');
@@ -98,10 +98,10 @@ Then('Curator see a list of Requests displayed with:', (dataTable) => {
         cy.getDataTestId(dataTestId.startPage.searchResultItem)
           .first()
           .within((message) => {
-            if (type === 'Support') {
+            if (type.toString() === 'Support') {
               elements['Request status'] = 'div > p';
             }
-            dataTable.rawTable.forEach((value) => {
+            dataTable.raw().forEach((value) => {
               cy.get(elements[value[0]]).should('be.visible');
             });
           });
@@ -115,7 +115,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable) => {
 //   | Request Submitter Date    |
 //   | Beginning of last message |
 //   | Owner name                |
-And('they see that each Request can be opened', () => { });
+Then('they see that each Request can be opened', () => { });
 // Examples:
 //   | Type      |
 //   | Approval  |
@@ -123,7 +123,7 @@ And('they see that each Request can be opened', () => { });
 //   | DOI       |
 
 // Scenario: Curator opens a unassigned Request
-When('the {string} open a unassigned Request of type {string}', (user, type) => {
+When('the {string} open a unassigned Request of type {string}', (user: string, type: string) => {
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.wrap(type).as('type');
@@ -147,11 +147,11 @@ Then('the Curator is assigned the Request', () => {
   cy.getDataTestId('message-field').last().type('Test message{enter}');
   cy.get('ul > li > p').filter(':contains("Test message")').should('be.visible');
 });
-And('the Request Status is set to "Active"', () => {
+Then('the Request Status is set to "Active"', () => {
   cy.get('@user').then(user => {
     cy.getDataTestId('snackbar-success');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    if (user === 'Nvi-Curator') {
+    if (user.toString() === 'Nvi-Curator') {
     } else {
       cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click();
       cy.get('[data-value=Completed]').click();
@@ -162,7 +162,7 @@ And('the Request Status is set to "Active"', () => {
 });
 
 // Scenario: Curator unassigns a Request
-When('the {string} selects "Mark request unread" on a request of type {string}', (user, type) => {
+When('the {string} selects "Mark request unread" on a request of type {string}', (user: string, type: string) => {
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   const title = `Unassign ${user} ${type}`;
@@ -183,7 +183,6 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
     cy.getDataTestId(taskPanels[user]).within(() => {
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).should('be.visible');
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
       cy.wait(10000);
@@ -212,7 +211,6 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).first().click();
   }
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
     cy.getDataTestId('CloseIcon').click({ force: true });
   });
@@ -223,12 +221,12 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
 
 });
 Then('the Request Status is set to "New"', () => { });
-And('the Request is unassigned the Curator', () => {
+Then('the Request is unassigned the Curator', () => {
   cy.wait(6000)
   cy.get('[title=Tasks]').click();
   cy.get('@user').then(user => {
     cy.get('@title').then(title => {
-      if (user === 'Nvi-Curator') {
+      if (user.toString() === 'Nvi-Curator') {
         cy.get('li').filter(`:contains(${title})`).should('not.exist');
       } else {
         cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
@@ -242,17 +240,17 @@ And('the Request is unassigned the Curator', () => {
 When('the Curator selects a Request', () => {
 });
 Then('the Request is expanded', () => { });
-And('the assigned Curator is viewed', () => { });
-And('previous messages are displayed chronologically with:', () => { });
+Then('the assigned Curator is viewed', () => { });
+Then('previous messages are displayed chronologically with:', () => { });
 // | Submitter name          |
 // | Submitter Date and Time |
 // | The full message        |
-And('the Curator can reply to a message', () => { });
-And('the Curator can open the Requests Resource', () => { });
-And('the Curator can change the Status of the Request', () => { });
+Then('the Curator can reply to a message', () => { });
+Then('the Curator can open the Requests Resource', () => { });
+Then('the Curator can change the Status of the Request', () => { });
 
 // Scenario Outline: Curator open the Request's Resource
-Given('the {string} receives a Request of type {string}', (user, type) => {
+Given('the {string} receives a Request of type {string}', (user: string, type: string) => {
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -272,7 +270,7 @@ Given('the {string} receives a Request of type {string}', (user, type) => {
 When('the Curator opens the Requests Resource', () => {
   cy.get('@user').then(user => {
     cy.get('@title').then(title => {
-      if (user === 'Nvi-Curator') {
+      if (user.toString() === 'Nvi-Curator') {
         cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains("${title}")`).first().within(() => {
@@ -287,12 +285,12 @@ When('the Curator opens the Requests Resource', () => {
 });
 Then('the Landing Page of the Resource is viewed', () => {
   cy.get('@type').then((type) => {
-    const path = type === 'NVI' ? 'nvi' : 'dialogue'
+    const path = type.toString() === 'NVI' ? 'nvi' : 'dialogue'
     cy.location('pathname').should('contain', `tasks/${path}`);
     cy.location('pathname').should('not.contain', 'edit');
   });
 });
-And('the Curator has the option to {string}', (action) => {
+Then('the Curator has the option to {string}', (action: string) => {
   const typeActions = {
     'Publish Files': dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton,
     'Reject publishing': dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton,
@@ -307,13 +305,13 @@ And('the Curator has the option to {string}', (action) => {
   }
   cy.getDataTestId(typeActions[action]).should('be.visible');
 });
-And('the Curator can Decline the Request', () => {
+Then('the Curator can Decline the Request', () => {
   const typeDeclineActions = {
     'Approval': dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton,
     'DOI': dataTestId.registrationLandingPage.rejectDoiButton,
   }
   cy.get('@type').then(type => {
-    cy.getDataTestId(typeDeclineActions[type]).should('be.visible');
+    cy.getDataTestId(typeDeclineActions[type.toString()]).should('be.visible');
   })
 })
 // Examples:
@@ -348,15 +346,15 @@ Then('the Request status is set to "Answered"', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 })
-And('the User can read the answer in My Messages', () => {
+Then('the User can read the answer in My Messages', () => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`)
   cy.getDataTestId(dataTestId.startPage.searchResultItem).parent().parent().filter(`:contains(${curatorAnswer})`);
 })
 
 // Scenario: User gets an answer to a Request
 When('the Curator writes an answer', () => { })
-And('sends it to the User', () => { })
-And('the Request Type is:', () => { })
+When('sends it to the User', () => { })
+When('the Request Type is:', () => { })
 // | Approval  |
 // | DOI       |
 // | Ownership |

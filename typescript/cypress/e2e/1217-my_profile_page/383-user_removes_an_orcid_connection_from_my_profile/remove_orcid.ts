@@ -1,6 +1,7 @@
 import { userRemoveOrcid } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { mockPerson } from '../../../support/mock_data';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 const stage = Cypress.env('STAGE') ?? 'dev';
 
