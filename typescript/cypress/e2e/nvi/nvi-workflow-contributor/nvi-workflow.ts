@@ -2,6 +2,7 @@
 
 import { dataTestId } from "../../../support/dataTestIds";
 import { userNviCuratorInstitutionA } from "../../../support/constants";
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 // Scenario Outline: Publication NVI status - contributor
 Given('a Curator views the NVI-tasklist', () => {
@@ -12,13 +13,13 @@ Given('a Curator views the NVI-tasklist', () => {
 When('a Publication is a {string}', (category) => {
     cy.wrap(category).as('category');
 });
-And('the Publication has status {string}', (publicationStatus) => {
+When('the Publication has status {string}', (publicationStatus) => {
     cy.wrap(publicationStatus).as('publicationStatus');
 });
-And('the Publication is collaborating with {string}', (isCollaboration) => {
+When('the Publication is collaborating with {string}', (isCollaboration) => {
     cy.wrap(isCollaboration).as('isCollaboration');
 });
-And('the Publication is {string}', (typeOfRegistration) => {
+When('the Publication is {string}', (typeOfRegistration) => {
     cy.wrap(typeOfRegistration).as('typeOfRegistration');
 });
 Then('the Publication has NVI status {string}', (isNviPublication) => {
