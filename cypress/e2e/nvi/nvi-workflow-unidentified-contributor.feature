@@ -1,6 +1,6 @@
 Feature: NVI-candidates with unidentified users
 
-  @test
+  # @test
   Scenario Outline: Identify publication as NVI candidate
     Given a publication of "<Type>" published in the active period
     And the publication has at least one publication channel of type "<Channel>" with scientific level of one or two

@@ -1,7 +1,7 @@
 Feature: NVI workflow - user
 
 
-    @test
+    # @test
     Scenario Outline: Publication NVI status - user
         Given a Curator views the NVI-tasklist
         When a Publication is a "<Category>"

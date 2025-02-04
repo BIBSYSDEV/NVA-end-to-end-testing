@@ -13,20 +13,20 @@ const curatorUsers = {
   'Support-Curator': userSupportCurator,
   'Doi-Curator': userDoiCurator,
   'Nvi-Curator': userNviCurator,
-}
+};
 
 const taskPanels = {
   'Publishing-Curator': dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion,
   'Support-Curator': dataTestId.registrationLandingPage.tasksPanel.supportAccordion,
   'Doi-Curator': dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion,
-}
+};
 
 const requestTypes = {
   'Approval': dataTestId.tasksPage.typeSearch.publishingButton,
   'DOI': dataTestId.tasksPage.typeSearch.doiButton,
   'Support': dataTestId.tasksPage.typeSearch.supportButton,
   'NVI': dataTestId.tasksPage.nvi.statusFilter.pendingRadio,
-}
+};
 
 const filename = 'example.txt';
 const registrationTitle = 'Support message registration';
@@ -53,7 +53,7 @@ Then('the Curator see that the Worklist is Scoped', () => {
     } else {
       cy.get('[value=BIBSYS]');
     }
-  })
+  });
 });
 And('the Worklist contains Requests of type {string}', (type) => {
   cy.getDataTestId(requestTypes[type]);
@@ -127,7 +127,7 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.wrap(type).as('type');
-  const title = `Open unassigned ${user} ${type}`
+  const title = `Open unassigned ${user} ${type}`;
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
@@ -158,7 +158,7 @@ And('the Request Status is set to "Active"', () => {
       cy.get('[data-value=Completed]').type('{esc}');
       cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
     }
-  })
+  });
 });
 
 // Scenario: Curator unassigns a Request
@@ -175,7 +175,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
       cy.get('li').filter(`:contains("${title}")`).within(() => {
         cy.get('div > p > a').first().click();
-      })
+      });
     });
     cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
   } else {
@@ -183,20 +183,15 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
     cy.getDataTestId(taskPanels[user]).within(() => {
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).should('be.visible');
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
-      cy.wait(10000);
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type('{downArrow}{enter}')
-      cy.wait(10000);
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type('{downArrow}{enter}');
       cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
     });
   }
+  cy.getDataTestId('snackbar-success');
   if (user === 'Nvi-Curator') {
-    cy.getDataTestId('snackbar-success');
     cy.wait(5000);
-  } else {
-    cy.getDataTestId('snackbar-success');
   }
   cy.get('[title=Tasks]').click();
 
@@ -204,27 +199,26 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.assignedRadio).within(() => {
       cy.get('input').click();
-    })
+    });
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
       cy.get('li > div > p > a').filter(`:contains(${title})`).click();
     });
   } else {
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).first().click();
   }
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('be.visible');
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
-    cy.getDataTestId('CloseIcon').click({ force: true });
+  cy.getDataTestId(taskPanels[user]).within(() => {
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
+      cy.getDataTestId('CloseIcon').click({ force: true });
+    });
   });
   cy.getDataTestId('snackbar-success');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator)
-    .filter(':contains("ST")')
     .should('not.exist');
 
 });
 Then('the Request Status is set to "New"', () => { });
 And('the Request is unassigned the Curator', () => {
-  cy.wait(6000)
+  cy.wait(6000);
   cy.get('[title=Tasks]').click();
   cy.get('@user').then(user => {
     cy.get('@title').then(title => {
@@ -267,7 +261,7 @@ Given('the {string} receives a Request of type {string}', (user, type) => {
   }
   cy.wrap(type).as('type');
   const title = `Open ${user} ${type}`;
-  cy.wrap(title).as('title')
+  cy.wrap(title).as('title');
 });
 When('the Curator opens the Requests Resource', () => {
   cy.get('@user').then(user => {
@@ -287,7 +281,7 @@ When('the Curator opens the Requests Resource', () => {
 });
 Then('the Landing Page of the Resource is viewed', () => {
   cy.get('@type').then((type) => {
-    const path = type === 'NVI' ? 'nvi' : 'dialogue'
+    const path = type === 'NVI' ? 'nvi' : 'dialogue';
     cy.location('pathname').should('contain', `tasks/${path}`);
     cy.location('pathname').should('not.contain', 'edit');
   });
@@ -301,7 +295,7 @@ And('the Curator has the option to {string}', (action) => {
     'Reject DOI request': dataTestId.registrationLandingPage.rejectDoiButton,
     'Approve Candidate': dataTestId.tasksPage.nvi.approveButton,
     'Reject Candidate': dataTestId.tasksPage.nvi.rejectButton,
-  }
+  };
   if (action === 'Answer Message') {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   }
@@ -311,11 +305,11 @@ And('the Curator can Decline the Request', () => {
   const typeDeclineActions = {
     'Approval': dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton,
     'DOI': dataTestId.registrationLandingPage.rejectDoiButton,
-  }
+  };
   cy.get('@type').then(type => {
     cy.getDataTestId(typeDeclineActions[type]).should('be.visible');
-  })
-})
+  });
+});
 // Examples:
 // | Type      | Action       |
 // | Approval  | Publish      |
@@ -342,66 +336,66 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId('message-field').last().type(`${curatorAnswer}{enter}`);
   cy.getDataTestId('snackbar-success');
-})
+});
 Then('the Request status is set to "Answered"', () => {
   cy.login(userMessages);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
-})
+});
 And('the User can read the answer in My Messages', () => {
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`)
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).parent().parent().filter(`:contains(${curatorAnswer})`);
-})
+});
 
 // Scenario: User gets an answer to a Request
-When('the Curator writes an answer', () => { })
-And('sends it to the User', () => { })
-And('the Request Type is:', () => { })
+When('the Curator writes an answer', () => { });
+And('sends it to the User', () => { });
+And('the Request Type is:', () => { });
 // | Approval  |
 // | DOI       |
 // | Ownership |
-Then('the User can see the answer in My Messages', () => { })
+Then('the User can see the answer in My Messages', () => { });
 
 // Scenario Outline: Curator change Status on a Request
-When('Curator selects a new status "<Status>" on a Request', () => { })
-Then('the status of the Request is set to {string}', (status) => { })
+When('Curator selects a new status "<Status>" on a Request', () => { });
+Then('the status of the Request is set to {string}', (status) => { });
 // Examples:
 //   | Status   |
 //   | Archived |
 //   | Deleted  |
 
 // Scenario: Curator receives assignment of responses to requests they have previously responded to
-When('the Curator:', () => { })
+When('the Curator:', () => { });
 // | Sends an answer          |
 // | Publishes a resource     |
 // | Mints a DOI              |
 // | Declines a DOI           |
 // | Changes Owner            |
 // | Declines change of owner |
-Then('the Curator is Assigned the Request', () => { })
+Then('the Curator is Assigned the Request', () => { });
 
 // Scenario: Curator receives Requests in their scope
-Given('the Request is of type:', () => { })
+Given('the Request is of type:', () => { });
 // | Approval |
 // | Support  |
 // | DOI      |
-When("the Requests' Submitter is Affilliated within the Curators Scope", () => { })
-Then('the Request is part of the Curators Worklist', () => { })
+When("the Requests' Submitter is Affilliated within the Curators Scope", () => { });
+Then('the Request is part of the Curators Worklist', () => { });
 
 // Scenario: Curator receives Requests they have been assigned from outside their scope
-Given('the Request is of type:', () => { })
+Given('the Request is of type:', () => { });
 // | Approval |
 // | Support  |
 // | DOI      |
-When('the Curator is assigned the Request', () => { })
-Then('the Request is part of the Curators Worklist', () => { })
+When('the Curator is assigned the Request', () => { });
+Then('the Request is part of the Curators Worklist', () => { });
 
 // Scenario: Curator receives Ownership requests within their scope
-Given('the Request is of type "Ownership"', () => { })
-When('the Affilliation of the Owner of the Resource associated with the Request is within Curators Scope', () => { })
-Then('the Request is part of the Curators Worklist', () => { })
+Given('the Request is of type "Ownership"', () => { });
+When('the Affilliation of the Owner of the Resource associated with the Request is within Curators Scope', () => { });
+Then('the Request is part of the Curators Worklist', () => { });
 
 // Scenario: Curator receives Ownership requests they have been assigned from outside their scope
-Given('the Request is of type "Ownership"', () => { })
-When('the Curator is assigned the Request', () => { })
-Then('the Request is part of the Curators Worklist', () => { })
+Given('the Request is of type "Ownership"', () => { });
+When('the Curator is assigned the Request', () => { });
+Then('the Request is part of the Curators Worklist', () => { });
