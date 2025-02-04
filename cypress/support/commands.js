@@ -593,11 +593,11 @@ Cypress.Commands.add('getWorklistItem', (title) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then(doc => {
     if (doc.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length < 1) {
-      cy.wait(30000);
+      cy.wait(10000);
       cy.reload();
     }
     if (doc.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length < 1) {
-      cy.wait(30000);
+      cy.wait(10000);
       cy.reload();
     }
   });
@@ -609,11 +609,11 @@ Cypress.Commands.add('getNVIWorklistItem', (title) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then(doc => {
     if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
-      cy.wait(30000);
+      cy.wait(10000);
       cy.reload();
     }
     if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
-      cy.wait(30000);
+      cy.wait(10000);
       cy.reload();
     }
   });
