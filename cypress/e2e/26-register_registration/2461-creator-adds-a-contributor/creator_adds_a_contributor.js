@@ -85,7 +85,7 @@ And('they see a dropdown with Contributor Types {string}', (typeList) => {
     cy.get(`[data-value=${contributorTypes[types[0]]}]`).click()
 })
 And('they see a "Close" Button', () => {
-    cy.getDataTestId('close-modal').should('be.visible');
+    cy.getDataTestId(dataTestId.confirmDialog.cancelButton).should('be.visible');
 })
 And('they see a "Create new Contributor" Button', () => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).should('be.visible');
