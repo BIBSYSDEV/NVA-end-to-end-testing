@@ -111,6 +111,8 @@ Given('Creator adds a file', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
+  cy.contains('Open file').click();
 });
 When('they see the file in the list of files', () => {
   cy.getDataTestId('uploaded-file-row').filter(`:contains(${fileName})`).should('be.visible');
