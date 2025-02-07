@@ -17,12 +17,12 @@ const panelIds = {
   'Participants': dataTestId.projectLandingPage.participantsAccordion,
   'Results': dataTestId.projectLandingPage.resultsAccordion,
   'Associated Projects': dataTestId.projectLandingPage.relatedProjectsAccordion,
-}
+};
 
 const projectTitle = 'Test project 16617fb0-3c7a-470e-83bf-e5a55e005d74';
 const selectProject = (user) => {
   cy.login(user);
-  cy.contains('Result').click();
+  cy.getDataTestId(dataTestId.startPage.searchTypeField).click();
   cy.get('[data-value=project]').click();
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
   cy.contains(projectTitle).click();
@@ -40,7 +40,7 @@ Given('An Anonymous User is on the NVA start page', () => {
   });
 });
 When('the Anonymous User navigates to the Project search page', () => {
-  cy.contains('Result').click();
+  cy.getDataTestId(dataTestId.startPage.searchTypeField).click();
   cy.get('[data-value=project]').click();
 });
 And('enters a search term for a Project', () => {
@@ -60,7 +60,7 @@ When("A Anonymous User opens a Project's Landing Page", () => {
       password: Cypress.env('DEVPASSWORD'),
     },
   });
-  cy.contains('Result').click();
+  cy.getDataTestId(dataTestId.startPage.searchTypeField).click();
   cy.get('[data-value=project').click();
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
   cy.contains(projectTitle).click();
@@ -101,7 +101,7 @@ And('the Anonymous User see counts of:', (counts) => {
     cy.getDataTestId(panelIds[count[0]]).within(() => {
       cy.contains('(');
       cy.contains(')');
-    })
+    });
   });
 });
 //             | Participants        |

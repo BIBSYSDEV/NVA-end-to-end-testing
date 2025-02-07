@@ -168,6 +168,7 @@ export const dataTestId = {
     privacyLink: 'privacy-link',
     systemStatusLink: 'system-status-link',
     technicalSupportLink: 'technical-support-link',
+    toTopButton: 'to-top-button',
   },
   header: {
     basicDataLink: 'basic-data-link',
@@ -225,6 +226,7 @@ export const dataTestId = {
     searchButton: 'search-button',
     searchField: 'search-field',
     searchResultItem: 'result-list-item',
+    searchTypeField: 'search-type-field',
   },
   projectForm: {
     startDateField: 'project-start-date-field',
@@ -481,7 +483,6 @@ export const dataTestId = {
       licenseItemShowOlderVersion: 'license-item-show-older-versions',
       licenseModal: 'license-modal',
       linkToResourceField: 'link-to-resource-field',
-      removeFileButton: 'button-remove-file',
       selectLicenseField: 'uploaded-file-select-license',
       fileTypeSelect: 'file-type-select',
       version: 'version-radios',
@@ -490,7 +491,6 @@ export const dataTestId = {
     },
     new: {
       emptyRegistrationAccordion: 'new-registration-empty',
-      fileAccordion: 'new-registration-file',
       linkAccordion: 'new-registration-link',
       linkMetadata: 'link-metadata',
       startRegistrationButton: 'registration-start-button',

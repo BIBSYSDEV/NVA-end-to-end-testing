@@ -9,7 +9,6 @@ Feature: Creator begins registering a Registration
     Examples:
       | Method               |
       | Link to registration |
-      | Upload file          |
       | Empty Registration   |
 
   @test
@@ -19,19 +18,8 @@ Feature: Creator begins registering a Registration
     And they are on the Start page
     When they click the New Registration button
     Then they are redirected to the New Registration page
-    And they see an Expansion panel for Upload file
     And they see an Expansion panel for Link to resource
     And they see an Expansion panel for Empty Registration
-
-  @test
-  Scenario: Creator begins registration by uploading a file
-    Given Creator begins registering a Registration
-    When they click Upload file
-    And they upload a file
-    Then they see the file name
-    And they see the file size
-    And they see the Remove button
-    And they see the Start button is enabled
 
   @test
   Scenario Outline: Creator begins registering with a Link from a Source
