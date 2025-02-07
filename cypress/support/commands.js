@@ -192,6 +192,8 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
   if (fileName) {
     cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+    cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
+    cy.contains('Open file').click();
     cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
       if (fileVersion === 'Accepted') {
         cy.get('input[type=radio]').first().click();
