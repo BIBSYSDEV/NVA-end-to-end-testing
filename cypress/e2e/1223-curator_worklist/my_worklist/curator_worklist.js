@@ -1,6 +1,7 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userCurator2, userDoiCurator, userMessages, userNviCurator, userPublishingCurator, userSupportCurator } from '../../../support/constants';
+import { userPublishNoRights, userCurator2, userDoiCurator, userMessages, userNviCurator, userPublishingCurator, userSupportCurator } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { v4 as uuid } from 'uuid'
 
 const messageTypes = {
   'Approval': 'Publishing Requests',
@@ -65,6 +66,25 @@ And('the Worklist contains Requests of type {string}', (type) => {
 
 // Scenario Outline: Curator views all Requests of a type
 When('{string} clicks on Requests of type {string}', (user, type) => {
+  const title = `${type} request publication ${uuid()}`;
+  cy.login(userPublishNoRights);
+  cy.createPublishedRegistration(title);
+  switch(type) {
+    case 'Approval':
+      break;
+    case 'Support':
+      break;
+    case 'DOI':
+      cy.wait(10000);
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+      cy.wait(10000);
+      break;
+    case 'Ownership':
+      breakc;
+  }
   cy.wrap(type).as('type');
   cy.wrap(user).as('user');
   cy.login(curatorUsers[user]);
