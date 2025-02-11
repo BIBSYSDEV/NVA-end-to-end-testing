@@ -78,6 +78,7 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
     createUrl = f'{apiUrl}cristin/person'
     headers = createHeaders(accessToken=accessToken)
     existingPerson = findCristinPerson(accessToken=accessToken, nin=nin)
+    
     cristinPersonId = ''
     if existingPerson.status_code == 404:
         print('Creating Cristin person...')

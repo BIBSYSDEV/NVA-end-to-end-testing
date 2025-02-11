@@ -1,12 +1,17 @@
-import { userCuratorWithAuthor, userEditRegistration, userEditor5 } from '../../../support/constants';
+import { userCuratorWithAuthor, userEditRegistration, userEditor5, userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { v4 as uuid } from 'uuid';
 
 // Feature; User edit registrations where they are not owner
 
-const registrationTitle = 'Edit registration not owner';
+const registrationTitle = `Edit registration not owner ${uuid()}`;
 
 // Scenario: Curator see option to edit a Registration from own institution
 Given('User is logged in as Curator', () => {
+    cy.login(userWithAuthor);
+    cy.createPublishedRegistration(registrationTitle);
+    cy.getDataTestId('snackbar-success');
+    cy.wait(10000);
     cy.login(userCuratorWithAuthor);
 });
 When('they open the landing page for a Registration from own institution', () => {
@@ -14,7 +19,7 @@ When('they open the landing page for a Registration from own institution', () =>
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
-    })
+    });
 });
 And('they are not owner of the Registration', () => { });
 Then('they have the option to edit the Registration', () => {
@@ -30,7 +35,7 @@ When('they open the landing page for a Registration', () => {
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
-    })
+    });
 });
 And('they are not owner of the Registration', () => { });
 Then('they have the option to edit the Registration', () => { });
@@ -42,13 +47,13 @@ Given('Curator open landing page for a Registration from own institution', () =>
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
-    })
+    });
 });
 When('they edit the Registration', () => {
     cy.location('pathname').then(pathname => {
         const id = pathname.replace('/registration/', '');
         cy.wrap(id).as('id');
-    })
+    });
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
 });
 Then('the Registration is opened in the Registration wizard', () => {
@@ -66,7 +71,7 @@ Given('Editor open landing page for a Registration', () => {
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
-    })
+    });
 });
 When('they edit the Registration', () => { });
 Then('the Registration is opened in the Registration wizard', () => { });
@@ -81,7 +86,7 @@ When('they open the landing page for a Registration where they are registred as 
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
-    })
+    });
 });
 And('they are not owner of the Registration', () => { });
 Then('they have the option to edit the Registration', () => { });
@@ -94,7 +99,7 @@ Given('a User open landing page for Registration where they are registred as a C
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
         cy.get('p > a').first().click();
-    })
+    });
 });
 And('they are not Curator or Editor', () => { });
 When('they edit the Registration', () => { });

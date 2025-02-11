@@ -1,28 +1,16 @@
 [
-  {
-    "publication_type": "Reference",
-    "publication_context_type": "Report",
-    "publication_instance_type": "ReportResearch",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "title": "Test Antologi",
-    "publisher": "https://api.e2e.nva.aws.unit.no/publication-channels/publisher/26781/2024"
-  },
-  {
-    "publication_type": "Reference",
-    "publication_context_type": "Report",
-    "publication_instance_type": "ReportBookOfAbstract",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "title": "Test Antologi",
-    "publisher": "https://api.e2e.nva.aws.unit.no/publication-channels/publisher/26781/2024"
-  },
+  // {
+  //   "publication_type": "Reference",
+  //   "publication_context_type": "Report",
+  //   "publication_instance_type": "ReportResearch",
+  //   "file_identifier": "lorem_ipsum",
+  //   "file_name": "lorem_ipsum.txt",
+  //   "owner": "test-user-with-author@test.no",
+  //   "status": "PUBLISHED",
+  //   "contributor": "test-user-with-author@test.no",
+  //   "title": "Test Antologi",
+  //   "publisher": "https://api.e2e.nva.aws.unit.no/publication-channels/publisher/26781/2024"
+  // },
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -203,17 +191,17 @@
     "title": "Registration - DOI request request pending",
     "doi": "requested"
   },
-  {
-    "publication_type": "Journal",
-    "publication_context_type": "Journal",
-    "publication_instance_type": "AcademicArticle",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "title": "Dummy for testing"
-  },
+  // {
+  //   "publication_type": "Journal",
+  //   "publication_context_type": "Journal",
+  //   "publication_instance_type": "AcademicArticle",
+  //   "file_identifier": "lorem_ipsum",
+  //   "file_name": "lorem_ipsum.txt",
+  //   "owner": "test-user-with-author@test.no",
+  //   "status": "PUBLISHED",
+  //   "contributor": "test-user-with-author@test.no",
+  //   "title": "Dummy for testing"
+  // },
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -568,18 +556,18 @@
     "title": "Check Embargoed PDF file",
     "embargoed": true
   },
-  {
-    "publication_type": "Reference",
-    "publication_context_type": "Book",
-    "publication_instance_type": "BookAnthology",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-with-author@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "title": "Test Antologi",
-    "publisher": "https://api.e2e.nva.aws.unit.no/publication-channels/publisher/26781/2024"
-  },
+  // {
+  //   "publication_type": "Reference",
+  //   "publication_context_type": "Book",
+  //   "publication_instance_type": "BookAnthology",
+  //   "file_identifier": "lorem_ipsum",
+  //   "file_name": "lorem_ipsum.txt",
+  //   "owner": "test-user-with-author@test.no",
+  //   "status": "PUBLISHED",
+  //   "contributor": "test-user-with-author@test.no",
+  //   "title": "Test Antologi",
+  //   "publisher": "https://api.e2e.nva.aws.unit.no/publication-channels/publisher/26781/2024"
+  // },
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",
@@ -591,17 +579,17 @@
     "contributor": "test-user-with-author@test.no",
     "title": "Test open my registrations"
   },
-  {
-    "publication_type": "Reference",
-    "publication_context_type": "ResearchData",
-    "publication_instance_type": "DataManagementPlan",
-    "file_identifier": "lorem_ipsum",
-    "file_name": "lorem_ipsum.txt",
-    "owner": "test-user-open-my-registrations@test.no",
-    "status": "PUBLISHED",
-    "contributor": "test-user-with-author@test.no",
-    "title": "Test registration DMP"
-  },
+  // {
+  //   "publication_type": "Reference",
+  //   "publication_context_type": "ResearchData",
+  //   "publication_instance_type": "DataManagementPlan",
+  //   "file_identifier": "lorem_ipsum",
+  //   "file_name": "lorem_ipsum.txt",
+  //   "owner": "test-user-open-my-registrations@test.no",
+  //   "status": "PUBLISHED",
+  //   "contributor": "test-user-with-author@test.no",
+  //   "title": "Test registration DMP"
+  // },
   {
     "publication_type": "Journal",
     "publication_context_type": "Journal",

@@ -1,6 +1,8 @@
 //  Feature: Scenarios for search
 
+import { userPublishRegistration, userWithAuthor, userWithAuthor1 } from '../../../support/constants';
 import { dataTestId } from "../../../support/dataTestIds"
+import { v4 as uuid } from "uuid"
 
 const visitStartPage = () => {
     cy.setLocalStorage('i18nextLng', 'eng');
@@ -12,8 +14,21 @@ const visitStartPage = () => {
     })
 }
 
+const createSearchResults = () => {
+    cy.login(userWithAuthor);
+    cy.createPublishedRegistration(`Search result - Journal ${uuid()}`);
+    cy.login(userWithAuthor1);
+    cy.createPublishedRegistration(`Search result - Conference abstract ${uuid()}`);
+    cy.login(userPublishRegistration);
+    cy.createPublishedRegistration(`Search result - Anthology ${uuid()}`, 'BookAnthology');
+    cy.getDataTestId(dataTestId.header.menuButton).click();
+    cy.getDataTestId(dataTestId.header.logOutLink).click();
+}
+
 //      Scenario: An anonymous Aser opens start page and sees search results
-Given('an anonymous User', () => { })
+Given('an anonymous User', () => {
+    createSearchResults();
+ })
 When('they open the start page', () => {
     visitStartPage();
 })
@@ -25,7 +40,7 @@ Then('they see a list of Registratons', () => {
 //      Scenario: A User sees search results
 Given('a User has searched for Registrations', () => {
     visitStartPage();
-    cy.getDataTestId(dataTestId.startPage.searchField).type('search result journal publishregistration{enter}');
+    cy.getDataTestId(dataTestId.startPage.searchField).type('search result journal{enter}');
 })
 When('they see the search result list', () => {
     cy.getDataTestId('search-results');
@@ -40,8 +55,8 @@ Then('they can see values for:', (dataTable) => {
         'Resource Type': 'Academic article',
         'Publication date': dateValue,
         'Title': 'Search result',
-        'Contributors': 'PublishRegistration TestUser',
-        'Abstract': 'abstract',
+        'Contributors': 'Withauthor TestUser',
+        'Abstract': 'Abstract',
     }
     cy.getDataTestId(dataTestId.startPage.searchResultItem).first().within(() => {
         dataTable.rawTable.forEach(value => {
@@ -95,7 +110,7 @@ Then('they see Registrations filtered with the chosen facet', () => {
         const resultCount = {
             'Resource type': 2,
             'Institution': 2,
-            'Contributor': 3,
+            'Contributor': 1,
         }
         cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', resultCount[facet]);
     })
@@ -153,7 +168,7 @@ When('they invoke the filter', () => {
     cy.getDataTestId(dataTestId.startPage.advancedSearch.searchButton).last().click();
 })
 Then('they see a search result list with filtered search results', () => {
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', 2);
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', 1);
 })
 
 

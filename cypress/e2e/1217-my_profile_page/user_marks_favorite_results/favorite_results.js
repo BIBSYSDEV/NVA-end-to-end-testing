@@ -1,13 +1,34 @@
 // Feature: User marks results as favorites
 
 import { Before } from "cypress-cucumber-preprocessor/steps";
-import { userFavorite, userFavorite1, userFavorite2 } from "../../../support/constants"
+import { userFavorite, userFavorite1, userFavorite2 } from "../../../support/constants";
 import { dataTestId } from "../../../support/dataTestIds";
+import { v4 as uuid } from 'uuid';
+
+const secondFavoriteResultTitle = 'Favorite result 5';
+const thirdFavoriteResultTitle = 'Favorite result 8';
+let user = userFavorite;
 
 const navigateToMyProfile = () => {
     cy.login(user);
     cy.getDataTestId(dataTestId.header.myPageLink).click();
-}
+};
+
+const createPublications = (user) => {
+    const publicationTitleRoot = 'Favorite result';
+    cy.login(userFavorite);
+    cy.createPublishedRegistration(`${publicationTitleRoot} 1 ${uuid()}`);
+    cy.createPublishedRegistration(`${publicationTitleRoot} 2 ${uuid()}`);
+    cy.createPublishedRegistration(`${publicationTitleRoot} 3 ${uuid()}`);
+    cy.login(userFavorite1);
+    cy.createPublishedRegistration(`${publicationTitleRoot} 4 ${uuid()}`);
+    cy.createPublishedRegistration(`${publicationTitleRoot} 5 ${uuid()}`);
+    cy.createPublishedRegistration(`${publicationTitleRoot} 6 ${uuid()}`);
+    cy.login(userFavorite2);
+    cy.createPublishedRegistration(`${publicationTitleRoot} 7 ${uuid()}`);
+    cy.createPublishedRegistration(`${publicationTitleRoot} 8 ${uuid()}`);
+    cy.createPublishedRegistration(`${publicationTitleRoot} 9 ${uuid()}`);
+};
 
 const clearFavoredResults = () => {
     cy.getDataTestId('search-results').then(($searchResults) => {
@@ -18,22 +39,20 @@ const clearFavoredResults = () => {
             });
         }
     });
-}
+};
 
-const secondFavoriteResultTitle = 'Favorite result 5';
-const thirdFavoriteResultTitle = 'Favorite result 8';
-let user = userFavorite;
 
 Before({ tags: '@second' }, () => {
     user = userFavorite1;
-})
+});
 
 Before({ tags: '@third' }, () => {
     user = userFavorite2;
-})
+});
 
 // Scenario: User sees own results on their User profile
 Given('a user sees their User profile', () => {
+    createPublications(user);
     navigateToMyProfile();
 });
 When('they view their results', () => {
@@ -87,7 +106,7 @@ When('they unmark a favorite result', () => {
         .parent()
         .within(() => {
             cy.getDataTestId('edit-promoted-publication-button').click();
-            cy.wait(3000)
+            cy.wait(3000);
         });
 });
 Then('the result is not marked as favorite', () => {
@@ -101,7 +120,6 @@ And('the result is not displayed at the top of the list of results', () => {
     cy.reload();
     cy.getDataTestId(dataTestId.startPage.searchResultItem)
         .last()
-        .parent()
         .within(() => {
             cy.contains(thirdFavoriteResultTitle);
         });

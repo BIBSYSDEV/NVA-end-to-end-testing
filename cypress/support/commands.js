@@ -7,6 +7,7 @@ import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/st
 import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
 import { userSecondEditor } from './constants';
+import { createValidRegistrationWithType } from './create_registration';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -64,11 +65,11 @@ Cypress.Commands.add('loginCognito', (userId) => {
     Amplify.configure(amplifyConfig);
     const secretsManagerParams = {
       SecretId: 'TestUserPassword',
-    }
+    };
     let testUserPassword = '';
     secretsManager.getSecretValue(secretsManagerParams, (err, data) => {
       if (data) {
-        testUserPassword = data.SecretString
+        testUserPassword = data.SecretString;
         // testUserPassword = 'P_f46addfb-9f75-42c2-aafa-dcf0974a9eb5';
         const authorizeUser = {
           AuthFlow: authFlow,
@@ -90,7 +91,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
               } else {
                 trying = true;
                 console.log('fail.. challenge');
-                console.log(data.ChallengeName)
+                console.log(data.ChallengeName);
                 reject(err);
               }
             } else {
@@ -168,11 +169,27 @@ Cypress.Commands.add('openMyRegistrations', () => {
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
 });
 
+Cypress.Commands.add('createPublishedRegistration', (title, type, fileName, fileVersion) => {
+  cy.startWizardWithEmptyRegistration();
+  if (!type || type === 'AcademicArticle') {
+    cy.createValidRegistration(fileName, title, fileVersion);
+  } else {
+    createValidRegistrationWithType(title, type, fileName, fileVersion);
+  }
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId('snackbar-success');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getDataTestId('snackbar-success');
+});
+
+
+
 Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) => {
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
   title = title ? `${title} ${today}` : `Title ${today}`;
   cy.get('[data-testid=registration-title-field]').type(title, { delay: 0 });
+  cy.getDataTestId(dataTestId.registrationWizard.description.abstractField).type('Abstract');
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, formatedToday);
 
   // Reference
@@ -257,7 +274,7 @@ const fillInField = (field) => {
         cy.get('@titleId').then(titleId => {
           value = `${value} ${titleId}`;
           cy.getDataTestId(field['fieldTestId']).should('be.visible').type(value, { delay: 1 });
-        })
+        });
       } else {
         cy.getDataTestId(field['fieldTestId']).should('be.visible').type(value, { delay: 1 });
       }
@@ -360,7 +377,7 @@ Cypress.Commands.add('checkField', (field, titleId) => {
         if (field.fieldTestId === dataTestId.registrationWizard.description.titleField) {
           cy.get('@titleId').then(titleId => {
             cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', `${value} ${titleId}`);
-          })
+          });
         } else {
           cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', value);
         }
@@ -486,7 +503,7 @@ Cypress.Commands.add('fillInContributors', (contributorRoles) => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`Withauthor ${index}`);
     cy.get('tbody > tr').filter(`:contains('Withauthor ${index} ')`).within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
-    })
+    });
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
   });
 });
@@ -519,7 +536,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
     if (isMobile) {
       cy.get(selector).click();
       cy.get('[role=dialog]').then(($dialog) => {
-        const typableField = !($dialog.find('.MuiPickersDay-today').length > 0 || $dialog.find('.Mui-selected').length > 0)
+        const typableField = !($dialog.find('.MuiPickersDay-today').length > 0 || $dialog.find('.Mui-selected').length > 0);
         if (typableField) {
           cy.get(selector).within(() => {
             cy.get('input').type(value, { force: true });

@@ -42,9 +42,13 @@ Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
   cy.login(userSaveResearchData);
-  cy.startWizardWithEmptyRegistration();
 });
 And('selects {string}', (resourceType) => {
+  if (resourceType === 'DataManagementPlan') {
+    cy.createPublishedRegistration(`Test Antologi ${uuidv4()}`, 'BookAnthology')
+    cy.createPublishedRegistration( `Test registration DMP ${uuidv4()}`, 'DataManagementPlan')
+  }
+  cy.startWizardWithEmptyRegistration();
   cy.wrap(resourceType).as('resourceType');
 });
 And('fill in values for all fields', () => {

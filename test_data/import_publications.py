@@ -487,6 +487,7 @@ def create_publications():
                 publication_template=publication_template,
                 test_publication=test_publication
             )
+            print(f'{test_publication["title"]} created')
             put_response = put_item(
                 new_publication=new_publication, username=username)
             if not put_response.status_code == 201 and not put_response.status_code == 200:
@@ -658,14 +659,14 @@ def run():
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
-    set_nvi_period()
+    # set_nvi_period()
     reset_nvi_search_index()
-    read_customers()
-    map_user_to_arp()
-    upload_file()
+    # read_customers()
+    # map_user_to_arp()
+    # upload_file()
     delete_publications()
     reset_search_index()
-    create_publications()
+    # create_publications()
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

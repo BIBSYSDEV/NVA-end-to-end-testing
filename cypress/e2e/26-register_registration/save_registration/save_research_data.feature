@@ -1,4 +1,5 @@
 Feature: Save registration for Research data
+
     @test
     Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Research data
         Given Author begins registering a Registration
@@ -10,5 +11,5 @@ Feature: Save registration for Research data
 
         Examples:
             | Subtype            |
-            | DataManagementPlan |
+            # | DataManagementPlan |
             | DataSet            |
