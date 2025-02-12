@@ -55,7 +55,7 @@ const createWorklistItem = (title, type) => {
       break;
   }
   cy.wait(10000);
-}
+};
 
 Before(() => {
   // cy.login(userCurator2);
@@ -193,9 +193,10 @@ And('the Request Status is set to "Active"', () => {
 
 // Scenario: Curator unassigns a Request
 When('the {string} selects "Mark request unread" on a request of type {string}', (user, type) => {
+  const title = `Unassign ${user} ${type} ${uuid()}`;
+  createWorklistItem(title, type);
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
-  const title = `Unassign ${user} ${type}`;
   cy.wrap(title).as('title');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
@@ -277,6 +278,8 @@ And('the Curator can change the Status of the Request', () => { });
 
 // Scenario Outline: Curator open the Request's Resource
 Given('the {string} receives a Request of type {string}', (user, type) => {
+  const title = `Open ${user} ${type} ${uuid()}`;
+  createWorklistItem(title, type);
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -284,13 +287,8 @@ Given('the {string} receives a Request of type {string}', (user, type) => {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   } else {
     cy.get('[value=BIBSYS]');
-    cy.getDataTestId(dataTestId.tasksPage.curatorSelector).click();
-    cy.getDataTestId(dataTestId.tasksPage.curatorSelector).within(() => {
-      cy.getDataTestId('CloseIcon').click();
-    });
   }
   cy.wrap(type).as('type');
-  const title = `Open ${user} ${type}`;
   cy.wrap(title).as('title');
 });
 When('the Curator opens the Requests Resource', () => {
