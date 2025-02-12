@@ -1,7 +1,7 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { userPublishNoRights, userCurator2, userDoiCurator, userMessages, userNviCurator, userPublishingCurator, userSupportCurator } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from 'uuid';
 
 const messageTypes = {
   'Approval': 'Publishing Requests',
@@ -31,6 +31,31 @@ const requestTypes = {
 
 const filename = 'example.txt';
 const registrationTitle = 'Support message registration';
+const publicationType = 'AcademicArticle';
+
+const createWorklistItem = (title, type) => {
+  cy.login(userPublishNoRights);
+  cy.createPublishedRegistration(title, publicationType, filename);
+  switch (type) {
+    case 'Approval':
+      break;
+    case 'Support':
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
+        cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
+      });
+      break;
+    case 'DOI':
+      cy.wait(10000);
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+      break;
+    case 'NVI':
+      break;
+  }
+  cy.wait(10000);
+}
 
 Before(() => {
   // cy.login(userCurator2);
@@ -67,24 +92,7 @@ And('the Worklist contains Requests of type {string}', (type) => {
 // Scenario Outline: Curator views all Requests of a type
 When('{string} clicks on Requests of type {string}', (user, type) => {
   const title = `${type} request publication ${uuid()}`;
-  cy.login(userPublishNoRights);
-  cy.createPublishedRegistration(title);
-  switch(type) {
-    case 'Approval':
-      break;
-    case 'Support':
-      break;
-    case 'DOI':
-      cy.wait(10000);
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-      cy.wait(10000);
-      break;
-    case 'Ownership':
-      breakc;
-  }
+  createWorklistItem(title, type);
   cy.wrap(type).as('type');
   cy.wrap(user).as('user');
   cy.login(curatorUsers[user]);
@@ -144,10 +152,11 @@ And('they see that each Request can be opened', () => { });
 
 // Scenario: Curator opens a unassigned Request
 When('the {string} open a unassigned Request of type {string}', (user, type) => {
+  const title = `Open unassigned ${user} ${type} ${uuid()}`;
+  createWorklistItem(title, type);
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.wrap(type).as('type');
-  const title = `Open unassigned ${user} ${type}`;
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
@@ -160,7 +169,7 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
     cy.get('[value=BIBSYS]');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).click();
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
   }
 });
 Then('the Curator is assigned the Request', () => {
@@ -174,6 +183,7 @@ And('the Request Status is set to "Active"', () => {
     if (user === 'Nvi-Curator') {
     } else {
       cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click();
+      cy.wait(3000);
       cy.get('[data-value=Completed]').click();
       cy.get('[data-value=Completed]').type('{esc}');
       cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
