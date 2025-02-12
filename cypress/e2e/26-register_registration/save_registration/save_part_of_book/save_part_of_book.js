@@ -11,10 +11,13 @@ const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
-cy.login(userSavePartOfBook);
-  cy.startWizardWithEmptyRegistration();
+  cy.login(userSavePartOfBook);
 });
 And('selects {string}', (resourceType) => {
+  if (resourceType === 'AcademicChapter') {
+    cy.createPublishedRegistration('Antologi', 'BookAnthology');
+  }
+  cy.startWizardWithEmptyRegistration();
   cy.wrap(resourceType).as('resourceType');
 });
 And('fill in values for all fields', () => {
@@ -48,7 +51,7 @@ And('they can see the values in the Registration Wizard', () => {
       }
     });
   });
-  cy.get('@resourceType').then((subtype) => {
+  cy.get('@resourceType').then(() => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
     fields.forEach((field) => {
       cy.checkField(field);
