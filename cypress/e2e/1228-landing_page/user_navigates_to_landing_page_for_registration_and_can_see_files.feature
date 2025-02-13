@@ -16,6 +16,10 @@ Feature: User navigates to Landing Page for Registration and can see Files
     # they belong on the "Anonymous User views Landing Page for Registration" feature
 
     @test
+    Scenario: Populate NVA with Registrations with files
+        Given there are Registrations with files
+
+    @test
     Scenario: Files that are Administrative Agreements are hidden
         Given Anonymous User views Landing Page for Registration
         And the Registration contains a File, which is an Administrative Agreement
@@ -50,6 +54,7 @@ Feature: User navigates to Landing Page for Registration and can see Files
             | Image            |
             | Microsoft Office |
 
+    @preview
     @test
     Scenario: Automatically preview first File
         Given Anonymous User views Landing Page for Registration

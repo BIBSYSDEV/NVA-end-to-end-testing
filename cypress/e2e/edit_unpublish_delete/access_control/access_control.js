@@ -2,6 +2,7 @@ import { userCuratorDegree, userCuratorInstitution, userCuratorResourceOwner, us
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { changeContributor } from '../../../support/create_registration';
 
 // Feature: Edit, unpublish or delete Registration
 
@@ -17,19 +18,6 @@ const users = {
 const resourceOwnerName = 'Access Resource owner TestUser';
 const verifiedContributorName = 'Access Verified contributor TestUser';
 
-const changeContributor = (userFrom, userTo) => {
-    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-    cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton(userFrom)}"`).click();
-    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-    cy.getDataTestId(dataTestId.startPage.searchField).type(userTo);
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getDataTestId('snackbar-success');
-}
 
 let titleRoot = '';
 

@@ -17,8 +17,6 @@ const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'e2e';
 
-console.log(clientId);
-
 AWS.config.update({
   accessKeyId: awsAccessKeyId,
   secretAccessKey: awsSecretAccessKey,
@@ -126,6 +124,30 @@ Cypress.Commands.add('login', (userId) => {
     // cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
     // cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('not.exist');
   });
+});
+
+Cypress.Commands.add('cognitoLogout', (userId) => {
+  return new Cypress.Promise((resolve, reject) => {
+    Amplify.configure(amplifyConfig);
+    const params = {
+      'UserPoolId': userPoolId,
+      'Username': userId,
+    }
+    identityServiceProvider.adminUserGlobalSignOut(params, async (err, data) => {
+      if (data) {
+        // await Auth.signOut();
+        resolve('Ok');
+      } else {
+        trying = true;
+        console.log('fail.. logout');
+        reject(err);
+      }
+    });
+  });
+});
+
+Cypress.Commands.add('logout', (userId) => {
+  cy.wrap(cy.logoutCognito(userId)).should('not.be.null');
 });
 
 Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
