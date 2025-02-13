@@ -44,9 +44,6 @@ const addFileToRegistration = (fileName, type) => {
 
 let preview = false;
 
-Before({ 'tags': '@preview' }, () => {
-  preview = true;
-});
 
 // Common steps
 Given('Anonymous User views Landing Page for Registration', () => {
@@ -61,7 +58,7 @@ Given('Anonymous User views Landing Page for Registration', () => {
 
 // End common steps
 
-Given('there are Registrations with files', () => {
+Before({ 'tags': '@init' }, () => {
   const textFileName = 'lorem_ipsum.txt';
 
   cy.login(userWithAuthor);
