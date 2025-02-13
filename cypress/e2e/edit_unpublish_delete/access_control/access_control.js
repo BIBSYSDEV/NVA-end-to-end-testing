@@ -1,5 +1,7 @@
 import { userCuratorDegree, userCuratorInstitution, userCuratorResourceOwner, userEditorDelete, userResourceOwner, userVerifiedContributor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { v4 as uuid } from 'uuid';
+import { Before } from 'cypress-cucumber-preprocessor/steps';
 
 // Feature: Edit, unpublish or delete Registration
 
@@ -10,19 +12,51 @@ const users = {
     'Curator (resource owner)': userCuratorResourceOwner,
     'Editor': userEditorDelete,
     'Thesis Curator': userCuratorDegree,
+};
+
+const resourceOwnerName = 'Access Resource owner TestUser';
+const verifiedContributorName = 'Access Verified contributor TestUser';
+
+const changeContributor = (userFrom, userTo) => {
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+    cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton(userFrom)}"`).click();
+    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.startPage.searchField).type(userTo);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getDataTestId('snackbar-success');
 }
 
+let titleRoot = '';
+
+Before({ tags: '@edit' }, () => {
+    titleRoot = 'Edit registration';
+});
+
+Before({ tags: '@unpublish' }, () => {
+    titleRoot = 'Unpublish registration';
+});
 
 // Scenario Outline: User edits Registration
 Given('{string} open landing page for Registration', (user) => {
+    const title = `${titleRoot} ${user} ${uuid()}`;
+    cy.login(userResourceOwner);
+    cy.createPublishedRegistration(title);
+    if (user !== 'Resource Owner') {
+        changeContributor(resourceOwnerName, verifiedContributorName)
+    }
     cy.login(users[user]);
     cy.wrap(user).as('user');
 });
 When('they {string} and want to edit the Registration', (condition) => {
     cy.get('@user').then(user => {
-        const title = `Edit registration ${user}`
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().within(() => {
+        const registrationTitle = `Edit registration ${user}`;
+        cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().within(() => {
             cy.get('a').first().click();
         });
     });
@@ -47,7 +81,7 @@ And('when they use the option to edit the Registration is opened in the Registra
 Given('{string} open landing page for Registration', () => { });
 When('they {string} and want to unpublish the Registration', (condition) => {
     cy.get('@user').then(user => {
-        const title = `Unpublish registration ${user}`
+        const title = `Unpublish registration ${user}`;
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().within(() => {
             cy.get('a').first().click();
@@ -57,14 +91,14 @@ When('they {string} and want to unpublish the Registration', (condition) => {
 Then('they have an option to unpublish the Registration', () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
-})
+});
 And('when they use the option to unpublish the Registration is no longer published', () => {
     cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
     cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Unpublish justification');
     cy.getDataTestId(dataTestId.unpublishActions.confirmUnpublishCheckbox).click();
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
     cy.contains('The result is unpublished');
-})
+});
 // Examples:
 //     | User                     | Condition                                         |
 //     | verified contributor     | are a Contributor on the Registration             |

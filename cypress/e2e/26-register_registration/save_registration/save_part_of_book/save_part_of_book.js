@@ -17,6 +17,7 @@ And('selects {string}', (resourceType) => {
   if (resourceType === 'AcademicChapter') {
     cy.createPublishedRegistration('Antologi', 'BookAnthology');
   }
+  cy.wait(5000);
   cy.startWizardWithEmptyRegistration();
   cy.wrap(resourceType).as('resourceType');
 });
