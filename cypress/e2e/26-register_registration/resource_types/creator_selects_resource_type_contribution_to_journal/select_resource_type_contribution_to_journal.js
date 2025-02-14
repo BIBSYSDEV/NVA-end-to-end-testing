@@ -7,6 +7,13 @@ import { journalSubtypes, journalFields } from '../../../../support/data_testid_
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 
+Before({'tags': '@init'}, () => {
+  const originalPublication = 'Original publication for corrigendum';
+  cy.createPublishedRegistration(originalPublication);
+  const corrigendumTitle = 'Test article corrigendum';
+  cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
+})
+
 Before(() => {
   cy.wrap('').as('subtype');
   cy.wrap(false).as('link');

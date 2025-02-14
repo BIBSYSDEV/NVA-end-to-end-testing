@@ -49,6 +49,10 @@ const addCategoryData = (type) => {
             cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acs chemical');
             cy.contains('ACS Chemical Biology').click();
             break;
+        case 'JournalCorrigendum':
+            cy.getDataTestId(dataTestId.registrationWizard.resourceType.corrigendumForField).type('original publication for corrigendum');
+            cy.contains('Original publication for corrigendum').click();
+            break;
     }
 };
 
@@ -64,4 +68,4 @@ export const changeContributor = (userFrom, userTo) => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId('snackbar-success');
-}
+};

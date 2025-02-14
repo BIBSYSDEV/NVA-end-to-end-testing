@@ -1,5 +1,6 @@
 Feature: Creator selects Resource type Contribution to journal
 
+    @init
     @test
     Scenario: Creator navigates to the Resource Type tab and see list of Journal types
         Given Creator begins registering a Registration in the Wizard

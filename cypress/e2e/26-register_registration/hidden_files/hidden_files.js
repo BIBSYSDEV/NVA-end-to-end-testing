@@ -1,7 +1,7 @@
 // Feature: Hidden and internal files
 
 import { user, userPublishRegistration, userPublishingCurator } from "../../../support/constants";
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from 'uuid';
 import { dataTestId } from "../../../support/dataTestIds";
 
 const fileName = "example.txt";
@@ -53,7 +53,8 @@ Given('a registration with a {string}', (fileType) => {
     cy.contains(fileType).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
+    cy.getDataTestId('snackbar-success');
+    cy.wait(3000);
 });
 And('the files need approval from a Curator', () => { });
 When('a Curator view the landing page of the registration', () => {
@@ -94,7 +95,7 @@ Then('they see the file is approved', () => {
                         cy.reload();
                         cy.contains(title);
                     }
-                })
+                });
                 cy.contains('1 file archived');
                 cy.contains('1 waiting for approval').should('not.exist');
             });
@@ -125,7 +126,7 @@ When('a curator edit the registration and changes the open file to {string}', (f
     cy.get('@title').then(title => {
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
-    })
+    });
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();

@@ -45,8 +45,9 @@ Given('Author begins registering a Registration', () => {
 });
 And('selects {string}', (resourceType) => {
   if (resourceType === 'DataManagementPlan') {
-    cy.createPublishedRegistration(`Test Antologi ${uuidv4()}`, 'BookAnthology')
-    cy.createPublishedRegistration( `Test registration DMP ${uuidv4()}`, 'DataManagementPlan')
+    cy.createPublishedRegistration(`Test Antologi ${uuidv4()}`, 'BookAnthology');
+    cy.wait(10000);
+    cy.createPublishedRegistration(`Test registration DMP ${uuidv4()}`, 'DataManagementPlan');
   }
   cy.startWizardWithEmptyRegistration();
   cy.wrap(resourceType).as('resourceType');

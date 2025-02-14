@@ -36,6 +36,12 @@ Given('Author begins registering a Registration', () => {
   cy.startWizardWithEmptyRegistration();
 });
 And('selects {string}', (resourceType) => {
+  if(resourceType === 'AcademicArticle') {
+    const originalPublication = `Original publication for corrigendum`;
+    cy.createPublishedRegistration(originalPublication);
+    const corrigendumTitle = 'Test article corrigendum';
+    cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
+  }
   cy.wrap(resourceType).as('resourceType');
 });
 And('fill in values for all fields', () => {

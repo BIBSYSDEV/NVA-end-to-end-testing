@@ -1,10 +1,11 @@
 import { userViewRegistration } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { v4 as uuid } from 'uuid';
 
 Given('that a Creator views a Registration', () => {
   cy.login(userViewRegistration);
-  cy.openMyRegistrations();
-  cy.get('[data-testid^=edit-registration]').first().click({ force: true });
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(null, `View Registration ${uuid()}`);
 });
 And('they navigate to the Files and License tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
