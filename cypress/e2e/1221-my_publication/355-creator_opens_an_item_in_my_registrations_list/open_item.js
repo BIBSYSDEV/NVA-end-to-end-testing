@@ -2,10 +2,17 @@ import { today } from '../../../support/commands';
 import { userMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { descriptionFields } from '../../../support/data_testid_constants';
+import { v4 as uuid } from 'uuid';
 
 // Common step
 Given('that the user is logged in as Creator', () => {
   cy.login(userMyRegistrations);
+  const title = `Registration ${uuid()}`;
+  cy.createValidRegistration(null, title);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click(),
+    cy.getDataTestId('snackbar-success');
+  cy.getDataTestId('snackbar-success').should('not.exist');
+  cy.wait(3000);
 });
 // end common step
 
@@ -31,9 +38,12 @@ And('they see fields:', (dataTable) => {
 
 // Scenario: Creator sees Validation Errors for Registration
 And('they are on the page My Registrations', () => {
+  const title = `Registration with validation error ${uuid()}`;
+  cy.wrap(title).as('title');
+  cy.createValidRegistration(null, title);
   cy.openMyRegistrations();
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains("Registration with validation error ${today}")`)
+    .filter(`:contains(${title})`)
     .parent()
     .within(() => {
       cy.get('[data-testid^=edit-registration]').first().click({ force: true });
@@ -41,7 +51,7 @@ And('they are on the page My Registrations', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
     cy.getDataTestId('CancelIcon').click();
-  })
+  });
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.contains('Registration updated successfully');
@@ -54,16 +64,19 @@ And('they see a List of Registrations', () => {
   cy.get('[data-testid^=edit-registration]').should('have.length.above', 0);
 });
 When('they click Edit on a Registration', () => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains("Registration with validation error ${today}")`)
-    .parent()
-    .within(() => {
-      cy.get('p > a').first().click({ force: true });
-    });
+  cy.get('@title').then((title) => {
+
+    cy.getDataTestId(dataTestId.startPage.searchResultItem)
+      .filter(`:contains(${title})`)
+      .parent()
+      .within(() => {
+        cy.get('p > a').first().click({ force: true });
+      });
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+  });
 });
 And('they see the Registration is opened in Edit Mode', () => {
-  cy.get('[data-testid=registration-title-field]').should('exist');
+  cy.getDataTestId(dataTestId.registrationWizard.description.titleField);
 });
 And('they see the Registration has Validation Errors', () => {
   cy.get('[data-testid=error-tab]').should('exist');

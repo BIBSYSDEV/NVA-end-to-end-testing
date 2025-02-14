@@ -61,6 +61,9 @@ export const changeContributor = (userFrom, userTo) => {
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton(userFrom)}"`).click();
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getDataTestId('snackbar-success');
+    cy.getDataTestId('snackbar-success').should('not.exist');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(userTo);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');

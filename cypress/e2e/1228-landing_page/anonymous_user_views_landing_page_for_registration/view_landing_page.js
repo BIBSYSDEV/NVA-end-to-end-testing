@@ -1,8 +1,33 @@
 import { today } from '../../../support/commands';
+import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageFields, landingPageShareButtons } from '../../../support/data_testid_constants';
+import { v4 as uuid } from 'uuid';
 
-const landing_page_registration_title = `View Landing Page ${today}`;
+const landing_page_registration_title = `View Landing Page ${uuid()}`;
+const fileName = 'example.txt';
+
+// Scenario: NVA contains Reigstration
+Given('there is a published Registration in NVA', () => {
+  cy.login(userWithAuthor);
+  cy.createPublishedRegistration(landing_page_registration_title, null, fileName);
+  cy.wait(5000);
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).should('not.exist');
+  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.tagField).type('Keyword{enter}');
+  cy.getDataTestId(dataTestId.registrationWizard.description.languageField).click();
+  cy.contains('Norwegian, bokmål').click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectSearchField).type('project for testing 20230512');
+  cy.contains('Project for testing 20230512').click();
+
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId('snackbar-success');
+  cy.wait(5000);
+});
+
 
 // @881
 // Scenario: Anonymous User views Landing Page for Registration

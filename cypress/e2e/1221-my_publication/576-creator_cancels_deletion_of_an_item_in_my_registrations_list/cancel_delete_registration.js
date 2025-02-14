@@ -7,6 +7,12 @@ import { dataTestId } from '../../../support/dataTestIds';
 // Scenario: Creator cancels deletion of an item in My Registrations list
 Given('that the user is logged in as Creator', () => {
   cy.login(userCancelDelete);
+  const title = 'Delete Registration';
+  cy.createValidRegistration(null, title);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId('snackbar-success');
+  cy.getDataTestId('snackbar-success').should('not.exist');
+  cy.wait(3000);
 });
 And('is on the My Registrations page', () => {
   cy.openMyRegistrations();

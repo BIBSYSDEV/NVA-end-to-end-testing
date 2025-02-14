@@ -7,6 +7,9 @@ import { myRegistrations, myRegistrationsButtons } from '../../../support/data_t
 // Scenario: User sees published Registrations
 Given('Creator opens the page My Registrations', () => {
   cy.login(userPublishedRegistration);
+  const title = `Published registration ${uuid()}`
+  cy.createPublishedRegistration(title);
+  cy.wait(3000);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
 });

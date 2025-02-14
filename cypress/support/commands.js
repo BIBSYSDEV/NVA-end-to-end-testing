@@ -132,7 +132,7 @@ Cypress.Commands.add('cognitoLogout', (userId) => {
     const params = {
       'UserPoolId': userPoolId,
       'Username': userId,
-    }
+    };
     identityServiceProvider.adminUserGlobalSignOut(params, async (err, data) => {
       if (data) {
         // await Auth.signOut();
@@ -200,8 +200,10 @@ Cypress.Commands.add('createPublishedRegistration', (title, type, fileName, file
   }
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId('snackbar-success');
+  cy.getDataTestId('snackbar-success').should('not.exist');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId('snackbar-success');
+  cy.getDataTestId('snackbar-success').should('not.exist');
 });
 
 

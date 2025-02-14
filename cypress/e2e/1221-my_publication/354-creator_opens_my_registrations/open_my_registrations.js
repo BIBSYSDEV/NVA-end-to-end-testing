@@ -1,8 +1,15 @@
 import { userOpenMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { v4 as uuid } from 'uuid';
 
 Given('the user is logged in as Creator', () => {
   cy.login(userOpenMyRegistrations);
+  const title = `My registration ${uuid()}`;
+  cy.createValidRegistration(null, title);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId('snackbar-success');
+  cy.getDataTestId('snackbar-success').should('not.exist');
+  cy.wait(3000);
 });
 When('they click the button My Registrations', () => {
   cy.openMyRegistrations();
@@ -33,7 +40,7 @@ And('they see the navigation bar for published registrations is enabled', () => 
   cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsPublishedCheckbox}] .Mui-checked`).should('not.exist');
   cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).should('exist');
 });
-And('they see items with Status', (dataTable) => {});
+And('they see items with Status', (dataTable) => { });
 // Examples:
 //   | Draft    |
 //   | Rejected |
