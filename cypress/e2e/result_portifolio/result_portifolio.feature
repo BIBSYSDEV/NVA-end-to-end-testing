@@ -1,5 +1,6 @@
 Feature: Scenarios for Result portifolio
 
+    @init
     @test
     Scenario: Editor views Result portifolio
         Given an Editor
