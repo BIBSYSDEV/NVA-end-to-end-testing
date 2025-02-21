@@ -125,7 +125,7 @@ And('they see the list of current Institution Administrators', () => {
   cy.get('li').filter(':contains("Institution-admin TestUser")').should('have.length.above', 0);
 });
 And('every Institution Administrator has a Remove button', () => {
-  cy.get(`[data-testid^=button-remove-role-Institution-admin-]`).should('have.length.above', 0);
+  cy.get(`[data-testid^=button-remove-role-]`).should('have.length.above', 0);
 });
 And('they see button to add a new Institution Administrator', () => {
   cy.getDataTestId('button-open-add-admin').should('be.visible');

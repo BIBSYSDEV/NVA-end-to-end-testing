@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 Given('the user is logged in as Creator', () => {
   cy.login(userOpenMyRegistrations);
   const title = `My registration ${uuid()}`;
+  cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, title);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId('snackbar-success');

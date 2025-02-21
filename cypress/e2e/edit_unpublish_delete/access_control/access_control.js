@@ -34,8 +34,9 @@ Given('{string} open landing page for Registration', (user) => {
     const title = `${titleRoot} ${user} ${uuid()}`;
     cy.login(userResourceOwner);
     cy.createPublishedRegistration(title);
+    cy.wait(5000);
     if (user !== 'Resource Owner') {
-        changeContributor(resourceOwnerName, verifiedContributorName)
+        changeContributor(resourceOwnerName, verifiedContributorName);
     }
     cy.login(users[user]);
     cy.wrap(user).as('user');

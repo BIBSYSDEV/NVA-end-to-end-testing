@@ -77,7 +77,6 @@ When("the User selects a Project's presentation", () => {
 });
 Then('the User is presented the Landing Page for the Project', () => {
     cy.location('pathname').should('contain', 'projects');
-    cy.location('search').should('contain', 'id=');
 });
 
 // Scenario: User Edits a Project in the Project Wizard

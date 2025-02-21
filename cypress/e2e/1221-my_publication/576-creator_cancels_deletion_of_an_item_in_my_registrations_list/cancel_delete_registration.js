@@ -8,6 +8,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 Given('that the user is logged in as Creator', () => {
   cy.login(userCancelDelete);
   const title = 'Delete Registration';
+  cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, title);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId('snackbar-success');

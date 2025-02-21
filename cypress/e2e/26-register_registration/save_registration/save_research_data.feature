@@ -11,5 +11,5 @@ Feature: Save registration for Research data
 
         Examples:
             | Subtype            |
-            # | DataManagementPlan |
+            | DataManagementPlan |
             | DataSet            |

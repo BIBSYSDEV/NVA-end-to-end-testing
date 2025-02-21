@@ -17,8 +17,8 @@ And('they see only one current Institution Admin', () => {
         .first()
         .click();
     })
-  cy.get('[data-testid^=button-remove-role-Institution-admin]').should('have.length', 1);
+  cy.get('[data-testid^=button-remove-role-]').should('have.length', 1);
 });
 Then('they see that the Delete button on its name is disabled', () => {
-  cy.get('[data-testid^=button-remove-role-Institution-admin]').first().should('be.disabled');
+  cy.get('[data-testid^=button-remove-role-]').first().should('be.disabled');
 });

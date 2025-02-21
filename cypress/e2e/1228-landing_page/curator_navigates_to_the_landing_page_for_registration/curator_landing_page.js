@@ -137,7 +137,7 @@ When('they reject the Publishing Request', () => {
 });
 Then('the Registration is {string}', (registrationStatus) => {
   const status = {
-    'Published': 'Publication - Rejected',
+    'Published': 'file rejected',
     'Draft': 'Publishing request - Draft',
   };
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {

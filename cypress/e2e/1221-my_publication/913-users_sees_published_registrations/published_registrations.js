@@ -3,11 +3,12 @@
 import { userPublishedRegistration } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { myRegistrations, myRegistrationsButtons } from '../../../support/data_testid_constants';
+import { v4 as uuid } from 'uuid';
 
 // Scenario: User sees published Registrations
 Given('Creator opens the page My Registrations', () => {
   cy.login(userPublishedRegistration);
-  const title = `Published registration ${uuid()}`
+  const title = `Published registration ${uuid()}`;
   cy.createPublishedRegistration(title);
   cy.wait(3000);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
@@ -28,7 +29,7 @@ Then('they see a list of all published Registrations with the fields', (dataTabl
 // | Title   |
 // | Status  |
 // | Created |
-And('they see list items with Status', (dataTable) => {});
+And('they see list items with Status', (dataTable) => { });
 // | Deleted   |
 // | Published |
 And('they see each list item has buttons', (dataTable) => {
@@ -54,7 +55,7 @@ And('the they see the Edit button is enabled', () => {
       });
   });
 });
-And('the Delete button is enabled for Registrations not marked as Deleted', () => {});
+And('the Delete button is enabled for Registrations not marked as Deleted', () => { });
 And('they see the navigation bar for Unpublished Registrations is enabled', () => {
   cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).should('exist');
   cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsUnpublishedCheckbox}] .Mui-checked`).should('not.exist');
