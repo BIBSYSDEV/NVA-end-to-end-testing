@@ -96,6 +96,7 @@ Then('they see the file is approved', () => {
                         cy.contains(title);
                     }
                 });
+                cy.getDataTestId(dataTestId.registrationLandingPage.internalFilesTab).click();
                 cy.contains('1 file archived');
                 cy.contains('1 waiting for approval').should('not.exist');
             });

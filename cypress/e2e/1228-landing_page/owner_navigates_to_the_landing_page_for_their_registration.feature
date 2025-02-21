@@ -1,5 +1,6 @@
 Feature: Owner navigates to the Landing Page for their Resource
 
+    @init
     @test
     Scenario: Owner Requests a DOI
         Given the owner opens the Landing Page of their Registration
@@ -60,12 +61,12 @@ Feature: Owner navigates to the Landing Page for their Resource
         Then they see a List of all Validation Errors for the Resource
         And they see a "Edit registration" button
 
-# Scenario: Owner sees the option to transfer Ownership of a Resource
-#     When the Owner views the Landing Page
-#     Then the Owner sees a option to transfer Ownership of Resource
+    # Scenario: Owner sees the option to transfer Ownership of a Resource
+    #     When the Owner views the Landing Page
+    #     Then the Owner sees a option to transfer Ownership of Resource
 
-# Scenario: Owner transfers Ownership of a Resource
-#     When the Owner uses the option to transfer Ownership of current Resource
-#     Then the Owner must acknowledges that this is a final action
-#     And the Owner must select a new Owner
-#     And the ownership is transfered to new Owner
+    # Scenario: Owner transfers Ownership of a Resource
+    #     When the Owner uses the option to transfer Ownership of current Resource
+    #     Then the Owner must acknowledges that this is a final action
+    #     And the Owner must select a new Owner
+    #     And the ownership is transfered to new Owner
