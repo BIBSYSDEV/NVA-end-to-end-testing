@@ -1,9 +1,12 @@
+import { currentYear } from '../../../support/commands';
 import { userNviCurator2 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 
 const filename = 'example.json';
 const journalSearch = 'ACS chemical biology';
+
+const year = currentYear.toString();
 
 // Background:
 Given('an logged-in Curator at an NVI-Institution', () => {
@@ -24,6 +27,9 @@ Given('an logged-in Curator at an NVI-Institution', () => {
 When('a Curator uses the option to view the NVI-Report status at own Institution', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  cy.contains(year).click();
+
 });
 Then('the Curator sees a visualization of current progress compared with last year', () => { });
 And('it contains number of Validated Resources', () => { });
@@ -46,6 +52,8 @@ Then(
 When('the Curator views the list of Candidates', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  cy.contains(year).click();
 });
 And('select one of the Candidates', () => {
   cy.get('@uuid').then(uuid => {
@@ -77,6 +85,8 @@ And('the Curator have an option to add a note to the Candidate', () => {
 When('a Curator views a NVI-candidate', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  cy.contains(year).click();
   cy.get('@uuid').then((uuid) => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectAll}${uuid}{enter}`);
     cy.get('a').filter(`:contains(${uuid})`).click();
@@ -153,6 +163,8 @@ And('there is an option to Validate the Resource on behalf of their Institution'
 Given('an NVI candidate', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  cy.contains(year).click();
   cy.get('@uuid').then((uuid) => {
     cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
     cy.get('a').filter(`:contains(${uuid})`).click();
@@ -180,6 +192,8 @@ And('the NVI candidate is no longer an NVI candidate', () => {
 Then('remove the NVI candidate from the NVI candidate list.', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  cy.contains(year).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.approvedRadio).click();
   cy.get('@uuid').then((uuid) => {
     cy.get('a').filter(`:contains(${uuid})`).should('not.exist');
@@ -204,6 +218,8 @@ And('the NVI candidate is still a candidate', () => {
 Then('reset the approval status for all involved institutions for the NVI candidate.', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  cy.contains(year).click();
   cy.get('@uuid').then((uuid) => {
     cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.approvedRadio).click();
     cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);

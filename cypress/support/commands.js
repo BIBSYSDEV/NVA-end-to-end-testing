@@ -48,6 +48,7 @@ const pad = (value) => `0${value}`.slice(-2);
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
 const date = new Date();
 export const formatedToday = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
+export const currentYear = date.getFullYear().toString();
 export const todayDatePicker = () => {
   const date = new Date();
   const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;

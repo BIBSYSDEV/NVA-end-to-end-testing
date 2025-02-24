@@ -1,7 +1,8 @@
 import { Before } from 'cypress-cucumber-preprocessor/steps';
-import { userPublishNoRights, userCurator2, userDoiCurator, userMessages, userNviCurator, userPublishingCurator, userSupportCurator } from '../../../support/constants';
+import { userPublishNoRights, userCurator2, userDoiCurator, userMessages, userNviCurator, userPublishingCurator, userSupportCurator, userVerifiedContributor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
+import { currentYear } from '../../../support/commands';
 
 const messageTypes = {
   'Approval': 'Publishing Requests',
@@ -29,12 +30,17 @@ const requestTypes = {
   'NVI': dataTestId.tasksPage.nvi.statusFilter.pendingRadio,
 };
 
+const year = currentYear;
 const filename = 'example.txt';
 const registrationTitle = 'Support message registration';
 const publicationType = 'AcademicArticle';
 
 const createWorklistItem = (title, type) => {
-  cy.login(userPublishNoRights);
+  if (type === 'NVI') {
+    cy.login(userVerifiedContributor);
+  } else {
+    cy.login(userPublishNoRights);
+  }
   cy.createPublishedRegistration(title, publicationType, filename);
   switch (type) {
     case 'Approval':
@@ -52,6 +58,7 @@ const createWorklistItem = (title, type) => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
       break;
     case 'NVI':
+      cy.wait(20000);
       break;
   }
   cy.wait(10000);
@@ -99,6 +106,8 @@ When('{string} clicks on Requests of type {string}', (user, type) => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+    cy.contains(year).click();
   } else {
     cy.get('[value=BIBSYS]');
   }
@@ -160,6 +169,8 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+    cy.contains(year).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains("${title}")`).within(() => {
@@ -201,6 +212,8 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+    cy.contains(year).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(10000);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
@@ -296,6 +309,8 @@ When('the Curator opens the Requests Resource', () => {
     cy.get('@title').then(title => {
       if (user === 'Nvi-Curator') {
         cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+        cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+        cy.contains(year).click();
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains("${title}")`).first().within(() => {
           cy.get('li > div > p > a').first().click();
