@@ -22,7 +22,7 @@ const users = {
     [PUBLISHING_REQUEST]: userPublicationMessages,
     [DOI_REQUEST]: userDOIMessages,
     [SUPPORT_REQUEST]: userSupportMessages,
-}
+};
 
 const fileName = 'example.txt';
 
@@ -49,7 +49,7 @@ Then('they see the number of dialogs without curator', () => {
         cy.get('span > span > span').should('exist');
         cy.get('@taskNumbers').then(taskNumber => {
             cy.get('span > span > span').filter(`:contains("${taskNumber}")`);
-        })
+        });
     });
 });
 
@@ -62,9 +62,9 @@ Then('they see the number of dialogs without curator', () => {
 
 // Scenario Outline: Updating message numbers
 Given('a User with role {string}', (role) => { });
-When('they see the number of unassigned tasks', () => { })
+When('they see the number of unassigned tasks', () => { });
 And('a User with the role Creator send a {string} request', (type) => {
-    const title = `Messages ${type} ${uuidv4()}`
+    const title = `Messages ${type} ${uuidv4()}`;
     cy.wrap(title).as('title');
     cy.login(users[type]);
     cy.startWizardWithEmptyRegistration();
@@ -107,7 +107,7 @@ Then('the User with role {string} see that the number of unassigned tasks are in
 
 // Scenario Outline: User dialog with curator
 Given('a User with the role Creator sends a {string} request', (type) => {
-    const title = `Messages ${type} ${uuidv4()}`
+    const title = `Messages ${type} ${uuidv4()}`;
     cy.wrap(title).as('title');
     cy.login(users[type]);
     cy.startWizardWithEmptyRegistration();

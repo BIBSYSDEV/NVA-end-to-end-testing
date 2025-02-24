@@ -1,7 +1,7 @@
 import { formatedToday, today } from './commands';
 import { dataTestId } from './dataTestIds';
 
-export const createValidRegistrationWithType = (title, type, fileName, fileVersion) => {
+export const createValidRegistrationWithType = (title, type, fileName, fileVersion, fileType) => {
     // Description
     cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
     title = title ? `${title} ${today}` : `Title ${today}`;
@@ -24,14 +24,18 @@ export const createValidRegistrationWithType = (title, type, fileName, fileVersi
     if (fileName) {
         cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
         cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-        cy.contains('Open file').click();
-        cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
-            if (fileVersion === 'Accepted') {
-                cy.get('input[type=radio]').first().click();
-            } else if (fileVersion !== 'Not set') {
-                cy.get('input[type=radio]').last().click();
-            }
-        });
+        const accessabilityType = fileType ? 'Open file' : fileType;
+        cy.contains(accessabilityType).click();
+
+        if (accessabilityType === 'Open file') {
+            cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
+                if (fileVersion === 'Accepted') {
+                    cy.get('input[type=radio]').first().click();
+                } else if (fileVersion !== 'Not set') {
+                    cy.get('input[type=radio]').last().click();
+                }
+            });
+        }
         cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
         cy.get('[data-testid=license-item]').first().click({ force: true });
     }
