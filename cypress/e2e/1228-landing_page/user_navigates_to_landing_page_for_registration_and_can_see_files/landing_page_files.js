@@ -18,6 +18,7 @@ const EMBARGOED_FILE = 'Embargoed file';
 
 const addFileToRegistration = (fileName, type) => {
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+  cy.reload();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
   cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
@@ -176,7 +177,7 @@ Then("the File's Preview panel is expanded by default", () => {
 });
 And('the File is automatically downloaded', () => { });
 And('the downloaded File is displayed', (file) => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.filePreview).should('be.visible');
+  cy.contains('Preview of lorem_ipsum.txt');
 });
 
 // Scenario: Lock Embargoed Files
