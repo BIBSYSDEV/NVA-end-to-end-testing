@@ -141,7 +141,7 @@ When('the user have the role {string}', (userRole) => {
 And('the user attempts to "read-metadata"', () => {
     cy.get('@fileType').then(fileType => {
         const title = titles[fileType];
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{}`);
+        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
             cy.get('a').first().click();
