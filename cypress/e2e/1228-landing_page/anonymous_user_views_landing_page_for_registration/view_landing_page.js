@@ -24,7 +24,7 @@ Given('there is a published Registration in NVA', () => {
 
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId('snackbar-success');
+  cy.getSuccess();
   cy.wait(5000);
 });
 

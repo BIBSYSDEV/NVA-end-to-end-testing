@@ -11,8 +11,8 @@ Given('that the user is logged in as Creator', () => {
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, title);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId('snackbar-success');
-  cy.getDataTestId('snackbar-success').should('not.exist');
+  cy.getSuccess();
+  cy.getSuccessDone();
   cy.wait(3000);
 });
 And('is on the My Registrations page', () => {

@@ -57,7 +57,7 @@ Then('they can set that Registrars can waive RRS', () => {
 });
 Then('save the Rights retention strategy', () => {
   cy.getDataTestId(dataTestId.editor.rrsSaveButton).click();
-  cy.getDataTestId('snackbar-success');
+  cy.getSuccess();
 });
 
 //   Scenario: User sets version to accepted for file with RRS activated

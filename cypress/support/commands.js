@@ -195,16 +195,16 @@ Cypress.Commands.add('openMyRegistrations', () => {
 Cypress.Commands.add('createPublishedRegistration', (title, category, fileName, fileVersion, fileType) => {
   cy.startWizardWithEmptyRegistration();
   if (!category || category === 'AcademicArticle') {
-    cy.createValidRegistration(fileName, title, fileVersion);
+    cy.createValidRegistration(fileName, title, fileVersion, fileType);
   } else {
     createValidRegistrationWithType(title, category, fileName, fileVersion, fileType);
   }
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId('snackbar-success');
-  cy.getDataTestId('snackbar-success').should('not.exist');
+  cy.getSuccess();
+  cy.getSuccessDone();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getDataTestId('snackbar-success');
-  cy.getDataTestId('snackbar-success').should('not.exist');
+  cy.getSuccess();
+  cy.getSuccessDone();
 });
 
 
@@ -234,11 +234,11 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion, f
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
   if (fileName) {
     const accessabilityType = fileType ? fileType : 'Open file';
-    cy.log(accessabilityType);
-    cy.log(fileType);
     cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-    cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-    cy.contains(accessabilityType).click();
+    if (fileType !== 'None') {
+      cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
+      cy.contains(accessabilityType).click();
+    }
     if (accessabilityType === 'Open file') {
       cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
         if (fileVersion === 'Accepted') {
@@ -247,10 +247,18 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion, f
           cy.get('input[type=radio]').last().click();
         }
       });
+      cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
+      cy.get('[data-testid=license-item]').first().click({ force: true });
     }
-    cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
-    cy.get('[data-testid=license-item]').first().click({ force: true });
   }
+});
+
+Cypress.Commands.add('getSuccess', () => {
+  cy.getDataTestId('snackbar-success');
+});
+
+Cypress.Commands.add('getSuccessDone', () => {
+  cy.getDataTestId('snackbar-success').should('not.exist');
 });
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {

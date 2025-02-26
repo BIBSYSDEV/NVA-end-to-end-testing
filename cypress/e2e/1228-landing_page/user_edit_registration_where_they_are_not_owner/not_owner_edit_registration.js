@@ -10,7 +10,7 @@ const registrationTitle = `Edit registration not owner ${uuid()}`;
 Given('User is logged in as Curator', () => {
     cy.login(userWithAuthor);
     cy.createPublishedRegistration(registrationTitle);
-    cy.getDataTestId('snackbar-success');
+    cy.getSuccess();
     cy.wait(10000);
     cy.login(userCuratorWithAuthor);
 });

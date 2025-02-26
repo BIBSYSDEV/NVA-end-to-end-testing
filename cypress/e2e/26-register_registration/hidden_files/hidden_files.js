@@ -53,7 +53,7 @@ Given('a registration with a {string}', (fileType) => {
     cy.contains(fileType).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-    cy.getDataTestId('snackbar-success');
+    cy.getSuccess();
     cy.wait(3000);
 });
 And('the files need approval from a Curator', () => { });

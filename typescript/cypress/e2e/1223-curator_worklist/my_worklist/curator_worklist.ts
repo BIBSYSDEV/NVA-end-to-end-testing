@@ -149,7 +149,7 @@ Then('the Curator is assigned the Request', () => {
 });
 Then('the Request Status is set to "Active"', () => {
   cy.get('@user').then(user => {
-    cy.getDataTestId('snackbar-success');
+    cy.getSuccess();
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     if (user.toString() === 'Nvi-Curator') {
     } else {
@@ -192,10 +192,10 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     });
   }
   if (user === 'Nvi-Curator') {
-    cy.getDataTestId('snackbar-success');
+    cy.getSuccess();
     cy.wait(5000);
   } else {
-    cy.getDataTestId('snackbar-success');
+    cy.getSuccess();
   }
   cy.get('[title=Tasks]').click();
 
@@ -214,7 +214,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
     cy.getDataTestId('CloseIcon').click({ force: true });
   });
-  cy.getDataTestId('snackbar-success');
+  cy.getSuccess();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator)
     .filter(':contains("ST")')
     .should('not.exist');
@@ -330,7 +330,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId('message-field').last().type('Test message{enter}');
-  cy.getDataTestId('snackbar-success');
+  cy.getSuccess();
   cy.wait(10000);
 
   cy.login(userCurator2);
@@ -339,7 +339,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId('message-field').last().type(`${curatorAnswer}{enter}`);
-  cy.getDataTestId('snackbar-success');
+  cy.getSuccess();
 })
 Then('the Request status is set to "Answered"', () => {
   cy.login(userMessages);

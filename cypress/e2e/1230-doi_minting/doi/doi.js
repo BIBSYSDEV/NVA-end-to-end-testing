@@ -1,6 +1,8 @@
+import { v4 as uuid } from 'uuid';
 import { today } from '../../../support/commands';
 import { userCuratorDraftDoi, userDraftDoi2 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+
 
 // Feature: DOI related scenarios moved from MVP feature
 
@@ -9,11 +11,64 @@ const publicRegistrationWithoutDoi = `Published registration without DOI ${today
 const draftRegistrationWithoutDoi = `Draft registration without DOI ${today}`;
 const registrationTitle = `Draft registration requesting DOI ${today}`;
 const draftRegistrationPublishWithRequestedDoi = 'Draft registration publish with requested DOI';
-const publishedRegistrationWithDoi = 'Published registration with DOI';
+const publishedRegistrationWithDraftDoi = `Published registration with draft DOI ${uuid()}`;
 
 const published = 'published';
 const unpublished = 'unpublished';
 const filename = 'example.txt';
+
+
+// Scenario: Owner navigates to the submission tab and publish a Registration with a drafted DOI
+Given('that the Owner navigates to Submission tab', () => {
+  cy.login(userDraftDoi2);
+  cy.createValidRegistration(publishedRegistrationWithDraftDoi);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+});
+And('the Registration has status Draft', () => { });
+And('the Registration has a Draft DOI', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+  cy.getSuccess();
+});
+When('the Owner clicks the publish button', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getSuccess();
+});
+Then('the Landing Page for Registration is displayed', () => { });
+And('the "Request a DOI" button is still named "DOI pending" and is disabled', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).within(() => {
+    cy.contains('Reserved');
+  });
+});
+And('the Landing Page for Registration lists the Draft DOI', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).within(() => {
+    cy.contains('DOI').parent().within(() => {
+      cy.contains('(In progress)');
+    });
+  });
+});
+And('the Draft DOI is still not a link', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).within(() => {
+    cy.contains('DOI').parent().within(() => {
+      cy.get('a').should('not.exist');
+    });
+  });
+});
+And('the DOI request is listed in the Owners work list', () => {
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publishedRegistrationWithDraftDoi})`).within(() => {
+    cy.contains('Waiting for DOI');
+  });
+});
+And('the DOI request is listed in the Curators work list', () => {
+  cy.login(userCuratorDraftDoi);
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publishedRegistrationWithDraftDoi})`).within(() => {
+    cy.contains('Waiting for DOI');
+  });
+});
 
 //   @1251
 //   Scenario: Creator opens a Registration with a DOI request
@@ -209,12 +264,12 @@ And('they see the Create DOI button is enabled', () => { });
 And('they see the Decline DOI button is enabled', () => { });
 
 // Scenario: Owner navigates to the Landing page and requests a DOI
-Given ('that the Creator navigates to the Landing page for published Registration without DOI', () => {})
-And ('they are the Owner of the Registration', () => {})
-And ('open "Request a DOI" dialog', () => {})
-And ('optional add a message to the Curator', () => {})
-When ('the user click the Send Button', () => {})
-Then ('the Landing page is displayed', () => {})
-And ('the "Request a DOI" button is no longer visible', () => {})
-And ('the request is listed in My Messages', () => {})
-And ('the request is listed in Curator Worklist', () => {})
+Given('that the Creator navigates to the Landing page for published Registration without DOI', () => { });
+And('they are the Owner of the Registration', () => { });
+And('open "Request a DOI" dialog', () => { });
+And('optional add a message to the Curator', () => { });
+When('the user click the Send Button', () => { });
+Then('the Landing page is displayed', () => { });
+And('the "Request a DOI" button is no longer visible', () => { });
+And('the request is listed in My Messages', () => { });
+And('the request is listed in Curator Worklist', () => { });

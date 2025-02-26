@@ -52,7 +52,7 @@ Then('the Institutions publications policy is changed accordingly', () => {
 Then('the Editor is notified that a new policy is activated', () => {
   cy.get('@strategyButton').then(strategy => {
     if (strategy !== publishStrategies[Object.keys(publishStrategies)[0]]) {
-      cy.getDataTestId('snackbar-success');
+      cy.getSuccess();
     }
   });
   cy.getDataTestId('dataTestId.editor.workflowRegistratorPublishesAll').click({ force: true });

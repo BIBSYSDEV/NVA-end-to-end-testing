@@ -189,7 +189,7 @@ Then('the Curator is assigned the Request', () => {
 });
 And('the Request Status is set to "Active"', () => {
   cy.get('@user').then(user => {
-    cy.getDataTestId('snackbar-success');
+    cy.getSuccess();
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     if (user === 'Nvi-Curator') {
     } else {
@@ -233,7 +233,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
       cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
     });
   }
-  cy.getDataTestId('snackbar-success');
+  cy.getSuccess();
   if (user === 'Nvi-Curator') {
     cy.wait(5000);
   }
@@ -255,7 +255,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
       cy.getDataTestId('CloseIcon').click({ force: true });
     });
   });
-  cy.getDataTestId('snackbar-success');
+  cy.getSuccess();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator)
     .should('not.exist');
 
@@ -369,7 +369,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId('message-field').last().type('Test message{enter}');
-  cy.getDataTestId('snackbar-success');
+  cy.getSuccess();
   cy.wait(10000);
 
   cy.login(userCurator2);
@@ -378,7 +378,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId('message-field').last().type(`${curatorAnswer}{enter}`);
-  cy.getDataTestId('snackbar-success');
+  cy.getSuccess();
 });
 Then('the Request status is set to "Answered"', () => {
   cy.login(userMessages);

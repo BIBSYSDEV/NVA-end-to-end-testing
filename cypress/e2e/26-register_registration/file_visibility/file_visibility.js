@@ -4,7 +4,7 @@
 //     So that only authorized users can read the metadata
 
 import { v4 as uuid } from 'uuid';
-import { userPublicationCuratorMessages, userPublicationMessages, userWithAuthor } from '../../../support/constants';
+import { userPublicationCuratorMessages, userPublicationMessages, userWithAuthor, userCuratorInstitution, userPublishNoRights, userDOIMessages, } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 
@@ -16,65 +16,105 @@ const OPEN_FILE = 'OpenFile';
 const INTERNAL_FILE = 'InternalFile';
 const HIDDEN_FILE = 'HiddenFile';
 
+const NONE = 'None';
 const OPEN = 'Open file';
 const INTERNAL = 'Internal file';
 const HIDDEN = 'Hidden file';
 
 
+const addContributor = () => {
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+    cy.reload();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton);
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.startPage.searchField).type('Withauthor TestUser{enter}');
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.startPage.searchField).type('Doi Messages TestUser{enter}');
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).parent().parent().parent().filter(':contains("Doi Messages TestUser")').filter(':contains("SINTEF")').within(() => {
+        cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+    });
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getSuccess();
+};
+
+const titles = {
+
+    [UPLOADED_FILE]: `${UPLOADED_FILE} ${uuid()}`,
+    [PENDING_OPEN_FILE]: `${PENDING_OPEN_FILE} ${uuid()}`,
+    [PENDING_INTERNAL_FILE]: `${PENDING_INTERNAL_FILE} ${uuid()}`,
+    [INTERNAL_FILE]: `${INTERNAL_FILE} ${uuid()}`,
+    [OPEN_FILE]: `${OPEN_FILE} ${uuid()}`,
+    [HIDDEN_FILE]: `${HIDDEN_FILE} ${uuid()}`,
+};
 
 const initData = () => {
-    const types = {
-        // [UPLOADED_FILE]: {
-        //     publishedMetadata: false,
-        //     fileType: OPEN,
-        //     approved: false,
-        // },
-        [PENDING_OPEN_FILE]: {
-            publishedMetadata: true,
-            fileType: OPEN,
-            approved: false,
-        },
-        [PENDING_INTERNAL_FILE]: {
-            publishedMetadata: true,
-            fileType: INTERNAL,
-            approved: false,
-        },
-        [OPEN_FILE]: {
-            publishedMetadata: true,
-            fileType: OPEN,
-            approved: true,
-        },
-        [INTERNAL_FILE]: {
-            publishedMetadata: true,
-            fileType: INTERNAL,
-            approved: true,
-        },
-        [HIDDEN_FILE]: {
-            publishedMetadata: true,
-            fileType: HIDDEN,
-            approved: false,
-        },
-    };
 
     const ACADEMIC_ARTICLE = 'AcademicArticle';
     const fileName = 'lorem_ipsum.txt';
 
     cy.login(userPublicationMessages);
-    Object.keys(types).forEach((key) => {
-        const title = `${key} ${uuid()}`;
-        if (!types[key].publishedMetadata) {
-            cy.startWizardWithEmptyRegistration();
-            cy.log(types[key].fileType);
-            cy.createValidRegistration(fileName, title, 'Accepted', types[key].fileType);
-            cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-            cy.getDataTestId('snackbar-success');
-            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('be.visible');
-        } else {
-            const accessabilityType = types[key].fileType;
-            cy.log(accessabilityType);
-            cy.createPublishedRegistration(title, ACADEMIC_ARTICLE, fileName, 'Accepted', accessabilityType);
-        }
+
+    cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
+    addContributor();
+
+    cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
+    addContributor();
+
+    cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', INTERNAL);
+    addContributor();
+
+    cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
+    addContributor();
+
+    cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', INTERNAL);
+    addContributor();
+
+    cy.createPublishedRegistration(titles[HIDDEN_FILE]);
+    addContributor();
+
+    cy.login(userPublicationCuratorMessages);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[OPEN_FILE]}{enter}`);
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${titles[OPEN_FILE]})`).within(() => {
+        cy.get('a').first().click();
     });
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
+    cy.getSuccess();
+
+    cy.getDataTestId('logo').click();
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[INTERNAL_FILE]}{enter}`);
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${titles[INTERNAL_FILE]})`).within(() => {
+        cy.get('a').first().click();
+    });
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
+    cy.getSuccess();
+
+    cy.getDataTestId('logo').click();
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[HIDDEN_FILE]}{enter}`);
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${titles[HIDDEN_FILE]})`).within(() => {
+        cy.get('a').first().click();
+    });
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+    cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+    cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
+    cy.contains(HIDDEN).click();
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getSuccess();
+};
+
+
+const users = {
+    'Uploader at X': userPublicationMessages,
+    'Contributor at X': userDOIMessages,
+    'Other contributors': userWithAuthor,
+    'File curator at X': userPublicationCuratorMessages,
+    'File curators for other contributors': userCuratorInstitution,
+    'Everyone else': userPublishNoRights,
 };
 
 //   Scenario Outline: Verify file metadata read permissions
@@ -83,10 +123,54 @@ Given('a file of type {string}', (fileType) => {
         initData();
         init = true;
     }
+    cy.wrap(fileType).as('fileType');
 });
-When('the user have the role {string}', (userRole) => { });
-And('the user attempts to "read-metadata"', () => { });
-Then('the action outcome is {string}', (outcome) => { });
+When('the user have the role {string}', (userRole) => {
+    cy.wrap(userRole).as('userRole');
+    if (userRole !== 'Everyone else') {
+        cy.login(users[userRole]);
+    } else {
+        cy.visit('/', {
+            auth: {
+                username: Cypress.env('DEVUSER'),
+                password: Cypress.env('DEVPASSWORD'),
+            },
+        });
+    }
+});
+And('the user attempts to "read-metadata"', () => {
+    cy.get('@fileType').then(fileType => {
+        const title = titles[fileType];
+        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{}`);
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
+            cy.get('a').first().click();
+        });
+        cy.getDataTestId(dataTestId.registrationLandingPage.contributors).should('exist');
+    });
+});
+Then('the action outcome is {string}', (outcome) => {
+    if (outcome === 'Allowed') {
+        cy.get('@userRole').then((userRole) => {
+            if (userRole !== 'Everyone else') {
+                cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+                cy.reload();
+                cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+                cy.getDataTestId('OpenInNewOutlinedIcon').should('exist');
+            } else {
+                cy.getDataTestId(dataTestId.registrationLandingPage.openFileButton).should('exist');
+            }
+        });
+    } else {
+        cy.get('@userRole').then((userRole) => {
+            if (userRole !== 'Everyone else') {
+                cy.getDataTestId(dataTestId.registrationWizard.files.deleteFile).should('not.exist');
+            } else {
+                cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).should('not.exist');
+            }
+        });
+    }
+});
 
 // Examples:
 //   | FileType            | UserRole                             | Outcome     |

@@ -23,10 +23,11 @@ export const createValidRegistrationWithType = (title, type, fileName, fileVersi
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
     if (fileName) {
         cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-        cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-        const accessabilityType = fileType ? 'Open file' : fileType;
-        cy.contains(accessabilityType).click();
-
+        if (fileType !== 'None') {
+            const accessabilityType = fileType ? 'Open file' : fileType;
+            cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
+            cy.contains(accessabilityType).click();
+        }
         if (accessabilityType === 'Open file') {
             cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
                 if (fileVersion === 'Accepted') {
@@ -35,9 +36,9 @@ export const createValidRegistrationWithType = (title, type, fileName, fileVersi
                     cy.get('input[type=radio]').last().click();
                 }
             });
+            cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
+            cy.get('[data-testid=license-item]').first().click({ force: true });
         }
-        cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
-        cy.get('[data-testid=license-item]').first().click({ force: true });
     }
 
 };
@@ -66,13 +67,13 @@ export const changeContributor = (userFrom, userTo) => {
     cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton(userFrom)}"`).click();
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getDataTestId('snackbar-success');
-    cy.getDataTestId('snackbar-success').should('not.exist');
+    cy.getSuccess();
+    cy.getSuccessDone();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(userTo);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getDataTestId('snackbar-success');
+    cy.getSuccess();
 };

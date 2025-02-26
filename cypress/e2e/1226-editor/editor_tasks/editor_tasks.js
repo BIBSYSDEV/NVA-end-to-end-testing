@@ -163,7 +163,7 @@ Then('the Institutions publications policy is changed accordingly', () => {
 And('the Editor is notified that a new policy is activated', () => {
   cy.get('@strategyButton').then((strategy) => {
     if (strategy !== publishStrategies[Object.keys(publishStrategies)[0]]) {
-      cy.getDataTestId('snackbar-success');
+      cy.getSuccess();
     }
   });
   cy.wait(3000);
