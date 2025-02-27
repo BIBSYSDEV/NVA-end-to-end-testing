@@ -274,6 +274,7 @@ Cypress.Commands.add('selectRegistration', (title, type) => {
     cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
     cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).click();
   }
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('[data-testid^=result-list-item]')
     .filter(`:contains(${title})`)
     .first()
