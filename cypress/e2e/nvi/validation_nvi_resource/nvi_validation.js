@@ -99,6 +99,8 @@ And('uses the option to approve the NVI-candidate', () => {
 Then('the NVI candidate is removed from the list of Candidate Resources', () => {
   cy.wait(5000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  cy.contains(year).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.pendingRadio).click();
   cy.get('@uuid').then((uuid) => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectAll}${uuid}{enter}`);
