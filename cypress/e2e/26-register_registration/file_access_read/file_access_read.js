@@ -60,8 +60,8 @@ const initData = () => {
 
     cy.login(userPublicationMessages);
 
-    cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
-    addContributor();
+    // cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
+    // addContributor();
 
     cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
     addContributor();

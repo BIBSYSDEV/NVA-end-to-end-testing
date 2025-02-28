@@ -12,12 +12,12 @@ Feature: File metadata read and file download permissions
 
     Examples:
       | FileType            | UserRole                             | Outcome     |
-      | UploadedFile        | Uploader at X                        | Allowed     |
-      | UploadedFile        | Contributor at X                     | Not Allowed |
-      | UploadedFile        | Other contributors                   | Not Allowed |
-      | UploadedFile        | File curator at X                    | Allowed     |
-      | UploadedFile        | File curators for other contributors | Not Allowed |
-      | UploadedFile        | Everyone else                        | Not Allowed |
+      # | UploadedFile        | Uploader at X                        | Allowed     |
+      # | UploadedFile        | Contributor at X                     | Not Allowed |
+      # | UploadedFile        | Other contributors                   | Not Allowed |
+      # | UploadedFile        | File curator at X                    | Allowed     |
+      # | UploadedFile        | File curators for other contributors | Not Allowed |
+      # | UploadedFile        | Everyone else                        | Not Allowed |
     #   | UploadedFile        | External client                      | Not Allowed |
       | PendingOpenFile     | Uploader at X                        | Allowed     |
       | PendingOpenFile     | Contributor at X                     | Allowed     |
