@@ -37,8 +37,8 @@ const addContributor = () => {
         cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.wait(3000);
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getSuccess();
 };
