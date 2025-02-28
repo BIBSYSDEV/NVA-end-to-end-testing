@@ -8,8 +8,9 @@ import { v4 as uuid } from 'uuid';
 Given('that the user is logged in as Creator', () => {
   cy.login(userMyRegistrations);
   const title = `Registration ${uuid()}`;
+  cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, title);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click(),
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
   cy.getSuccessDone();
   cy.wait(3000);
@@ -40,6 +41,7 @@ And('they see fields:', (dataTable) => {
 And('they are on the page My Registrations', () => {
   const title = `Registration with validation error ${uuid()}`;
   cy.wrap(title).as('title');
+  cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, title);
   cy.openMyRegistrations();
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
