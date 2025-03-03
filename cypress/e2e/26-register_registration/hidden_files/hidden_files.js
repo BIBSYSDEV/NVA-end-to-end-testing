@@ -97,7 +97,7 @@ Then('they see the file is approved', () => {
                     }
                 });
                 cy.getDataTestId(dataTestId.registrationLandingPage.internalFilesTab).click();
-                cy.contains('1 file archived');
+                cy.contains('1 internal file approved');
                 cy.contains('1 waiting for approval').should('not.exist');
             });
         }
@@ -125,6 +125,7 @@ When('a curator edit the registration and changes the open file to {string}', (f
     cy.login(userPublishingCurator);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.get('@title').then(title => {
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
     });

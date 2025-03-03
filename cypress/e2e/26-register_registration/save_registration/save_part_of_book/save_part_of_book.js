@@ -15,9 +15,15 @@ Given('Author begins registering a Registration', () => {
 });
 And('selects {string}', (resourceType) => {
   if (resourceType === 'AcademicChapter') {
-    cy.createPublishedRegistration('Antologi', 'BookAnthology');
+    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'BookAnthology');
+  } else if (resourceType === 'ChapterInReport') {
+    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportResearch');
+  } else if (resourceType === 'ChapterConferenceAbstract') {
+    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportBookOfAbstract');
   }
   cy.wait(5000);
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).should('not.exist');
   cy.startWizardWithEmptyRegistration();
   cy.wrap(resourceType).as('resourceType');
 });

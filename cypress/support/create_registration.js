@@ -46,6 +46,8 @@ export const createValidRegistrationWithType = (title, type, fileName, fileVersi
 const addCategoryData = (type) => {
     switch (type) {
         case 'BookAnthology':
+        case 'ReportBookOfAbstract':
+        case 'ReportResearch':
         case 'DataManagementPlan':
             cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('ntnu samfunnsforskning', { delay: 1 });
             cy.contains('NTNU Samfunnsforskning').click();
@@ -58,7 +60,7 @@ const addCategoryData = (type) => {
             cy.getDataTestId(dataTestId.registrationWizard.resourceType.corrigendumForField).type('original publication for corrigendum');
             cy.contains('Original publication for corrigendum').click();
             break;
-    }
+        }
 };
 
 export const changeContributor = (userFrom, userTo) => {

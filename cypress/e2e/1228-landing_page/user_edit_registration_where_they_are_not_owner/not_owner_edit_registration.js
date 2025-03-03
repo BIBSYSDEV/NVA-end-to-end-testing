@@ -10,6 +10,17 @@ const registrationTitle = `Edit registration not owner ${uuid()}`;
 Given('User is logged in as Curator', () => {
     cy.login(userWithAuthor);
     cy.createPublishedRegistration(registrationTitle);
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.startPage.searchField).type('Edit registration TestUser{enter}');
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).parent().parent().parent().filter(':contains("Edit registration TestUser")').within(() => {
+        cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+    });
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getSuccess();
     cy.wait(10000);
     cy.login(userCuratorWithAuthor);

@@ -24,6 +24,8 @@ const selectProject = (user) => {
   cy.login(user);
   cy.getDataTestId(dataTestId.startPage.searchTypeField).click();
   cy.get('[data-value=project]').click();
+  cy.wait(1000);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
   cy.contains(projectTitle).click();
 };
@@ -44,6 +46,8 @@ When('the Anonymous User navigates to the Project search page', () => {
   cy.get('[data-value=project]').click();
 });
 And('enters a search term for a Project', () => {
+  cy.wait(1000);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
 });
 Then('a search result with the Project is displayed', () => {
@@ -62,6 +66,8 @@ When("A Anonymous User opens a Project's Landing Page", () => {
   });
   cy.getDataTestId(dataTestId.startPage.searchTypeField).click();
   cy.get('[data-value=project').click();
+  cy.wait(1000);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
   cy.contains(projectTitle).click();
 });
