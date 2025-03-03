@@ -7,10 +7,11 @@ import { journalSubtypes, journalFields } from '../../../../support/data_testid_
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 
+const corrigendumTitle = 'Test article corrigendum';
+const originalPublication = 'Original publication for corrigendum';
+
 Before({'tags': '@init'}, () => {
-  const originalPublication = 'Original publication for corrigendum';
   cy.createPublishedRegistration(originalPublication);
-  const corrigendumTitle = 'Test article corrigendum';
   cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
 })
 
@@ -141,7 +142,7 @@ And('they see a disabled field for Journal based on selected Journal article', (
   cy.get('[data-testid=corrigendum-for-field]').within(() => {
     cy.get('input').type('Test article corrigendum');
   });
-  cy.contains('Test article corrigendum').click({ force: true });
+  cy.contains(originalPublication).click({ force: true });
   cy.get('[data-testid=journal-chip]').contains('Test article corrigendum');
 });
 
