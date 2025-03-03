@@ -65,18 +65,23 @@ const initData = () => {
 
     cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
     addContributor();
+    cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
     cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', INTERNAL);
     addContributor();
+    cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
     cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
     addContributor();
+    cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
     cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', INTERNAL);
     addContributor();
+    cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
     cy.createPublishedRegistration(titles[HIDDEN_FILE]);
     addContributor();
+    cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
     cy.login(userPublicationCuratorMessages);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[OPEN_FILE]}{enter}`);
