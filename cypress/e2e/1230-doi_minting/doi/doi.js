@@ -46,7 +46,7 @@ When('the Owner clicks the publish button', () => {
 Then('the Landing Page for Registration is displayed', () => { });
 And('the "Request a DOI" button is still named "DOI pending" and is disabled', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).within(() => {
-    cy.contains('Waiting for DOI');
+    cy.contains('DOI request waiting for approval');
   });
 });
 And('the Landing Page for Registration lists the Draft DOI', () => {

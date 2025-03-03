@@ -111,7 +111,7 @@ Then('they do not see the File that is an Administrative Agreement', () => {
 // Scenario: Files that are part of Registration are listed
 And('the Registration contains Files', () => {
   const searchTitle = preview ? 'Not Embargoed Image file' : 'No administrative agreement';
-  cy.getDataTestId(dataTestId.startPage.searchField).type(searchTitle);
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains(${searchTitle}) `)
     .first()

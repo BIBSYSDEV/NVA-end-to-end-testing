@@ -64,7 +64,7 @@ And('there is a pending Approval Request on the Resource', () => {
 });
 Then('they see a "Publishing pending" notice', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
-  cy.contains('Metadata published');
+  cy.contains('Result published');
   cy.contains(('1 file published')).should('not.exist');
 });
 And('the user is informed that progress can be viewed in My Messages', () => { });
