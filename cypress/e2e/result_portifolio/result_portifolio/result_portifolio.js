@@ -114,7 +114,7 @@ Given('a User publishes a Result', () => {
         }
     });
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-        cy.contains('Metadata published');
+        cy.contains('Result published');
     });
 });
 When('an Editor views the Result portifolio for Published Results', () => {
@@ -148,7 +148,7 @@ Given('a User unpublish a Result', () => {
         }
     });
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-        cy.contains('Metadata published');
+        cy.contains('Result published');
     });
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
     cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
@@ -187,7 +187,7 @@ Given('a User deletes an unpublished Result', () => {
         }
     });
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-        cy.contains('Metadata published');
+        cy.contains('Result published');
     });
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
     cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();

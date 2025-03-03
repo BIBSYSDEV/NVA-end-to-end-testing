@@ -11,6 +11,7 @@ Given('User is logged in as Curator', () => {
     cy.login(userWithAuthor);
     cy.createPublishedRegistration(registrationTitle);
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+    cy.reload();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type('Edit registration TestUser{enter}');
