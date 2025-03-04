@@ -14,6 +14,14 @@ const registrationTitles = {
 // Scenario Outline: Request/Draft DOI button is disabled for Registrations with existing DOI
 Given('that a Creator views the Landing Page for a Registration', () => {
   cy.login(userDraftDoi);
+  cy.createPublishedRegistration(registrationTitles['Published']);
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(null, registrationTitles['Draft']);
+  cy.getDataTestIid(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
   cy.openMyRegistrations();
 });
 And('they are the Owner of this Registration', () => {});
