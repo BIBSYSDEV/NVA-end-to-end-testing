@@ -9,12 +9,12 @@ let init = false;
 const initData = () => {
   if (!init) {
     cy.startWizardWithEmptyRegistration();
-    cy.createValdiRegistration(null, firstTitle);
+    cy.createValidRegistration(null, firstTitle);
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getSuccess();
     cy.getSuccessDone();
     cy.startWizardWithEmptyRegistration();
-    cy.createValdiRegistration(null, secondTitle);
+    cy.createValidRegistration(null, secondTitle);
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getSuccess();
     cy.getSuccessDone();

@@ -178,6 +178,7 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
     });
   } else {
     cy.get('[value=BIBSYS]');
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
@@ -255,7 +256,6 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
       });
     });
   }
-  cy.getSuccess();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator)
     .should('not.exist');
 

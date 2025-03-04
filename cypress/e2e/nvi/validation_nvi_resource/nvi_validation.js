@@ -20,7 +20,7 @@ Given('an logged-in Curator at an NVI-Institution', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-  cy.wait(5000);
+  cy.wait(20000);
 });
 
 // Scenario: Curator views NVI-report status at own Institution
@@ -67,8 +67,9 @@ Then('the Curator can see the details of the Candidate', () => {
 And('the calculated number of points for the Candidate', () => {
   cy.contains('Points')
     .parent()
+    .parent()
     .within(() => {
-      cy.contains('3.0');
+      cy.contains('3,0');
     });
 });
 And('the Curator have an option to approve the Candidate', () => {

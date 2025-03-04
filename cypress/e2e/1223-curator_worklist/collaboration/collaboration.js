@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import { dataTestId } from "../../../support/dataTestIds";
 import { collaborationCuratorBIBSYS, collaborationCuratorNMBU, collaborationCuratorUSN, uploaderBIBSYS, uploaderNMBU, uploaderSikt, uploaderUSN } from "../../../support/constants";
 
-const fileName = 'exampleA.txt'
+const fileName = 'exampleA.txt';
 
 // institution A: Sikt
 // institution B: Unit
@@ -14,13 +14,13 @@ const collaborators = {
     'Collaborator A': uploaderBIBSYS,
     'Collaborator B': uploaderNMBU,
     'Collaborator C': uploaderUSN,
-}
+};
 
 const curators = {
     'Curator A': collaborationCuratorBIBSYS,
     'Curator B': collaborationCuratorNMBU,
     'Curator C': collaborationCuratorUSN,
-}
+};
 
 // Scenario Outline: Files are approved by Curators from file uploaders institution
 Given('a Publication is created by institution A with contributors from institutions A, B and C', () => {
@@ -33,13 +33,13 @@ Given('a Publication is created by institution A with contributors from institut
     cy.createValidRegistration(fileName, title, 'Accepted');
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration B{enter}`)
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration B{enter}`);
     cy.get('tr').filter(':contains("colaboration B")').filter(':contains("Norwegian University of Life Sciences")').within(() => {
         cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration C{enter}`)
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration C{enter}`);
     cy.get('tr').filter(":contains('colaboration C')").filter(':contains("University of South-Eastern Norway")').within(() => {
         cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });
@@ -108,7 +108,7 @@ And('the curator institution C will get a task to approve the file from Uploader
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
     cy.get('@title').then((title) => {
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-        cy.getDataTestId(dataTestId.startPage.searchResultItem).click();
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
         cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
     });
 });
@@ -131,7 +131,7 @@ And('the files are approved with a message from:', (dataTable) => {
             cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
                 cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Message from ${data[0]}{enter}`);
-            })
+            });
             cy.contains('Message sent');
         });
     });
@@ -158,10 +158,10 @@ Then('the message is only sent to:', (dataTable) => {
                 cy.contains(`Message from ${curator}`);
                 ignore.forEach(inst => {
                     cy.contains(`Message from Curator ${inst}`).should('not.exist');
-                })
-            })
-        })
-    })
+                });
+            });
+        });
+    });
 });
 //   | Curator A | Collaborator A |
 //   | Curator B | Collaborator B |
@@ -175,8 +175,11 @@ When('a DOI is requested from:', (dataTable) => {
         const collaborator = data[0];
         cy.get('@title').then(title => {
             cy.login(collaborators[collaborator]);
+            cy.getDataTestId(dataTestId.startPage.searchField);
+            cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-            cy.getDataTestId(dataTestId.startPage.searchResultItem).within(() => {
+            cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+            cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
                 cy.get('p > a').first().click();
             });
         });
@@ -209,7 +212,7 @@ Then('the curators from the collaborating institutions will only see DOI request
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
             ignore.forEach((inst) => {
                 cy.contains(`DOI request from Collaborator ${inst}`).should('not.exist');
-            })
+            });
             if (curator === 'Curator A') {
                 cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
             }
@@ -233,12 +236,12 @@ When('a support message is sent from:', (dataTable) => {
             cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
                 cy.get('p > a').first().click();
             });
-        })
+        });
         cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
         cy.getDataTestId(dataTestId.registrationWizard.formActions.openSupportButton).click();
         cy.getDataTestId(dataTestId.tasksPage.messageField).within(() => {
             cy.get('textarea').should('be.enabled');
-        })
+        });
         cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Message from ${collaborator}{enter}`);
 
     });
@@ -259,13 +262,13 @@ Then('the curators from the collaborating institutions will only see support mes
         cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
         cy.get('@title').then((title) => {
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-            cy.getDataTestId(dataTestId.startPage.searchResultItem)
+            cy.getDataTestId(dataTestId.startPage.searchResultItem);
             ignore.forEach((inst) => {
                 cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("Message from Collaborator ${inst}")`).should('not.exist');
-            })
+            });
             cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
             cy.contains(`Message from Collaborator ${institution}`);
-        })
+        });
     });
 });
 // | Curator A |
