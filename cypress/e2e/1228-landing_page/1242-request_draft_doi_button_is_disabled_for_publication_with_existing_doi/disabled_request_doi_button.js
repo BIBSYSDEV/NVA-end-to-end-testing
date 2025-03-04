@@ -19,7 +19,7 @@ Given('that a Creator views the Landing Page for a Registration', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, registrationTitles['Draft']);
-  cy.getDataTestIid(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
   cy.openMyRegistrations();
