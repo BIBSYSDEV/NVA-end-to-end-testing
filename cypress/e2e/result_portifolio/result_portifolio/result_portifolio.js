@@ -64,6 +64,7 @@ Before({ 'tags': '@init' }, () => {
     cy.getDataTestId(dataTestId.header.editorLink).click();
     cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
     cy.getDataTestId(dataTestId.editor.resultsPortfolioUnpublishedCheckbox).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(deletedTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${deletedTitle})`).within(() => {
         cy.get('a').first().click();
@@ -124,6 +125,7 @@ When('an Editor views the Result portifolio for Published Results', () => {
     selectPortifolio('Published Results');
 });
 Then('they can see the published Result', () => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${publishedTitle}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publishedTitle})`);
@@ -163,6 +165,7 @@ When('an Editor views the Result portifolio for Unpublished Results', () => {
     selectPortifolio('Unpublished Results');
 });
 Then('they can see the unpublished Result', () => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${unpublishedTitle}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${unpublishedTitle})`);
@@ -199,6 +202,7 @@ Given('a User deletes an unpublished Result', () => {
     cy.getDataTestId(dataTestId.header.editorLink).click();
     cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
     selectPortifolio('Unpublished Results');
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${deletedTitle}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${deletedTitle})`).within(() => {
@@ -217,6 +221,7 @@ When('an Editor views the Result portifolion for Deleted Results', () => {
     selectPortifolio('Deleted Results');
 });
 Then('they can see the deleted Result', () => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${deletedTitle}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${deletedTitle})`);

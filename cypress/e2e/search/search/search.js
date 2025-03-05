@@ -40,6 +40,7 @@ Then('they see a list of Registratons', () => {
 //      Scenario: A User sees search results
 Given('a User has searched for Registrations', () => {
     visitStartPage();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type('search result journal{enter}');
 })
 When('they see the search result list', () => {
@@ -87,6 +88,7 @@ Then('they see the landing page for the Registration', () => {
 //      Scenario: A User uses facets to filter search results
 Given('a User searches for Registrations', () => {
     visitStartPage()
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type('search result{enter}');
     cy.getDataTestId(dataTestId.startPage.searchResultItem).should('be.visible');
     cy.getDataTestId(dataTestId.startPage.searchResultItem).first().should('contain.text', 'Search result');

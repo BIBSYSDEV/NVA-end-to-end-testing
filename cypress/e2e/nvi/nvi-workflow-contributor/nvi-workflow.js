@@ -27,6 +27,7 @@ Then('the Publication has NVI status {string}', (isNviPublication) => {
             cy.get('@isCollaboration').then((isCollaboration) => {
                 cy.get('@typeOfRegistration').then((typeOfRegistration) => {
                     const title = `Registrator ${typeOfRegistration} ${category} ${publicationStatus} ${isCollaboration}`;
+                    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
                     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
                     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
                     if (isNviPublication === 'NVI Publication') {

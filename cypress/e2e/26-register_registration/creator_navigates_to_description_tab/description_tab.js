@@ -206,6 +206,7 @@ And('they select a Coordinating Institution', () => {
 And('​they select a Project Manager', () => {
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click()
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addProjectManagerButton).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('withauthor testuser');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
   cy.getDataTestId(dataTestId.projectForm.addProjectManagerButton).last().click();

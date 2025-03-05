@@ -78,6 +78,7 @@ Then('they see the Add Institution page', () => {
   cy.location('search').should('equal', '?id=new');
 });
 And('they can search for institution', () => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.organization.searchField);
 })
 And('they see fields:', (table) => { });

@@ -122,6 +122,7 @@ And('an Approval Request is sent to the Curator', () => {
   cy.get('[value=BIBSYS]');
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.contains(title);
 });

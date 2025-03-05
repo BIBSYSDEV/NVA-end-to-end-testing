@@ -15,6 +15,8 @@ const registrationTitles = {
 Given('that a Creator views the Landing Page for a Registration', () => {
   cy.login(userDraftDoi);
   cy.createPublishedRegistration(registrationTitles['Published']);
+  cy.wait(10000);
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
   cy.startWizardWithEmptyRegistration();
@@ -24,7 +26,7 @@ Given('that a Creator views the Landing Page for a Registration', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
   cy.openMyRegistrations();
 });
-And('they are the Owner of this Registration', () => {});
+And('they are the Owner of this Registration', () => { });
 And('the Registration has status {string}', (status) => {
   cy.wrap(status).as('status');
   cy.getDataTestId('my-registrations-unpublished-checkbox').then((unPublishedCheckBox) => {

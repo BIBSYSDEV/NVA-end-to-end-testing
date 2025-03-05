@@ -171,6 +171,7 @@ When('the {string} open a unassigned Request of type {string}', (user, type) => 
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
     cy.contains(year).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains("${title}")`).within(() => {
@@ -215,6 +216,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
     cy.contains(year).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(10000);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
@@ -225,6 +227,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
   } else {
     cy.get('[value=BIBSYS]');
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
     cy.getDataTestId(taskPanels[user]).within(() => {
@@ -311,11 +314,13 @@ When('the Curator opens the Requests Resource', () => {
         cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
         cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
         cy.contains(year).click();
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains("${title}")`).first().within(() => {
           cy.get('li > div > p > a').first().click();
         });
       } else {
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
       }
@@ -386,6 +391,7 @@ Then('the Request status is set to "Answered"', () => {
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 });
 And('the User can read the answer in My Messages', () => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).parent().parent().filter(`:contains(${curatorAnswer})`);
 });

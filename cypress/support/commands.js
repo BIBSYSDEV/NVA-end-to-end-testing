@@ -539,6 +539,7 @@ Cypress.Commands.add('fillInContributors', (contributorRoles) => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectContributorType).click();
     cy.get(`[data-value=${role}]`).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`Withauthor ${index}`);
     cy.get('tbody > tr').filter(`:contains('Withauthor ${index} ')`).within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
@@ -648,6 +649,7 @@ Cypress.Commands.add('filterMessages', (messageType) => {
 });
 
 Cypress.Commands.add('getWorklistItem', (title) => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then(doc => {
@@ -664,6 +666,7 @@ Cypress.Commands.add('getWorklistItem', (title) => {
 });
 
 Cypress.Commands.add('getNVIWorklistItem', (title) => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then(doc => {

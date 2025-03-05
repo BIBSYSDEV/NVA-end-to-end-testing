@@ -96,6 +96,7 @@ And('the User is notified that progress on this claim can be viewed in My Messag
 // Scenario: Files that are Administrative Agreements are hidden
 And('the Registration contains a File, which is an Administrative Agreement', () => {
   const title = `File with Administrative agreement`;
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains("${title}")`)
@@ -111,6 +112,7 @@ Then('they do not see the File that is an Administrative Agreement', () => {
 // Scenario: Files that are part of Registration are listed
 And('the Registration contains Files', () => {
   const searchTitle = preview ? 'Not Embargoed Image file' : 'No administrative agreement';
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains(${searchTitle}) `)
@@ -143,6 +145,7 @@ And('they can see a download button for Files that are not Embargoed', () => {
 // @2158
 // Scenario Outline: Files can be previewed
 And('the Registration contains Files that are not Embargoed of type {string}', (fileType) => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`Not Embargoed ${fileType} file {enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains("Not Embargoed ${fileType} file")`)
@@ -182,6 +185,7 @@ And('the downloaded File is displayed', (file) => {
 
 // Scenario: Lock Embargoed Files
 And('the Registration contains a File that is Embargoed', () => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`Check Embargoed PDF file{enter}`);
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
     .filter(`:contains("Embargoed PDF file")`)

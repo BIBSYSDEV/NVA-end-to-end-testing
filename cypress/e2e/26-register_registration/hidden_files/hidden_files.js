@@ -61,6 +61,7 @@ When('a Curator view the landing page of the registration', () => {
     cy.login(userPublishingCurator);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.get('@title').then(title => {
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
     });

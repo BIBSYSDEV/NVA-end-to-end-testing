@@ -24,6 +24,7 @@ const selectContributorType = () => {
 }
 
 const enterSearchTerm = () => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Withauthor TestUser{enter}');
 }
 
@@ -165,6 +166,7 @@ When('they select a Contributor Type', () => {
     selectContributorType()
 })
 Then('they see a search field', () => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).should('be.visible');
 })
 

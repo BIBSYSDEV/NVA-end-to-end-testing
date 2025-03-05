@@ -12,6 +12,7 @@ And('they navigate to the Contributors tab', () => {
 });
 And('they see an Author', () => {
   cy.get('[data-testid=add-contributor]').click({ force: true });
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}] > div > input`).type(
     'Testuser Withauthor{enter}'
   );

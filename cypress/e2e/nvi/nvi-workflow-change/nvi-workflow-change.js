@@ -18,6 +18,7 @@ And('the Result is {string}', (collaboration) => {
     cy.get('@source').then((source) => {
         const title = `${titleRoot} ${source} ${collaboration}`;
         cy.wrap(title).as('title');
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {

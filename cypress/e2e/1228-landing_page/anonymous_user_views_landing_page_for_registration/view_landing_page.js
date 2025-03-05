@@ -19,6 +19,7 @@ Given('there is a published Registration in NVA', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.tagField).type('Keyword{enter}');
   cy.getDataTestId(dataTestId.registrationWizard.description.languageField).click();
   cy.contains('Norwegian, bokmål').click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.description.projectSearchField).type('project for testing 20230512');
   cy.contains('Project for testing 20230512').click();
 
@@ -38,6 +39,7 @@ When('an Anonymous user navigates to a Landing Page for a Resource', () => {
       password: Cypress.env('DEVPASSWORD'),
     },
   });
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`${landing_page_registration_title}{enter}`);
   cy.get('[data-testid=result-list-item]').filter(`:contains(${landing_page_registration_title})`).should('be.visible');
   cy.get('[data-testid=result-list-item]')

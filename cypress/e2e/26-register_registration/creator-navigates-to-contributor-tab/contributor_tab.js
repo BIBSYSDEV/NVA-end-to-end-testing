@@ -114,6 +114,7 @@ Then('they see buttons {string}', (contributorTypes) => {
 //   @419
 //   Scenario: Creator adds an Author to the list of Authors
 And('they search for Author in the Author Search Dialog', () => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('TestUser, Contributor');
 });
 And('they select an Author identity', () => {
@@ -194,6 +195,7 @@ And('they see the "Create new Author" Button', () => {
   );
 });
 When('they click "Create new Author"', () => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('New Author');
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
 });
@@ -209,6 +211,7 @@ When('the Registration has an Unverified Contributor', () => {
   cy.mockPersonSearch(userWithAuthor);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type(
     'Unverified Creator'
   );
@@ -223,6 +226,7 @@ Then('they see a Button to Verify the Contributor', () => {
 Given('Creator sees Button to Verify Contributor', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type(
     'Withauthor 10 TestUser'
   );
@@ -239,6 +243,7 @@ Then('they see the Verify Contributor Dialog', () => {
   cy.get(`[data-testid=contributor-modal]`).should('be.visible');
 });
 And("they see a search field prefilled with the selected Contributor's name", () => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).should('be.visible');
 });
 And('they see a list of Persons matching the search', () => {
@@ -250,6 +255,7 @@ Given('Creator opens Dialog to Verify Contributor', () => {
   cy.mockPersonSearch(userWithAuthor);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Unverified Creator')
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
@@ -280,6 +286,7 @@ Given('a registration with several registrered Contributors', () => {
   while (index < 6) {
     index++;
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`withauthor ${index} testuser{enter}`);
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
@@ -287,6 +294,7 @@ Given('a registration with several registrered Contributors', () => {
 });
 When('a User opens the Registration wizard in the Contributor tab', () => { })
 And('they search for a Contributor', () => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.contributorSearchField).within(() => {
     cy.get('input').type('Withauthor 3 testuser');
   });

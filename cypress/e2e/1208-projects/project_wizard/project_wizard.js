@@ -500,6 +500,7 @@ When('they add Participants for:', (roles) => {
   roles.rawTable.forEach(role => {
     const participant = role[0];
     participants[participant].add();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(participants[participant].name);
     cy.contains(participants[participant].name).parent().within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();

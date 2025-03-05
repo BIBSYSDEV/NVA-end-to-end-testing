@@ -28,10 +28,12 @@ const addContributor = () => {
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton);
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type('Withauthor TestUser{enter}');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type('Doi Messages TestUser{enter}');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).parent().parent().parent().filter(':contains("Doi Messages TestUser")').filter(':contains("SINTEF")').within(() => {
         cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
@@ -84,6 +86,7 @@ const initData = () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
     cy.login(userPublicationCuratorMessages);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[OPEN_FILE]}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${titles[OPEN_FILE]})`).within(() => {
         cy.get('a').first().click();
@@ -92,6 +95,7 @@ const initData = () => {
     cy.getSuccess();
 
     cy.getDataTestId('logo').click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[INTERNAL_FILE]}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${titles[INTERNAL_FILE]})`).within(() => {
         cy.get('a').first().click();
@@ -100,6 +104,7 @@ const initData = () => {
     cy.getSuccess();
 
     cy.getDataTestId('logo').click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[HIDDEN_FILE]}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${titles[HIDDEN_FILE]})`).within(() => {
         cy.get('a').first().click();
@@ -147,6 +152,7 @@ When('the user have the role {string}', (userRole) => {
 And('the user attempts to "read-metadata"', () => {
     cy.get('@fileType').then(fileType => {
         const title = titles[fileType];
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {

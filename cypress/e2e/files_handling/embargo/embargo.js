@@ -45,6 +45,7 @@ import { dataTestId } from "../../../support/dataTestIds";
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
             cy.wait(10000);
             cy.getDataTestId('logo').click();
+            cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
             cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
             cy.getDataTestId(dataTestId.startPage.searchResultItem)
                 .filter(`:contains("${title}")`)

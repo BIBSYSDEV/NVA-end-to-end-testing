@@ -14,6 +14,7 @@ Given('User is logged in as Curator', () => {
     cy.reload();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type('Edit registration TestUser{enter}');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).parent().parent().parent().filter(':contains("Edit registration TestUser")').within(() => {
         cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
@@ -27,6 +28,7 @@ Given('User is logged in as Curator', () => {
     cy.login(userCuratorWithAuthor);
 });
 When('they open the landing page for a Registration from own institution', () => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
@@ -43,6 +45,7 @@ Given('User is logged in as Editor', () => {
     cy.login(userEditor5);
 });
 When('they open the landing page for a Registration', () => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
@@ -55,6 +58,7 @@ Then('they have the option to edit the Registration', () => { });
 // Scenario: Curator edit a Registration from own institution
 Given('Curator open landing page for a Registration from own institution', () => {
     cy.login(userCuratorWithAuthor);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
@@ -79,6 +83,7 @@ Then('the Registration is opened in the Registration wizard', () => {
 // Scenario: Editor edit a Registration
 Given('Editor open landing page for a Registration', () => {
     cy.login(userEditor5);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
@@ -94,6 +99,7 @@ Given('a User is logged in', () => {
 });
 And('they are not Curator or Editor', () => { });
 When('they open the landing page for a Registration where they are registred as a Contributor', () => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
@@ -107,6 +113,7 @@ Then('they have the option to edit the Registration', () => { });
 // Scenario: User edit registration where they are registred as Contributer
 Given('a User open landing page for Registration where they are registred as a Contributor', () => {
     cy.login(userEditRegistration);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
     cy.contains(registrationTitle);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains('${registrationTitle}')`).within(() => {
