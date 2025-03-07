@@ -1,19 +1,51 @@
-import { today } from '../../../support/commands';
 import { userMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { descriptionFields } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
 
+let init = false;
+const errorTitle = `Registration with validation error ${uuid()}`;
+const registrationTitle = `Registration ${uuid()}`;
+
+const initData = () => {
+  if (!init) {
+    cy.startWizardWithEmptyRegistration();
+    cy.createValidRegistration(null, registrationTitle);
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getSuccess();
+    cy.getSuccessDone();
+    cy.wait(3000);
+
+    cy.startWizardWithEmptyRegistration();
+    cy.createValidRegistration(null, errorTitle);
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getSuccess();
+    cy.getSuccessDone();
+    cy.openMyRegistrations();
+    cy.getDataTestId(dataTestId.startPage.searchResultItem)
+      .filter(`:contains(${errorTitle})`)
+      .parent()
+      .within(() => {
+        cy.get('[data-testid^=edit-registration]').first().click({ force: true });
+      });
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
+      cy.getDataTestId('CancelIcon').click();
+    });
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.contains('Registration updated successfully');
+    cy.get('.MuiAlert-message').should('be.visible');
+    cy.getDataTestId('ErrorIcon').should('be.visible');
+    cy.getDataTestId(dataTestId.header.myPageLink).click();
+    init = true;
+  }
+};
+
 // Common step
 Given('that the user is logged in as Creator', () => {
   cy.login(userMyRegistrations);
-  const title = `Registration ${uuid()}`;
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, title);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
-  cy.wait(3000);
+  initData();
 });
 // end common step
 
@@ -39,43 +71,20 @@ And('they see fields:', (dataTable) => {
 
 // Scenario: Creator sees Validation Errors for Registration
 And('they are on the page My Registrations', () => {
-  const title = `Registration with validation error ${uuid()}`;
-  cy.wrap(title).as('title');
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, title);
-  cy.openMyRegistrations();
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains(${title})`)
-    .parent()
-    .within(() => {
-      cy.get('[data-testid^=edit-registration]').first().click({ force: true });
-    });
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
-    cy.getDataTestId('CancelIcon').click();
-  });
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.contains('Registration updated successfully');
-  cy.get('.MuiAlert-message').should('be.visible');
-  cy.getDataTestId('ErrorIcon').should('be.visible');
-  cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.openMyRegistrations();
 });
 And('they see a List of Registrations', () => {
   cy.get('[data-testid^=edit-registration]').should('have.length.above', 0);
 });
 When('they click Edit on a Registration', () => {
-  cy.get('@title').then((title) => {
 
-    cy.getDataTestId(dataTestId.startPage.searchResultItem)
-      .filter(`:contains(${title})`)
-      .parent()
-      .within(() => {
-        cy.get('p > a').first().click({ force: true });
-      });
-    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  });
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
+    .filter(`:contains(${errorTitle})`)
+    .parent()
+    .within(() => {
+      cy.get('p > a').first().click({ force: true });
+    });
+  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
 });
 And('they see the Registration is opened in Edit Mode', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.titleField);

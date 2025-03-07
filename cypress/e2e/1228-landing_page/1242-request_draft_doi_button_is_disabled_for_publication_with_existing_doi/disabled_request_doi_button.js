@@ -4,26 +4,37 @@ import { today } from '../../../support/commands';
 import { userDraftDoi } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { myRegistrationsTabs, landingPageButtons } from '../../../support/data_testid_constants';
+import { v4 as uuid} from 'uuid';
 
 const registrationTitles = {
-  'Draft': `Draft registration with DOI ${today}`,
-  'Published': `Published registration with DOI ${today}`,
+  'Draft': `Draft registration with DOI ${uuid()}`,
+  'Published': `Published registration with DOI ${uuid()}`,
 };
+
+let init = false;
+
+const initData = () => {
+  if (!init) {
+    cy.createPublishedRegistration(registrationTitles['Published']);
+    cy.wait(10000);
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+    cy.startWizardWithEmptyRegistration();
+    cy.createValidRegistration(null, registrationTitles['Draft']);
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
+    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+    init = true;
+  }
+}
 
 // @1242
 // Scenario Outline: Request/Draft DOI button is disabled for Registrations with existing DOI
 Given('that a Creator views the Landing Page for a Registration', () => {
   cy.login(userDraftDoi);
-  cy.createPublishedRegistration(registrationTitles['Published']);
-  cy.wait(10000);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, registrationTitles['Draft']);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
+  initData();
   cy.openMyRegistrations();
 });
 And('they are the Owner of this Registration', () => { });
