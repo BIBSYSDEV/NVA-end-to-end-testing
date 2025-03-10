@@ -32,40 +32,92 @@ const requestTypes = {
 
 const year = currentYear;
 const filename = 'example.txt';
-const registrationTitle = 'Support message registration';
+const registrationTitle = `Support message registration ${uuid()}`;
 const publicationType = 'AcademicArticle';
 
+const APPROVAL = 'Approval';
+const SUPPORT = 'Support';
+const DOI = 'DOI';
+const NVI = 'NVI';
+
 const createWorklistItem = (title, type) => {
-  if (type === 'NVI') {
+  if (type === NVI) {
     cy.login(userVerifiedContributor);
   } else {
     cy.login(userPublishNoRights);
   }
   cy.createPublishedRegistration(title, publicationType, filename);
   switch (type) {
-    case 'Approval':
+    case APPROVAL:
       break;
-    case 'Support':
+    case SUPPORT:
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
         cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
       });
       break;
-    case 'DOI':
-      cy.wait(10000);
+    case DOI:
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
       break;
     case 'NVI':
-      cy.wait(20000);
+      cy.wait(30000);
       break;
   }
-  cy.wait(10000);
 };
 
+const users = {
+  'Approval': 'Publishing-Curator',
+  'Support': 'Support-Curator',
+  'DOI': 'Doi-Curator',
+  'NVI': 'Nvi-Curator',
+};
+
+let init = false;
+const titles = {
+  requestsTitle: (type) => `${type} request publication ${uuid()}`,
+  openUnassignedTitle: (type) => `Open unassigned ${users[type]} ${type} ${uuid()}`,
+  unassignTitle: (type) => `Unassign ${users[type]} ${type} ${uuid()}`,
+  openTitle: (type) => `Open ${users[type]} ${type} ${uuid()}`,
+};
+
+const requestTitles = {};
+const openUnassignedTitles = {};
+const unassignTitles = {};
+const openTitles = {};
+
 Before(() => {
-  // cy.login(userCurator2);
+  if (!init) {
+
+    const types = [APPROVAL, SUPPORT, DOI, NVI];
+
+    types.forEach(type => {
+      const title = titles.requestsTitle(type);
+      requestTitles[type] = title;
+      createWorklistItem(title, type);
+    });
+
+    types.forEach(type => {
+      const title = titles.openUnassignedTitle(type);
+      openUnassignedTitles[type] = title;
+      createWorklistItem(title, type);
+    });
+
+    types.forEach(type => {
+      const title = titles.unassignTitle(type);
+      unassignTitles[type] = title;
+      createWorklistItem(title, type);
+    });
+
+    types.forEach(type => {
+      const title = titles.openTitle(type);
+      openTitles[type] = title;
+      createWorklistItem(title, type);
+    });
+
+    init = true;
+  }
 });
 
 //   Scenario: Curator opens their Worklist
@@ -98,8 +150,6 @@ And('the Worklist contains Requests of type {string}', (type) => {
 
 // Scenario Outline: Curator views all Requests of a type
 When('{string} clicks on Requests of type {string}', (user, type) => {
-  const title = `${type} request publication ${uuid()}`;
-  createWorklistItem(title, type);
   cy.wrap(type).as('type');
   cy.wrap(user).as('user');
   cy.login(curatorUsers[user]);
@@ -135,7 +185,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable) => {
         cy.getDataTestId(dataTestId.startPage.searchResultItem)
           .first()
           .within((message) => {
-            if (type === 'Support') {
+            if (type === SUPPORT) {
               elements['Request status'] = 'div > p';
             }
             dataTable.rawTable.forEach((value) => {
@@ -161,8 +211,7 @@ And('they see that each Request can be opened', () => { });
 
 // Scenario: Curator opens a unassigned Request
 When('the {string} open a unassigned Request of type {string}', (user, type) => {
-  const title = `Open unassigned ${user} ${type} ${uuid()}`;
-  createWorklistItem(title, type);
+  const title = unassignTitles[type];
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.wrap(type).as('type');
@@ -206,8 +255,7 @@ And('the Request Status is set to "Active"', () => {
 
 // Scenario: Curator unassigns a Request
 When('the {string} selects "Mark request unread" on a request of type {string}', (user, type) => {
-  const title = `Unassign ${user} ${type} ${uuid()}`;
-  createWorklistItem(title, type);
+  const title = unassignTitles[type];
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.wrap(title).as('title');
@@ -294,8 +342,7 @@ And('the Curator can change the Status of the Request', () => { });
 
 // Scenario Outline: Curator open the Request's Resource
 Given('the {string} receives a Request of type {string}', (user, type) => {
-  const title = `Open ${user} ${type} ${uuid()}`;
-  createWorklistItem(title, type);
+  const title = openTitles[type];
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -351,8 +398,8 @@ And('the Curator has the option to {string}', (action) => {
 });
 And('the Curator can Decline the Request', () => {
   const typeDeclineActions = {
-    'Approval': dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton,
-    'DOI': dataTestId.registrationLandingPage.rejectDoiButton,
+    APPROVAL: dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton,
+    DOI: dataTestId.registrationLandingPage.rejectDoiButton,
   };
   cy.get('@type').then(type => {
     cy.getDataTestId(typeDeclineActions[type]).should('be.visible');
