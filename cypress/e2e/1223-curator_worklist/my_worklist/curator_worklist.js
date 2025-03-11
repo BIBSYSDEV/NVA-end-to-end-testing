@@ -65,6 +65,7 @@ const createWorklistItem = (title, type) => {
       cy.wait(30000);
       break;
   }
+  cy.wait(10000);
 };
 
 const users = {
