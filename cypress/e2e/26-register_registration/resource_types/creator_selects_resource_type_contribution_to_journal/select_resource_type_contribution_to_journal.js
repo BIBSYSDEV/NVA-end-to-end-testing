@@ -140,10 +140,10 @@ When('they select the Resource type "Corrigendum"', () => {
 })
 And('they see a disabled field for Journal based on selected Journal article', () => {
   cy.get('[data-testid=corrigendum-for-field]').within(() => {
-    cy.get('input').type('Test article corrigendum');
+    cy.get('input').type(originalPublication);
   });
   cy.contains(originalPublication).click({ force: true });
-  cy.get('[data-testid=journal-chip]').contains('Test article corrigendum');
+  cy.get('[data-testid=journal-chip]').contains(corrigendumTitle);
 });
 
 // Scenario: Creator sees that fields for Resource subtype "Corrigendum" are validated

@@ -34,6 +34,7 @@ const initData = () => {
   if (init) {
     const originalPublication = `Original publication for corrigendum`;
     cy.createPublishedRegistration(originalPublication);
+    cy.wait(20000);
     const corrigendumTitle = 'Test article corrigendum';
     cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
     init = false;
