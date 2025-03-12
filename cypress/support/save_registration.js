@@ -200,7 +200,7 @@ export const resourceTypeFields = {
     fieldTestId: dataTestId.registrationWizard.resourceType.corrigendumForField,
     elementType: 'search',
     landingPageTestId: '',
-    value: 'Test article corrigendum',
+    value: 'Original publication for corrigendum',
   },
   volume: {
     type: 'text',
