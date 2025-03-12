@@ -1,4 +1,4 @@
-import { unreadUserMessages, userMessages } from '../../../support/constants';
+import { unreadUserMessages, userMessages, collaborationCuratorBIBSYS } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 // Feature: Registrator worklist
@@ -15,22 +15,41 @@ const filterMessages = ((messageType) => {
     const publishingRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
     ((publishingRequestFilter && !(messageType === publishingRequests)) ||
       (!publishingRequestFilter && messageType === publishingRequests)) &&
-      cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click({force: true});
+      cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click({ force: true });
   });
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).then(($button) => {
     const doiRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
     ((doiRequestFilter && !(messageType === doiRequests)) || (!doiRequestFilter && messageType === doiRequests)) &&
-      cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click({force: true});
+      cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click({ force: true });
   });
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).then(($button) => {
     const supportFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
     ((supportFilter && !(messageType === supportRequests)) || (!supportFilter && messageType === supportRequests)) &&
-      cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click({force: true});
+      cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click({ force: true });
   });
 });
 
+let init = true;
+
+const initData = () => {
+  if (init) {
+    cy.login(userMessages);
+    const doiTitle = `Registration with DOI request ${uuidv4()}`;
+    cy.createPublishedRegistration(doiTitle);
+    cy.wait(10000);
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+    cy.getSuccess();
+    cy.wait(15000);
+    init = false;
+  }
+};
+
 //     Scenario Outline: Creator opens My Messages
 Given('that the user is logged in as Creator', () => {
+  initData();
   cy.login(unreadUserMessages);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, `${registrationTitle} ${uuidv4()}`);
@@ -74,11 +93,7 @@ And('they see a list of messages with fields:', (dataTable) => {
 //             | Registration title |
 //             | Date               |
 And("they see that items' status is one of:", (dataTable) => {
-  // cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click();
-  // cy.get('[data-value=Pending]').click();
-  // cy.get('[data-value=Closed]').click();
-  // cy.get('[data-value=Completed]').click();
-  cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click({force: true});
+  cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click({ force: true });
 
   dataTable.rawTable.forEach((element) => {
     filterMessages(element[0]);
@@ -89,28 +104,14 @@ And("they see that items' status is one of:", (dataTable) => {
 //             | DoiRequests      | Approved, Rejected, Requested |
 //             | Publishing Requests | Approved, Rejected, Requested |
 //             | Support Requests | Pending, Resolved             |
-And('they see that each item in the list is expandable', () => {});
-
-//     Scenario: Creator closes a message
-Given('that the Creator Opens a message from My Messages', () => {
-  cy.login(userMessages);
-  cy.getDataTestId(dataTestId.header.myPageLink).click();
-  cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).click();
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
-});
-When('they click the Close button', () => {
-  cy.get('[title=tasks]').click();
-});
-Then('they see the Worklist', () => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
-});
+And('they see that each item in the list is expandable', () => { });
 
 //     Scenario: Creator opens a Registration with a DOI request
 Given('that the Creator Opens a DOI request entry from My Messages', () => {
   cy.login(userMessages);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
+  cy.wait(1000);
   filterMessages(doiRequests);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 });
@@ -134,13 +135,14 @@ Given('that a User is logged in as Creator', () => {
 });
 And('they open My Messages page', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.wait(1000);
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 });
 And('they open a DOI request item in the Messages list', () => {
   filterMessages(supportRequests);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 });
-And('they see previous messages between Creator and Curator\\(s)', () => {});
-When('they enter a new message', () => {});
-And('they click the Send Answer button', () => {});
-Then('they see that the new message is added to the Messages list', () => {});
+And('they see previous messages between Creator and Curator\\(s)', () => { });
+When('they enter a new message', () => { });
+And('they click the Send Answer button', () => { });
+Then('they see that the new message is added to the Messages list', () => { });

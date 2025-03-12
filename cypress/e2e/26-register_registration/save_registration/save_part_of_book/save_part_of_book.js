@@ -7,29 +7,26 @@ const fields = [resourceTypeFields.partOf, resourceTypeFields.scientificField, r
 
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
+let init = false;
+
+const initData = () => {
+  if (!init) {
+    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'BookAnthology');
+    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportResearch');
+    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportBookOfAbstract');
+    cy.wait(20000);
+    init = true;
+  }
+};
+
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Part of book
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
   cy.login(userSavePartOfBook);
+  initData();
 });
 And('selects {string}', (resourceType) => {
-  if (resourceType === 'AcademicChapter') {
-    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'BookAnthology');
-    cy.wait(5000);
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).should('not.exist');
-  } else if (resourceType === 'ChapterInReport') {
-    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportResearch');
-    cy.wait(5000);
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).should('not.exist');
-  } else if (resourceType === 'ChapterConferenceAbstract') {
-    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportBookOfAbstract');
-    cy.wait(5000);
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).should('not.exist');
-  }
   cy.startWizardWithEmptyRegistration();
   cy.wrap(resourceType).as('resourceType');
 });

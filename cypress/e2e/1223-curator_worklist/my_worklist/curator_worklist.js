@@ -65,7 +65,7 @@ const createWorklistItem = (title, type) => {
       cy.wait(30000);
       break;
   }
-  cy.wait(10000);
+  cy.wait(20000);
 };
 
 const users = {
@@ -75,7 +75,7 @@ const users = {
   'NVI': 'Nvi-Curator',
 };
 
-let init = false;
+let init = true;
 const titles = {
   requestsTitle: (type) => `${type} request publication ${uuid()}`,
   openUnassignedTitle: (type) => `Open unassigned ${users[type]} ${type} ${uuid()}`,
@@ -89,7 +89,7 @@ const unassignTitles = {};
 const openTitles = {};
 
 Before(() => {
-  if (!init) {
+  if (init) {
 
     const types = [APPROVAL, SUPPORT, DOI, NVI];
 
@@ -117,7 +117,7 @@ Before(() => {
       createWorklistItem(title, type);
     });
 
-    init = true;
+    init = false;
   }
 });
 

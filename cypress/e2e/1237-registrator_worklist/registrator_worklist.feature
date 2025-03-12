@@ -13,23 +13,7 @@ Feature: Registrator worklist
       | Publishing Requests | Approved, Rejected, Requested |
       | Support Requests    | Pending, Resolved             |
     And they see that each item in the list is expandable
-    # Scenario: Creator views details of an item in the Messages list
-    #     Given that the Creator opens My Messages
-    #     When they expand an item
-    #     Then they see the item's Publication title
-    #     And they see a list of Messages between Creator and Curator with fields:
-    #         | Message   |
-    #         | Submitter |
-    #         | Date      |
-    #     And they see an input field for Answer
-    #     And they see buttons
-    #         | Send Answer       |
-    #         | Go to Publication |
-    #         | Archive           |
-    # Scenario: Creator closes a message
-    #     Given that the Creator Opens a message from My Messages
-    #     When they click the Close button
-    #     Then they see the Worklist
+
 
   @test
   Scenario: Creator opens a Registration with a DOI request

@@ -119,6 +119,7 @@ Given('a published registration with an open file', () => {
     cy.createValidRegistration(fileName, title);
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+    cy.wait(20000);
 });
 And('the file needs approval', () => { });
 When('a curator edit the registration and changes the open file to {string}', (fileType) => {

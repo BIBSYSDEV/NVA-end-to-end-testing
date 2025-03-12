@@ -101,7 +101,7 @@ When('they open a Customer Institution', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
   cy.getDataTestId(dataTestId.basicData.adminInstitutionsLink).click();
   cy.getDataTestId(dataTestId.basicData.customers.customerList).within(() => {
-    cy.get('tr').filter(':contains("Test Institution 2")').within(() => {
+    cy.get('tr').filter(':contains("BIBSYS")').within(() => {
       cy.get('a').click();
     })
   })

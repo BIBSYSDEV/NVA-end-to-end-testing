@@ -28,20 +28,28 @@ const fields = {
 
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
+let init = true;
+
+const initData = () => {
+  if (init) {
+    const originalPublication = `Original publication for corrigendum`;
+    cy.createPublishedRegistration(originalPublication);
+    const corrigendumTitle = 'Test article corrigendum';
+    cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
+    init = false;
+    cy.wait(20000);
+  }
+};
+
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Publication in Journal
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
   cy.login(userSaveJournal);
+  initData();
   cy.startWizardWithEmptyRegistration();
 });
 And('selects {string}', (resourceType) => {
-  if(resourceType === 'AcademicArticle') {
-    const originalPublication = `Original publication for corrigendum`;
-    cy.createPublishedRegistration(originalPublication);
-    const corrigendumTitle = 'Test article corrigendum';
-    cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
-  }
   cy.wrap(resourceType).as('resourceType');
 });
 And('fill in values for all fields', () => {
