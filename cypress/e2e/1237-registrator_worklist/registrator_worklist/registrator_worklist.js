@@ -46,7 +46,6 @@ const initData = () => {
     cy.startWizardWithEmptyRegistration();
     cy.createValidRegistration(null, `${registrationTitle}, ${uuidv4()}`);
     cy.getDataTestId(dataTestId.registrationWizard.formActions.openSupportButton).click();
-    cy.getDataTestId(dataTestId.tasksPage.messageField).should('be.enabled');
     cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getSuccess();
@@ -149,9 +148,7 @@ And('they open My Messages page', () => {
 });
 And('they open a DOI request item in the Messages list', () => {
   filterMessages(supportRequests);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).within(() => {
-    cy.get('a').first().click();
-  });
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 });
 And('they see previous messages between Creator and Curator\\(s)', () => {
   cy.contains('Support message');

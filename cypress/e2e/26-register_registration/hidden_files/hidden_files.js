@@ -91,7 +91,7 @@ Then('they see the file is approved', () => {
                 cy.reload();
                 cy.contains(title);
                 cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(taskPanel => {
-                    if (taskPanel.find(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).length > 0) {
+                    if (taskPanel.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`).length > 0) {
                         cy.wait(15000);
                         cy.reload();
                         cy.contains(title);
