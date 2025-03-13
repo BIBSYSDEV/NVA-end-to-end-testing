@@ -137,6 +137,7 @@ When('a curator edit the registration and changes the open file to {string}', (f
     cy.contains(fileType).click();
 });
 And('navigates to the landing page', () => {
+    cy.wait(10000);
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 Then('they see the file under Internal files', () => { });
