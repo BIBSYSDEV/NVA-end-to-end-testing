@@ -65,7 +65,6 @@ Then('the Curator can see the details of the Candidate', () => {
   cy.contains('Dialogue').should('be.visible');
 });
 And('the calculated number of points for the Candidate', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.)
   cy.contains('Points')
     .parent()
     .parent()
