@@ -140,6 +140,7 @@ And('the files are approved with a message from:', (dataTable) => {
                 cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Message from ${data[0]}{enter}`);
             });
             cy.contains('Message sent');
+            cy.wait(10000);
         });
     });
 });

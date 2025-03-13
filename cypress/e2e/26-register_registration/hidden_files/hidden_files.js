@@ -54,7 +54,7 @@ Given('a registration with a {string}', (fileType) => {
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
     cy.getSuccess();
-    cy.wait(3000);
+    cy.wait(30000);
 });
 And('the files need approval from a Curator', () => { });
 When('a Curator view the landing page of the registration', () => {
@@ -119,7 +119,7 @@ Given('a published registration with an open file', () => {
     cy.createValidRegistration(fileName, title);
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-    cy.wait(20000);
+    cy.wait(30000);
 });
 And('the file needs approval', () => { });
 When('a curator edit the registration and changes the open file to {string}', (fileType) => {

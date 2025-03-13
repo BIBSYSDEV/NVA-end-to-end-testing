@@ -42,8 +42,17 @@ const initData = () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
     cy.getSuccess();
-    cy.wait(15000);
-    init = false;
+    cy.wait(6000);
+    cy.startWizardWithEmptyRegistration();
+    cy.createValidRegistration(null, `${registrationTitle}, ${uuidv4()}`);
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.openSupportButton).click();
+    cy.getDataTestId(dataTestId.tasksPage.messageField).should('be.enabled');
+    cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getSuccess();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+    cy.wait(6000);
+      init = false;
   }
 };
 
@@ -140,9 +149,13 @@ And('they open My Messages page', () => {
 });
 And('they open a DOI request item in the Messages list', () => {
   filterMessages(supportRequests);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).within(() => {
+    cy.get('a').first().click();
+  });
 });
-And('they see previous messages between Creator and Curator\\(s)', () => { });
+And('they see previous messages between Creator and Curator\\(s)', () => {
+  cy.contains('Support message');
+ });
 When('they enter a new message', () => { });
 And('they click the Send Answer button', () => { });
 Then('they see that the new message is added to the Messages list', () => { });

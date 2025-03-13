@@ -90,7 +90,9 @@ Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.getSuccessDone();
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
-  cy.get('[data-testid^=result-list-item]').first().click();
+  cy.get('[data-testid^=result-list-item]').within(() => {
+    cy.get('a').first().click();
+  });
 });
 
 When('they click the Edit Registration button', () => {

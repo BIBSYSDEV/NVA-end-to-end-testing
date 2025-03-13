@@ -11,6 +11,7 @@ const corrigendumTitle = 'Test article corrigendum';
 const originalPublication = 'Original publication for corrigendum';
 
 Before({'tags': '@init'}, () => {
+  cy.login(userResourceTypeJournal);
   cy.createPublishedRegistration(originalPublication);
   cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
 })
