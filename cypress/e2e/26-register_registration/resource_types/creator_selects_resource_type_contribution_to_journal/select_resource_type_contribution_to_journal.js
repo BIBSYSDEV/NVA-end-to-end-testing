@@ -2,7 +2,7 @@ import { And, Before, Given, Then, When } from 'cypress-cucumber-preprocessor/st
 import { userResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { journalSubtypes, journalFields } from '../../../../support/data_testid_constants';
-import { v4 as uuid } from uuid;
+import { v4 as uuid } from 'uuid';
 
 // Feature: Creator selects Resource type Contribution to journal
 
