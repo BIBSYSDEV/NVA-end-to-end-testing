@@ -2,18 +2,24 @@ import { And, Before, Given, Then, When } from 'cypress-cucumber-preprocessor/st
 import { userResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { journalSubtypes, journalFields } from '../../../../support/data_testid_constants';
+import { v4 as uuid } from uuid;
 
 // Feature: Creator selects Resource type Contribution to journal
 
 const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 
-const corrigendumTitle = 'Test article corrigendum';
-const originalPublication = 'Original publication for corrigendum';
+const corrigendumTitle = `Test article corrigendum ${uuid()}`;
+const originalPublication = `Original publication for corrigendum ${uuid()}`;
+
+let init = true;
 
 Before({'tags': '@init'}, () => {
-  cy.login(userResourceTypeJournal);
-  cy.createPublishedRegistration(originalPublication);
-  cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
+  if (init) {
+    cy.login(userResourceTypeJournal);
+    cy.createPublishedRegistration(originalPublication);
+    cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
+    init = false;
+  }
 })
 
 Before(() => {

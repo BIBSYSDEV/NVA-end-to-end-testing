@@ -90,7 +90,9 @@ Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.getSuccessDone();
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
-  cy.get('[data-testid^=result-list-item]').within(() => {
+  cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
+  cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
+  cy.get('[data-testid^=result-list-item]').first().within(() => {
     cy.get('a').first().click();
   });
 });
