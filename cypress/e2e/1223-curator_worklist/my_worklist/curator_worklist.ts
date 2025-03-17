@@ -1,4 +1,3 @@
-import { Before } from 'cypress-cucumber-preprocessor/steps';
 import {
   userPublishNoRights,
   userCurator2,
@@ -12,6 +11,7 @@ import {
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { currentYear } from '../../../support/commands';
+import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 const messageTypes = {
   'Approval': 'Publishing Requests',
@@ -130,7 +130,7 @@ Before(() => {
 });
 
 //   Scenario: Curator opens their Worklist
-When('the {string} opens their Worklist', (user) => {
+When('the {string} opens their Worklist', (user: string) => {
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -142,14 +142,14 @@ When('the {string} opens their Worklist', (user) => {
 });
 Then('the Curator see that the Worklist is Scoped', () => {
   cy.get('@user').then((user) => {
-    if (user === 'Nvi-Curator') {
+    if (user.toString() === 'Nvi-Curator') {
       cy.contains('Sikt');
     } else {
       cy.get('[value=BIBSYS]');
     }
   });
 });
-And('the Worklist contains Requests of type {string}', (type) => {
+Then('the Worklist contains Requests of type {string}', (type: string) => {
   cy.getDataTestId(requestTypes[type]);
 });
 // | Approval |
@@ -158,7 +158,7 @@ And('the Worklist contains Requests of type {string}', (type) => {
 // | Ownership |
 
 // Scenario Outline: Curator views all Requests of a type
-When('{string} clicks on Requests of type {string}', (user, type) => {
+When('{string} clicks on Requests of type {string}', (user: string, type: string) => {
   cy.wrap(type).as('type');
   cy.wrap(user).as('user');
   cy.login(curatorUsers[user]);
@@ -182,7 +182,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable: DataTable) =>
         'Beginning of last message': '',
         'Owner name': '',
       };
-      if (user === 'Nvi-Curator') {
+      if (user.toString() === 'Nvi-Curator') {
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
           cy.get('li')
             .first()
@@ -196,7 +196,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable: DataTable) =>
         cy.getDataTestId(dataTestId.startPage.searchResultItem)
           .first()
           .within((message) => {
-            if (type === SUPPORT) {
+            if (type.toString() === SUPPORT) {
               elements['Request status'] = 'div > p';
             }
             dataTable.raw().forEach((value) => {
@@ -213,7 +213,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable: DataTable) =>
 //   | Request Submitter Date    |
 //   | Beginning of last message |
 //   | Owner name                |
-And('they see that each Request can be opened', () => {});
+Then('they see that each Request can be opened', () => { });
 // Examples:
 //   | Type      |
 //   | Approval  |
@@ -221,7 +221,7 @@ And('they see that each Request can be opened', () => {});
 //   | DOI       |
 
 // Scenario: Curator opens a unassigned Request
-When('the {string} open a unassigned Request of type {string}', (user, type) => {
+When('the {string} open a unassigned Request of type {string}', (user: string, type: string) => {
   const title = unassignTitles[type];
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
@@ -251,11 +251,11 @@ Then('the Curator is assigned the Request', () => {
   cy.getDataTestId('message-field').last().type('Test message{enter}');
   cy.get('ul > li > p').filter(':contains("Test message")').should('be.visible');
 });
-And('the Request Status is set to "Active"', () => {
+Then('the Request Status is set to "Active"', () => {
   cy.get('@user').then((user) => {
     cy.getSuccess();
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    if (user === 'Nvi-Curator') {
+    if (user.toString() === 'Nvi-Curator') {
     } else {
       cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click();
       cy.wait(3000);
@@ -267,7 +267,7 @@ And('the Request Status is set to "Active"', () => {
 });
 
 // Scenario: Curator unassigns a Request
-When('the {string} selects "Mark request unread" on a request of type {string}', (user, type) => {
+When('the {string} selects "Mark request unread" on a request of type {string}', (user: string, type: string) => {
   const title = unassignTitles[type];
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
@@ -324,13 +324,13 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   }
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('not.exist');
 });
-Then('the Request Status is set to "New"', () => {});
-And('the Request is unassigned the Curator', () => {
+Then('the Request Status is set to "New"', () => { });
+Then('the Request is unassigned the Curator', () => {
   cy.wait(6000);
   cy.get('[title=Tasks]').click();
   cy.get('@user').then((user) => {
     cy.get('@title').then((title) => {
-      if (user === 'Nvi-Curator') {
+      if (user.toString() === 'Nvi-Curator') {
         cy.get('li').filter(`:contains(${title})`).should('not.exist');
       } else {
         cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
@@ -341,19 +341,19 @@ And('the Request is unassigned the Curator', () => {
 });
 
 // Scenario: Curator open a assigned Request
-When('the Curator selects a Request', () => {});
-Then('the Request is expanded', () => {});
-And('the assigned Curator is viewed', () => {});
-And('previous messages are displayed chronologically with:', () => {});
+When('the Curator selects a Request', () => { });
+Then('the Request is expanded', () => { });
+Then('the assigned Curator is viewed', () => { });
+Then('previous messages are displayed chronologically with:', () => { });
 // | Submitter name          |
 // | Submitter Date and Time |
 // | The full message        |
-And('the Curator can reply to a message', () => {});
-And('the Curator can open the Requests Resource', () => {});
-And('the Curator can change the Status of the Request', () => {});
+Then('the Curator can reply to a message', () => { });
+Then('the Curator can open the Requests Resource', () => { });
+Then('the Curator can change the Status of the Request', () => { });
 
 // Scenario Outline: Curator open the Request's Resource
-Given('the {string} receives a Request of type {string}', (user, type) => {
+Given('the {string} receives a Request of type {string}', (user: string, type: string) => {
   const title = openTitles[type];
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
@@ -369,7 +369,7 @@ Given('the {string} receives a Request of type {string}', (user, type) => {
 When('the Curator opens the Requests Resource', () => {
   cy.get('@user').then((user) => {
     cy.get('@title').then((title) => {
-      if (user === 'Nvi-Curator') {
+      if (user.toString() === 'Nvi-Curator') {
         cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
         cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
         cy.contains(year).click();
@@ -391,12 +391,12 @@ When('the Curator opens the Requests Resource', () => {
 });
 Then('the Landing Page of the Resource is viewed', () => {
   cy.get('@type').then((type) => {
-    const path = type === 'NVI' ? 'nvi' : 'dialogue';
+    const path = type.toString() === 'NVI' ? 'nvi' : 'dialogue';
     cy.location('pathname').should('contain', `tasks/${path}`);
     cy.location('pathname').should('not.contain', 'edit');
   });
 });
-And('the Curator has the option to {string}', (action) => {
+Then('the Curator has the option to {string}', (action: string) => {
   const typeActions = {
     'Publish Files': dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton,
     'Reject publishing': dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton,
@@ -411,13 +411,13 @@ And('the Curator has the option to {string}', (action) => {
   }
   cy.getDataTestId(typeActions[action]).should('be.visible');
 });
-And('the Curator can Decline the Request', () => {
+Then('the Curator can Decline the Request', () => {
   const typeDeclineActions = {
     APPROVAL: dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton,
     DOI: dataTestId.registrationLandingPage.rejectDoiButton,
   };
   cy.get('@type').then((type) => {
-    cy.getDataTestId(typeDeclineActions[type]).should('be.visible');
+    cy.getDataTestId(typeDeclineActions[type.toString()]).should('be.visible');
   });
 });
 // Examples:
@@ -452,61 +452,61 @@ Then('the Request status is set to "Answered"', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 });
-And('the User can read the answer in My Messages', () => {
+Then('the User can read the answer in My Messages', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).parent().parent().filter(`:contains(${curatorAnswer})`);
 });
 
 // Scenario: User gets an answer to a Request
-When('the Curator writes an answer', () => {});
-And('sends it to the User', () => {});
-And('the Request Type is:', () => {});
+When('the Curator writes an answer', () => { });
+When('sends it to the User', () => { });
+When('the Request Type is:', () => { });
 // | Approval  |
 // | DOI       |
 // | Ownership |
-Then('the User can see the answer in My Messages', () => {});
+Then('the User can see the answer in My Messages', () => { });
 
 // Scenario Outline: Curator change Status on a Request
-When('Curator selects a new status "<Status>" on a Request', () => {});
-Then('the status of the Request is set to {string}', (status) => {});
+When('Curator selects a new status "<Status>" on a Request', () => { });
+Then('the status of the Request is set to {string}', (status) => { });
 // Examples:
 //   | Status   |
 //   | Archived |
 //   | Deleted  |
 
 // Scenario: Curator receives assignment of responses to requests they have previously responded to
-When('the Curator:', () => {});
+When('the Curator:', () => { });
 // | Sends an answer          |
 // | Publishes a resource     |
 // | Mints a DOI              |
 // | Declines a DOI           |
 // | Changes Owner            |
 // | Declines change of owner |
-Then('the Curator is Assigned the Request', () => {});
+Then('the Curator is Assigned the Request', () => { });
 
 // Scenario: Curator receives Requests in their scope
-Given('the Request is of type:', () => {});
+Given('the Request is of type:', () => { });
 // | Approval |
 // | Support  |
 // | DOI      |
-When("the Requests' Submitter is Affilliated within the Curators Scope", () => {});
-Then('the Request is part of the Curators Worklist', () => {});
+When("the Requests' Submitter is Affilliated within the Curators Scope", () => { });
+Then('the Request is part of the Curators Worklist', () => { });
 
 // Scenario: Curator receives Requests they have been assigned from outside their scope
-Given('the Request is of type:', () => {});
+Given('the Request is of type:', () => { });
 // | Approval |
 // | Support  |
 // | DOI      |
-When('the Curator is assigned the Request', () => {});
-Then('the Request is part of the Curators Worklist', () => {});
+When('the Curator is assigned the Request', () => { });
+Then('the Request is part of the Curators Worklist', () => { });
 
 // Scenario: Curator receives Ownership requests within their scope
-Given('the Request is of type "Ownership"', () => {});
-When('the Affilliation of the Owner of the Resource associated with the Request is within Curators Scope', () => {});
-Then('the Request is part of the Curators Worklist', () => {});
+Given('the Request is of type "Ownership"', () => { });
+When('the Affilliation of the Owner of the Resource associated with the Request is within Curators Scope', () => { });
+Then('the Request is part of the Curators Worklist', () => { });
 
 // Scenario: Curator receives Ownership requests they have been assigned from outside their scope
-Given('the Request is of type "Ownership"', () => {});
-When('the Curator is assigned the Request', () => {});
-Then('the Request is part of the Curators Worklist', () => {});
+Given('the Request is of type "Ownership"', () => { });
+When('the Curator is assigned the Request', () => { });
+Then('the Request is part of the Curators Worklist', () => { });

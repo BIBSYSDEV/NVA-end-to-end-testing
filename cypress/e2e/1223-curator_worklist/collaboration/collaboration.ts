@@ -8,9 +8,10 @@ import {
   collaborationCuratorUSN,
   uploaderBIBSYS,
   uploaderNMBU,
-  uploaderSikt,
   uploaderUSN,
 } from '../../../support/constants';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+
 
 const fileName = 'exampleA.txt';
 
@@ -66,7 +67,7 @@ Given('a Publication is created by institution A with contributors from institut
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
   cy.wait(30000);
 });
-And('a file is uploaded from:', (dataTable: DataTable) => {
+Given('a file is uploaded from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {
     const collaborator = data[0];
     cy.get('@title').then((title) => {
@@ -118,7 +119,7 @@ Then('the curator for institution A will not get a task to approve a publication
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   });
 });
-And('the curator for institution B will get a task to approve the file from Uploader B and not from Uploader C', () => {
+Then('the curator for institution B will get a task to approve the file from Uploader B and not from Uploader C', () => {
   cy.login(curators['Curator B']);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
@@ -130,7 +131,7 @@ And('the curator for institution B will get a task to approve the file from Uplo
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   });
 });
-And('the curator institution C will get a task to approve the file from Uploader C and not from Uploader B', () => {
+Then('the curator institution C will get a task to approve the file from Uploader C and not from Uploader B', () => {
   cy.login(curators['Curator C']);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
@@ -148,7 +149,7 @@ Given('a Publication is created by institution A with contributors from institut
 When('a file is uploaded from:', () => {});
 //   | Collaborator B |
 //   | Collaborator C |
-And('the files are approved with a message from:', (dataTable: DataTable) => {
+When('the files are approved with a message from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {
     const curator = curators[data[0]];
     cy.login(curator);
@@ -326,7 +327,7 @@ When('a support message is sent from:', () => {});
 //   | Collaborator A |
 //   | Collaborator B |
 //   | Collaborator C |
-And('a response is sent from:', (dataTable: DataTable) => {
+When('a response is sent from:', (dataTable: DataTable) => {
   const institutions = ['A', 'B', 'C'];
   dataTable.raw().forEach((data) => {
     const curator = data[0];

@@ -54,7 +54,8 @@ declare global {
       getNVIWorklistItem(title: string): Chainable<JQuery<HTMLElement>>;
 
       getSuccess(): void;
-      getSuccessDone();
+      getSuccessDone(): void;
+      refreshPublish(): void;
     }
   }
 }

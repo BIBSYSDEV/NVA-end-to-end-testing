@@ -1,9 +1,9 @@
 // Feature: Curator tasks and message flow
 
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 import { userDOICuratorMessages, userDOIMessages, userPublicationCuratorMessages, userPublicationMessages, userSupportCuratorMessages, userSupportMessages } from '../../../support/constants';
 import { v4 as uuidv4 } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 const PUBLISHING_CURATOR = 'Publish-curator';
 const DOI_CURATOR = 'DOI-curator';
@@ -27,7 +27,7 @@ const users = {
 const fileName = 'example.txt';
 
 // Scenario Outline: Curator unassigned task numbers
-Given('a User with role {string}', (user) => {
+Given('a User with role {string}', (user: string) => {
     cy.login(curatorUsers[user]);
 });
 When('they view the main page for NVA', () => {
@@ -63,7 +63,7 @@ Then('they see the number of dialogs without curator', () => {
 // Scenario Outline: Updating message numbers
 Given('a User with role {string}', (role) => { });
 When('they see the number of unassigned tasks', () => { });
-And('a User with the role Creator send a {string} request', (type) => {
+When('a User with the role Creator send a {string} request', (type: string) => {
     const title = `Messages ${type} ${uuidv4()}`;
     cy.wrap(title).as('title');
     cy.login(users[type]);
@@ -86,7 +86,7 @@ And('a User with the role Creator send a {string} request', (type) => {
             break;
     }
 });
-Then('the User with role {string} see that the number of unassigned tasks are increased', (role) => {
+Then('the User with role {string} see that the number of unassigned tasks are increased', (role: string) => {
     cy.login(curatorUsers[role]);
     cy.get('@taskNumbers').then(taskNumbers => {
         const value = Number(taskNumbers) + 1;
@@ -106,7 +106,7 @@ Then('the User with role {string} see that the number of unassigned tasks are in
 //     | Support-curator    | Support      |
 
 // Scenario Outline: User dialog with curator
-Given('a User with the role Creator sends a {string} request', (type) => {
+Given('a User with the role Creator sends a {string} request', (type: string) => {
     const title = `Messages ${type} ${uuidv4()}`;
     cy.wrap(title).as('title');
     cy.login(users[type]);
@@ -130,7 +130,7 @@ Given('a User with the role Creator sends a {string} request', (type) => {
     }
 });
 When('they send a message with the {string} request', (type) => { });
-And('a curator with role {string} responds to the message', (role) => { });
+When('a curator with role {string} responds to the message', (role) => { });
 Then('the Creator can read the message on the landing page of the Registration', () => { });
 
 // Examples:

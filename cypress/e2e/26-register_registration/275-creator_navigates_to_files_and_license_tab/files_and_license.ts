@@ -73,7 +73,8 @@ When('they upload a File', () => {
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });
 When('they mark the File with Administrative Agreement', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.files.toPublishCheckbox).click();
+  cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
+  cy.contains('Hidden file').click();
 });
 Then('the File is not presented on the Landing Page', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();

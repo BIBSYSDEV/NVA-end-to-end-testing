@@ -1,6 +1,7 @@
 import { v4 as uuid} from 'uuid';
 import { userDeleteRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 const firstTitle = `Delete registration ${uuid()}`
 const secondTitle = `Delete registration ${uuid()}`
@@ -36,10 +37,10 @@ When('they click Delete on an item', () => {
       cy.get('[data-testid^=delete-registration]').click();
     });
 });
-And('they see a confirmation pop-up is opened', () => {
+When('they see a confirmation pop-up is opened', () => {
   cy.get('[data-testid=confirm-delete-dialog]').should('be.visible');
 });
-And('they select Yes', () => {
+When('they select Yes', () => {
   cy.get('[data-testid=accept-button]').click();
 });
 Then('they see that the Registration is deleted', () => {
@@ -52,7 +53,7 @@ When('they select "Delete all drafts"', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
   cy.get('button').filter(':contains("Delete all drafts")').click();
 });
-And('they confirm that they want to Delete all drafts', () => {
+When('they confirm that they want to Delete all drafts', () => {
   cy.get('[data-testid=accept-button]').click();
 });
 Then('all Draft Registration are deleted', () => {

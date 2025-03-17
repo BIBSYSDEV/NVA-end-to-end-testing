@@ -1,7 +1,8 @@
 // // Feature: Project Landing Page
 
-import { userCurator, userProjectManager } from '../../../support/constants';
+import { userProjectManager } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 const panelHeadings = {
   'Participants': 'Project participants',
@@ -45,7 +46,7 @@ When('the Anonymous User navigates to the Project search page', () => {
   cy.getDataTestId(dataTestId.startPage.searchTypeField).click();
   cy.get('[data-value=project]').click();
 });
-And('enters a search term for a Project', () => {
+When('enters a search term for a Project', () => {
   cy.wait(1000);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
@@ -71,7 +72,7 @@ When("A Anonymous User opens a Project's Landing Page", () => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
   cy.contains(projectTitle).click();
 });
-Then('the Anonymous User see:', (fields) => {
+Then('the Anonymous User see:', (fields:DataTable) => {
   const fieldHeadings = {
     'Project Title': 'Project',
     'Financing': 'Funding',
@@ -94,7 +95,7 @@ Then('the Anonymous User see:', (fields) => {
 //             | Project Period           |
 //             | Financing                |
 //             | PRoject Category         |
-And('the Anonymous User see expandable panels for:', (panels) => {
+Then('the Anonymous User see expandable panels for:', (panels: DataTable) => {
   panels.raw().forEach((panel) => cy.getDataTestId(panelIds[panel[0]]));
 });
 //             | Summary             |
@@ -102,7 +103,7 @@ And('the Anonymous User see expandable panels for:', (panels) => {
 //             | Results             |
 //             # | Data Management Plan |
 //             | Associated Projects |
-And('the Anonymous User see counts of:', (counts) => {
+Then('the Anonymous User see counts of:', (counts: DataTable) => {
   counts.raw().forEach((count) => {
     cy.getDataTestId(panelIds[count[0]]).within(() => {
       cy.contains('(');
@@ -115,8 +116,8 @@ And('the Anonymous User see counts of:', (counts) => {
 //             | Associated Projects |
 
 //     Scenario Outline: Privileged user sees Edit button for Project
-Given('User opens Landing Page for Project', () => {});
-When('the User has the {string} role for the project', (role) => {
+Given('User opens Landing Page for Project', () => { });
+When('the User has the {string} role for the project', (role: string) => {
   if (users[role]) {
     selectProject(users[role]);
   }
@@ -132,9 +133,9 @@ Then('they can see an Edit button', () => {
 //             | Local Project Manager |
 
 //     Scenario Outline: Privileged user sees Delete button for Project
-Given('User opens Landing Page for Project', () => {});
-When('the User has the {string} role for the project', () => {});
-Then('they can see a Delete button', () => {});
+Given('User opens Landing Page for Project', () => { });
+When('the User has the {string} role for the project', () => { });
+Then('they can see a Delete button', () => { });
 //         Examples:
 //             | Role            |
 //             | Curator         |
@@ -142,19 +143,19 @@ Then('they can see a Delete button', () => {});
 //             | Project Manager |
 
 //     Scenario: Privileged user clicks the Delete Button for a Project
-Given('Privileged user sees Delete button for Project', () => {});
-When('they click the Delete Button', () => {});
-Then('they see a Confirm Dialog', () => {});
+Given('Privileged user sees Delete button for Project', () => { });
+When('they click the Delete Button', () => { });
+Then('they see a Confirm Dialog', () => { });
 
 //     Scenario: Privileged user deletes a Project
-Given('Privileged user clicks the Delete Button for a Project', () => {});
-When('they Confirm the action', () => {});
-Then('the Confirm Dialog is closed', () => {});
-And('the Project is marked deleted', () => {});
-And('The Project is removed from the Projects list', () => {});
+Given('Privileged user clicks the Delete Button for a Project', () => { });
+When('they Confirm the action', () => { });
+Then('the Confirm Dialog is closed', () => { });
+Then('the Project is marked deleted', () => { });
+Then('The Project is removed from the Projects list', () => { });
 
 //     Scenario: User expand Summary for a Project
-Given('User opens Landing Page for Project', () => {});
+Given('User opens Landing Page for Project', () => { });
 When('they expand "Summary"', () => {
   selectProject(userProjectManager);
   cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).click();
@@ -164,19 +165,19 @@ Then('they see "Scientific summary"', () => {
     cy.contains('Scientific summary', { matchCase: false });
   });
 });
-And('they see "Popular science summary"', () => {
+Then('they see "Popular science summary"', () => {
   cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).within(() => {
     cy.contains('Popular science summary', { matchCase: false });
   });
 });
 
 //     Scenario: User expand Participants for a Project
-Given('User opens Landing Page for Project', () => {});
+Given('User opens Landing Page for Project', () => { });
 When('they expand "Participants"', () => {
   selectProject(userProjectManager);
   cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
 });
-Then('they see a list of Participants and their:', (participantInfo) => {
+Then('they see a list of Participants and their:', (participantInfo: DataTable) => {
   const participantValues = {
     'Name': 'Project manager TestUser',
     'Role': 'Project manager',
@@ -208,7 +209,7 @@ Then('they see fields:', () => {
 //             | Start Date |
 
 //     Scenario: User expand Results for a Project
-Given('User opens Landing Page for Project', () => {});
+Given('User opens Landing Page for Project', () => { });
 When('they expand "Results"', () => {
   selectProject(userProjectManager);
   cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).click();

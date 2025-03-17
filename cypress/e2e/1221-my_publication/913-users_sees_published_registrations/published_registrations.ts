@@ -4,6 +4,7 @@ import { userPublishedRegistration } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { myRegistrations, myRegistrationsButtons } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 // Scenario: User sees published Registrations
 Given('Creator opens the page My Registrations', () => {
@@ -20,7 +21,7 @@ When('they click Published Registrations in the navigation bar', () => {
 });
 Then('they see a list of all published Registrations with the fields', (dataTable: DataTable) => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('exist');
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration) => {
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration: any) => {
     cy.get(registration).within(() => {
       cy.get('p > a').should('exist');
     });
@@ -29,11 +30,11 @@ Then('they see a list of all published Registrations with the fields', (dataTabl
 // | Title   |
 // | Status  |
 // | Created |
-And('they see list items with Status', (dataTable: DataTable) => {});
+Then('they see list items with Status', (dataTable: DataTable) => {});
 // | Deleted   |
 // | Published |
-And('they see each list item has buttons', (dataTable: DataTable) => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration) => {
+Then('they see each list item has buttons', (dataTable: DataTable) => {
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration: any) => {
     cy.get(registration)
       .parent()
       .within(() => {
@@ -46,8 +47,8 @@ And('they see each list item has buttons', (dataTable: DataTable) => {
 // | Show   |
 // | Edit   |
 // | Delete |
-And('the they see the Edit button is enabled', () => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration) => {
+Then('the they see the Edit button is enabled', () => {
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration: any) => {
     cy.get(registration)
       .parent()
       .within(() => {
@@ -55,11 +56,11 @@ And('the they see the Edit button is enabled', () => {
       });
   });
 });
-And('the Delete button is enabled for Registrations not marked as Deleted', () => {});
-And('they see the navigation bar for Unpublished Registrations is enabled', () => {
+Then('the Delete button is enabled for Registrations not marked as Deleted', () => {});
+Then('they see the navigation bar for Unpublished Registrations is enabled', () => {
   cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).should('exist');
   cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsUnpublishedCheckbox}] .Mui-checked`).should('not.exist');
 });
-And('they see the navigation bar for Published Registrations is selected', () => {
+Then('they see the navigation bar for Published Registrations is selected', () => {
   cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsPublishedCheckbox}] .Mui-checked`).should('exist');
 });
