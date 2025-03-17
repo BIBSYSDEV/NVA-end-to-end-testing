@@ -147,7 +147,8 @@ Cypress.Commands.add('loginCognito', (userId) => {
       }
 
       try {
-        const accessToken = await getAccessToken(authorizationCode);
+        const tokens = await getAccessToken(authorizationCode);
+        const accessToken = tokens.access_token;
         console.log('Access Token:', accessToken);
         res.send('Authorization code exchanged for access token');
 
