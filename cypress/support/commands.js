@@ -21,8 +21,8 @@ const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'e2e';
 
 const redirectUri = 'http://localhost:3000/callback';
-const cognitoDomain = 'nva-e2e.auth.eu-west-1.amazoncognito.com';
-const tokenUrl = `https://${cognitoDomain}/oauth2/token`;
+const cognitoUri = Cypress.env('COGNITO_URI');
+const tokenUrl = `${cognitoUri}/oauth2/token`;
 const secretId = 'TestUserPassword';
 
 const scopes = 'openid https://api.nva.unit.no/scopes/frontend aws.cognito.signin.user.admin';
@@ -60,7 +60,7 @@ export const todayDatePicker = () => {
   return dateValue;
 };
 
-const loginUrl = `https://${cognitoDomain}/login?client_id=${clientId}&response_type=code&scope=${encodeURIComponent(scopes)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+const loginUrl = `${cognitoUri}/login?client_id=${clientId}&response_type=code&scope=${encodeURIComponent(scopes)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
 
 // Secrets Manager client configuration
 const secretsManagerClient = new SecretsManagerClient();

@@ -21,6 +21,7 @@ phases:
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')
       - export CYPRESS_AWS_SESSION_TOKEN=$(cat Credentials | jq -r '.Credentials.SessionToken')
       - export CYPRESS_AWS_REGION=${AWS_REGION}
+      - export CYPRESS_COGNITO_URI=$(aws ssm get-parameter --name /NVA/CognitoUri --query Parameter.Value --output text)
   build:
     commands:
       - cd test_data
