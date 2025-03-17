@@ -56,7 +56,7 @@ const createWorklistItem = (title, type) => {
       });
       break;
     case DOI:
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+      cy.refreshPublish();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();

@@ -4,7 +4,7 @@ import { today } from '../../../support/commands';
 import { userDraftDoi } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { myRegistrationsTabs, landingPageButtons } from '../../../support/data_testid_constants';
-import { v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 const registrationTitles = {
   'Draft': `Draft registration with DOI ${uuid()}`,
@@ -17,7 +17,7 @@ const initData = () => {
   if (!init) {
     cy.createPublishedRegistration(registrationTitles['Published']);
     cy.wait(10000);
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+    cy.refreshPublish();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
     cy.startWizardWithEmptyRegistration();
@@ -28,7 +28,7 @@ const initData = () => {
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
     init = true;
   }
-}
+};
 
 // @1242
 // Scenario Outline: Request/Draft DOI button is disabled for Registrations with existing DOI

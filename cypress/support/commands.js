@@ -261,6 +261,24 @@ Cypress.Commands.add('getSuccessDone', () => {
   cy.getDataTestId('snackbar-success').should('not.exist');
 });
 
+Cypress.Commands.add('refreshPublish', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(taskPanel => {
+    if (taskPanel.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`).length > 0) {
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+      cy.wait(3000);
+      if (taskPanel.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`).length > 0) {
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+        cy.wait(5000);
+        if (taskPanel.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`).length > 0) {
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+          cy.wait(8000);
+        }
+      }
+    }
+  });
+
+});
+
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.rawTable.forEach((value) => {
     cy.getDataTestId(values[value[0]], { timeout: 30000 });

@@ -1,4 +1,3 @@
-import { today } from '../../../support/commands';
 import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageFields, landingPageShareButtons } from '../../../support/data_testid_constants';
@@ -12,8 +11,7 @@ Given('there is a published Registration in NVA', () => {
   cy.login(userWithAuthor);
   cy.createPublishedRegistration(landing_page_registration_title, null, fileName);
   cy.wait(5000);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).should('not.exist');
+  cy.refreshPublish();
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.tagField).type('Keyword{enter}');
