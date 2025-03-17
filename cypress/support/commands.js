@@ -3,11 +3,14 @@ import Amplify from 'aws-amplify';
 import { Auth } from 'aws-amplify';
 import 'cypress-localstorage-commands';
 import { mockPersonFeideIdSearch, mockPersonNameSearch, journalSearchMockFile } from './mock_data';
-import { Given, When, Then, And, Before } from 'cypress-cucumber-preprocessor/steps';
 import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
 import { userSecondEditor } from './constants';
 import { createValidRegistrationWithType } from './create_registration';
+import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
+import puppeteer from 'puppeteer';
+import express from 'express';
+import axios from 'axios';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -16,6 +19,14 @@ const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
 const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'e2e';
+
+const redirectUri = 'http://localhost:3000/callback';
+const cognitoDomain = 'nva-e2e.auth.eu-west-1.amazoncognito.com';
+const tokenUrl = `https://${cognitoDomain}/oauth2/token`;
+const secretId = 'TestUserPassword';
+
+const username = 'test-user-NVA-C@test.no';
+const scopes = 'openid https://api.nva.unit.no/scopes/frontend aws.cognito.signin.user.admin';
 
 AWS.config.update({
   accessKeyId: awsAccessKeyId,
@@ -38,11 +49,6 @@ const amplifyConfig = {
 };
 
 const identityServiceProvider = new AWS.CognitoIdentityServiceProvider();
-const secretsManager = new AWS.SecretsManager();
-
-const authFlow = 'USER_PASSWORD_AUTH';
-
-const passwords = {};
 
 const pad = (value) => `0${value}`.slice(-2);
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
@@ -55,56 +61,114 @@ export const todayDatePicker = () => {
   return dateValue;
 };
 
+const loginUrl = `https://${cognitoDomain}/login?client_id=${clientId}&response_type=code&scope=${encodeURIComponent(scopes)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+
+// Secrets Manager client configuration
+const secretsManagerClient = new SecretsManagerClient();
+
+// Function to get the secret value
+const getSecretValue = async (secretId) => {
+  const command = new GetSecretValueCommand({ SecretId: secretId });
+  const response = await secretsManagerClient.send(command);
+  return response.SecretString;
+};
+
+async function getAuthorizationCode() {
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+
+  await page.goto(loginUrl);
+
+  await page.waitForSelector('#signInFormUsername');
+  await page.type('#signInFormUsername', username);
+
+  await page.waitForSelector('#signInFormPassword');
+
+  const password = await getSecretValue(secretId);
+  await page.type('#signInFormPassword', password);
+
+  await page.waitForSelector('input[name="signInSubmitButton"]');
+  await page.click('input[name="signInSubmitButton"]');
+
+  await page.waitForNavigation();
+
+  const url = page.url();
+  const authorizationCode = new URL(url).searchParams.get('code');
+
+  await browser.close();
+
+  return authorizationCode;
+}
+
+async function getAccessToken(authorizationCode) {
+  const params = new URLSearchParams();
+  params.append('grant_type', 'authorization_code');
+  params.append('client_id', clientId);
+  params.append('redirect_uri', redirectUri);
+  params.append('code', authorizationCode);
+
+  try {
+    const response = await axios.post(tokenUrl, params.toString(), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+
+    if (response.status === 200) {
+      return response.data.access_token; // Return only the access token
+    } else {
+      console.error('Unexpected response status:', response.status);
+      throw new Error(`Unexpected response status: ${response.status}`);
+    }
+  } catch (err) {
+    console.error('Error exchanging authorization code for access token:', err);
+    if (err.response) {
+      console.error('Error response data:', err.response.data);
+    }
+    throw err;
+  }
+}
+
 Cypress.Commands.add('getDataTestId', (dataTestId, options) => {
   cy.get(`[data-testid=${dataTestId}]`, options);
 });
 
 Cypress.Commands.add('loginCognito', (userId) => {
   return new Cypress.Promise((resolve, reject) => {
-    Amplify.configure(amplifyConfig);
-    const secretsManagerParams = {
-      SecretId: 'TestUserPassword',
-    };
-    let testUserPassword = '';
-    secretsManager.getSecretValue(secretsManagerParams, (err, data) => {
-      if (data) {
-        testUserPassword = data.SecretString;
-        // testUserPassword = 'P_f46addfb-9f75-42c2-aafa-dcf0974a9eb5';
-        const authorizeUser = {
-          AuthFlow: authFlow,
-          ClientId: clientId,
-          AuthParameters: {
-            USERNAME: userId,
-            PASSWORD: testUserPassword,
-          },
-        };
+    const app = express();
+    const port = 3000;
+    let server;
 
-        let tries = 0;
-        let trying = false;
-        do {
-          identityServiceProvider.initiateAuth(authorizeUser, async (err, data) => {
-            if (data) {
-              if (!data.ChallengeName) {
-                await Auth.signIn(userId, testUserPassword);
-                resolve(data.AuthenticationResult.IdToken);
-              } else {
-                trying = true;
-                console.log('fail.. challenge');
-                console.log(data.ChallengeName);
-                reject(err);
-              }
-            } else {
-              trying = true;
-              console.log('fail.. init auth');
-              reject(err);
-            }
-          });
-          tries++;
-          if (tries > 3) {
-            trying = false;
-          }
-        } while (trying);
-      } else {
+    app.get('/callback', async (req, res) => {
+      const authorizationCode = req.query.code;
+
+      if (!authorizationCode) {
+        return res.status(400).send('Authorization code not found');
+      }
+
+      try {
+        const accessToken = await getAccessToken(authorizationCode);
+        console.log('Access Token:', accessToken);
+        res.send('Authorization code exchanged for access token');
+
+        // Close the server after responding
+        server.close(() => {
+          console.log('Server closed');
+          resolve(accessToken);
+        });
+      } catch (err) {
+        res.status(500).send('Error exchanging authorization code for access token');
+        reject(err);
+      }
+    });
+
+    server = app.listen(port, async () => {
+      console.log(`Server running at http://localhost:${port}`);
+
+      try {
+        await getAuthorizationCode();
+      } catch (err) {
+        console.error('Error:', err);
         reject(err);
       }
     });
