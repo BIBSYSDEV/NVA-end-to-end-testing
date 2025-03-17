@@ -111,7 +111,7 @@ Given('they select Resource Type "Book"', () => {});
 Given('they select Registration Subtype "Monograph"', () => {});
 
 //   Scenario: Creator adds an Creator to the list of Creators for Resource Type Chapter
-Given('they select the Resource Type', (dataTable) => {});
+Given('they select the Resource Type', (dataTable: DataTable) => {});
 Given('they select the Registration Subtype "Chapter in anthology"', () => {
   cy.get(`[data-testid=resource-type-chip-AcademicMonograph]`).click();
   cy.get('[data-testid=resource-type-chip-AcademicChapter]').click();
@@ -174,7 +174,7 @@ When('they click "Create new Author"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('New Author');
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
 });
-Then('they see fields:', (dataTable) => {
+Then('they see fields:', (dataTable: DataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.unverifiedContributorName}]`).should('be.visible');
 });
 Then('they see the "Create new Author" Button in the Create new Author Dialog', () => {

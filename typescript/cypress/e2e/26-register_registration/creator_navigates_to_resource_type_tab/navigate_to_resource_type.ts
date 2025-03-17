@@ -49,5 +49,5 @@ When('they click the Save button', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
 });
-Then('they can see "Mandatory" error messages for fields:', (dataTable) => {});
+Then('they can see "Mandatory" error messages for fields:', (dataTable: DataTable) => {});
 // | Type |

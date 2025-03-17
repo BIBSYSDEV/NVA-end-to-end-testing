@@ -139,7 +139,7 @@ Then('they they can add filter for fields:', (dataTable: DataTable) => {
 //  | Publication Year |
 Then('they can use the operators:', (dataTable: DataTable) => {
   // cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedOperatorSelect).click();
-  // dataTable.rawTable.forEach(value => {
+  // dataTable.raw().forEach(value => {
   //     cy.contains(value[0]);
   // })
 });

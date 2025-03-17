@@ -24,7 +24,7 @@ Given('the Institusion have Curators registered', () => {
 When("the Editor opens the institution's responsibility menu item", () => {
   cy.getDataTestId(dataTestId.editor.curatorsSettingsLinkButton).click();
 });
-Then('the Editor sees a list that contains', (dataTable) => {
+Then('the Editor sees a list that contains', (dataTable: DataTable) => {
   cy.get('table > tbody > tr > td').first().should('not.be.empty');
   cy.get('table > tbody > tr > td').first().next().should('not.be.empty');
 });
