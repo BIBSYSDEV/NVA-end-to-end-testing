@@ -41,7 +41,7 @@ const amplifyConfig = {
     userPoolWebClientId: clientId,
     loginWith: {
       oauth: {
-        scopes: ['openid', 'https://api.nva.unit.no/scopes/frontend', 'aws.cognito.signin.user.admin'],
+        scopes: ['openid', 'https://api.nva.unit.no/scopes/frontend'],
       },
     },
   },
