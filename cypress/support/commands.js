@@ -72,7 +72,7 @@ const getSecretValue = async (secretId) => {
   return response.SecretString;
 };
 
-async function getAuthorizationCode(userId) {
+const getAuthorizationCode = async (userId) => {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
@@ -99,7 +99,7 @@ async function getAuthorizationCode(userId) {
   return authorizationCode;
 }
 
-async function getAccessToken(authorizationCode) {
+const getAccessToken = async (authorizationCode) => {
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
   params.append('client_id', clientId);
@@ -148,7 +148,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
       try {
         const tokens = await getAccessToken(authorizationCode);
         const accessToken = tokens.access_token;
-        
+
         res.send('Authorization code exchanged for access token');
 
         // Close the server after responding
