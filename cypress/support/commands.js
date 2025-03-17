@@ -25,7 +25,6 @@ const cognitoDomain = 'nva-e2e.auth.eu-west-1.amazoncognito.com';
 const tokenUrl = `https://${cognitoDomain}/oauth2/token`;
 const secretId = 'TestUserPassword';
 
-const username = 'test-user-NVA-C@test.no';
 const scopes = 'openid https://api.nva.unit.no/scopes/frontend aws.cognito.signin.user.admin';
 
 AWS.config.update({
@@ -73,14 +72,14 @@ const getSecretValue = async (secretId) => {
   return response.SecretString;
 };
 
-async function getAuthorizationCode() {
+async function getAuthorizationCode(userId) {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
   await page.goto(loginUrl);
 
   await page.waitForSelector('#signInFormUsername');
-  await page.type('#signInFormUsername', username);
+  await page.type('#signInFormUsername', userId);
 
   await page.waitForSelector('#signInFormPassword');
 
@@ -167,7 +166,7 @@ Cypress.Commands.add('loginCognito', (userId) => {
       console.log(`Server running at http://localhost:${port}`);
 
       try {
-        await getAuthorizationCode();
+        await getAuthorizationCode(userId);
       } catch (err) {
         console.error('Error:', err);
         reject(err);
