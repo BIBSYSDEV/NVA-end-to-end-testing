@@ -1,3 +1,4 @@
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 // Feature: Setting categories with File Upload
 
 //     Institutions can restrict file upload to categories
@@ -11,7 +12,7 @@ Then('they see an option to set categories with File Upload', () => { });
 // Scenario: Administrator sets categories with file upload
 Given('a logged in Administrator', () => { });
 When('they open the institutions administration page', () => { });
-And('they remove the option to upload files to a category', () => { });
+When('they remove the option to upload files to a category', () => { });
 Then('a User can not upload files to Registrations in the chosen category', () => { });
 
 // Scenario: User start registration with file upload and is not able to chose a category with no file upload

@@ -2,7 +2,7 @@
 
 import { userPublishedRegistration } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { myRegistrations, myRegistrationsButtons } from '../../../support/data_testid_constants';
+import { myRegistrationsButtons } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 

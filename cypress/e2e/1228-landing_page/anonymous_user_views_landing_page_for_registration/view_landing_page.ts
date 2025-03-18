@@ -1,7 +1,8 @@
 import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { landingPageFields, landingPageShareButtons } from '../../../support/data_testid_constants';
+import { landingPageFields } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 const landing_page_registration_title = `View Landing Page ${uuid()}`;
 const fileName = 'example.txt';
@@ -64,7 +65,7 @@ Then('they see', (dataTable: DataTable) => {
 // | DOI link                        |
 // | Related Registrations           |
 // | License                         |
-And('they see sharing Buttons for:', (dataTable: DataTable) => {
+Then('they see sharing Buttons for:', (dataTable: DataTable) => {
   // cy.testDataTestidList(dataTable, landingPageShareButtons);
 });
 // | Email    |

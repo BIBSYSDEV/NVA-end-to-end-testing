@@ -1,6 +1,7 @@
 import { userCuratorWithAuthor, userEditRegistration, userEditor5, userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 // Feature; User edit registrations where they are not owner
 
@@ -35,7 +36,7 @@ When('they open the landing page for a Registration from own institution', () =>
         cy.get('p > a').first().click();
     });
 });
-And('they are not owner of the Registration', () => { });
+When('they are not owner of the Registration', () => { });
 Then('they have the option to edit the Registration', () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).should('be.visible');
 });
@@ -52,7 +53,7 @@ When('they open the landing page for a Registration', () => {
         cy.get('p > a').first().click();
     });
 });
-And('they are not owner of the Registration', () => { });
+When('they are not owner of the Registration', () => { });
 Then('they have the option to edit the Registration', () => { });
 
 // Scenario: Curator edit a Registration from own institution
@@ -97,7 +98,7 @@ Then('the Registration is opened in the Registration wizard', () => { });
 Given('a User is logged in', () => {
     cy.login(userEditRegistration);
 });
-And('they are not Curator or Editor', () => { });
+Given('they are not Curator or Editor', () => { });
 When('they open the landing page for a Registration where they are registred as a Contributor', () => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
@@ -106,7 +107,7 @@ When('they open the landing page for a Registration where they are registred as 
         cy.get('p > a').first().click();
     });
 });
-And('they are not owner of the Registration', () => { });
+When('they are not owner of the Registration', () => { });
 Then('they have the option to edit the Registration', () => { });
 
 
@@ -120,7 +121,7 @@ Given('a User open landing page for Registration where they are registred as a C
         cy.get('p > a').first().click();
     });
 });
-And('they are not Curator or Editor', () => { });
+Given('they are not Curator or Editor', () => { });
 When('they edit the Registration', () => { });
 Then('the Registration is opened in the Registration wizard', () => { });
 

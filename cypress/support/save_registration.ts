@@ -35,7 +35,7 @@ export const registrationFields = {
       type: 'search',
       fieldTestId: dataTestId.registrationWizard.description.vocabularyRow('hrcsActivity'),
       elementType: 'chip',
-      landingPageTestId: dataTestId.registrationLandingPage.vocabularies,
+      landingPageTestId: dataTestId.registrationLandingPage.keywords,
       value: 'Underpinning Research',
     },
     'date': {
@@ -64,7 +64,7 @@ export const registrationFields = {
     'tab': dataTestId.registrationWizard.stepper.filesStepButton,
     'file': {
       type: 'file',
-      fieldTestId: dataTestId.registrationWizard.files.filesAccordion,
+      fieldTestId: dataTestId.registrationWizard.files.fileRow,
       elementType: 'file',
       landingPageTestId: dataTestId.registrationLandingPage.filesAccordion,
       value: 'example.json',
@@ -73,7 +73,7 @@ export const registrationFields = {
       type: 'checkbox',
       fieldTestId: dataTestId.registrationWizard.files.version,
       elementType: 'radio',
-      landingPageTestId: dataTestId.registrationLandingPage.version,
+      landingPageTestId: dataTestId.registrationLandingPage.fileVersion,
       value: 'PublishedVersion',
       checkbox: {
         selected: 'last',
@@ -230,16 +230,16 @@ export const resourceTypeFields = {
     landingPageTestId: '',
     value: '555',
   },
-  peerReview: {
-    type: 'checkbox',
-    fieldTestId: dataTestId.registrationWizard.resourceType.peerReviewed,
-    elementType: 'radio',
-    landingPageTestId: '',
-    value: 'Yes',
-    checkbox: {
-      selected: 'first',
-    },
-  },
+  // peerReview: {
+  //   type: 'checkbox',
+  //   fieldTestId: dataTestId.registrationWizard.resourceType.peerReviewed,
+  //   elementType: 'radio',
+  //   landingPageTestId: '',
+  //   value: 'Yes',
+  //   checkbox: {
+  //     selected: 'first',
+  //   },
+  // },
   partOf: {
     type: 'search',
     fieldTestId: dataTestId.registrationWizard.resourceType.partOfField,
@@ -413,7 +413,7 @@ export const resourceTypeFields = {
   },
   exhibitionProductionMention: {
     type: 'add',
-    fieldTestId: dataTestId.registrationWizard.resourceType.addPublicationMentionButton,
+    fieldTestId: dataTestId.registrationWizard.resourceType.addMentionInPublicationButton,
     elementType: 'announcement',
     landingPageTestId: '',
     value: 'Test publication/mention',
@@ -427,23 +427,23 @@ export const resourceTypeFields = {
       selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
     },
   },
-  exhibitionProductionOtherPresentation: {
-    type: 'add',
-    fieldTestId: dataTestId.registrationWizard.resourceType.addExhibitionOtherPresentationButton,
-    elementType: 'announcement',
-    landingPageTestId: '',
-    value: 'Test exhibition other',
-    add: {
-      fields: {
-        [dataTestId.registrationWizard.resourceType.outputTypeField]: 'Test exhibition other',
-        [dataTestId.registrationWizard.resourceType.placeField]: 'Test other place',
-        [dataTestId.registrationWizard.resourceType.publisherNameField]: 'Test other publisher',
-        [dataTestId.registrationWizard.resourceType.outputDescriptionField]: 'Test other description',
-        [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
-      },
-      selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
-    },
-  },
+  // exhibitionProductionOtherPresentation: {
+  //   type: 'add',
+  //   fieldTestId: dataTestId.registrationWizard.resourceType.exhibitionOtherPresentationTypeField,
+  //   elementType: 'announcement',
+  //   landingPageTestId: '',
+  //   value: 'Test exhibition other',
+  //   add: {
+  //     fields: {
+  //       [dataTestId.registrationWizard.resourceType.outputTypeField]: 'Test exhibition other',
+  //       [dataTestId.registrationWizard.resourceType.placeField]: 'Test other place',
+  //       [dataTestId.registrationWizard.resourceType.publisherNameField]: 'Test other publisher',
+  //       [dataTestId.registrationWizard.resourceType.outputDescriptionField]: 'Test other description',
+  //       [dataTestId.registrationWizard.resourceType.outputInstantDateField]: '11.11.2021',
+  //     },
+  //     selectButtonTestId: dataTestId.registrationWizard.resourceType.artisticOutputSaveButton,
+  //   },
+  // },
   concert: {
     type: 'add',
     fieldTestId: dataTestId.registrationWizard.resourceType.addConcertShowButton,

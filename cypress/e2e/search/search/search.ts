@@ -3,6 +3,7 @@
 import { userPublishRegistration, userWithAuthor, userWithAuthor1 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 const visitStartPage = () => {
   cy.setLocalStorage('i18nextLng', 'eng');
@@ -97,7 +98,7 @@ Given('a User searches for Registrations', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('be.visible');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().should('contain.text', 'Search result');
 });
-When('they select the facet for {string}:', (facet) => {
+When('they select the facet for {string}:', (facet: string) => {
   const facets = {
     'Resource type': dataTestId.aggregations.typeFacets,
     'Institution': dataTestId.aggregations.institutionFacets,
@@ -118,7 +119,7 @@ Then('they see Registrations filtered with the chosen facet', () => {
       'Institution': 2,
       'Contributor': 1,
     };
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', resultCount[facet]);
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', resultCount[facet.toString()]);
   });
 });
 
@@ -153,7 +154,7 @@ Then('they they can add filter for fields:', (dataTable: DataTable) => {
 //  | Keywords |
 //  | Contributor |
 //  | Publication Year |
-And('they can use the operators:', (dataTable: DataTable) => {
+Then('they can use the operators:', (dataTable: DataTable) => {
   // cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedOperatorSelect).click();
   // dataTable.raw().forEach(value => {
   //     cy.contains(value[0]);
@@ -164,7 +165,7 @@ And('they can use the operators:', (dataTable: DataTable) => {
 
 // Scenario: A User filters a search result
 Given('a User searches for Registrations', () => {});
-And('they add a filter to the search', () => {
+Given('they add a filter to the search', () => {
   cy.getDataTestId(dataTestId.startPage.advancedSearch.activateFilterButton).click();
   cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedFieldSelect).click();
   cy.get('[data-value="title"]').click();

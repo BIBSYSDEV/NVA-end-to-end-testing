@@ -1,6 +1,7 @@
-import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { userEditor1 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+
 
 // Feature: Editor manages curators area of responsibility
 
@@ -22,7 +23,7 @@ Given('the Institusion have Curators registered', () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
 });
 When("the Editor opens the institution's responsibility menu item", () => {
-  cy.getDataTestId(dataTestId.editor.areaOfResponsibilityLinkButton).click();
+  cy.getDataTestId(dataTestId.editor.curatorsOverviewLinkButton).click();
 });
 Then('the Editor sees a list that contains', (dataTable: DataTable) => {
   cy.get('table > tbody > tr > td').first().should('not.be.empty');
@@ -33,19 +34,19 @@ Then('the Editor sees a list that contains', (dataTable: DataTable) => {
 // | Curator's affiliation                      |
 // | Curator's area of responsibility           |
 // | Option to add an area of responsibility    |
-And('an option to add rights to edit thesis', () => {});
+Then('an option to add rights to edit thesis', () => {});
 
 // Scenario: Editor activates a Curator in the list
 Given('Editor views curators and area of responsibility', () => {});
 When('the Editor hovers over a Curator in the list', () => {});
 Then('the list item is highlighted', () => {});
-And('the add-"area of responsibility" option is made larger to simplify use', () => {});
+Then('the add-"area of responsibility" option is made larger to simplify use', () => {});
 
 // Scenario: Editor hovers over an ORCID icon
 Given('Editor views curators and area of responsibility', () => {});
 When('the Editor hovers over an ORCID icon', () => {});
 Then('the 16 digit ORCID ID is viewed \\(formatted as "0000-0000-0000-0000")', () => {});
-And('the viewed ID must be possible to copy', () => {});
+Then('the viewed ID must be possible to copy', () => {});
 
 // Scenario: Editor hovers over a "See more"-option in the list
 Given('Editor views curators and area of responsibility', () => {});
@@ -56,7 +57,7 @@ Then("the Curator's entire list of area of responsibility is displayed", () => {
 Given('Editor activates a Curator in the list', () => {});
 When('the Editor uses the option to edit an Curators area of responsibility', () => {});
 Then("the Institution's sub-units is displayed", () => {});
-And('any current area of responsibility is selected', () => {});
+Then('any current area of responsibility is selected', () => {});
 
 // Scenario: Editor aborts the edit of an Curators area of responsibility
 Given('Editor edit an Curators area of responsibility', () => {});

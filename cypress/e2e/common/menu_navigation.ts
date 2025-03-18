@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { dataTestId } from '../../support/dataTestIds';
 
 When('they click the menu item My user profile', () => {

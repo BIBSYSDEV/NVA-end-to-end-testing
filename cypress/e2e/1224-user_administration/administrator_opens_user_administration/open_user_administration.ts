@@ -7,6 +7,7 @@ import {
   userAdministrationAddRoleButtons,
   userAdministrationPagination,
 } from '../../../support/data_testid_constants';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 const roleSearchTerms = {
   'Administrator': 'Second Institution Curator',
@@ -16,12 +17,12 @@ const roleSearchTerms = {
 
 // Feature: Administrator opens user administration
 // Common steps
-And('they see the number of items viewed per page', () => {
+Then('they see the number of items viewed per page', () => {
   cy.get('@listControls').within(() => {
     cy.get('[class^=MuiTablePagination-select]').contains('5');
   });
 });
-And('they can change the number of items viewed per page', () => {
+Then('they can change the number of items viewed per page', () => {
   cy.get('@listControls').within(() => {
     cy.get('[class^=MuiTablePagination-select]').last().click();
   });
@@ -33,22 +34,22 @@ And('they can change the number of items viewed per page', () => {
     });
   cy.get('[role=listbox]').contains('5').click();
 });
-And('they see the number of items viewed of the total amount of items', () => {
+Then('they see the number of items viewed of the total amount of items', () => {
   cy.get('@listControls').within(() => {
     cy.get('.MuiToolbar-root > .MuiTablePagination-displayedRows').should('be.visible');
   });
 });
-And('they see that previous page of items is disabled', () => {
+Then('they see that previous page of items is disabled', () => {
   cy.get('@listControls').within(() => {
     cy.get('[class=MuiTablePagination-actions] > button').first().should('be.disabled');
   });
 });
-And('they can select next page of items', () => {
+Then('they can select next page of items', () => {
   cy.get('@listControls').within(() => {
     cy.get('[class=MuiTablePagination-actions] > button').last().should('be.enabled');
   });
 });
-When('they click {string} under {string}', (button, section) => {
+When('they click {string} under {string}', (button: string, section) => {
   cy.wrap(button).as('button');
   cy.wrap(section).as('section');
   cy.get(`[data-testid=${userAdministrationButtons[button]}]`).click();
@@ -68,9 +69,9 @@ When('they click the menu item Users', () => {
 Then('they see the User Administration page', () => {
   cy.location('pathname').should('equal', '/basic-data/person-register');
 });
-And(
+Then(
   'they see that Section {string} lists all users affiliated with their institution with role {string}',
-  (section, role) => {
+  (section: string, role: string) => {
     cy.wrap(section).as('section');
     cy.wrap(role).as('role');
     cy.get(`[data-testid=${userAdministrationSections[section]}]`).should('exist').and('be.visible');
@@ -80,11 +81,11 @@ And(
     });
   }
 );
-And('they see a Button {string}', (button) => {
+Then('they see a Button {string}', (button: string) => {
   cy.get(`[data-testid=${userAdministrationButtons[button]}]`).should('exist').and('be.visible');
 });
-And('they see that the list has the fields "Username" and "Name" for each user', () => {
-  cy.get('@section').then((section) => {
+Then('they see that the list has the fields "Username" and "Name" for each user', () => {
+  cy.get('@section').then((section: any) => {
     cy.get(`[data-testid=${userAdministrationSections[section]}]`).within(() => {
       cy.get('tbody > tr').each((user_line) => {
         cy.wrap(user_line).within(() => {
@@ -94,12 +95,12 @@ And('they see that the list has the fields "Username" and "Name" for each user',
     });
   });
 });
-And('they see a button "Remove" that is enabled for each user', () => {
-  cy.get('@role').then((role) => {
+Then('they see a button "Remove" that is enabled for each user', () => {
+  cy.get('@role').then((role: any) => {
     cy.get(`[data-testid^=${userAdministrationRemoveRoleButtons[role]}]`).should('have.length', 5);
   });
 });
-And('they see a section Registrator with a policy for who are able to publish', () => {
+Then('they see a section Registrator with a policy for who are able to publish', () => {
   cy.get(`[data-testid=${dataTestId.myInstitutionUsersPage.usersCreators}]`).should('be.visible');
   cy.get('[data-testid=checkbox-assign-creators]').should('be.visible');
 });
@@ -122,20 +123,20 @@ Then('they see the Add Role Dialog', () => {
     cy.get('[data-testid^=user-pagination]').as('listControls');
   });
 });
-And('they see an Information box', () => {
+Then('they see an Information box', () => {
   cy.get('[data-testid=add-role-info]').should('be.visible');
 });
-And('they see an input field to Search for employees', () => {
+Then('they see an input field to Search for employees', () => {
   cy.get('[data-testid=add-role-search-box]').should('be.visible');
 });
-And('they see a list of employees with an "Add" button', () => {
+Then('they see a list of employees with an "Add" button', () => {
   cy.get('@roleModal').within(() => {
-    cy.get('@button').then((button) => {
+    cy.get('@button').then((button: any) => {
       cy.get(`[data-testid^=${userAdministrationAddRoleButtons[button]}]`).should('have.length.at.least', 1);
     });
   });
 });
-And('they see a "Close" button', () => {
+Then('they see a "Close" button', () => {
   cy.get('[data-testid=add-role-close-button]').should('be.visible');
 });
 // Examples:
@@ -153,15 +154,15 @@ Given('Administrator opens the Add Role Dialog', () => {
 });
 When('they enter text into the Search field', () => {
   cy.get('@section').then((section) => {
-    cy.get('[data-testid=add-role-search-box]').type(roleSearchTerms[section]);
+    cy.get('[data-testid=add-role-search-box]').type(roleSearchTerms[section.toString()]);
   });
 });
 Then('they see a list of employees matching the search with an "Add" button', () => {
   cy.get('@section').then((section) => {
     cy.get('[data-testid=add-role-modal]').within(() => {
       cy.get('tbody').within(() => {
-        cy.get('tr').each((user) => {
-          cy.get(user).contains(roleSearchTerms[section]);
+        cy.get('tr').each((user: any) => {
+          cy.get(user).contains(roleSearchTerms[section.toString()]);
           cy.get(user).within(() => {
             cy.get('[data-testid^=button-add-role]');
           });
@@ -180,7 +181,7 @@ Then('they see a list of employees matching the search with an "Add" button', ()
 // Scenario: Administrator grants an Employee a role
 When('they click "Add" Button for an Employee', () => {
   cy.get('@section').then((section) => {
-    cy.get('[data-testid=add-role-search-box]').type(roleSearchTerms[section]);
+    cy.get('[data-testid=add-role-search-box]').type(roleSearchTerms[section.toString()]);
     cy.get('[data-testid=add-role-modal]').within(() => {
       cy.get('tbody').within(() => {
         cy.get('tr')
@@ -195,7 +196,7 @@ When('they click "Add" Button for an Employee', () => {
 Then('they see a confirmation message', () => {
   cy.get('[data-testid=snackbar-success]');
 });
-And('they see that the clicked "Add" button is disabled', () => {
+Then('they see that the clicked "Add" button is disabled', () => {
   cy.get('@section').then((section) => {
     cy.get('[data-testid=add-role-modal]').within(() => {
       cy.get('tbody').within(() => {
@@ -238,7 +239,7 @@ Then('they see that each Curator has a "Scope" field', () => {
     });
   });
 });
-And('the "Scope" field is a dropdown containing all levels of their Institution', () => {
+Then('the "Scope" field is a dropdown containing all levels of their Institution', () => {
   cy.get(`[data-testid=${dataTestId.myInstitutionUsersPage.usersCurators}] > table > tbody > tr`).each((row) => {
     cy.wrap(row).within(() => {
       cy.get('[data-testid=area-of-responsibility-field]').click();
@@ -259,12 +260,12 @@ When('they click on the Scope dropdown for a Curator', () => {
       cy.get('[data-testid=area-of-responsibility-field]').click();
     });
 });
-And('they select an Institution or subunit', () => {
+When('they select an Institution or subunit', () => {
   cy.contains('Mock department 1').click();
 });
 Then('the dropdown is closed', () => {
   cy.contains('Mock department 2').should('not.exist');
 });
-And('they see a confirmation message that the Scope was updated', () => {
+Then('they see a confirmation message that the Scope was updated', () => {
   cy.contains('Updated user');
 });

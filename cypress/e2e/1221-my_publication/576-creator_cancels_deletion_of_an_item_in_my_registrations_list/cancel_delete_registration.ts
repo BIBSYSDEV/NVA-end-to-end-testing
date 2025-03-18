@@ -1,6 +1,6 @@
 import { userCancelDelete } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 // Feature: Creator cancels deletion of an item in My Registrations list
 

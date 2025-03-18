@@ -3,7 +3,8 @@
 import { userCurator, userPublishNoRights, userPublishRegistration } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
-import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { Before, Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+
 
 const fileName = 'example.txt';
 const title = `Curator published registration`;
@@ -17,7 +18,7 @@ Then('the Registration is Published', () => {
   cy.wait(15000)
   cy.reload();
   cy.get('@workflow').then((workflow) => {
-    if (workflow === curatorPublishesWorkflow) {
+    if (workflow.toString() === curatorPublishesWorkflow) {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
         cy.contains('Publishing request - Published');
       });
@@ -83,7 +84,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
   })
 });
-And('the Registration has a Publishing Request', () => {
+Given('the Registration has a Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).should('exist');
 });
 When('they approve the Publishing Request', () => {
@@ -91,7 +92,7 @@ When('they approve the Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).should('not.exist');
 
 });
-And('all files are Published', () => {
+Then('all files are Published', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.fileVersion).within(() => {
     cy.contains('Published version');
   });
@@ -128,7 +129,7 @@ Given('they opens the Landing Page of a Registration', () => {
     })
   });
 });
-And('the Registration has a Publishing Request', () => {
+Given('the Registration has a Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).should('exist');
 });
 When('they reject the Publishing Request', () => {
@@ -137,7 +138,7 @@ When('they reject the Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.rejectionDialogConfirmButton).should('be.enabled');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.rejectionDialogConfirmButton).click();
 });
-Then('the Registration is {string}', (registrationStatus) => {
+Then('the Registration is {string}', (registrationStatus: string) => {
   const status = {
     'Published': 'file rejected',
     'Draft': 'Publishing request - Draft',
@@ -146,7 +147,7 @@ Then('the Registration is {string}', (registrationStatus) => {
     cy.contains(status[registrationStatus]);
   })
 });
-And('all files are {string}', (fileStatus) => { });
+Then('all files are {string}', (fileStatus) => { });
 // Examples:
 //   | Workflow                              | RegistrationStatus | FileStatus  |
 //   | Registrator can only publish metadata | Published          | Unpublished |
@@ -170,8 +171,8 @@ Given('that a Curator views their Worklist', () => {
   cy.get('[value=BIBSYS]');
   // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
 });
-And('they have selected the DOI Requests tab', () => { });
-And('they have expanded an Message', () => {
+Given('they have selected the DOI Requests tab', () => { });
+Given('they have expanded an Message', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${doiRequestTitle}{enter}`, { delay: 0 });
   cy.contains(doiRequestTitle).click();
@@ -179,17 +180,17 @@ And('they have expanded an Message', () => {
 When('they click "Go to registration"', () => {
 });
 Then("they see the Landing Page for the DOI Request's Registration", () => { });
-And('the Create DOI button is enabled', () => {
+Then('the Create DOI button is enabled', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).should('be.enabled');
 });
-And('the Decline DOI button is enabled', () => {
+Then('the Decline DOI button is enabled', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).should('be.enabled');
 });
 
 //   Scenario: Curator Approves a DOI Request
 Given('a Curator opens the Landing Page of a Registration', () => { });
-And('the Registration is Published', () => { });
-And('the Registration has a DOI Request', () => {
+Given('the Registration is Published', () => { });
+Given('the Registration has a DOI Request', () => {
 });
 When('they approve the DOI Request', () => {
   cy.wait(30000);
@@ -198,7 +199,7 @@ When('they approve the DOI Request', () => {
   cy.get('@registrationTitle').then(searchTitle => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
-    cy.contains(searchTitle, { timeout: 30000 }).click();
+    cy.contains(searchTitle.toString(), { timeout: 30000 }).click();
   });
   cy.wait(15000);
   cy.reload();
@@ -222,8 +223,8 @@ Then('the DOI is findable', () => {
 
 //   Scenario: Curator Rejects a DOI Request
 Given('a Curator opens the Landing Page of a Registration', () => { });
-And('the Registration is Published', () => { });
-And('the Registration has a DOI Request', () => { });
+Given('the Registration is Published', () => { });
+Given('the Registration has a DOI Request', () => { });
 When('they reject the DOI Request', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -231,7 +232,7 @@ When('they reject the DOI Request', () => {
   cy.get('@registrationTitle').then(searchTitle => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
-    cy.contains(searchTitle).click();
+    cy.contains(searchTitle.toString()).click();
   })
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).parent().parent().within(() => {

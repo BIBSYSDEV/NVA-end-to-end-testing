@@ -1,5 +1,6 @@
 import { userEditor4 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 // Feature: Editor decide on institutions Vocabulary settings
 
@@ -31,7 +32,7 @@ Given('a logged in Editor', () => {
 Given('Editor opens Editor Administration', () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
 });
-And('they see Vocabulary settings', () => {
+Given('they see Vocabulary settings', () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.vocabularyLinkButton).click();
 });

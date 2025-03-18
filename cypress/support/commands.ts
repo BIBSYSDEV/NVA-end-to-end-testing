@@ -53,13 +53,14 @@ const secretsManager = new SecretsManagerClient({
 
 const passwords = {};
 
-const pad = (value) => `0${value}`.slice(-2);
+const pad = (value: string) => `0${value}`.slice(-2);
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
 const date = new Date();
-export const formatedToday = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
+export const currentYear = date.getFullYear().toString();
+export const formatedToday = `${pad(date.getDate().toString())}.${pad(new Number(date.getMonth() + 1).toString())}.${currentYear}`;
 export const todayDatePicker = () => {
   const date = new Date();
-  const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
+  const dateValue = `${pad(date.getDate().toString())}.${pad(new Number(date.getMonth() + 1).toString())}.${date.getFullYear()}`;
   return dateValue;
 };
 
@@ -122,16 +123,6 @@ Cypress.Commands.add('login', (userId: string) => {
       password: Cypress.env('DEVPASSWORD'),
     },
   });
-});
-
-Cypress.Commands.add('startRegistrationWithFile', (fileName) => {
-  cy.getDataTestId(dataTestId.header.newRegistrationLink).click({
-    force: true,
-  });
-  cy.getDataTestId(dataTestId.registrationWizard.new.fileAccordion).click({
-    force: true,
-  });
-  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
 });
 
 Cypress.Commands.add('startWizardWithFile', (fileName) => {

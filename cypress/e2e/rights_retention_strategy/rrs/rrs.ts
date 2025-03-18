@@ -2,6 +2,7 @@
 
 import { userAdminRRS, userAuthorRRS } from "../../../support/constants";
 import { dataTestId } from "../../../support/dataTestIds";
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 const filename = 'example.txt';
 
@@ -12,7 +13,7 @@ Given('User is Editor', () => {
 When('they open the settings Page', () => {
     cy.getDataTestId(dataTestId.header.editorLink).click();
 });
-And('choose Publishing strategy', () => {
+When('choose Publishing strategy', () => {
     cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
     cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
 });
@@ -49,10 +50,10 @@ Then('they need to add a link to the institutions page about rights policy', () 
     cy.getDataTestId(dataTestId.editor.rrsSaveButton).should('not.be.disabled');
     cy.getDataTestId(dataTestId.editor.rrsLink).type('http://test.no');
 });
-And('they can set that Registrars can waive RRS', () => {
+Then('they can set that Registrars can waive RRS', () => {
     cy.getDataTestId(dataTestId.editor.rrsOverride).should('be.visible');
 });
-And('save the Rights retention strategy', () => {
+Then('save the Rights retention strategy', () => {
     cy.getDataTestId(dataTestId.editor.rrsSaveButton).click();
     cy.getSuccess();
 });
@@ -61,7 +62,7 @@ And('save the Rights retention strategy', () => {
 Given('User registers Registration with RRS activated', () => {
     const title = 'RRS file version';
     cy.login(userAuthorRRS);
-    cy.startWizardWithEmptyRegistration(filename);
+    cy.startWizardWithEmptyRegistration();
     cy.createValidRegistration(filename, title, 'Not set');
 });
 When('they set the file version to Accepted', () => {
@@ -90,7 +91,7 @@ Then('License is not automatically set', () => {
 
 //   Scenario Outline: User changes version for file
 Given('user registers Registration with RRS activated', () => { });
-And('the file version is set to {string}', (initialVersion) => {
+Given('the file version is set to {string}', (initialVersion) => {
     cy.getDataTestId(dataTestId.registrationWizard.files.version).within(() => {
         switch (initialVersion) {
             case 'Accepted':

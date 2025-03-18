@@ -1,7 +1,7 @@
 import { userCurator, userDraftDoi, userPublishNoRights } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { Before, Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 const fileName = 'example.txt';
 const title = `Publication - `;
@@ -46,7 +46,7 @@ When("the Owner previews the Resource's Landing Page", () => {
   cy.createValidRegistration(fileName, `${title} ${uuid()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
-And('the Registraion has "Draft" Status', () => {
+When('the Registraion has "Draft" Status', () => {
   cy.contains('file and selected license are waiting to be verified');
 });
 Then('they see a "Publish" option', () => {
@@ -55,8 +55,8 @@ Then('they see a "Publish" option', () => {
 
 // Scenario: Owner wants to publish their Resource, pending Approval
 // When("the Owner previews the Resource's Landing Page", () => {});
-And('the Registration has "Draft" Status', () => { });
-And('there is a pending Approval Request on the Resource', () => {
+Given('the Registration has "Draft" Status', () => { });
+Given('there is a pending Approval Request on the Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
   cy.wait(15000);
@@ -67,7 +67,7 @@ Then('they see a "Publishing pending" notice', () => {
   cy.contains('Result published');
   cy.contains(('1 file published')).should('not.exist');
 });
-And('the user is informed that progress can be viewed in My Messages', () => { });
+Then('the user is informed that progress can be viewed in My Messages', () => { });
 
 // Scenario: Owner wants to publish Resource, all restrictions
 Given('Institutions publications policy is "Only Curator can publish"', () => {
@@ -84,12 +84,12 @@ Then('the Owner see a Landing Page with an Unpublished Resource', () => {
     cy.contains('Publishing request - Draft');
   });
 });
-And('an Approval Request is sent to his Curator', () => {
+Then('an Approval Request is sent to his Curator', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.contains(title);
 });
-And(
+Then(
   'the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages',
   () => { }
 );
@@ -107,16 +107,16 @@ When('the Owner uses the Publish option', () => {
 Then('the Owner sees a Landing Page with a Published Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
 });
-And("the Resource's status is Published", () => {
+Then("the Resource's status is Published", () => {
   cy.wait(15000);
   cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-    cy.contains('Published metadata', { timeOut: 20000 });
+    cy.contains('Published metadata', { timeout: 20000 });
   });
 });
-And("the Resource's files, license and embargo date are locked with a pending approval notification", () => { });
-And('the number of files is visible', () => { });
-And('an Approval Request is sent to the Curator', () => {
+Then("the Resource's files, license and embargo date are locked with a pending approval notification", () => { });
+Then('the number of files is visible', () => { });
+Then('an Approval Request is sent to the Curator', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
@@ -126,7 +126,7 @@ And('an Approval Request is sent to the Curator', () => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.contains(title);
 });
-And(
+Then(
   'the Owner is notified that an Approval Request is sent to the Curator and progress can be viewed in My Messages',
   () => { }
 );
@@ -139,7 +139,7 @@ Given('Institutions publications policy is "Registrator has full publishing righ
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 Then('the Resource\'s status is "Published"', () => { });
-And('the Owner sees a Landing Page with a Published Resource', () => {
+Then('the Owner sees a Landing Page with a Published Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
     cy.contains('Publishing request - Published');
   });
@@ -153,12 +153,12 @@ When('the Creator navigates to the Landing Page', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
-And('the Resource has Validation Errors', () => {
+When('the Resource has Validation Errors', () => {
   cy.getDataTestId('tasks-panel').within(() => {
     cy.getDataTestId('ErrorIcon');
   });
 });
-And('the Resource is a draft', () => {
+When('the Resource is a draft', () => {
   cy.getDataTestId('tasks-panel').within(() => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('be.disabled');
   });
@@ -166,6 +166,6 @@ And('the Resource is a draft', () => {
 Then('they see a List of all Validation Errors for the Resource', () => {
   cy.getDataTestId('ErrorIcon').should('be.visible');
 });
-And('they see a "Edit registration" button', () => {
+Then('they see a "Edit registration" button', () => {
   cy.getDataTestId('back-to-wizard-button').should('be.visible');
 });

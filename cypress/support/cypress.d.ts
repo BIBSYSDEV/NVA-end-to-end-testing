@@ -17,8 +17,6 @@ declare global {
        */
       getDataTestId(dataTestId: string, options?: any): Chainable<JQuery<HTMLElement>>;
 
-      startRegistrationWithFile(fileName: string): void;
-      startWizardWithFile(fileName: string): void;
       startRegistrationWithLink(doiLink: string): void;
       startWizardWithLink(doiLink: string): void;
       startWizardWithEmptyRegistration(): void;

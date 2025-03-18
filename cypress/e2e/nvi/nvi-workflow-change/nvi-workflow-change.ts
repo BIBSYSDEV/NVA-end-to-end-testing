@@ -2,6 +2,7 @@
 
 import { userChangeNviCuratorInstitutionA } from "../../../support/constants";
 import { dataTestId } from "../../../support/dataTestIds";
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 const unidentifiedContributor = 'Change User NVI-institution A TestUser'
 let titleRoot = ''
@@ -11,10 +12,10 @@ Given('a curator opens a Result that is a NVI-candidate with an unidentified con
     cy.login(userChangeNviCuratorInstitutionA)
     titleRoot = 'Change from unidentified to identified'
 });
-And('the Result is {string} registration', (source) => {
+Given('the Result is {string} registration', (source) => {
     cy.wrap(source).as('source');
 });
-And('the Result is {string}', (collaboration) => {
+Given('the Result is {string}', (collaboration) => {
     cy.get('@source').then((source) => {
         const title = `${titleRoot} ${source} ${collaboration}`;
         cy.wrap(title).as('title');
@@ -38,7 +39,7 @@ When('the curator changes a contributor from unidentified to identified', () => 
     });
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
 });
-And('saves the changes', () => {
+When('saves the changes', () => {
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
@@ -48,7 +49,7 @@ Then('the Result is a NVI-candidate', () => {
         cy.getDataTestId(dataTestId.header.tasksLink).click();
         cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-        cy.getNVIWorklistItem(title);
+        cy.getNVIWorklistItem(title.toString());
     });
 });
 

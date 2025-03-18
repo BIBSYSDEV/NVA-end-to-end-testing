@@ -3,7 +3,7 @@
 import { userDOICuratorMessages, userDOIMessages, userPublicationCuratorMessages, userPublicationMessages, userSupportCuratorMessages, userSupportMessages } from '../../../support/constants';
 import { v4 as uuidv4 } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
-import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 const PUBLISHING_CURATOR = 'Publish-curator';
 const DOI_CURATOR = 'DOI-curator';

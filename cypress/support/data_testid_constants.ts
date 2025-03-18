@@ -76,8 +76,7 @@ export const userAdministrationRemoveRoleButtons = {
 export const myInstitutionFields = {
   'Name in organization registry': dataTestId.organization.searchField,
   'Display name': dataTestId.basicData.institutionAdmin.displayNameField,
-  'Short display name': dataTestId.basicData.institutionAdmin.shortNameField,
-  'Archive name': dataTestId.basicData.institutionAdmin.archiveNameField,
+  'Short display name': dataTestId.basicData.institutionAdmin.nameField,
 };
 
 export const myinstitutionfieldsTestvalue = {
@@ -133,7 +132,6 @@ export const journalSubtypes = {
 
 export const journalFields = {
   'Article number': 'article-number-field',
-  Content: dataTestId.registrationWizard.resourceType.contentField,
   DOI: 'doi-field',
   Issue: 'issue-field',
   Journal: dataTestId.registrationWizard.resourceType.journalField,
@@ -347,7 +345,7 @@ export const musicOtherWorksField = {
 export const musicConcertDetails = {
   // 'Part of a series/tour': dataTestId.registrationWizard.resourceType.concertProgramTour,
   Place: dataTestId.registrationWizard.resourceType.placeField,
-  Date: dataTestId.registrationWizard.resourceType.concertDate,
+  Date: dataTestId.registrationWizard.resourceType.outputInstantDateField,
   Extent: dataTestId.registrationWizard.resourceType.artisticOutputDuration,
   Works: dataTestId.registrationWizard.resourceType.concertAddWork,
 };
@@ -552,14 +550,14 @@ export const fileFields = {
 };
 
 export const landingPageFields = {
-  Title: dataTestId.registrationLandingPage.registrationSubtype,
+  Title: dataTestId.registrationLandingPage.title,
   Abstract: dataTestId.registrationLandingPage.abstractAccordion,
   NPI: dataTestId.registrationLandingPage.npi,
   Keywords: dataTestId.registrationLandingPage.keywords,
   'Publication date': dataTestId.registrationLandingPage.generalInfo,
   'Primary language': dataTestId.registrationLandingPage.primaryLanguage,
   Projects: dataTestId.registrationLandingPage.projectsAccordion,
-  'Registration subtype': dataTestId.registrationLandingPage.registrationSubtype,
+  'Registration subtype': dataTestId.registrationLandingPage.subtypeFields,
   'Fields corresponding to subtype': dataTestId.registrationLandingPage.subtypeFields,
   Contributors: dataTestId.registrationLandingPage.contributors,
   Files: dataTestId.registrationLandingPage.filesAccordion,
@@ -573,10 +571,6 @@ export const landingPageButtons = {
 };
 
 export const landingPageShareButtons = {
-  Email: dataTestId.registrationLandingPage.emailButton,
-  Facebook: dataTestId.registrationLandingPage.facebookButton,
-  LinkedIn: dataTestId.registrationLandingPage.linkedInButton,
-  Twitter: dataTestId.registrationLandingPage.twitterButton,
 };
 
 export const contributorTypes = {

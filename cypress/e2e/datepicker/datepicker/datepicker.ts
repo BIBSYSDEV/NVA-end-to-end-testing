@@ -1,6 +1,7 @@
-import { Before } from "cypress-cucumber-preprocessor/steps";
 import { userWithAuthor } from "../../../support/constants"
 import { dataTestId } from "../../../support/dataTestIds";
+import { Before, Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+
 // Feature: test datepicker - mobile
 
 Before(() => {

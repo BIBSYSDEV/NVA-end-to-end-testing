@@ -1,9 +1,9 @@
 // Feature: Scenarios for Result portifolio
 
-import { Before } from 'cypress-cucumber-preprocessor/steps';
 import { userEditor, userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
+import { Given, When, Then, Before, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 const portifolios = new Map([
   ['Published Results', dataTestId.editor.resultsPortfolioPublishedCheckbox],
@@ -13,19 +13,17 @@ const portifolios = new Map([
 
 const fileName = 'example.txt';
 
-const selectPortifolio = (portifolio) => {
+const selectPortifolio = (portifolio: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  portifolios.keys().forEach((key) => {
-    cy.getDataTestId(portifolios.get(key)).then(($element) => {
+  portifolios.forEach((value, key) => {
+    cy.getDataTestId(value).then(($element) => {
       if (key === portifolio) {
         cy.log('Select');
-        cy.log($element.find('[data-testid="CheckBoxOutlineBlankIcon"]').length);
         if ($element.find('[data-testid="CheckBoxOutlineBlankIcon"]').length > 0) {
           cy.getDataTestId(portifolios.get(key)).click();
         }
       } else {
         cy.log('Unselect');
-        cy.log($element.find('[data-testid="CheckBoxOutlineBlankIcon"]').length);
         if ($element.find('[data-testid="CheckBoxIcon"]').length > 0) {
           cy.getDataTestId(portifolios.get(key)).click();
         }
@@ -86,7 +84,7 @@ When('they view the Result portifolio', () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
 });
-Then('they can see:', (table) => {
+Then('they can see:', (table: DataTable) => {
   table.raw().forEach((data) => {
     selectPortifolio(data[0]);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');

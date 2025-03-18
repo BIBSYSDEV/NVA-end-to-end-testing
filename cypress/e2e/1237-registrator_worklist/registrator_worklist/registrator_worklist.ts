@@ -1,6 +1,7 @@
 import { unreadUserMessages, userMessages, collaborationCuratorBIBSYS } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
+import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 // Feature: Registrator worklist
 
 const doiRequests = 'DoiRequests';
@@ -80,7 +81,7 @@ When('they click the menu item My Messages', () => {
 Then('they see the My Messages page', () => {
   cy.location('pathname').should('contain', 'my-messages');
 });
-And('they see a list of messages with fields:', (dataTable: DataTable) => {
+Then('they see a list of messages with fields:', (dataTable: DataTable) => {
   const elements = {
     'Registration title': () => {
       return cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > div > p`).should('not.be.empty');
@@ -94,13 +95,13 @@ And('they see a list of messages with fields:', (dataTable: DataTable) => {
       .first()
       .parent()
       .within(() => {
-        elements[element]();
+        elements[element[0]]();
       });
   });
 });
 //             | Registration title |
 //             | Date               |
-And("they see that items' status is one of:", (dataTable: DataTable) => {
+Then("they see that items' status is one of:", (dataTable: DataTable) => {
   cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).click({ force: true });
 
   dataTable.raw().forEach((element) => {
@@ -112,7 +113,7 @@ And("they see that items' status is one of:", (dataTable: DataTable) => {
 //             | DoiRequests      | Approved, Rejected, Requested |
 //             | Publishing Requests | Approved, Rejected, Requested |
 //             | Support Requests | Pending, Resolved             |
-And('they see that each item in the list is expandable', () => {});
+Then('they see that each item in the list is expandable', () => {});
 
 //     Scenario: Creator opens a Registration with a DOI request
 Given('that the Creator Opens a DOI request entry from My Messages', () => {
@@ -141,18 +142,18 @@ Then('the Registration is opened in the Wizard on the first tab', () => {
 Given('that a User is logged in as Creator', () => {
   cy.login(userMessages);
 });
-And('they open My Messages page', () => {
+Given('they open My Messages page', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.wait(1000);
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 });
-And('they open a DOI request item in the Messages list', () => {
+Given('they open a DOI request item in the Messages list', () => {
   filterMessages(supportRequests);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
 });
-And('they see previous messages between Creator and Curator\\(s)', () => {
+Given('they see previous messages between Creator and Curator\\(s)', () => {
   cy.contains('Support message');
 });
 When('they enter a new message', () => {});
-And('they click the Send Answer button', () => {});
+When('they click the Send Answer button', () => {});
 Then('they see that the new message is added to the Messages list', () => {});

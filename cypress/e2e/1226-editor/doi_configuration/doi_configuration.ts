@@ -1,4 +1,4 @@
-import { Before } from 'cypress-cucumber-preprocessor/steps';
+import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 import { userEditor2 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
@@ -32,19 +32,19 @@ When("the Editor opens the institution's DOI configuration menu item", () => {
   cy.getDataTestId(dataTestId.editor.doiLinkButton).click();
 });
 Then('the Editor sees a link to Sikt to order DOI service', () => {});
-And('some other text informing about the DOI service', () => {});
+Then('some other text informing about the DOI service', () => {});
 
 // Scenario: Editor opens institutions DOI configuration
 Given('the Institution has an DOI configuration', () => {});
 When("the Editor opens the institution's DOI configuration menu item", () => {});
 Then('the Editor sees following information', (dataTable: DataTable) => {
-  dataTable.raw().forEach((value) => {
+  dataTable.raw().forEach((value: string[]) => {
     cy.contains(doiInformation[value[0]].title);
     cy.contains(doiInformation[value[0]].value, { matchCase: false });
   });
 });
 // | DataCite Member ID |
 // | Institutions DOI prefix |
-And('some other text informing about the DOI service', () => {
+Then('some other text informing about the DOI service', () => {
   cy.contains('Digital Object Identifier (DOI) is a persistent identifier.');
 });

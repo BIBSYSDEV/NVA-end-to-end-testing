@@ -1,9 +1,8 @@
 import { userWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid} from 'uuid';
 
-const stage = Cypress.env('STAGE') ?? 'dev';
 const fileName = 'example.txt';
 
 Given('the Creator publishes Publication', () => {
