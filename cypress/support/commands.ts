@@ -13,6 +13,7 @@ import { registrationFields } from './save_registration';
 import { mockPersonFeideIdSearch, mockPersonNameSearch } from './mock_data';
 import { userSecondEditor } from './constants';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { createValidRegistrationWithType } from './create_registration';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');

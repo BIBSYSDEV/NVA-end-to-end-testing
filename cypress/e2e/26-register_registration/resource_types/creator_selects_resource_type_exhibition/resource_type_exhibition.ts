@@ -96,17 +96,9 @@ Then('they can add information of type:', (dataTable: DataTable) => {
 //             | Other information |
 
 //     Scenario: Creator adds ExhibitionOtherPresentation to an ExhibitionProduction
-Given('Creator selects Resource type ExhibitionProduction', () => {});
 When('the add an ExhibitionOtherPresentation', () => {});
-Then('they can add information of type:', (dataTable: DataTable) => {});
-//             | Type        |
-//             | Place       |
-//             | Publisher   |
-//             | Description |
-//             | Date        |
 
 //     Scenario: Creator adds ExhibitionCatalog to an ExhibitionProduction
-Given('Creator selects Resource type ExhibitionProduction', () => {});
 When('the add an ExhibitionCatalog', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.addExhibitionCatalogButton).click();
 });
@@ -115,11 +107,6 @@ Then('they can search for, and add, an published ExhibitionCatalog', () => {
 });
 
 //     Scenario: Creator adds ExhibitionBasic to an ExhibitionProduction
-Given('Creator selects Resource type ExhibitionProduction', () => {});
 When('the add an ExhibitionBasic', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.addExhibitionBasicButton).click();
 });
-Then('they can add information of type:', (dataTable: DataTable) => {});
-//             | Organization |
-//             | Place        |
-//             | Date         |
