@@ -125,11 +125,6 @@ Cypress.Commands.add('login', (userId: string) => {
   });
 });
 
-Cypress.Commands.add('startWizardWithFile', (fileName) => {
-  cy.startRegistrationWithFile(fileName);
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton).filter(':visible').should('be.enabled');
-  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton).filter(':visible').click({ force: true });
-});
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
   cy.getDataTestId(dataTestId.header.newRegistrationLink).click({
@@ -159,6 +154,22 @@ Cypress.Commands.add('openMyRegistrations', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
 });
+
+Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?, fileVersion?, fileType?) => {
+  cy.startWizardWithEmptyRegistration();
+  if (!category || category === 'AcademicArticle') {
+    cy.createValidRegistration(fileName, title, fileVersion, fileType);
+  } else {
+    createValidRegistrationWithType(title, category, fileName, fileVersion, fileType);
+  }
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccess();
+  cy.getSuccessDone();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getSuccess();
+  cy.getSuccessDone();
+});
+
 
 Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) => {
   // Description
