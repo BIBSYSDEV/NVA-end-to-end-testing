@@ -92,7 +92,6 @@ Then('the Project Wizard opens pre-filled with metadata', () => {
 });
 
 // Scenario: User opens the Project Wizard and start registering a Project without Financing selected
-Given('User opens the Project Wizard to register a new Project', () => {});
 When('they open the Project Wizard to register a new Project', () => {});
 When('they selects Empty registration', () => {
   cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
@@ -110,7 +109,6 @@ Then('the Project Wizard opens with no metadata pre-filled', () => {
 
 // Scenario: The User opens the Project Wizard and registers a new project
 Given('User opens the Project Wizard to registar a new Project', () => {});
-Given('they open the Project Wizard to register a new Project', () => {});
 When('they selects Empty registration', () => {});
 Then('they see the Project Wizard with Description fields:', (fields: DataTable) => {
   cy.testDataTestidList(fields, projectFields);
@@ -256,7 +254,6 @@ const SIKT = 'Sikt - Norwegian Agency for Shared Services in Education and Resea
 const NFR = 'Research Council of Norway';
 
 // Scenario: User sees that a Project is created with correct values
-Given('User opens the Project Wizard to register a new Project', () => {});
 When('they fill inn values for Description:', (fields: DataTable) => {
   cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
   cy.getDataTestId(dataTestId.newProjectPage.titleInput).type(descriptionFields['Title'].value);
@@ -474,7 +471,6 @@ Then('the selected Financing title and ID is listed', () => {
 });
 
 // Scenario: User selects a non-NFR as Financing source for Project
-Given('User adds a Financing source for Project', () => {});
 Given('the Financing source for Project is not NFR', () => {});
 Given('the selected Financing source for Project is presented', () => {});
 Given('the User is presented following fields:', () => {});

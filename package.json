@@ -22,7 +22,7 @@
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.734.0",
     "@aws-sdk/client-secrets-manager": "^3.734.0",
-    "@badeball/cypress-cucumber-preprocessor": "^22.0.0",
+    "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
     "aws-amplify": "^6.12.2",
     "cypress": "^14.0.0",

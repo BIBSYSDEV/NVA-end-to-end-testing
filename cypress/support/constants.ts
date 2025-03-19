@@ -1,7 +1,7 @@
 export const orcidBaseUrl = Cypress.env('REACT_APP_ORCID_BASE_URL');
 export const orcidUserInfoUrl = `${orcidBaseUrl}/oauth/userinfo`;
 const orcidClientId = Cypress.env('REACT_APP_ORCID_CLIENT_ID');
-export const orcidSignInUrl = `${orcidBaseUrl}/signin?oauth&client_id=${orcidClientId}&response_type=token&scope=openid&redirect_uri=${process.env.REACT_APP_ORCID_REDIRECT_URI}`;
+// export const orcidSignInUrl = `${orcidBaseUrl}/signin?oauth&client_id=${orcidClientId}&response_type=token&scope=openid&redirect_uri=${process.env.REACT_APP_ORCID_REDIRECT_URI}`;
 export const feideIdentityProvider = 'FeideIdentityProvider';
 
 export const feideIdQualifier = 'feideid';
@@ -297,5 +297,4 @@ export const user = {
   [userChangeNviInstitutionB]: { ...userData, name: 'TestUser, Change User NVI-institution B' },
   [userChangeNvaInstitutionC]: { ...userData, name: 'TestUser, Change User NVA-institution C' },
   [userChangeNviCuratorInstitutionA]: { ...userData, name: 'TestUser, Change Curator NVI-inst A' },
-
 };

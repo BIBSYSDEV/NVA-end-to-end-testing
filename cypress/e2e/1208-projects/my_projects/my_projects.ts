@@ -69,10 +69,6 @@ Then('the list can be sorted by:', () => {});
 // | Project category         |
 
 // Scenario: User opens a Project's Landing Page
-Given('User navigate to My Page and selects Project registrations', () => {
-  cy.getDataTestId(dataTestId.header.myPageLink).click();
-  cy.getDataTestId(dataTestId.myPage.myProjectsLink).click();
-});
 When("the User selects a Project's presentation", () => {
   cy.get('ul > li > div > div > p > a').first().click();
 });
@@ -81,7 +77,6 @@ Then('the User is presented the Landing Page for the Project', () => {
 });
 
 // Scenario: User Edits a Project in the Project Wizard
-Given('User navigate to My Page and selects Project registrations', () => {});
 When('the User activate the option to Edit a project', () => {
   cy.getDataTestId('EditIcon').first().click();
 });
