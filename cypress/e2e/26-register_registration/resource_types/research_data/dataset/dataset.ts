@@ -52,8 +52,6 @@ Then('the dialog is closed', () => {
 // @TEST_NP-13253
 // @9141
 // Scenario: User confirms to register data that is illegal to publish on this service
-Given('User sees information about types of data that are illegal to publish on this service', () => {
-});
 When('the User confirms that the data intended to be published is illegal', () => {
 });
 Then('the User is prohibited from publishing the Registration', () => {
@@ -66,8 +64,6 @@ Then('the User sees the standard user support dialog where the user can ask for 
 // @TEST_NP-13254
 // @9140
 // Scenario: User is informed about further support and registration process
-Given('User sees information about types of data that are illegal to publish on this service', () => {
-});
 When('the User has submitted a user support request', () => {
 });
 Then('the User is informed that the registration is stored', () => {
@@ -81,6 +77,7 @@ Then('answers to user support requests will be visible on "My page"', () => {
 // @9140
 // Scenario: User adds zero or more geographical data to the dataset
 Given('User confirms to register data that are legal to publish on this service', () => {
+    cy.get('[data-testid=cancel-button]').should('be.visible');
     cy.get('[data-testid=cancel-button]').click();
 });
 When('the User writes some free-text geographical data', () => {
@@ -96,10 +93,6 @@ Then('it is stored', () => {
 // @TEST_NP-13256
 // @9140
 // Scenario: User adds zero or more use-references to resource published in NVA
-Given('User confirms to register data that are legal to publish on this service', () => {
-    cy.get('[data-testid=cancel-button]').should('be.visible');
-    cy.get('[data-testid=cancel-button]').click();
-});
 When('the User searches for published Registrations', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.relatedRegistrationField}]`).type('Antologi');
     cy.contains('Antologi').first().click({ force: true });
@@ -114,10 +107,6 @@ Then('the User can store any search result as a use-reference', () => {
 // @TEST_NP-13257
 // @9140
 // Scenario: User adds zero or more related-references to resource published in NVA
-Given('User confirms to register data that are legal to publish on this service', () => {
-});
-When('the User searches for published Registrations', () => {
-});
 Then('the User can store any search result as a related-reference', () => {
 });
 // # future scenario will allow use of external IRI, not only internal
@@ -125,9 +114,6 @@ Then('the User can store any search result as a related-reference', () => {
 // @TEST_NP-13258
 // @9140
 // Scenario: User adds zero or more comply-to-references to a DMP resource published in NVA
-Given('User confirms to register data that are legal to publish on this service', () => {
-    cy.get('[data-testid=cancel-button]').click();
-});
 When('the User searches for published DMPs', () => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.compliesWithField}]`).type('Test registration DMP');
     cy.contains('Test registration DMP').first().click({ force: true });
