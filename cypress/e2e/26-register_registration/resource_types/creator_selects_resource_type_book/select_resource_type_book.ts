@@ -32,7 +32,6 @@ Then('they see a list of subtypes:', (dataTable: DataTable) => {
 // | Exhibition catalog        |
 
 // Scenario: Creator sees fields for Book
-Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => {});
 When('they select any Book type', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
 });
@@ -67,7 +66,6 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable: DataTabl
 // | NPI discipline |
 
 // Scenario: Creator selects Resource subtype Academic Monograph
-Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => {});
 When('they select type "Academic Monograph"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
 });

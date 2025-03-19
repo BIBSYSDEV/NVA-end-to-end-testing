@@ -12,7 +12,7 @@ const originalPublication = 'Original publication for corrigendum';
 
 Before({ 'tags': '@init' }, () => {
   cy.login(userResourceTypeJournal);
-  cy.createPublishedRegistration(originalPublication);
+  cy.createPublishedRegistration(originalPublication, 'AcademicArticle');
   cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
 });
 
