@@ -204,6 +204,14 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
   }
 });
 
+Cypress.Commands.add('getSuccess', () => {
+  cy.getDataTestId('snackbar-success');
+})
+
+Cypress.Commands.add('getSuccessDone', () => {
+  cy.getDataTestId('snackbar-success').should('not.exist');
+})
+
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.raw().forEach((value) => {
     cy.getDataTestId(values[value[0]], { timeout: 30000 });

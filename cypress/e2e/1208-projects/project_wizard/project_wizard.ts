@@ -109,7 +109,6 @@ Then('the Project Wizard opens with no metadata pre-filled', () => {
 
 // Scenario: The User opens the Project Wizard and registers a new project
 Given('User opens the Project Wizard to registar a new Project', () => {});
-When('they selects Empty registration', () => {});
 Then('they see the Project Wizard with Description fields:', (fields: DataTable) => {
   cy.testDataTestidList(fields, projectFields);
 });
