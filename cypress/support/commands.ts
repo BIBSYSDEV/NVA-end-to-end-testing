@@ -236,6 +236,20 @@ Cypress.Commands.add('getSuccessDone', () => {
   cy.getDataTestId('snackbar-success').should('not.exist');
 });
 
+Cypress.Commands.add('refreshPublish', () => {
+  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+  // cy.wait(1000);
+  // cy.get('body').then(($body) => {
+  //   if (
+  //     $body.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
+  //       .length > 0
+  //   ) {
+  //     cy.wait(5000);
+  //     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+  //   }
+  // });
+});
+
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.raw().forEach((value) => {
     cy.getDataTestId(values[value[0]], { timeout: 30000 });

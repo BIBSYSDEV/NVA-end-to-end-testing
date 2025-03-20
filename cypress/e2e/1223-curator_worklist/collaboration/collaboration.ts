@@ -145,8 +145,6 @@ Then('the curator institution C will get a task to approve the file from Uploade
 });
 
 // Scenario: Users sees messages from their curator
-Given('a Publication is created by institution A with contributors from institutions A, B and C', () => {});
-When('a file is uploaded from:', () => {});
 //   | Collaborator B |
 //   | Collaborator C |
 When('the files are approved with a message from:', (dataTable: DataTable) => {
@@ -202,7 +200,6 @@ Then('the message is only sent to:', (dataTable: DataTable) => {
 //   | Curator C | Collaborator C |
 
 // Scenario: DOI requests when collaborating
-Given('a Publication is created by institution A with contributors from institutions A, B and C', () => {});
 When('a DOI is requested from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {
     const collaborator = data[0];
@@ -264,7 +261,6 @@ Then(
 // | Curator C |
 
 // Scenario: Support requests when collaborating
-Given('a Publication is created by institution A with contributors from institutions A, B and C', () => {});
 When('a support message is sent from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {
     const collaborator = data[0];
@@ -322,8 +318,6 @@ Then(
 // | Curator C |
 
 // Scenario: Visibility of requests when collaborating
-Given('a Publication is created by institution A with contributors from institutions A, B and C', () => {});
-When('a support message is sent from:', () => {});
 //   | Collaborator A |
 //   | Collaborator B |
 //   | Collaborator C |
