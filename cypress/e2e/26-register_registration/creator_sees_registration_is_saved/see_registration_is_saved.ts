@@ -62,21 +62,6 @@ Then('they see the Registration is saved and the title is listed and marked as D
     });
 });
 
-// @391
-// Scenario: Creator sees Registration based on file upload is saved
-Given('Creator begins registration by uploading a file', () => {
-  cy.wrap('file').as('registrationMethod');
-  cy.login(userSaveRegistration);
-  cy.startRegistrationWithFile(filename);
-});
-Then('they see the Registration is saved and the title is "[Missing title]" and marked as Draft', () => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains(${fileTitle})`)
-    .first()
-    .within((registration) => {
-      cy.wrap(registration).as('registration');
-    });
-});
 
 const title = `Published Registration ${uuidv4()}`;
 // Scenario: Creator sees Registration is findable

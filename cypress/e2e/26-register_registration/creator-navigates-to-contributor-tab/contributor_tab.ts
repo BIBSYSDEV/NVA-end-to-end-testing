@@ -260,9 +260,6 @@ Given('Creator opens Dialog to Verify Contributor', () => {
 When('they select a Person from the Search Results', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectPersonForContributor}]`).first().click();
 });
-When('they click the Button to Verify Contributor', () => {
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
-});
 Then('the Dialog is closed', () => {
   cy.get(`[data-testid=contributor-modal]`).should('not.exist');
 });

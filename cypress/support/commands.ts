@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import 'cypress-localstorage-commands';
-import { signIn } from 'aws-amplify/auth';
+import { signIn, signOut } from 'aws-amplify/auth';
 import {
   AuthFlowType,
   CognitoIdentityProviderClient,
@@ -58,10 +58,14 @@ const pad = (value: string) => `0${value}`.slice(-2);
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
 const date = new Date();
 export const currentYear = date.getFullYear().toString();
-export const formatedToday = `${pad(date.getDate().toString())}.${pad(new Number(date.getMonth() + 1).toString())}.${currentYear}`;
+export const formatedToday = `${pad(date.getDate().toString())}.${pad(
+  new Number(date.getMonth() + 1).toString()
+)}.${currentYear}`;
 export const todayDatePicker = () => {
   const date = new Date();
-  const dateValue = `${pad(date.getDate().toString())}.${pad(new Number(date.getMonth() + 1).toString())}.${date.getFullYear()}`;
+  const dateValue = `${pad(date.getDate().toString())}.${pad(
+    new Number(date.getMonth() + 1).toString()
+  )}.${date.getFullYear()}`;
   return dateValue;
 };
 
@@ -96,9 +100,17 @@ const loginCognito = (userId: string) => {
         identityServiceProvider.send(command).then((authorizeResponse) => {
           if (authorizeResponse) {
             if (!authorizeResponse.ChallengeName) {
-              signIn({ username: userId, password: testUserPassword }).then(() => {
-                resolve(authorizeResponse.AuthenticationResult.IdToken);
-              });
+              try {
+                signOut().then(() => {
+                  signIn({ username: userId, password: testUserPassword }).then(() => {
+                    resolve(authorizeResponse.AuthenticationResult.IdToken);
+                  });
+                });
+              } catch (e) {
+                console.log('fail... sign in');
+                console.log(e);
+                reject();
+              }
             } else {
               console.log('fail.. challenge');
               console.log(authorizeResponse.ChallengeName);
@@ -125,7 +137,6 @@ Cypress.Commands.add('login', (userId: string) => {
     },
   });
 });
-
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
   cy.getDataTestId(dataTestId.header.newRegistrationLink).click({
@@ -171,7 +182,6 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
   cy.getSuccessDone();
 });
 
-
 Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) => {
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
@@ -202,6 +212,8 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
   if (fileName) {
     cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+    cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
+    cy.contains('Open file').click();
     cy.getDataTestId(dataTestId.registrationWizard.files.version, {
       timeout: 30000,
     }).within(() => {
@@ -218,11 +230,11 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
 
 Cypress.Commands.add('getSuccess', () => {
   cy.getDataTestId('snackbar-success');
-})
+});
 
 Cypress.Commands.add('getSuccessDone', () => {
   cy.getDataTestId('snackbar-success').should('not.exist');
-})
+});
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
   dataTable.raw().forEach((value) => {
@@ -270,7 +282,7 @@ const fillInField = (field: Object) => {
       } else {
         cy.getDataTestId(field['fieldTestId']).should('be.visible').type(value, { delay: 1 });
       }
-      if (field['fieldTestId']  === dataTestId.registrationWizard.resourceType.externalLinkField) {
+      if (field['fieldTestId'] === dataTestId.registrationWizard.resourceType.externalLinkField) {
         cy.getDataTestId(dataTestId.registrationWizard.resourceType.externalLinkAddButton).click();
       }
       break;
@@ -282,13 +294,17 @@ const fillInField = (field: Object) => {
       cy.contains(field['value']).click();
       break;
     case 'file':
-      cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${field['value']}`, { force: true });
+      cy.get('input[type=file]')
+        .first()
+        .selectFile(`cypress/fixtures/${field['value']}`, { force: true, timeout: 30000 });
+      cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
+      cy.contains('Open file').click();
       break;
     case 'select':
       cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click({ force: true }).type(' ');
       if (
-        field['fieldTestId']  === dataTestId.registrationWizard.resourceType.artisticTypeField ||
-        field['fieldTestId']  === dataTestId.registrationWizard.resourceType.mediaMedium
+        field['fieldTestId'] === dataTestId.registrationWizard.resourceType.artisticTypeField ||
+        field['fieldTestId'] === dataTestId.registrationWizard.resourceType.mediaMedium
       ) {
         cy.get(`[data-value=${field['value']}]`).click();
       } else {
@@ -363,10 +379,10 @@ Cypress.Commands.add('checkField', (field: Object) => {
   const value = field['landingPageValue'] ?? field['value'];
   switch (field['elementType']) {
     case 'input':
-      if (field['fieldTestId']  === dataTestId.registrationWizard.resourceType.externalLinkField) {
+      if (field['fieldTestId'] === dataTestId.registrationWizard.resourceType.externalLinkField) {
         cy.contains(value);
       } else {
-        if (field['fieldTestId']  === dataTestId.registrationWizard.description.titleField) {
+        if (field['fieldTestId'] === dataTestId.registrationWizard.description.titleField) {
           cy.get('@titleId').then((titleId) => {
             cy.get(`[data-testid=${field['fieldTestId']}] input`).should('have.value', `${value} ${titleId}`);
           });
@@ -387,11 +403,11 @@ Cypress.Commands.add('checkField', (field: Object) => {
       break;
     case 'search':
       if (
-        field['fieldTestId']  === dataTestId.registrationWizard.resourceType.relatedRegistrationField ||
-        field['fieldTestId']  === dataTestId.registrationWizard.resourceType.compliesWithField
+        field['fieldTestId'] === dataTestId.registrationWizard.resourceType.relatedRegistrationField ||
+        field['fieldTestId'] === dataTestId.registrationWizard.resourceType.compliesWithField
       ) {
         cy.contains(value);
-      } else if (field['fieldTestId']  === dataTestId.registrationWizard.description.projectSearchField) {
+      } else if (field['fieldTestId'] === dataTestId.registrationWizard.description.projectSearchField) {
         cy.getDataTestId(dataTestId.registrationWizard.description.removeProjectButton).parent().contains(value);
       } else {
         cy.get(`[data-testid=${field['fieldTestId']}] div`).should('contain', value);

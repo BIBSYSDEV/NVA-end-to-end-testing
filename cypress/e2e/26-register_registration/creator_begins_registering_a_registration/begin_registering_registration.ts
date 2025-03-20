@@ -22,9 +22,6 @@ Given('they have selected {string} for starting the Wizard', (method) => {
     cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).click({ force: true });
     cy.get('[data-testid=new-registration-link-field] > div > input').type(dlrLink);
     cy.get(`[data-testid=doi-search-button]`).click({ force: true });
-  } else if (method === 'Upload file') {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
-    cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
   } else if (method === 'Empty Registration') {
     cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click({ force: true });
   }
@@ -60,9 +57,6 @@ When('they click the New Registration button', () => {
 Then('they are redirected to the New Registration page', () => {
   cy.location('pathname').should('contain', '/registration');
 });
-Then('they see an Expansion panel for Upload file', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).should('be.visible');
-});
 Then('they see an Expansion panel for Link to resource', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).should('be.visible');
 });
@@ -70,30 +64,6 @@ Then('they see an Expansion panel for Empty Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).should('be.visible');
 });
 
-//   @385
-//   Scenario: Creator begins registration by uploading a file
-When('they click Upload file', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.fileAccordion}]`).click({ force: true });
-});
-When('they upload a file', () => {
-  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-});
-Then('they see the file name', () => {
-  cy.get('[data-testid=uploaded-file]').within((fileElement) => {
-    cy.wrap(fileElement).contains(fileName);
-  });
-});
-Then('they see the file size', () => {
-  // TODO file size is not implemented yet
-});
-Then('they see the Remove button', () => {
-  cy.get('[data-testid=button-remove-file]').should('be.visible');
-});
-Then('they see the Start button is enabled', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`, { timeout: 30000 })
-    .filter(':visible')
-    .should('be.enabled');
-});
 
 // Common steps for @228, @439, @440, @441, @442, @2208, @2370
 Given('they expand the Expansion panel for Link to resource', () => {
@@ -116,10 +86,6 @@ Then('they see metadata about the Link in the Expansion panel', () => {
 });
 
 // Scenario: Creator begins registration with an empty Registration
-Given('Creator begins registering a Registration', () => {
-  cy.login(userWithAuthor3);
-  cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click();
-});
 When('they expand the Expansion panel for Empty Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click();
 });

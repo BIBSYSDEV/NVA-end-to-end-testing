@@ -82,7 +82,6 @@ Then('the File is not presented on the Landing Page', () => {
 });
 
 // Scenario Outline: Creator looks up an invalid Link as Linked Resource
-Given('Creator navigates to Files and License tab', () => {});
 When('they enter {string} in the Linked Resource field', (link) => {
   cy.getDataTestId(dataTestId.registrationWizard.files.linkToResourceField).type(`${link}{enter}`);
 });

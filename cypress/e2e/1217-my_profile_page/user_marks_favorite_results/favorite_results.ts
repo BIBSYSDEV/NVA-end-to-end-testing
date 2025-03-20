@@ -98,7 +98,6 @@ Then('the favorite results are displayed at the top of the list of results', () 
 });
 
 // Scenario: User unmarks a result as a favorite
-Given('the User sees own results on their User profile', () => {});
 Given('they have results marked as favorites', () => {
   cy.getDataTestId('edit-promoted-publication-button').each((markFavorite: any) => {
     cy.get(markFavorite).should('be.enabled').click();
