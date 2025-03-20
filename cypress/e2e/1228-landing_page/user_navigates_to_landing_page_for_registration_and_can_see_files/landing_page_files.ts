@@ -103,8 +103,6 @@ Given('the Registration contains a File, which is an Administrative Agreement', 
     .first()
     .click();
 });
-When('they view the Files section', () => {
-});
 Then('they do not see the File that is an Administrative Agreement', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).should('not.exist');
 });
@@ -170,7 +168,6 @@ Then('they see the preview of the downloaded File', () => {
 //     | Microsoft Office |
 
 // Scenario: Automatically preview first File
-Given('the Registration contains Files', () => { });
 When('the first File is not Embargoed', () => { });
 When("the File's size is less than 10 MB", () => { });
 Then("the File's Preview panel is expanded by default", () => {

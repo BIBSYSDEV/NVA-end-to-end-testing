@@ -27,7 +27,7 @@ Given('that the Owner navigates to Submission tab', () => {
   cy.getSuccess();
   cy.getSuccessDone();
 });
-Given('the Registration has status Draft', () => { });
+// Given('the Registration has status Draft', () => { });
 Given('the Registration has a Draft DOI', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
@@ -140,8 +140,6 @@ Given('optional add a message to the Curator', () => {
 When('the user click the Send Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.sendDoiButton}]`).click();
 });
-Then('the Landing Page for Registration is displayed', () => {
-});
 Then('the "Request a DOI" button is renamed to "DOI pending" and is disabled', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.sendDoiButton}]`).should('not.exist');
 });
@@ -207,7 +205,6 @@ When('they click the "Draft a DOI" button', () => {
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.contains('DOI is reserved');
 });
-Then('the Landing Page for Registration is displayed', () => { });
 Then('the "Draft a DOI" button is renamed to "DOI pending" and is disabled', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton}]`).should('not.exist');
 });
@@ -230,9 +227,6 @@ Then('the Draft DOI is not a link', () => {
 
 //   @1235
 // Scenario: Owner navigates to the submission tab and publish a Registration with a drafted DOI
-Given('that the Owner navigates to Submission tab', () => {
-  cy.login(userDraftDoi2);
-});
 Given('the Registration has status Draft', () => {
   cy.selectRegistration(draftRegistrationPublishWithRequestedDoi, unpublished);
 });
@@ -247,7 +241,6 @@ Given('the Registration has a Draft DOI', () => {
 When('the Owner clicks the publish button', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.publishButton}]`).click();
 });
-Then('the Landing Page for Registration is displayed', () => { });
 Then('the "Request a DOI" button is still named "DOI pending" and is disabled', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton}]`).should('not.exist');
@@ -297,7 +290,6 @@ Then('they see the Decline DOI button is enabled', () => { });
 
 // Scenario: Owner navigates to the Landing page and requests a DOI
 Given('that the Creator navigates to the Landing page for published Registration without DOI', () => { });
-Given('they are the Owner of the Registration', () => { });
 Given('open "Request a DOI" dialog', () => { });
 Given('optional add a message to the Curator', () => { });
 When('the user click the Send Button', () => { });

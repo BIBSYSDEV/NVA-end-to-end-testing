@@ -83,17 +83,6 @@ Then('they can search for institution', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.organization.searchField);
 });
-Then('they see fields:', (table: DataTable) => {});
-// | Name in organization registry |
-// | Display name                  |
-// | Archive name                  |
-// | Feide Organization ID         |
-// | ROR ID                        |
-Then('they see Sector options:', () => {});
-// | University and college          |
-// | Health sector                   |
-// | Institute sector                |
-// | Archives, Libraries and Museums |
 Then('a button Create that is enabled', () => {
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.saveButton).should('be.enabled');
 });
@@ -110,19 +99,6 @@ When('they open a Customer Institution', () => {
       });
   });
 });
-Then('they see fields:', (table) => {});
-// | Name in organization registry |
-// | Display name                  |
-// | Short display name            |
-// | Archive name                  |
-// | Feide Organization ID         |
-// | ROR ID                        |
-Then('they see Sector options:', () => {});
-// | University and college          |
-// | Health sector                   |
-// | Institute sector                |
-// | Archives, Libraries and Museums |
-Then('they see options for NVI reporting', () => {});
 Then('they see the Save button', () => {
   cy.getDataTestId(dataTestId.basicData.institutionAdmin.saveButton).should('be.visible');
 });

@@ -105,7 +105,7 @@ Then('there is an option to view other employments at current institution', () =
 });
 Then('there is an option to add a new employment', () => {});
 Then('the Persons different roles at this institution is listed', () => {
-  cy.getDataTestId(dataTestId.basicData.personAdmin.roleSelector).should('be.visible');
+  cy.getDataTestId(dataTestId.basicData.personAdmin.roleSelector).scrollIntoView().should('be.visible');
 });
 Then('the Roles may be toggled on or off', () => {
   cy.getDataTestId(dataTestId.basicData.personAdmin.roleSelector)
@@ -207,7 +207,6 @@ Then('the role Registrator cannot be removed', () => {
 });
 
 // Scenario: Administrator close the edit Person dialog
-Given('Administrator edit a Person at his institution', () => {});
 Given('the Administrator has added or changed information in the dialog', () => {
   cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).type('{selectall}50');
 });
@@ -221,8 +220,6 @@ Then('a dialog informing about loss of data is displayed', () => {});
 Then('the Administrator can choose to close or abort the close action', () => {});
 
 // Scenario: Administrator saves the changes to a Person
-Given('Administrator edit a Person at his institution', () => {});
-Given('the Administrator has added or changed information in the dialog', () => {});
 Given('the save option is activated', () => {});
 When('the Administrator uses the save options', () => {
   cy.get('[role=dialog]').within(() => {

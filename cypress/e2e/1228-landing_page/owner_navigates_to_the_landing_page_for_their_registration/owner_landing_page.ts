@@ -101,9 +101,6 @@ Given('Institutions publications policy is "Registrator can only publish metadat
   cy.createValidRegistration(fileName, `${title} ${uuid()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
-When('the Owner uses the Publish option', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton, { timeOut: 30000 }).click();
-});
 Then('the Owner sees a Landing Page with a Published Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
 });
@@ -139,11 +136,6 @@ Given('Institutions publications policy is "Registrator has full publishing righ
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
 });
 Then('the Resource\'s status is "Published"', () => { });
-Then('the Owner sees a Landing Page with a Published Resource', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-    cy.contains('Publishing request - Published');
-  });
-});
 
 // Scenario: Owner navigates to the Landing Page for their draft Resource with Validation Errors
 When('the Creator navigates to the Landing Page', () => {

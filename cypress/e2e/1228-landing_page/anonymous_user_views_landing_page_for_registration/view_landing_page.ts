@@ -14,6 +14,7 @@ Given('there is a published Registration in NVA', () => {
   cy.wait(5000);
   cy.refreshPublish();
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+  cy.reload();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.tagField).type('Keyword{enter}');
   cy.getDataTestId(dataTestId.registrationWizard.description.languageField).click();
@@ -21,6 +22,7 @@ Given('there is a published Registration in NVA', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.description.projectSearchField).type('project for testing 20230512');
   cy.contains('Project for testing 20230512').click();
+  cy.getDataTestId(dataTestId.registrationWizard.description.abstractField).type('Test abstract');
 
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();

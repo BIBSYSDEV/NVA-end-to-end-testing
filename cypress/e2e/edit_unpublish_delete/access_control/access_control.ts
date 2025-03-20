@@ -68,7 +68,6 @@ Then('when they use the option to edit the Registration is opened in the Registr
 //     | Thesis Curator               | are Curator for a Thesis Registration             |
 
 // Scenario Outline: User unpublish Registration
-Given('{string} open landing page for Registration', () => { });
 When('they {string} and want to unpublish the Registration', (condition) => {
     cy.get('@user').then(user => {
         const title = `Unpublish registration ${user}`;

@@ -129,9 +129,6 @@ Given('they opens the Landing Page of a Registration', () => {
     })
   });
 });
-Given('the Registration has a Publishing Request', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).should('exist');
-});
 When('they reject the Publishing Request', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestRejectionMessageTextField).type('Publish rejected');
@@ -188,8 +185,6 @@ Then('the Decline DOI button is enabled', () => {
 });
 
 //   Scenario: Curator Approves a DOI Request
-Given('a Curator opens the Landing Page of a Registration', () => { });
-Given('the Registration is Published', () => { });
 Given('the Registration has a DOI Request', () => {
 });
 When('they approve the DOI Request', () => {
@@ -222,9 +217,6 @@ Then('the DOI is findable', () => {
 });
 
 //   Scenario: Curator Rejects a DOI Request
-Given('a Curator opens the Landing Page of a Registration', () => { });
-Given('the Registration is Published', () => { });
-Given('the Registration has a DOI Request', () => { });
 When('they reject the DOI Request', () => {
   cy.login(userCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();

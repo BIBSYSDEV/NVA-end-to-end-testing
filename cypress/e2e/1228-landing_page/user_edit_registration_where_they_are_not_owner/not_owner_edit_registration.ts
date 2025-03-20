@@ -53,8 +53,6 @@ When('they open the landing page for a Registration', () => {
         cy.get('p > a').first().click();
     });
 });
-When('they are not owner of the Registration', () => { });
-Then('they have the option to edit the Registration', () => { });
 
 // Scenario: Curator edit a Registration from own institution
 Given('Curator open landing page for a Registration from own institution', () => {
@@ -91,8 +89,6 @@ Given('Editor open landing page for a Registration', () => {
         cy.get('p > a').first().click();
     });
 });
-When('they edit the Registration', () => { });
-Then('the Registration is opened in the Registration wizard', () => { });
 
 // Scenario: User see option to edit a Registration where they are Contributor
 Given('a User is logged in', () => {
@@ -107,8 +103,6 @@ When('they open the landing page for a Registration where they are registred as 
         cy.get('p > a').first().click();
     });
 });
-When('they are not owner of the Registration', () => { });
-Then('they have the option to edit the Registration', () => { });
 
 
 // Scenario: User edit registration where they are registred as Contributer
@@ -121,7 +115,4 @@ Given('a User open landing page for Registration where they are registred as a C
         cy.get('p > a').first().click();
     });
 });
-Given('they are not Curator or Editor', () => { });
-When('they edit the Registration', () => { });
-Then('the Registration is opened in the Registration wizard', () => { });
 
