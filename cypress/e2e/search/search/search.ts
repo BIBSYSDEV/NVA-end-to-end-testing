@@ -124,7 +124,6 @@ Then('they see Registrations filtered with the chosen facet', () => {
 });
 
 //      Scenario: A user adds a filter to search results
-Given('a User searches for Registrations', () => {});
 When('they select the option to add a filter', () => {
   cy.getDataTestId(dataTestId.startPage.advancedSearch.activateFilterButton).click();
 });
@@ -164,7 +163,6 @@ Then('they can use the operators:', (dataTable: DataTable) => {
 //  | Does not contain |
 
 // Scenario: A User filters a search result
-Given('a User searches for Registrations', () => {});
 Given('they add a filter to the search', () => {
   cy.getDataTestId(dataTestId.startPage.advancedSearch.activateFilterButton).click();
   cy.getDataTestId(dataTestId.startPage.advancedSearch.advancedFieldSelect).click();

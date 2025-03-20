@@ -59,11 +59,5 @@ Then('they see a message that the files will be available at the embargo date', 
 Then('they see the note for legal clarification', () => {});
 
 // Scenario: User view a Registration with embargoed files, embargo date current date or in the past
-Given('a User view the landing page for a Registration with embargoed files', () => {
-  const title = `View embargo past date ${uuid()}`;
-  cy.login(userEmbargo);
-  cy.createValidRegistration(filename, title);
-});
 When('the embargo date is the current date or in the past', () => {});
 Then('they can view the embargoed files', () => {});
-Then('they see the note for legal clarification', () => {});

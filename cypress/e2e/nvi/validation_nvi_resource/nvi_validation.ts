@@ -121,13 +121,11 @@ Then('is added to the list of approved Resources', () => {
 });
 
 // Scenario: Curator rejects NVI-candidate
-When('a Curator views a NVI-candidate', () => { });
 When('uses the option to reject the NVI-candidate', () => {
   cy.get('button').filter(":contains('Reject')").click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.rejectionModalTextField).type('Candidate rejected');
   cy.getDataTestId(dataTestId.tasksPage.nvi.rejectionModalRejectButton).click();
 });
-Then('the NVI candidate is removed from the list of Candidate Resources', () => { });
 Then('is added to the list of rejected Resources', () => {
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.rejectedRadio).click();
   cy.get('@uuid').then((uuid) => {
@@ -208,8 +206,6 @@ Then('remove the NVI candidate from the NVI candidate list.', () => {
 });
 
 // Scenario: Reset NVI candidate on change
-Given('an NVI candidate', () => { });
-When('one or more of the candidate-affecting fields are changed', () => { });
 When('the NVI candidate is still a candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
     cy.getDataTestId('CancelIcon').click();
