@@ -13,7 +13,7 @@ batch:
 phases:
   install:
     runtime-versions:
-      nodejs: latest
+      nodejs: 22
   pre_build:
     commands:
       - npm install

@@ -1,6 +1,6 @@
-const reporter = require('cucumber-html-reporter');
+import reporter  from 'cucumber-html-reporter';
 
-const options = {
+const options: any = {
   theme: 'hierarchy',
   jsonDir: 'cypress/cucumber-json',
   output: 'TestReport/cucumber_report.html',
@@ -8,7 +8,6 @@ const options = {
   scenarioTimestamp: true,
   launchReport: true,
   ignoreBadJsonFile: true,
-  scenarioTimestamp: true,
   metadata: {
     'App Version': '1.0.0',
     'Test Environment': 'STAGING',
