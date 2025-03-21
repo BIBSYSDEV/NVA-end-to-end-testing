@@ -5,6 +5,9 @@ import { createEsbuildPlugin } from '@badeball/cypress-cucumber-preprocessor/esb
 
 export default defineConfig({
   projectId: 'a6w1e7',
+  env: {
+    TAGS: 'not @ignore and @test',
+  },
   e2e: {
     specPattern: 'cypress/e2e/**/*.feature',
     defaultCommandTimeout: 30000,
