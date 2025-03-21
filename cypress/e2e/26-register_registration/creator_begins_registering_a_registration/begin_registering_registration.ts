@@ -1,0 +1,93 @@
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { userWithAuthor3 } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
+
+const fileName = 'example.txt';
+const dlrLink = 'https://dlr.unit.no/resources/66888570-3504-4d12-81a4-c3ffe0605945';
+
+// Feature: Creator begins registering a Registration
+
+// Common steps
+Given('Creator begins registering a Registration', () => {
+  cy.login(userWithAuthor3);
+  cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
+});
+// End common steps
+
+//   @443
+//   Scenario Outline: Creator begins registering a Registration in the Wizard
+Given('they have selected {string} for starting the Wizard', (method) => {
+  cy.wrap(method).as('registrationMethod');
+  if (method === 'Link to registration') {
+    cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).click({ force: true });
+    cy.get('[data-testid=new-registration-link-field] > div > input').type(dlrLink);
+    cy.get(`[data-testid=doi-search-button]`).click({ force: true });
+  } else if (method === 'Empty Registration') {
+    cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click({ force: true });
+  }
+});
+When('they click Start', () => {
+  cy.get('@registrationMethod').then((method) => {
+    if (method.toString() !== 'Empty Registration') {
+      cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+        .filter(':visible', { timeout: 30000 })
+        .should('be.enabled', { timeout: 30000 })
+        .click({ force: true, timeout: 30000 });
+    }
+  });
+});
+Then('they see the Wizard', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`, { timeout: 30000 }).should('be.visible');
+});
+// Examples:
+//   | Method               |
+//   | Link to registration |
+//   | Upload file          |
+
+//   @226
+//   Scenario: Creator begins registering a Registration
+Given('that the user is logged in', () => { });
+Given('they have Role Creator', () => { });
+Given('they are on the Start page', () => {
+  cy.login(userWithAuthor3);
+});
+When('they click the New Registration button', () => {
+  cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
+});
+Then('they are redirected to the New Registration page', () => {
+  cy.location('pathname').should('contain', '/registration');
+});
+Then('they see an Expansion panel for Link to resource', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).should('be.visible');
+});
+Then('they see an Expansion panel for Empty Registration', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).should('be.visible');
+});
+
+
+// Common steps for @228, @439, @440, @441, @442, @2208, @2370
+Given('they expand the Expansion panel for Link to resource', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.linkAccordion}]`).click({ force: true });
+});
+When('they enter {string} from {string}', (link: string, source: string) => {
+  cy.wrap(source).as('source');
+  cy.get('[data-testid=new-registration-link-field] > div > input').type(link);
+});
+When('they click Search', () => {
+  cy.get('[data-testid=doi-search-button]').click({ force: true });
+});
+// TODO Need correct link for schema.org
+Then('they see metadata about the Link in the Expansion panel', () => {
+  cy.get('@source').then((source) => {
+    if (source.toString() !== 'schema.org') {
+      cy.get('[data-testid=link-metadata]').should('be.visible');
+    }
+  });
+});
+
+// Scenario: Creator begins registration with an empty Registration
+When('they expand the Expansion panel for Empty Registration', () => {
+  cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click();
+});
+Then('they see a button to start registration', () => {
+});

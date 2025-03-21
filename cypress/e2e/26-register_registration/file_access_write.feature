@@ -17,12 +17,6 @@ Feature: File metadata write and file delete permissions
 
     Examples:
       | FileType            | UserRole                             | Outcome     |
-      # | UploadedFile        | Uploader at X                        | Allowed     |
-      # | UploadedFile        | Contributor at X                     | Not Allowed |
-      # | UploadedFile        | Other contributors                   | Not Allowed |
-      # | UploadedFile        | File curator at X                    | Allowed     |
-      # | UploadedFile        | File curators for other contributors | Not Allowed |
-      # | UploadedFile        | Everyone else                        | Not Allowed |
     # | UploadedFile        | External client                      | Not Allowed |
       | PendingOpenFile     | Uploader at X                        | Allowed     |
       | PendingOpenFile     | Contributor at X                     | Not Allowed |
