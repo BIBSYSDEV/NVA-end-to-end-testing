@@ -25,4 +25,5 @@ phases:
     commands:
       - cd test_data
       - pip install babel
+      - pip install requests
       - python create_test_data.py
