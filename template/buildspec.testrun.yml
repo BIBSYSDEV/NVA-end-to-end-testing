@@ -14,7 +14,7 @@ env:
     CYPRESS_DEVUSER: 'E2ETesting:DevUser'
     CYPRESS_DEVPASSWORD: 'E2ETesting:DevPassword'
   variables:
-    image: public.ecr.aws/cypress-io/cypress/browsers:latest
+    image: public.ecr.aws/cypress-io/cypress/included:cypress-14.2.0-node-22.14.0-chrome-134.0.6998.88-1-ff-136.0.2-edge-134.0.3124.68-1
 
 phases:
   install:
@@ -22,6 +22,7 @@ phases:
       nodejs: latest
   pre_build:
     commands:
+      - node -v
       - aws sts assume-role --role-arn $ROLE_ARN --role-session-name test > Credentials
       - export CYPRESS_AWS_ACCESS_KEY_ID=$(cat Credentials | jq -r '.Credentials.AccessKeyId')
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')
