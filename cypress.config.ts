@@ -9,13 +9,15 @@ export default defineConfig({
     TAGS: 'not @ignore and @test',
   },
   reporter: '../node_modules/mochawesome/src/mochawesome.js',
+  video: true,
+  retries: 1,
   reporterOptions: {
     overwrite: false,
     html: false,
     json: true,
-    showSkipped: true,
+    showSkipped: false,
   },
-  defaultCommandTimeout: 30000,
+ defaultCommandTimeout: 30000,
   viewportWidth: 1600,
   viewportHeight: 1200,
   e2e: {

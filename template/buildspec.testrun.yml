@@ -31,10 +31,10 @@ phases:
       - npm install
   build:
     commands:
-      - npx cypress run --browser chrome  --record --key $CYPRESS_DASHBOARD_KEY --parallel --ci-build-id $CODEBUILD_INITIATOR
+      - npx cypress run --browser chrome  --record --key $CYPRESS_DASHBOARD_KEY --parallel --ci-build-id $CODEBUILD_INITIATOR --env messagesOutput=messages/cucumber-messages-$CI_NODE_INDEX.ndjson
   post_build:
     commands:
-      - if [ -d "cypress/cucumber-json" ]; then aws s3 cp cypress/cucumber-json s3://$TESTREPORTS_BUCKET/cucumber-json --recursive; fi
+      - if [ -d "cypress/cucumber-json" ]; then aws s3 cp messages s3://$TESTREPORTS_BUCKET/messages --recursive; fi
 artifacts:
   files:
     - '**/*'
