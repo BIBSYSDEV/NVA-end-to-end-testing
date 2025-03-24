@@ -1,6 +1,6 @@
 import reporter  from 'cucumber-html-reporter';
 
-const options: any = {
+const options = {
   theme: 'hierarchy',
   jsonDir: 'cypress/cucumber-json',
   output: 'TestReport/cucumber_report.html',

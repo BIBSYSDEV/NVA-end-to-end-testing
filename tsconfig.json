@@ -7,5 +7,5 @@
       "moduleResolution": "node16",
       "esModuleInterop": true
     },
-    "include": ["**/*.ts", "cypress/e2e/e2e/24-authentication/user-logs-in/user-logs-in.js"]
+    "include": ["**/*.ts", "cypress/e2e/e2e/24-authentication/user-logs-in/user-logs-in.js", "scripts/cucumber_report.js"]
   }
