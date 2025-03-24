@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create:cucumber:report": "node scrupts/cucumber_report.js"
+    "create:cucumber:report": "node scrupts/cucumber_report.ts"
   },
   "keywords": [],
   "author": "",

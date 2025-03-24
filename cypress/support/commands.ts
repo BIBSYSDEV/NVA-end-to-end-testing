@@ -237,17 +237,17 @@ Cypress.Commands.add('getSuccessDone', () => {
 });
 
 Cypress.Commands.add('refreshPublish', () => {
-  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-  // cy.wait(1000);
-  // cy.get('body').then(($body) => {
-  //   if (
-  //     $body.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
-  //       .length > 0
-  //   ) {
-  //     cy.wait(5000);
-  //     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-  //   }
-  // });
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+  cy.wait(3000);
+  cy.get('body').then(($body) => {
+    if (
+      $body.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
+        .length > 0
+    ) {
+      cy.wait(5000);
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+    }
+  });
 });
 
 Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
