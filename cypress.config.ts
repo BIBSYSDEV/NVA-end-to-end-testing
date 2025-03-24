@@ -8,11 +8,18 @@ export default defineConfig({
   env: {
     TAGS: 'not @ignore and @test',
   },
+  reporter: '../node_modules/mochawesome/src/mochawesome.js',
+  reporterOptions: {
+    overwrite: false,
+    html: false,
+    json: true,
+    showSkipped: true,
+  },
+  defaultCommandTimeout: 30000,
+  viewportWidth: 1600,
+  viewportHeight: 1200,
   e2e: {
     specPattern: 'cypress/e2e/**/*.feature',
-    defaultCommandTimeout: 30000,
-    viewportWidth: 1000,
-    viewportHeight: 800,
     async setupNodeEvents(
       on: Cypress.PluginEvents,
       config: Cypress.PluginConfigOptions
