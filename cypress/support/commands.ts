@@ -238,7 +238,7 @@ Cypress.Commands.add('getSuccessDone', () => {
 
 Cypress.Commands.add('refreshPublish', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-  cy.wait(3000);
+  cy.wait(5000);
   cy.get('body').then(($body) => {
     if (
       $body.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
