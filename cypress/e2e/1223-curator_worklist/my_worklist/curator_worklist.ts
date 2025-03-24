@@ -483,7 +483,6 @@ When('the Curator:', () => {});
 // | Declines a DOI           |
 // | Changes Owner            |
 // | Declines change of owner |
-Then('the Curator is Assigned the Request', () => {});
 
 // Scenario: Curator receives Requests in their scope
 Given('the Request is of type:', () => {});
@@ -494,19 +493,12 @@ When("the Requests' Submitter is Affilliated within the Curators Scope", () => {
 Then('the Request is part of the Curators Worklist', () => {});
 
 // Scenario: Curator receives Requests they have been assigned from outside their scope
-Given('the Request is of type:', () => {});
 // | Approval |
 // | Support  |
 // | DOI      |
-When('the Curator is assigned the Request', () => {});
-Then('the Request is part of the Curators Worklist', () => {});
 
 // Scenario: Curator receives Ownership requests within their scope
 Given('the Request is of type "Ownership"', () => {});
 When('the Affilliation of the Owner of the Resource associated with the Request is within Curators Scope', () => {});
-Then('the Request is part of the Curators Worklist', () => {});
 
 // Scenario: Curator receives Ownership requests they have been assigned from outside their scope
-Given('the Request is of type "Ownership"', () => {});
-When('the Curator is assigned the Request', () => {});
-Then('the Request is part of the Curators Worklist', () => {});

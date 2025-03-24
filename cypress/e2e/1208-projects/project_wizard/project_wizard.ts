@@ -1,3 +1,4 @@
+import { today } from '../../../support/commands';
 import { userProjectWizard } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
@@ -222,11 +223,11 @@ const descriptionFields = {
     dataTestId: dataTestId.projectWizard.descriptionPanel.keywordsField,
   },
   'Start date': {
-    value: '01.01.2024',
+    value: today,
     dataTestId: dataTestId.projectWizard.descriptionPanel.startDateField,
   },
   'End date': {
-    value: '01.02.2024',
+    value: today,
     dataTestId: dataTestId.projectWizard.descriptionPanel.endDateField,
   },
 };
