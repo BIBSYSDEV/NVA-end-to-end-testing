@@ -77,7 +77,6 @@ Then('License is set to CC-by', () => {
 });
 
 //   Scenario: User sets version to published for file with RRS activated
-Given('User registers Registration with RRS activated', () => { });
 When('they set the file version to Published', () => {
     cy.getDataTestId(dataTestId.registrationWizard.files.version).within(() => {
         cy.get('input[type=radio]').last().click();
@@ -90,7 +89,6 @@ Then('License is not automatically set', () => {
 });
 
 //   Scenario Outline: User changes version for file
-Given('user registers Registration with RRS activated', () => { });
 Given('the file version is set to {string}', (initialVersion) => {
     cy.getDataTestId(dataTestId.registrationWizard.files.version).within(() => {
         switch (initialVersion) {

@@ -24,9 +24,10 @@ phases:
       - export CYPRESS_AWS_REGION=${AWS_REGION}
   build:
     commands:
+      - rm messages/*
       - aws s3 cp s3://$TESTREPORTS_BUCKET/messages messages --recursive
       - mkdir TestReport
-      - ls -l
+      - ls -l cypress
       - npx cucumber-merge-messages messages/*.ndjson > messages/cucumber-messages.ndjson
       - npx cucumber-json-formatter < messages/cucumber-messages.ndjson > cypress/cucumber-json/cucumber-report.json
       - npm run create:cucumber:report

@@ -8,7 +8,7 @@ export default defineConfig({
   env: {
     TAGS: 'not @ignore and @test',
   },
- defaultCommandTimeout: 30000,
+  defaultCommandTimeout: 30000,
   viewportWidth: 1600,
   viewportHeight: 1200,
   e2e: {
