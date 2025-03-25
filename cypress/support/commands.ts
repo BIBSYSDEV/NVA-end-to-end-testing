@@ -12,8 +12,10 @@ import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
 import { mockPersonFeideIdSearch, mockPersonNameSearch } from './mock_data';
 import { userSecondEditor } from './constants';
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { createValidRegistrationWithType } from './create_registration';
+import puppeteer from 'puppeteer';
+import express from 'express';
+import axios from 'axios';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -22,6 +24,15 @@ const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
 const userPoolId = Cypress.env('AWS_USER_POOL_ID');
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'e2e';
+const redirectUri = 'http://localhost:3000/callback';
+const cognitoUri = Cypress.env('COGNITO_URI');
+const tokenUrl = `${cognitoUri}/oauth2/token`;
+const secretId = 'TestUserPassword';
+const scopes = 'openid https://api.nva.unit.no/scopes/frontend';
+
+const loginUrl = `${cognitoUri}/login?client_id=${clientId}&response_type=code&scope=${encodeURIComponent(
+  scopes
+)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
 
 const globalConfig = {
   accessKeyId: awsAccessKeyId,
@@ -47,10 +58,16 @@ const identityServiceProvider = new CognitoIdentityProviderClient({
   region: region,
   credentials: globalConfig,
 });
-const secretsManager = new SecretsManagerClient({
+const secretsManagerClient = new SecretsManagerClient({
   region: region,
   credentials: globalConfig,
 });
+
+const getSecretValue = async (secretId) => {
+  const command = new GetSecretValueCommand({ SecretId: secretId });
+  const response = await secretsManagerClient.send(command);
+  return response.SecretString;
+};
 
 const passwords = {};
 
@@ -74,52 +91,100 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options?) => {
   cy.get(selector, options);
 });
 
+const getAuthorizationCode = async (userId: string) => {
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+
+  await page.goto(loginUrl);
+
+  await page.waitForSelector('#signInFormUsername');
+  await page.type('#signInFormUsername', userId);
+
+  await page.waitForSelector('#signInFormPassword');
+
+  const password = await getSecretValue(secretId);
+  await page.type('#signInFormPassword', password);
+
+  await page.waitForSelector('input[name="signInSubmitButton"]');
+  await page.click('input[name="signInSubmitButton"]');
+
+  await page.waitForNavigation();
+
+  const url = page.url();
+  const authorizationCode = new URL(url).searchParams.get('code');
+
+  await browser.close();
+
+  return authorizationCode;
+};
+
+const getAccessToken = async (authorizationCode) => {
+  const params = new URLSearchParams();
+  params.append('grant_type', 'authorization_code');
+  params.append('client_id', clientId);
+  params.append('redirect_uri', redirectUri);
+  params.append('code', authorizationCode);
+
+  try {
+    const response = await axios.post(tokenUrl, params.toString(), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+
+    if (response.status === 200) {
+      return response.data.access_token; // Return only the access token
+    } else {
+      console.error('Unexpected response status:', response.status);
+      throw new Error(`Unexpected response status: ${response.status}`);
+    }
+  } catch (err) {
+    console.error('Error exchanging authorization code for access token:', err);
+    if (err.response) {
+      console.error('Error response data:', err.response.data);
+    }
+    throw err;
+  }
+};
+
 const loginCognito = (userId: string) => {
   return new Cypress.Promise((resolve, reject) => {
-    Amplify.configure(amplifyConfig);
-    const secretsManagerParams = {
-      SecretId: 'TestUserPassword',
-    };
-    const command = new GetSecretValueCommand(secretsManagerParams);
-    let testUserPassword = '';
-    secretsManager.send(command).then((passwordResponse) => {
-      if (passwordResponse) {
-        testUserPassword = passwordResponse.SecretString;
+    const app = express();
+    const port = 3000;
+    let server;
 
-        const authorizeUser = {
-          AuthFlow: AuthFlowType.USER_PASSWORD_AUTH,
-          ClientId: clientId,
-          AuthParameters: {
-            USERNAME: userId,
-            PASSWORD: testUserPassword,
-          },
-        };
+    app.get('/callback', async (req: any, res: any) => {
+      const authorizationCode = req.query.code;
 
-        const command = new InitiateAuthCommand(authorizeUser);
+      if (!authorizationCode) {
+        return res.status(400).send('Authorization code not found');
+      }
 
-        identityServiceProvider.send(command).then((authorizeResponse) => {
-          if (authorizeResponse) {
-            if (!authorizeResponse.ChallengeName) {
-              try {
-                signOut().then(() => {
-                  signIn({ username: userId, password: testUserPassword }).then(() => {
-                    resolve(authorizeResponse.AuthenticationResult.IdToken);
-                  });
-                });
-              } catch (e) {
-                console.log('fail... sign in');
-                console.log(e);
-                reject();
-              }
-            } else {
-              console.log('fail.. challenge');
-              console.log(authorizeResponse.ChallengeName);
-            }
-          } else {
-            console.log('fail.. init auth');
-            reject();
-          }
+      try {
+        const tokens = await getAccessToken(authorizationCode);
+        const accessToken = tokens.access_token;
+
+        res.send('Authorization code exchanged for access token');
+
+        // Close the server after responding
+        server.close(() => {
+          console.log('Server closed');
+          resolve(accessToken);
         });
+      } catch (err) {
+        res.status(500).send('Error exchanging authorization code for access token');
+        reject(err);
+      }
+    });
+
+    server = app.listen(port, async () => {
+      console.log(`Server running at http://localhost:${port}`);
+
+      try {
+        await getAuthorizationCode(userId);
+      } catch (err) {
+        console.error('Error:', err);
+        reject(err);
       }
     });
   });
