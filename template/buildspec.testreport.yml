@@ -28,7 +28,7 @@ phases:
       - if [ ! -d "messages" ]; then mkdir messages; fi
       - aws s3 cp s3://$TESTREPORTS_BUCKET/messages messages --recursive
       - if [ ! -d "TestReport" ]; then mkdir TestReport; fi
-      - if [ ! -d "cypress/cucumber-json" ]; mkdir cypress/cucumber-json; fi
+      - if [ ! -d "cypress/cucumber-json" ]; then mkdir cypress/cucumber-json; fi
       - ls -l cypress
       - npx cucumber-merge-messages messages/*.ndjson > messages/cucumber-messages.ndjson
       - npx cucumber-json-formatter < messages/cucumber-messages.ndjson > cypress/cucumber-json/cucumber-report.json
