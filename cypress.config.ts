@@ -8,15 +8,6 @@ export default defineConfig({
   env: {
     TAGS: 'not @ignore and @test',
   },
-  reporter: '../node_modules/mochawesome/src/mochawesome.js',
-  video: true,
-  retries: 1,
-  reporterOptions: {
-    overwrite: false,
-    html: false,
-    json: true,
-    showSkipped: false,
-  },
  defaultCommandTimeout: 30000,
   viewportWidth: 1600,
   viewportHeight: 1200,
