@@ -75,9 +75,6 @@ Then('they can see values for:', (dataTable: DataTable) => {
 //  | Abstract |
 
 //      Scenario: A User select a search result
-Given('a User has searched for Registrations', () => {
-  visitStartPage();
-});
 When('they select one of the Registrations', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .first()
