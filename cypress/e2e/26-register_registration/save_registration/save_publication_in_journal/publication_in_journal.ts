@@ -33,13 +33,17 @@ let init = true;
 
 const initData = () => {
   if (init) {
-    const originalPublication = `Original publication for corrigendum`;
+    const originalPublication = `Original publication for corrigendum ${uuidv4()}`;
     cy.createPublishedRegistration(originalPublication);
-    cy.wait(20000);
-    const corrigendumTitle = 'Test article corrigendum';
+    cy.wait(10000);
+    const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
     cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
     init = false;
-    cy.wait(20000);
+    cy.wait(10000);
+    const articleForCorrigendumTitle = `Test article corrigendum ${uuidv4()}`;
+    cy.createPublishedRegistration(articleForCorrigendumTitle);
+    init = false;
+    cy.wait(10000);
   }
 };
 

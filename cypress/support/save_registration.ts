@@ -69,16 +69,6 @@ export const registrationFields = {
       landingPageTestId: dataTestId.registrationLandingPage.filesAccordion,
       value: 'example.json',
     },
-    'version': {
-      type: 'checkbox',
-      fieldTestId: dataTestId.registrationWizard.files.version,
-      elementType: 'radio',
-      landingPageTestId: dataTestId.registrationLandingPage.filesAccordion,
-      value: 'example.json',
-      checkbox: {
-        selected: 'last',
-      },
-    },
     // 'author agreement': {
     //   type: 'checkbox',
     //   fieldTestId: dataTestId.registrationWizard.files.administrativeAgreement,

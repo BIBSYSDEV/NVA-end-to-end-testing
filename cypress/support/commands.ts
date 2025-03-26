@@ -312,6 +312,11 @@ const fillInField = (field: Object) => {
         .selectFile(`cypress/fixtures/${field['value']}`, { force: true, timeout: 30000 });
       cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
       cy.contains('Open file').click();
+      cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
+        .last()
+        .within(() => {
+          cy.get('input[type=radio]').first().click();
+        });
       break;
     case 'select':
       cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click({ force: true }).type(' ');

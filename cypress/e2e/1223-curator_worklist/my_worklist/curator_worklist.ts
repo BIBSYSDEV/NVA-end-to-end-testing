@@ -213,7 +213,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable: DataTable) =>
 //   | Request Submitter Date    |
 //   | Beginning of last message |
 //   | Owner name                |
-Then('they see that each Request can be opened', () => {});
+Then('they see that each Request can be opened', () => { });
 // Examples:
 //   | Type      |
 //   | Approval  |
@@ -324,7 +324,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   }
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeIndicator).should('not.exist');
 });
-Then('the Request Status is set to "New"', () => {});
+Then('the Request Status is set to "New"', () => { });
 Then('the Request is unassigned the Curator', () => {
   cy.wait(6000);
   cy.get('[title=Tasks]').click();
@@ -341,16 +341,16 @@ Then('the Request is unassigned the Curator', () => {
 });
 
 // Scenario: Curator open a assigned Request
-When('the Curator selects a Request', () => {});
-Then('the Request is expanded', () => {});
-Then('the assigned Curator is viewed', () => {});
-Then('previous messages are displayed chronologically with:', () => {});
+When('the Curator selects a Request', () => { });
+Then('the Request is expanded', () => { });
+Then('the assigned Curator is viewed', () => { });
+Then('previous messages are displayed chronologically with:', () => { });
 // | Submitter name          |
 // | Submitter Date and Time |
 // | The full message        |
-Then('the Curator can reply to a message', () => {});
-Then('the Curator can open the Requests Resource', () => {});
-Then('the Curator can change the Status of the Request', () => {});
+Then('the Curator can reply to a message', () => { });
+Then('the Curator can open the Requests Resource', () => { });
+Then('the Curator can change the Status of the Request', () => { });
 
 // Scenario Outline: Curator open the Request's Resource
 Given('the {string} receives a Request of type {string}', (user: string, type: string) => {
@@ -370,7 +370,7 @@ When('the Curator opens the Requests Resource', () => {
   cy.get('@user').then((user) => {
     cy.get('@title').then((title) => {
       if (user.toString() === 'Nvi-Curator') {
-        cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+        // cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
         cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
         cy.contains(year).click();
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -459,24 +459,24 @@ Then('the User can read the answer in My Messages', () => {
 });
 
 // Scenario: User gets an answer to a Request
-When('the Curator writes an answer', () => {});
-When('sends it to the User', () => {});
-When('the Request Type is:', () => {});
+When('the Curator writes an answer', () => { });
+When('sends it to the User', () => { });
+When('the Request Type is:', () => { });
 // | Approval  |
 // | DOI       |
 // | Ownership |
-Then('the User can see the answer in My Messages', () => {});
+Then('the User can see the answer in My Messages', () => { });
 
 // Scenario Outline: Curator change Status on a Request
-When('Curator selects a new status "<Status>" on a Request', () => {});
-Then('the status of the Request is set to {string}', (status) => {});
+When('Curator selects a new status "<Status>" on a Request', () => { });
+Then('the status of the Request is set to {string}', (status) => { });
 // Examples:
 //   | Status   |
 //   | Archived |
 //   | Deleted  |
 
 // Scenario: Curator receives assignment of responses to requests they have previously responded to
-When('the Curator:', () => {});
+When('the Curator:', () => { });
 // | Sends an answer          |
 // | Publishes a resource     |
 // | Mints a DOI              |
@@ -485,12 +485,12 @@ When('the Curator:', () => {});
 // | Declines change of owner |
 
 // Scenario: Curator receives Requests in their scope
-Given('the Request is of type:', () => {});
+Given('the Request is of type:', () => { });
 // | Approval |
 // | Support  |
 // | DOI      |
-When("the Requests' Submitter is Affilliated within the Curators Scope", () => {});
-Then('the Request is part of the Curators Worklist', () => {});
+When("the Requests' Submitter is Affilliated within the Curators Scope", () => { });
+Then('the Request is part of the Curators Worklist', () => { });
 
 // Scenario: Curator receives Requests they have been assigned from outside their scope
 // | Approval |
@@ -498,7 +498,7 @@ Then('the Request is part of the Curators Worklist', () => {});
 // | DOI      |
 
 // Scenario: Curator receives Ownership requests within their scope
-Given('the Request is of type "Ownership"', () => {});
-When('the Affilliation of the Owner of the Resource associated with the Request is within Curators Scope', () => {});
+Given('the Request is of type "Ownership"', () => { });
+When('the Affilliation of the Owner of the Resource associated with the Request is within Curators Scope', () => { });
 
 // Scenario: Curator receives Ownership requests they have been assigned from outside their scope
