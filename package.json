@@ -47,11 +47,8 @@
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
     "aws-amplify": "^6.12.2",
-    "axios": "^1.8.4",
     "cypress": "^14.0.0",
     "cypress-html-reporter": "^11.0.0",
-    "cypress-localstorage-commands": "^2.2.7",
-    "express": "^4.21.2",
-    "puppeteer": "^24.4.0"
+    "cypress-localstorage-commands": "^2.2.7"
   }
 }

@@ -11,6 +11,8 @@ export default defineConfig({
   defaultCommandTimeout: 30000,
   viewportWidth: 1600,
   viewportHeight: 1200,
+  defaultBrowser: 'chrome',
+
   e2e: {
     specPattern: 'cypress/e2e/**/*.feature',
     async setupNodeEvents(

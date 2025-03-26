@@ -1,3 +1,3 @@
 {"meta":{"protocolVersion":"27.0.2","implementation":{"version":"22.0.1","name":"@badeball/cypress-cucumber-preprocessor"},"cpu":{"name":"x64"},"os":{"name":"win32","version":"10.0.22631"},"runtime":{"name":"node.js","version":"23.6.1"}}}
-{"testRunStarted":{"timestamp":{"seconds":1742902721,"nanos":759000000}}}
-{"testRunFinished":{"timestamp":{"seconds":1742902788,"nanos":983000000}}}
+{"testRunStarted":{"timestamp":{"seconds":1742975412,"nanos":204000000}}}
+{"testRunFinished":{"timestamp":{"seconds":1742975420,"nanos":425000000}}}

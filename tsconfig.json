@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
-      "target": "es2021",
-      "lib": ["es2021", "dom"],
+      "target": "ES2024",
+      "lib": ["ES2024", "dom"],
       "types": ["cypress", "node"],
-      "module": "Node16",
+      "module": "Node18",
       "moduleResolution": "node16",
       "esModuleInterop": true
     },
-    "include": ["**/*.ts", "cypress/e2e/e2e/24-authentication/user-logs-in/user-logs-in.js", "scripts/cucumber_report.js"]
+    "include": ["**/*.ts", "scripts/cucumber_report.js"]
   }
