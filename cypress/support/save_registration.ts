@@ -176,7 +176,7 @@ export const resourceTypeFields = {
     fieldTestId: dataTestId.registrationWizard.resourceType.journalField,
     elementType: 'search',
     landingPageTestId: '',
-    value: 'Academic Research International',
+    value: 'ACS CHemical Biology',
   },
   articleTitle: {
     type: 'search',
