@@ -53,7 +53,7 @@ const addCategoryData = (type: string) => {
             cy.contains('NTNU Samfunnsforskning').click();
             break;
         case 'ConferenceAbstract':
-            cy.intercept('GET', 'https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' })
+            cy.intercept('GET', 'publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' })
             cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acs chemical');
             cy.contains('ACS Chemical Biology').click();
             break;

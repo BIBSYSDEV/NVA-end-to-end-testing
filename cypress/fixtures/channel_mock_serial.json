@@ -4,37 +4,6 @@
     "nextResults" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication?year=2025&query=chemical&offset=10&size=10",
     "previousResults" : null,
     "hits" : [ {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/F819EBF5-181C-4F96-B809-FD4210E83CBA/2025",
-      "identifier" : "F819EBF5-181C-4F96-B809-FD4210E83CBA",
-      "name" : "1st European Symposium  on Phytochemicals in Medicine and Food",
-      "scientificValue" : "Unassigned",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/nvakanal?pid=F819EBF5-181C-4F96-B809-FD4210E83CBA",
-      "type" : "Journal",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    }, {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/47B50AD8-F84C-47DA-BE08-3850192F7BDA/2025",
-      "identifier" : "47B50AD8-F84C-47DA-BE08-3850192F7BDA",
-      "name" : "Abstract of Papers of the American Chemical Society",
-      "printIssn" : "0065-7727",
-      "scientificValue" : "Unassigned",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=47B50AD8-F84C-47DA-BE08-3850192F7BDA",
-      "discontinued" : "2005",
-      "type" : "Journal",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    }, {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/271CEF41-0052-48CA-BB31-6780C7BA1F44/2025",
-      "identifier" : "271CEF41-0052-48CA-BB31-6780C7BA1F44",
-      "name" : "Accounts of Chemical Research",
-      "onlineIssn" : "1520-4898",
-      "printIssn" : "0001-4842",
-      "scientificValue" : "LevelOne",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=271CEF41-0052-48CA-BB31-6780C7BA1F44",
-      "type" : "Journal",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    }, {
       "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/1864A370-80CA-4BE5-9CB7-40B0CCEF23CA/2025",
       "identifier" : "1864A370-80CA-4BE5-9CB7-40B0CCEF23CA",
       "name" : "ACS Chemical Biology",
@@ -42,71 +11,6 @@
       "printIssn" : "1554-8929",
       "scientificValue" : "LevelTwo",
       "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=1864A370-80CA-4BE5-9CB7-40B0CCEF23CA",
-      "type" : "Journal",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    }, {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/8D1B0B6B-868A-4663-BD62-246BEC667172/2025",
-      "identifier" : "8D1B0B6B-868A-4663-BD62-246BEC667172",
-      "name" : "ACS Chemical Neuroscience",
-      "onlineIssn" : "1948-7193",
-      "scientificValue" : "LevelOne",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=8D1B0B6B-868A-4663-BD62-246BEC667172",
-      "type" : "Journal",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    }, {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/F604DCE2-E875-4D86-B64D-2C22BFFF7826/2025",
-      "identifier" : "F604DCE2-E875-4D86-B64D-2C22BFFF7826",
-      "name" : "Advanced Structural and Chemical Imaging",
-      "onlineIssn" : "2198-0926",
-      "scientificValue" : "Unassigned",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=F604DCE2-E875-4D86-B64D-2C22BFFF7826",
-      "discontinued" : "2020",
-      "type" : "Journal",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    }, {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/0299EA4F-64A7-4EC6-BFB7-E521CCF6733A/2025",
-      "identifier" : "0299EA4F-64A7-4EC6-BFB7-E521CCF6733A",
-      "name" : "Advances in Biochemical Engineering, Biotechnology",
-      "onlineIssn" : "1616-8542",
-      "printIssn" : "0724-6145",
-      "scientificValue" : "LevelOne",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=0299EA4F-64A7-4EC6-BFB7-E521CCF6733A",
-      "type" : "Journal",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    }, {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/FFBF34F8-4F46-42DA-8B97-7A8A01C3388E/2025",
-      "identifier" : "FFBF34F8-4F46-42DA-8B97-7A8A01C3388E",
-      "name" : "Advances in Biochemical Psychopharmacology",
-      "printIssn" : "0065-2229",
-      "scientificValue" : "Unassigned",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=FFBF34F8-4F46-42DA-8B97-7A8A01C3388E",
-      "discontinued" : "1995",
-      "type" : "Journal",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    }, {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/925C12A3-5B92-4FAF-A88F-7B5807F1DC0D/2025",
-      "identifier" : "925C12A3-5B92-4FAF-A88F-7B5807F1DC0D",
-      "name" : "Advances in Chemical Engineering",
-      "onlineIssn" : "2375-6756",
-      "printIssn" : "0065-2377",
-      "scientificValue" : "LevelOne",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=925C12A3-5B92-4FAF-A88F-7B5807F1DC0D",
-      "type" : "Series",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    }, {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/C28D8AC7-2D7B-4B17-8ECD-AB155FCA8DE8/2025",
-      "identifier" : "C28D8AC7-2D7B-4B17-8ECD-AB155FCA8DE8",
-      "name" : "Advances in Chemical Physics",
-      "onlineIssn" : "1934-4791",
-      "printIssn" : "0065-2385",
-      "scientificValue" : "LevelOne",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=C28D8AC7-2D7B-4B17-8ECD-AB155FCA8DE8",
       "type" : "Journal",
       "year" : "2025",
       "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"

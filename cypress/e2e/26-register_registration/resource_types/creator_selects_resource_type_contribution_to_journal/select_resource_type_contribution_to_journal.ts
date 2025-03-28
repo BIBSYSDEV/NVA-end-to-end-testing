@@ -172,8 +172,8 @@ When('they select type to be {string}:', (type: string) => {
   });
   const resourceType = elements.join('');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(resourceType)).click();
-  cy.intercept('GET', 'https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' })
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('ACS Chemical Biology');
+  cy.intercept('GET', '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as('serialChannel');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('Chemical');
   cy.contains('ACS Chemical Biology').last().click();
 });
 Then('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
