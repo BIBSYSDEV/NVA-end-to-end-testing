@@ -194,6 +194,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
   cy.getDataTestId('resource-type-chip-AcademicArticle').click({
     force: true,
   });
+  cy.intercept('GET', 'https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' })
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField)
     .click({ force: true })
     .type('ACS Chemical Biology');
@@ -303,6 +304,7 @@ const fillInField = (field: Object) => {
       cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, todayDatePicker());
       break;
     case 'search':
+      cy.intercept('GET', 'https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' })
       cy.getDataTestId(field['fieldTestId']).should('be.visible').type(field['value'], { delay: 1 });
       cy.contains(field['value']).click();
       break;
