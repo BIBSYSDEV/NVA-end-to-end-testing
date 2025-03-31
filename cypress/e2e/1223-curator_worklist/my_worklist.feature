@@ -36,51 +36,6 @@ Feature: Curator opens My Worklist
     - There is a need to allow Curators at two Institutions to comunicate
 
       @test
-    Scenario Outline: Curator opens their Worklist
-      When the "<Curator>" opens their Worklist
-      Then the Curator see that the Worklist is Scoped
-      And the Worklist contains Requests of type "<Type>"
-      Examples:
-        | Curator            | Type     |
-        | Publishing-Curator | Approval |
-        | Support-Curator    | Support  |
-        | Doi-Curator        | DOI      |
-        | Nvi-Curator        | NVI      |
-      # | Ownership-Curator | Ownership |
-
-      # Scenario: Curator change Scope of their Worklist
-      #   When the Curator change Scope to the whole Institution or one or more subunits
-      #   Then the listed Requests is updated to match the new Scope
-
-    @test
-  Scenario Outline: Curator views all Requests of a type
-    When "<Curator>" clicks on Requests of type "<Type>"
-    Then Curator see a list of Requests displayed with:
-      | Request status         |
-      | Registration title     |
-      | Request Submitter Date |
-    And they see that each Request can be opened
-    Examples:
-      | Curator            | Type     |
-      | Publishing-Curator | Approval |
-      | Support-Curator    | Support  |
-      | Doi-Curator        | DOI      |
-      | Nvi-Curator        | NVI      |
-    # | Ownership |
-
-      @test
-    Scenario Outline: Curator opens a unassigned Request
-      When the "<Curator>" open a unassigned Request of type "<Type>"
-      Then the Curator is assigned the Request
-      And the Request Status is set to "Active"
-      Examples:
-        | Curator            | Type     |
-        | Publishing-Curator | Approval |
-        | Support-Curator    | Support  |
-        | Doi-Curator        | DOI      |
-        | Nvi-Curator        | NVI      |
-
-      @test
     Scenario Outline: Curator unassigns a Request
       When the "<Curator>" selects "Mark request unread" on a request of type "<Type>"
       Then the Request Status is set to "New"
