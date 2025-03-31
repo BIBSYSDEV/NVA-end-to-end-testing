@@ -32,6 +32,7 @@ Given('the publication has at least one Author affiliated with an NVI institutio
             cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(type.toString())).click();
             switch (channel.toString()) {
                 case JOURNAL:
+                    cy.intercept('GET', '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' })
                     cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acs chemical');
                     cy.contains('ACS Chemical Biology').click();
                     break;
