@@ -194,10 +194,10 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
   cy.getDataTestId('resource-type-chip-AcademicArticle').click({
     force: true,
   });
-  cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as('serialChannel');
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField)
-    .click({ force: true })
-    .type('Chemical');
+  cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as(
+    'serialChannel'
+  );
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Chemical');
   cy.contains('ACS Chemical Biology').click({ force: true });
 
   // Contributors
@@ -311,8 +311,15 @@ const fillInField = (field: Object) => {
       cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, todayDatePicker());
       break;
     case 'search':
-      cy.intercept(
-        '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as('serialChannel')
+      if (field['fieldTestId'] == dataTestId.registrationWizard.resourceType.seriesField) {
+        cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_series.json' }).as(
+          'serialChannel'
+        );
+      } else {
+        cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as(
+          'serialChannel'
+        );
+      }
       cy.getDataTestId(field['fieldTestId']).should('be.visible').type(field['value'], { delay: 1 });
       cy.contains(field['value']).click();
       break;
@@ -322,11 +329,15 @@ const fillInField = (field: Object) => {
         .selectFile(`cypress/fixtures/${field['value']}`, { force: true, timeout: 30000 });
       cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
       cy.contains('Open file').click();
-      cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
-        .last()
-        .within(() => {
-          cy.get('input[type=radio]').first().click();
-        });
+      cy.get('body').then(($body) => {
+        if ($body.find(`[data-testid=${dataTestId.registrationWizard.files.version}]`).length > 0) {
+          cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
+            .last()
+            .within(() => {
+              cy.get('input[type=radio]').first().click();
+            });
+        }
+      });
       break;
     case 'select':
       cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click({ force: true }).type(' ');

@@ -69,23 +69,6 @@ export const registrationFields = {
       landingPageTestId: dataTestId.registrationLandingPage.filesAccordion,
       value: 'example.json',
     },
-    // 'author agreement': {
-    //   type: 'checkbox',
-    //   fieldTestId: dataTestId.registrationWizard.files.administrativeAgreement,
-    //   elementType: 'checkbox',
-    //   landingPageTestId: dataTestId.registrationLandingPage.administrativeAgreement,
-    //   value: false,
-    //   checkbox: {
-    //     selected: 'check',
-    //   },
-    // },
-    // 'date': {
-    //   type: 'date',
-    //   fieldTestId: dataTestId.registrationWizard.files.embargoDateField,
-    //   elementType: 'input',
-    //   landingPageTestId: '',
-    //   value: '11.11.2021',
-    // },
     'terms of use': {
       type: 'select',
       fieldTestId: dataTestId.registrationWizard.files.selectLicenseField,
