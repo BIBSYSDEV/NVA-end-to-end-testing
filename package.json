@@ -13,6 +13,7 @@
   "html": {
     "enabled": true
   },
+  "platform": "node",
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,
     "step_definitions": "cypress/e2e/",
@@ -46,9 +47,12 @@
     "@aws-sdk/client-secrets-manager": "^3.734.0",
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
+    "@types/node": "^22.13.14",
     "aws-amplify": "^6.12.2",
     "cypress": "^14.0.0",
     "cypress-html-reporter": "^11.0.0",
-    "cypress-localstorage-commands": "^2.2.7"
+    "cypress-localstorage-commands": "^2.2.7",
+    "express": "^4.21.2",
+    "http": "^0.0.1-security"
   }
 }

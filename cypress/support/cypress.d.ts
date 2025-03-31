@@ -3,18 +3,7 @@ import { DataTable } from '@badeball/cypress-cucumber-preprocessor';
 declare global {
   namespace Cypress {
     interface Chainable {
-      /**
-       * Custom command to login to Cognito
-       * @param userId
-       * @example cy.login('test-user-with-author@test.no')
-       */
       login(userId: string): Chainable<string>;
-      /**
-       * Get element by data-testid
-       *
-       * @param dataTestId
-       * @param options
-       */
       getDataTestId(dataTestId: string, options?: any): Chainable<JQuery<HTMLElement>>;
 
       startRegistrationWithLink(doiLink: string): void;
