@@ -333,9 +333,36 @@ Resources:
                   - 'secretsmanager:GetSecretValue'
                 Resource: '*'
 
-
   ArtifactStoreBucket:
     Type: AWS::S3::Bucket
     Properties:
       VersioningConfiguration:
         Status: Enabled
+
+  jwtTokenExchangeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: python3.11
+      MemorySize: 128
+      Timeout: 100
+      Description: A Lambda that returns jwt tokens from a given authorization code
+      Environment:
+        Variables:
+          CLIENT_ID: !Sub '{{resolve:ssm:CognitoUserPoolAppClientId}}'
+          TOKEN_URL: !Sub '{{resolve:ssm:/NVA/CognitoUri}}/oauth2/token'
+          REDIRECT_URI: 'http://localhost:3000'
+      CodeUri: lambdas/
+      Events:
+        ExchangeApi:
+          Type: Api
+          Properties:
+            Path: /exchange
+            Method: get
+
+  JwtExchangeLambdaUrl:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /nva/e2e/jwt_exchange
+      Type: String
+      Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/exchange'
