@@ -7,6 +7,7 @@ import { DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preproc
 // Background:
 Given('A User is logged in', () => {});
 Given('the User got one of the following roles:', () => {
+  console.log('login');
   cy.login(userProjectManager);
 });
 // | Registrator           |
