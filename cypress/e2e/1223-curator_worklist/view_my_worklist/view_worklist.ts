@@ -210,7 +210,7 @@ Then('they see that each Request can be opened', () => {});
 
 // Scenario: Curator opens a unassigned Request
 When('the {string} open a unassigned Request of type {string}', (user: string, type: string) => {
-  const title = unassignTitles[type];
+  const title = openUnassignedTitles[type];
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.wrap(type).as('type');
