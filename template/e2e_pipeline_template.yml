@@ -417,7 +417,7 @@ Resources:
                 return {
                     'statusCode': 500,
                     'body': 'Error exchanging authorization code for access token',
-                }      Events:
+                }
       Events:
         JwtRestApi:
           Type: Api
