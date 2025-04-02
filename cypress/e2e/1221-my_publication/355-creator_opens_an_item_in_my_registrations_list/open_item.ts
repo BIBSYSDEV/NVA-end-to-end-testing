@@ -31,7 +31,7 @@ const initData = () => {
       });
     cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
-      cy.getDataTestId('CancelIcon').click();
+      cy.get('svg').click();
     });
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -87,7 +87,8 @@ When('they click Edit on a Registration', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
 });
 When('they see the Registration is opened in Edit Mode', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.description.titleField);
+  cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type('{selectall}{del}');
+  cy.getDataTestId(dataTestId.registrationWizard.description.abstractField).type('{selectall}');
 });
 When('they see the Registration has Validation Errors', () => {
   cy.get('[data-testid=error-tab]').should('exist');
