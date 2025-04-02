@@ -168,7 +168,7 @@ Then('the action outcome is {string}', (outcome) => {
                 cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
                 cy.reload();
                 cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-                cy.getDataTestId('OpenInNewOutlinedIcon').should('exist');
+                cy.get('[aria-label="Open file"]').should('exist');
             } else {
                 cy.getDataTestId(dataTestId.registrationLandingPage.openFileButton).should('exist');
             }

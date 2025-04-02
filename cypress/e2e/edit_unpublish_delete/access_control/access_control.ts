@@ -52,10 +52,10 @@ When('they {string} and want to edit the Registration', (condition) => {
     });
 });
 Then('they have an option to edit the Registration', () => {
-    cy.get('[data-testid=EditIcon]');
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton);
 });
 Then('when they use the option to edit the Registration is opened in the Registration Wizard', () => {
-    cy.get('[data-testid=EditIcon]').click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     cy.location('pathname').should('contain', 'edit');
 });
 // Examples:

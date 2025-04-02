@@ -48,7 +48,7 @@ Then('each Person has an option to edit', () => {
     .first()
     .parent()
     .within(() => {
-      cy.getDataTestId('EditIcon').should('exist');
+      cy.get('[aria-label=Edit]').should('exist');
     });
 });
 Then('there is a search option to locate some persons', () => {

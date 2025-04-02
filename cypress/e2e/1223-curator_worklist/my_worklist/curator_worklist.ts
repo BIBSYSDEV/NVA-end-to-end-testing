@@ -306,7 +306,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).first().click();
     cy.getDataTestId(taskPanels[user]).within(() => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() => {
-        cy.getDataTestId('CloseIcon').click({ force: true });
+        cy.getDataTestId('[aria-label="Clear"]').click({ force: true });
       });
     });
   }

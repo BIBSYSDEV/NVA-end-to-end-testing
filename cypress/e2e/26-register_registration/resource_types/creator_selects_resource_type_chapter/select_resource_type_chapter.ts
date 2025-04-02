@@ -42,7 +42,7 @@ Then('they see an information box describing that a Container report must be pub
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.partOfField}]`)
     .parent()
     .within(() => {
-      cy.get('[data-testid=InfoIcon]').should('be.visible');
+      cy.contains('The anthology where the chapter is published, must be registered and made public in NVA before you can register the chapter').should('be.visible');
     });
 });
 Then('they see a field {string}', (containerField: string) => {
