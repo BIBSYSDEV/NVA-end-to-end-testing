@@ -418,15 +418,35 @@ Resources:
                     'statusCode': 500,
                     'body': 'Error exchanging authorization code for access token',
                 }      Events:
-        ExchangeApi:
+      Events:
+        JwtRestApi:
           Type: Api
           Properties:
             Path: /exchange
             Method: get
+            RestApiId: !Ref JwtRestApi
+
+  JwtRestApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: JwtRestApi
+      StageName: Prod
+      DefinitionBody:
+        swagger: '2.0'
+        info:
+          title: 'JWT Token Exchange API'
+        paths:
+          /exchange:
+            get:
+              x-amazon-apigateway-integration:
+                type: aws_proxy
+                httpMethod: POST
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${jwtTokenExchangeFunction.Arn}/invocations'
+                responses: {}
 
   JwtExchangeLambdaUrl:
     Type: AWS::SSM::Parameter
     Properties:
       Name: /nva/e2e/jwt_exchange
       Type: String
-      Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/exchange'
+      Value: !Sub 'https://${JwtRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/exchange'
