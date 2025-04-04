@@ -351,7 +351,7 @@ Resources:
         Variables:
           CLIENT_ID: !Sub '{{resolve:ssm:CognitoUserPoolAppClientId}}'
           TOKEN_URL: !Sub '{{resolve:ssm:/NVA/CognitoUri}}/oauth2/token'
-          REDIRECT_URI: 'http://localhost:3000'
+          REDIRECT_URI: !Ref CypressBaseUrl
       InlineCode: |
         import os
         import json
