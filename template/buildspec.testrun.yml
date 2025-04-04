@@ -9,6 +9,7 @@ env:
     CYPRESS_AWS_CLIENT_ID: /test/CognitoTestClient1
     CYPRESS_REACT_APP_URL: /NVA/ApplicationDomain
     CYPRESS_REACT_APP_API_HOST: /NVA/ApiDomain
+    CYPRESS_COGNITO_URI: /NVA/CognitoUri
   secrets-manager:
     CYPRESS_DASHBOARD_KEY: 'E2ETesting:CypressDashboardKey'
     CYPRESS_DEVUSER: 'E2ETesting:DevUser'
