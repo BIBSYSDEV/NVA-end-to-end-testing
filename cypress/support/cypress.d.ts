@@ -16,6 +16,7 @@ declare global {
        * @param options
        */
       getDataTestId(dataTestId: string, options?: any): Chainable<JQuery<HTMLElement>>;
+      safeClick(locator: string): any;
 
       startRegistrationWithLink(doiLink: string): void;
       startWizardWithLink(doiLink: string): void;

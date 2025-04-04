@@ -13,6 +13,7 @@ import { registrationFields } from './save_registration';
 import { mockPersonFeideIdSearch, mockPersonNameSearch } from './mock_data';
 import { userSecondEditor } from './constants';
 import { createValidRegistrationWithType } from './create_registration';
+import { login } from './login';
 
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
 const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
@@ -125,16 +126,16 @@ const loginCognito = (userId: string) => {
 };
 
 Cypress.Commands.add('login', (userId: string) => {
-  cy.wrap(loginCognito(userId)).should('not.be.null');
-  cy.wait(1000);
-  cy.setLocalStorage('i18nextLng', 'eng');
-  cy.setLocalStorage('previouslyLoggedIn', 'true');
   cy.visit(`/`, {
     auth: {
       username: Cypress.env('DEVUSER'),
       password: Cypress.env('DEVPASSWORD'),
     },
   });
+  login(userId);
+  cy.wait(1000);
+  cy.setLocalStorage('i18nextLng', 'eng');
+  cy.setLocalStorage('previouslyLoggedIn', 'true');
 });
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
