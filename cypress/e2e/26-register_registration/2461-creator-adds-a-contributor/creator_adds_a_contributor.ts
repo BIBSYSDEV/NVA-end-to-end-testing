@@ -31,7 +31,6 @@ const enterSearchTerm = () => {
 
 const selectContributor = () => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
-    cy.getDataTestId('CheckCircleIcon');
 }
 
 const creatorSelectContributorType = () => {

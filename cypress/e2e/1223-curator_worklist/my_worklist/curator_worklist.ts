@@ -81,20 +81,18 @@ const createWorklistItem = (title, type) => {
 const users = {
   'Approval': 'Publishing-Curator',
   'Support': 'Support-Curator',
-  'DOI': 'Doi-Curator',
-  'NVI': 'Nvi-Curator',
+  'DOI': 'DOI-Curator',
+  'NVI': 'NVI-Curator',
 };
 
 let init = true;
 const titles = {
-  requestsTitle: (type) => `${type} request publication ${uuid()}`,
-  openUnassignedTitle: (type) => `Open unassigned ${users[type]} ${type} ${uuid()}`,
-  unassignTitle: (type) => `Unassign ${users[type]} ${type} ${uuid()}`,
-  openTitle: (type) => `Open ${users[type]} ${type} ${uuid()}`,
+  requestsTitle: (type: string) => `${type} request publication ${uuid()}`,
+  openUnassignedTitle: (type: string) => `Open unassigned ${users[type]} ${type} ${uuid()}`,
+  unassignTitle: (type: string) => `Unassign ${users[type]} ${type} ${uuid()}`,
+  openTitle: (type: string) => `Open ${users[type]} ${type} ${uuid()}`,
 };
 
-const requestTitles = {};
-const openUnassignedTitles = {};
 const unassignTitles = {};
 const openTitles = {};
 
@@ -117,7 +115,6 @@ Before(() => {
     init = false;
   }
 });
-
 
 // Scenario: Curator unassigns a Request
 When('the {string} selects "Mark request unread" on a request of type {string}', (user: string, type: string) => {
@@ -148,7 +145,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(taskPanels[user]).within(() => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).should('be.visible');
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type('{downArrow}{enter}');
+      cy.contains(`${users[type]} TestUser`).click();
       cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
     });
   }
@@ -298,6 +295,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.get('[value=BIBSYS]');
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
     cy.getDataTestId('message-field').type(`${curatorAnswer}{enter}`);
   });

@@ -178,7 +178,7 @@ Given('an NVI candidate', () => {
   cy.contains('Approved');
 });
 When('one or more of the candidate-affecting fields are changed', () => {
-  cy.getDataTestId('EditIcon').click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
