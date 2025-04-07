@@ -81,7 +81,7 @@ const loginCognito = (userId: string, password: string) => {
       cy.visit(`/login?${params}`);
       cy.get('body').then(($body) => {
         if ($body.find('a:contains("Sign in as a different user")').length > 0) {
-          cy.contains('Sign in as a different user').click();
+          cy.get('a:visible').filter(':contains("Sign in as a different user")').click();
         }
       });
       cy.get('input[name=username]:visible').type(userId);
