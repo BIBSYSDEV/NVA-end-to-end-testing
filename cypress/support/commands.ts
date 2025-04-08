@@ -581,7 +581,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
   .parent()
   .then(($body) => {
     const mobilePickerSelector = `[readonly]`;
-    const isMobile = $body.find(mobilePickerSelector).length === 0;
+    const isMobile = $body.find(mobilePickerSelector).length !== 0;
     if (isMobile) {
       cy.get(selector).click();
       cy.get('[role=dialog]').then(($dialog) => {
