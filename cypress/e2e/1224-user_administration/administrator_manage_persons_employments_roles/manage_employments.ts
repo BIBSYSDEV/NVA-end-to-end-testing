@@ -48,7 +48,7 @@ Then('each Person has an option to edit', () => {
     .first()
     .parent()
     .within(() => {
-      cy.getDataTestId('edit-person-button').should('exist');
+      cy.get('[data-testid^=edit-person-button-]').should('exist');
     });
 });
 Then('there is a search option to locate some persons', () => {
@@ -64,8 +64,8 @@ Then('the column titles can be used to sort the list', () => {});
 When('the Administrator wish to edit or add a new Person', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
   cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).type(`{selectall}${userName}`);
-  cy.getDataTestId('edit-person-button').should('have.length', 1);
-  cy.getDataTestId('edit-person-button').first().click();
+  cy.get('[data-testid^=edit-person-button-]').should('have.length', 1);
+  cy.get('[data-testid^=edit-person-button-]').first().click();
 });
 Then('the Administrator sees the Person s name and Person Number', () => {
   cy.get('[role=dialog]').within(() => {
@@ -131,8 +131,8 @@ Then('there is an option to save the changes', () => {
 Given('the Person viewed got multiple employments at current Institution', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
   cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).type(`{selectall}${userName}`);
-  cy.getDataTestId('edit-person-button').should('have.length', 1);
-  cy.getDataTestId('edit-person-button').first().click();
+  cy.get('[data-testid^=edit-person-button-]').should('have.length', 1);
+  cy.get('[data-testid^=edit-person-button-]').first().click();
 });
 When('the Administrator scrolls through the multiple employments', () => {
   cy.get('[title=Next]').click();
@@ -182,8 +182,8 @@ const roleChecks = {
 Given('Administrator edit a Person at his institution', () => {
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
   cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).type(`{selectall}${userNameEdit}`);
-  cy.getDataTestId('edit-person-button').should('have.length', 1);
-  cy.getDataTestId('edit-person-button').first().click();
+  cy.get('[data-testid^=edit-person-button-]').should('have.length', 1);
+  cy.get('[data-testid^=edit-person-button-]').first().click();
 });
 When('the Administrator toggles on or off one of the following roles', (dataTable: DataTable) => {
   cy.wrap(dataTable.raw()).as('checks');
@@ -229,8 +229,8 @@ When('the Administrator uses the save options', () => {
 });
 Then('all changes are stored', () => {
   cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).type(`{selectall}${userNameEdit}`);
-  cy.getDataTestId('edit-person-button').should('have.length', 1);
-  cy.getDataTestId('edit-person-button').first().click();
+  cy.get('[data-testid^=edit-person-button-]').should('have.length', 1);
+  cy.get('[data-testid^=edit-person-button-]').first().click();
   cy.getDataTestId(dataTestId.basicData.personAdmin.positionPercent).within(() => {
     cy.get('input').should('have.value', 50);
   });
