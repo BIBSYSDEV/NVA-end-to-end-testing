@@ -577,35 +577,38 @@ Cypress.Commands.add('checkLandingPage', () => {
 
 Cypress.Commands.add('chooseDatePicker', (selector, value) => {
   const selectYear = value.length === 4;
-  cy.get('body').then(($body) => {
-    const mobilePickerSelector = `[data-testid=CalendarIcon]`;
-    const isMobile = $body.find(mobilePickerSelector).length === 0;
-    if (isMobile) {
-      cy.get(selector).click();
-      cy.get('[role=dialog]').then(($dialog) => {
-        const typableField = !(
-          $dialog.find('.MuiPickersDay-today').length > 0 || $dialog.find('.Mui-selected').length > 0
-        );
-        if (typableField) {
-          cy.get(selector).within(() => {
-            cy.get('input').type(value, { force: true });
-          });
+  let isMobile = false;
+  cy.get(selector)
+    .parent()
+    .then(($body) => {
+      const mobilePickerSelector = `svg`;
+      isMobile = $body.find(mobilePickerSelector).length === 0;
+    });
+  if (isMobile) {
+    cy.get(selector).click();
+    cy.get('[role=dialog]').then(($dialog) => {
+      const typableField = !(
+        $dialog.find('.MuiPickersDay-today').length > 0 || $dialog.find('.Mui-selected').length > 0
+      );
+      if (typableField) {
+        cy.get(selector).within(() => {
+          cy.get('input').type(value, { force: true });
+        });
+      } else {
+        if (!selectYear) {
+          cy.get('.MuiPickersDay-today').click();
+          cy.contains('[role="dialog"] button', 'OK').click();
         } else {
-          if (!selectYear) {
-            cy.get('.MuiPickersDay-today').click();
+          if (selectYear) {
+            cy.get('.Mui-selected').click();
             cy.contains('[role="dialog"] button', 'OK').click();
-          } else {
-            if (selectYear) {
-              cy.get('.Mui-selected').click();
-              cy.contains('[role="dialog"] button', 'OK').click();
-            }
           }
         }
-      });
-    } else {
-      cy.get(selector).type(value);
-    }
-  });
+      }
+    });
+  } else {
+    cy.get(selector).type(value);
+  }
 });
 
 Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {

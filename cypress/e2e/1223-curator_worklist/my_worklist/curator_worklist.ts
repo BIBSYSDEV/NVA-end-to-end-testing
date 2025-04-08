@@ -145,9 +145,11 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.getDataTestId(taskPanels[user]).within(() => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).should('be.visible');
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
-      cy.contains(`${users[type]} TestUser`).click();
-      cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
     });
+    cy.contains(`${users[type]} TestUser`).click();
+    cy.getDataTestId(taskPanels[user]).within(() =>
+      cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}')
+    );
   }
   cy.getSuccess();
   if (user === 'Nvi-Curator') {
