@@ -581,7 +581,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
   cy.get(selector)
     .parent()
     .then(($body) => {
-      const mobilePickerSelector = `svg`;
+      const mobilePickerSelector = `button`;
       isMobile = $body.find(mobilePickerSelector).length === 0;
     });
   if (isMobile) {
