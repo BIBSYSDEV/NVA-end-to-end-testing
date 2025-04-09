@@ -32,7 +32,7 @@ const createPublications = (user) => {
 
 const clearFavoredResults = () => {
   cy.getDataTestId('search-results').then(($searchResults) => {
-    const favoredResults = $searchResults.find('[data-testid=StarIcon]');
+    const favoredResults = $searchResults.find('[data-testid=remove-promoted-publication-button]');
     if (favoredResults.length > 0) {
       cy.getDataTestId('edit-promoted-publication-button').each((icon: any) => {
         cy.get(icon).should('be.enabled').click();
@@ -83,7 +83,7 @@ Then('they see the result is marked as a favorite', () => {
     .filter(`:contains("${secondFavoriteResultTitle}")`)
     .parent()
     .within(() => {
-      cy.getDataTestId('StarIcon');
+      cy.getDataTestId('remove-promoted-publication-button');
     });
 });
 Then('the favorite results are displayed at the top of the list of results', () => {
@@ -93,7 +93,7 @@ Then('the favorite results are displayed at the top of the list of results', () 
     .parent()
     .within(() => {
       cy.contains(secondFavoriteResultTitle);
-      cy.getDataTestId('StarIcon');
+      cy.getDataTestId('remove-promoted-publication-button');
     });
 });
 
@@ -108,7 +108,7 @@ When('they unmark a favorite result', () => {
     .filter(`:contains("${thirdFavoriteResultTitle}")`)
     .parent()
     .within(() => {
-      cy.getDataTestId('StarIcon');
+      cy.getDataTestId('remove-promoted-publication-button');
     });
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .filter(`:contains("${thirdFavoriteResultTitle}")`)
@@ -123,7 +123,7 @@ Then('the result is not marked as favorite', () => {
     .filter(`:contains("${thirdFavoriteResultTitle}")`)
     .parent()
     .within(() => {
-      cy.getDataTestId('StarOutlineIcon');
+      cy.getDataTestId('edit-promoted-publication-button');
     });
 });
 Then('the result is not displayed at the top of the list of results', () => {
