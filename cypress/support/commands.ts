@@ -244,13 +244,13 @@ Cypress.Commands.add('refreshPublish', () => {
         .length > 0
     ) {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-      cy.wait(5000);
+      cy.wait(6000);
       cy.get('body').then(($body) => {
         if (
           $body.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
             .length > 0
         ) {
-          cy.wait(5000);
+          cy.wait(6000);
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
         }
       });
@@ -578,36 +578,36 @@ Cypress.Commands.add('checkLandingPage', () => {
 Cypress.Commands.add('chooseDatePicker', (selector, value) => {
   const selectYear = value.length === 4;
   cy.get(selector)
-  .parent()
-  .then(($body) => {
-    const mobilePickerSelector = `[readonly]`;
-    const isMobile = $body.find(mobilePickerSelector).length !== 0;
-    if (isMobile) {
-      cy.get(selector).click();
-      cy.get('[role=dialog]').then(($dialog) => {
-        const typableField = !(
-          $dialog.find('.MuiPickersDay-today').length > 0 || $dialog.find('.Mui-selected').length > 0
-        );
-        if (typableField) {
-          cy.get(selector).within(() => {
-            cy.get('input').type(value, { force: true });
-          });
-        } else {
-          if (!selectYear) {
-            cy.get('.MuiPickersDay-today').click();
-            cy.contains('[role="dialog"] button', 'OK').click();
+    .parent()
+    .then(($body) => {
+      const mobilePickerSelector = `[readonly]`;
+      const isMobile = $body.find(mobilePickerSelector).length !== 0;
+      if (isMobile) {
+        cy.get(selector).click();
+        cy.get('[role=dialog]').then(($dialog) => {
+          const typableField = !(
+            $dialog.find('.MuiPickersDay-today').length > 0 || $dialog.find('.Mui-selected').length > 0
+          );
+          if (typableField) {
+            cy.get(selector).within(() => {
+              cy.get('input').type(value, { force: true });
+            });
           } else {
-            if (selectYear) {
-              cy.get('.Mui-selected').click();
+            if (!selectYear) {
+              cy.get('.MuiPickersDay-today').click();
               cy.contains('[role="dialog"] button', 'OK').click();
+            } else {
+              if (selectYear) {
+                cy.get('.Mui-selected').click();
+                cy.contains('[role="dialog"] button', 'OK').click();
+              }
             }
           }
-        }
-      });
-    } else {
-      cy.get(selector).type(value);
-    }
-  });
+        });
+      } else {
+        cy.get(selector).type(value);
+      }
+    });
 });
 
 Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
