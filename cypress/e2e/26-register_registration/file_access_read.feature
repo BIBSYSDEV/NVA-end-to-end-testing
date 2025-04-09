@@ -12,7 +12,6 @@ Feature: File metadata read and file download permissions
 
     Examples:
       | FileType            | UserRole                             | Outcome     |
-    #   | UploadedFile        | External client                      | Not Allowed |
       | PendingOpenFile     | Uploader at X                        | Allowed     |
       | PendingOpenFile     | Contributor at X                     | Allowed     |
       | PendingOpenFile     | Other contributors                   | Allowed     |
