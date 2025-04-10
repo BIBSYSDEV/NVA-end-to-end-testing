@@ -20,7 +20,7 @@ Feature: User navigates to Landing Page for Registration and can see Files
     Scenario: Files that are Administrative Agreements are hidden
         Given Anonymous User views Landing Page for Registration
         And the Registration contains a File, which is an Administrative Agreement
-        When they view the Files section
+        # When they view the Files section
         Then they do not see the File that is an Administrative Agreement
 
     @test

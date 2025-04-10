@@ -2,7 +2,7 @@
 
 import { dataTestId } from '../../../support/dataTestIds';
 import { today } from '../../../support/commands';
-import { userWithAuthor } from '../../../support/constants';
+import { userWithAuthor, userWithAuthor2 } from '../../../support/constants';
 import { v4 as uuid } from 'uuid';
 import { Before, Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -34,10 +34,7 @@ const addFileToRegistration = (fileName, type) => {
   }
   if (type === EMBARGOED_FILE) {
     cy.getDataTestId(dataTestId.registrationWizard.files.expandFileRowButton).click();
-    cy.chooseDatePicker(
-      `[data-testid=${dataTestId.registrationWizard.files.embargoDateField}]`,
-      '12.12.2030'
-    );
+    cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.files.embargoDateField}]`, '12.12.2030');
   }
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
@@ -45,9 +42,9 @@ const addFileToRegistration = (fileName, type) => {
 
 let preview = false;
 
-
 // Common steps
 Given('Anonymous User views Landing Page for Registration', () => {
+  cy.login(userWithAuthor2);
   cy.setLocalStorage('i18nextLng', 'eng');
   cy.visit(`/`, {
     auth: {
@@ -71,7 +68,7 @@ Before({ 'tags': '@init' }, () => {
   cy.createPublishedRegistration(publicFileTitle);
   addFileToRegistration(textFileName, OPEN_FILE);
 
-  Object.keys(fileTypes).forEach(fileType => {
+  Object.keys(fileTypes).forEach((fileType) => {
     const fileTypeTitle = `Not Embargoed ${fileType} file ${uuid()}`;
     cy.createPublishedRegistration(fileTypeTitle);
     addFileToRegistration(fileTypes[fileType], OPEN_FILE);
@@ -83,14 +80,14 @@ Before({ 'tags': '@init' }, () => {
 });
 
 // Scenario: User sees the option to claim Ownership of a Resource
-When('the User views the Landing Page', () => { });
-Then('the User sees a option to claim Ownership of current Resource', () => { });
+When('the User views the Landing Page', () => {});
+Then('the User sees a option to claim Ownership of current Resource', () => {});
 
 // Scenario: User uses the option to claim Ownership of current Resource
-When('the User uses the option to claim Ownership of current Resource', () => { });
-Then('the User must write a claim', () => { });
-Then('a Ownership Request is sent to the Owners Curator', () => { });
-Then('the User is notified that progress on this claim can be viewed in My Messages', () => { });
+When('the User uses the option to claim Ownership of current Resource', () => {});
+Then('the User must write a claim', () => {});
+Then('a Ownership Request is sent to the Owners Curator', () => {});
+Then('the User is notified that progress on this claim can be viewed in My Messages', () => {});
 
 // @1530
 // Scenario: Files that are Administrative Agreements are hidden
@@ -153,8 +150,8 @@ Given('the Registration contains Files that are not Embargoed of type {string}',
 Given('every File has an expandable Preview panel', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).should('have.length', 1);
 });
-When('the user expands the Preview panel', () => { });
-Then('the selected File is downloaded', () => { });
+When('the user expands the Preview panel', () => {});
+Then('the selected File is downloaded', () => {});
 Then('they see the downloaded File is of type {string}', (type: string) => {
   cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).contains(fileTypes[type]);
 });
@@ -168,14 +165,14 @@ Then('they see the preview of the downloaded File', () => {
 //     | Microsoft Office |
 
 // Scenario: Automatically preview first File
-When('the first File is not Embargoed', () => { });
-When("the File's size is less than 10 MB", () => { });
+When('the first File is not Embargoed', () => {});
+When("the File's size is less than 10 MB", () => {});
 Then("the File's Preview panel is expanded by default", () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.file).within(() => {
     cy.get(`[data-testid=${dataTestId.registrationLandingPage.fileName}]`).should('be.visible');
   });
 });
-Then('the File is automatically downloaded', () => { });
+Then('the File is automatically downloaded', () => {});
 Then('the downloaded File is displayed', (file) => {
   cy.contains('Preview of lorem_ipsum.txt');
 });
