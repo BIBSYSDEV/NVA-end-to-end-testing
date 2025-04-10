@@ -222,10 +222,10 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
         cy.get('input[type=radio]').first().click();
       } else if (fileVersion !== 'Not set') {
         cy.get('input[type=radio]').last().click();
+        cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
+        cy.get('[data-testid=license-item]').first().click({ force: true });
       }
     });
-    cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
-    cy.get('[data-testid=license-item]').first().click({ force: true });
   }
 });
 
@@ -377,6 +377,11 @@ const fillInField = (field: Object) => {
             cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.artisticOutputDuration}]`)
               .first()
               .type('20');
+          } else if (
+            key === dataTestId.registrationWizard.resourceType.dateFromField ||
+            key === dataTestId.registrationWizard.resourceType.dateToField
+          ) {
+            cy.chooseDatePicker(key, field['add']['fields'][key]);
           } else {
             cy.getDataTestId(key).type(field['add']['fields'][key]);
           }
