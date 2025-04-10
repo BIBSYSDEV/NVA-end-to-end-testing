@@ -222,10 +222,12 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
         cy.get('input[type=radio]').first().click();
       } else if (fileVersion !== 'Not set') {
         cy.get('input[type=radio]').last().click();
-        cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
-        cy.get('[data-testid=license-item]').first().click({ force: true });
       }
     });
+    if (fileVersion === 'Published') {
+      cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
+      cy.get('[data-testid=license-item]').first().click({ force: true });
+    }
   }
 });
 
