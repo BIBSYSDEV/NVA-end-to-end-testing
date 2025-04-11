@@ -224,7 +224,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
         cy.get('input[type=radio]').last().click();
       }
     });
-    if (fileVersion === 'Published') {
+    if (fileVersion !== 'Accepted' && fileVersion !== 'Not set') {
       cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
       cy.get('[data-testid=license-item]').first().click({ force: true });
     }
