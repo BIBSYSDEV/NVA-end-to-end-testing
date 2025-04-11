@@ -6,8 +6,13 @@ import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 const visitStartPage = () => {
-  cy.getDataTestId('logo').click();
-  cy.getDataTestId(dataTestId.startPage.searchField).should('be.visible');
+  cy.setLocalStorage('i18nextLng', 'eng');
+  cy.visit('/', {
+    auth: {
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
+    },
+  });
 };
 
 const createSearchResults = () => {
@@ -26,7 +31,8 @@ Given('an anonymous User', () => {
   createSearchResults();
 });
 When('they open the start page', () => {
-  visitStartPage();
+  cy.getDataTestId('logo').click();
+  cy.getDataTestId(dataTestId.startPage.searchField).should('be.visible');
 });
 Then('they see a list of Registratons', () => {
   cy.getDataTestId('search-results');
