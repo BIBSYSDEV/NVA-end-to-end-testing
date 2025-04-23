@@ -61,7 +61,7 @@ const addCategoryData = (type: string) => {
             cy.getDataTestId(dataTestId.registrationWizard.resourceType.corrigendumForField).type('original publication for corrigendum');
             cy.contains('Original publication for corrigendum').click();
             break;
-        }
+    }
 };
 
 export const changeContributor = (userFrom: string, userTo: string): void => {
@@ -69,9 +69,7 @@ export const changeContributor = (userFrom: string, userTo: string): void => {
     cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
     cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton(userFrom)}"`).click();
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getSuccess();
-    cy.getSuccessDone();
+    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('not.exist');
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(userTo);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
