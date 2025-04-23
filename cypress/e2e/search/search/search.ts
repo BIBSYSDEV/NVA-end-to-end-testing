@@ -31,7 +31,7 @@ Given('an anonymous User', () => {
   createSearchResults();
 });
 When('they open the start page', () => {
-  cy.getDataTestId('logo').click();
+  cy.getDataTestId('logo').click({force: true});
   cy.getDataTestId(dataTestId.startPage.searchField).should('be.visible');
 });
 Then('they see a list of Registratons', () => {

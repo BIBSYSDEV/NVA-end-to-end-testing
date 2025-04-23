@@ -381,9 +381,10 @@ const fillInField = (field: Object) => {
               .type('20');
           } else if (
             key === dataTestId.registrationWizard.resourceType.dateFromField ||
-            key === dataTestId.registrationWizard.resourceType.dateToField
+            key === dataTestId.registrationWizard.resourceType.dateToField ||
+            key === dataTestId.registrationWizard.resourceType.outputInstantDateField
           ) {
-            cy.chooseDatePicker(key, field['add']['fields'][key]);
+            cy.chooseDatePicker(`[data-testid=${key}]`, field['add']['fields'][key]);
           } else {
             cy.getDataTestId(key).type(field['add']['fields'][key]);
           }

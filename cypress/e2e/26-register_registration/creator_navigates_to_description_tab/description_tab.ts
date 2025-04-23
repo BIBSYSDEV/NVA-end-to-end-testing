@@ -123,7 +123,7 @@ When('they click the Remove Project icon', () => {
     .parent()
     .parent()
     .within((project) => {
-      cy.wrap(project).getDataTestId('CancelIcon').click({ force: true });
+      cy.wrap(project).getDataTestId('remove-project-button').click({ force: true });
     });
 });
 Then('they see the Project is removed from the list of selected Projects', () => {
