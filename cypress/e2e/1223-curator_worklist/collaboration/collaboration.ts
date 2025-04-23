@@ -39,7 +39,7 @@ Given('a Publication is created by institution A with contributors from institut
   cy.log(title);
   cy.wrap(title).as('title');
   cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title, 'Accepted');
+  cy.createValidRegistration(fileName, title, 'Published');
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
