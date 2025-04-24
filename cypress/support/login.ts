@@ -9,11 +9,8 @@ const clientId = Cypress.env('AWS_CLIENT_ID');
 const scopes = 'openid email phone profile https://api.nva.unit.no/scopes/frontend aws.cognito.signin.user.admin';
 const redirectUri = 'https://e2e.nva.aws.unit.no';
 const tokenUri = 'https://o8f47ax77k.execute-api.eu-west-1.amazonaws.com/Prod/exchange';
-const params = `client_id=${clientId}&response_type=code&scope=${encodeURIComponent(
-  scopes
-)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
 
-let secretPasssword = 'P_43842e09-f674-44b3-81a4-4b719941b433';
+let secretPasssword = '';
 
 const readPassword = new Promise((res, rej) => {
   const globalConfig = {
@@ -42,52 +39,70 @@ export const login = (userId: string) => {
   if (!secretPasssword) {
     readPassword.then((password: string) => {
       secretPasssword = password;
+      loginNva(userId);
     });
+  } else {
+    loginNva(userId);
   }
+};
 
-  loginCognito(userId, secretPasssword).then(() => {
-    cy.location('search').then((query) => {
-      const code = query.replace('?code=', '');
-      cy.request(`${tokenUri}${query}`).then((response) => {
-        const accessTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.accessToken`;
-        const idTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.idToken`;
-        const refreshTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.refreshToken`;
-        const lastAuhtUser = `CognitoIdentityServiceProvider.${clientId}.LastAuthUser`;
-        const signInDetails = `CognitoIdentityServiceProvider.${clientId}.${userId}.signInDetails`;
-        cy.setLocalStorage(accessTokenKey, response.body['access_token']);
-        cy.setLocalStorage(idTokenKey, response.body['id_token']);
-        cy.setLocalStorage(refreshTokenKey, response.body['refresh_token']);
-        cy.setLocalStorage(lastAuhtUser, userId);
-        cy.setLocalStorage(signInDetails, `{"loginId":"${userId}","authFlowType":"USER_SRP_AUTH"}`);
-        cy.reload();
-        console.log(response.body);
-      });
+const loginNva = (userId: string) => {
+  getCode(userId, secretPasssword).then((code) => {
+    console.log(code);
+    cy.request(`${tokenUri}?code=${code}`).then((response) => {
+      const accessTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.accessToken`;
+      const idTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.idToken`;
+      const refreshTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.refreshToken`;
+      const lastAuhtUser = `CognitoIdentityServiceProvider.${clientId}.LastAuthUser`;
+      const signInDetails = `CognitoIdentityServiceProvider.${clientId}.${userId}.signInDetails`;
+      cy.setLocalStorage(accessTokenKey, response.body['access_token']);
+      cy.setLocalStorage(idTokenKey, response.body['id_token']);
+      cy.setLocalStorage(refreshTokenKey, response.body['refresh_token']);
+      cy.setLocalStorage(lastAuhtUser, userId);
+      cy.setLocalStorage(signInDetails, `{"loginId":"${userId}","authFlowType":"USER_SRP_AUTH"}`);
+      cy.reload();
     });
   });
 };
 
-const loginCognito = (userId: string, password: string) => {
+const getCode = (userName: string, password: string) => {
   return new Cypress.Promise((resolve, reject) => {
-    cy.intercept({ url: '*', times: 15 }, (req) =>
-      req.on('response', (res) => {
-        const setCookies = res.headers['set-cookie'];
-        res.headers['set-cookie'] = (Array.isArray(setCookies) ? setCookies : [setCookies])
-          .filter((x) => x)
-          .map((headerContent) => headerContent.replace(/samesite=(lax|strict)/gi, 'secure; samesite=none'));
-      })
-    );
+    const url = generateUrl();
+    const headers = {
+      'Cookie': 'XSRF-TOKEN=cd1e2cfa-1b42-473d-862d-01a4e09e7b44',
+      'Origin': cognitoUri,
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Referer': url,
+    };
 
-    cy.origin(cognitoUri, { args: { userId, password, params } }, ({ userId, password, params }) => {
-      cy.visit(`/login?${params}`);
-      cy.get('body').then(($body) => {
-        if ($body.find('a:contains("Sign in as a different user")').length > 0) {
-          cy.get('a:visible').filter(':contains("Sign in as a different user")').click();
+    const data = {
+      '_csrf': 'cd1e2cfa-1b42-473d-862d-01a4e09e7b44',
+      'username': userName,
+      'password': password,
+    };
+
+    cy.request({
+      url: url,
+      method: 'POST',
+      headers: headers,
+      body: data,
+      followRedirect: false,
+    }).then((response) => {
+      if (response.status === 302) {
+        const location = response.redirectedToUrl;
+        if (location) {
+          const code = location.replace('https://e2e.nva.aws.unit.no/?code=', '');
+          resolve(code);
         }
-      });
-      cy.get('input[name=username]:visible').type(userId);
-      cy.get('input[name="password"]:visible').type(password, { log: false });
-      cy.get('input[name=signInSubmitButton]:visible').click({});
+      }
     });
-    resolve();
   });
+};
+
+const generateUrl = () => {
+  const baseUrl = `${cognitoUri}/login`;
+  const queryString = `client_id=${encodeURIComponent(clientId)}&response_type=code&scope=${encodeURIComponent(
+    'aws.cognito.signin.user.admin email https://api.nva.unit.no/scopes/frontend openid phone profile'
+  )}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+  return `${baseUrl}?${queryString}`;
 };
