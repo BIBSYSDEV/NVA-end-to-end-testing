@@ -135,7 +135,9 @@ Cypress.Commands.add('login', (userId: string) => {
     login(userId).then(() => {
       cy.setLocalStorage('i18nextLng', 'eng');
       cy.setLocalStorage('previouslyLoggedIn', 'true');
+      cy.getDataTestId(dataTestId.header.logOutLink);
     });
+
   });
 
 });

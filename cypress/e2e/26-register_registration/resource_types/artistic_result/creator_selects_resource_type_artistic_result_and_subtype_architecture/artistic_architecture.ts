@@ -60,10 +60,10 @@ Then('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionOther}]`).type('Exhibition other');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
   //   });
-  cy.get('[data-testid=EditIcon]').should('be.visible');
+  cy.get('button').filter(':contains("Edit")').should('be.visible');
 });
 Then('they can delete existing Exhibitions', () => {
-  cy.get('[data-testid=CancelIcon]').should('be.visible');
+  cy.get('button').filter(':contains("Remove")').should('be.visible');
 });
 
 //   Scenario: Creator adds an Competition
@@ -109,10 +109,11 @@ Then('the Publication or Mention is listed under Exhibitions', () => {
 When('they add a Prize or Award with details for:', (dataTable: DataTable) => {
   cy.get(`[data-testid=${exhibitionTypes['Prize or Award']}]`).click({ force: true });
   dataTable.raw().forEach((field) => {
-    field[0] === 'Year'
-      ? cy.chooseDatePicker(`[data-testid=${awardFields[field[0]]}]`, '2011')
-      : // ? cy.get(`[data-testid=${awardFields[field[0]]}]`).type('2011')
+    if (field[0] === 'Year'){
+       cy.chooseDatePicker(`[data-testid=${awardFields[field[0]]}]`, '2011')
+      } else {
         cy.get(`[data-testid=${awardFields[field[0]]}]`).type(`Test Prize Award ${field[0]}`);
+      }
   });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
