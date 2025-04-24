@@ -15,15 +15,21 @@ const visitStartPage = () => {
   });
 };
 
+let init = true;
+
 const createSearchResults = () => {
-  cy.login(userWithAuthor);
-  cy.createPublishedRegistration(`Search result - Journal ${uuid()}`);
-  cy.login(userWithAuthor1);
-  cy.createPublishedRegistration(`Search result - Conference abstract ${uuid()}`);
-  cy.login(userPublishRegistration);
-  cy.createPublishedRegistration(`Search result - Anthology ${uuid()}`, 'BookAnthology');
-  cy.getDataTestId(dataTestId.header.menuButton).click();
-  cy.getDataTestId(dataTestId.header.logOutLink).click();
+  if (init) {
+    cy.login(userWithAuthor);
+    cy.createPublishedRegistration(`Search result - Journal ${uuid()}`);
+    cy.login(userWithAuthor1);
+    cy.createPublishedRegistration(`Search result - Conference abstract ${uuid()}`);
+    cy.login(userPublishRegistration);
+    cy.createPublishedRegistration(`Search result - Anthology ${uuid()}`, 'BookAnthology');
+    cy.getDataTestId(dataTestId.header.menuButton).click();
+    cy.getDataTestId(dataTestId.header.logOutLink).click();
+    cy.reload();
+    init = false;
+  }
 };
 
 //      Scenario: An anonymous Aser opens start page and sees search results
@@ -31,7 +37,7 @@ Given('an anonymous User', () => {
   createSearchResults();
 });
 When('they open the start page', () => {
-  cy.getDataTestId('logo').click({force: true});
+  cy.getDataTestId('logo').click({ force: true });
   cy.getDataTestId(dataTestId.startPage.searchField).should('be.visible');
 });
 Then('they see a list of Registratons', () => {
@@ -50,7 +56,7 @@ When('they see the search result list', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
 });
 Then('they can see values for:', (dataTable: DataTable) => {
-  const pad = (value) => `0${value}`.slice(-2);
+  const pad = (value: number) => `0${value}`.slice(-2);
   const date = new Date();
   const dateValue = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
 

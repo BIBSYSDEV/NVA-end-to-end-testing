@@ -36,14 +36,17 @@ const readPassword = new Promise((res, rej) => {
 });
 
 export const login = (userId: string) => {
-  if (!secretPasssword) {
-    readPassword.then((password: string) => {
-      secretPasssword = password;
+  return new Cypress.Promise((resolve, reject) => {
+    if (!secretPasssword) {
+      readPassword.then((password: string) => {
+        secretPasssword = password;
+        loginNva(userId);
+      });
+    } else {
       loginNva(userId);
-    });
-  } else {
-    loginNva(userId);
-  }
+    }
+    resolve();
+  });
 };
 
 const loginNva = (userId: string) => {
