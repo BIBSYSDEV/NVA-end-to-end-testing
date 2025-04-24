@@ -48,7 +48,6 @@ export const login = (userId: string) => {
 
 const loginNva = (userId: string) => {
   getCode(userId, secretPasssword).then((code) => {
-    console.log(code);
     cy.request(`${tokenUri}?code=${code}`).then((response) => {
       const accessTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.accessToken`;
       const idTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.idToken`;
