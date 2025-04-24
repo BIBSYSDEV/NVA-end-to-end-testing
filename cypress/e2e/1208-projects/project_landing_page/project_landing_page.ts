@@ -22,13 +22,14 @@ const panelIds = {
 
 const projectTitle = 'Test project 16617fb0-3c7a-470e-83bf-e5a55e005d74';
 const selectProject = (user) => {
-  cy.login(user);
-  cy.getDataTestId(dataTestId.startPage.searchTypeField).click();
-  cy.get('[data-value=project]').click();
-  cy.wait(1000);
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
-  cy.contains(projectTitle).click();
+  cy.login(user).then(() => {
+    cy.getDataTestId(dataTestId.startPage.searchTypeField).click();
+    cy.get('[data-value=project]').click();
+    cy.wait(1000);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
+    cy.contains(projectTitle).click();
+  });
 };
 
 // Scenario: An Anonymous User searches for a Project
