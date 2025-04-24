@@ -132,10 +132,12 @@ Cypress.Commands.add('login', (userId: string) => {
       password: Cypress.env('DEVPASSWORD'),
     },
   }).then(() => {
-    cy.setLocalStorage('i18nextLng', 'eng');
-    cy.setLocalStorage('previouslyLoggedIn', 'true');
-    login(userId);
+    login(userId).then(() => {
+      cy.setLocalStorage('i18nextLng', 'eng');
+      cy.setLocalStorage('previouslyLoggedIn', 'true');
+    });
   });
+
 });
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {

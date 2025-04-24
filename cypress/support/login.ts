@@ -41,11 +41,13 @@ export const login = (userId: string) => {
       readPassword.then((password: string) => {
         secretPasssword = password;
         loginNva(userId);
+        resolve();
       });
     } else {
       loginNva(userId);
+      resolve();
     }
-    resolve();
+    reject
   });
 };
 
