@@ -1,13 +1,5 @@
 /// <reference types="cypress" />
 import 'cypress-localstorage-commands';
-import { signIn, signOut } from 'aws-amplify/auth';
-import {
-  AuthFlowType,
-  CognitoIdentityProviderClient,
-  InitiateAuthCommand,
-} from '@aws-sdk/client-cognito-identity-provider';
-import { GetSecretValueCommand, SecretsManagerClient } from '@aws-sdk/client-secrets-manager';
-import { Amplify, ResourcesConfig } from 'aws-amplify';
 import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
 import { mockPersonFeideIdSearch, mockPersonNameSearch } from './mock_data';
@@ -15,44 +7,7 @@ import { userSecondEditor } from './constants';
 import { createValidRegistrationWithType } from './create_registration';
 import { login } from './login';
 
-const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
-const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
-const awsSessionToken = Cypress.env('AWS_SESSION_TOKEN');
-const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
-const userPoolId = Cypress.env('AWS_USER_POOL_ID');
-const clientId = Cypress.env('AWS_CLIENT_ID');
 const stage = Cypress.env('STAGE') ?? 'e2e';
-
-const globalConfig = {
-  accessKeyId: awsAccessKeyId,
-  secretAccessKey: awsSecretAccessKey,
-  sessionToken: awsSessionToken,
-};
-
-const amplifyConfig: ResourcesConfig = {
-  Auth: {
-    Cognito: {
-      userPoolClientId: clientId,
-      userPoolId: userPoolId,
-      loginWith: {
-        username: true,
-      },
-    },
-  },
-};
-
-// Amplify.configure(amplifyConfig);
-
-const identityServiceProvider = new CognitoIdentityProviderClient({
-  region: region,
-  credentials: globalConfig,
-});
-const secretsManager = new SecretsManagerClient({
-  region: region,
-  credentials: globalConfig,
-});
-
-const passwords = {};
 
 const pad = (value: string) => `0${value}`.slice(-2);
 export const today = new Date().toISOString().slice(0, 10).replaceAll('-', '');
@@ -74,69 +29,17 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options?) => {
   cy.get(selector, options);
 });
 
-const loginCognito = (userId: string) => {
-  return new Cypress.Promise((resolve, reject) => {
-    Amplify.configure(amplifyConfig);
-    const secretsManagerParams = {
-      SecretId: 'TestUserPassword',
-    };
-    const command = new GetSecretValueCommand(secretsManagerParams);
-    let testUserPassword = '';
-    secretsManager.send(command).then((passwordResponse) => {
-      if (passwordResponse) {
-        testUserPassword = passwordResponse.SecretString;
-
-        const authorizeUser = {
-          AuthFlow: AuthFlowType.USER_PASSWORD_AUTH,
-          ClientId: clientId,
-          AuthParameters: {
-            USERNAME: userId,
-            PASSWORD: testUserPassword,
-          },
-        };
-
-        const command = new InitiateAuthCommand(authorizeUser);
-
-        identityServiceProvider.send(command).then((authorizeResponse) => {
-          if (authorizeResponse) {
-            if (!authorizeResponse.ChallengeName) {
-              try {
-                signOut().then(() => {
-                  signIn({ username: userId, password: testUserPassword }).then(() => {
-                    resolve(authorizeResponse.AuthenticationResult.IdToken);
-                  });
-                });
-              } catch (e) {
-                console.log('fail... sign in');
-                console.log(e);
-                reject();
-              }
-            } else {
-              console.log('fail.. challenge');
-              console.log(authorizeResponse.ChallengeName);
-            }
-          } else {
-            console.log('fail.. init auth');
-            reject();
-          }
-        });
-      }
-    });
-  });
-};
-
 Cypress.Commands.add('login', (userId: string) => {
   cy.visit(`/`, {
     auth: {
       username: Cypress.env('DEVUSER'),
       password: Cypress.env('DEVPASSWORD'),
     },
-  })
+  });
+  cy.setLocalStorage('i18nextLng', 'eng');
+  cy.setLocalStorage('previouslyLoggedIn', 'true');
   cy.wrap(null).then(() => {
-    return login(userId).then(() => {
-      cy.setLocalStorage('i18nextLng', 'eng');
-      cy.setLocalStorage('previouslyLoggedIn', 'true');
-    });
+    return login(userId).then(() => {});
   });
 });
 

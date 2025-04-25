@@ -2,6 +2,7 @@ import { today } from '../../../support/commands';
 import { userProjectWizard } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { v4 as uuid } from 'uuid';
 
 // Feature: User edits Project
 
@@ -80,10 +81,10 @@ Given('User opens the Project Wizard to register a new Project', () => {
 });
 When('they activate the search field, a list of Financings where the user has a role is presented', () => {
   cy.getDataTestId(dataTestId.newProjectPage.createNFRProjectAccordion).click();
-  cy.getDataTestId(dataTestId.newProjectPage.nrfProjectSearchInput).type('test');
+  cy.getDataTestId(dataTestId.newProjectPage.nrfProjectSearchInput).type('test data');
 });
 Then('they selects a Financing', () => {
-  cy.contains('testdata').click();
+  cy.contains('test data').click();
 });
 Then('the Project Wizard opens pre-filled with metadata', () => {
   cy.getDataTestId(dataTestId.newProjectPage.startNfrProjectButton).click();
@@ -199,7 +200,7 @@ const END_DATE = 'End date';
 
 const descriptionFields = {
   'Title': {
-    value: 'E2E test project',
+    value: `E2E test project ${uuid()}`,
     dataTestId: dataTestId.projectWizard.descriptionPanel.titleField,
   },
   'Scientific summary (Norwegian)': {
