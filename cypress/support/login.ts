@@ -6,7 +6,6 @@ const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
 const awsSessionToken = Cypress.env('AWS_SESSION_TOKEN');
 const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
 const clientId = Cypress.env('AWS_CLIENT_ID');
-const scopes = 'openid email phone profile https://api.nva.unit.no/scopes/frontend aws.cognito.signin.user.admin';
 const redirectUri = 'https://e2e.nva.aws.unit.no';
 const tokenUri = 'https://o8f47ax77k.execute-api.eu-west-1.amazonaws.com/Prod/exchange';
 
@@ -39,6 +38,7 @@ export const login = (userId: string) => {
   return new Cypress.Promise((resolve, reject) => {
     if (!secretPasssword) {
       readPassword.then((password: string) => {
+        console.log(password);
         secretPasssword = password;
         loginNva(userId);
         resolve();
@@ -47,7 +47,8 @@ export const login = (userId: string) => {
       loginNva(userId);
       resolve();
     }
-    reject
+    // reject();
+    console.log('rejected...');
   });
 };
 
