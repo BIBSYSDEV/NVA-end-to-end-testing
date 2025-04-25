@@ -241,11 +241,12 @@ const fillInField = (field: Object) => {
       cy.contains('Open file').click();
       cy.get('body').then(($body) => {
         if ($body.find(`[data-testid=${dataTestId.registrationWizard.files.version}]`).length > 0) {
-          cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
-            .last()
-            .within(() => {
-              cy.get('input[type=radio]').first().click();
-            });
+          cy.get('[value=PublishedVersion').click();
+          // cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
+          //   .last()
+          //   .within(() => {
+          //     cy.get('input[type=radio]').first().click();
+          //   });
         }
       });
       break;
