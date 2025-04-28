@@ -19,6 +19,13 @@ export const AuthorityPaths = {
   person: '/person',
 };
 
+export enum FileVersions {
+  ACCEPTED,
+  PUBLISHED,
+  NOT_SET
+}
+
+
 export const userNoArp = 'test-user-no-arp@test.no';
 export const userNameInArp = 'test-user-name-in-arp@test.no';
 export const userNoNameInArp = 'test-user-no-name-in-arp@test.no';

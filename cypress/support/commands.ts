@@ -3,7 +3,7 @@ import 'cypress-localstorage-commands';
 import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
 import { mockPersonFeideIdSearch, mockPersonNameSearch } from './mock_data';
-import { userSecondEditor } from './constants';
+import { FileVersions, userSecondEditor } from './constants';
 import { createValidRegistrationWithType } from './create_registration';
 import { login } from './login';
 
@@ -87,8 +87,12 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
   cy.getSuccessDone();
 });
 
-Cypress.Commands.add('createValidRegistration', (fileName, title, version: FileVersions) => {
-  const fileVersion = version ? version : FileVersions.NOT_SET;
+Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: FileVersions) => {
+  
+  if (!fileVersion) {
+    fileVersion = FileVersions.NOT_SET;
+  }
+
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.description.abstractField).type(`Abstract - ${title}`);
@@ -124,10 +128,10 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, version: FileV
     cy.getDataTestId(dataTestId.registrationWizard.files.version, {
       timeout: 30000,
     }).within(() => {
-      if (fileVersion === FileVersions.ACCEPTED) {
-        cy.get('input[type=radio]').first().click();
-      } else if (fileVersion !== FileVersions.NOT_SET) {
+      if (fileVersion === FileVersions.PUBLISHED) {
         cy.get('input[type=radio]').last().click();
+      } else if (fileVersion !== FileVersions.NOT_SET) {
+        cy.get('input[type=radio]').first().click();
       }
     });
     if (fileVersion === FileVersions.PUBLISHED) {

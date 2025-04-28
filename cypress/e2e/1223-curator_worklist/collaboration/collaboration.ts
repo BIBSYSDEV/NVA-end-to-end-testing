@@ -6,6 +6,7 @@ import {
   collaborationCuratorBIBSYS,
   collaborationCuratorNMBU,
   collaborationCuratorUSN,
+  FileVersions,
   uploaderBIBSYS,
   uploaderNMBU,
   uploaderUSN,

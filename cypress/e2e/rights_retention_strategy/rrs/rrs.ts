@@ -1,6 +1,6 @@
 // Feature: Rights retention strategy
 
-import { userAdminRRS, userAuthorRRS } from "../../../support/constants";
+import { FileVersions, userAdminRRS, userAuthorRRS } from "../../../support/constants";
 import { dataTestId } from "../../../support/dataTestIds";
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 

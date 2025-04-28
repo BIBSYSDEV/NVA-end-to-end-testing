@@ -1,4 +1,5 @@
 import { DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { FileVersions } from './constants';
 
 declare global {
   namespace Cypress {
@@ -56,10 +57,5 @@ declare global {
       getSuccessDone(): void;
       refreshPublish(): void;
     }
-  }
-  enum FileVersions {
-    ACCEPTED,
-    PUBLISHED,
-    NOT_SET
   }
 }

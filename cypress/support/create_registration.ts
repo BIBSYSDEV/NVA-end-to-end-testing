@@ -1,4 +1,5 @@
 import { formatedToday, today } from './commands';
+import { FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
 
 export const createValidRegistrationWithType = (title: string, type?: string, fileName?: string, fileVersion?: FileVersions, fileType?: string) => {

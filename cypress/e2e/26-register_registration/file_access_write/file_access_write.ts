@@ -11,6 +11,7 @@ import {
   userCuratorInstitution,
   userPublishNoRights,
   userDOIMessages,
+  FileVersions,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';

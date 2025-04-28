@@ -4,7 +4,7 @@
 //     So that only authorized users can read the metadata
 
 import { v4 as uuid } from 'uuid';
-import { userPublicationCuratorMessages, userPublicationMessages, userWithAuthor, userCuratorInstitution, userPublishNoRights, userDOIMessages, } from '../../../support/constants';
+import { userPublicationCuratorMessages, userPublicationMessages, userWithAuthor, userCuratorInstitution, userPublishNoRights, userDOIMessages, FileVersions, } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
