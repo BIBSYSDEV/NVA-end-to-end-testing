@@ -1,4 +1,5 @@
 import { GetSecretValueCommand, SecretsManagerClient } from '@aws-sdk/client-secrets-manager';
+import { v4 as uuid } from 'uuid';
 
 const cognitoUri = Cypress.env('COGNITO_URI');
 const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
@@ -38,7 +39,6 @@ export const login = (userId: string) => {
   return new Cypress.Promise((resolve, reject) => {
     if (!secretPasssword) {
       readPassword.then((password: string) => {
-        console.log(password);
         secretPasssword = password;
         loginNva(userId);
         resolve();
@@ -53,21 +53,37 @@ export const login = (userId: string) => {
 };
 
 const loginNva = (userId: string) => {
+  cy.clearAllLocalStorage();
+  cy.clearAllCookies();
   getCode(userId, secretPasssword).then((code) => {
-    cy.request(`${tokenUri}?code=${code}`).then((response) => {
+    cy.reload();
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    cy.request({
+      url: `${cognitoUri}/oauth2/token`,
+      method: 'POST',
+      headers: headers,
+      body: {
+        'grant_type': 'authorization_code',
+        'client_id': clientId,
+        'redirect_uri': redirectUri,
+        'code': code,
+      },
+      followRedirect: false,
+    }).then((response) => {
       const accessTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.accessToken`;
       const idTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.idToken`;
       const refreshTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.refreshToken`;
       const lastAuhtUser = `CognitoIdentityServiceProvider.${clientId}.LastAuthUser`;
       const signInDetails = `CognitoIdentityServiceProvider.${clientId}.${userId}.signInDetails`;
-      cy.clearLocalStorage();
       cy.setLocalStorage(accessTokenKey, response.body['access_token']);
       cy.setLocalStorage(idTokenKey, response.body['id_token']);
       cy.setLocalStorage(refreshTokenKey, response.body['refresh_token']);
       cy.setLocalStorage(lastAuhtUser, userId);
       cy.setLocalStorage(signInDetails, `{"loginId":"${userId}","authFlowType":"USER_SRP_AUTH"}`);
       cy.setLocalStorage('i18nextLng', 'eng');
-      cy.setLocalStorage('previouslyLoggedIn', 'true');
+      cy.setLocalStorage('previouslyLoggedIn', 'false');
       cy.reload();
     });
   });
@@ -76,15 +92,16 @@ const loginNva = (userId: string) => {
 const getCode = (userName: string, password: string) => {
   return new Cypress.Promise((resolve, reject) => {
     const url = generateUrl();
+    const randomUuid = uuid();
     const headers = {
-      'Cookie': 'XSRF-TOKEN=cd1e2cfa-1b42-473d-862d-01a4e09e7b44',
+      'Cookie': `XSRF-TOKEN=${randomUuid}`,
       'Origin': cognitoUri,
       'Content-Type': 'application/x-www-form-urlencoded',
       'Referer': url,
     };
 
     const data = {
-      '_csrf': 'cd1e2cfa-1b42-473d-862d-01a4e09e7b44',
+      '_csrf': randomUuid,
       'username': userName,
       'password': password,
     };
