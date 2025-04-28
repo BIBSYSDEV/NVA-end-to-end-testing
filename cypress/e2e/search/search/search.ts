@@ -38,6 +38,7 @@ Given('an anonymous User', () => {
 });
 When('they open the start page', () => {
   cy.getDataTestId('logo').click({ force: true });
+  cy.wait(3000);
   cy.getDataTestId(dataTestId.startPage.searchField).should('be.visible');
 });
 Then('they see a list of Registratons', () => {
