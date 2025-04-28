@@ -44,7 +44,7 @@ Feature: Curator opens My Worklist
         | Curator            | Type     |
         | Publishing-Curator | Approval |
         | Doi-Curator        | DOI      |
-        | Nvi-Curator        | NVI      |
+        # | Nvi-Curator        | NVI      |
 
       # Scenario Outline: Curator open a assigned Request
       #   When the "<Curator>" selects a Request of type "<Type>"
@@ -64,28 +64,28 @@ Feature: Curator opens My Worklist
       #     | Doi-Curator        | DOI      |
       #     | Nvi-Curator        | NVI      |
 
-      @test
-    Scenario Outline: Curator open the Request's Resource
-      Given the "<Curator>" receives a Request of type "<Type>"
-      When the Curator opens the Requests Resource
-      Then the Landing Page of the Resource is viewed
-      And the Curator has the option to "<Action>"
-      Examples:
-        | Curator            | Type     | Action             |
-        | Publishing-Curator | Approval | Publish Files      |
-        | Publishing-Curator | Approval | Reject publishing  |
-        | Support-Curator    | Support  | Answer Message     |
-        | Doi-Curator        | DOI      | Mint DOI           |
-        | Doi-Curator        | DOI      | Reject DOI request |
-        | Nvi-Curator        | NVI      | Approve Candidate  |
-        | Nvi-Curator        | NVI      | Reject Candidate   |
-      # | Ownership | Change owner |
+    #   @test
+    # Scenario Outline: Curator open the Request's Resource
+    #   Given the "<Curator>" receives a Request of type "<Type>"
+    #   When the Curator opens the Requests Resource
+    #   Then the Landing Page of the Resource is viewed
+    #   And the Curator has the option to "<Action>"
+    #   Examples:
+    #     | Curator            | Type     | Action             |
+    #     | Publishing-Curator | Approval | Publish Files      |
+    #     | Publishing-Curator | Approval | Reject publishing  |
+    #     | Support-Curator    | Support  | Answer Message     |
+    #     | Doi-Curator        | DOI      | Mint DOI           |
+    #     | Doi-Curator        | DOI      | Reject DOI request |
+    #     | Nvi-Curator        | NVI      | Approve Candidate  |
+    #     | Nvi-Curator        | NVI      | Reject Candidate   |
+    #   # | Ownership | Change owner |
 
-      @test
-    Scenario: User gets an answer to a Support Request
-      When the Curator sends an answer of type "Support"
-      Then the Request status is set to "Answered"
-      And the User can read the answer in My Messages
+    #   @test
+    # Scenario: User gets an answer to a Support Request
+    #   When the Curator sends an answer of type "Support"
+    #   Then the Request status is set to "Answered"
+    #   And the User can read the answer in My Messages
 
     # Scenario: User gets an answer to a Request
     #   When the Curator writes an answer

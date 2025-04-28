@@ -60,11 +60,14 @@ const loginNva = (userId: string) => {
       const refreshTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.refreshToken`;
       const lastAuhtUser = `CognitoIdentityServiceProvider.${clientId}.LastAuthUser`;
       const signInDetails = `CognitoIdentityServiceProvider.${clientId}.${userId}.signInDetails`;
+      cy.clearLocalStorage();
       cy.setLocalStorage(accessTokenKey, response.body['access_token']);
       cy.setLocalStorage(idTokenKey, response.body['id_token']);
       cy.setLocalStorage(refreshTokenKey, response.body['refresh_token']);
       cy.setLocalStorage(lastAuhtUser, userId);
       cy.setLocalStorage(signInDetails, `{"loginId":"${userId}","authFlowType":"USER_SRP_AUTH"}`);
+      cy.setLocalStorage('i18nextLng', 'eng');
+      cy.setLocalStorage('previouslyLoggedIn', 'true');
       cy.reload();
     });
   });
