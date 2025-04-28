@@ -90,7 +90,7 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
 Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: FileVersions) => {
   
   if (!fileVersion) {
-    fileVersion = FileVersions.NOT_SET;
+    fileVersion = FileVersions.PUBLISHED;
   }
 
   // Description
