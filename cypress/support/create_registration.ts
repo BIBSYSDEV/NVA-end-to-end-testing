@@ -1,7 +1,7 @@
 import { formatedToday, today } from './commands';
 import { dataTestId } from './dataTestIds';
 
-export const createValidRegistrationWithType = (title: string, type?: string, fileName?: string, fileVersion?: string, fileType?: string) => {
+export const createValidRegistrationWithType = (title: string, type?: string, fileName?: string, fileVersion?: FileVersions, fileType?: string) => {
     // Description
     cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
     title = title ? `${title} ${today}` : `Title ${today}`;
@@ -30,9 +30,9 @@ export const createValidRegistrationWithType = (title: string, type?: string, fi
         }
         if (accessabilityType === 'Open file') {
             cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
-                if (fileVersion === 'Accepted') {
+                if (fileVersion === FileVersions.ACCEPTED) {
                     cy.get('input[type=radio]').first().click();
-                } else if (fileVersion !== 'Not set') {
+                } else if (fileVersion !== FileVersions.NOT_SET) {
                     cy.get('input[type=radio]').last().click();
                 }
             });

@@ -65,19 +65,19 @@ const initData = () => {
     // cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
     // addContributor();
 
-    cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Published', OPEN);
+    cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, OPEN);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Published', INTERNAL);
+    cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, INTERNAL);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Published', OPEN);
+    cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, OPEN);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Published', INTERNAL);
+    cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, INTERNAL);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 

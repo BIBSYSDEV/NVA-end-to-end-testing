@@ -63,7 +63,7 @@ Given('User registers Registration with RRS activated', () => {
     const title = 'RRS file version';
     cy.login(userAuthorRRS);
     cy.startWizardWithEmptyRegistration();
-    cy.createValidRegistration(filename, title, 'Not set');
+    cy.createValidRegistration(filename, title, FileVersions.NOT_SET);
 });
 When('they set the file version to Accepted', () => {
     cy.getDataTestId(dataTestId.registrationWizard.files.version).within(() => {

@@ -37,7 +37,7 @@ Cypress.Commands.add('login', (userId: string) => {
     },
   });
   cy.wrap(null).then(() => {
-    return login(userId).then(() => {});
+    return login(userId).then(() => { });
   });
 });
 
@@ -87,7 +87,8 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
   cy.getSuccessDone();
 });
 
-Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) => {
+Cypress.Commands.add('createValidRegistration', (fileName, title, version: FileVersions) => {
+  const fileVersion = version ? version : FileVersions.NOT_SET;
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.description.abstractField).type(`Abstract - ${title}`);
@@ -123,13 +124,13 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
     cy.getDataTestId(dataTestId.registrationWizard.files.version, {
       timeout: 30000,
     }).within(() => {
-      if (fileVersion === 'Accepted') {
+      if (fileVersion === FileVersions.ACCEPTED) {
         cy.get('input[type=radio]').first().click();
-      } else if (fileVersion !== 'Not set') {
+      } else if (fileVersion !== FileVersions.NOT_SET) {
         cy.get('input[type=radio]').last().click();
       }
     });
-    if (fileVersion !== 'Accepted' && fileVersion !== 'Not set') {
+    if (fileVersion === FileVersions.PUBLISHED) {
       cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
       cy.get('[data-testid=license-item]').first().click({ force: true });
     }

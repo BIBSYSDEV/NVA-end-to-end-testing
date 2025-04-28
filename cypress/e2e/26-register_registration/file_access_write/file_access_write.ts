@@ -76,16 +76,16 @@ const initData = () => {
   // cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
   // addContributor();
 
-  cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
+  cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.ACCEPTED, OPEN);
   addContributor();
 
-  cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', INTERNAL);
+  cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.ACCEPTED, INTERNAL);
   addContributor();
 
-  cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
+  cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.ACCEPTED, OPEN);
   addContributor();
 
-  cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', INTERNAL);
+  cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.ACCEPTED, INTERNAL);
   addContributor();
 
   cy.createPublishedRegistration(titles[HIDDEN_FILE]);
