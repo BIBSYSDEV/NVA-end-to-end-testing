@@ -41,7 +41,7 @@ const addContributor = () => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
     cy.wait(3000);
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({force: true});
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
     cy.getSuccess();
 };
 
@@ -65,19 +65,19 @@ const initData = () => {
     // cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
     // addContributor();
 
-    cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
+    cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Published', OPEN);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', INTERNAL);
+    cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Published', INTERNAL);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
+    cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Published', OPEN);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', INTERNAL);
+    cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Published', INTERNAL);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
