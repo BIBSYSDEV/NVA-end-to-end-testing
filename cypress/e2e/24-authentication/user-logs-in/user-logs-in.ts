@@ -4,17 +4,17 @@ import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('that the user is logged in', () => {
   cy.login(userLogout);
-})
+});
 When('they click on the Menu', () => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-})
+});
 When('they click Log out', () => {
   cy.get(`[data-testid=${dataTestId.header.logOutLink}]`).click();
+  cy.clearAllCookies();
+  cy.clearAllLocalStorage();
   cy.reload();
-})
+});
 Then('they are logged out of the NVA application', () => {
   cy.get(`[data-testid=${dataTestId.header.logInButton}]`).should('be.visible');
   cy.contains('Log out TestUser', { timeout: 30000 }).should('not.exist');
-})
-
-
+});

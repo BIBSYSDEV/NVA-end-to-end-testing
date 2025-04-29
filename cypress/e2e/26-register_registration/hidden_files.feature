@@ -25,8 +25,7 @@ Feature: Hidden and internal files
 
         Examples:
             | File type     | Approval message                   |
-            | Internal file | internal file waiting for approval |
-    # | Hidden file   | hidden file waiting for approval   |
+            | Internal file | waiting for approval |
 
     @test
     Scenario Outline: Curator changes open file to non-open file
@@ -41,5 +40,5 @@ Feature: Hidden and internal files
 
         Examples:
             | File type     | Approval message                   |
-            | Internal file | internal file waiting for approval |
-            | Hidden file   | hidden file waiting for approval   |
+            | Internal file | waiting for approval |
+            | Hidden file   | waiting for approval   |

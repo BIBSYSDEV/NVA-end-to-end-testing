@@ -51,6 +51,7 @@ Before({ 'tags': '@init' }, () => {
   cy.createPublishedRegistration(unpublishedTitle);
   cy.wait(3000);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+  cy.wait(5000);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
   cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
   cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Unpublish');

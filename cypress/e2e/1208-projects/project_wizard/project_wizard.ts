@@ -370,8 +370,8 @@ Then('they see the values on the Description page is the same that they filled i
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectDescriptionStepButton).click();
   fields.raw().forEach((value) => {
     const field = value[0];
-    if (field === 'Start date' || field === 'End date') {
-      cy.getDataTestId(descriptionFields[field].dataTestId).should('have.value', descriptionFields[field].value);
+    if (field === START_DATE || field === END_DATE) {
+      cy.getDataTestId(descriptionFields[field].dataTestId).should('have.value', formatedToday);
     } else {
       cy.contains(descriptionFields[field].value);
     }

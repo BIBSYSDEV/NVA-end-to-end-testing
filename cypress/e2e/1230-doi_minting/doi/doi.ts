@@ -27,7 +27,9 @@ Given('that the Owner navigates to Submission tab', () => {
   cy.getSuccess();
   cy.getSuccessDone();
 });
-// Given('the Registration has status Draft', () => { });
+Given('the Registration has status Draft', () => {
+  cy.selectRegistration(publishedRegistrationWithDraftDoi, unpublished);
+});
 Given('the Registration has a Draft DOI', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
@@ -92,9 +94,7 @@ Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
-  cy.get('[data-testid^=result-list-item]').first().within(() => {
-    cy.get('a').first().click();
-  });
+  cy.get('[data-testid^=result-list-item]').first().parent().parent().parent().click();
 });
 
 When('they click the Edit Registration button', () => {
@@ -229,9 +229,6 @@ Then('the Draft DOI is not a link', () => {
 
 //   @1235
 // Scenario: Owner navigates to the submission tab and publish a Registration with a drafted DOI
-Given('the Registration has status Draft', () => {
-  cy.selectRegistration(draftRegistrationPublishWithRequestedDoi, unpublished);
-});
 Given('the Registration has a Draft DOI', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`)

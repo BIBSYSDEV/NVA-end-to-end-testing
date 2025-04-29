@@ -37,7 +37,7 @@ Cypress.Commands.add('login', (userId: string) => {
     },
   });
   cy.wrap(null).then(() => {
-    return login(userId).then(() => { });
+    return login(userId).then(() => {});
   });
 });
 
@@ -88,7 +88,6 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
 });
 
 Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: FileVersions) => {
-  
   if (!fileVersion) {
     fileVersion = FileVersions.PUBLISHED;
   }
@@ -495,7 +494,42 @@ Cypress.Commands.add('checkLandingPage', () => {
 });
 
 Cypress.Commands.add('chooseDatePicker', (selector, value) => {
-  const selectYear = value.length === 4;
+  const selectingYear = value.length === 4;
+  let selectDate = '';
+  let selectMonth = '';
+  let selectMonthName = '';
+  let selectYear = value;
+  if (!selectingYear) {
+    const months = {
+      '1': 'Jan',
+      '01': 'Jan',
+      '2': 'Feb',
+      '02': 'Feb',
+      '3': 'Mar',
+      '03': 'Mar',
+      '4': 'Apr',
+      '04': 'Apr',
+      '5': 'May',
+      '05': 'May',
+      '6': 'Jun',
+      '06': 'Jun',
+      '7': 'Jul',
+      '07': 'Jul',
+      '8': 'Aug',
+      '08': 'Aug',
+      '9': 'Sep',
+      '09': 'Sep',
+      '10': 'Oct',
+      '11': 'Nov',
+      '12': 'Dec',
+    };
+    value = value.replace('.', '');
+    selectDate = value.substring(0, 2);
+    selectMonth = value.substring(2, 4);
+    selectMonthName = !selectMonth ? months['1'] : months[selectMonth];
+    selectYear = value.substring(4);
+  }
+
   cy.get(selector)
     .parent()
     .then(($body) => {
@@ -512,12 +546,25 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
               cy.get('input').type(value, { force: true });
             });
           } else {
-            if (!selectYear) {
-              cy.get('.MuiPickersDay-today').click();
-              cy.contains('[role="dialog"] button', 'OK').click();
+            if (!selectingYear) {
+              if (!value) {
+                cy.get('.MuiPickersDay-today').click();
+                cy.contains('[role="dialog"] button', 'OK').click();
+              } else {
+                cy.get('.MuiPickersCalendarHeader-labelContainer').within(() => {
+                  cy.get('button').first().click();
+                });
+                cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
+                cy.get('.MuiPickersMonth-yearMonth').filter(`:contains(${selectMonthName})`).click();
+                cy.get('.MuiPickersDay-yeardayWithMargin').filter(`:contains(${selectDate})`).click();
+                cy.contains('[role="dialog"] button', 'OK').click();
+              }
             } else {
-              if (selectYear) {
+              if (!value) {
                 cy.get('.Mui-selected').click();
+                cy.contains('[role="dialog"] button', 'OK').click();
+              } else {
+                cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
                 cy.contains('[role="dialog"] button', 'OK').click();
               }
             }

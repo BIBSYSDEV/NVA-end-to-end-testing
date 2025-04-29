@@ -26,7 +26,8 @@ const createSearchResults = () => {
     cy.login(userPublishRegistration);
     cy.createPublishedRegistration(`Search result - Anthology ${uuid()}`, 'BookAnthology');
     cy.getDataTestId(dataTestId.header.menuButton).click();
-    cy.getDataTestId(dataTestId.header.logOutLink).click();
+    cy.clearAllLocalStorage();
+    cy.clearAllCookies();
     cy.reload();
     init = false;
   }

@@ -78,7 +78,7 @@ Then('the User is presented the Landing Page for the Project', () => {
 
 // Scenario: User Edits a Project in the Project Wizard
 When('the User activate the option to Edit a project', () => {
-  cy.getDataTestId(`[data-testid^=edit-project-button]`).first().click();
+  cy.get(`[data-testid^=edit-project-button]`).first().click();
 });
 Then('the Project is opend in the Project Wizard', () => {
   cy.location('pathname').should('contain', '/edit');
