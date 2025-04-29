@@ -1,4 +1,5 @@
 import { DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { FileVersions } from './constants';
 
 declare global {
   namespace Cypress {
@@ -21,12 +22,12 @@ declare global {
       startRegistrationWithLink(doiLink: string): void;
       startWizardWithLink(doiLink: string): void;
       startWizardWithEmptyRegistration(): void;
-      createValidRegistration(fileName: string, title: string, fileVersion?: string, fileType?: string): void;
+      createValidRegistration(fileName: string, title: string, fileVersion?: FileVersions, fileType?: string): void;
       createPublishedRegistration(
         title: string,
         category?: string,
         fileName?: string,
-        fileVersion?: string,
+        fileVersion?: FileVersions,
         fileType?: string
       ): void;
 

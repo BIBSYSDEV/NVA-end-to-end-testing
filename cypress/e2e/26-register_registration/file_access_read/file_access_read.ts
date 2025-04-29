@@ -4,7 +4,7 @@
 //     So that only authorized users can read the metadata
 
 import { v4 as uuid } from 'uuid';
-import { userPublicationCuratorMessages, userPublicationMessages, userWithAuthor, userCuratorInstitution, userPublishNoRights, userDOIMessages, } from '../../../support/constants';
+import { userPublicationCuratorMessages, userPublicationMessages, userWithAuthor, userCuratorInstitution, userPublishNoRights, userDOIMessages, FileVersions, } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -41,7 +41,7 @@ const addContributor = () => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
     cy.wait(3000);
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({force: true});
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
     cy.getSuccess();
 };
 
@@ -65,19 +65,19 @@ const initData = () => {
     // cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
     // addContributor();
 
-    cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
+    cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, OPEN);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', INTERNAL);
+    cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, INTERNAL);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', OPEN);
+    cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, OPEN);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, 'Accepted', INTERNAL);
+    cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, INTERNAL);
     addContributor();
     cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 

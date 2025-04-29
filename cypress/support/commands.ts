@@ -3,7 +3,7 @@ import 'cypress-localstorage-commands';
 import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
 import { mockPersonFeideIdSearch, mockPersonNameSearch } from './mock_data';
-import { userSecondEditor } from './constants';
+import { FileVersions, userSecondEditor } from './constants';
 import { createValidRegistrationWithType } from './create_registration';
 import { login } from './login';
 
@@ -37,7 +37,7 @@ Cypress.Commands.add('login', (userId: string) => {
     },
   });
   cy.wrap(null).then(() => {
-    return login(userId).then(() => {});
+    return login(userId).then(() => { });
   });
 });
 
@@ -87,7 +87,12 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
   cy.getSuccessDone();
 });
 
-Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) => {
+Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: FileVersions) => {
+  
+  if (!fileVersion) {
+    fileVersion = FileVersions.PUBLISHED;
+  }
+
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.description.abstractField).type(`Abstract - ${title}`);
@@ -123,13 +128,13 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion) =
     cy.getDataTestId(dataTestId.registrationWizard.files.version, {
       timeout: 30000,
     }).within(() => {
-      if (fileVersion === 'Accepted') {
-        cy.get('input[type=radio]').first().click();
-      } else if (fileVersion !== 'Not set') {
+      if (fileVersion === FileVersions.PUBLISHED) {
         cy.get('input[type=radio]').last().click();
+      } else if (fileVersion !== FileVersions.NOT_SET) {
+        cy.get('input[type=radio]').first().click();
       }
     });
-    if (fileVersion !== 'Accepted' && fileVersion !== 'Not set') {
+    if (fileVersion === FileVersions.PUBLISHED) {
       cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
       cy.get('[data-testid=license-item]').first().click({ force: true });
     }
