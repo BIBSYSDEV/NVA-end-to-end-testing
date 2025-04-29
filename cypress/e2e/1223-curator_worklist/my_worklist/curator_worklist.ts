@@ -100,6 +100,8 @@ Before(() => {
   if (init) {
     const types = [APPROVAL, SUPPORT, DOI, NVI];
 
+    cy.setWorkflowRegistratorPublishesMetadata();
+
     types.forEach((type) => {
       const title = titles.unassignTitle(type);
       unassignTitles[type] = title;

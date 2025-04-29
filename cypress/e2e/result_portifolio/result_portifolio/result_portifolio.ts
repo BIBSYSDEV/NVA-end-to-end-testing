@@ -15,6 +15,16 @@ const fileName = 'example.txt';
 
 const selectPortifolio = (portifolio: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+
+  if (portifolio !== 'Published Results') {
+    cy.getDataTestId(dataTestId.editor.resultsPortfolioPublishedCheckbox).click();
+    if (portifolio === 'Unpublished Results') {
+      cy.getDataTestId(dataTestId.editor.resultsPortfolioUnpublishedCheckbox).click();
+    } else {
+      cy.getDataTestId(dataTestId.editor.resultsPortfolioDeletedCheckbox).click();
+    }
+  }
+
   portifolios.forEach((value, key) => {
     cy.getDataTestId(value).then(($element) => {
       if (key === portifolio) {

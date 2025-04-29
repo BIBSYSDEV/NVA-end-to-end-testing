@@ -102,7 +102,7 @@ Then(
   }
 );
 Then('there is an option to view other employments at current institution', () => {
-  cy.getDataTestId('NavigateNextIcon');
+  cy.get('[title=next]');
 });
 Then('there is an option to add a new employment', () => { });
 Then('the Persons different roles at this institution is listed', () => {

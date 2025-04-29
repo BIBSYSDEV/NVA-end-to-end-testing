@@ -37,7 +37,6 @@ const initData = () => {
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.contains('Registration updated successfully');
     cy.get('.MuiAlert-message').should('be.visible');
-    cy.getDataTestId('ErrorIcon').should('be.visible');
     cy.getDataTestId(dataTestId.header.myPageLink).click();
     init = true;
   }

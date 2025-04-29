@@ -1,4 +1,4 @@
-import { today } from '../../../support/commands';
+import { formatedToday, today } from '../../../support/commands';
 import { userProjectWizard } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
@@ -347,7 +347,15 @@ Then('they see all the filled inn values on the Project presentation page', () =
     START_DATE,
     END_DATE,
   ];
-  landingPageDescriptionFields.forEach((field) => cy.contains(descriptionFields[field].value));
+  landingPageDescriptionFields.forEach((field) => {
+    if (field === START_DATE) {
+      cy.contains(`${formatedToday} -`);
+    } else if (field === END_DATE) {
+      cy.contains(`${formatedToday} (Finished)`);
+    } else {
+      cy.contains(descriptionFields[field].value);
+    }
+  });
   cy.contains(projectManager);
   cy.contains(projectParticipant);
   cy.contains(detailsFields['Coordinating institution'].value);
