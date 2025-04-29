@@ -523,11 +523,10 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       '11': 'Nov',
       '12': 'Dec',
     };
-    value = value.replace('.', '');
     selectDate = value.substring(0, 2);
-    selectMonth = value.substring(2, 4);
+    selectMonth = value.substring(3, 5);
     selectMonthName = !selectMonth ? months['1'] : months[selectMonth];
-    selectYear = value.substring(4);
+    selectYear = value.substring(6);
   }
 
   cy.get(selector)
