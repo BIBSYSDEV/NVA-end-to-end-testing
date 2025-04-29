@@ -44,6 +44,7 @@ Then('they see the file under Internal files', () => {
 // Scenario Outline: Curator approves non-open file
 Given('a registration with a {string}', (fileType: string) => {
   cy.login(userPublishRegistration);
+  cy.setWorkflowRegistratorRequiresApproval();
   cy.startWizardWithEmptyRegistration();
   const title = `Non-open file ${uuid()}`;
   cy.wrap(title).as('title');
@@ -120,6 +121,7 @@ Then('they see the file is approved', () => {
 // Scenario Outline: Curator changes open file to non-open file
 Given('a published registration with an open file', () => {
   cy.login(userPublishRegistration);
+  cy.setWorkflowRegistratorRequiresApproval();
   cy.startWizardWithEmptyRegistration();
   const title = `Non-open file ${uuid()}`;
   cy.wrap(title).as('title');

@@ -39,11 +39,23 @@ Then('they see a list of subtypes:', (dataTable: DataTable) => {
 
 // Scenario Outline: Creator sees fields for Chapter subtypes
 Then('they see an information box describing that a Container report must be published first', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.partOfField}]`)
-    .parent()
-    .within(() => {
-      cy.contains('The anthology where the chapter is published, must be registered and made public in NVA before you can register the chapter').should('be.visible');
-    });
+  cy.get('@chapterType').then((chapterType) => {
+    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.partOfField}]`)
+      .parent()
+      .within(() => {
+        if (chapterType.toString() === 'Chapter in Anthology') {
+          cy.contains(
+            'The anthology where the chapter is published, must be registered and made public in NVA before you can register the chapter'
+          ).should('be.visible');
+        } else if (chapterType.toString() === 'Chapter in Report') {
+          cy.contains('The report where the chapter is published must be published first').should('be.visible');
+        } else if (chapterType.toString() === 'Conference abstract') {
+          cy.contains('The abstract collection where the abstract is published must be published first').should(
+            'be.visible'
+          );
+        }
+      });
+  });
 });
 Then('they see a field {string}', (containerField: string) => {
   cy.get(`[data-testid=${chapterContainerField[containerField]}]`);

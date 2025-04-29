@@ -64,10 +64,10 @@ Then('they see a list of Exhibition Places with fields:', (dataTable: DataTable)
 // | Date end   |
 // | Order      |
 Then('they see that each Exhibition Place has a Delete Button', () => {
-  cy.get('[data-testid=CancelIcon]').should('be.visible');
+  cy.get('button').filter(':contains("Remove")').should('be.visible');
 });
 Then('they see that each Exhibition Place has an Edit Button', () => {
-  cy.get('[data-testid=EditIcon]').should('be.visible');
+  cy.get('button').filter(':contains("Edit")').should('be.visible');
 });
 Then('they see an Add Exhibition Place Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).should('be.visible');
@@ -103,7 +103,7 @@ Given('they see an item in the list of Exhibition Places', () => {
   cy.contains(venueName);
 });
 When('they click the Delete Exhibition Place Button', () => {
-  cy.get('[data-testid=CancelIcon]').click();
+  cy.get('button').filter(':contains("Remove")').first().click();
   cy.get(`[data-testid=accept-button]`).click();
 });
 Then('the row is removed from list of Exhibition Places', () => {
