@@ -87,6 +87,7 @@ Then('they see the result is marked as a favorite', () => {
     });
 });
 Then('the favorite results are displayed at the top of the list of results', () => {
+  cy.wait(3000);
   cy.reload();
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .first()
@@ -108,7 +109,7 @@ When('they unmark a favorite result', () => {
     .filter(`:contains("${thirdFavoriteResultTitle}")`)
     .parent()
     .within(() => {
-      cy.getDataTestId('remove-promoted-publication-button');
+      cy.getDataTestId('remove-promoted-publication-button').click();
     });
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .filter(`:contains("${thirdFavoriteResultTitle}")`)
@@ -127,6 +128,7 @@ Then('the result is not marked as favorite', () => {
     });
 });
 Then('the result is not displayed at the top of the list of results', () => {
+  cy.wait(3000);
   cy.reload();
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
     .last()

@@ -70,6 +70,7 @@ export const changeContributor = (userFrom: string, userTo: string): void => {
     cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton(userFrom)}"`).click();
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('not.exist');
+    cy.wait(5000);
     cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
     cy.getDataTestId(dataTestId.startPage.searchField).type(userTo);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
