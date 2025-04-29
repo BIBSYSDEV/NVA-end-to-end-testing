@@ -40,7 +40,7 @@ Then('they see that each Exhibition Place has a Delete Button', () => {
   Object.keys(performingArtsFields).forEach((value) => {
     if (value !== 'More information') {
       if (value === 'Date start' || value === 'Date end') {
-        cy.chooseDatePicker(`[data-testid=${performingArtsFields[value]}]`, '11.11.2011');
+        cy.chooseDatePicker(`[data-testid=${performingArtsFields[value]}]`, '11.11.2021');
       } else {
         cy.get(`[data-testid=${performingArtsFields[value]}]`).type(`Test ${value}`);
       }
@@ -80,7 +80,7 @@ When('they fill the fields with input data', () => {
   Object.keys(performingArtsFields).forEach((value) => {
     if (value !== 'More information') {
       if (value === 'Date start' || value === 'Date end') {
-        cy.chooseDatePicker(`[data-testid=${performingArtsFields[value]}]`, '11.11.2011');
+        cy.chooseDatePicker(`[data-testid=${performingArtsFields[value]}]`, '11.11.2021');
       } else {
         cy.get(`[data-testid=${performingArtsFields[value]}]`).type(`Test ${value}`);
       }

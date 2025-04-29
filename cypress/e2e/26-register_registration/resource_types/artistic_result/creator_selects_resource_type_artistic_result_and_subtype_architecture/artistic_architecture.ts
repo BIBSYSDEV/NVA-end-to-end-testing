@@ -55,8 +55,8 @@ Then('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionOrganizer}]`).type(
     'Exhibition organizer'
   );
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2011');
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2011');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2021');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2021');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionOther}]`).type('Exhibition other');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
   //   });
@@ -71,9 +71,9 @@ When('they add a Competition with details for:', (dataTable: DataTable) => {
   cy.get(`[data-testid=${exhibitionTypes['Competition']}]`).click({ force: true });
   dataTable.raw().forEach((field) => {
     field[0] === 'Date'
-      ? cy.chooseDatePicker(`[data-testid=${competitionFields[field[0]]}]`, '11.11.2011')
-      : // ? cy.get(`[data-testid=${competitionFields[field[0]]}]`).type('11.11.2011')
-        cy.get(`[data-testid=${competitionFields[field[0]]}]`).type(`Test Competition ${field[0]}`);
+      ? cy.chooseDatePicker(`[data-testid=${competitionFields[field[0]]}]`, '11.11.2021')
+      : // ? cy.get(`[data-testid=${competitionFields[field[0]]}]`).type('11.11.2021')
+      cy.get(`[data-testid=${competitionFields[field[0]]}]`).type(`Test Competition ${field[0]}`);
   });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
@@ -89,9 +89,9 @@ When('they add a Publication or Mention with details for:', (dataTable: DataTabl
   cy.get(`[data-testid=${exhibitionTypes['Publication or Mention']}]`).click({ force: true });
   dataTable.raw().forEach((field) => {
     field[0] === 'Date'
-      ? cy.chooseDatePicker(`[data-testid=${publicationMentionFields[field[0]]}]`, '11.11.2011')
-      : // ? cy.get(`[data-testid=${publicationMentionFields[field[0]]}]`).type('11.11.2011')
-        cy.get(`[data-testid=${publicationMentionFields[field[0]]}]`).type(`Test Publication Mention ${field[0]}`);
+      ? cy.chooseDatePicker(`[data-testid=${publicationMentionFields[field[0]]}]`, '11.11.2021')
+      : // ? cy.get(`[data-testid=${publicationMentionFields[field[0]]}]`).type('11.11.2021')
+      cy.get(`[data-testid=${publicationMentionFields[field[0]]}]`).type(`Test Publication Mention ${field[0]}`);
   });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
@@ -109,11 +109,11 @@ Then('the Publication or Mention is listed under Exhibitions', () => {
 When('they add a Prize or Award with details for:', (dataTable: DataTable) => {
   cy.get(`[data-testid=${exhibitionTypes['Prize or Award']}]`).click({ force: true });
   dataTable.raw().forEach((field) => {
-    if (field[0] === 'Year'){
-       cy.chooseDatePicker(`[data-testid=${awardFields[field[0]]}]`, '2011')
-      } else {
-        cy.get(`[data-testid=${awardFields[field[0]]}]`).type(`Test Prize Award ${field[0]}`);
-      }
+    if (field[0] === 'Year') {
+      cy.chooseDatePicker(`[data-testid=${awardFields[field[0]]}]`, '2021')
+    } else {
+      cy.get(`[data-testid=${awardFields[field[0]]}]`).type(`Test Prize Award ${field[0]}`);
+    }
   });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
@@ -131,7 +131,7 @@ When('they add an Exhibition with details for:', (dataTable: DataTable) => {
   cy.get(`[data-testid=${exhibitionTypes['Exhibition']}]`).click({ force: true });
   dataTable.raw().forEach((field) => {
     field[0] === 'Date from' || field[0] === 'Date to'
-      ? cy.chooseDatePicker(`[data-testid=${exhibitionFields[field[0]]}]`, '11.11.2011')
+      ? cy.chooseDatePicker(`[data-testid=${exhibitionFields[field[0]]}]`, '11.11.2021')
       : cy.get(`[data-testid=${exhibitionFields[field[0]]}]`).type(`Test Exhibition ${field[0]}`);
   });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();

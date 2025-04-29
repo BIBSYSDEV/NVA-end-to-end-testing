@@ -554,9 +554,9 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
                 cy.get('.MuiPickersCalendarHeader-labelContainer').within(() => {
                   cy.get('button').first().click();
                 });
-                cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click({ force: true });
-                cy.get('.MuiPickersMonth-monthButton').filter(`:contains(${selectMonthName})`).click({ force: true });
-                cy.get('.MuiPickersDay-dayWithMargin').filter(`:contains(${selectDate})`).click({ force: true });
+                cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
+                cy.get('.MuiPickersMonth-monthButton').filter(`:contains(${selectMonthName})`).click();
+                cy.get('.MuiPickersDay-dayWithMargin').filter(`:contains(${selectDate})`).click();
                 cy.contains('[role="dialog"] button', 'OK').click();
               }
             } else {

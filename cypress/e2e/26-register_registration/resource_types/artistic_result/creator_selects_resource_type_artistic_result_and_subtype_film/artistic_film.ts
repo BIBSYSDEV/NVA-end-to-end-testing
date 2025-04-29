@@ -44,7 +44,7 @@ Then('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.broadcastPublisher}]`).type('Broadcast publisher');
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
-    '11.11.2011'
+    '11.11.2021'
   );
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
   cy.contains('Show/Edit');
@@ -67,7 +67,7 @@ When('they add a Broadcast with details for:', () => {
   );
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
-    '11.11.2011'
+    '11.11.2021'
   );
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
@@ -83,7 +83,7 @@ When('they add a Cinematic release with details for:', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.placeField}]`).type('Test Cinematic release Place');
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
-    '11.11.2011'
+    '11.11.2021'
   );
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
@@ -105,7 +105,7 @@ When('they add a Other release with details for:', () => {
   );
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
-    '11.11.2011'
+    '11.11.2021'
   );
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });

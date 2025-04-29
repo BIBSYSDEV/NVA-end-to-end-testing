@@ -41,7 +41,7 @@ Then('they can edit existing Exhibitions', () => {
   );
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
-    '11.11.2011'
+    '11.11.2021'
   );
   cy.get(`[data-testid=${musicConcertProgramFields['Works']}]`).click();
   cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`).type('Title');
@@ -66,7 +66,7 @@ When('they add a Concert with details for:', (dataTable: DataTable) => {
     if (value[0] === 'Date') {
       cy.chooseDatePicker(
         `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
-        '11.11.2011'
+        '11.11.2021'
       );
     } else if (value[0] !== 'Works') {
       cy.get(`[data-testid=${musicConcertFields[value[0]]}]`).type(`Test ${value[0]}`);
