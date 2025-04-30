@@ -128,18 +128,20 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: F
     } else {
       cy.contains('Open file').click();
     }
-    cy.getDataTestId(dataTestId.registrationWizard.files.version, {
-      timeout: 30000,
-    }).within(() => {
+    if (!fileType || fileType === 'Open file') {
+      cy.getDataTestId(dataTestId.registrationWizard.files.version, {
+        timeout: 30000,
+      }).within(() => {
+        if (fileVersion === FileVersions.PUBLISHED) {
+          cy.get('input[type=radio]').last().click();
+        } else if (fileVersion !== FileVersions.NOT_SET) {
+          cy.get('input[type=radio]').first().click();
+        }
+      });
       if (fileVersion === FileVersions.PUBLISHED) {
-        cy.get('input[type=radio]').last().click();
-      } else if (fileVersion !== FileVersions.NOT_SET) {
-        cy.get('input[type=radio]').first().click();
+        cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
+        cy.get('[data-testid=license-item]').first().click({ force: true });
       }
-    });
-    if (fileVersion === FileVersions.PUBLISHED) {
-      cy.get('[data-testid=uploaded-file-select-license]').scrollIntoView().click({ force: true }).type(' ');
-      cy.get('[data-testid=license-item]').first().click({ force: true });
     }
   }
 });
@@ -562,7 +564,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
                 });
                 cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
                 cy.get('.MuiPickersMonth-monthButton').filter(`:contains(${selectMonthName})`).click();
-                cy.get('.MuiPickersDay-dayWithMargin').filter(`:contains(${selectDate})`).click();
+                cy.get('.MuiPickersDay-dayWithMargin').filter(`:contains(${selectDate})`).first().click();
                 cy.contains('[role="dialog"] button', 'OK').click();
               }
             } else {
