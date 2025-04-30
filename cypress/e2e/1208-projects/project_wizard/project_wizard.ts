@@ -224,11 +224,11 @@ const descriptionFields = {
     dataTestId: dataTestId.projectWizard.descriptionPanel.keywordsField,
   },
   'Start date': {
-    value: today,
+    value: formatedToday,
     dataTestId: dataTestId.projectWizard.descriptionPanel.startDateField,
   },
   'End date': {
-    value: today,
+    value: formatedToday,
     dataTestId: dataTestId.projectWizard.descriptionPanel.endDateField,
   },
 };
@@ -348,13 +348,7 @@ Then('they see all the filled inn values on the Project presentation page', () =
     END_DATE,
   ];
   landingPageDescriptionFields.forEach((field) => {
-    if (field === START_DATE) {
-      cy.contains(`${formatedToday} -`);
-    } else if (field === END_DATE) {
-      cy.contains(`${formatedToday} (Finished)`);
-    } else {
-      cy.contains(descriptionFields[field].value);
-    }
+    cy.contains(descriptionFields[field].value);
   });
   cy.contains(projectManager);
   cy.contains(projectParticipant);

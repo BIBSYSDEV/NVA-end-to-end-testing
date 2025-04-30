@@ -539,7 +539,9 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
         cy.get(selector).click();
         cy.get('[role=dialog]').then(($dialog) => {
           const typableField = !(
-            $dialog.find('.MuiPickersDay-today').length > 0 || $dialog.find('.Mui-selected').length > 0
+            $dialog.find('.MuiPickersDay-today').length > 0 ||
+            $dialog.find('.MuiPickersYear-yearButton').length > 0 ||
+            $dialog.find('.Mui-selected').length > 0
           );
           if (typableField) {
             cy.get(selector).within(() => {
@@ -564,7 +566,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
                 cy.get('.Mui-selected').click();
                 cy.contains('[role="dialog"] button', 'OK').click();
               } else {
-                cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click({ force: true });
+                cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
                 cy.contains('[role="dialog"] button', 'OK').click();
               }
             }

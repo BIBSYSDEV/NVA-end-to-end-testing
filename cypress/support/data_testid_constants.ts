@@ -433,7 +433,7 @@ export const literaryArtsPerformanceFields = {
   },
   Date: {
     field: dataTestId.registrationWizard.resourceType.outputInstantDateField,
-    value: '01-01-2022',
+    value: '01.01.2021',
   },
   Place: {
     field: dataTestId.registrationWizard.resourceType.placeField,
@@ -570,8 +570,7 @@ export const landingPageButtons = {
   'Reserve a DOI': 'button-toggle-reserve-doi',
 };
 
-export const landingPageShareButtons = {
-};
+export const landingPageShareButtons = {};
 
 export const contributorTypes = {
   Author: 'Creator',

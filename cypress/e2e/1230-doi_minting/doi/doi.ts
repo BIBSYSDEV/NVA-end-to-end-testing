@@ -3,7 +3,6 @@ import { userCuratorDraftDoi, userDraftDoi2 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
-
 // Feature: DOI related scenarios moved from MVP feature
 
 const publicRegistrationRequestingDoi = `Published registration requesting DOI ${uuid()}`;
@@ -17,7 +16,6 @@ const published = 'published';
 const unpublished = 'unpublished';
 const filename = 'example.txt';
 
-
 // Scenario: Owner navigates to the submission tab and publish a Registration with a drafted DOI
 Given('that the Owner navigates to Submission tab', () => {
   cy.login(userDraftDoi2);
@@ -29,8 +27,6 @@ Given('that the Owner navigates to Submission tab', () => {
 });
 Given('the Registration has status Draft', () => {
   cy.selectRegistration(publishedRegistrationWithDraftDoi, unpublished);
-});
-Given('the Registration has a Draft DOI', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
@@ -45,7 +41,7 @@ When('the Owner clicks the publish button', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
   cy.wait(3000);
 });
-Then('the Landing Page for Registration is displayed', () => { });
+Then('the Landing Page for Registration is displayed', () => {});
 Then('the "Request a DOI" button is still named "DOI pending" and is disabled', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).within(() => {
     cy.contains('DOI request waiting for approval');
@@ -53,16 +49,20 @@ Then('the "Request a DOI" button is still named "DOI pending" and is disabled', 
 });
 Then('the Landing Page for Registration lists the Draft DOI', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).within(() => {
-    cy.contains('DOI').parent().within(() => {
-      cy.contains('Pending');
-    });
+    cy.contains('DOI')
+      .parent()
+      .within(() => {
+        cy.contains('Pending');
+      });
   });
 });
 Then('the Draft DOI is still not a link', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).within(() => {
-    cy.contains('DOI').parent().within(() => {
-      cy.get('a').should('not.exist');
-    });
+    cy.contains('DOI')
+      .parent()
+      .within(() => {
+        cy.get('a').should('not.exist');
+      });
   });
 });
 Then('the DOI request is listed in the Owners work list', () => {
@@ -111,14 +111,13 @@ Given('that a Creator navigates to the Landing Page for Registration for publish
   cy.login(userDraftDoi2);
   cy.selectRegistration(publicRegistrationWithoutDoi, published);
 });
-Given('they are the Owner of this Registration', () => { });
+Given('they are the Owner of this Registration', () => {});
 Given('they click the "Request a DOI" button', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.requestDoiButton}]`).click();
 });
-Then('the "Request a DOI" dialog is opened', () => {
-});
+Then('the "Request a DOI" dialog is opened', () => {});
 Then('they see fields for Message', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiMessageField}]`).should('be.visible');
 });
@@ -199,7 +198,7 @@ Given('that the Owner View Landing Page for Registration for unpublished Registr
   cy.getSuccessDone();
   cy.selectRegistration(registrationTitle, unpublished);
 });
-Given('they are the Owner of the Registration', () => { });
+Given('they are the Owner of the Registration', () => {});
 When('they click the "Draft a DOI" button', () => {
   cy.get('[data-testid=doi-presentation]').should('not.exist');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
@@ -220,9 +219,11 @@ Then('the Landing Page for Registration contains the Draft DOI', () => {
 });
 Then('the Draft DOI is not a link', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).within(() => {
-    cy.contains('DOI').parent().within(() => {
-      cy.get('a').should('not.exist');
-    });
+    cy.contains('DOI')
+      .parent()
+      .within(() => {
+        cy.get('a').should('not.exist');
+      });
   });
 });
 //   #Draft DOIs are not acknowledged by the resolving mechanisms (Handle-system)
@@ -283,16 +284,16 @@ When('they click "Go to Registration"', () => {
 Then('they see the Registration is opened in the Wizard', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.generalInfo}]`).should('be.visible');
 });
-Then('they see the Submission tab', () => { });
-Then('they see the Create DOI button is enabled', () => { });
-Then('they see the Decline DOI button is enabled', () => { });
+Then('they see the Submission tab', () => {});
+Then('they see the Create DOI button is enabled', () => {});
+Then('they see the Decline DOI button is enabled', () => {});
 
 // Scenario: Owner navigates to the Landing page and requests a DOI
-Given('that the Creator navigates to the Landing page for published Registration without DOI', () => { });
-Given('open "Request a DOI" dialog', () => { });
-Given('optional add a message to the Curator', () => { });
-When('the user click the Send Button', () => { });
-Then('the Landing page is displayed', () => { });
-Then('the "Request a DOI" button is no longer visible', () => { });
-Then('the request is listed in My Messages', () => { });
-Then('the request is listed in Curator Worklist', () => { });
+Given('that the Creator navigates to the Landing page for published Registration without DOI', () => {});
+Given('open "Request a DOI" dialog', () => {});
+Given('optional add a message to the Curator', () => {});
+When('the user click the Send Button', () => {});
+Then('the Landing page is displayed', () => {});
+Then('the "Request a DOI" button is no longer visible', () => {});
+Then('the request is listed in My Messages', () => {});
+Then('the request is listed in Curator Worklist', () => {});

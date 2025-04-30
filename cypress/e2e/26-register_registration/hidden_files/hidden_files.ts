@@ -144,6 +144,8 @@ When('a curator edit the registration and changes the open file to {string}', (f
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
   cy.contains(fileType.toString()).click();
+  cy.getSuccess();
+  cy.getSuccessDone();
 });
 When('navigates to the landing page', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
