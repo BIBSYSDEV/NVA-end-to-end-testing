@@ -131,7 +131,7 @@ Given('a published registration with an open file', () => {
   cy.wait(30000);
 });
 Given('the file needs approval', () => {});
-When('a curator edit the registration and changes the open file to {string}', (fileType) => {
+When('a curator edit the registration and changes the open file to {string}', (fileType: string) => {
   cy.wrap(fileType).as('fileType');
   cy.login(userPublishingCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -143,12 +143,12 @@ When('a curator edit the registration and changes the open file to {string}', (f
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-  cy.contains(fileType.toString()).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
+  cy.contains(fileType).click();
 });
 When('navigates to the landing page', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccess();
+  cy.getSuccessDone();
 });
 
 // Examples:

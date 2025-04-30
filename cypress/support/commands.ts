@@ -87,7 +87,7 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
   cy.getSuccessDone();
 });
 
-Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: FileVersions) => {
+Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: FileVersions, fileType?: string) => {
   if (!fileVersion) {
     fileVersion = FileVersions.PUBLISHED;
   }
@@ -123,7 +123,11 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: F
   if (fileName) {
     cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
     cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-    cy.contains('Open file').click();
+    if (fileType) {
+      cy.contains(fileType).click();
+    } else {
+      cy.contains('Open file').click();
+    }
     cy.getDataTestId(dataTestId.registrationWizard.files.version, {
       timeout: 30000,
     }).within(() => {
@@ -524,7 +528,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
       '12': 'Dec',
     };
     value = value.replaceAll('.', '');
-    selectDate = value.substring(0, 2);
+    selectDate = Number(value.substring(0, 2)).toString();
     selectMonth = value.substring(2, 4);
     selectMonthName = !selectMonth ? months['1'] : months[selectMonth];
     selectYear = value.substring(4);

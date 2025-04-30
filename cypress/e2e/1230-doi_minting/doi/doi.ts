@@ -231,6 +231,8 @@ Then('the Draft DOI is not a link', () => {
 //   @1235
 // Scenario: Owner navigates to the submission tab and publish a Registration with a drafted DOI
 Given('the Registration has a Draft DOI', () => {
+  cy.wait(3000);
+  cy.reload();
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`)
     .parent()

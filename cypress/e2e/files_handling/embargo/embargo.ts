@@ -10,7 +10,7 @@ import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 //     Files are not available for download before embargo date
 
 const filename = 'example.txt';
-const pad = (value) => `0${value}`.slice(-2);
+const pad = (value: number) => `0${value}`.slice(-2);
 
 // Scenario: User sets embargo date for files
 Given('User registers a registration', () => {
@@ -34,7 +34,8 @@ Then('add a note for legal clarification', () => {
 Given('a User view the landing page for a Registration with embargoed files', () => {
   const title = `View embargo future date ${uuid()}`;
   const date = new Date();
-  const futureDate = `${pad(date.getDate() + 1)}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
+  date.setDate(date.getDate() + 1);
+  const futureDate = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
 
   cy.login(userEmbargo);
   cy.startWizardWithEmptyRegistration();
