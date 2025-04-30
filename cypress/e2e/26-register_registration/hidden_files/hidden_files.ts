@@ -71,7 +71,7 @@ When('a Curator view the landing page of the registration', () => {
 Then('they see {string}', (approvalMessage: string) => {
   cy.get('@fileType').then((fileType) => {
     if (fileType.toString() === 'Internal file') {
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).contains(
+      cy.getDataTestId(dataTestId.registrationLandingPage.internalFilesTab).contains(
         approvalMessage
       );
     }
