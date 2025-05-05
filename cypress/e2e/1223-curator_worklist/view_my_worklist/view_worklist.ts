@@ -1,8 +1,6 @@
 import {
   userPublishNoRights,
-  userCurator2,
   userDoiCurator,
-  userMessages,
   userNviCurator,
   userPublishingCurator,
   userSupportCurator,
