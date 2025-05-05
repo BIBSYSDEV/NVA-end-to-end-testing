@@ -202,7 +202,7 @@ When('they click the "Draft a DOI" button', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.contains('DOI is reserved', {matchCase: false});
+  cy.contains('DOI is reserved', { matchCase: false });
 });
 Then('the "Draft a DOI" button is renamed to "DOI pending" and is disabled', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton}]`).should('not.exist');
@@ -237,9 +237,6 @@ Given('the Registration has a Draft DOI', () => {
     .within(() => {
       cy.contains('reserved', { matchCase: false });
     });
-});
-When('the Owner clicks the publish button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.publishButton}]`).click();
 });
 Then('the "Request a DOI" button is still named "DOI pending" and is disabled', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
