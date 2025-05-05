@@ -127,7 +127,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.contains(year).click();
+    cy.get(`[data-value=${year}]`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(10000);
@@ -225,7 +225,7 @@ When('the Curator opens the Requests Resource', () => {
       if (user.toString() === 'Nvi-Curator') {
         // cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
         cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-        cy.contains(year).click();
+        cy.get(`[data-value=${year}]`);
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList)
