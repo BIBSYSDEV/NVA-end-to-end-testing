@@ -1,10 +1,10 @@
-import { v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { userDeleteRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
-const firstTitle = `Delete registration ${uuid()}`
-const secondTitle = `Delete registration ${uuid()}`
+const firstTitle = `Delete registration ${uuid()}`;
+const secondTitle = `Delete registration ${uuid()}`;
 
 let init = false;
 const initData = () => {
@@ -21,7 +21,7 @@ const initData = () => {
     cy.getSuccessDone();
     init = false;
   }
-}
+};
 
 Given('Creator opens My Registrations', () => {
   cy.login(userDeleteRegistrations);
@@ -42,6 +42,8 @@ When('they see a confirmation pop-up is opened', () => {
 });
 When('they select Yes', () => {
   cy.get('[data-testid=accept-button]').click();
+  cy.get('[data-testid=accept-button]').should('not.exist');
+  cy.reload();
 });
 Then('they see that the Registration is deleted', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', 1);
@@ -54,6 +56,8 @@ When('they select "Delete all drafts"', () => {
 });
 When('they confirm that they want to Delete all drafts', () => {
   cy.get('[data-testid=accept-button]').click();
+  cy.get('[data-testid=accept-button]').should('not.exist');
+  cy.reload();
 });
 Then('all Draft Registration are deleted', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', 0);

@@ -17,7 +17,7 @@ Given('Creator opens the page My Registrations', () => {
 });
 When('they click Published Registrations in the navigation bar', () => {
   cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
-  cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });
 Then('they see a list of all published Registrations with the fields', (dataTable: DataTable) => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('exist');
