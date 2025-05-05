@@ -26,7 +26,7 @@ Given(
     typeOfRegistration: string,
     isNviPublication: string
   ) => {
-    const title = `User ${typeOfRegistration} ${category} ${publicationStatus} ${isCollaboration} ${uuid()}`;
+    const title = `Registrator ${typeOfRegistration} ${category} ${publicationStatus} ${isCollaboration} ${uuid()}`;
     cy.login(userNviInstitutionA);
     if (publicationStatus === PUBLISHED) {
       cy.createPublishedRegistration(title);
