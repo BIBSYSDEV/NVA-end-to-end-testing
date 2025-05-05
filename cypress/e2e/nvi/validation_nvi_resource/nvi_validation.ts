@@ -190,6 +190,7 @@ When('the NVI candidate is no longer an NVI candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
     cy.get('.MuiChip-deleteIcon').click();
   });
+  cy.wait(3000);
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('aftenposten');
   cy.contains('Aftenposten').last().click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip);
@@ -215,6 +216,7 @@ When('the NVI candidate is still a candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
     cy.get('.MuiChip-deleteIcon').click();
   });
+  cy.wait(3000)
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type(
     'ACM Journal of Data and Information Quality'
   );

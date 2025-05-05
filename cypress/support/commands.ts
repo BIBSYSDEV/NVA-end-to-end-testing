@@ -104,9 +104,9 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: F
   cy.getDataTestId('resource-type-chip-AcademicArticle').click({
     force: true,
   });
-  cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as(
-    'serialChannel'
-  );
+  cy.intercept('/publication-channels-v2/serial-publication?query=Chemical&year=*&size=10', {
+    fixture: 'channel_mock_serial.json',
+  }).as('serialChannel');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Chemical');
   cy.contains('ACS Chemical Biology').click({ force: true });
 

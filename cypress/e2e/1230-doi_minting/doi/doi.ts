@@ -202,7 +202,7 @@ When('they click the "Draft a DOI" button', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.contains('DOI is reserved');
+  cy.contains('DOI is reserved', {matchCase: false});
 });
 Then('the "Draft a DOI" button is renamed to "DOI pending" and is disabled', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton}]`).should('not.exist');
@@ -235,7 +235,7 @@ Given('the Registration has a Draft DOI', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`)
     .parent()
     .within(() => {
-      cy.contains('reserved');
+      cy.contains('reserved', { matchCase: false });
     });
 });
 When('the Owner clicks the publish button', () => {
@@ -252,7 +252,7 @@ Then('the Draft DOI is still not a link', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`)
     .parent()
     .within(() => {
-      cy.contains('reserved');
+      cy.contains('reserved', { matchCase: false });
     });
 });
 Then('the DOI request is listed in the Owners work list', () => {
