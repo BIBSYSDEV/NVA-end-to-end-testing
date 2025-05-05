@@ -92,19 +92,7 @@ Then('they see the file is approved', () => {
         cy.wait(15000);
         cy.reload();
         cy.contains(title.toString());
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(
-          (taskPanel) => {
-            if (
-              taskPanel.find(
-                `[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`
-              ).length > 0
-            ) {
-              cy.wait(15000);
-              cy.reload();
-              cy.contains(title.toString());
-            }
-          }
-        );
+        cy.refreshPublish();
         cy.getDataTestId(dataTestId.registrationLandingPage.internalFilesTab).click();
         cy.contains('1 internal file approved');
         cy.contains('1 waiting for approval').should('not.exist');

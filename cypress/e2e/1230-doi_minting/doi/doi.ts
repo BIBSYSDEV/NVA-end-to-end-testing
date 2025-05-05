@@ -38,8 +38,7 @@ When('the Owner clicks the publish button', () => {
   cy.getSuccess();
   cy.getSuccessDone();
   cy.wait(3000);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-  cy.wait(3000);
+  cy.refreshPublish();
 });
 Then('the Landing Page for Registration is displayed', () => {});
 Then('the "Request a DOI" button is still named "DOI pending" and is disabled', () => {
@@ -83,8 +82,7 @@ Then('the DOI request is listed in the Curators work list', () => {
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
   cy.login(userDraftDoi2);
   cy.createPublishedRegistration(publicRegistrationRequestingDoi);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-  cy.wait(3000);
+  cy.refreshPublish();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();

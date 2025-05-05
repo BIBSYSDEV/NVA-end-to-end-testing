@@ -17,7 +17,7 @@ When('they click the button My Registrations', () => {
   cy.openMyRegistrations();
 });
 Then('they see My Registrations', () => {
-  cy.location('pathname').should('eq', '/my-page/registrations/my-registrations');
+  cy.location('pathname').should('eq', '/my-page/registrations');
 });
 Then('they see a list of all unpublished Registrations with the fields', () => {
   cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`);

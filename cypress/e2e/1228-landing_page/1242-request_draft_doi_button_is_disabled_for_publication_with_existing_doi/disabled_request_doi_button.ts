@@ -17,7 +17,7 @@ const initData = () => {
   if (!init) {
     cy.createPublishedRegistration(registrationTitles['Published']);
     cy.wait(50000);
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+    cy.refreshPublish();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
     cy.startWizardWithEmptyRegistration();

@@ -50,7 +50,7 @@ Before({ 'tags': '@init' }, () => {
   const unpublishedTitle = `Unpublished registration ${uuid()}`;
   cy.createPublishedRegistration(unpublishedTitle);
   cy.wait(3000);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+  cy.refreshPublish();
   cy.wait(5000);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
   cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
@@ -61,7 +61,7 @@ Before({ 'tags': '@init' }, () => {
   cy.getSuccess();
   const deletedTitle = `Deleted registration ${uuid()}`;
   cy.createPublishedRegistration(deletedTitle);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
+  cy.refreshPublish();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
   cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
   cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Unpublish');
@@ -116,17 +116,7 @@ Given('a User publishes a Result', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-  cy.wait(3000);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then(($panel) => {
-    if (
-      $panel.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
-        .length > 0
-    ) {
-      cy.wait(10000);
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-    }
-  });
+  cy.refreshPublish();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
     cy.contains('Result published');
   });
@@ -154,17 +144,7 @@ Given('a User unpublish a Result', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-  cy.wait(3000);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then(($panel) => {
-    if (
-      $panel.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
-        .length > 0
-    ) {
-      cy.wait(10000);
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-    }
-  });
+  cy.refreshPublish();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
     cy.contains('Result published');
   });
@@ -197,17 +177,7 @@ Given('a User deletes an unpublished Result', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-  cy.wait(3000);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then(($panel) => {
-    if (
-      $panel.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
-        .length > 0
-    ) {
-      cy.wait(10000);
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-    }
-  });
+  cy.refreshPublish();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
     cy.contains('Result published');
   });
