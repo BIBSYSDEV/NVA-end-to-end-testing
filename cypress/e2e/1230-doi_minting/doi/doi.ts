@@ -235,7 +235,7 @@ Given('the Registration has a Draft DOI', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`)
     .parent()
     .within(() => {
-      cy.contains('(Reserved DOI)');
+      cy.contains('reserved');
     });
 });
 When('the Owner clicks the publish button', () => {
@@ -252,7 +252,7 @@ Then('the Draft DOI is still not a link', () => {
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`)
     .parent()
     .within(() => {
-      cy.contains('(Reserved DOI)');
+      cy.contains('reserved');
     });
 });
 Then('the DOI request is listed in the Owners work list', () => {

@@ -153,8 +153,9 @@ When('{string} clicks on Requests of type {string}', (user: string, type: string
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.contains(year).click();
+    cy.get(`[data-value=${year}]`).click();
   } else {
     cy.get('[value=BIBSYS]');
   }
@@ -217,8 +218,9 @@ When('the {string} open a unassigned Request of type {string}', (user: string, t
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.contains(year).click();
+    cy.get(`[data-value=${year}]`).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);
@@ -253,4 +255,3 @@ Then('the Request Status is set to "Active"', () => {
     }
   });
 });
-

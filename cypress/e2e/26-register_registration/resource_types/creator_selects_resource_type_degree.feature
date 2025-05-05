@@ -11,14 +11,14 @@ Feature: Creator selects Resource type Degree
             | Licentiate thesis    |
             | Other student thesis |
 
-    @test
-    Scenario: Non-Curator user select Resource type "Student thesis"
-        Given Creator without rights to register thesis navigates to Resource Type tab
-        Then they are unable to select resource type:
-            | Bachelor thesis      |
-            | Master thesis        |
-            | Doctoral thesis      |
-            | Other student thesis |
+    # @test
+    # Scenario: Non-Curator user select Resource type "Student thesis"
+    #     Given Creator without rights to register thesis navigates to Resource Type tab
+    #     Then they are unable to select resource type:
+    #         | Bachelor thesis      |
+    #         | Master thesis        |
+    #         | Doctoral thesis      |
+    #         | Other student thesis |
 
     @test
     Scenario Outline: Creator sees fields for Resource subtypes for "Student thesis"

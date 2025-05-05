@@ -43,6 +43,7 @@ When('they see a confirmation pop-up is opened', () => {
 When('they select Yes', () => {
   cy.get('[data-testid=accept-button]').click();
   cy.get('[data-testid=accept-button]').should('not.exist');
+  cy.wait(3000);
   cy.reload();
 });
 Then('they see that the Registration is deleted', () => {
