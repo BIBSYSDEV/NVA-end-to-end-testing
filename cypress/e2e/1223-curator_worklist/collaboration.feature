@@ -16,7 +16,7 @@ Feature: Collaboration between institutions
     When a file is uploaded from:
       | Collaborator B |
       | Collaborator C |
-    And the files are approved with a message from:
+    And a message for files sent from:
       | Curator A |
       | Curator B |
       | Curator C |

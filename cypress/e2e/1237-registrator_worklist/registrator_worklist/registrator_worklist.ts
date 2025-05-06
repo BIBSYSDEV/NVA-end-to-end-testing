@@ -11,23 +11,64 @@ const supportRequests = 'Support Requests';
 const filename = 'example.txt';
 const registrationTitle = 'Registration with messages';
 
-const filterMessages = (messageType) => {
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).then(($button) => {
-    const publishingRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
-    ((publishingRequestFilter && !(messageType === publishingRequests)) ||
-      (!publishingRequestFilter && messageType === publishingRequests)) &&
-      cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click({ force: true });
-  });
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).then(($button) => {
-    const doiRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
-    ((doiRequestFilter && !(messageType === doiRequests)) || (!doiRequestFilter && messageType === doiRequests)) &&
-      cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click({ force: true });
-  });
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).then(($button) => {
-    const supportFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
-    ((supportFilter && !(messageType === supportRequests)) || (!supportFilter && messageType === supportRequests)) &&
-      cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click({ force: true });
-  });
+const filterMessages = (messageType: string) => {
+  if (!(messageType === publishingRequests)) {
+    cy.get('body')
+      .find(`[data-testid=${dataTestId.tasksPage.typeSearch.publishingButton}]`)
+      .then(($button) => {
+        if ($button.hasClass('MuiButton-contained')) {
+          cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
+          cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        }
+      });
+  } else {
+    cy.get('body')
+      .find(`[data-testid=${dataTestId.tasksPage.typeSearch.publishingButton}]`)
+      .then(($button) => {
+        if ($button.hasClass('MuiButton-outlined')) {
+          cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
+          cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        }
+      });
+  }
+  if (!(messageType === doiRequests)) {
+    cy.get('body')
+      .find(`[data-testid=${dataTestId.tasksPage.typeSearch.doiButton}]`)
+      .then(($button) => {
+        if ($button.hasClass('MuiButton-contained')) {
+          cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+          cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        }
+      });
+  } else {
+    cy.get('body')
+      .find(`[data-testid=${dataTestId.tasksPage.typeSearch.doiButton}]`)
+      .then(($button) => {
+        if ($button.hasClass('MuiButton-outlined')) {
+          cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+          cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        }
+      });
+  }
+  if (!(messageType === supportRequests)) {
+    cy.get('body')
+      .find(`[data-testid=${dataTestId.tasksPage.typeSearch.supportButton}]`)
+      .then(($button) => {
+        if ($button.hasClass('MuiButton-contained')) {
+          cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
+          cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        }
+      });
+  } else {
+    cy.get('body')
+      .find(`[data-testid=${dataTestId.tasksPage.typeSearch.supportButton}]`)
+      .then(($button) => {
+        if ($button.hasClass('MuiButton-outlined')) {
+          cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
+          cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        }
+      });
+  }
 };
 
 let init = true;
@@ -51,6 +92,8 @@ const initData = () => {
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.getSuccess();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+    cy.getSuccess();
+    cy.getSuccessDone();
     cy.wait(6000);
     init = false;
   }
@@ -64,7 +107,7 @@ Given('that the user is logged in as Creator', () => {
   cy.createValidRegistration(filename, `${registrationTitle} ${uuidv4()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.wait(15000);
+  // cy.wait(15000);
   cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
@@ -72,7 +115,7 @@ Given('that the user is logged in as Creator', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId('message-field').last().type('Test message{enter}');
   cy.getSuccess();
-  cy.wait(6000);
+  // cy.wait(6000);
 });
 When('they click the menu item My Messages', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
@@ -119,6 +162,7 @@ Then('they see that each item in the list is expandable', () => {});
 Given('that the Creator Opens a DOI request entry from My Messages', () => {
   cy.login(userMessages);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
   cy.wait(1000);
   filterMessages(doiRequests);
@@ -145,15 +189,26 @@ Given('that a User is logged in as Creator', () => {
 Given('they open My Messages page', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.wait(1000);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 });
 Given('they open a DOI request item in the Messages list', () => {
   filterMessages(supportRequests);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().parent().parent().parent().click();
 });
 Given('they see previous messages between Creator and Curator\\(s)', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.contains('Support message');
 });
-When('they enter a new message', () => {});
+When('they enter a new message', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion)
+    .getDataTestId('message-field')
+    .type('New message from user{enter}');
+});
 When('they click the Send Answer button', () => {});
-Then('they see that the new message is added to the Messages list', () => {});
+Then('they see that the new message is added to the Messages list', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).should(
+    'contain',
+    'New message from user'
+  );
+});

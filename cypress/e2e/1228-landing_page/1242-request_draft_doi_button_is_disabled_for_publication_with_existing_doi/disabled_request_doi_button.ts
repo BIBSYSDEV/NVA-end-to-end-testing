@@ -37,19 +37,16 @@ Given('that a Creator views the Landing Page for a Registration', () => {
   initData();
   cy.openMyRegistrations();
 });
-Given('they are the Owner of this Registration', () => { });
+Given('they are the Owner of this Registration', () => {});
 Given('the Registration has status {string}', (status) => {
   cy.wrap(status).as('status');
-  cy.getDataTestId('my-registrations-unpublished-checkbox').then((unPublishedCheckBox) => {
-    const unPublished = unPublishedCheckBox.find('.Mui-checked').length > 0;
-    ((status === 'Draft' && !unPublished) || (status === 'Published' && unPublished)) &&
-      cy.getDataTestId('my-registrations-unpublished-checkbox').click();
-  });
-  cy.getDataTestId('my-registrations-published-checkbox').then((publishedCheckBox) => {
-    const published = publishedCheckBox.find('.Mui-checked').length > 0;
-    ((status === 'Draft' && published) || (status === 'Published' && !published)) &&
-      cy.getDataTestId('my-registrations-published-checkbox').click();
-  });
+
+  if (status === 'Draft') {
+    cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).click();
+  } else {
+    cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
+  }
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get(`[data-testid^=${dataTestId.startPage.searchResultItem}]`)
     .filter(`:contains(${registrationTitles[status.toString()]})`)
     .parent()

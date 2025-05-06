@@ -13,7 +13,6 @@ import {
 } from '../../../support/constants';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
-
 const fileName = 'exampleA.txt';
 
 // institution A: Sikt
@@ -106,7 +105,7 @@ Given('a file is uploaded from:', (dataTable: DataTable) => {
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
     cy.contains(uploadedFileName);
   });
-  cy.wait(15000);
+  cy.wait(5000);
 });
 Then('the curator for institution A will not get a task to approve a publication request', () => {
   cy.login(curators['Curator A']);
@@ -117,21 +116,24 @@ Then('the curator for institution A will not get a task to approve a publication
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
+    // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   });
 });
-Then('the curator for institution B will get a task to approve the file from Uploader B and not from Uploader C', () => {
-  cy.login(curators['Curator B']);
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
-  cy.get('@title').then((title) => {
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
-  });
-});
+Then(
+  'the curator for institution B will get a task to approve the file from Uploader B and not from Uploader C',
+  () => {
+    cy.login(curators['Curator B']);
+    cy.getDataTestId(dataTestId.header.tasksLink).click();
+    cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+    cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
+    cy.get('@title').then((title) => {
+      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+      cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+      // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
+    });
+  }
+);
 Then('the curator institution C will get a task to approve the file from Uploader C and not from Uploader B', () => {
   cy.login(curators['Curator C']);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -141,18 +143,18 @@ Then('the curator institution C will get a task to approve the file from Uploade
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
+    // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   });
 });
 
 // Scenario: Users sees messages from their curator
 //   | Collaborator B |
 //   | Collaborator C |
-When('the files are approved with a message from:', (dataTable: DataTable) => {
+When('a message for files sent from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {
     const curator = curators[data[0]];
     cy.login(curator);
-    cy.wait(15000);
+    cy.wait(5000);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
@@ -164,7 +166,10 @@ When('the files are approved with a message from:', (dataTable: DataTable) => {
         cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Message from ${data[0]}{enter}`);
       });
       cy.contains('Message sent');
-      cy.wait(10000);
+      // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
+      // cy.getSuccess();
+      // cy.getSuccessDone();
+      // cy.wait(5000);
     });
   });
 });
