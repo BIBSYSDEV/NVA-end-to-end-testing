@@ -1,15 +1,27 @@
 // Feature: Changing values in a NVI-candidate
 
-import { userChangeNviCuratorInstitutionA } from "../../../support/constants";
+import { userChangeNviCuratorInstitutionA, userNviInstitutionA } from "../../../support/constants";
 import { dataTestId } from "../../../support/dataTestIds";
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 const unidentifiedContributor = 'Change User NVI-institution A TestUser'
 let titleRoot = ''
 
+const changeToUnidentifiedUser = () => {
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+    cy.get(`[data-testid^=${dataTestId.registrationWizard.contributors.removeContributorButton('')}]`).first().click();
+    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+    cy.getDataTestId(dataTestId.startPage.searchField).type('Change User NVI-institution A TestUser');
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getSuccess();
+}
+
 // Scenario Outline: Contributor changes from unidentified to identified
 Given('a curator opens a Result that is a NVI-candidate with an unidentified contributor', () => {
-    cy.login(userChangeNviCuratorInstitutionA)
     titleRoot = 'Change from unidentified to identified'
 });
 Given('the Result is {string} registration', (source) => {
@@ -19,11 +31,15 @@ Given('the Result is {string}', (collaboration) => {
     cy.get('@source').then((source) => {
         const title = `${titleRoot} ${source} ${collaboration}`;
         cy.wrap(title).as('title');
+        cy.login(userNviInstitutionA);
+        cy.createPublishedRegistration(title);
+        changeToUnidentifiedUser();
+        cy.login(userChangeNviCuratorInstitutionA)
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
-            cy.get('a').filter(`:contains(${title})`).click();
+        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).first().within(() => {
+            cy.get('a').filter(`:contains(${title})`).first().click();
         });
         cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     });
