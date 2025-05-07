@@ -53,7 +53,9 @@ Then('they see that the Registration is deleted', () => {
 // Scenario: Creator deletes all Draft Registrations
 When('they select "Delete all drafts"', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
-  cy.get('button').filter(':contains("Delete all drafts")').click();
+  cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).parent().parent().parent().within(() => {
+    cy.get('button').click();
+  })
 });
 When('they confirm that they want to Delete all drafts', () => {
   cy.get('[data-testid=accept-button]').click();
