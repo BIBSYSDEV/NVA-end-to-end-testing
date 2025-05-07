@@ -237,28 +237,6 @@ Then('the "Request a DOI" button is still named "DOI pending" and is disabled', 
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton}]`).should('not.exist');
 });
-Then('the Landing Page for Registration lists the Draft DOI', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
-});
-Then('the Draft DOI is still not a link', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`)
-    .parent()
-    .within(() => {
-      cy.contains('reserved', { matchCase: false });
-    });
-});
-Then('the DOI request is listed in the Owners work list', () => {
-  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
-  cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
-  cy.get('[data-testid^=message-title]').filter(`:contains(${draftRegistrationPublishWithRequestedDoi})`);
-});
-Then('the DOI request is listed in the Curators work list', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.logOutLink}]`).click();
-  cy.login(userCuratorDraftDoi);
-  cy.get(`[data-testid=${dataTestId.header.tasksLink}]`).click();
-  cy.get('[data-testid^=message-title]').filter(`:contains(${draftRegistrationPublishWithRequestedDoi})`);
-});
 
 //   @358
 //   Scenario: Curator opens a Registration from a DOI Request Worklist Item
