@@ -47,8 +47,6 @@ export const login = (userId: string) => {
       loginNva(userId);
       resolve();
     }
-    // reject();
-    console.log('rejected...');
   });
 };
 

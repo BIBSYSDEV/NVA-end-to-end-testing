@@ -80,6 +80,7 @@ Then('they see {string}', (approvalMessage: string) => {
 When('they approve the file', () => {
   cy.get('@fileType').then((fileType) => {
     if (fileType.toString() === 'Internal file') {
+      cy.refreshPublish();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
       cy.contains('The registration was published');
     }

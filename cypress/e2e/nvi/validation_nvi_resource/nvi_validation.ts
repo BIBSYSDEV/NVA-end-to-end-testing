@@ -216,7 +216,7 @@ When('the NVI candidate is still a candidate', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
     cy.get('.MuiChip-deleteIcon').click();
   });
-  cy.wait(3000)
+  cy.wait(3000);
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type(
     'ACM Journal of Data and Information Quality'
   );
