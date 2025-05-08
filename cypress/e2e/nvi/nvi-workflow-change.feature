@@ -16,7 +16,7 @@ Feature: Changing values in a NVI-candidate
       | Manual | NVA institution Collaboration      |
       | Manual | external institution Collaboration |
 
-    @test
+    # @test
   Scenario Outline: Category changes from non-scientific to scientific
     Given a curator opens a non-scientific Result that is a NVI-candidate
     And the Result is "<Source>" registration
