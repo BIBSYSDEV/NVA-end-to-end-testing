@@ -27,10 +27,6 @@ let titleRoot = '';
 const changeToUnidentifiedUser = () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  cy.get(`[data-testid^=${dataTestId.registrationWizard.contributors.removeContributorButton('')}]`)
-    .first()
-    .click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
   cy.getDataTestId(dataTestId.startPage.searchField).type(unidentifiedContributor);
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).click();
