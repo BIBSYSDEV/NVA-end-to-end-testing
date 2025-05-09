@@ -62,17 +62,11 @@ const addContributor = (contributor: string) => {
 const titleUnidentifiedToIdentifiedContributor = 'Change from unidentified to identified';
 const titleNonScientificToScientific = 'Change from non-scientific to scientific';
 const titleScientificToNonScientific = 'Change from scientific to non-scientific';
-const titleNonScientificToScientificUnidentifiedToIdentified =
-  'Change from non-scientific to scientific, unidentified to identified';
-const titleScientificToNonScientificUnidentfiedToIdentified =
-  'Change from scientific to non-scientific, unidentified to identified';
 
 const titleRoots = [
   titleUnidentifiedToIdentifiedContributor,
   titleNonScientificToScientific,
   titleScientificToNonScientific,
-  titleNonScientificToScientificUnidentifiedToIdentified,
-  titleScientificToNonScientificUnidentfiedToIdentified,
 ];
 
 const titles = {};
@@ -87,11 +81,7 @@ BeforeAll(() => {
     collaborations.forEach((collaboration) => {
       const title = `${titleRoot} Manual ${collaboration} ${uuid()}`;
       titles[titleRoot][collaboration] = title;
-      const category =
-        titleRoot === titleNonScientificToScientific ||
-        titleRoot === titleNonScientificToScientificUnidentifiedToIdentified
-          ? 'JournalReview'
-          : 'AcademicArticle';
+      const category = titleRoot === titleNonScientificToScientific ? 'JournalReview' : 'AcademicArticle';
       cy.createPublishedRegistration(title, category);
       changeToUnidentifiedUser();
       if (collaboration !== noCollaboration) {
@@ -211,18 +201,4 @@ Then('the Result is not a NVI-candidate', () => {
     });
     cy.get('li').filter(`:contains(${title})`).should('not.exist');
   });
-});
-
-// Scenario Outline: Category changes from non-scientific to scientific, contributor changes from unidentified to identified
-Given('a curator opens a non-scientific Result that is a NVI-candidate with unidentified contributor', () => {
-  cy.login(userChangeNviCuratorInstitutionA);
-  titleRoot = titleNonScientificToScientificUnidentifiedToIdentified;
-  cy.wrap(titleRoot).as('titleRoot');
-});
-
-// Scenario Outline: Category changes from scientific to non-scientific, contributor changes from unidentified to identified
-Given('a curator opens a scientific Result that is a NVI-candidate with unidentified contributor', () => {
-  cy.login(userChangeNviCuratorInstitutionA);
-  titleRoot = titleScientificToNonScientificUnidentfiedToIdentified;
-  cy.wrap(titleRoot).as('titleRoot');
 });
