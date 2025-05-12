@@ -29,19 +29,26 @@ When('they click Start', () => {
     .filter(':visible', { timeout: 30000 })
     .click({ timeout: 30000 });
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccess();
+  cy.getSuccessDone();
 });
 When('they click My Registrations', () => {
   cy.openMyRegistrations();
 });
 Then('they see that Edit is enabled', () => {
-  cy.get('@registration').parent().within((registration) => {
-    cy.get('[data-testid^= edit-registration]');
-  });
+  cy.get('@registration')
+    .parent()
+    .within((registration) => {
+      cy.get('[data-testid^= edit-registration]');
+    });
 });
 Then('they see that Delete is enabled', () => {
-  cy.get('@registration').parent().within((registration) => {
-    cy.get('[data-testid^=delete-registration]');
-  });
+  cy.get('@registration')
+    .parent()
+    .within((registration) => {
+      cy.get('[data-testid^=delete-registration]');
+    });
 });
 
 // end common steps
@@ -61,7 +68,6 @@ Then('they see the Registration is saved and the title is listed and marked as D
       cy.wrap(registration).as('registration');
     });
 });
-
 
 const title = `Published Registration ${uuidv4()}`;
 // Scenario: Creator sees Registration is findable

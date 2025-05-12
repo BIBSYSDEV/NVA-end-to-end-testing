@@ -167,7 +167,6 @@ Cypress.Commands.add('refreshPublish', () => {
           $body.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
             .length > 0
         ) {
-          cy.wait(6000);
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
         }
       });
