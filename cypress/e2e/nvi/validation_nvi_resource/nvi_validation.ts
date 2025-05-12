@@ -1,251 +1,70 @@
-import { currentYear } from '../../../support/commands';
-import { userNviCurator2 } from '../../../support/constants';
+// Feature: Validation of an NVI resource
+
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { userNviCurator } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { v4 as uuidv4 } from 'uuid';
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
-
-const filename = 'example.json';
-const journalSearch = 'ACS chemical biology';
-
-const year = currentYear.toString();
 
 // Background:
-Given('an logged-in Curator at an NVI-Institution', () => {
-  const uuid = uuidv4();
-  cy.wrap(uuid).as('uuid');
-  const registrationTitle = `New NVI candidate ${uuid}`;
-  cy.login(userNviCurator2);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(filename, registrationTitle);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-  cy.wait(20000);
+Given('a logged-in User', () => {
+  cy.login(userNviCurator);
 });
-
-// Scenario: Curator views NVI-report status at own Institution
-When('a Curator uses the option to view the NVI-Report status at own Institution', () => {
+Given('the User has the role "NVI-Curator" at an NVI-Institution', () => {});
+Given('the User has navigated to the NVI section from the Tasks option in the main menu', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-});
-Then('the Curator sees a visualization of current progress compared with last year', () => {});
-Then('it contains number of Validated Resources', () => {});
-Then('it contains number of Nominated Resources', () => {});
-Then('it contains number of Candidate Resources', () => {
-  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.pendingRadio).within(() => {
-    cy.contains('(');
-    cy.contains('(0)').should('not.exist');
-  });
 });
 
-// Scenario: Curator views list of Resources Validated for NVI-reporting
-When('a Curator uses the option to view the list of Validated Resources', () => {});
-Then(
-  'the Curator sees a list of Resources that are Validated by all Institutions that are affiliated to the Resource by Authors',
-  () => {}
-);
+// Scenario: List of fields on NVI page
+When('the User sees the NVI section', () => {});
+Then('the following fields are visible:', () => {});
+// | field                 |
+// | Search                |
+// | Curator               |
+// | Area of responsibility|
+// | Exclude subunits      |
+// | Year                  |
+// | List of candidates    |
+Then('the Year field is set to the currently open NVI period by default', () => {});
+Then('the Curator field is set to none by default', () => {});
+Then('the Area of responsibility field reflects my curator permissions', () => {});
 
-// Scenario: Curator views a NVI-candidate
-When('the Curator views the list of Candidates', () => {
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-});
-When('select one of the Candidates', () => {
-  cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
-    cy.get('section > ul > li > div > p > a').first().click();
-  });
-});
-Then('the Curator can see the details of the Candidate', () => {
-  cy.contains('Dialogue').should('be.visible');
-});
-Then('the calculated number of points for the Candidate', () => {
-  cy.contains('Points')
-    .parent()
-    .parent()
-    .parent()
-    .within(() => {
-      cy.contains('3.0');
-    });
-});
-Then('the Curator have an option to approve the Candidate', () => {
-  cy.getDataTestId(dataTestId.tasksPage.nvi.approveButton);
-});
-Then('the Curator have an option to reject the Candidate', () => {
-  cy.getDataTestId(dataTestId.tasksPage.nvi.rejectButton);
-});
-Then('the Curator have an option to add a note to the Candidate', () => {
-  cy.get('[data-testid=message-field]');
-});
+// Scenario: Menu on NVI page
+When('the User navigate to the Task page', () => {});
+Then('a menu containing following objects are visable:', () => {});
+// | objects        |
+// | a progress bar |
+// | Status menu    |
 
-// Scenario: Curator approves NVI-candidate
-When('a Curator views a NVI-candidate', () => {
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-  cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectAll}${uuid}{enter}`);
-    cy.get('a').filter(`:contains(${uuid})`).click();
-  });
-});
-When('uses the option to approve the NVI-candidate', () => {
-  cy.getDataTestId(dataTestId.tasksPage.nvi.approveButton).click();
-  cy.contains('Approved');
-});
-Then('the NVI candidate is removed from the list of Candidate Resources', () => {
-  cy.wait(5000);
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.pendingRadio).click();
-  cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectAll}${uuid}{enter}`);
-    cy.get('a').filter(`:contains(${uuid})`).should('not.exist');
-  });
-});
-Then('is added to the list of approved Resources', () => {
-  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.approvedRadio).click();
-  cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
-    cy.get('a').filter(`:contains(${uuid})`).should('be.visible');
-  });
-});
+// Scenario Outline:
+When('the User select a status', () => {});
+When("the Resources have authors that are affiliated with the Curator's Institution", () => {});
+When('the authors affiliation is within the Users Area of responibiliy', () => {});
+When('status for own institution is {string}', (ownInstitution) => {});
+When('status for other institutions is {string}', (otherInstitution) => {});
+Then('the Results are listed under {string}', (status) => {});
 
-// Scenario: Curator rejects NVI-candidate
-When('uses the option to reject the NVI-candidate', () => {
-  cy.get('button').filter(":contains('Reject')").click();
-  cy.getDataTestId(dataTestId.tasksPage.nvi.rejectionModalTextField).type('Candidate rejected');
-  cy.getDataTestId(dataTestId.tasksPage.nvi.rejectionModalRejectButton).click();
-});
-Then('is added to the list of rejected Resources', () => {
-  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.rejectedRadio).click();
-  cy.get('@uuid').then((uuid) => {
-    cy.get('a').filter(`:contains(${uuid})`).should('be.visible');
-  });
-});
+// Examples:
+// | Status                                      | Own institution | Other institutions         |
+// | Candidate                                   | Candidate       | No status                  |
+// | Candidate - Waiting for your institution    | Candidate       | Approved                   |
+// | Being checked                               | Being checked   | No status                  |
+// | Being checked - Waiting for your institution| Being checked   | Approved                   |
+// | Approved                                    | Approved        | No status                  |
+// | Approved - Waiting for other institution    | Approved        | Being checked              |
+// | Rejected                                    | Rejected        | No status                  |
+// | Rejected - Waiting for other institution    | Rejected        | Candidate or Being checked |
+// | Dispute                                     | Rejected        | Approved                   |
+// | Dispute                                     | Approved        | Rejected                   |
+// | Dispute                                     | Candidate       | Dispute                    |
 
-// Scenario: Curator view to-do list of Resources Nominated to be part of the NVI-report
-When('a Curator uses the option to view the list of Nominated Resources', () => {});
-Then(
-  'the Curator sees a list of Resources that are Validated by at least one other Institution, but not their Institution',
-  () => {}
-);
-Then('there is an option to inspect the Resource', () => {});
-Then('there is an option to Validate each Resource on behalf of their Institution', () => {});
+// Scenario: The progress bar display the current NVI-report status
+When('the User wish to see details', () => {});
+Then('the User may select "Show reporting status"', () => {});
 
-// Scenario: Curator views complete list of Resources Nominated to be part of the NVI-report
-When('a Curator uses the option to view the list Nominated Resources', () => {});
-When('the Curator asserts that Resources Validated by own Institution should be listed', () => {});
-Then(
-  'the Curator sees a list of all Resources that are Validated by at least one other Institution, including their own Institution',
-  () => {}
-);
-Then('there is an option to inspect the Resource', () => {});
-Then('there is an option to Validate each Resource on behalf of their Institution', () => {});
-
-// Scenario: Curator views list of NVI-report Candidates
-When('a Curator uses the option to view the list Candidate Resources', () => {});
-Then('the Curator sees a list of Resources that fulfill the criteria to be NVI Resources', () => {});
-Then("the Resources have authors that are affiliated with the Curator's Institution", () => {});
-Then('no other Institution has Validated the Resource', () => {});
-
-// Scenario: Curator inspects a Resource from the list of Nominated Resources
-Given('a Curator views the list of Resources Nominated to be part of the NVI-Report', () => {});
-When('the Curator uses the option to view details about a Resource', () => {});
-Then('the Curator sees a list with Validation statuses for all affiliated Institutions', () => {});
-Then('there is an option to Validate the Resource on behalf of their Institution', () => {});
-
-// Scenario: Remove NVI candidate on change
-Given('an NVI candidate', () => {
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-  cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
-    cy.get('a').filter(`:contains(${uuid})`).click();
-  });
-  cy.getDataTestId(dataTestId.tasksPage.nvi.approveButton).click();
-  cy.contains('Approved');
-});
-When('one or more of the candidate-affecting fields are changed', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-});
-When('the NVI candidate is no longer an NVI candidate', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
-    cy.get('.MuiChip-deleteIcon').click();
-  });
-  cy.wait(3000);
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('aftenposten');
-  cy.contains('Aftenposten').last().click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.contains('Registration updated successfully');
-  cy.wait(5000);
-});
-Then('remove the NVI candidate from the NVI candidate list.', () => {
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.approvedRadio).click();
-  cy.get('@uuid').then((uuid) => {
-    cy.get('a').filter(`:contains(${uuid})`).should('not.exist');
-  });
-});
-
-// Scenario: Reset NVI candidate on change
-When('the NVI candidate is still a candidate', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
-    cy.get('.MuiChip-deleteIcon').click();
-  });
-  cy.wait(3000);
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type(
-    'ACM Journal of Data and Information Quality'
-  );
-  cy.contains('ACM Journal of Data and Information Quality (Print ISSN: 1936-1955, Online ISSN: 1936-1963)')
-    .last()
-    .click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.contains('Registration updated successfully');
-  cy.wait(10000);
-});
-Then('reset the approval status for all involved institutions for the NVI candidate.', () => {
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-  cy.get('@uuid').then((uuid) => {
-    cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.approvedRadio).click();
-    cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
-    cy.get('a').filter(`:contains(${uuid})`).should('not.exist');
-    cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.pendingRadio).click();
-    cy.getDataTestId('search-field').type(`{selectAll}${uuid}{enter}`);
-    cy.getDataTestId('nvi-candidates-list').within(() => {
-      cy.get('a').filter(`:contains(${uuid})`).click();
-    });
-  });
-});
-Then('the points should be updated according to the new factors', () => {
-  cy.contains('1.0');
-});
+// Scenario: Show reporting status
+When('the User select "Show reporting status"', () => {});
+Then('the User see a table displaying status for the current open NVI-periode by default', () => {});
+Then('the columns show NVI resource statuses', () => {});
+Then("the rows represent my institution's subunits", () => {});
+Then('I can select to view any previous year', () => {});
+Then('I has an export option', () => {});
