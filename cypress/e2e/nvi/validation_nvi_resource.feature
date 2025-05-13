@@ -41,7 +41,7 @@ Feature: Validation of an NVI resource
     #          	| Status menu    |
 
     @test
-      Scenario Outline:
+      Scenario Outline: Check correct status
        	When the User select a status
        	And the Resources have authors that are affiliated with the Curator's Institution
        	And the authors affiliation is within the Users Area of responibiliy
