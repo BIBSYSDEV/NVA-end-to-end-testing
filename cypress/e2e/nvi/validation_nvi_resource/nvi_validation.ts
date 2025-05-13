@@ -28,6 +28,11 @@ const titles = {
   'Dispute Candidate Dispute': '',
 };
 
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+const currentMonth = currentDate.getMonth();
+const nviYear = currentMonth < 4 ? currentYear - 1 : currentYear;
+
 const curatorInstitutionA = 'Curator NVI-institution A TestUser';
 const curatorInstitutionB = 'Curator NVI-institution B TestUser';
 
@@ -147,8 +152,16 @@ Then('the following fields are visible:', (fields: DataTable) => {
 // | Exclude subunits      |
 // | Year                  |
 // | List of candidates    |
-Then('the Year field is set to the currently open NVI period by default', () => {});
-Then('the Curator field is set to none by default', () => {});
+Then('the Year field is set to the currently open NVI period by default', () => {
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).within(() => {
+    cy.get('input').should('have.value', nviYear);
+  });
+});
+Then('the Curator field is set to none by default', () => {
+  cy.getDataTestId(dataTestId.tasksPage.curatorSelector).within(() => {
+    cy.get('input').should('not.have.value');
+  });
+});
 Then('the Area of responsibility field reflects my curator permissions', () => {});
 
 // Scenario: Menu on NVI page
@@ -211,12 +224,35 @@ Then('the Results are listed under {string}', (status) => {
 
 // Scenario: The progress bar display the current NVI-report status
 When('the User wish to see details', () => {});
-Then('the User may select "Show reporting status"', () => {});
+Then('the User may select "Show reporting status"', () => {
+  cy.getDataTestId(dataTestId.tasksPage.nvi.toggleStatusLink).should('exist');
+});
 
 // Scenario: Show reporting status
-When('the User select "Show reporting status"', () => {});
-Then('the User see a table displaying status for the current open NVI-periode by default', () => {});
-Then('the columns show NVI resource statuses', () => {});
+When('the User select "Show reporting status"', () => {
+  cy.getDataTestId(dataTestId.tasksPage.nvi.toggleStatusLink).click();
+});
+Then('the User see a table displaying status for the current open NVI-periode by default', () => {
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).within(() => {
+    cy.get('input').should('have.value', nviYear);
+  });
+});
+Then('the columns show NVI resource statuses', () => {
+  const statuses = [
+    'Candidate',
+    'Being checked',
+    'Approved',
+    'Rejected',
+    'Total number',
+    'Publication points',
+    'Dispute',
+  ];
+  statuses.forEach((status) => {
+    cy.get('th').should('contain', status);
+  });
+});
 Then("the rows represent my institution's subunits", () => {});
 Then('I can select to view any previous year', () => {});
-Then('I has an export option', () => {});
+Then('I has an export option', () => {
+  cy.getDataTestId(dataTestId.common.exportButton).should('exist');
+});
