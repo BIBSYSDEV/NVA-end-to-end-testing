@@ -22,9 +22,8 @@ export const AuthorityPaths = {
 export enum FileVersions {
   ACCEPTED,
   PUBLISHED,
-  NOT_SET
+  NOT_SET,
 }
-
 
 export const userNoArp = 'test-user-no-arp@test.no';
 export const userNameInArp = 'test-user-name-in-arp@test.no';
@@ -152,6 +151,7 @@ export const userNviInstitutionA = 'test-user-NVI-A@test.no';
 export const userNviInstitutionB = 'test-user-NVI-B@test.no';
 export const userNvaInstitutionC = 'test-user-NVA-C@test.no';
 export const userNviCuratorInstitutionA = 'test-user-curator-NVI-A@test.no';
+export const userNviCuratorInstitutionB = 'test-user-curator-NVI-BB@test.no';
 export const userChangeNviInstitutionA = 'test-user-change-NVI-A@test.no';
 export const userChangeNviInstitutionB = 'test-user-change-NVI-B@test.no';
 export const userChangeNvaInstitutionC = 'test-user-change-NVA-C@test.no';

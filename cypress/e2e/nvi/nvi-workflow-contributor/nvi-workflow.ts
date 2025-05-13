@@ -40,27 +40,13 @@ Given(
     if (isCollaboration !== NO_ONE) {
       cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
       cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
       if (isCollaboration === NVI_INSTITUTION) {
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${NVI_USER}`);
-        cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
-          .parent()
-          .filter(`:contains(${NVI_USER})`)
-          .getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
-          .click();
-        cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+        cy.addContributor(NVI_USER);
       } else if (isCollaboration === NVA_INSTITUTION) {
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${NVA_USER}`);
-        cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
-          .parent()
-          .filter(`:contains(${NVA_USER})`)
-          .getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
-          .click();
-        cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+        cy.addContributor(NVA_USER);
       } else if (isCollaboration === EXTERNAL_INSTITUTION) {
+        cy.addUnidentifiedContributor(EXTERNAL_USER);
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${EXTERNAL_USER}`);
-        cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).click();
-        cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
       }
       cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
       cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();

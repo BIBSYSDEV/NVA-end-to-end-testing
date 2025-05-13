@@ -146,6 +146,28 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: F
   }
 });
 
+Cypress.Commands.add('addContributor', (contributorName: string) => {
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.startPage.searchField).type(contributorName);
+  cy.get('[role=dialog]').within(() => {
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
+      .parent()
+      .filter(`:contains(${contributorName})`)
+      .first()
+      .within(() => {
+        cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+      });
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+  });
+});
+
+Cypress.Commands.add('addUnidentifiedContributor', (contributorName: string) => {
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.startPage.searchField).type(contributorName);
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+});
+
 Cypress.Commands.add('getSuccess', () => {
   cy.getDataTestId('snackbar-success');
 });
@@ -193,6 +215,24 @@ Cypress.Commands.add('selectRegistration', (title, type) => {
     .within(() => {
       cy.get('p > a').first().click();
     });
+});
+
+Cypress.Commands.add('selectNVICandidate', (title?) => {
+  cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+    if (title) {
+      cy.get('li')
+        .filter(`:contains(${title})`)
+        .within(() => {
+          cy.get('a').first().click();
+        });
+    } else {
+      cy.get('li')
+        .first()
+        .within(() => {
+          cy.get('a').first().click();
+        });
+    }
+  });
 });
 
 // Commands for mocking

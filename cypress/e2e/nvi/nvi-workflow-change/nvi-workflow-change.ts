@@ -27,10 +27,7 @@ let titleRoot = '';
 const changeToUnidentifiedUser = () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  cy.getDataTestId(dataTestId.startPage.searchField).type(unidentifiedContributor);
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+  cy.addUnidentifiedContributor(unidentifiedContributor);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
   cy.getSuccessDone();
@@ -38,21 +35,10 @@ const changeToUnidentifiedUser = () => {
 
 const addContributor = (contributor: string) => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  cy.getDataTestId(dataTestId.startPage.searchField).type(contributor);
   if (contributor === externalContributor) {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+    cy.addUnidentifiedContributor(contributor);
   } else {
-    cy.get('[role=dialog]').within(() => {
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
-        .parent()
-        .filter(`:contains(${contributor})`)
-        .within(() => {
-          cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
-        });
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-    });
+    cy.addContributor(contributor);
   }
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();

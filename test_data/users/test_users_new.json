@@ -2288,19 +2288,37 @@
     "nin": "08058838714",
     "username": "test-user-curator-NVI-A@test.no",
     "role": [
-        {
-          "type": "Role",
-          "rolename": "Nvi-Curator"
-        },
-        {
-          "type": "Role",
-          "rolename": "Publishing-Curator"
-        }
-
-      ],
-          "orcid": true,
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
+      }
+    ],
+    "orcid": true,
     "orgNumber": "222",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Curator NVI-institution B",
+    "nin": "23089336198",
+    "username": "test-user-curator-NVI-BB@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "5991",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
   },
 
   {
@@ -2339,17 +2357,16 @@
     "nin": "12085102638",
     "username": "test-user-change-curator-NVI-A@test.no",
     "role": [
-        {
-          "type": "Role",
-          "rolename": "Nvi-Curator"
-        },
-        {
-          "type": "Role",
-          "rolename": "Publishing-Curator"
-        }
-
-      ],
-          "orcid": true,
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
+      }
+    ],
+    "orcid": true,
     "orgNumber": "222",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
   }

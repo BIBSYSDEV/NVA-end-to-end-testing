@@ -30,6 +30,10 @@ declare global {
         fileVersion?: FileVersions,
         fileType?: string
       ): void;
+      addContributor(contributorName: string): void;
+      addUnidentifiedContributor(contributorName: string): void;
+
+      selectNVICandidate(title?: string): void;
 
       openMyRegistrations(): void;
       chooseDatePicker(selector: string, date: string): void;
