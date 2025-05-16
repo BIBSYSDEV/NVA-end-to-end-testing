@@ -1,0 +1,15 @@
+{
+    "channel": "####################",
+    "constraint": {
+        "editingPolicy": "OWNER_ONLY",
+        "publishingPolicy": "EVERYONE",
+        "scope": [
+            "DEGREE_BACHELOR",
+            "DEGREE_MASTER",
+            "DEGREE_PHD",
+            "ARTISTIC_DEGREE_PHD",
+            "DEGREE_LICENTIATE",
+            "OTHER_STUDENT_WORK"
+        ]
+    }
+}

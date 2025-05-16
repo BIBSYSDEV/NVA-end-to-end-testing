@@ -1,20 +1,49 @@
-[
-  {
-    "administrationId": "test-user-admin@test.no",
-    "archiveName": "test 1",
-    "feideOrganizationId": "20202",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-    "displayName": "Test Institution",
-    "name": "Test Institution",
-    "shortName": "TestInst"
-  },
-  {
-    "administrationId": "test-user-second-inst-admin@test.no",
-    "archiveName": "test 2",
-    "feideOrganizationId": "5991",
-    "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0",
-    "displayName": "Test Institution 2",
-    "name": "Test Institution 2",
-    "shortName": "TestInst 2"
-  }
-]
+{
+  "customers": [
+    {
+      "identifier": "ee4632ad-eaf9-44a2-9939-b9c800b39c7c",
+      "administrationId": "test-user-admin@test.no",
+      "feideOrganizationId": "20202",
+      "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+    },
+    {
+      "identifier": "43571276-f93c-4faf-93fc-ea833e4963c5",
+      "administrationId": "test-user-second-inst-admin@test.no",
+      "feideOrganizationId": "5991",
+      "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/5991.0.0.0"
+    },
+    {
+      "identifier": "702c4fbe-d51a-4d20-aec8-50beb813ff36",
+      "administrationId": "test-user-second-inst-admin@test.no",
+      "feideOrganizationId": "222",
+      "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/222.0.0.0"
+    },
+    {
+      "identifier": "8b0609fc-8787-4c71-ba6d-fa3718bc73e1",
+      "administrationId": "test-user-second-inst-admin@test.no",
+      "feideOrganizationId": "192",
+      "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/192.0.0.0"
+    },
+    {
+      "identifier": "11b70ff2-1ba4-4cf1-95f3-06fea953cf2e",
+      "administrationId": "test-user-second-inst-admin@test.no",
+      "feideOrganizationId": "7401",
+      "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/7401.0.0.0"
+    },
+    {
+      "identifier": "8ddecceb-7d64-4df3-a842-489fe4d98f3a",
+      "administrationId": "test-user-second-inst-admin@test.no",
+      "feideOrganizationId": "194",
+      "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/194.0.0.0"
+    },
+    {
+      "identifier": "bb3d0c0c-5065-4623-9b98-5810983c2478",
+      "administrationId": "test-user-second-inst-admin@test.no",
+      "feideOrganizationId": "20754",
+      "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20754.0.0.0",
+      "channelClaims": [
+        "265B320A-F6F5-4B81-92AE-F09AE68AB761"
+      ]
+    }
+  ]
+}

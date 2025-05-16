@@ -1,5 +1,10 @@
 // Feature: Channel claims
-import { Given, Then, When } from "@badeball/cypress-cucumber-preprocessor"
+import { Before, Given, Then, When } from "@badeball/cypress-cucumber-preprocessor"
+import { userEditor } from "../../../support/constants";
+
+    Before(() => {
+        cy.login(userEditor);
+    })
 
 //   Scenario: Owned channel cannot be claimed
     When ('a channel is owned by institution A', () => {});
