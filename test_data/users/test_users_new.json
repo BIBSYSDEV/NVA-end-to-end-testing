@@ -2353,6 +2353,21 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "SINTEF Editor",
+    "nin": "26014026613",
+    "username": "test-user-editor-sintef@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "7401",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
     "firstName": "Change Curator NVI-inst A",
     "nin": "12085102638",
     "username": "test-user-change-curator-NVI-A@test.no",

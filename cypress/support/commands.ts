@@ -173,6 +173,7 @@ Cypress.Commands.add('getSuccess', () => {
 });
 
 Cypress.Commands.add('getSuccessDone', () => {
+  cy.getDataTestId('snackbar-success');
   cy.getDataTestId('snackbar-success').should('not.exist');
 });
 

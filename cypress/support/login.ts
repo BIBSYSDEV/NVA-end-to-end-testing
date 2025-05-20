@@ -54,7 +54,6 @@ const loginNva = (userId: string) => {
   cy.clearAllLocalStorage();
   cy.clearAllCookies();
   getCode(userId, secretPasssword).then((code) => {
-    cy.reload();
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
