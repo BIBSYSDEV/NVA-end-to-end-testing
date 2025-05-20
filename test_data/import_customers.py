@@ -23,6 +23,7 @@ def delete_customers():
     #         archiveName = customer['archiveName']['S']
     #         if 'test' in archiveName:
     #             print(f'deleting {archiveName}')
+        print(customer)
         response = client.delete_item(
             TableName=common.CUSTOMER_TABLENAME,
             Key={'identifier': {
@@ -43,14 +44,13 @@ def create_customers(bearer_token):
                     new_customer['identifier'] = test_customer['identifier']
                     new_customer['feideOrganizationId'] = test_customer['feideOrganizationId']
                     new_customer['cristinId'] = test_customer['cristinId']
-                    if 'channelClaims' in test_customer:
-                        new_customer['channelClaims'] = []
-                        new_claim = copy.deepcopy(channel_claims_template)
-                        for claim_id in test_customer['channelClaims']:
-                            new_claim['channel'] = f'https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/{claim_id}'
-                            new_customer['channelClaims'].append(new_claim)
+                    # if 'channelClaims' in test_customer:
+                    #     new_customer['channelClaims'] = []
+                    #     new_claim = copy.deepcopy(channel_claims_template)
+                    #     for claim_id in test_customer['channelClaims']:
+                    #         new_claim['channel'] = f'https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/{claim_id}'
+                    #         new_customer['channelClaims'].append(new_claim)
 
-                    print(new_customer)
                     print('Creating customer:' )
                     response = put_item(new_customer=new_customer,
                                         bearer_token=bearer_token)

@@ -100,6 +100,11 @@ const initData = () => {
     .within(() => {
       cy.get('a').first().click();
     });
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then($publishAccordion => {
+    if ($publishAccordion.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton}]`).length === 0) {
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
+    }
+  })
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   cy.getSuccess();
   cy.getSuccessDone();
@@ -112,6 +117,11 @@ const initData = () => {
     .within(() => {
       cy.get('a').first().click();
     });
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then($publishAccordion => {
+    if ($publishAccordion.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton}]`).length === 0) {
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
+    }
+  })
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   cy.getSuccess();
   cy.getSuccessDone();

@@ -37,7 +37,7 @@ def login(username):
                 'Authorization': f'Bearer {accessToken}',
                 'Content-type': 'application/json'
             }
-           
+
             # terms_response = requests.put(terms_conditions_endpoint, headers=headers, data=terms_conditions)
             # print(terms_response.json())
             return accessToken
@@ -58,7 +58,9 @@ def login(username):
 
 def scan_customers():
     client = boto3.client('dynamodb')
+    print(CUSTOMER_TABLENAME)
     response = client.scan(TableName=CUSTOMER_TABLENAME)
+    print(response)
 
     return response['Items']
 
