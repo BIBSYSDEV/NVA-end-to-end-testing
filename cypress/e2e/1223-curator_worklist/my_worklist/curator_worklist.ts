@@ -187,7 +187,11 @@ Then('the Request is unassigned the Curator', () => {
         cy.get('li').filter(`:contains(${title})`).should('not.exist');
       } else {
         cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
-        cy.contains('You have no messages');
+        if (user.toString() === 'NVI-curator') {
+          cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('not.exist');
+        } else {
+          cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
+        }
       }
     });
   });
