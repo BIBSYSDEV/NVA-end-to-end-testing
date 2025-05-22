@@ -80,8 +80,8 @@ Then('they see {string}', (approvalMessage: string) => {
 When('they approve the file', () => {
   cy.get('@fileType').then((fileType) => {
     if (fileType.toString() === 'Internal file') {
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
       cy.refreshPublish();
-      cy.contains('The registration was published');
     }
   });
 });
@@ -89,7 +89,6 @@ Then('they see the file is approved', () => {
   cy.get('@fileType').then((fileType) => {
     if (fileType.toString() === 'Internal file') {
       cy.get('@title').then((title) => {
-        cy.wait(15000);
         cy.reload();
         cy.contains(title.toString());
         cy.refreshPublish();
