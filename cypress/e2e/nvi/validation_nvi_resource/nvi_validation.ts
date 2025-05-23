@@ -32,8 +32,10 @@ const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
 const currentMonth = currentDate.getMonth();
 const nviYear = currentMonth < 4 ? currentYear - 1 : currentYear;
+
 const curatorInstitutionA = 'Curator NVI-institution A TestUser';
 const curatorInstitutionB = 'Curator NVI-institution B TestUser';
+
 const userNVIB = 'Change User NVI-institution B TestUser';
 const userNVIC = 'Access Verified contributor TestUser';
 
