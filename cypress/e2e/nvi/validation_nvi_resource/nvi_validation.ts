@@ -40,6 +40,7 @@ const userNVIB = 'Change User NVI-institution B TestUser';
 const userNVIC = 'Access Verified contributor TestUser';
 
 const approveCandidate = (title: string) => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
   cy.selectNVICandidate(title);
   cy.getDataTestId(dataTestId.tasksPage.nvi.approveButton).click();
@@ -49,6 +50,7 @@ const approveCandidate = (title: string) => {
 };
 
 const checkingCandidate = (title: string, curator: string) => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
   cy.selectNVICandidate(title);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type(curator);
@@ -59,6 +61,7 @@ const checkingCandidate = (title: string, curator: string) => {
 };
 
 const rejectCandidate = (title: string) => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
   cy.selectNVICandidate(title);
   cy.getDataTestId(dataTestId.tasksPage.nvi.rejectButton).click();
