@@ -203,9 +203,9 @@ Then('the Results are listed under {string}', (status) => {
   cy.get('@ownInstitution').then((ownInstitution) => {
     cy.get('@otherInstitution').then((otherInstitution) => {
       cy.getDataTestId(statusSelection[status.toString()]).click();
-      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       const titleKey = `${status} ${ownInstitution} ${otherInstitution}`;
       const title = titles[titleKey];
+      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('contain', title);

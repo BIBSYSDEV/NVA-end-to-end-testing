@@ -302,6 +302,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
   cy.filterMessages('Support Requests');
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();

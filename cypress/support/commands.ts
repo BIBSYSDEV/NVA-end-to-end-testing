@@ -148,6 +148,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: F
 
 Cypress.Commands.add('addContributor', (contributorName: string) => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(contributorName);
   cy.get('[role=dialog]').within(() => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
@@ -163,6 +164,7 @@ Cypress.Commands.add('addContributor', (contributorName: string) => {
 
 Cypress.Commands.add('addUnidentifiedContributor', (contributorName: string) => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(contributorName);
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
@@ -676,6 +678,7 @@ Cypress.Commands.add('filterMessages', (messageType) => {
 });
 
 Cypress.Commands.add('getWorklistItem', (title) => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then((doc) => {
@@ -692,6 +695,7 @@ Cypress.Commands.add('getWorklistItem', (title) => {
 });
 
 Cypress.Commands.add('getNVIWorklistItem', (title) => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then((doc) => {

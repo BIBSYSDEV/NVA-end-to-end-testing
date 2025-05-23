@@ -41,6 +41,7 @@ Given(
       cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
       cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
       cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       if (isCollaboration === NVI_INSTITUTION) {
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${NVI_USER}`);
         cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)

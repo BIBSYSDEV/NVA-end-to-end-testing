@@ -158,6 +158,7 @@ When('the User adds a Project manager', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addProjectManagerButton).click();
 });
 When('the User searches for a project manager', () => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Project manager testuser');
 });
 When('the User selects a Project manager from the search results', () => {
@@ -175,6 +176,7 @@ When('the User adds a Projects Participant', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.addParticipantButton).click();
 });
 When('the User searches for a Project participant', () => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Withauthor testuser');
 });
 When('the User selects a Participant from the search results', () => {
@@ -296,6 +298,7 @@ When('they fill inn values for Details:', () => {
   });
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).click();
   cy.contains(NFR).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.description.nfrProjectSearchField).type(
     detailsFields['Funding'].value
   );

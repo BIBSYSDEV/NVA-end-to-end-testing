@@ -46,6 +46,7 @@ Given(
         cy.addContributor(NVA_USER);
       } else if (isCollaboration === EXTERNAL_INSTITUTION) {
         cy.addUnidentifiedContributor(EXTERNAL_USER);
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${EXTERNAL_USER}`);
       }
       cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
