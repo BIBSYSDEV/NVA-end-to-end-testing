@@ -1,7 +1,7 @@
 import { unreadUserMessages, userMessages, collaborationCuratorBIBSYS } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
-import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 // Feature: Registrator worklist
 
 const doiRequests = 'DoiRequests';
@@ -71,37 +71,33 @@ const filterMessages = (messageType: string) => {
   }
 };
 
-let init = true;
-
 const initData = () => {
-  if (init) {
-    cy.login(userMessages);
-    const doiTitle = `Registration with DOI request ${uuidv4()}`;
-    cy.createPublishedRegistration(doiTitle);
-    cy.wait(10000);
-    cy.refreshPublish();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-    cy.getSuccess();
-    cy.wait(6000);
-    cy.startWizardWithEmptyRegistration();
-    cy.createValidRegistration(null, `${registrationTitle}, ${uuidv4()}`);
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.openSupportButton).click();
-    cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getSuccess();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-    cy.getSuccess();
-    cy.getSuccessDone();
-    cy.wait(6000);
-    init = false;
-  }
+  cy.login(userMessages);
+  const doiTitle = `Registration with DOI request ${uuidv4()}`;
+  cy.createPublishedRegistration(doiTitle);
+  cy.wait(10000);
+  cy.refreshPublish();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+  cy.getSuccess();
+  cy.wait(6000);
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(null, `${registrationTitle}, ${uuidv4()}`);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.openSupportButton).click();
+  cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccess();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getSuccess();
+  cy.getSuccessDone();
+  cy.wait(6000);
 };
+
+BeforeAll(() => initData());
 
 //     Scenario Outline: Creator opens My Messages
 Given('that the user is logged in as Creator', () => {
-  initData();
   cy.login(unreadUserMessages);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, `${registrationTitle} ${uuidv4()}`);

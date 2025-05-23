@@ -9,7 +9,7 @@ import {
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { currentYear } from '../../../support/commands';
-import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 const messageTypes = {
   'Approval': 'Publishing Requests',
@@ -82,7 +82,6 @@ const users = {
   'NVI': 'Nvi-Curator',
 };
 
-let init = true;
 const titles = {
   requestsTitle: (type) => `${type} request publication ${uuid()}`,
   openUnassignedTitle: (type) => `Open unassigned ${users[type]} ${type} ${uuid()}`,
@@ -95,24 +94,20 @@ const openUnassignedTitles = {};
 const unassignTitles = {};
 const openTitles = {};
 
-Before(() => {
-  if (init) {
-    const types = [APPROVAL, SUPPORT, DOI, NVI];
+BeforeAll(() => {
+  const types = [APPROVAL, SUPPORT, DOI, NVI];
 
-    types.forEach((type) => {
-      const title = titles.requestsTitle(type);
-      requestTitles[type] = title;
-      createWorklistItem(title, type);
-    });
+  types.forEach((type) => {
+    const title = titles.requestsTitle(type);
+    requestTitles[type] = title;
+    createWorklistItem(title, type);
+  });
 
-    types.forEach((type) => {
-      const title = titles.openUnassignedTitle(type);
-      openUnassignedTitles[type] = title;
-      createWorklistItem(title, type);
-    });
-
-    init = false;
-  }
+  types.forEach((type) => {
+    const title = titles.openUnassignedTitle(type);
+    openUnassignedTitles[type] = title;
+    createWorklistItem(title, type);
+  });
 });
 
 //   Scenario: Curator opens their Worklist
