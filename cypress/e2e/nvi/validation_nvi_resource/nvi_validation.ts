@@ -41,7 +41,9 @@ const userNVIC = 'Access Verified contributor TestUser';
 
 const approveCandidate = (title: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
+  cy.getDataTestId(dataTestId.startPage.searchField).within(() => {
+    cy.get('input').type(`{selectall}{del}${title}{enter}`);
+  });
   cy.selectNVICandidate(title);
   cy.getDataTestId(dataTestId.tasksPage.nvi.approveButton).click();
   cy.getSuccess();
@@ -51,7 +53,9 @@ const approveCandidate = (title: string) => {
 
 const checkingCandidate = (title: string, curator: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
+  cy.getDataTestId(dataTestId.startPage.searchField).within(() => {
+    cy.get('input').type(`{selectall}{del}${title}{enter}`);
+  });
   cy.selectNVICandidate(title);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type(curator);
   cy.get('.MuiAutocomplete-option').click();
@@ -62,7 +66,9 @@ const checkingCandidate = (title: string, curator: string) => {
 
 const rejectCandidate = (title: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
+  cy.getDataTestId(dataTestId.startPage.searchField).within(() => {
+    cy.get('input').type(`{selectall}{del}${title}{enter}`);
+  });
   cy.selectNVICandidate(title);
   cy.getDataTestId(dataTestId.tasksPage.nvi.rejectButton).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.rejectionModalTextField).type('Reason for rejection');
@@ -206,7 +212,9 @@ Then('the Results are listed under {string}', (status) => {
       const titleKey = `${status} ${ownInstitution} ${otherInstitution}`;
       const title = titles[titleKey];
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+      cy.getDataTestId(dataTestId.startPage.searchField).within(() => {
+        cy.get('input').type(`${title}{enter}`);
+      });
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('contain', title);
     });

@@ -30,6 +30,7 @@ const fields = {
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 const initData = () => {
+  cy.login(userSaveJournal);
   const originalPublication = `Original publication for corrigendum ${uuidv4()}`;
   cy.createPublishedRegistration(originalPublication);
   const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
@@ -45,7 +46,6 @@ Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
   cy.login(userSaveJournal);
-  initData();
   cy.startWizardWithEmptyRegistration();
 });
 Given('selects {string}', (resourceType) => {

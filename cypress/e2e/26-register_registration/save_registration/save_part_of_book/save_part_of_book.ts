@@ -14,6 +14,7 @@ const fields = [
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 const initData = () => {
+  cy.login(userSavePartOfBook);
   cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'BookAnthology');
   cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportResearch');
   cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportBookOfAbstract');
