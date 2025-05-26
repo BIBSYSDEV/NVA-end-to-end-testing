@@ -172,8 +172,7 @@ const users = {
 
 BeforeAll(() => initData());
 
-
-//   Scenario Outline: Verify file metadata read permissions
+//   Scenario Outline: Verify file metadata write permissions
 Given('a file of type {string}', (fileType) => {
   cy.wrap(fileType).as('fileType');
 });
@@ -230,13 +229,7 @@ Then('the action outcome is {string}', (outcome: string) => {
         }
       });
     } else {
-      cy.get('@userRole').then((userRole) => {
-        if (userRole.toString() !== 'Everyone else') {
-          cy.getDataTestId(dataTestId.registrationWizard.files.deleteFile).should('not.exist');
-        } else {
-          cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).should('not.exist');
-        }
-      });
+      cy.getDataTestId(dataTestId.registrationWizard.files.deleteFile).should('not.exist');
     }
   });
 });

@@ -85,27 +85,25 @@ BeforeAll(() => {
     const NVItitle = `${key} ${uuid()}`;
     titles[key] = NVItitle;
     cy.createPublishedRegistration(NVItitle);
-    if (!key.endsWith('No status')) {
-      cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-      cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-      cy.addContributor(userNVIB);
-      if (key.endsWith('Dispute')) {
-        cy.addContributor(userNVIC);
-      }
-      cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-      cy.getSuccess();
-      cy.getSuccessDone();
-      if (!key.startsWith('Candidate')) {
-        cy.getDataTestId(dataTestId.header.tasksLink).click();
-        cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-        cy.wait(3000);
-        if (key.startsWith('Approved') || key === 'Dispute Approved Rejected') {
-          approveCandidate(NVItitle);
-        } else if (key.startsWith('Being checked')) {
-          checkingCandidate(NVItitle, curatorInstitutionA);
-        } else if (key.startsWith('Rejected') || key === 'Dispute Rejected Approved') {
-          rejectCandidate(NVItitle);
-        }
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+    cy.addContributor(userNVIB);
+    if (key.endsWith('Dispute')) {
+      cy.addContributor(userNVIC);
+    }
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getSuccess();
+    cy.getSuccessDone();
+    if (!key.startsWith('Candidate')) {
+      cy.getDataTestId(dataTestId.header.tasksLink).click();
+      cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+      cy.wait(3000);
+      if (key.startsWith('Approved') || key === 'Dispute Approved Rejected') {
+        approveCandidate(NVItitle);
+      } else if (key.startsWith('Being checked')) {
+        checkingCandidate(NVItitle, curatorInstitutionA);
+      } else if (key.startsWith('Rejected') || key === 'Dispute Rejected Approved') {
+        rejectCandidate(NVItitle);
       }
     }
   });
