@@ -98,6 +98,7 @@ BeforeAll(() => {
       if (!key.startsWith('Candidate')) {
         cy.getDataTestId(dataTestId.header.tasksLink).click();
         cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+        cy.wait(3000);
         if (key.startsWith('Approved') || key === 'Dispute Approved Rejected') {
           approveCandidate(NVItitle);
         } else if (key.startsWith('Being checked')) {
