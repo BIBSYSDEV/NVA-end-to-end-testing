@@ -55,7 +55,7 @@ Given('a registration with a {string}', (fileType: string) => {
   cy.contains(fileType).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
   cy.refreshPublish();
 });
 Given('the files need approval from a Curator', () => {});
@@ -79,6 +79,7 @@ When('they approve the file', () => {
   cy.get('@fileType').then((fileType) => {
     if (fileType.toString() === 'Internal file') {
       cy.refreshPublish();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
     }
   });
 });
