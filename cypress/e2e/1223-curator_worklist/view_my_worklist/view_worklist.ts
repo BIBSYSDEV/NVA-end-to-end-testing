@@ -34,7 +34,7 @@ const requestTypes = {
   'Approval': dataTestId.tasksPage.typeSearch.publishingButton,
   'DOI': dataTestId.tasksPage.typeSearch.doiButton,
   'Support': dataTestId.tasksPage.typeSearch.supportButton,
-  'NVI': dataTestId.tasksPage.nvi.statusFilter.pendingRadio,
+  'NVI': 'status-filter',
 };
 
 const year = currentYear;
@@ -195,7 +195,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable: DataTable) =>
 //   | Request Submitter Date    |
 //   | Beginning of last message |
 //   | Owner name                |
-Then('they see that each Request can be opened', () => {});
+Then('they see that each Request can be opened', () => { });
 // Examples:
 //   | Type      |
 //   | Approval  |

@@ -156,8 +156,9 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
 
   if (user === 'Nvi-Curator') {
     // cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.assignedRadio).within(() => {
-      cy.get('input').click();
+    cy.getDataTestId('status-filter').click();
+    cy.getDataTestId('status-filter').within(() => {
+      cy.get('[data-value=assigned').click();
     });
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
       cy.get('li > div > p > a').filter(`:contains(${title})`).click();
