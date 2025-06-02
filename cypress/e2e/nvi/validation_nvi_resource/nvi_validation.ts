@@ -194,6 +194,13 @@ const statusSelection = {
   'Dispute': 'dispute',
 };
 
+const availabilityFilter = {
+  'Candidate - Waiting for your institution': 'pendingCollaboration',
+  'Being checked - Waiting for your institution': 'assignedCollaboration',
+  'Approved - Waiting for other institution': 'approvedCollaboration',
+  'Rejected - Waiting for other institution': 'rejectedCollaboration',
+}
+
 // Scenario Outline:
 When('the User select a status', () => { });
 When("the Resources have authors that are affiliated with the Curator's Institution", () => { });
@@ -211,6 +218,12 @@ Then('the Results are listed under {string}', (status) => {
       cy.getDataTestId('status-filter').within(() => {
         cy.get(`[data-value=${statusSelection[status.toString()]}]`).click();
       })
+      if (status.toString().endsWith('Waiting for your institution')) {
+        cy.getDataTestId('availability-filter').click();
+        cy.getDataTestId('availability-filter').within(() => {
+          cy.get(`[data-value=${availabilityFilter[status.toString()]}]`).click();
+        })
+      }
       const titleKey = `${status} ${ownInstitution} ${otherInstitution}`;
       const title = titles[titleKey];
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
