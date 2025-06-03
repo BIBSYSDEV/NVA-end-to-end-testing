@@ -33,6 +33,7 @@ declare global {
       addContributor(contributorName: string): void;
       addUnidentifiedContributor(contributorName: string): void;
 
+      selectNVIStatus(status: string): void;
       selectNVICandidate(title?: string): void;
 
       openMyRegistrations(): void;

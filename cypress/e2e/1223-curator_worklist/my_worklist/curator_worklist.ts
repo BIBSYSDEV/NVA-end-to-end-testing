@@ -10,7 +10,7 @@ import {
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { currentYear } from '../../../support/commands';
+import { currentYear, NVI_ASSIGNED } from '../../../support/commands';
 import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 const messageTypes = {
@@ -156,10 +156,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
 
   if (user === 'Nvi-Curator') {
     // cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId('status-filter').click();
-    cy.getDataTestId('status-filter').within(() => {
-      cy.get('[data-value=assigned').click();
-    });
+    cy.selectNVIStatus(NVI_ASSIGNED);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
       cy.get('li > div > p > a').filter(`:contains(${title})`).click();
     });

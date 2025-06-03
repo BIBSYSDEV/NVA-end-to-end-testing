@@ -8,7 +8,7 @@ import {
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { currentYear } from '../../../support/commands';
+import { currentYear, NVI_PENDING } from '../../../support/commands';
 import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 const messageTypes = {
@@ -69,10 +69,8 @@ const createWorklistItem = (title, type) => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
       break;
     case 'NVI':
-      cy.wait(30000);
       break;
   }
-  cy.wait(20000);
 };
 
 const users = {
@@ -165,6 +163,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable: DataTable) =>
         'Owner name': '',
       };
       if (user.toString() === 'Nvi-Curator') {
+        cy.selectNVIStatus(NVI_PENDING);
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
           cy.get('li')
             .first()
@@ -195,7 +194,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable: DataTable) =>
 //   | Request Submitter Date    |
 //   | Beginning of last message |
 //   | Owner name                |
-Then('they see that each Request can be opened', () => { });
+Then('they see that each Request can be opened', () => {});
 // Examples:
 //   | Type      |
 //   | Approval  |
@@ -215,6 +214,7 @@ When('the {string} open a unassigned Request of type {string}', (user: string, t
     cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
     cy.get(`[data-value=${year}]`).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.selectNVIStatus(NVI_PENDING);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList)

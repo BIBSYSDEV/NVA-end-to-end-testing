@@ -220,6 +220,20 @@ Cypress.Commands.add('selectRegistration', (title, type) => {
     });
 });
 
+export const NVI_PENDING = 'pending';
+export const NVI_ASSIGNED = 'assigned';
+export const NVI_APPROVED = 'approved';
+export const NVI_REJECTED = 'rejected';
+export const NVI_DISPUTE = 'dispute';
+
+
+Cypress.Commands.add('selectNVIStatus', (status) => {
+  cy.getDataTestId('status-filter').click();
+  cy.getDataTestId('status-filter').within(() => {
+    cy.get(`[data-value=${status}]`).click();
+  });
+});
+
 Cypress.Commands.add('selectNVICandidate', (title?) => {
   cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
     if (title) {

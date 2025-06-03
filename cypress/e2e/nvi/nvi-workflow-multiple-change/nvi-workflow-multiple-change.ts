@@ -1,5 +1,6 @@
 // Feature: Changing values in a NVI-candidate
 
+import { NVI_PENDING } from '../../../support/commands';
 import { userChangeNviCuratorInstitutionA, userNviInstitutionA } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
@@ -124,10 +125,7 @@ Then('the Result is a NVI-candidate', () => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId('status-filter').click();
-    cy.getDataTestId('status-filter').within(() => {
-      cy.get('[data-value=pending]').click();
-    });
+    cy.selectNVIStatus(NVI_PENDING);
     cy.getNVIWorklistItem(title.toString());
   });
 });
@@ -159,10 +157,7 @@ Then('the Result is not a NVI-candidate', () => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId('status-filter').click();
-    cy.getDataTestId('status-filter').within(() => {
-      cy.get('[data-value=pending]').click();
-    });
+    cy.selectNVIStatus(NVI_PENDING);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.get('main').then((doc) => {

@@ -4,6 +4,7 @@ import { BeforeAll, DataTable, Given, Then, When } from '@badeball/cypress-cucum
 import { userNviCuratorInstitutionB, userNviCuratorInstitutionA, userNviCurator } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
+import { NVI_APPROVED, NVI_ASSIGNED, NVI_DISPUTE, NVI_PENDING, NVI_REJECTED } from '../../../support/commands';
 
 const nviFields = {
   'Search': dataTestId.startPage.searchField,
@@ -135,7 +136,7 @@ Given('a logged-in User', () => {
   cy.getDataTestId(dataTestId.common.skeleton);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });
-Given('the User has the role "NVI-Curator" at an NVI-Institution', () => { });
+Given('the User has the role "NVI-Curator" at an NVI-Institution', () => {});
 Given('the User has navigated to the NVI section from the Tasks option in the main menu', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
@@ -170,10 +171,10 @@ Then('the Curator field is set to none by default', () => {
     cy.get('input').should('not.have.value');
   });
 });
-Then('the Area of responsibility field reflects my curator permissions', () => { });
+Then('the Area of responsibility field reflects my curator permissions', () => {});
 
 // Scenario: Menu on NVI page
-When('the User navigate to the Task page', () => { });
+When('the User navigate to the Task page', () => {});
 Then('a menu containing following objects are visable:', () => {
   cy.get('[role=progressbar');
   cy.get('[id=nvi-status-select]');
@@ -183,15 +184,15 @@ Then('a menu containing following objects are visable:', () => {
 // | Status menu    |
 
 const statusSelection = {
-  'Candidate': 'pending',
-  'Candidate - Waiting for your institution': 'pending',
-  'Being checked': 'assigned',
-  'Being checked - Waiting for your institution': 'assigned',
-  'Approved': 'approved',
-  'Approved - Waiting for other institution': 'approved',
-  'Rejected': 'rejected',
-  'Rejected - Waiting for other institution': 'rejected',
-  'Dispute': 'dispute',
+  'Candidate': NVI_PENDING,
+  'Candidate - Waiting for your institution': NVI_PENDING,
+  'Being checked': NVI_ASSIGNED,
+  'Being checked - Waiting for your institution': NVI_ASSIGNED,
+  'Approved': NVI_APPROVED,
+  'Approved - Waiting for other institution': NVI_APPROVED,
+  'Rejected': NVI_REJECTED,
+  'Rejected - Waiting for other institution': NVI_REJECTED,
+  'Dispute': NVI_DISPUTE,
 };
 
 const availabilityFilter = {
@@ -199,12 +200,12 @@ const availabilityFilter = {
   'Being checked - Waiting for your institution': 'assignedCollaboration',
   'Approved - Waiting for other institution': 'approvedCollaboration',
   'Rejected - Waiting for other institution': 'rejectedCollaboration',
-}
+};
 
 // Scenario Outline:
-When('the User select a status', () => { });
-When("the Resources have authors that are affiliated with the Curator's Institution", () => { });
-When('the authors affiliation is within the Users Area of responibiliy', () => { });
+When('the User select a status', () => {});
+When("the Resources have authors that are affiliated with the Curator's Institution", () => {});
+When('the authors affiliation is within the Users Area of responibiliy', () => {});
 When('status for own institution is {string}', (ownInstitution) => {
   cy.wrap(ownInstitution).as('ownInstitution');
 });
@@ -214,15 +215,12 @@ When('status for other institutions is {string}', (otherInstitution) => {
 Then('the Results are listed under {string}', (status) => {
   cy.get('@ownInstitution').then((ownInstitution) => {
     cy.get('@otherInstitution').then((otherInstitution) => {
-      cy.getDataTestId('status-filter').click();
-      cy.getDataTestId('status-filter').within(() => {
-        cy.get(`[data-value=${statusSelection[status.toString()]}]`).click();
-      })
+      cy.selectNVIStatus(statusSelection[status.toString()]);
       if (status.toString().endsWith('Waiting for your institution')) {
         cy.getDataTestId('availability-filter').click();
         cy.getDataTestId('availability-filter').within(() => {
           cy.get(`[data-value=${availabilityFilter[status.toString()]}]`).click();
-        })
+        });
       }
       const titleKey = `${status} ${ownInstitution} ${otherInstitution}`;
       const title = titles[titleKey];
@@ -251,7 +249,7 @@ Then('the Results are listed under {string}', (status) => {
 // | Dispute                                     | Candidate       | Dispute                    |
 
 // Scenario: The progress bar display the current NVI-report status
-When('the User wish to see details', () => { });
+When('the User wish to see details', () => {});
 Then('the User may select "Show reporting status"', () => {
   cy.getDataTestId(dataTestId.tasksPage.nvi.toggleStatusLink).should('exist');
 });
@@ -279,8 +277,8 @@ Then('the columns show NVI resource statuses', () => {
     cy.get('th').should('contain', status);
   });
 });
-Then("the rows represent my institution's subunits", () => { });
-Then('I can select to view any previous year', () => { });
+Then("the rows represent my institution's subunits", () => {});
+Then('I can select to view any previous year', () => {});
 Then('I has an export option', () => {
   cy.getDataTestId(dataTestId.common.exportButton).should('exist');
 });
