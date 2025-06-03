@@ -12,6 +12,7 @@ const registrationTitles = {
 };
 
 const initData = () => {
+  cy.login(userDraftDoi);
   cy.createPublishedRegistration(registrationTitles['Published']);
   cy.wait(50000);
   cy.refreshPublish();
