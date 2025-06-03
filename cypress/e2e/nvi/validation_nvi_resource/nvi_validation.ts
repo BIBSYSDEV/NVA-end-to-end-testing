@@ -145,6 +145,7 @@ Given('the User has navigated to the NVI section from the Tasks option in the ma
 
 // Scenario: List of fields on NVI page
 When('the User sees the NVI section', () => {
+  cy.selectNVIStatus(NVI_PENDING);
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).within(() => {
     cy.get('button').should('have.class', 'Mui-expanded');
   });
