@@ -39,10 +39,10 @@ const projectSearchFields = {
 };
 
 // Background:
-Given('A User is logged in', () => {});
-Given('the User got one of the following roles:', () => {
-  cy.setLocalStorage('beta', 'true');
+Given('A User is logged in', () => {
   cy.login(userProjectWizard);
+});
+Given('the User got one of the following roles:', () => {
 });
 // | Registrator           |
 // | Curator               |
