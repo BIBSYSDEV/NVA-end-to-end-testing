@@ -8,6 +8,7 @@ const secondTitle = `Delete registration ${uuid()}`;
 
 let init = false;
 const initData = () => {
+  cy.login(userDeleteRegistrations);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, firstTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();

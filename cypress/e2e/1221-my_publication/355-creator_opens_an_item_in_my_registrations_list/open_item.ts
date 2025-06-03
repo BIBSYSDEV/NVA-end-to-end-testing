@@ -8,6 +8,7 @@ const errorTitle = `Registration with validation error ${uuid()}`;
 const registrationTitle = `Registration ${uuid()}`;
 
 const initData = () => {
+  cy.login(userMyRegistrations);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
