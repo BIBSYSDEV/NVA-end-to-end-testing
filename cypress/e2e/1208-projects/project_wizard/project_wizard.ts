@@ -81,10 +81,10 @@ Given('User opens the Project Wizard to register a new Project', () => {
 });
 When('they activate the search field, a list of Financings where the user has a role is presented', () => {
   cy.getDataTestId(dataTestId.newProjectPage.createNFRProjectAccordion).click();
-  cy.getDataTestId(dataTestId.newProjectPage.nrfProjectSearchInput).type('test data');
+  cy.getDataTestId(dataTestId.newProjectPage.nrfProjectSearchInput).type('Modellbasert, dynamisk generering av komplekse testdata');
 });
 Then('they selects a Financing', () => {
-  cy.contains('test data').click();
+  cy.contains('Modellbasert, dynamisk generering av komplekse testdata').click();
 });
 Then('the Project Wizard opens pre-filled with metadata', () => {
   cy.getDataTestId(dataTestId.newProjectPage.startNfrProjectButton).click();
