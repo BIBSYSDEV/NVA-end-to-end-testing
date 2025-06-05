@@ -42,6 +42,7 @@ const userNVIC = 'Access Verified contributor TestUser';
 
 const approveCandidate = (title: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.selectNVIStatus('pending');
   cy.getDataTestId(dataTestId.startPage.searchField).within(() => {
     cy.get('input').type(`{selectall}{del}${title}{enter}`);
   });
@@ -54,6 +55,7 @@ const approveCandidate = (title: string) => {
 
 const checkingCandidate = (title: string, curator: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.selectNVIStatus('pending');
   cy.getDataTestId(dataTestId.startPage.searchField).within(() => {
     cy.get('input').type(`{selectall}{del}${title}{enter}`);
   });
@@ -67,6 +69,7 @@ const checkingCandidate = (title: string, curator: string) => {
 
 const rejectCandidate = (title: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.selectNVIStatus('pending');
   cy.getDataTestId(dataTestId.startPage.searchField).within(() => {
     cy.get('input').type(`{selectall}{del}${title}{enter}`);
   });
@@ -149,6 +152,7 @@ When('the User sees the NVI section', () => {
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).within(() => {
     cy.get('button').should('have.class', 'Mui-expanded');
   });
+  cy.selectNVIStatus(NVI_PENDING);
 });
 Then('the following fields are visible:', (fields: DataTable) => {
   fields.raw().forEach((field) => {
