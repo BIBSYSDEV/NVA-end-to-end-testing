@@ -74,7 +74,7 @@ Given('publication has no approved files', () => {});
 Given('publisher is claimed by organization', () => {});
 When('the user is from the same organization as claimed publisher', () => {});
 When('the user attempts to "update"', () => {});
-Then('the action outcome is {string', (outcome) => {});
+Then('the action outcome is {string}', (outcome) => {});
 
 // Examples:
 //   | UserRole                          | Outcome     |

@@ -44,6 +44,7 @@ const filterOwnClaims = () => {
 BeforeAll(() => {
   cy.login(userThirdEditor);
   editChannelClaims();
+  cy.get('.MuiSkeleton-root').should('not.exist');
   cy.get('body').then(($body) => {
     if (!$body.text().includes('Sikt – Kunnskapssektorens tjenesteleverandør')) {
       claimChannel('Sikt');
