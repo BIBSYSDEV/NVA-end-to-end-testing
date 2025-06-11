@@ -1,11 +1,24 @@
 // Feature: Tickets are sent to curators at the channel owner
 
 import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { userEditorSintef } from '../../../support/constants';
 
-BeforeAll(() => {});
+const claimedChannel = 'SINTEF akademisk forlag';
+
+BeforeAll(() => {
+  cy.login(userEditorSintef);
+  cy.editChannelClaims();
+  cy.get('table').then(($body) => {
+    if (!$body.text().includes(claimedChannel)) {
+      cy.claimChannel(claimedChannel);
+    }
+  });
+});
 
 //   Background:
-Given('metadata registered on a claimed channel', () => {});
+Given('metadata registered on a claimed channel', () => {
+    // cy.login(userRegistratorSintef)
+});
 Given('the channel claim has an allow-all policy for registering metadata', () => {});
 Given('publication instance type is part of channel scope', () => {});
 

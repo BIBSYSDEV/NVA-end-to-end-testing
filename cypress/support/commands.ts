@@ -226,7 +226,6 @@ export const NVI_APPROVED = 'approved';
 export const NVI_REJECTED = 'rejected';
 export const NVI_DISPUTE = 'dispute';
 
-
 Cypress.Commands.add('selectNVIStatus', (status) => {
   cy.getDataTestId('status-filter').click();
   cy.getDataTestId('status-filter').within(() => {
@@ -723,4 +722,37 @@ Cypress.Commands.add('getNVIWorklistItem', (title) => {
     }
   });
   return cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains(${title})`);
+});
+
+Cypress.Commands.add('editChannelClaims', () => {
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.get('.MuiCircularProgress-root').should('not.exist');
+  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
+  cy.get('.MuiCircularProgress-root').should('not.exist');
+  cy.getDataTestId(dataTestId.editor.publisherClaimButton).click();
+  cy.getDataTestId(dataTestId.editor.addChannelClaimButton);
+  cy.get('.MuiCircularProgress-root').should('not.exist');
+  cy.get('.MuiSkeleton-root').should('not.exist');
+});
+
+Cypress.Commands.add('claimChannel', (searchString: string) => {
+  cy.getDataTestId(dataTestId.editor.addChannelClaimButton);
+  cy.get('.MuiCircularProgress-root').should('not.exist');
+  cy.getDataTestId(dataTestId.editor.addChannelClaimButton).click();
+  cy.getDataTestId(dataTestId.editor.channelSearchField).type(searchString);
+  cy.get('[data-option-index=0]').click();
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+});
+
+Cypress.Commands.add('removeChannel', (channelName: string) => {
+  cy.get('.MuiCircularProgress-root').should('not.exist');
+  cy.get('table').within(() => {
+    cy.get('tr')
+      .filter(`:contains(${channelName})`)
+      .within(() => {
+        cy.get('[data-testid^=delete-channel-claim]').first().click();
+      });
+  });
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+  cy.getSuccessDone();
 });

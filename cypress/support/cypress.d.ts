@@ -61,6 +61,10 @@ declare global {
       getSuccess(): void;
       getSuccessDone(): void;
       refreshPublish(): void;
+
+      editChannelClaims(): void;
+      claimChannel(searchString: string): void;
+      removeChannel(searchString: string): void;
     }
   }
 }

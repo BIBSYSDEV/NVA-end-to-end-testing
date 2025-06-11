@@ -154,9 +154,11 @@ When('a message for files sent from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {
     const curator = curators[data[0]];
     cy.login(curator);
-    cy.wait(5000);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
     cy.get('@title').then((title) => {
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
