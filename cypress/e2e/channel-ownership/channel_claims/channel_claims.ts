@@ -38,7 +38,7 @@ Before(() => {
 });
 
 //   Scenario: Owned channel cannot be claimed
-When('a channel is owned by institution A', () => {});
+When('a channel is owned by institution A', () => { });
 Then('the channel cannot be claimed by insitution B', () => {
   cy.editChannelClaims();
   cy.claimChannel('Sikt');
@@ -88,8 +88,8 @@ Then('an Editor at institution B cannot abandon the channel claim', () => {
 });
 
 //   Scenario: Non-editor cannot claim a channel
-When('they inspect an unclaimed channel', () => {});
-Then('they cannot claim it', () => {});
+When('they inspect an unclaimed channel', () => { });
+Then('they cannot claim it', () => { });
 
 //   Scenario: Non-editor cannot abandon claim of a channel
 Given('a user is not Editor', () => {
@@ -122,5 +122,8 @@ When('requesting all channel claims, with a filter by institution', () => {
   filterOwnClaims();
 });
 Then('all channels claimed by that institution are returned', () => {
-  cy.get('tr').filter(':contains("SINTEF")').should('have.length', 2);
+  cy.get('tbody').then(table => {
+    const tableRows = table.find('tr').length;
+    cy.get('tr').filter(':contains("SINTEF")').should('have.length', tableRows);
+  })
 });
