@@ -2034,25 +2034,6 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "PublicationCurator Messages",
-    "nin": "07069823410",
-    "username": "test-user-publication-curator-messages-sintef@test.no",
-    "role": [
-      {
-        "type": "Role",
-        "rolename": "Creator"
-      },
-      {
-        "type": "Role",
-        "rolename": "Publishing-Curator"
-      }
-    ],
-    "orcid": true,
-    "orgNumber": "7401",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
-  },
-  {
-    "lastName": "TestUser",
     "firstName": "DoiCurator Messages",
     "nin": "27101885785",
     "username": "test-user-doicurator-messages-sintef@test.no",
@@ -2257,7 +2238,12 @@
     "firstName": "User NVI-institution A",
     "nin": "20073926689",
     "username": "test-user-NVI-A@test.no",
-    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
     "orcid": true,
     "orgNumber": "222",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
@@ -2267,7 +2253,12 @@
     "firstName": "User NVI-institution B",
     "nin": "15105414428",
     "username": "test-user-NVI-B@test.no",
-    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
     "orcid": true,
     "orgNumber": "5991",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
@@ -2277,7 +2268,12 @@
     "firstName": "User NVA-institution C",
     "nin": "02032388003",
     "username": "test-user-NVA-C@test.no",
-    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
     "orcid": true,
     "orgNumber": "192",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
@@ -2320,13 +2316,17 @@
     "orgNumber": "5991",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
   },
-
   {
     "lastName": "TestUser",
     "firstName": "Change User NVI-institution A",
     "nin": "30067414604",
     "username": "test-user-change-NVI-A@test.no",
-    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
     "orcid": true,
     "orgNumber": "222",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
@@ -2336,7 +2336,12 @@
     "firstName": "Change User NVI-institution B",
     "nin": "10075332780",
     "username": "test-user-change-NVI-B@test.no",
-    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
     "orcid": true,
     "orgNumber": "5991",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/5991.0.0.0"
@@ -2346,7 +2351,12 @@
     "firstName": "Change User NVA-institution C",
     "nin": "20070827043",
     "username": "test-user-change-NVA-C@test.no",
-    "role": [{ "type": "Role", "rolename": "Creator" }],
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
     "orcid": true,
     "orgNumber": "192",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/192.0.0.0"
@@ -2384,5 +2394,39 @@
     "orcid": true,
     "orgNumber": "222",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "PublicationCurator Messages",
+    "nin": "07069823410",
+    "username": "test-user-publication-curator-messages-sintef@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "7401",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Registrator SINTEF",
+    "nin": "18024026600",
+    "username": "test-user-registrator-sintef@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "7401",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
   }
 ]

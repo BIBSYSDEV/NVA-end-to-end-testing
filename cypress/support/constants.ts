@@ -156,7 +156,13 @@ export const userChangeNviInstitutionA = 'test-user-change-NVI-A@test.no';
 export const userChangeNviInstitutionB = 'test-user-change-NVI-B@test.no';
 export const userChangeNvaInstitutionC = 'test-user-change-NVA-C@test.no';
 export const userChangeNviCuratorInstitutionA = 'test-user-change-curator-NVI-A@test.no';
+
 export const userEditorSintef = 'test-user-editor-sintef@test.no';
+export const userRegistratorSintef = 'test-user-registrator-sintef@test.no';
+export const userPublicationCuratorSintef = 'test-user-publication-curator-messages-sintef@test.no';
+export const userDOICuratorSintef = 'test-user-doicurator-messages-sintef@test.no';
+export const userSupportCuratorSintef = 'test-user-support-curator-messages-sintef@test.no';
+export const userDOISintef = 'test-user-doi-messages-sintef@test.no';
 
 const userData = {
   name: '',
