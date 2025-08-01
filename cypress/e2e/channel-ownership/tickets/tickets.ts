@@ -7,8 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { today } from '../../../support/commands';
 
 const claimedChannel = 'SINTEF akademisk forlag';
-const publicationTitle = `Ticket publication ${uuid()}`
-const fileName = 'example.txt'
+const fileName = 'example.txt';
 
 BeforeAll(() => {
   cy.login(userEditorSintef);
@@ -33,6 +32,8 @@ Given('a Registrator', () => {
 });
 Given('Registrators institution owns the channel', () => { });
 When('metadata is registered', () => {
+  const publicationTitle = `Ticket publication ${uuid()}`;
+  cy.wrap(publicationTitle).as('title');
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type(publicationTitle)
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, today);
@@ -60,10 +61,12 @@ When('metadata is registered', () => {
   cy.getSuccessDone();
 });
 Then('a ticket is sent to curators at Registrators institution', () => {
-  cy.login(userPublicationCuratorSintef);
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publicationTitle})`);
+  cy.get('@title').then(publicationTitle => {
+    cy.login(userPublicationCuratorSintef);
+    cy.getDataTestId(dataTestId.header.tasksLink).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publicationTitle})`);
+  });
 });
 
 //   Scenario: Ticket sent to Channel owner, not Registrators institution
