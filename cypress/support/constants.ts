@@ -310,5 +310,5 @@ export const user = {
   [userChangeNviInstitutionA]: { ...userData, name: 'TestUser, Change User NVI-institution A' },
   [userChangeNviInstitutionB]: { ...userData, name: 'TestUser, Change User NVI-institution B' },
   [userChangeNvaInstitutionC]: { ...userData, name: 'TestUser, Change User NVA-institution C' },
-  [userChangeNviCuratorInstitutionA]: { ...userData, name: 'TestUser, Change Curat NVI-inst A' },
+  [userChangeNviCuratorInstitutionA]: { ...userData, name: 'TestUser, NVI-Curator NVI-inst A' },
 };
