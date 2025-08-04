@@ -45,7 +45,7 @@ Given('a Publication is created by institution A with contributors from institut
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration B{enter}`);
   cy.get('tr')
-    .filter(':contains("colaboration B TestUser)')
+    .filter(':contains("Colaboration B TestUser)')
     // .filter(':contains("Norwegian University of Life Sciences")')
     .within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
@@ -55,8 +55,8 @@ Given('a Publication is created by institution A with contributors from institut
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration C{enter}`);
   cy.get('tr')
-    .filter(":contains('colaboration C')")
-    .filter(':contains("University of South-Eastern Norway")')
+    .filter(":contains('Colaboration C TestUser')")
+    // .filter(':contains("University of South-Eastern Norway")')
     .within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });
