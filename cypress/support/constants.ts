@@ -155,7 +155,7 @@ export const userNviCuratorInstitutionB = 'test-user-curator-NVI-BB@test.no';
 export const userChangeNviInstitutionA = 'test-user-change-NVI-A@test.no';
 export const userChangeNviInstitutionB = 'test-user-change-NVI-B@test.no';
 export const userChangeNvaInstitutionC = 'test-user-change-NVA-C@test.no';
-export const userChangeNviCuratorInstitutionA = 'test-user-change-curator-NVI-A@test.no';
+export const userChangeNviCuratorInstitutionA = 'test-user-change-cur-NVI-A@test.no';
 
 export const userEditorSintef = 'test-user-editor-sintef@test.no';
 export const userRegistratorSintef = 'test-user-registrator-sintef@test.no';
@@ -310,5 +310,5 @@ export const user = {
   [userChangeNviInstitutionA]: { ...userData, name: 'TestUser, Change User NVI-institution A' },
   [userChangeNviInstitutionB]: { ...userData, name: 'TestUser, Change User NVI-institution B' },
   [userChangeNvaInstitutionC]: { ...userData, name: 'TestUser, Change User NVA-institution C' },
-  [userChangeNviCuratorInstitutionA]: { ...userData, name: 'TestUser, Change Curator NVI-inst A' },
+  [userChangeNviCuratorInstitutionA]: { ...userData, name: 'TestUser, Change Curat NVI-inst A' },
 };

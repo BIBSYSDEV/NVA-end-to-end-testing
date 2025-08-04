@@ -2378,9 +2378,9 @@
   },
   {
     "lastName": "TestUser",
-    "firstName": "Change Cur NVI-inst A",
-    "nin": "09010690355",
-    "username": "test-user-change-curator-NVI-A@test.no",
+    "firstName": "Change Curat NVI-inst A",
+    "nin": "11044026637",
+    "username": "test-user-change-cur-NVI-A@test.no",
     "role": [
       {
         "type": "Role",

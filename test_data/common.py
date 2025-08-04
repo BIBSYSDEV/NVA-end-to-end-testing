@@ -58,9 +58,7 @@ def login(username):
 
 def scan_customers():
     client = boto3.client('dynamodb')
-    print(CUSTOMER_TABLENAME)
     response = client.scan(TableName=CUSTOMER_TABLENAME)
-    print(response)
 
     return response['Items']
 
