@@ -47,7 +47,7 @@ Given('a Publication is created by institution A with contributors from institut
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration B{enter}`);
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectAffiliationForContributor);
   cy.get('tr')
-    .filter(':contains("colaboration B TestUser)')
+    .filter(':contains("Colaboration B TestUser)')
     // .filter(':contains("Norwegian University of Life Sciences")')
     .within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
