@@ -12,7 +12,6 @@ import {
   uploaderUSN,
 } from '../../../support/constants';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
-import { getBadgeCount } from 'aws-amplify/push-notifications';
 
 const fileName = 'exampleA.txt';
 
@@ -45,10 +44,9 @@ Given('a Publication is created by institution A with contributors from institut
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration B{enter}`);
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectAffiliationForContributor);
-  cy.get('tr')
-    .filter(':contains("colaboration B TestUser)')
-    // .filter(':contains("Norwegian University of Life Sciences")')
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
+    cy.get('td')
+    .filter(':contains("colaboration B TestUser")').parent()
     .within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });
@@ -56,10 +54,9 @@ Given('a Publication is created by institution A with contributors from institut
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration C{enter}`);
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectAffiliationForContributor);
-  cy.get('tr')
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor);
+  cy.get('td')
     .filter(":contains('colaboration C TestUser')")
-    // .filter(':contains("University of South-Eastern Norway")')
     .within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });
