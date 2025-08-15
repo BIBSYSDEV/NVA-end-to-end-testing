@@ -58,7 +58,7 @@ Before({ 'tags': '@init' }, () => {
   cy.getDataTestId(dataTestId.unpublishActions.confirmUnpublishCheckbox).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('be.enabled');
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.getSuccess();
+  cy.getSuccessDone();
   const deletedTitle = `Deleted registration ${uuid()}`;
   cy.createPublishedRegistration(deletedTitle);
   cy.refreshPublish();
@@ -68,7 +68,7 @@ Before({ 'tags': '@init' }, () => {
   cy.getDataTestId(dataTestId.unpublishActions.confirmUnpublishCheckbox).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('be.enabled');
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.getSuccess();
+  cy.getSuccessDone();
   cy.login(userEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
@@ -84,7 +84,7 @@ Before({ 'tags': '@init' }, () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.terminateRegistrationButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.getSuccess();
+  cy.getSuccessDone();
 });
 
 // Scenario: Editor views Result portifolio
