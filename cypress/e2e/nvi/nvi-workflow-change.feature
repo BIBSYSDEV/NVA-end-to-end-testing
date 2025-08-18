@@ -47,3 +47,9 @@ Feature: Changing values in a NVI-candidate
       | Manual | NVI institution Collaboration      |
       | Manual | NVA institution Collaboration      |
       | Manual | external institution Collaboration |
+
+  @test
+  Scenario: Publication channel changes and NVI points changes
+    Given an NVI-candidate with a level 1 publication channel
+    When a User changes the publication channel to a level 2 publication channel
+    Then the NVI points changes to reflect the new publication channel

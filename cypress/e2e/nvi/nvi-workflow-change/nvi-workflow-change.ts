@@ -191,3 +191,14 @@ Then('the Result is not a NVI-candidate', () => {
     cy.get('li').filter(`:contains(${title})`).should('not.exist');
   });
 });
+  const createNVICandidateTitle = `NVI Change candidate ${uuid()}`;
+
+  // Scenario: Publication channel changes and NVI points changes
+    Given ('an NVI-candidate with a level 1 publication channel', () => {
+      cy.login(userNviInstitutionA);
+      cy.createPublishedRegistration(createNVICandidateTitle, 'AcademicArticle');
+    });
+    When ('a User changes the publication channel to a level 2 publication channel', () => {
+      
+    });
+    Then ('the NVI points changes to reflect the new publication channel', () => {});
