@@ -2,7 +2,7 @@ import { userSaveJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
-import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 const commonFields = [
   resourceTypeFields.volume,
@@ -29,30 +29,23 @@ const fields = {
 
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
-let init = true;
-
 const initData = () => {
-  if (init) {
-    const originalPublication = `Original publication for corrigendum ${uuidv4()}`;
-    cy.createPublishedRegistration(originalPublication);
-    cy.wait(10000);
-    const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
-    cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
-    init = false;
-    cy.wait(10000);
-    const articleForCorrigendumTitle = `Test article corrigendum ${uuidv4()}`;
-    cy.createPublishedRegistration(articleForCorrigendumTitle);
-    init = false;
-    cy.wait(10000);
-  }
+  cy.login(userSaveJournal);
+  const originalPublication = `Original publication for corrigendum ${uuidv4()}`;
+  cy.createPublishedRegistration(originalPublication);
+  const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
+  cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
+  const articleForCorrigendumTitle = `Test article corrigendum ${uuidv4()}`;
+  cy.createPublishedRegistration(articleForCorrigendumTitle);
 };
+
+BeforeAll(() => initData());
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Publication in Journal
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
   cy.login(userSaveJournal);
-  initData();
   cy.startWizardWithEmptyRegistration();
 });
 Given('selects {string}', (resourceType) => {

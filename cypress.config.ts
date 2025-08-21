@@ -16,6 +16,7 @@ export default defineConfig({
   e2e: {
     baseUrl: 'https://e2e.nva.aws.unit.no/',
     specPattern: 'cypress/e2e/**/*.feature',
+    experimentalStudio: true,
     async setupNodeEvents(
       on: Cypress.PluginEvents,
       config: Cypress.PluginConfigOptions

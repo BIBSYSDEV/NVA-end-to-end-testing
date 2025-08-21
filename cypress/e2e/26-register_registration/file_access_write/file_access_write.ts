@@ -14,9 +14,8 @@ import {
   FileVersions,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
-let init = false;
 const UPLOADED_FILE = 'UploadedFile';
 const PENDING_OPEN_FILE = 'PendingOpenFile';
 const PENDING_INTERNAL_FILE = 'PendingInternalFile';
@@ -80,7 +79,13 @@ const initData = () => {
   cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.ACCEPTED, OPEN);
   addContributor();
 
-  cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.ACCEPTED, INTERNAL);
+  cy.createPublishedRegistration(
+    titles[PENDING_INTERNAL_FILE],
+    ACADEMIC_ARTICLE,
+    fileName,
+    FileVersions.ACCEPTED,
+    INTERNAL
+  );
   addContributor();
 
   cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.ACCEPTED, OPEN);
@@ -100,11 +105,17 @@ const initData = () => {
     .within(() => {
       cy.get('a').first().click();
     });
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then($publishAccordion => {
-    if ($publishAccordion.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton}]`).length === 0) {
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then(
+    ($publishAccordion) => {
+      if (
+        $publishAccordion.find(
+          `[data-testid=${dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton}]`
+        ).length === 0
+      ) {
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
+      }
     }
-  })
+  );
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   cy.getSuccess();
   cy.getSuccessDone();
@@ -117,11 +128,17 @@ const initData = () => {
     .within(() => {
       cy.get('a').first().click();
     });
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then($publishAccordion => {
-    if ($publishAccordion.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton}]`).length === 0) {
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then(
+    ($publishAccordion) => {
+      if (
+        $publishAccordion.find(
+          `[data-testid=${dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton}]`
+        ).length === 0
+      ) {
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
+      }
     }
-  })
+  );
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   cy.getSuccess();
   cy.getSuccessDone();
@@ -153,12 +170,10 @@ const users = {
   'Everyone else': userPublishNoRights,
 };
 
-//   Scenario Outline: Verify file metadata read permissions
+BeforeAll(() => initData());
+
+//   Scenario Outline: Verify file metadata write permissions
 Given('a file of type {string}', (fileType) => {
-  if (!init) {
-    initData();
-    init = true;
-  }
   cy.wrap(fileType).as('fileType');
 });
 When('the user have the role {string}', (userRole: string) => {
@@ -214,13 +229,7 @@ Then('the action outcome is {string}', (outcome: string) => {
         }
       });
     } else {
-      cy.get('@userRole').then((userRole) => {
-        if (userRole.toString() !== 'Everyone else') {
-          cy.getDataTestId(dataTestId.registrationWizard.files.deleteFile).should('not.exist');
-        } else {
-          cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).should('not.exist');
-        }
-      });
+      cy.getDataTestId(dataTestId.registrationWizard.files.deleteFile).should('not.exist');
     }
   });
 });

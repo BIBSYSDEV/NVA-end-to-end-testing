@@ -8,8 +8,8 @@ import {
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { currentYear } from '../../../support/commands';
-import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { currentYear, NVI_PENDING } from '../../../support/commands';
+import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 const messageTypes = {
   'Approval': 'Publishing Requests',
@@ -34,7 +34,7 @@ const requestTypes = {
   'Approval': dataTestId.tasksPage.typeSearch.publishingButton,
   'DOI': dataTestId.tasksPage.typeSearch.doiButton,
   'Support': dataTestId.tasksPage.typeSearch.supportButton,
-  'NVI': dataTestId.tasksPage.nvi.statusFilter.pendingRadio,
+  'NVI': 'status-filter',
 };
 
 const year = currentYear;
@@ -69,10 +69,8 @@ const createWorklistItem = (title, type) => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
       break;
     case 'NVI':
-      cy.wait(30000);
       break;
   }
-  cy.wait(20000);
 };
 
 const users = {
@@ -82,7 +80,6 @@ const users = {
   'NVI': 'Nvi-Curator',
 };
 
-let init = true;
 const titles = {
   requestsTitle: (type) => `${type} request publication ${uuid()}`,
   openUnassignedTitle: (type) => `Open unassigned ${users[type]} ${type} ${uuid()}`,
@@ -95,24 +92,20 @@ const openUnassignedTitles = {};
 const unassignTitles = {};
 const openTitles = {};
 
-Before(() => {
-  if (init) {
-    const types = [APPROVAL, SUPPORT, DOI, NVI];
+BeforeAll(() => {
+  const types = [APPROVAL, SUPPORT, DOI, NVI];
 
-    types.forEach((type) => {
-      const title = titles.requestsTitle(type);
-      requestTitles[type] = title;
-      createWorklistItem(title, type);
-    });
+  types.forEach((type) => {
+    const title = titles.requestsTitle(type);
+    requestTitles[type] = title;
+    createWorklistItem(title, type);
+  });
 
-    types.forEach((type) => {
-      const title = titles.openUnassignedTitle(type);
-      openUnassignedTitles[type] = title;
-      createWorklistItem(title, type);
-    });
-
-    init = false;
-  }
+  types.forEach((type) => {
+    const title = titles.openUnassignedTitle(type);
+    openUnassignedTitles[type] = title;
+    createWorklistItem(title, type);
+  });
 });
 
 //   Scenario: Curator opens their Worklist
@@ -170,6 +163,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable: DataTable) =>
         'Owner name': '',
       };
       if (user.toString() === 'Nvi-Curator') {
+        cy.selectNVIStatus(NVI_PENDING);
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
           cy.get('li')
             .first()
@@ -220,6 +214,7 @@ When('the {string} open a unassigned Request of type {string}', (user: string, t
     cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
     cy.get(`[data-value=${year}]`).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.selectNVIStatus(NVI_PENDING);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList)

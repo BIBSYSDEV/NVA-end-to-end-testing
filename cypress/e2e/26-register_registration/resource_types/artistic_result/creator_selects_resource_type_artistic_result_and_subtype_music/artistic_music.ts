@@ -37,7 +37,7 @@ Then('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${musicAwards['Concert']}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.placeField}]`).type('Test concert place');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDuration}]`).type(
-    'Test concert duration'
+    '01:00:00'
   );
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
@@ -68,6 +68,8 @@ When('they add a Concert with details for:', (dataTable: DataTable) => {
         `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
         '11.11.2021'
       );
+    } else if (value[0] === 'Extent'){
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputDuration).type('01:00:00');
     } else if (value[0] !== 'Works') {
       cy.get(`[data-testid=${musicConcertFields[value[0]]}]`).type(`Test ${value[0]}`);
     }
@@ -148,7 +150,7 @@ When('Format can be any of:', (dataTable: DataTable) => {
 When('each Track list item has details for:', (dataTable: DataTable) => {
   dataTable.raw().forEach((value) => {
     if (value[0] === 'Extent') {
-      cy.get(`[data-testid^=${musicAudioVideoTrackFields[value[0]]}]`).first().type('10');
+      cy.get(`[data-testid^=${musicAudioVideoTrackFields[value[0]]}]`).first().type('01:00:00');
     } else {
       cy.get(`[data-testid^=${musicAudioVideoTrackFields[value[0]]}]`).first().type(`Test audio/video ${value[0]}`);
     }

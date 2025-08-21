@@ -10,8 +10,8 @@ import {
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { currentYear } from '../../../support/commands';
-import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { currentYear, NVI_ASSIGNED } from '../../../support/commands';
+import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 const messageTypes = {
   'Approval': 'Publishing Requests',
@@ -85,7 +85,6 @@ const users = {
   'NVI': 'NVI-Curator',
 };
 
-let init = true;
 const titles = {
   requestsTitle: (type: string) => `${type} request publication ${uuid()}`,
   openUnassignedTitle: (type: string) => `Open unassigned ${users[type]} ${type} ${uuid()}`,
@@ -96,26 +95,22 @@ const titles = {
 const unassignTitles = {};
 const openTitles = {};
 
-Before(() => {
-  if (init) {
-    const types = [APPROVAL, SUPPORT, DOI, NVI];
+BeforeAll(() => {
+  const types = [APPROVAL, SUPPORT, DOI, NVI];
 
-    cy.setWorkflowRegistratorPublishesMetadata();
+  cy.setWorkflowRegistratorPublishesMetadata();
 
-    types.forEach((type) => {
-      const title = titles.unassignTitle(type);
-      unassignTitles[type] = title;
-      createWorklistItem(title, type);
-    });
+  types.forEach((type) => {
+    const title = titles.unassignTitle(type);
+    unassignTitles[type] = title;
+    createWorklistItem(title, type);
+  });
 
-    types.forEach((type) => {
-      const title = titles.openTitle(type);
-      openTitles[type] = title;
-      createWorklistItem(title, type);
-    });
-
-    init = false;
-  }
+  types.forEach((type) => {
+    const title = titles.openTitle(type);
+    openTitles[type] = title;
+    createWorklistItem(title, type);
+  });
 });
 
 // Scenario: Curator unassigns a Request
@@ -161,9 +156,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
 
   if (user === 'Nvi-Curator') {
     // cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter.assignedRadio).within(() => {
-      cy.get('input').click();
-    });
+    cy.selectNVIStatus(NVI_ASSIGNED);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
       cy.get('li > div > p > a').filter(`:contains(${title})`).click();
     });
@@ -187,7 +180,11 @@ Then('the Request is unassigned the Curator', () => {
         cy.get('li').filter(`:contains(${title})`).should('not.exist');
       } else {
         cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
-        cy.contains('You have no messages');
+        if (user.toString() === 'NVI-curator') {
+          cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('not.exist');
+        } else {
+          cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
+        }
       }
     });
   });
@@ -298,6 +295,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
   cy.filterMessages('Support Requests');
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();

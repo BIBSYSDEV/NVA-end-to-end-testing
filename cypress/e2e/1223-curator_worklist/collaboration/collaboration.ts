@@ -44,9 +44,9 @@ Given('a Publication is created by institution A with contributors from institut
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration B{enter}`);
-  cy.get('tr')
-    .filter(':contains("colaboration B")')
-    .filter(':contains("Norwegian University of Life Sciences")')
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
+    cy.get('td')
+    .filter(':contains("colaboration B TestUser")').parent()
     .within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });
@@ -54,9 +54,9 @@ Given('a Publication is created by institution A with contributors from institut
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration C{enter}`);
-  cy.get('tr')
-    .filter(":contains('colaboration C')")
-    .filter(':contains("University of South-Eastern Norway")')
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor);
+  cy.get('td')
+    .filter(":contains('colaboration C TestUser')")
     .within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });
@@ -154,9 +154,11 @@ When('a message for files sent from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {
     const curator = curators[data[0]];
     cy.login(curator);
-    cy.wait(5000);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
     cy.get('@title').then((title) => {
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');

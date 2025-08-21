@@ -150,6 +150,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: F
 
 Cypress.Commands.add('addContributor', (contributorName: string) => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(contributorName);
   cy.get('[role=dialog]').within(() => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
@@ -165,6 +166,7 @@ Cypress.Commands.add('addContributor', (contributorName: string) => {
 
 Cypress.Commands.add('addUnidentifiedContributor', (contributorName: string) => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(contributorName);
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
@@ -218,6 +220,19 @@ Cypress.Commands.add('selectRegistration', (title, type) => {
     .within(() => {
       cy.get('p > a').first().click();
     });
+});
+
+export const NVI_PENDING = 'pending';
+export const NVI_ASSIGNED = 'assigned';
+export const NVI_APPROVED = 'approved';
+export const NVI_REJECTED = 'rejected';
+export const NVI_DISPUTE = 'dispute';
+
+Cypress.Commands.add('selectNVIStatus', (status) => {
+  cy.getDataTestId('status-filter').click();
+  cy.getDataTestId('status-filter').within(() => {
+    cy.get(`[data-value=${status}]`).click();
+  });
 });
 
 Cypress.Commands.add('selectNVICandidate', (title?) => {
@@ -678,6 +693,7 @@ Cypress.Commands.add('filterMessages', (messageType) => {
 });
 
 Cypress.Commands.add('getWorklistItem', (title) => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then((doc) => {
@@ -694,6 +710,7 @@ Cypress.Commands.add('getWorklistItem', (title) => {
 });
 
 Cypress.Commands.add('getNVIWorklistItem', (title) => {
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then((doc) => {
@@ -707,4 +724,37 @@ Cypress.Commands.add('getNVIWorklistItem', (title) => {
     }
   });
   return cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains(${title})`);
+});
+
+Cypress.Commands.add('editChannelClaims', () => {
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.get('.MuiCircularProgress-root').should('not.exist');
+  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
+  cy.get('.MuiCircularProgress-root').should('not.exist');
+  cy.getDataTestId(dataTestId.editor.publisherClaimButton).click();
+  cy.getDataTestId(dataTestId.editor.addChannelClaimButton);
+  cy.get('.MuiCircularProgress-root').should('not.exist');
+  cy.get('.MuiSkeleton-root').should('not.exist');
+});
+
+Cypress.Commands.add('claimChannel', (searchString: string) => {
+  cy.getDataTestId(dataTestId.editor.addChannelClaimButton);
+  cy.get('.MuiCircularProgress-root').should('not.exist');
+  cy.getDataTestId(dataTestId.editor.addChannelClaimButton).click();
+  cy.getDataTestId(dataTestId.editor.channelSearchField).type(searchString);
+  cy.get('[data-option-index=0]').click();
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+});
+
+Cypress.Commands.add('removeChannel', (channelName: string) => {
+  cy.get('.MuiCircularProgress-root').should('not.exist');
+  cy.get('table').within(() => {
+    cy.get('tr')
+      .filter(`:contains(${channelName})`)
+      .within(() => {
+        cy.get('[data-testid^=delete-channel-claim]').first().click();
+      });
+  });
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+  cy.getSuccessDone();
 });

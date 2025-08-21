@@ -33,6 +33,7 @@ declare global {
       addContributor(contributorName: string): void;
       addUnidentifiedContributor(contributorName: string): void;
 
+      selectNVIStatus(status: string): void;
       selectNVICandidate(title?: string): void;
 
       openMyRegistrations(): void;
@@ -60,6 +61,10 @@ declare global {
       getSuccess(): void;
       getSuccessDone(): void;
       refreshPublish(): void;
+
+      editChannelClaims(): void;
+      claimChannel(searchString: string): void;
+      removeChannel(searchString: string): void;
     }
   }
 }

@@ -3,7 +3,7 @@
 import { userPublishRegistration, userWithAuthor, userWithAuthor1 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 const visitStartPage = () => {
   cy.setLocalStorage('i18nextLng', 'eng');
@@ -15,28 +15,23 @@ const visitStartPage = () => {
   });
 };
 
-let init = true;
-
-const createSearchResults = () => {
-  if (init) {
-    cy.login(userWithAuthor);
-    cy.createPublishedRegistration(`Search result - Journal ${uuid()}`);
-    cy.login(userWithAuthor1);
-    cy.createPublishedRegistration(`Search result - Conference abstract ${uuid()}`);
-    cy.login(userPublishRegistration);
-    cy.createPublishedRegistration(`Search result - Anthology ${uuid()}`, 'BookAnthology');
-    cy.getDataTestId(dataTestId.header.menuButton).click();
-    cy.clearAllLocalStorage();
-    cy.clearAllCookies();
-    cy.reload();
-    init = false;
-  }
+const initData = () => {
+  cy.login(userWithAuthor);
+  cy.createPublishedRegistration(`Search result - Journal ${uuid()}`);
+  cy.login(userWithAuthor1);
+  cy.createPublishedRegistration(`Search result - Conference abstract ${uuid()}`);
+  cy.login(userPublishRegistration);
+  cy.createPublishedRegistration(`Search result - Anthology ${uuid()}`, 'BookAnthology');
+  cy.getDataTestId(dataTestId.header.menuButton).click();
+  cy.clearAllLocalStorage();
+  cy.clearAllCookies();
+  cy.reload();
 };
 
+BeforeAll(() => initData());
+
 //      Scenario: An anonymous Aser opens start page and sees search results
-Given('an anonymous User', () => {
-  createSearchResults();
-});
+Given('an anonymous User', () => {});
 When('they open the start page', () => {
   cy.getDataTestId('logo').click({ force: true });
   cy.wait(3000);

@@ -1,4 +1,4 @@
-import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 import { userResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { journalSubtypes, journalFields } from '../../../../support/data_testid_constants';
@@ -11,16 +11,11 @@ const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 const corrigendumTitle = `Test article corrigendum ${uuid()}`;
 const originalPublication = `Original publication for corrigendum ${uuid()}`;
 
-let init = true;
-
-Before({'tags': '@init'}, () => {
-  if (init) {
-    cy.login(userResourceTypeJournal);
-    cy.createPublishedRegistration(originalPublication);
-    cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
-    init = false;
-  }
-})
+BeforeAll(() => {
+  cy.login(userResourceTypeJournal);
+  cy.createPublishedRegistration(originalPublication);
+  cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
+});
 
 Before(() => {
   cy.wrap('').as('subtype');
@@ -172,7 +167,9 @@ When('they select type to be {string}:', (type: string) => {
   });
   const resourceType = elements.join('');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(resourceType)).click();
-  cy.intercept('GET', '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as('serialChannel');
+  cy.intercept('GET', '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as(
+    'serialChannel'
+  );
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('Chemical');
   cy.contains('ACS Chemical Biology').last().click();
 });

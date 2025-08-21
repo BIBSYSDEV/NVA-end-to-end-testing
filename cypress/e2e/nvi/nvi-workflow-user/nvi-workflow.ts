@@ -4,6 +4,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { userNviCuratorInstitutionA, userNviInstitutionA } from '../../../support/constants';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
+import { NVI_PENDING } from '../../../support/commands';
 
 const PUBLISHED = 'Published';
 const DRAFT = 'Draft';
@@ -41,6 +42,7 @@ Given(
       cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
       cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
       cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       if (isCollaboration === NVI_INSTITUTION) {
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${NVI_USER}`);
         cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
@@ -73,6 +75,8 @@ Given('a Curator views the NVI-tasklist', () => {
   cy.login(userNviCuratorInstitutionA);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.selectNVIStatus(NVI_PENDING);
 });
 When('a Publication is a {string}', (category) => {
   cy.wrap(category).as('category');

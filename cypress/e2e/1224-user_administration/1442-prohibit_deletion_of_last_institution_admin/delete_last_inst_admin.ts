@@ -9,15 +9,13 @@ Given('that an App Admin or Institution Admin opens User Administration', () => 
 Given('they see only one current Institution Admin', () => {
   cy.get(`[data-testid=${dataTestId.basicData.adminInstitutionsLink}]`).click();
   cy.get('[data-testid=customer-institutions-list] > tbody > tr > td > p', { timeout: 30000 })
-    .filter(':contains("Test Institution")')
+    .filter(':contains("UNIT")')
     .first()
     .parent()
     .parent()
     .within(() => {
-      cy.get(`[data-testid^=edit-institution-button-]`)
-        .first()
-        .click();
-    })
+      cy.get(`[data-testid^=edit-institution-button-]`).first().click();
+    });
   cy.get('[data-testid^=button-remove-role-]').should('have.length', 1);
 });
 Then('they see that the Delete button on its name is disabled', () => {

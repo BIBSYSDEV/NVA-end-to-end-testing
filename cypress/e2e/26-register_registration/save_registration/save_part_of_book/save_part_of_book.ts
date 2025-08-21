@@ -2,7 +2,7 @@ import { userSavePartOfBook } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
-import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 const fields = [
   resourceTypeFields.partOf,
@@ -13,24 +13,21 @@ const fields = [
 
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
-let init = false;
-
 const initData = () => {
-  if (!init) {
-    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'BookAnthology');
-    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportResearch');
-    cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportBookOfAbstract');
-    cy.wait(20000);
-    init = true;
-  }
+  cy.login(userSavePartOfBook);
+  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'BookAnthology');
+  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportResearch');
+  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportBookOfAbstract');
+  cy.wait(20000);
 };
+
+BeforeAll(() => initData());
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Part of book
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
   cy.login(userSavePartOfBook);
-  initData();
 });
 Given('selects {string}', (resourceType) => {
   cy.startWizardWithEmptyRegistration();

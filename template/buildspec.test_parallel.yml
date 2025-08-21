@@ -127,6 +127,27 @@ batch:
           RUNNER: 16
           image: public.ecr.aws/cypress-io/cypress/included:cypress-14.2.0-node-22.14.0-chrome-134.0.6998.88-1-ff-136.0.2-edge-134.0.3124.68-1
       ignore-failure: true
+    - identifier: runner17
+      buildspec: template/buildspec.testrun.yml
+      env:
+        variables:
+          RUNNER: 17
+          image: public.ecr.aws/cypress-io/cypress/included:cypress-14.2.0-node-22.14.0-chrome-134.0.6998.88-1-ff-136.0.2-edge-134.0.3124.68-1
+      ignore-failure: true
+    - identifier: runner18
+      buildspec: template/buildspec.testrun.yml
+      env:
+        variables:
+          RUNNER: 18
+          image: public.ecr.aws/cypress-io/cypress/included:cypress-14.2.0-node-22.14.0-chrome-134.0.6998.88-1-ff-136.0.2-edge-134.0.3124.68-1
+      ignore-failure: true
+    - identifier: runner19
+      buildspec: template/buildspec.testrun.yml
+      env:
+        variables:
+          RUNNER: 19
+          image: public.ecr.aws/cypress-io/cypress/included:cypress-14.2.0-node-22.14.0-chrome-134.0.6998.88-1-ff-136.0.2-edge-134.0.3124.68-1
+      ignore-failure: true
     - identifier: test_report
       buildspec: template/buildspec.testreport.yml
       depend-on:
@@ -146,3 +167,6 @@ batch:
         - runner14
         - runner15
         - runner16
+        - runner17
+        - runner18
+        - runner19

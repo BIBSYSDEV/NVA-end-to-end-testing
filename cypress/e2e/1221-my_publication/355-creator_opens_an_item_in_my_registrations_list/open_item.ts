@@ -2,50 +2,48 @@ import { userMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { descriptionFields } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
-import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
-let init = false;
 const errorTitle = `Registration with validation error ${uuid()}`;
 const registrationTitle = `Registration ${uuid()}`;
 
 const initData = () => {
-  if (!init) {
-    cy.startWizardWithEmptyRegistration();
-    cy.createValidRegistration(null, registrationTitle);
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getSuccess();
-    cy.getSuccessDone();
-    cy.wait(3000);
+  cy.login(userMyRegistrations);
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(null, registrationTitle);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccess();
+  cy.getSuccessDone();
+  cy.wait(3000);
 
-    cy.startWizardWithEmptyRegistration();
-    cy.createValidRegistration(null, errorTitle);
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getSuccess();
-    cy.getSuccessDone();
-    cy.openMyRegistrations();
-    cy.getDataTestId(dataTestId.startPage.searchResultItem)
-      .filter(`:contains(${errorTitle})`)
-      .parent()
-      .within(() => {
-        cy.get('[data-testid^=edit-registration]').first().click({ force: true });
-      });
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
-      cy.get('svg').click();
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(null, errorTitle);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccess();
+  cy.getSuccessDone();
+  cy.openMyRegistrations();
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
+    .filter(`:contains(${errorTitle})`)
+    .parent()
+    .within(() => {
+      cy.get('[data-testid^=edit-registration]').first().click({ force: true });
     });
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.contains('Registration updated successfully');
-    cy.get('.MuiAlert-message').should('be.visible');
-    cy.getDataTestId(dataTestId.header.myPageLink).click();
-    init = true;
-  }
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalChip).within(() => {
+    cy.get('svg').click();
+  });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.contains('Registration updated successfully');
+  cy.get('.MuiAlert-message').should('be.visible');
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
 };
+
+BeforeAll(() => initData());
 
 // Common step
 Given('that the user is logged in as Creator', () => {
   cy.login(userMyRegistrations);
-  initData();
 });
 // end common step
 

@@ -4,11 +4,18 @@
 //     So that only authorized users can read the metadata
 
 import { v4 as uuid } from 'uuid';
-import { userPublicationCuratorMessages, userPublicationMessages, userWithAuthor, userCuratorInstitution, userPublishNoRights, userDOIMessages, FileVersions, } from '../../../support/constants';
+import {
+  userPublicationCuratorMessages,
+  userPublicationMessages,
+  userWithAuthor,
+  userCuratorInstitution,
+  userPublishNoRights,
+  userDOIMessages,
+  FileVersions,
+} from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
-let init = false;
 const UPLOADED_FILE = 'UploadedFile';
 const PENDING_OPEN_FILE = 'PendingOpenFile';
 const PENDING_INTERNAL_FILE = 'PendingInternalFile';
@@ -21,167 +28,181 @@ const OPEN = 'Open file';
 const INTERNAL = 'Internal file';
 const HIDDEN = 'Hidden file';
 
-
 const addContributor = () => {
-    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-    cy.reload();
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton);
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type('Withauthor TestUser{enter}');
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type('Doi Messages TestUser{enter}');
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).parent().parent().parent().filter(':contains("Doi Messages TestUser")').filter(':contains("SINTEF")').within(() => {
-        cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+  cy.reload();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton);
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.startPage.searchField).type('Withauthor TestUser{enter}');
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.startPage.searchField).type('Doi Messages TestUser{enter}');
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
+    .parent()
+    .parent()
+    .parent()
+    .filter(':contains("Doi Messages TestUser")')
+    .filter(':contains("SINTEF")')
+    .within(() => {
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-    cy.wait(3000);
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
-    cy.getSuccess();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+  cy.wait(3000);
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
+  cy.getSuccess();
 };
 
 const titles = {
-
-    [UPLOADED_FILE]: `${UPLOADED_FILE} ${uuid()}`,
-    [PENDING_OPEN_FILE]: `${PENDING_OPEN_FILE} ${uuid()}`,
-    [PENDING_INTERNAL_FILE]: `${PENDING_INTERNAL_FILE} ${uuid()}`,
-    [INTERNAL_FILE]: `${INTERNAL_FILE} ${uuid()}`,
-    [OPEN_FILE]: `${OPEN_FILE} ${uuid()}`,
-    [HIDDEN_FILE]: `${HIDDEN_FILE} ${uuid()}`,
+  [UPLOADED_FILE]: `${UPLOADED_FILE} ${uuid()}`,
+  [PENDING_OPEN_FILE]: `${PENDING_OPEN_FILE} ${uuid()}`,
+  [PENDING_INTERNAL_FILE]: `${PENDING_INTERNAL_FILE} ${uuid()}`,
+  [INTERNAL_FILE]: `${INTERNAL_FILE} ${uuid()}`,
+  [OPEN_FILE]: `${OPEN_FILE} ${uuid()}`,
+  [HIDDEN_FILE]: `${HIDDEN_FILE} ${uuid()}`,
 };
 
 const initData = () => {
+  const ACADEMIC_ARTICLE = 'AcademicArticle';
+  const fileName = 'lorem_ipsum.txt';
 
-    const ACADEMIC_ARTICLE = 'AcademicArticle';
-    const fileName = 'lorem_ipsum.txt';
+  cy.login(userPublicationMessages);
 
-    cy.login(userPublicationMessages);
+  // cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
+  // addContributor();
 
-    // cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
-    // addContributor();
+  cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, OPEN);
+  addContributor();
+  cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, OPEN);
-    addContributor();
-    cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
+  cy.createPublishedRegistration(
+    titles[PENDING_INTERNAL_FILE],
+    ACADEMIC_ARTICLE,
+    fileName,
+    FileVersions.PUBLISHED,
+    INTERNAL
+  );
+  addContributor();
+  cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[PENDING_INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, INTERNAL);
-    addContributor();
-    cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
+  cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, OPEN);
+  addContributor();
+  cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, OPEN);
-    addContributor();
-    cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
+  cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, INTERNAL);
+  addContributor();
+  cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.PUBLISHED, INTERNAL);
-    addContributor();
-    cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
+  cy.createPublishedRegistration(titles[HIDDEN_FILE]);
+  addContributor();
+  cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 
-    cy.createPublishedRegistration(titles[HIDDEN_FILE]);
-    addContributor();
-    cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
-
-    cy.login(userPublicationCuratorMessages);
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[OPEN_FILE]}{enter}`);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${titles[OPEN_FILE]})`).within(() => {
-        cy.get('a').first().click();
+  cy.login(userPublicationCuratorMessages);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[OPEN_FILE]}{enter}`);
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
+    .filter(`:contains(${titles[OPEN_FILE]})`)
+    .within(() => {
+      cy.get('a').first().click();
     });
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
-    cy.getSuccess();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
+  cy.getSuccess();
 
-    cy.getDataTestId('logo').click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[INTERNAL_FILE]}{enter}`);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${titles[INTERNAL_FILE]})`).within(() => {
-        cy.get('a').first().click();
+  cy.getDataTestId('logo').click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[INTERNAL_FILE]}{enter}`);
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
+    .filter(`:contains(${titles[INTERNAL_FILE]})`)
+    .within(() => {
+      cy.get('a').first().click();
     });
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
-    cy.getSuccess();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
+  cy.getSuccess();
 
-    cy.getDataTestId('logo').click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[HIDDEN_FILE]}{enter}`);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${titles[HIDDEN_FILE]})`).within(() => {
-        cy.get('a').first().click();
+  cy.getDataTestId('logo').click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[HIDDEN_FILE]}{enter}`);
+  cy.getDataTestId(dataTestId.startPage.searchResultItem)
+    .filter(`:contains(${titles[HIDDEN_FILE]})`)
+    .within(() => {
+      cy.get('a').first().click();
     });
-    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-    cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-    cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-    cy.contains(HIDDEN).click();
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getSuccess();
+  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
+  cy.contains(HIDDEN).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccess();
 };
-
 
 const users = {
-    'Uploader at X': userPublicationMessages,
-    'Contributor at X': userDOIMessages,
-    'Other contributors': userWithAuthor,
-    'File curator at X': userPublicationCuratorMessages,
-    'File curators for other contributors': userCuratorInstitution,
-    'Everyone else': userPublishNoRights,
+  'Uploader at X': userPublicationMessages,
+  'Contributor at X': userDOIMessages,
+  'Other contributors': userWithAuthor,
+  'File curator at X': userPublicationCuratorMessages,
+  'File curators for other contributors': userCuratorInstitution,
+  'Everyone else': userPublishNoRights,
 };
+
+BeforeAll(() => initData());
 
 //   Scenario Outline: Verify file metadata read permissions
 Given('a file of type {string}', (fileType) => {
-    if (!init) {
-        initData();
-        init = true;
-    }
-    cy.wrap(fileType).as('fileType');
+  cy.wrap(fileType).as('fileType');
 });
 When('the user have the role {string}', (userRole: string) => {
-    cy.wrap(userRole).as('userRole');
-    if (userRole !== 'Everyone else') {
-        cy.login(users[userRole]);
-    } else {
-        cy.visit('/', {
-            auth: {
-                username: Cypress.env('DEVUSER'),
-                password: Cypress.env('DEVPASSWORD'),
-            },
-        });
-    }
+  cy.wrap(userRole).as('userRole');
+  if (userRole !== 'Everyone else') {
+    cy.login(users[userRole]);
+  } else {
+    cy.visit('/', {
+      auth: {
+        username: Cypress.env('DEVUSER'),
+        password: Cypress.env('DEVPASSWORD'),
+      },
+    });
+  }
 });
 When('the user attempts to "read-metadata"', () => {
-    cy.get('@fileType').then(fileType => {
-        const title = titles[fileType.toString()];
-        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).within(() => {
-            cy.get('a').first().click();
-        });
-        cy.getDataTestId(dataTestId.registrationLandingPage.contributors).should('exist');
-    });
+  cy.get('@fileType').then((fileType) => {
+    const title = titles[fileType.toString()];
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.getDataTestId(dataTestId.startPage.searchResultItem)
+      .filter(`:contains(${title})`)
+      .within(() => {
+        cy.get('a').first().click();
+      });
+    cy.getDataTestId(dataTestId.registrationLandingPage.contributors).should('exist');
+  });
 });
 Then('the action outcome is {string}', (outcome) => {
-    if (outcome === 'Allowed') {
-        cy.get('@userRole').then((userRole) => {
-            if (userRole.toString() !== 'Everyone else') {
-                cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-                cy.reload();
-                cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-                cy.get('[aria-label="Open file"]').should('exist');
-            } else {
-                cy.getDataTestId(dataTestId.registrationLandingPage.openFileButton).should('exist');
-            }
-        });
-    } else {
-        cy.get('@userRole').then((userRole) => {
-            if (userRole.toString() !== 'Everyone else') {
-                cy.getDataTestId(dataTestId.registrationWizard.files.deleteFile).should('not.exist');
-            } else {
-                cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).should('not.exist');
-            }
-        });
-    }
+  if (outcome === 'Allowed') {
+    cy.get('@userRole').then((userRole) => {
+      if (userRole.toString() !== 'Everyone else') {
+        cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+        cy.reload();
+        cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+        cy.get('[aria-label="Open file"]').should('exist');
+      } else {
+        cy.getDataTestId(dataTestId.registrationLandingPage.openFileButton).should('exist');
+      }
+    });
+  } else {
+    cy.get('@userRole').then((userRole) => {
+      if (userRole.toString() !== 'Everyone else') {
+        cy.getDataTestId(dataTestId.registrationWizard.files.deleteFile).should('not.exist');
+      } else {
+        cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).should('not.exist');
+      }
+    });
+  }
 });
 
 // Examples:
