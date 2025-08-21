@@ -14,6 +14,7 @@ export default defineConfig({
   defaultBrowser: 'chrome',
 
   e2e: {
+    baseUrl: 'https://e2e.nva.aws.unit.no/',
     specPattern: 'cypress/e2e/**/*.feature',
     async setupNodeEvents(
       on: Cypress.PluginEvents,
