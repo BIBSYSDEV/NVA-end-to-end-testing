@@ -53,3 +53,9 @@ Feature: Changing values in a NVI-candidate
     Given an NVI-candidate with a level 1 publication channel
     When a User changes the publication channel to a level 2 publication channel
     Then the NVI points changes to reflect the new publication channel
+    
+    @test
+  Scenario: Adding a series to an anthology where the series level is higher than the publisher of the anthology
+    Given an anthology with a level 1 publisher
+    When a level 2 series is added to the anthology
+    Then the NVI points changes to reflect the series added to the anthology

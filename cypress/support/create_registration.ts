@@ -55,10 +55,13 @@ const addCategoryData = (type: string) => {
     case 'ReportBookOfAbstract':
     case 'ReportResearch':
     case 'DataManagementPlan':
-      cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('ntnu samfunnsforskning', {
-        delay: 1,
-      });
-      cy.contains('NTNU Samfunnsforskning').click();
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type(
+        'academic conferences international',
+        {
+          delay: 1,
+        }
+      );
+      cy.contains('Academic Conferences International').click();
       break;
     case 'ConferenceAbstract':
     case 'JournalReview':
