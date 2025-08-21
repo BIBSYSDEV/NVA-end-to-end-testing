@@ -1,7 +1,7 @@
 // Feature: Changing values in a NVI-candidate
 
 import { NVI_PENDING } from '../../../support/commands';
-import { userChangeNviCuratorInstitutionA, userNviInstitutionA } from '../../../support/constants';
+import { userChangeNviCuratorInstitutionA, userNviCuratorInstitutionA, userNviInstitutionA } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
@@ -90,7 +90,6 @@ Given('the Result is {string} registration', (source) => {
 Given('the Result is {string}', (collaboration: string) => {
   cy.get('@titleRoot').then((titleRoot) => {
     const title: string = titles[titleRoot.toString()][collaboration];
-    console.log(title);
     cy.wrap(title).as('title');
 
     cy.login(userChangeNviCuratorInstitutionA);
@@ -197,8 +196,36 @@ Then('the Result is not a NVI-candidate', () => {
     Given ('an NVI-candidate with a level 1 publication channel', () => {
       cy.login(userNviInstitutionA);
       cy.createPublishedRegistration(createNVICandidateTitle, 'AcademicArticle');
+      cy.login(userNviCuratorInstitutionA);
+      cy.getDataTestId(dataTestId.header.tasksLink).click();
+      cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+      cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
+      cy.get('[data-value=pending]').click();
+      cy.selectNVICandidate(createNVICandidateTitle);
+      cy.get('table').filter(':contains("Points")').within(() => {
+        cy.get('p').last().then($p => {
+          cy.wrap($p.text()).as('points');
+        })
+      });
     });
     When ('a User changes the publication channel to a level 2 publication channel', () => {
-      
+      cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+      cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('test');
+      cy.contains('American Journal of Physiology - Gastrointestinal and Liver Physiology').click();
+      cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+      cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+      cy.getSuccessDone();
     });
-    Then ('the NVI points changes to reflect the new publication channel', () => {});
+    Then ('the NVI points changes to reflect the new publication channel', () => {
+            cy.getDataTestId(dataTestId.header.tasksLink).click();
+      cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+      cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
+      cy.get('[data-value=pending]').click();
+      cy.selectNVICandidate(createNVICandidateTitle);
+      cy.get('@points').then(points => {
+        cy.get('table').filter(':contains("Points")').within(() => {
+          cy.contains(points.toString()).should('not.exist');
+        });
+      });
+    });
