@@ -251,16 +251,54 @@ Given('an anthology with a level 1 publisher', () => {
   cy.createPublishedRegistration(anthologyTitle, 'BookAnthology');
   // lag vitenskapelig kapittel
   cy.createPublishedRegistration(chapterTitle, 'AcademicChapter');
-  // legg til kapittel til serie
+  // legg til kapittel til antologi
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestId(datate)
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(anthologyTitle.toLowerCase());
+  cy.contains(anthologyTitle).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccessDone();
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
 
   // sjekk NVI-poeng
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
+  cy.get('[data-value=pending]').click();
+  cy.selectNVICandidate(anthologyTitle);
+  cy.get('table')
+    .filter(':contains("Points")')
+    .within(() => {
+      cy.get('p')
+        .last()
+        .then(($p) => {
+          cy.wrap($p.text()).as('points');
+        });
+    });
 });
 When('a level 2 series is added to the anthology', () => {
-  // legg antologi til serie med nivå 2
+  // legg serie til antologi med nivå 2
+  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type('geoscientific model development');
+  cy.contains('Geoscientific Model Development').click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccessDone();
 });
 Then('the NVI points changes to reflect the series added to the anthology', () => {
   // sjekk NVI-poeng
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
+  cy.get('[data-value=pending]').click();
+  cy.selectNVICandidate(anthologyTitle);
+  cy.get('@points').then((points) => {
+    cy.get('table')
+      .filter(':contains("Points")')
+      .within(() => {
+        cy.contains(points.toString()).should('not.exist');
+      });
+  });
 });
