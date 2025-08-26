@@ -96,7 +96,7 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: F
 
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
-  cy.get('[data-testid=registration-title-field]').type(title, { delay: 0 });
+  cy.get('[data-testid=registration-title-field]').type(title, { delay: 1 });
   cy.getDataTestId(dataTestId.registrationWizard.description.abstractField).type(`Abstract - ${title}`);
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, formatedToday);
 

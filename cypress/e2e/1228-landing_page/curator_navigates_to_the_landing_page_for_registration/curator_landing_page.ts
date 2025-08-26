@@ -84,7 +84,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.get('[value=BIBSYS]');
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 0 });
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
   });
 });
@@ -127,7 +127,7 @@ Given('they opens the Landing Page of a Registration', () => {
     // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     cy.get('@registrationTitle').then((registrationTitle) => {
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 0 });
+      cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
       cy.getDataTestId(dataTestId.startPage.searchResultItem)
         .filter(`:contains("${registrationTitle}")`)
         .first()
@@ -179,7 +179,7 @@ Given('that a Curator views their Worklist', () => {
 Given('they have selected the DOI Requests tab', () => {});
 Given('they have expanded an Message', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${doiRequestTitle}{enter}`, { delay: 0 });
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${doiRequestTitle}{enter}`, { delay: 1 });
   cy.contains(doiRequestTitle).click();
 });
 When('they click "Go to registration"', () => {});
@@ -199,7 +199,7 @@ When('they approve the DOI Request', () => {
   cy.get('[value=BIBSYS]');
   cy.get('@registrationTitle').then((searchTitle) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 1 });
     cy.contains(searchTitle.toString(), { timeout: 30000 }).click();
   });
   cy.wait(5000);
@@ -211,7 +211,7 @@ Then('the DOI is findable', () => {
   cy.wait(5000);
   cy.get('@registrationTitle').then((searchTitle) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 1 });
     cy.getDataTestId('result-list-item')
       .filter(`:contains(${searchTitle})`)
       .first()
@@ -229,7 +229,7 @@ When('they reject the DOI Request', () => {
   cy.get('[value=BIBSYS]');
   cy.get('@registrationTitle').then((searchTitle) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 0 });
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 1 });
     cy.contains(searchTitle.toString()).click();
   });
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();

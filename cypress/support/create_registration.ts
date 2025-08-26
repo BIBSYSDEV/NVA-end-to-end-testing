@@ -12,7 +12,7 @@ export const createValidRegistrationWithType = (
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
   title = title ? `${title} ${today}` : `Title ${today}`;
-  cy.get('[data-testid=registration-title-field]').type(title, { delay: 0 });
+  cy.get('[data-testid=registration-title-field]').type(title, { delay: 1 });
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, formatedToday);
 
   // Reference
@@ -74,6 +74,12 @@ const addCategoryData = (type: string) => {
         'original publication for corrigendum'
       );
       cy.contains('Original publication for corrigendum').click();
+      break;
+    case 'AcademicChapter':
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type('academic press');
+      cy.contains('Academic Press').click();
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
+      cy.contains('Kunsthistorie').click();
       break;
   }
 };
