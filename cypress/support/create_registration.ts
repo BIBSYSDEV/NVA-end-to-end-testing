@@ -76,8 +76,8 @@ const addCategoryData = (type: string) => {
       cy.contains('Original publication for corrigendum').click();
       break;
     case 'AcademicChapter':
-      cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type('academic press');
-      cy.contains('Academic Press').click();
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type('anthology');
+      cy.contains('NVI change anthology').click();
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
       cy.contains('Kunsthistorie').click();
       break;
