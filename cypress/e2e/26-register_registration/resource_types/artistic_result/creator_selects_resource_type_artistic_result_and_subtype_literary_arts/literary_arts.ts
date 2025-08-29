@@ -71,10 +71,10 @@ Then('the Monograph is listed under Announcements', () => {
   cy.contains(literaryArtsBookFields['Publisher']['value']);
 });
 Then('they can edit the Monograph', () => {
-  cy.contains('Show/Edit');
+  cy.get('[aria-label=Edit]');
 });
 Then('they can remove the Monograph', () => {
-  cy.contains('Remove');
+  cy.get('[aria-label=Delete]');
 });
 
 //   Scenario: Creator adds an Web Publication
@@ -93,10 +93,10 @@ Then('the Web Publication is listed under Announcements', () => {
   cy.contains(literaryArtsWebFields['Publisher']['value']);
 });
 Then('they can edit the Web Publication', () => {
-  cy.contains('Show/Edit');
+  cy.get('[aria-label=Edit]');
 });
 Then('they can remove the Web Publication', () => {
-  cy.contains('Remove');
+  cy.get('[aria-label=Delete]');
 });
 
 //   Scenario: Creator adds an Performance
@@ -141,10 +141,10 @@ Then('the Performance is listed under Announcements', () => {
   cy.contains(literaryArtsPerformanceFields['Type of Performance']['value']);
 });
 Then('they can edit the Performance', () => {
-  cy.contains('Show/Edit');
+  cy.get('[aria-label=Edit]');
 });
 Then('they can remove the Performance', () => {
-  cy.contains('Remove');
+  cy.get('[aria-label=Delete');
 });
 
 //   Scenario: Creator adds an Audio/Visual Publication
@@ -188,8 +188,8 @@ Then('the AudioVisual Publication is listed under Announcements', () => {
   cy.contains(literaryArtsAudioVisualFields['Publisher']['value']);
 });
 Then('they can edit the AudioVisual Publication', () => {
-  cy.contains('Show/Edit');
+  cy.get('[aria-label=Edit]');
 });
 Then('they can remove the AudioVisual Publication', () => {
-  cy.contains('Remove');
+  cy.get('[aria-label=Delete]');
 });
