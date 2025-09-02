@@ -79,7 +79,7 @@ const addCategoryData = (type: string) => {
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type('academic press');
       cy.contains('Academic Press').click();
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
-      cy.contains('Kunsthistorie').click();
+      cy.contains('Archaeology and Conservation').click();
       break;
   }
 };
