@@ -293,8 +293,6 @@ Then('the NVI points changes to reflect the series added to the anthology', () =
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
   cy.get('[data-value=pending]').click();
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${anthologyTitle}{enter}`);
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.selectNVICandidate(anthologyTitle);
   cy.get('@points').then((points) => {
     cy.get('table')
