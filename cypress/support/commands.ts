@@ -236,10 +236,12 @@ Cypress.Commands.add('selectNVIStatus', (status) => {
 });
 
 Cypress.Commands.add('selectNVICandidate', (title?) => {
+  if (title) {
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  }
   cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
     if (title) {
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       cy.get('li')
         .filter(`:contains(${title})`)
         .within(() => {
