@@ -79,7 +79,7 @@ const addCategoryData = (type: string) => {
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type('anthology');
       cy.contains('NVI change anthology').click();
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
-      cy.contains('Kunsthistorie').click();
+      cy.contains('Archaeology and Conservation').click();
       break;
   }
 };
