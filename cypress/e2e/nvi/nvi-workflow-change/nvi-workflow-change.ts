@@ -266,7 +266,7 @@ Given('an anthology with a level 1 publisher', () => {
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
   cy.get('[data-value=pending]').click();
-  cy.selectNVICandidate(anthologyTitle);
+  cy.selectNVICandidate(chapterTitle);
   cy.get('table')
     .filter(':contains("Points")')
     .within(() => {
