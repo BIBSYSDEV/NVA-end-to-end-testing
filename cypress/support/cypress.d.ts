@@ -34,7 +34,7 @@ declare global {
       addUnidentifiedContributor(contributorName: string): void;
 
       selectNVIStatus(status: string): void;
-      selectNVICandidate(title?: string): void;
+      selectNVICandidate(title?: string, status?: string): void;
 
       openMyRegistrations(): void;
       chooseDatePicker(selector: string, date: string): void;

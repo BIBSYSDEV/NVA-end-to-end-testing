@@ -39,7 +39,7 @@ Cypress.Commands.add('login', (userId: string) => {
     },
   });
   cy.wrap(null).then(() => {
-    return login(userId).then(() => { });
+    return login(userId).then(() => {});
   });
 });
 
@@ -235,7 +235,11 @@ Cypress.Commands.add('selectNVIStatus', (status) => {
   });
 });
 
-Cypress.Commands.add('selectNVICandidate', (title?) => {
+Cypress.Commands.add('selectNVICandidate', (title?, status?) => {
+  if (status) {
+    cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
+    cy.get(`[data-value=${status}]`).click();
+  }
   if (title) {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
