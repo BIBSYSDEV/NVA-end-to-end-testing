@@ -64,23 +64,23 @@ const titles = {};
 
 const collaborations = [noCollaboration, NVICollaboration, NVACollaboration, externalCollaboration];
 
-// BeforeAll(() => {
-//   cy.login(userNviInstitutionA);
-//   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-//   titleRoots.forEach((titleRoot) => {
-//     titles[titleRoot] = [];
-//     collaborations.forEach((collaboration) => {
-//       const title = `${titleRoot} Manual ${collaboration} ${uuid()}`;
-//       titles[titleRoot][collaboration] = title;
-//       const category = titleRoot === titleNonScientificToScientific ? 'JournalReview' : 'AcademicArticle';
-//       cy.createPublishedRegistration(title, category);
-//       changeToUnidentifiedUser();
-//       if (collaboration !== noCollaboration) {
-//         addContributor(contributors[collaboration]);
-//       }
-//     });
-//   });
-// });
+BeforeAll(() => {
+  cy.login(userNviInstitutionA);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  titleRoots.forEach((titleRoot) => {
+    titles[titleRoot] = [];
+    collaborations.forEach((collaboration) => {
+      const title = `${titleRoot} Manual ${collaboration} ${uuid()}`;
+      titles[titleRoot][collaboration] = title;
+      const category = titleRoot === titleNonScientificToScientific ? 'JournalReview' : 'AcademicArticle';
+      cy.createPublishedRegistration(title, category);
+      changeToUnidentifiedUser();
+      if (collaboration !== noCollaboration) {
+        addContributor(contributors[collaboration]);
+      }
+    });
+  });
+});
 
 // Scenario Outline: Contributor changes from unidentified to identified
 Given('a curator opens a Result that is a NVI-candidate with an unidentified contributor', () => {
