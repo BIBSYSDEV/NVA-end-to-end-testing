@@ -279,6 +279,9 @@ Given('an anthology with a level 1 publisher', () => {
 });
 When('a level 2 series is added to the anthology', () => {
   // legg serie til antologi med nivå 2
+  cy.get('[title=Search]').click();
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${anthologyTitle}{enter}`);
+  cy.contains(anthologyTitle).last().click();
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type('geoscientific model development');
