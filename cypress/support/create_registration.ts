@@ -1,6 +1,7 @@
 import { formatedToday, today } from './commands';
 import { FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
+import { v4 as uuid } from 'uuid';
 
 export const createValidRegistrationWithType = (
   title: string,
@@ -11,7 +12,7 @@ export const createValidRegistrationWithType = (
 ) => {
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
-  title = title ? `${title} ${today}` : `Title ${today}`;
+  title = title ? title : `Title ${uuid()}`;
   cy.get('[data-testid=registration-title-field]').type(title, { delay: 1 });
   cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, formatedToday);
 

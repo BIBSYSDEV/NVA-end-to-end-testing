@@ -50,6 +50,8 @@ const addContributor = (contributor: string) => {
   cy.getSuccessDone();
 };
 
+const findUuid = (title: string) => title.substring(title.lastIndexOf(' '));
+
 const titleUnidentifiedToIdentifiedContributor = 'Change from unidentified to identified';
 const titleNonScientificToScientific = 'Change from non-scientific to scientific';
 const titleScientificToNonScientific = 'Change from scientific to non-scientific';
@@ -94,11 +96,12 @@ Given('the Result is {string} registration', (source) => {
 Given('the Result is {string}', (collaboration: string) => {
   cy.get('@titleRoot').then((titleRoot) => {
     const title: string = titles[titleRoot.toString()][collaboration];
+    const uuid = findUuid(title);
     cy.wrap(title).as('title');
 
     cy.login(userChangeNviCuratorInstitutionA);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchResultItem)
       .filter(`:contains(${title})`)
@@ -175,11 +178,12 @@ When('the curator changes the Category from scientific to non-scientific', () =>
 });
 Then('the Result is not a NVI-candidate', () => {
   cy.get('@title').then((title) => {
+    const uuid = findUuid(title.toString());
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.selectNVIStatus(NVI_PENDING);
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.get('main').then((doc) => {
       if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length > 0) {
@@ -280,7 +284,9 @@ Given('an anthology with a level 1 publisher', () => {
 When('a level 2 series is added to the anthology', () => {
   // legg serie til antologi med nivå 2
   cy.get('[title=Search]').click();
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${anthologyTitle}{enter}`);
+  const uuid = findUuid(anthologyTitle);
+
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
   cy.contains(anthologyTitle).last().click();
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
