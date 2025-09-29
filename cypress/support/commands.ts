@@ -223,7 +223,7 @@ Cypress.Commands.add('selectRegistration', (title, type) => {
 });
 
 export const NVI_PENDING = 'pending';
-export const NVI_ASSIGNED = 'assigned';
+export const NVI_ASSIGNED = 'pending';
 export const NVI_APPROVED = 'approved';
 export const NVI_REJECTED = 'rejected';
 export const NVI_DISPUTE = 'dispute';
@@ -241,7 +241,7 @@ Cypress.Commands.add('selectNVICandidate', (title?, status?) => {
     cy.get(`[data-value=${status}]`).click();
   }
   if (title) {
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   }
   cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {

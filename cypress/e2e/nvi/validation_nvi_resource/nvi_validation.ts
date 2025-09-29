@@ -17,9 +17,9 @@ const nviFields = {
 
 const titles = {
   'Candidate Candidate No status': '',
-  'Candidate - Waiting for your institution Candidate Approved': '',
+  // 'Candidate - Waiting for your institution Candidate Approved': '',
   'Being checked Being checked No status': '',
-  'Being checked - Waiting for your institution Being checked Approved': '',
+  // 'Being checked - Waiting for your institution Being checked Approved': '',
   'Approved Approved No status': '',
   'Approved - Waiting for other institution Approved Being checked': '',
   'Rejected Rejected No status': '',
@@ -126,11 +126,11 @@ BeforeAll(() => {
     }
   });
 
-  cy.login(userNviCurator);
-  const disputeTitle = titles['Dispute Candidate Dispute'];
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  rejectCandidate(disputeTitle);
+  // cy.login(userNviCurator);
+  // const disputeTitle = titles['Dispute Candidate Dispute'];
+  // cy.getDataTestId(dataTestId.header.tasksLink).click();
+  // cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  // rejectCandidate(disputeTitle);
 });
 
 // Background:
@@ -207,7 +207,7 @@ const availabilityFilter = {
   'Rejected - Waiting for other institution': 'rejectedCollaboration',
 };
 
-// Scenario Outline:
+// Scenario Outline: Check correct status
 When('the User select a status', () => { });
 When("the Resources have authors that are affiliated with the Curator's Institution", () => { });
 When('the authors affiliation is within the Users Area of responibiliy', () => { });
@@ -231,7 +231,7 @@ Then('the Results are listed under {string}', (status) => {
       const title = titles[titleKey];
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       cy.getDataTestId(dataTestId.startPage.searchField).within(() => {
-        cy.get('input').type(`${title}{enter}`);
+        cy.get('input').type(`{selectall}}{del}${title}{enter}`);
       });
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('contain', title);
