@@ -57,8 +57,8 @@ Then('the new Exhibition is listed under Exhibitions', () => {
   cy.contains('Test venue');
 });
 Then('they can edit the Exhibition', () => {
-  cy.get('button').filter(':contains("Show/Edit")');
+  cy.get('[aria-label=Edit]');
 });
 Then('they can remove the Exhibition', () => {
-  cy.get('button').filter(':contains("Remove")');
+  cy.get('[aria-label=Delete]');
 });

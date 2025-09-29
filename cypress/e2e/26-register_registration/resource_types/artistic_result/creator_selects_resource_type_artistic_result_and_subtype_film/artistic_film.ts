@@ -47,10 +47,10 @@ Then('they can edit existing Exhibitions', () => {
     '11.11.2021'
   );
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
-  cy.contains('Show/Edit');
+  cy.get('[aria-label=Edit]');
 });
 Then('they can delete existing Exhibitions', () => {
-  cy.contains('Remove');
+  cy.get('[aria-label=Delete]');
 });
 
 //   Scenario: Creator adds a Broadcast to a Film

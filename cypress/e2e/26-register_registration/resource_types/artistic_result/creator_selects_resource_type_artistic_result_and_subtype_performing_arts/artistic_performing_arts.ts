@@ -47,10 +47,10 @@ Then('they see that each Exhibition Place has a Delete Button', () => {
     }
   });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
-  cy.contains('Remove');
+  cy.get('[aria-label=Delete]');
 });
 Then('they see that each Exhibition Place has an Edit Button', () => {
-  cy.contains('Show/Edit');
+  cy.get('[aria-label=Edit]');
 });
 Then('they see an Add Exhibition Place Button', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`);

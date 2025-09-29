@@ -47,10 +47,10 @@ Then('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`).type('Title');
   cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramComposer}]`).type('Composer');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
-  cy.contains('Show/Edit');
+  cy.get('[aria-label=Edit]');
 });
 Then('they can delete existing Exhibitions', () => {
-  cy.contains('Remove');
+  cy.get('[aria-label=Delete]');
 });
 
 // Scenario: Creator adds a Concert to a Music result

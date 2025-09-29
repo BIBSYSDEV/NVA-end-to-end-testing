@@ -60,10 +60,10 @@ Then('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.exhibitionOther}]`).type('Exhibition other');
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
   //   });
-  cy.get('button').filter(':contains("Edit")').should('be.visible');
+  cy.get('[aria-label=Edit]').should('be.visible');
 });
 Then('they can delete existing Exhibitions', () => {
-  cy.get('button').filter(':contains("Remove")').should('be.visible');
+  cy.get('[aria-label=Delete]').should('be.visible');
 });
 
 //   Scenario: Creator adds an Competition
@@ -73,7 +73,7 @@ When('they add a Competition with details for:', (dataTable: DataTable) => {
     field[0] === 'Date'
       ? cy.chooseDatePicker(`[data-testid=${competitionFields[field[0]]}]`, '11.11.2021')
       : // ? cy.get(`[data-testid=${competitionFields[field[0]]}]`).type('11.11.2021')
-      cy.get(`[data-testid=${competitionFields[field[0]]}]`).type(`Test Competition ${field[0]}`);
+        cy.get(`[data-testid=${competitionFields[field[0]]}]`).type(`Test Competition ${field[0]}`);
   });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
@@ -91,7 +91,7 @@ When('they add a Publication or Mention with details for:', (dataTable: DataTabl
     field[0] === 'Date'
       ? cy.chooseDatePicker(`[data-testid=${publicationMentionFields[field[0]]}]`, '11.11.2021')
       : // ? cy.get(`[data-testid=${publicationMentionFields[field[0]]}]`).type('11.11.2021')
-      cy.get(`[data-testid=${publicationMentionFields[field[0]]}]`).type(`Test Publication Mention ${field[0]}`);
+        cy.get(`[data-testid=${publicationMentionFields[field[0]]}]`).type(`Test Publication Mention ${field[0]}`);
   });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });
@@ -110,7 +110,7 @@ When('they add a Prize or Award with details for:', (dataTable: DataTable) => {
   cy.get(`[data-testid=${exhibitionTypes['Prize or Award']}]`).click({ force: true });
   dataTable.raw().forEach((field) => {
     if (field[0] === 'Year') {
-      cy.chooseDatePicker(`[data-testid=${awardFields[field[0]]}]`, '2021')
+      cy.chooseDatePicker(`[data-testid=${awardFields[field[0]]}]`, '2021');
     } else {
       cy.get(`[data-testid=${awardFields[field[0]]}]`).type(`Test Prize Award ${field[0]}`);
     }
