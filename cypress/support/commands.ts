@@ -30,7 +30,7 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options?) => {
 });
 
 Cypress.Commands.add('login', (userId: string) => {
-  cy.visit(`/`, {
+  cy.visit(`/filter`, {
     auth: {
       // username: Cypress.env('DEVUSER'),
       // password: Cypress.env('DEVPASSWORD'),
