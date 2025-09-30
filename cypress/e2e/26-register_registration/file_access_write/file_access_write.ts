@@ -181,7 +181,7 @@ When('the user have the role {string}', (userRole: string) => {
   if (userRole !== 'Everyone else') {
     cy.login(users[userRole]);
   } else {
-    cy.visit('/', {
+    cy.visit('/filter', {
       auth: {
         username: Cypress.env('DEVUSER'),
         password: Cypress.env('DEVPASSWORD'),

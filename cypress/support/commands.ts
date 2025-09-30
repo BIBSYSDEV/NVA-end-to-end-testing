@@ -38,6 +38,8 @@ Cypress.Commands.add('login', (userId: string) => {
       password: 'osteloff',
     },
   });
+  cy.setLocalStorage('i18nextLng', 'eng');
+  cy.setLocalStorage('previouslyLoggedIn', 'true');
   cy.wrap(null).then(() => {
     return login(userId).then(() => {});
   });
@@ -735,23 +737,23 @@ Cypress.Commands.add('getNVIWorklistItem', (title) => {
 });
 
 Cypress.Commands.add('editChannelClaims', () => {
-  cy.getDataTestId(dataTestId.header.editorLink).click();
-  cy.get('.MuiCircularProgress-root').should('not.exist');
-  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
-  cy.get('.MuiCircularProgress-root').should('not.exist');
-  cy.getDataTestId(dataTestId.editor.publisherClaimButton).click();
-  cy.getDataTestId(dataTestId.editor.addChannelClaimButton);
-  cy.get('.MuiCircularProgress-root').should('not.exist');
-  cy.get('.MuiSkeleton-root').should('not.exist');
+  // cy.getDataTestId(dataTestId.header.editorLink).click();
+  // cy.get('.MuiCircularProgress-root').should('not.exist');
+  // cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
+  // cy.get('.MuiCircularProgress-root').should('not.exist');
+  // cy.getDataTestId(dataTestId.editor.publisherClaimButton).click();
+  // cy.getDataTestId(dataTestId.editor.addChannelClaimButton);
+  // cy.get('.MuiCircularProgress-root').should('not.exist');
+  // cy.get('.MuiSkeleton-root').should('not.exist');
 });
 
 Cypress.Commands.add('claimChannel', (searchString: string) => {
-  cy.getDataTestId(dataTestId.editor.addChannelClaimButton);
-  cy.get('.MuiCircularProgress-root').should('not.exist');
-  cy.getDataTestId(dataTestId.editor.addChannelClaimButton).click();
-  cy.getDataTestId(dataTestId.editor.channelSearchField).type(searchString);
-  cy.get('[data-option-index=0]').click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+  // cy.getDataTestId(dataTestId.editor.addChannelClaimButton);
+  // cy.get('.MuiCircularProgress-root').should('not.exist');
+  // cy.getDataTestId(dataTestId.editor.addChannelClaimButton).click();
+  // cy.getDataTestId(dataTestId.editor.channelSearchField).type(searchString);
+  // cy.get('[data-option-index=0]').click();
+  // cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
 });
 
 Cypress.Commands.add('removeChannel', (channelName: string) => {

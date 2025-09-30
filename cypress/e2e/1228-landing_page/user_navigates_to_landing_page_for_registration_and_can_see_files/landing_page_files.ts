@@ -45,13 +45,6 @@ let preview = false;
 // Common steps
 Given('Anonymous User views Landing Page for Registration', () => {
   cy.login(userWithAuthor2);
-  cy.setLocalStorage('i18nextLng', 'eng');
-  cy.visit(`/`, {
-    auth: {
-      username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVPASSWORD'),
-    },
-  });
 });
 
 // End common steps

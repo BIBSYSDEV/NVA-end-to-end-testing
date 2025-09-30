@@ -36,7 +36,7 @@ const selectProject = (user) => {
 Given('An Anonymous User is on the NVA start page', () => {
   cy.setLocalStorage('i18nextLng', 'eng');
   cy.setLocalStorage('previouslyLoggedIn', 'true');
-  cy.visit('/', {
+  cy.visit('/filter', {
     auth: {
       username: Cypress.env('DEVUSER'),
       password: Cypress.env('DEVPASSWORD'),
@@ -66,9 +66,7 @@ When("A Anonymous User opens a Project's Landing Page", () => {
       password: Cypress.env('DEVPASSWORD'),
     },
   });
-  cy.getDataTestId(dataTestId.startPage.searchTypeField).click();
-  cy.get('[data-value=project').click();
-  cy.wait(1000);
+  cy.getDataTestId(dataTestId.frontPage.projectsLink).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);
   cy.contains(projectTitle).click();

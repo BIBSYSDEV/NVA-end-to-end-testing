@@ -13,6 +13,7 @@ const visitStartPage = () => {
       password: Cypress.env('DEVPASSWORD'),
     },
   });
+  cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
 };
 
 const initData = () => {
@@ -33,9 +34,10 @@ BeforeAll(() => initData());
 //      Scenario: An anonymous Aser opens start page and sees search results
 Given('an anonymous User', () => {});
 When('they open the start page', () => {
-  cy.getDataTestId('logo').click({ force: true });
-  cy.wait(3000);
-  cy.getDataTestId(dataTestId.startPage.searchField).should('be.visible');
+  cy.visit('/');
+  cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
+  cy.getDataTestId(dataTestId.frontPage.searchInputField).should('be.visible');
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });
 Then('they see a list of Registratons', () => {
   cy.getDataTestId('search-results');
