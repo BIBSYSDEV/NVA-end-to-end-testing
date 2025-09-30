@@ -47,6 +47,7 @@ Given('a User view the landing page for a Registration with embargoed files', ()
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
   cy.wait(10000);
   cy.getDataTestId('logo').click();
+  cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
