@@ -84,6 +84,7 @@ When('they publish the Registration', () => {
 Then('the Registration is findable', () => {
   cy.wait(10000);
   cy.getDataTestId('logo').click();
+  cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).should('be.visible');

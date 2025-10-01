@@ -208,8 +208,8 @@ When('they approve the DOI Request', () => {
 });
 Then('the DOI is findable', () => {
   cy.get('[data-testid=logo]').click();
-  cy.wait(5000);
   cy.get('@registrationTitle').then((searchTitle) => {
+    cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 1 });
     cy.getDataTestId('result-list-item')

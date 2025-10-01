@@ -121,6 +121,7 @@ const initData = () => {
   cy.getSuccessDone();
 
   cy.getDataTestId('logo').click();
+  cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[INTERNAL_FILE]}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
@@ -144,6 +145,7 @@ const initData = () => {
   cy.getSuccessDone();
 
   cy.getDataTestId('logo').click();
+  cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[HIDDEN_FILE]}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
