@@ -4,20 +4,20 @@ import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preproc
 import { userEditorSintef, userPublicationCuratorSintef, userRegistratorSintef } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { today } from '../../../support/commands';
+import { today, todayDatePicker } from '../../../support/commands';
 
 const claimedChannel = 'SINTEF akademisk forlag';
 const fileName = 'example.txt';
 
-BeforeAll(() => {
-  cy.login(userEditorSintef);
-  cy.editChannelClaims();
-  cy.get('table').then(($body) => {
-    if (!$body.text().includes(claimedChannel)) {
-      cy.claimChannel(claimedChannel);
-    }
-  });
-});
+// BeforeAll(() => {
+//   cy.login(userEditorSintef);
+//   cy.editChannelClaims();
+//   cy.get('table').then(($body) => {
+//     if (!$body.text().includes(claimedChannel)) {
+//       cy.claimChannel(claimedChannel);
+//     }
+//   });
+// });
 
 //   Background:
 Given('metadata registered on a claimed channel', () => {
@@ -36,14 +36,16 @@ When('metadata is registered', () => {
   cy.wrap(publicationTitle).as('title');
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type(publicationTitle)
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, today);
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, todayDatePicker());
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('DegreeMaster')).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
+  cy.contains('Art History').click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type(claimedChannel)
   cy.contains(claimedChannel).last().click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
-  cy.getSuccessDone();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
   cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();

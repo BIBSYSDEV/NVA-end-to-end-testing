@@ -5,6 +5,7 @@ Feature: Tickets are sent to curators at the channel owner
     And the channel claim has an allow-all policy for registering metadata
     And publication instance type is part of channel scope
 
+    @test
   Scenario: Ticket sent to Registrators institution
     Given a Registrator
     And Registrators institution owns the channel
