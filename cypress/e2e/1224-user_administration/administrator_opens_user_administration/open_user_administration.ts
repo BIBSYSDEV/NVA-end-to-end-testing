@@ -1,4 +1,4 @@
-import { userSecondInstAdminWithAuthor } from '../../../support/constants';
+import { userSiktInstAdmin } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import {
   userAdministrationButtons,
@@ -61,7 +61,7 @@ When('they click {string} under {string}', (button: string, section) => {
 // @359
 // Scenario Outline: Administrator opens User Administration
 Given('that the user is logged in as Administrator', () => {
-  cy.login(userSecondInstAdminWithAuthor);
+  cy.login(userSiktInstAdmin);
 });
 When('they click the menu item Users', () => {
   cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
@@ -114,7 +114,7 @@ Then('they see a section Registrator with a policy for who are able to publish',
 // @363
 // Scenario Outline: Administrator opens the Add Role Dialog
 Given('Administrator opens User Administration', () => {
-  cy.login(userSecondInstAdminWithAuthor);
+  cy.login(userSiktInstAdmin);
   cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
 });
 Then('they see the Add Role Dialog', () => {
@@ -149,7 +149,7 @@ Then('they see a "Close" button', () => {
 // @1362
 // Scenario: Administrator searches for User
 Given('Administrator opens the Add Role Dialog', () => {
-  cy.login(userSecondInstAdminWithAuthor);
+  cy.login(userSiktInstAdmin);
   cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
 });
 When('they enter text into the Search field', () => {

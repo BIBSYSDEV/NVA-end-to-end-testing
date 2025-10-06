@@ -1,4 +1,4 @@
-import { userSecondEditor } from '../../../support/constants';
+import { userBIBSYSSecondEditor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -27,7 +27,7 @@ const menuItems = {
 
 //     Background:
 Given('a logged in Editor', () => {
-  cy.login(userSecondEditor);
+  cy.login(userBIBSYSSecondEditor);
 });
 
 // Scenario: Editor opens institutions configuration

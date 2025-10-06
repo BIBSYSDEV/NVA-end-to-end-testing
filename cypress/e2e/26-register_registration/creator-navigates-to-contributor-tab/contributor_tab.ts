@@ -1,5 +1,5 @@
 import { Before, DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { userContributor, userWithAuthor } from '../../../support/constants';
+import { userUnitContributors, userUnitWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { contributorTypes } from '../../../support/data_testid_constants';
 
@@ -11,7 +11,7 @@ Before({ tags: '@verifyUser' }, () => {
 });
 
 Before(() => {
-  cy.login(userContributor);
+  cy.login(userUnitContributors);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get('[data-testid=resource-type-chip-AcademicMonograph]').click();
@@ -208,7 +208,7 @@ Then('they see the "Create new Author" Button in the Create new Author Dialog', 
 
 // Scenario: Creator sees Button to Verify Contributor
 When('the Registration has an Unverified Contributor', () => {
-  cy.mockPersonSearch(userWithAuthor);
+  cy.mockPersonSearch(userUnitWithAuthor);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -248,7 +248,7 @@ Then('they see a list of Persons matching the search', () => {
 
 // Scenario: Creator verifies Contributor
 Given('Creator opens Dialog to Verify Contributor', () => {
-  cy.mockPersonSearch(userWithAuthor);
+  cy.mockPersonSearch(userUnitWithAuthor);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');

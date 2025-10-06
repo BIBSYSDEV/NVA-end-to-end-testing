@@ -1,6 +1,6 @@
 // Feature: Scenarios for Result portifolio
 
-import { userEditor, userWithAuthor } from '../../../support/constants';
+import { userUnitEditor, userUnitWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, Before, DataTable } from '@badeball/cypress-cucumber-preprocessor';
@@ -44,7 +44,7 @@ const selectPortifolio = (portifolio: string) => {
 };
 
 Before({ 'tags': '@init' }, () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
   const publishedTitle = `Published registration ${uuid()}`;
   cy.createPublishedRegistration(publishedTitle);
   const unpublishedTitle = `Unpublished registration ${uuid()}`;
@@ -69,7 +69,7 @@ Before({ 'tags': '@init' }, () => {
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('be.enabled');
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.getSuccessDone();
-  cy.login(userEditor);
+  cy.login(userUnitEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
   cy.getDataTestId(dataTestId.editor.resultsPortfolioUnpublishedCheckbox).click();
@@ -89,7 +89,7 @@ Before({ 'tags': '@init' }, () => {
 
 // Scenario: Editor views Result portifolio
 Given('an Editor', () => {
-  cy.login(userEditor);
+  cy.login(userUnitEditor);
 });
 When('they view the Result portifolio', () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
@@ -110,7 +110,7 @@ const publishedTitle = `Portfolio published result ${uuid()}`;
 
 // Scenario: Published Result is added to portifolio
 Given('a User publishes a Result', () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, publishedTitle);
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
@@ -122,7 +122,7 @@ Given('a User publishes a Result', () => {
   });
 });
 When('an Editor views the Result portifolio for Published Results', () => {
-  cy.login(userEditor);
+  cy.login(userUnitEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
   selectPortifolio('Published Results');
@@ -138,7 +138,7 @@ const unpublishedTitle = `Portfolio unpublished result ${uuid()}`;
 
 // Scenario: Unublished Result is added to portifolio
 Given('a User unpublish a Result', () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, unpublishedTitle);
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
@@ -155,7 +155,7 @@ Given('a User unpublish a Result', () => {
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
 });
 When('an Editor views the Result portifolio for Unpublished Results', () => {
-  cy.login(userEditor);
+  cy.login(userUnitEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
   selectPortifolio('Unpublished Results');
@@ -171,7 +171,7 @@ const deletedTitle = `Portfolio unpublished result ${uuid()}`;
 
 // Scenario: Deleted Result is added to portifolio
 Given('a User deletes an unpublished Result', () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, deletedTitle);
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
@@ -187,7 +187,7 @@ Given('a User deletes an unpublished Result', () => {
   cy.getDataTestId(dataTestId.unpublishActions.confirmUnpublishCheckbox).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
 
-  cy.login(userEditor);
+  cy.login(userUnitEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
   selectPortifolio('Unpublished Results');

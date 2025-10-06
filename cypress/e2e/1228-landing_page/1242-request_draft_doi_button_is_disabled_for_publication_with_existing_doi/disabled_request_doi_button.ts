@@ -1,6 +1,6 @@
 // Feature: Request/Draft DOI button is disabled for Publications with existing DOI
 
-import { userDraftDoi } from '../../../support/constants';
+import { userUnitDraftDoi } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageButtons } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
@@ -12,7 +12,7 @@ const registrationTitles = {
 };
 
 const initData = () => {
-  cy.login(userDraftDoi);
+  cy.login(userUnitDraftDoi);
   cy.createPublishedRegistration(registrationTitles['Published']);
   cy.wait(50000);
   cy.refreshPublish();
@@ -31,7 +31,7 @@ BeforeAll(() => initData());
 // @1242
 // Scenario Outline: Request/Draft DOI button is disabled for Registrations with existing DOI
 Given('that a Creator views the Landing Page for a Registration', () => {
-  cy.login(userDraftDoi);
+  cy.login(userUnitDraftDoi);
   cy.openMyRegistrations();
 });
 Given('they are the Owner of this Registration', () => {});

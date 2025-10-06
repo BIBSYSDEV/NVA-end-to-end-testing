@@ -1,4 +1,4 @@
-import { userEditor, userSecondEditor, userThirdEditor } from '../../../support/constants';
+import { userUnitEditor, userBIBSYSSecondEditor, userSiktThirdEditor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -12,7 +12,7 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 
 //     Background:
 Given('a logged in Editor', () => {
-  cy.login(userEditor);
+  cy.login(userUnitEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
 });
 
@@ -128,7 +128,7 @@ Given('an Institution with one or more Editor roles', () => {});
 
 // Scenario: Default publishing rights
 When('the Editor of an Institution hasn’t chosen a policy', () => {
-  cy.login(userThirdEditor);
+  cy.login(userSiktThirdEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
@@ -140,7 +140,7 @@ Then('the publications policy is:', () => {
 
 // Scenario: Editor defines publishing rights
 Given('a Editor views the Editor page', () => {
-  cy.login(userSecondEditor);
+  cy.login(userBIBSYSSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();

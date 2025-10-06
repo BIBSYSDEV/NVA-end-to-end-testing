@@ -1,5 +1,5 @@
 import { Before, DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { userWithAuthor4 } from '../../../support/constants';
+import { userUnitWithAuthor4 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 import { descriptionFields } from '../../../support/data_testid_constants';
@@ -8,7 +8,7 @@ const projectName = 'Test project 16617fb0-3c7a-470e-83bf-e5a55e005d74';
 const institutionName = 'Sikt - Norwegian Agency for Shared Services in Education and Research';
 
 Before(() => {
-  cy.login(userWithAuthor4);
+  cy.login(userUnitWithAuthor4);
 });
 
 // Feature: Creator navigates to Description tab

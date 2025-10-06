@@ -1,7 +1,7 @@
 // Feature: Creator selects Resource type Artistic Result and subtype Design
 
 import { DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { userDesign } from '../../../../../support/constants';
+import { userUnitDesign } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import { designTypes, designFields } from '../../../../../support/data_testid_constants';
 
@@ -17,7 +17,7 @@ const addVenue = () => {
 
 // Common steps:
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Design"', () => {
-  cy.login(userDesign);
+  cy.login(userUnitDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get('[data-testid=resource-type-chip-ArtisticDesign]').click();
@@ -25,7 +25,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Design"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
-  cy.login(userDesign);
+  cy.login(userUnitDesign);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });

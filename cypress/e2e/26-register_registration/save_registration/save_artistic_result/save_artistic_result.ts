@@ -1,4 +1,4 @@
-import { userSaveArtisticResult } from '../../../../support/constants';
+import { userUnitSaveArtisticResult } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
@@ -102,7 +102,7 @@ const artisticContributorRoles = {
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
-  cy.login(userSaveArtisticResult);
+  cy.login(userUnitSaveArtisticResult);
   cy.startWizardWithEmptyRegistration();
 });
 Given('selects {string}', (resourceType) => {

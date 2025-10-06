@@ -7,9 +7,9 @@ import { v4 as uuid } from 'uuid';
 import {
   userPublicationCuratorMessages,
   userPublicationMessages,
-  userWithAuthor,
+  userUnitWithAuthor,
   userCuratorInstitution,
-  userPublishNoRights,
+  userBIBSYSPublishNoRights,
   userDOIMessages,
   FileVersions,
 } from '../../../support/constants';
@@ -166,10 +166,10 @@ const initData = () => {
 const users = {
   'Uploader at X': userPublicationMessages,
   'Contributor at X': userDOIMessages,
-  'Other contributors': userWithAuthor,
+  'Other contributors': userUnitWithAuthor,
   'File curator at X': userPublicationCuratorMessages,
   'File curators for other contributors': userCuratorInstitution,
-  'Everyone else': userPublishNoRights,
+  'Everyone else': userBIBSYSPublishNoRights,
 };
 
 BeforeAll(() => initData());

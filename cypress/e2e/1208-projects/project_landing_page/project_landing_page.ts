@@ -1,6 +1,6 @@
 // // Feature: Project Landing Page
 
-import { userProjectManager } from '../../../support/constants';
+import { userUnitProjectManager } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -10,7 +10,7 @@ const panelHeadings = {
 };
 
 const users = {
-  'Project Manager': userProjectManager,
+  'Project Manager': userUnitProjectManager,
 };
 
 const panelIds = {
@@ -153,7 +153,7 @@ Then('The Project is removed from the Projects list', () => {});
 
 //     Scenario: User expand Summary for a Project
 When('they expand "Summary"', () => {
-  selectProject(userProjectManager);
+  selectProject(userUnitProjectManager);
   cy.getDataTestId(dataTestId.projectLandingPage.scientificSummaryAccordion).click();
 });
 Then('they see "Scientific summary"', () => {
@@ -169,7 +169,7 @@ Then('they see "Popular science summary"', () => {
 
 //     Scenario: User expand Participants for a Project
 When('they expand "Participants"', () => {
-  selectProject(userProjectManager);
+  selectProject(userUnitProjectManager);
   cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
 });
 Then('they see a list of Participants and their:', (participantInfo: DataTable) => {
@@ -191,7 +191,7 @@ Then('they see a list of Participants and their:', (participantInfo: DataTable) 
 
 //     Scenario: User sees Project Manager for a Project
 Given('User expand Participants for a Project', () => {
-  selectProject(userProjectManager);
+  selectProject(userUnitProjectManager);
   cy.getDataTestId(dataTestId.projectLandingPage.participantsAccordion).click();
 });
 When('they see a Project Manager', () => {
@@ -205,7 +205,7 @@ Then('they see fields:', () => {
 
 //     Scenario: User expand Results for a Project
 When('they expand "Results"', () => {
-  selectProject(userProjectManager);
+  selectProject(userUnitProjectManager);
   cy.getDataTestId(dataTestId.projectLandingPage.resultsAccordion).click();
 });
 Then('they see a list of Results', () => {

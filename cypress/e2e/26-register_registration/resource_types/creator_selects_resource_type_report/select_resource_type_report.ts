@@ -1,4 +1,4 @@
-import { userResourceTypeReport } from '../../../../support/constants';
+import { userUnitResourceTypeReport } from '../../../../support/constants';
 import { reportSubtypes, reportFields } from '../../../../support/data_testid_constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
@@ -6,7 +6,7 @@ import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber
 // Feature: Creator selects Resource type Report
 
 Before(() => {
-  cy.login(userResourceTypeReport);
+  cy.login(userUnitResourceTypeReport);
   cy.startWizardWithEmptyRegistration();
 });
 

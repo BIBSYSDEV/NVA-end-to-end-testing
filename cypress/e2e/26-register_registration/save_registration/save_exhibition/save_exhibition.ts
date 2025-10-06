@@ -1,4 +1,4 @@
-import { userSaveExhibition } from '../../../../support/constants';
+import { userUnitSaveExhibition } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
@@ -31,7 +31,7 @@ const exhibitionContributorRoles = [
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
-  cy.login(userSaveExhibition);
+  cy.login(userUnitSaveExhibition);
   cy.startWizardWithEmptyRegistration();
 });
 Given('selects {string}', (resourceType) => {

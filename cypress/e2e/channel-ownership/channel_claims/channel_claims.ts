@@ -1,6 +1,6 @@
 // Feature: Channel claims
 import { Before, BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { userEditorSintef, userThirdEditor, userWithAuthor } from '../../../support/constants';
+import { userEditorSintef, userSiktThirdEditor, userUnitWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 const filterAllClaims = () => {
@@ -14,7 +14,7 @@ const filterOwnClaims = () => {
 };
 
 BeforeAll(() => {
-  cy.login(userThirdEditor);
+  cy.login(userSiktThirdEditor);
   cy.editChannelClaims();
   cy.get('body').then(($body) => {
     if (!$body.text().includes('Sikt – Kunnskapssektorens tjenesteleverandør')) {
@@ -38,7 +38,7 @@ Before(() => {
 });
 
 //   Scenario: Owned channel cannot be claimed
-When('a channel is owned by institution A', () => { });
+When('a channel is owned by institution A', () => {});
 Then('the channel cannot be claimed by insitution B', () => {
   cy.editChannelClaims();
   cy.claimChannel('Sikt');
@@ -78,7 +78,7 @@ Then('an Editor at institution A can abandon the channel claim', () => {
 
 //   Scenario: Editor cannot abandon claim of a channel owned by another institution
 Then('an Editor at institution B cannot abandon the channel claim', () => {
-  cy.login(userThirdEditor);
+  cy.login(userSiktThirdEditor);
   cy.editChannelClaims();
   cy.get('tr')
     .filter(':contains("SINTEF Community")')
@@ -88,12 +88,12 @@ Then('an Editor at institution B cannot abandon the channel claim', () => {
 });
 
 //   Scenario: Non-editor cannot claim a channel
-When('they inspect an unclaimed channel', () => { });
-Then('they cannot claim it', () => { });
+When('they inspect an unclaimed channel', () => {});
+Then('they cannot claim it', () => {});
 
 //   Scenario: Non-editor cannot abandon claim of a channel
 Given('a user is not Editor', () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
 });
 When('they inspect a claimed channel', () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
@@ -122,8 +122,8 @@ When('requesting all channel claims, with a filter by institution', () => {
   filterOwnClaims();
 });
 Then('all channels claimed by that institution are returned', () => {
-  cy.get('tbody').then(table => {
+  cy.get('tbody').then((table) => {
     const tableRows = table.find('tr').length;
     cy.get('tr').filter(':contains("SINTEF")').should('have.length', tableRows);
-  })
+  });
 });

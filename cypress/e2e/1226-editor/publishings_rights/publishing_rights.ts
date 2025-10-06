@@ -1,4 +1,4 @@
-import { userEditor3, userSecondEditor } from '../../../support/constants';
+import { userUnitEditor3, userBIBSYSSecondEditor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -16,12 +16,12 @@ const publishStrategies = {
 
 // Background:
 Given('an Institution with one or more Editor roles', () => {
-  cy.login(userSecondEditor);
+  cy.login(userBIBSYSSecondEditor);
 });
 
 // Scenario: Default publishing rights
 When('the Editor of an Institution hasn’t chosen a policy', () => {
-  cy.login(userEditor3);
+  cy.login(userUnitEditor3);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
@@ -47,10 +47,10 @@ When('the Editor chooses {string}:', (strategy: string) => {
 Then('the Institutions publications policy is changed accordingly', () => {
   cy.get('@strategyButton').then((button) => {
     cy.getDataTestId(button.toString()).should('be.disabled');
-  })
+  });
 });
 Then('the Editor is notified that a new policy is activated', () => {
-  cy.get('@strategyButton').then(strategy => {
+  cy.get('@strategyButton').then((strategy) => {
     if (strategy !== publishStrategies[Object.keys(publishStrategies)[0]]) {
       cy.getSuccess();
     }

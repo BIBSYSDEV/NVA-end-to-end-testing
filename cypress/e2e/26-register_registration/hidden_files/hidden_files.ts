@@ -1,6 +1,6 @@
 // Feature: Hidden and internal files
 
-import { userPublishRegistration, userPublishingCurator } from '../../../support/constants';
+import { userBIBSYSPublishRegistration, userBIBSYSPublishingCurator } from '../../../support/constants';
 import { v4 as uuid } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
@@ -9,7 +9,7 @@ const fileName = 'example.txt';
 
 // Scenario Outline: Creator adds a non-open file
 Given('Creator navigates to Files and License tab', () => {
-  cy.login(userPublishingCurator);
+  cy.login(userBIBSYSPublishingCurator);
   cy.startWizardWithEmptyRegistration();
   const title = `Non-open file ${uuid()}`;
   cy.createValidRegistration(null, title);
@@ -43,7 +43,7 @@ Then('they see the file under Internal files', () => {
 
 // Scenario Outline: Curator approves non-open file
 Given('a registration with a {string}', (fileType: string) => {
-  cy.login(userPublishRegistration);
+  cy.login(userBIBSYSPublishRegistration);
   cy.setWorkflowRegistratorPublishesMetadata();
   cy.startWizardWithEmptyRegistration();
   const title = `Non-open file ${uuid()}`;
@@ -60,7 +60,7 @@ Given('a registration with a {string}', (fileType: string) => {
 });
 Given('the files need approval from a Curator', () => {});
 When('a Curator view the landing page of the registration', () => {
-  cy.login(userPublishingCurator);
+  cy.login(userBIBSYSPublishingCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('@title').then((title) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -105,7 +105,7 @@ Then('they see the file is approved', () => {
 
 // Scenario Outline: Curator changes open file to non-open file
 Given('a published registration with an open file', () => {
-  cy.login(userPublishRegistration);
+  cy.login(userBIBSYSPublishRegistration);
   cy.setWorkflowRegistratorPublishesMetadata();
   cy.startWizardWithEmptyRegistration();
   const title = `Non-open file ${uuid()}`;
@@ -118,7 +118,7 @@ Given('a published registration with an open file', () => {
 Given('the file needs approval', () => {});
 When('a curator edit the registration and changes the open file to {string}', (fileType: string) => {
   cy.wrap(fileType).as('fileType');
-  cy.login(userPublishingCurator);
+  cy.login(userBIBSYSPublishingCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('@title').then((title) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');

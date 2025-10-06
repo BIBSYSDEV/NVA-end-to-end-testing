@@ -1,4 +1,4 @@
-import { userFilesAndLicense } from '../../../support/constants';
+import { userUnitFilesAndLicense } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { fileFields } from '../../../support/data_testid_constants';
 import { DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
@@ -6,7 +6,7 @@ import { DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preproc
 const fileName = 'example.txt';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(userFilesAndLicense);
+  cy.login(userUnitFilesAndLicense);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
@@ -50,7 +50,7 @@ Then('they see Save is enabled', () => {
 
 // Scenario: Creator marks that a Resource has no File or Linked Resource
 Given('Creator navigates to Files and License tab', () => {
-  cy.login(userFilesAndLicense);
+  cy.login(userUnitFilesAndLicense);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
@@ -99,7 +99,7 @@ Then('they can see the file in the list of files', () => {
 
 // Scenario: Creator sees information about file
 Given('Creator adds a file', () => {
-  cy.login(userFilesAndLicense);
+  cy.login(userUnitFilesAndLicense);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
@@ -124,7 +124,7 @@ Then('they can see information about:', (dataTable: DataTable) => {
 
 // Scenario: Creator removes a file
 Given('Creator open a Registration with a file', () => {
-  cy.login(userFilesAndLicense);
+  cy.login(userUnitFilesAndLicense);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();

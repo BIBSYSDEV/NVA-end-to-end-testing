@@ -1,5 +1,5 @@
 import { formatedToday, today } from '../../../support/commands';
-import { userProjectWizard } from '../../../support/constants';
+import { userBIBSYSProjectWizard } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
@@ -40,10 +40,9 @@ const projectSearchFields = {
 
 // Background:
 Given('A User is logged in', () => {
-  cy.login(userProjectWizard);
+  cy.login(userBIBSYSProjectWizard);
 });
-Given('the User got one of the following roles:', () => {
-});
+Given('the User got one of the following roles:', () => {});
 // | Registrator           |
 // | Curator               |
 // | Project Owner         |
@@ -81,7 +80,9 @@ Given('User opens the Project Wizard to register a new Project', () => {
 });
 When('they activate the search field, a list of Financings where the user has a role is presented', () => {
   cy.getDataTestId(dataTestId.newProjectPage.createNFRProjectAccordion).click();
-  cy.getDataTestId(dataTestId.newProjectPage.nrfProjectSearchInput).type('Modellbasert, dynamisk generering av komplekse testdata');
+  cy.getDataTestId(dataTestId.newProjectPage.nrfProjectSearchInput).type(
+    'Modellbasert, dynamisk generering av komplekse testdata'
+  );
 });
 Then('they selects a Financing', () => {
   cy.contains('Modellbasert, dynamisk generering av komplekse testdata').click();

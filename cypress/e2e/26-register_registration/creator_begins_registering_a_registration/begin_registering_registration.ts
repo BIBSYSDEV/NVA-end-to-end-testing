@@ -1,5 +1,5 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { userWithAuthor3 } from '../../../support/constants';
+import { userUnitWithAuthor3 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 const fileName = 'example.txt';
@@ -9,7 +9,7 @@ const dlrLink = 'https://dlr.unit.no/resources/66888570-3504-4d12-81a4-c3ffe0605
 
 // Common steps
 Given('Creator begins registering a Registration', () => {
-  cy.login(userWithAuthor3);
+  cy.login(userUnitWithAuthor3);
   cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
 });
 // End common steps
@@ -37,7 +37,9 @@ When('they click Start', () => {
   });
 });
 Then('they see the Wizard', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`, { timeout: 30000 }).should('be.visible');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`, { timeout: 30000 }).should(
+    'be.visible'
+  );
 });
 // Examples:
 //   | Method               |
@@ -46,10 +48,10 @@ Then('they see the Wizard', () => {
 
 //   @226
 //   Scenario: Creator begins registering a Registration
-Given('that the user is logged in', () => { });
-Given('they have Role Creator', () => { });
+Given('that the user is logged in', () => {});
+Given('they have Role Creator', () => {});
 Given('they are on the Start page', () => {
-  cy.login(userWithAuthor3);
+  cy.login(userUnitWithAuthor3);
 });
 When('they click the New Registration button', () => {
   cy.get(`[data-testid=${dataTestId.header.newRegistrationLink}]`).click({ force: true });
@@ -63,7 +65,6 @@ Then('they see an Expansion panel for Link to resource', () => {
 Then('they see an Expansion panel for Empty Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).should('be.visible');
 });
-
 
 // Common steps for @228, @439, @440, @441, @442, @2208, @2370
 Given('they expand the Expansion panel for Link to resource', () => {
@@ -89,5 +90,4 @@ Then('they see metadata about the Link in the Expansion panel', () => {
 When('they expand the Expansion panel for Empty Registration', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.new.emptyRegistrationAccordion}]`).click();
 });
-Then('they see a button to start registration', () => {
-});
+Then('they see a button to start registration', () => {});

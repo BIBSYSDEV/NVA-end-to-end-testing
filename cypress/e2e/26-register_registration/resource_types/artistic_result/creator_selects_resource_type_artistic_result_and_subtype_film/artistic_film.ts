@@ -1,13 +1,13 @@
 // Feature: Creator selects Resource type Artistic Result and subtype Film
 
-import { userFilm } from '../../../../../support/constants';
+import { userUnitFilm } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import { filmAnnouncements, filmTypes } from '../../../../../support/data_testid_constants';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Film"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
-  cy.login(userFilm);
+  cy.login(userUnitFilm);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
@@ -55,7 +55,7 @@ Then('they can delete existing Exhibitions', () => {
 
 //   Scenario: Creator adds a Broadcast to a Film
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Film"', () => {
-  cy.login(userFilm);
+  cy.login(userUnitFilm);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get('[data-testid=resource-type-chip-MovingPicture]').click();

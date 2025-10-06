@@ -1,10 +1,10 @@
-import { userWithAuthor } from '../../../support/constants';
+import { userUnitWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { profilePageFields } from '../../../support/data_testid_constants';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('that the user is logged in', () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
 });
 When('they click the menu item My user profile', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();

@@ -1,5 +1,5 @@
 import { v4 as uuid, v4 } from 'uuid';
-import { userCuratorDraftDoi, userDraftDoi2 } from '../../../support/constants';
+import { userUnitCuratorDraftDoi, userUnitDraftDoi2 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -18,7 +18,7 @@ const filename = 'example.txt';
 
 // Scenario: Owner navigates to the submission tab and publish a Registration with a drafted DOI
 Given('that the Owner navigates to Submission tab', () => {
-  cy.login(userDraftDoi2);
+  cy.login(userUnitDraftDoi2);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, publishedRegistrationWithDraftDoi);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -67,7 +67,7 @@ Then('the DOI request is listed in the Owners work list', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publishedRegistrationWithDraftDoi})`);
 });
 Then('the DOI request is listed in the Curators work list', () => {
-  cy.login(userCuratorDraftDoi);
+  cy.login(userUnitCuratorDraftDoi);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publishedRegistrationWithDraftDoi})`);
 });
@@ -75,7 +75,7 @@ Then('the DOI request is listed in the Curators work list', () => {
 //   @1251
 //   Scenario: Creator opens a Registration with a DOI request
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
-  cy.login(userDraftDoi2);
+  cy.login(userUnitDraftDoi2);
   cy.createPublishedRegistration(publicRegistrationRequestingDoi);
   cy.refreshPublish();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
@@ -101,7 +101,7 @@ Then('the Registration is opened in the Wizard on the first tab', () => {
 //   Scenario: Owner opens the "Request a DOI" dialog
 
 Given('that a Creator navigates to the Landing Page for Registration for published Registration without DOI', () => {
-  cy.login(userDraftDoi2);
+  cy.login(userUnitDraftDoi2);
   cy.selectRegistration(publicRegistrationWithoutDoi, published);
 });
 Given('they are the Owner of this Registration', () => {});
@@ -121,7 +121,7 @@ Then('they see a "Send Request" button', () => {
 //   @1232
 //   Scenario: Owner navigates to the Landing Page for Registration and requests a DOI
 Given('that the Creator navigates to the Landing Page for Registration for published Registration without DOI', () => {
-  cy.login(userDraftDoi2);
+  cy.login(userUnitDraftDoi2);
   cy.selectRegistration(publicRegistrationRequestingDoi, published);
 });
 Given('open "Request a DOI" dialog', () => {
@@ -145,7 +145,7 @@ Then('the request is listed in User Worklist', () => {
 Then('the request is listed in Curator Worklist', () => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
   cy.get(`[data-testid=${dataTestId.header.logOutLink}]`).click();
-  cy.login(userCuratorDraftDoi);
+  cy.login(userUnitCuratorDraftDoi);
   cy.visit(`/`, {
     auth: {
       username: Cypress.env('DEVUSER'),
@@ -159,7 +159,7 @@ Then('the request is listed in Curator Worklist', () => {
 //   @1233
 //   Scenario: Owner navigates to the Landing Page for Registration for unpublished Registration without DOI
 Given('that the Owner view Landing Page for Registration', () => {
-  cy.login(userDraftDoi2);
+  cy.login(userUnitDraftDoi2);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, draftRegistrationWithoutDoi);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -183,7 +183,7 @@ Then('they see buttons for Draft a DOI and Edit Registration', () => {
 //   @1234
 //   Scenario: Owner drafts a DOI for an unpublished Registration
 Given('that the Owner View Landing Page for Registration for unpublished Registration without DOI', () => {
-  cy.login(userDraftDoi2);
+  cy.login(userUnitDraftDoi2);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -241,7 +241,7 @@ Then('the "Request a DOI" button is still named "DOI pending" and is disabled', 
 //   @358
 //   Scenario: Curator opens a Registration from a DOI Request Worklist Item
 Given('that a Curator views details of a Worklist item', () => {
-  cy.login(userCuratorDraftDoi);
+  cy.login(userUnitCuratorDraftDoi);
   cy.get(`[data-testid=${dataTestId.header.tasksLink}]`).click();
   cy.get('[data-testid^=message-type]').last().click();
 });

@@ -1,11 +1,11 @@
 import {
-  userCuratorWithAuthor,
-  userNoRole,
-  userTestMenu,
-  adminUser,
-  userInstAdminWithAuthor,
-  userEditor,
-  userWithAuthor,
+  userUnitCurator,
+  userUnitNoRole,
+  userUnitTestMenu,
+  adminUserUnit,
+  userUnitInstAdmin,
+  userUnitEditor,
+  userUnitWithAuthor,
 } from '../../../support/constants';
 import {
   adminMenu,
@@ -55,7 +55,7 @@ Then('they see the Log in Button', () => {
 
 // Scenario: User have option to log out
 Then('they have an option to log out', () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
   cy.getDataTestId(dataTestId.header.menuButton).should('exist');
   cy.getDataTestId(dataTestId.header.menuButton).click();
   cy.getDataTestId(dataTestId.header.logOutLink).should('be.visible');
@@ -63,35 +63,35 @@ Then('they have an option to log out', () => {
 
 // Scenario: User without any role sees menu
 Given('they have no NVA role', () => {
-  cy.login(userNoRole);
+  cy.login(userUnitNoRole);
   cy.wrap(userMenu).as('MENU');
 });
 
 // Scenario: User sees the menu for Creator
 Given('they have the "Creator" role', () => {
-  cy.login(userTestMenu);
+  cy.login(userUnitTestMenu);
   cy.wrap(creatorMenu).as('MENU');
 });
 
 // Scenario: User sees the menu for Curator
 Given('they have the "Curator" Role', () => {
-  cy.login(userCuratorWithAuthor);
+  cy.login(userUnitCurator);
   cy.wrap(curatorMenu).as('MENU');
 });
 
 // Scenario: User sees the menu for Institution-admin
 Given('they have the "Institution-admin" role', () => {
-  cy.login(userInstAdminWithAuthor);
+  cy.login(userUnitInstAdmin);
   cy.wrap(instAdminMenu).as('MENU');
 });
 
 Given('they have the "Editor" role', () => {
-  cy.login(userEditor);
+  cy.login(userUnitEditor);
   cy.wrap(instAdminMenu).as('MENU');
 });
 
 // Scenario: User sees the menu for Application administrator
 Given('they have the "App-admin" role', () => {
-  cy.login(adminUser);
+  cy.login(adminUserUnit);
   cy.wrap(adminMenu).as('MENU');
 });

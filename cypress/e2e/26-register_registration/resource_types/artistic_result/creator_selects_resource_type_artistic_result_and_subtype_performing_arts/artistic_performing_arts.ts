@@ -1,13 +1,13 @@
 // Feature: Creator selects Resource type Artistic Result and subtype Performing arts
 
-import { userPerformingArts } from '../../../../../support/constants';
+import { userUnitPerformingArts } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import { performingArtsFields, performingArtsWorkTypes } from '../../../../../support/data_testid_constants';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Performing arts"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
-  cy.login(userPerformingArts);
+  cy.login(userUnitPerformingArts);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
@@ -58,7 +58,7 @@ Then('they see an Add Exhibition Place Button', () => {
 
 //   Scenario: Creator adds an Exhibition Place to Performing arts
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Performing arts"', () => {
-  cy.login(userPerformingArts);
+  cy.login(userUnitPerformingArts);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get('[data-testid=resource-type-chip-PerformingArts]').click();

@@ -1,9 +1,9 @@
 import {
-  userPublishNoRights,
-  userDoiCurator,
+  userBIBSYSPublishNoRights,
+  userBIBSYSDoiCurator,
   userNviCurator,
-  userPublishingCurator,
-  userSupportCurator,
+  userBIBSYSPublishingCurator,
+  userBIBSYSSupportCurator,
   userVerifiedContributor,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
@@ -18,9 +18,9 @@ const messageTypes = {
 };
 
 const curatorUsers = {
-  'Publishing-Curator': userPublishingCurator,
-  'Support-Curator': userSupportCurator,
-  'Doi-Curator': userDoiCurator,
+  'Publishing-Curator': userBIBSYSPublishingCurator,
+  'Support-Curator': userBIBSYSSupportCurator,
+  'Doi-Curator': userBIBSYSDoiCurator,
   'Nvi-Curator': userNviCurator,
 };
 
@@ -51,7 +51,7 @@ const createWorklistItem = (title, type) => {
   if (type === NVI) {
     cy.login(userVerifiedContributor);
   } else {
-    cy.login(userPublishNoRights);
+    cy.login(userBIBSYSPublishNoRights);
   }
   cy.createPublishedRegistration(title, publicationType, filename);
   cy.refreshPublish();

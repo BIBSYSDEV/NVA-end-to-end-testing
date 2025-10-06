@@ -2,7 +2,7 @@
 
 import { dataTestId } from '../../../support/dataTestIds';
 import { today } from '../../../support/commands';
-import { userWithAuthor, userWithAuthor2 } from '../../../support/constants';
+import { userUnitWithAuthor, userUnitWithAuthor2 } from '../../../support/constants';
 import { v4 as uuid } from 'uuid';
 import { Before, Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -44,7 +44,7 @@ let preview = false;
 
 // Common steps
 Given('Anonymous User views Landing Page for Registration', () => {
-  cy.login(userWithAuthor2);
+  cy.login(userUnitWithAuthor2);
 });
 
 // End common steps
@@ -52,7 +52,7 @@ Given('Anonymous User views Landing Page for Registration', () => {
 Before({ 'tags': '@init' }, () => {
   const textFileName = 'lorem_ipsum.txt';
 
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
   const internalFileTitle = `File with Administrative agreement ${uuid()}`;
   cy.createPublishedRegistration(internalFileTitle);
   addFileToRegistration(textFileName, INTERNAL_FILE);

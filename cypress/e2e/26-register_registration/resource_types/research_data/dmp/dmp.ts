@@ -11,7 +11,7 @@
 //	As a User (researcher)
 //	I want to publish new versions of my DMP
 
-import { userResearchDataDmp } from '../../../../../support/constants';
+import { userUnitResearchDataDmp } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -20,7 +20,7 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 //  Common steps
 
 Given('User selects Resource type "Research Data"', () => {
-  cy.login(userResearchDataDmp);
+  cy.login(userUnitResearchDataDmp);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });

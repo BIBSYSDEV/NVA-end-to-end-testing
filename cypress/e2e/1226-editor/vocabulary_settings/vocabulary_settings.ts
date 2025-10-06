@@ -1,4 +1,4 @@
-import { userEditor4 } from '../../../support/constants';
+import { userUnitEditor4 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -25,7 +25,7 @@ const vocabularyStatus = {
 
 //     Background:
 Given('a logged in Editor', () => {
-  cy.login(userEditor4);
+  cy.login(userUnitEditor4);
 });
 
 // Scenario: Editor sees fields for Vocabulary settings

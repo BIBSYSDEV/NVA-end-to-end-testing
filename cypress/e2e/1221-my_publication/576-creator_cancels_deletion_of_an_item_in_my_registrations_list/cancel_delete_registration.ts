@@ -1,4 +1,4 @@
-import { userCancelDelete } from '../../../support/constants';
+import { userUnitCancelDelete } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -7,7 +7,7 @@ import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 // @576
 // Scenario: Creator cancels deletion of an item in My Registrations list
 Given('that the user is logged in as Creator', () => {
-  cy.login(userCancelDelete);
+  cy.login(userUnitCancelDelete);
   const title = 'Delete Registration';
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, title);

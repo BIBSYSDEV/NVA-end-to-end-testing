@@ -1,4 +1,4 @@
-import { unreadUserMessages, userMessages, collaborationCuratorBIBSYS } from '../../../support/constants';
+import { userBIBSYSUnreadMessages, userBIBSYSMessages, collaborationCuratorBIBSYS } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
@@ -72,7 +72,7 @@ const filterMessages = (messageType: string) => {
 };
 
 const initData = () => {
-  cy.login(userMessages);
+  cy.login(userBIBSYSMessages);
   const doiTitle = `Registration with DOI request ${uuidv4()}`;
   cy.createPublishedRegistration(doiTitle);
   cy.wait(10000);
@@ -98,7 +98,7 @@ BeforeAll(() => initData());
 
 //     Scenario Outline: Creator opens My Messages
 Given('that the user is logged in as Creator', () => {
-  cy.login(unreadUserMessages);
+  cy.login(userBIBSYSUnreadMessages);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, `${registrationTitle} ${uuidv4()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -156,7 +156,7 @@ Then('they see that each item in the list is expandable', () => {});
 
 //     Scenario: Creator opens a Registration with a DOI request
 Given('that the Creator Opens a DOI request entry from My Messages', () => {
-  cy.login(userMessages);
+  cy.login(userBIBSYSMessages);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
@@ -180,7 +180,7 @@ Then('the Registration is opened in the Wizard on the first tab', () => {
 
 //     Scenario: Creator adds a new message on a message thread
 Given('that a User is logged in as Creator', () => {
-  cy.login(userMessages);
+  cy.login(userBIBSYSMessages);
 });
 Given('they open My Messages page', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();

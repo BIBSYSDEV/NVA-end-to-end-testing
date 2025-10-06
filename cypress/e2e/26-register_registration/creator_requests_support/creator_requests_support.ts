@@ -1,9 +1,9 @@
-import { userRequestSupport } from '../../../support/constants';
+import { userUnitRequestSupport } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(userRequestSupport);
+  cy.login(userUnitRequestSupport);
   cy.startWizardWithEmptyRegistration();
 });
 When('they click the "Request support" button', () => {

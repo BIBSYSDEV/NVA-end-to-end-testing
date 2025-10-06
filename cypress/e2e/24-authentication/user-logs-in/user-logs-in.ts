@@ -1,9 +1,9 @@
-import { userLogout } from '../../../support/constants';
+import { userUnitLogout } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('that the user is logged in', () => {
-  cy.login(userLogout);
+  cy.login(userUnitLogout);
 });
 When('they click on the Menu', () => {
   cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();

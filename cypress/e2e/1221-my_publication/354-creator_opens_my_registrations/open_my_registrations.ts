@@ -1,10 +1,10 @@
-import { userOpenMyRegistrations } from '../../../support/constants';
+import { userUnitOpenMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('the user is logged in as Creator', () => {
-  cy.login(userOpenMyRegistrations);
+  cy.login(userUnitOpenMyRegistrations);
   const title = `My registration ${uuid()}`;
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, title);

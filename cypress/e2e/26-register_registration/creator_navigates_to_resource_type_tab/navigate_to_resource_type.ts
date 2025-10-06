@@ -1,4 +1,4 @@
-import { userWithAuthor5 } from '../../../support/constants';
+import { userUnitWithAuthor5 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { resourceTypeFields } from '../../../support/data_testid_constants';
 import { DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
@@ -7,7 +7,7 @@ import { DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preproc
 
 // Common steps
 Given('Creator begins registering a Registration in the Wizard with a File', () => {
-  cy.login(userWithAuthor5);
+  cy.login(userUnitWithAuthor5);
   cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Resource Type tab', () => {

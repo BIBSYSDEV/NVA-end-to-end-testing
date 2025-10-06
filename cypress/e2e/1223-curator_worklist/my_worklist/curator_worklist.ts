@@ -1,11 +1,11 @@
 import {
-  userPublishNoRights,
-  userCurator2,
-  userDoiCurator,
-  userMessages,
+  userBIBSYSPublishNoRights,
+  userBIBSYSCurator2,
+  userBIBSYSDoiCurator,
+  userBIBSYSMessages,
   userNviCurator,
-  userPublishingCurator,
-  userSupportCurator,
+  userBIBSYSPublishingCurator,
+  userBIBSYSSupportCurator,
   userVerifiedContributor,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
@@ -20,9 +20,9 @@ const messageTypes = {
 };
 
 const curatorUsers = {
-  'Publishing-Curator': userPublishingCurator,
-  'Support-Curator': userSupportCurator,
-  'Doi-Curator': userDoiCurator,
+  'Publishing-Curator': userBIBSYSPublishingCurator,
+  'Support-Curator': userBIBSYSSupportCurator,
+  'Doi-Curator': userBIBSYSDoiCurator,
   'Nvi-Curator': userNviCurator,
 };
 
@@ -53,7 +53,7 @@ const createWorklistItem = (title: string, type: string) => {
   if (type === NVI) {
     cy.login(userVerifiedContributor);
   } else {
-    cy.login(userPublishNoRights);
+    cy.login(userBIBSYSPublishNoRights);
   }
   cy.createPublishedRegistration(title, publicationType, filename);
   cy.wait(5000);
@@ -280,7 +280,7 @@ const curatorAnswer = 'Test Curator answered';
 
 // Scenario: User gets an answer to a Support Request
 When('the Curator sends an answer of type "Support"', () => {
-  cy.login(userMessages);
+  cy.login(userBIBSYSMessages);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -291,7 +291,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getSuccess();
   cy.wait(10000);
 
-  cy.login(userCurator2);
+  cy.login(userBIBSYSCurator2);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
   cy.filterMessages('Support Requests');
@@ -305,7 +305,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getSuccess();
 });
 Then('the Request status is set to "Answered"', () => {
-  cy.login(userMessages);
+  cy.login(userBIBSYSMessages);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 });

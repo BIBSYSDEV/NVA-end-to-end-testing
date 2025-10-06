@@ -1,4 +1,4 @@
-import { userResourceTypeMedia } from '../../../../support/constants';
+import { userUnitResourceTypeMedia } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { mediaSubtypes } from '../../../../support/data_testid_constants';
 import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
@@ -8,7 +8,7 @@ const doiLink = 'https://doi.org/10.1126/science.169.3946.635';
 // Feature: Creator selects Resource type Media Contribution
 
 Before(() => {
-  cy.login(userResourceTypeMedia);
+  cy.login(userUnitResourceTypeMedia);
   cy.startWizardWithEmptyRegistration();
 });
 

@@ -1,4 +1,4 @@
-import { userSaveThesis } from '../../../../support/constants';
+import { userUnitSaveThesis } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
@@ -38,7 +38,7 @@ const degreeContributorRoles = {
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
-  cy.login(userSaveThesis);
+  cy.login(userUnitSaveThesis);
   cy.startWizardWithEmptyRegistration();
 });
 Given('selects {string}', (resourceType) => {

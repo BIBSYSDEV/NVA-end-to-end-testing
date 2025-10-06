@@ -1,7 +1,6 @@
-import { userEditor1 } from '../../../support/constants';
+import { userUnitEditor1 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
-
 
 // Feature: Editor manages curators area of responsibility
 
@@ -15,7 +14,7 @@ import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber
 
 //     Background:
 Given('a logged in Editor', () => {
-  cy.login(userEditor1);
+  cy.login(userUnitEditor1);
 });
 
 // Scenario: Editor views curators and area of responsibility

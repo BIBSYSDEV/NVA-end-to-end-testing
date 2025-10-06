@@ -1,5 +1,5 @@
 import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
-import { userResourceTypeJournal } from '../../../../support/constants';
+import { userUnitResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { journalSubtypes, journalFields } from '../../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
@@ -12,7 +12,7 @@ const corrigendumTitle = `Test article corrigendum ${uuid()}`;
 const originalPublication = `Original publication for corrigendum ${uuid()}`;
 
 BeforeAll(() => {
-  cy.login(userResourceTypeJournal);
+  cy.login(userUnitResourceTypeJournal);
   cy.createPublishedRegistration(originalPublication);
   cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
 });
@@ -65,7 +65,7 @@ When('they select the Resource subtype "Corrigendum"', () => {
 // @274
 // Scenario: Creator navigates to the Resource Type tab and see list of Journal types
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(userResourceTypeJournal);
+  cy.login(userUnitResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Resource Type tab', () => {
@@ -85,7 +85,7 @@ Then('they can select Journal Resource types:', (dataTable: DataTable) => {
 // @1656
 // Scenario: Creator sees fields for Journal type
 Given('Creator navigates to the Resource Type tab and see list of Journal types', () => {
-  cy.login(userResourceTypeJournal);
+  cy.login(userUnitResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
@@ -95,7 +95,7 @@ When('they select either of:', (dataTable: DataTable) => {
 
 // Scenario: Creator sees that fields for Journal article are validated
 Given('Creator sees fields for Journal type', () => {
-  cy.login(userResourceTypeJournal);
+  cy.login(userUnitResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
@@ -147,7 +147,7 @@ Then('they see a disabled field for Journal based on selected Journal article', 
 
 // Scenario: Creator sees that fields for Resource subtype "Corrigendum" are validated
 Given('Creator sees fields for Resource subtype "Corrigendum"', () => {
-  cy.login(userResourceTypeJournal);
+  cy.login(userUnitResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('JournalCorrigendum')).click();
@@ -155,7 +155,7 @@ Given('Creator sees fields for Resource subtype "Corrigendum"', () => {
 
 // Scenario: Creator sees extra fields for Norwegian Science Index (NVI) compatible Journal article
 Given('Creator sees fields for Journal article', () => {
-  cy.login(userResourceTypeJournal);
+  cy.login(userUnitResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get('[data-testid=resource-type-chip-AcademicArticle]').click({ force: true });

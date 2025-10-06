@@ -1,12 +1,12 @@
-import { userWithAuthor } from '../../../support/constants';
+import { userUnitWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
-import { v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 const fileName = 'example.txt';
 
 Given('the Creator publishes Publication', () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
   cy.startWizardWithEmptyRegistration();
 
   cy.createValidRegistration(fileName, `Published registration ${uuid()}`);

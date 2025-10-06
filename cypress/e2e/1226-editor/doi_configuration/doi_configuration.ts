@@ -1,5 +1,5 @@
 import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
-import { userEditor2 } from '../../../support/constants';
+import { userUnitEditor2 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 // Feature: Editor sees DOI configuration
@@ -21,7 +21,7 @@ const doiInformation = {
 
 //     Background:
 Given('a logged in Editor', () => {
-  cy.login(userEditor2);
+  cy.login(userUnitEditor2);
   cy.getDataTestId(dataTestId.header.editorLink).click();
 });
 

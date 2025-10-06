@@ -1,4 +1,4 @@
-import { userProjectManager } from '../../../support/constants';
+import { userUnitProjectManager } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -7,7 +7,7 @@ import { DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preproc
 // Background:
 Given('A User is logged in', () => {});
 Given('the User got one of the following roles:', () => {
-  cy.login(userProjectManager);
+  cy.login(userUnitProjectManager);
 });
 // | Registrator           |
 // | Project Owner         |

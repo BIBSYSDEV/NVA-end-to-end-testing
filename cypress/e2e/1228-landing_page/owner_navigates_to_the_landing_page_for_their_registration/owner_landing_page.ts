@@ -1,4 +1,4 @@
-import { userCurator, userDraftDoi, userPublishNoRights } from '../../../support/constants';
+import { userBIBSYSCurator, userUnitDraftDoi, userBIBSYSPublishNoRights } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Before, Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
@@ -22,7 +22,7 @@ Before({ tags: '@all_restrictions' }, () => {
 
 // Scenario: Owner Requests a DOI
 Given('the owner opens the Landing Page of their Registration', () => {
-  cy.login(userDraftDoi);
+  cy.login(userUnitDraftDoi);
   cy.startWizardWithEmptyRegistration();
 });
 Given('the Registration has no DOI', () => {
@@ -41,7 +41,7 @@ Then('they can see a reserved DOI', () => {
 
 // Scenario: Owner wants to publish Resource
 When("the Owner previews the Resource's Landing Page", () => {
-  cy.login(userPublishNoRights);
+  cy.login(userBIBSYSPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, `${title} ${uuid()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -71,7 +71,7 @@ Then('the user is informed that progress can be viewed in My Messages', () => {}
 
 // Scenario: Owner wants to publish Resource, all restrictions
 Given('Institutions publications policy is "Only Curator can publish"', () => {
-  cy.login(userPublishNoRights);
+  cy.login(userBIBSYSPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, `${title} ${uuid()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -85,7 +85,7 @@ Then('the Owner see a Landing Page with an Unpublished Resource', () => {
   });
 });
 Then('an Approval Request is sent to his Curator', () => {
-  cy.login(userCurator);
+  cy.login(userBIBSYSCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.contains(title);
 });
@@ -96,7 +96,7 @@ Then(
 
 // Scenario: Owner wants to publish Resource, file restrictions
 Given('Institutions publications policy is "Registrator can only publish metadata"', () => {
-  cy.login(userPublishNoRights);
+  cy.login(userBIBSYSPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, `${title} ${uuid()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -114,7 +114,7 @@ Then("the Resource's status is Published", () => {
 Then("the Resource's files, license and embargo date are locked with a pending approval notification", () => {});
 Then('the number of files is visible', () => {});
 Then('an Approval Request is sent to the Curator', () => {
-  cy.login(userCurator);
+  cy.login(userBIBSYSCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
@@ -130,7 +130,7 @@ Then(
 
 // Scenario: Owner uses the Publish option on Landing Page
 Given('Institutions publications policy is "Registrator has full publishing rights"', () => {
-  cy.login(userDraftDoi);
+  cy.login(userUnitDraftDoi);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, `${title} ${uuid()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -139,7 +139,7 @@ Then('the Resource\'s status is "Published"', () => {});
 
 // Scenario: Owner navigates to the Landing Page for their draft Resource with Validation Errors
 When('the Creator navigates to the Landing Page', () => {
-  cy.login(userDraftDoi);
+  cy.login(userUnitDraftDoi);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type('Test draft publication');
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();

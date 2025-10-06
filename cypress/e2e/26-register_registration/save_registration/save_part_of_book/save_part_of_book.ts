@@ -1,4 +1,4 @@
-import { userSavePartOfBook } from '../../../../support/constants';
+import { userUnitSavePartOfBook } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
@@ -14,7 +14,7 @@ const fields = [
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 const initData = () => {
-  cy.login(userSavePartOfBook);
+  cy.login(userUnitSavePartOfBook);
   cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'BookAnthology');
   cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportResearch');
   cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportBookOfAbstract');
@@ -27,7 +27,7 @@ BeforeAll(() => initData());
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
-  cy.login(userSavePartOfBook);
+  cy.login(userUnitSavePartOfBook);
 });
 Given('selects {string}', (resourceType) => {
   cy.startWizardWithEmptyRegistration();

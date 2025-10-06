@@ -1,6 +1,6 @@
 //  Feature: Scenarios for search
 
-import { userPublishRegistration, userWithAuthor, userWithAuthor1 } from '../../../support/constants';
+import { userBIBSYSPublishRegistration, userUnitWithAuthor, userUnitWithAuthor1 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
@@ -16,13 +16,20 @@ const visitStartPage = () => {
   cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
 };
 
+const journalUuid = uuid();
+const searchResultJournal = `Search result - Journal ${journalUuid}`;
+const conferenceAbstractUuid = uuid();
+const searchResultConferenceAbstract = `Search result - Conference abstract ${conferenceAbstractUuid}`;
+const anthologyUuid = uuid();
+const searchResultAnthology = `Search result - Anthology ${anthologyUuid}`;
+
 const initData = () => {
-  cy.login(userWithAuthor);
-  cy.createPublishedRegistration(`Search result - Journal ${uuid()}`);
-  cy.login(userWithAuthor1);
-  cy.createPublishedRegistration(`Search result - Conference abstract ${uuid()}`);
-  cy.login(userPublishRegistration);
-  cy.createPublishedRegistration(`Search result - Anthology ${uuid()}`, 'BookAnthology');
+  cy.login(userUnitWithAuthor);
+  cy.createPublishedRegistration(searchResultJournal);
+  cy.login(userUnitWithAuthor1);
+  cy.createPublishedRegistration(searchResultConferenceAbstract);
+  cy.login(userBIBSYSPublishRegistration);
+  cy.createPublishedRegistration(searchResultAnthology, 'BookAnthology');
   cy.getDataTestId(dataTestId.header.menuButton).click();
   cy.clearAllLocalStorage();
   cy.clearAllCookies();
@@ -34,7 +41,7 @@ BeforeAll(() => initData());
 //      Scenario: An anonymous Aser opens start page and sees search results
 Given('an anonymous User', () => {});
 When('they open the start page', () => {
-  cy.visit('/');
+  cy.visit('/filter');
   cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.getDataTestId(dataTestId.frontPage.searchInputField).should('be.visible');
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -48,7 +55,7 @@ Then('they see a list of Registratons', () => {
 Given('a User has searched for Registrations', () => {
   visitStartPage();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type('search result journal{enter}');
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${journalUuid}{enter}`);
 });
 When('they see the search result list', () => {
   cy.getDataTestId('search-results');

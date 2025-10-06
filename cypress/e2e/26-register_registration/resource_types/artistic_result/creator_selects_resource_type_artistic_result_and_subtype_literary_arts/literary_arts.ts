@@ -1,6 +1,6 @@
 // Feature: Creator selects Resource type Artistic Result and subtype Literary Arts
 
-import { userLiteraryArts } from '../../../../../support/constants';
+import { userUnitLiteraryArts } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import {
   literaryArtsAnnouncements,
@@ -13,7 +13,7 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
-  cy.login(userLiteraryArts);
+  cy.login(userUnitLiteraryArts);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
@@ -51,7 +51,7 @@ Then('they can add Announcements of type:', (dataTable: DataTable) => {
 
 //   Scenario: Creator adds an Monograph
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"', () => {
-  cy.login(userLiteraryArts);
+  cy.login(userUnitLiteraryArts);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.resourceTypeChip('LiteraryArts')}]`).click();
@@ -59,7 +59,9 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 When('they add a Monograph with details for:', (dataTable: DataTable) => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addBookButton}]`).click();
   dataTable.raw().forEach((field: string[]) => {
-    cy.get(`[data-testid=${literaryArtsBookFields[field[0]]['field']}]`).type(literaryArtsBookFields[field[0]]['value']);
+    cy.get(`[data-testid=${literaryArtsBookFields[field[0]]['field']}]`).type(
+      literaryArtsBookFields[field[0]]['value']
+    );
   });
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
 });

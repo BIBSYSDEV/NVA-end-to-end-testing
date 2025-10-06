@@ -1,4 +1,4 @@
-import { adminUser1 } from '../../../support/constants';
+import { adminUserUnit1 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { institutionFields } from '../../../support/data_testid_constants';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
@@ -15,7 +15,7 @@ const sectors = {
 
 // Common steps
 Given('that the user is logged in as Application Administrator', () => {
-  cy.login(adminUser1);
+  cy.login(adminUserUnit1);
 });
 Then('they see information for', (table: DataTable) => {
   table.raw().forEach((heading) => {

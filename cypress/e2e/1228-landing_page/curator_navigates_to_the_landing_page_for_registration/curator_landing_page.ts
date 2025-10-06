@@ -1,11 +1,11 @@
 // Feature: Curator navigates to the Landing Page for Registration
 
 import {
-  userCurator,
-  userDoiCurator,
-  userPublishingCurator,
-  userPublishNoRights,
-  userPublishRegistration,
+  userBIBSYSCurator,
+  userBIBSYSDoiCurator,
+  userBIBSYSPublishingCurator,
+  userBIBSYSPublishNoRights,
+  userBIBSYSPublishRegistration,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
@@ -58,7 +58,7 @@ Before({ tags: '@doi_request' }, () => {
 
 //   Scenario: Curator Approves a Publishing Request
 Given('a Curator opens the Landing Page of a Registration', () => {
-  cy.login(userPublishNoRights);
+  cy.login(userBIBSYSPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   const registrationTitle = `${title} ${uuidv4()}`;
   cy.wrap(registrationTitle).as('registrationTitle');
@@ -75,9 +75,9 @@ Given('a Curator opens the Landing Page of a Registration', () => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
       cy.getSuccess();
-      cy.login(userDoiCurator);
+      cy.login(userBIBSYSDoiCurator);
     } else {
-      cy.login(userPublishingCurator);
+      cy.login(userBIBSYSPublishingCurator);
     }
     cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
     cy.wait(5000);
@@ -108,7 +108,7 @@ Given('a Curator from a customer with Workflow {string}', (workflow) => {
   } else if (workflow === 'Only Curator can publish') {
     cy.setWorkflowRegistratorRequiresApproval();
   }
-  cy.login(userPublishNoRights);
+  cy.login(userBIBSYSPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   const registrationTitle = `${title} ${uuidv4()}`;
   cy.wrap(registrationTitle).as('registrationTitle');
@@ -120,7 +120,7 @@ Given('a Curator from a customer with Workflow {string}', (workflow) => {
 });
 Given('they opens the Landing Page of a Registration', () => {
   cy.get('@path').then((path) => {
-    cy.login(userCurator);
+    cy.login(userBIBSYSCurator);
     cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.get('[value=BIBSYS]');
@@ -160,7 +160,7 @@ Then('all files are {string}', (fileStatus) => {});
 
 // Scenario: Curator opens a Registration from a DOI Request
 Given('that a Curator views their Worklist', () => {
-  cy.login(userPublishNoRights);
+  cy.login(userBIBSYSPublishNoRights);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(fileName, doiRequestTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -170,7 +170,7 @@ Given('that a Curator views their Worklist', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-  cy.login(userCurator);
+  cy.login(userBIBSYSCurator);
   cy.wait(5000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
@@ -224,7 +224,7 @@ Then('the DOI is findable', () => {
 
 //   Scenario: Curator Rejects a DOI Request
 When('they reject the DOI Request', () => {
-  cy.login(userCurator);
+  cy.login(userBIBSYSCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
   cy.get('@registrationTitle').then((searchTitle) => {

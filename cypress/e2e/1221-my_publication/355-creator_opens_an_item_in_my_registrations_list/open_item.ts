@@ -1,4 +1,4 @@
-import { userMyRegistrations } from '../../../support/constants';
+import { userUnitMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { descriptionFields } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
@@ -8,7 +8,7 @@ const errorTitle = `Registration with validation error ${uuid()}`;
 const registrationTitle = `Registration ${uuid()}`;
 
 const initData = () => {
-  cy.login(userMyRegistrations);
+  cy.login(userUnitMyRegistrations);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -43,7 +43,7 @@ BeforeAll(() => initData());
 
 // Common step
 Given('that the user is logged in as Creator', () => {
-  cy.login(userMyRegistrations);
+  cy.login(userUnitMyRegistrations);
 });
 // end common step
 

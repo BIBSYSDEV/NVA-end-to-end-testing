@@ -1,6 +1,6 @@
 // Feature: User sees published Registrations
 
-import { userPublishedRegistration } from '../../../support/constants';
+import { userUnitPublishedRegistration } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { myRegistrationsButtons } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
@@ -8,7 +8,7 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 
 // Scenario: User sees published Registrations
 Given('Creator opens the page My Registrations', () => {
-  cy.login(userPublishedRegistration);
+  cy.login(userUnitPublishedRegistration);
   const title = `Published registration ${uuid()}`;
   cy.createPublishedRegistration(title);
   cy.wait(3000);

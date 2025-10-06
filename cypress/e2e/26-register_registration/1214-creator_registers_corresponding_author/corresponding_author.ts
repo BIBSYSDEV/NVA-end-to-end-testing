@@ -1,9 +1,9 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { userWithAuthor } from '../../../support/constants';
+import { userUnitWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get('[data-testid=resource-type-chip-AcademicMonograph]').click();
@@ -17,7 +17,9 @@ Given('they see an Author', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}] > div > input`).type(
     'Testuser Withauthor{enter}'
   );
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectPersonForContributor}]`).first().click({ force: true });
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectPersonForContributor}]`)
+    .first()
+    .click({ force: true });
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
 });
 When('they check the Corresponding checkbox', () => {

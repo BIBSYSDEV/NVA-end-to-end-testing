@@ -1,4 +1,4 @@
-import { userResourceTypeChapter } from '../../../../support/constants';
+import { userUnitResourceTypeChapter } from '../../../../support/constants';
 import { chapterContainerField, chapterFields, chapterSubtypes } from '../../../../support/data_testid_constants';
 import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 import { dataTestId } from '../../../../support/dataTestIds';
@@ -7,7 +7,7 @@ import { dataTestId } from '../../../../support/dataTestIds';
 // Feature: Creator selects Resource type Chapter
 
 Before(() => {
-  cy.login(userResourceTypeChapter);
+  cy.login(userUnitResourceTypeChapter);
   cy.startWizardWithEmptyRegistration();
 });
 

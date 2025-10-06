@@ -1,4 +1,4 @@
-import { userResourceTypePresentation } from '../../../../support/constants';
+import { userUnitResourceTypePresentation } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { persentationFields, presentationSubtypes } from '../../../../support/data_testid_constants';
 import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
@@ -6,7 +6,7 @@ import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber
 // Feature: Creator selects Resource type Presentation
 
 Before(() => {
-  cy.login(userResourceTypePresentation);
+  cy.login(userUnitResourceTypePresentation);
   cy.startWizardWithEmptyRegistration();
 });
 

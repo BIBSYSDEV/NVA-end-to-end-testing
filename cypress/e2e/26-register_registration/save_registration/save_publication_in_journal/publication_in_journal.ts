@@ -1,4 +1,4 @@
-import { userSaveJournal } from '../../../../support/constants';
+import { userUnitSaveJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
@@ -30,7 +30,7 @@ const fields = {
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 const initData = () => {
-  cy.login(userSaveJournal);
+  cy.login(userUnitSaveJournal);
   const originalPublication = `Original publication for corrigendum ${uuidv4()}`;
   cy.createPublishedRegistration(originalPublication);
   const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
@@ -45,7 +45,7 @@ BeforeAll(() => initData());
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
-  cy.login(userSaveJournal);
+  cy.login(userUnitSaveJournal);
   cy.startWizardWithEmptyRegistration();
 });
 Given('selects {string}', (resourceType) => {

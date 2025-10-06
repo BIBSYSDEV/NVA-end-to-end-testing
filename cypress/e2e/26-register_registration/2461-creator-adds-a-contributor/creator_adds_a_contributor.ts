@@ -1,102 +1,102 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { userContributors } from "../../../support/constants"
-import { dataTestId } from "../../../support/dataTestIds";
-import { contributorTypes } from "../../../support/data_testid_constants";
+import { userUnitContributors } from '../../../support/constants';
+import { dataTestId } from '../../../support/dataTestIds';
+import { contributorTypes } from '../../../support/data_testid_constants';
 
 // Feature: Creator adds a Contributor
 
 const registrationTypes = {
-    'ReportAbstractCollection': 'ReportBookOfAbstract',
-    'Dataset': 'DataSet',
-}
+  'ReportAbstractCollection': 'ReportBookOfAbstract',
+  'Dataset': 'DataSet',
+};
 
 const openContributorAddDialog = () => {
-    cy.login(userContributors);
-    cy.startWizardWithEmptyRegistration();
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-}
+  cy.login(userUnitContributors);
+  cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+};
 
 const selectContributorType = () => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
-    cy.get('[data-value=Creator]').click();
-}
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
+  cy.get('[data-value=Creator]').click();
+};
 
 const enterSearchTerm = () => {
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Withauthor TestUser{enter}');
-}
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Withauthor TestUser{enter}');
+};
 
 const selectContributor = () => {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
-}
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
+};
 
 const creatorSelectContributorType = () => {
-    openContributorAddDialog();
-    selectContributorType();
-}
+  openContributorAddDialog();
+  selectContributorType();
+};
 
 const searchForContributor = () => {
-    creatorSelectContributorType()
-    enterSearchTerm();
-    selectContributor();
-}
+  creatorSelectContributorType();
+  enterSearchTerm();
+  selectContributor();
+};
 
 const creatorSelectsContributorFromSearch = () => {
-    searchForContributor();
-}
+  searchForContributor();
+};
 
 // Scenario Outline: Creator opens the Add Contributor Dialog
 Given('Creator navigates to Contributors tab', () => {
-    cy.login(userContributors);
-    cy.startWizardWithEmptyRegistration();
-})
+  cy.login(userUnitContributors);
+  cy.startWizardWithEmptyRegistration();
+});
 Given('the Registration has Registration Type {string}', (type: string) => {
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-    if (registrationTypes[type]) {
-        cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(registrationTypes[type])).click();
-    } else {
-        cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(type)).click();
-    }
-    if (type === 'Dataset') {
-        cy.getDataTestId(dataTestId.confirmDialog.cancelButton).click();
-    }
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-})
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  if (registrationTypes[type]) {
+    cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(registrationTypes[type])).click();
+  } else {
+    cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(type)).click();
+  }
+  if (type === 'Dataset') {
+    cy.getDataTestId(dataTestId.confirmDialog.cancelButton).click();
+  }
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+});
 When('they click "Add Contributor"', () => {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-})
-Then('they see the "Add Contributor" Dialog', () => { })
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+});
+Then('they see the "Add Contributor" Dialog', () => {});
 Then('they see a dropdown with Contributor Types {string}', (typeList: string) => {
-    const types = typeList.split(', ');
-    const otherTypes = {
-        '': 'RoleOther',
+  const types = typeList.split(', ');
+  const otherTypes = {
+    '': 'RoleOther',
+  };
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
+  types.forEach((contributorType) => {
+    if (contributorType !== 'Other') {
+      cy.get(`[data-value=${contributorTypes[contributorType]}]`).should('be.visible');
+    } else {
+      const otherType = 'RoleOther';
+      cy.get(`[data-value=${otherType}]`).should('be.visible');
     }
-    cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
-    types.forEach((contributorType) => {
-        if (contributorType !== 'Other') {
-            cy.get(`[data-value=${contributorTypes[contributorType]}]`).should('be.visible');
-        } else {
-            const otherType = 'RoleOther';
-            cy.get(`[data-value=${otherType}]`).should('be.visible');
-        }
-    });
-    cy.get(`[data-value=${contributorTypes[types[0]]}]`).click()
-})
+  });
+  cy.get(`[data-value=${contributorTypes[types[0]]}]`).click();
+});
 Then('they see a "Close" Button', () => {
-    cy.getDataTestId(dataTestId.confirmDialog.cancelButton).should('be.visible');
-})
+  cy.getDataTestId(dataTestId.confirmDialog.cancelButton).should('be.visible');
+});
 Then('they see a "Create new Contributor" Button', () => {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).should('be.visible');
-})
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addUnverifiedContributorButton).should('be.visible');
+});
 Then('they see a "Add me as Contributor" Button', () => {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).should('be.visible');
-})
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).should('be.visible');
+});
 Then('they see a disabled "Add" Button', () => {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).should('be.disabled');
-})
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).should('be.disabled');
+});
 // Examples:
 //     | RegistrationType              | ContributorTypes                                                                                                                                                              |
 //     | BookAnthology                 | Contact person, Related person, Researcher, Rights holder, Supervisor, Other                                                                                                  |
@@ -160,52 +160,54 @@ Then('they see a disabled "Add" Button', () => {
 
 // Scenario: Creator selects a Contributor Type
 Given('Creator opens the Add Contributor Dialog', () => {
-    openContributorAddDialog()
-})
+  openContributorAddDialog();
+});
 When('they select a Contributor Type', () => {
-    selectContributorType()
-})
+  selectContributorType();
+});
 Then('they see a search field', () => {
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).should('be.visible');
-})
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).should('be.visible');
+});
 
 // Scenario: Creator searches for a Contributor
 Given('Creator selects a Contributor Type', () => {
-    creatorSelectContributorType()
-})
+  creatorSelectContributorType();
+});
 When('they enter a search term', () => {
-    enterSearchTerm();
-})
+  enterSearchTerm();
+});
 Then('they see a List of Contributors matching the search term', () => {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).should('have.length.above', 0);
-})
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).should(
+    'have.length.above',
+    0
+  );
+});
 Then('they see number of hits and the search term', () => {
-    cy.contains('Showing 1-10 of 16');
-})
+  cy.contains('Showing 1-10 of 16');
+});
 Then('they see Previous Publications by the Contributors', () => {
-    cy.contains('other registrations')
-})
+  cy.contains('other registrations');
+});
 Then('they see the Primary Institution for the Contributors', () => {
-    cy.contains('The Norwegian Directorate for ICT and Joint Services in Higher Education and Research');
-})
+  cy.contains('The Norwegian Directorate for ICT and Joint Services in Higher Education and Research');
+});
 
 // Scenario: Creator selects a Contributor from search
 Given('Creator searches for a Contributor', () => {
-    searchForContributor();
-})
-When('they click on a Contributor from the search result', () => {
-})
+  searchForContributor();
+});
+When('they click on a Contributor from the search result', () => {});
 Then('they see the "Add" Button is enabled', () => {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).should('be.enabled');
-})
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).should('be.enabled');
+});
 
 // Scenario: Creator adds a Contributor to the List of Contributors
 Given('Creator selects a Contributor from search', () => {
-    creatorSelectsContributorFromSearch();
-})
+  creatorSelectsContributorFromSearch();
+});
 When('they click the "Add" Button', () => {
-    cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click()
-})
-Then('the Dialog is closed', () => { })
-Then('the selected Contributor is added to the List of Contributors', () => { })
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+});
+Then('the Dialog is closed', () => {});
+Then('the selected Contributor is added to the List of Contributors', () => {});

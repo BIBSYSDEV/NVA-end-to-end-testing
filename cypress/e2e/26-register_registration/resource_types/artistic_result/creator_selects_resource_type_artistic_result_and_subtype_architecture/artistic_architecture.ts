@@ -1,4 +1,4 @@
-import { userResourceTypeArchitecture } from '../../../../../support/constants';
+import { userUnitResourceTypeArchitecture } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import {
   architectureTypes,
@@ -14,7 +14,7 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 
 // Common steps:
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Architecture"', () => {
-  cy.login(userResourceTypeArchitecture);
+  cy.login(userUnitResourceTypeArchitecture);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).click();
   cy.get('[data-testid=resource-type-chip-Architecture]').click();
@@ -23,7 +23,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 
 //   Scenario: Creator navigates to the Resource Type tab And('selects Resource subtype "Architecture"
 Given('the creator wants to add an Artistic Result - Architecture', () => {
-  cy.login(userResourceTypeArchitecture);
+  cy.login(userUnitResourceTypeArchitecture);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.nextTabButton).click();
   cy.get('[data-testid=resource-type-chip-Architecture]').click();

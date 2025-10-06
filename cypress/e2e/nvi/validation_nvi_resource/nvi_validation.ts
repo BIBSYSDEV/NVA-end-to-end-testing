@@ -1,7 +1,11 @@
 // Feature: Validation of an NVI resource
 
 import { BeforeAll, DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { userNviCuratorInstitutionB, userNviCuratorInstitutionA, userNviCurator } from '../../../support/constants';
+import {
+  userBIBSYSNviCuratorInstitution,
+  userNviCuratorInstitutionA,
+  userNviCurator,
+} from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { NVI_APPROVED, NVI_ASSIGNED, NVI_DISPUTE, NVI_PENDING, NVI_REJECTED } from '../../../support/commands';
@@ -103,7 +107,7 @@ BeforeAll(() => {
     }
   });
 
-  cy.login(userNviCuratorInstitutionB);
+  cy.login(userBIBSYSNviCuratorInstitution);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   Object.keys(titles).forEach((key) => {
@@ -130,7 +134,7 @@ Given('a logged-in User', () => {
   cy.getDataTestId(dataTestId.common.skeleton);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });
-Given('the User has the role "NVI-Curator" at an NVI-Institution', () => { });
+Given('the User has the role "NVI-Curator" at an NVI-Institution', () => {});
 Given('the User has navigated to the NVI section from the Tasks option in the main menu', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
@@ -167,10 +171,10 @@ Then('the Curator field is set to none by default', () => {
     cy.get('input').should('not.have.value');
   });
 });
-Then('the Area of responsibility field reflects my curator permissions', () => { });
+Then('the Area of responsibility field reflects my curator permissions', () => {});
 
 // Scenario: Menu on NVI page
-When('the User navigate to the Task page', () => { });
+When('the User navigate to the Task page', () => {});
 Then('a menu containing following objects are visable:', () => {
   cy.get('[role=progressbar');
   cy.getDataTestId('status-filter');
@@ -199,9 +203,9 @@ const availabilityFilter = {
 };
 
 // Scenario Outline: Check correct status
-When('the User select a status', () => { });
-When("the Resources have authors that are affiliated with the Curator's Institution", () => { });
-When('the authors affiliation is within the Users Area of responibiliy', () => { });
+When('the User select a status', () => {});
+When("the Resources have authors that are affiliated with the Curator's Institution", () => {});
+When('the authors affiliation is within the Users Area of responibiliy', () => {});
 When('status for own institution is {string}', (ownInstitution) => {
   cy.wrap(ownInstitution).as('ownInstitution');
 });
@@ -245,7 +249,7 @@ Then('the Results are listed under {string}', (status) => {
 // | Dispute                                     | Candidate       | Dispute                    |
 
 // Scenario: The progress bar display the current NVI-report status
-When('the User wish to see details', () => { });
+When('the User wish to see details', () => {});
 Then('the User may select "Show reporting status"', () => {
   cy.getDataTestId('show-reporting-status-button').should('exist');
 });
@@ -273,8 +277,8 @@ Then('the columns show NVI resource statuses', () => {
     cy.get('th').should('contain', status);
   });
 });
-Then("the rows represent my institution's subunits", () => { });
-Then('I can select to view any previous year', () => { });
+Then("the rows represent my institution's subunits", () => {});
+Then('I can select to view any previous year', () => {});
 Then('I has an export option', () => {
   cy.getDataTestId(dataTestId.common.exportButton).should('exist');
 });

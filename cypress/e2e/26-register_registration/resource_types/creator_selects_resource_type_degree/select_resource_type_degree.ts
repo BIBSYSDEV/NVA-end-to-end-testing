@@ -1,4 +1,4 @@
-import { userResourceTypeDegree, userWithAuthor } from '../../../../support/constants';
+import { userUnitResourceTypeDegree, userUnitWithAuthor } from '../../../../support/constants';
 import { studentThesisSubtypes, studentThesisFields } from '../../../../support/data_testid_constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
@@ -7,7 +7,7 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 
 // Common steps
 Given('Creator navigates to the Resource Type tab and selects Resource type "Student thesis"', () => {
-  cy.login(userResourceTypeDegree);
+  cy.login(userUnitResourceTypeDegree);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
@@ -19,7 +19,7 @@ Then('they see fields:', (dataTable: DataTable) => {
 // @394
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Student thesis"
 Given('Creator navigates to Resource Type tab', () => {
-  cy.login(userResourceTypeDegree);
+  cy.login(userUnitResourceTypeDegree);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
 });
@@ -36,7 +36,7 @@ Then('they see a list of subtypes:', (dataTable: DataTable) => {
 
 // Scenario: Non-Curator user select Resource type "Student thesis"
 Given('Creator without rights to register thesis navigates to Resource Type tab', () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
 });
@@ -66,7 +66,7 @@ When('they select the Subtype {string}', (subtype: string) => {
 
 // Scenario: Creator sees that fields are validated for Resource subtypes for "Student thesis"
 Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
-  cy.login(userResourceTypeDegree);
+  cy.login(userUnitResourceTypeDegree);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
   cy.get(`[data-testid^=resource-type-chip-Degree]`).first().click();

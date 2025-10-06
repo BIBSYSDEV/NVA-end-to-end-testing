@@ -1,4 +1,4 @@
-import { userSaveMediaContribution } from '../../../../support/constants';
+import { userUnitSaveMediaContribution } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
@@ -45,7 +45,7 @@ const mediaContributorRoles = {
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
-  cy.login(userSaveMediaContribution);
+  cy.login(userUnitSaveMediaContribution);
   cy.startWizardWithEmptyRegistration();
 });
 Given('selects {string}', (resourceType) => {

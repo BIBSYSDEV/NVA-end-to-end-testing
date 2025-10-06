@@ -1,11 +1,11 @@
-import { userResourceTypeBook } from '../../../../support/constants';
+import { userUnitResourceTypeBook } from '../../../../support/constants';
 import { bookSubtypes, bookFields } from '../../../../support/data_testid_constants';
-import {Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 import { dataTestId } from '../../../../support/dataTestIds';
 
 // Feature: Creator selects Resource type Book
 Before(() => {
-  cy.login(userResourceTypeBook);
+  cy.login(userUnitResourceTypeBook);
   cy.startWizardWithEmptyRegistration();
 });
 

@@ -1,10 +1,10 @@
-import { userSecondInstAdminWithAuthor } from '../../../support/constants';
+import { userSiktInstAdmin } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 // Background:
 Given('an Administrator is logged in', () => {
-  cy.login(userSecondInstAdminWithAuthor);
+  cy.login(userSiktInstAdmin);
 });
 
 const userName = 'Eirik Nilsen';
@@ -40,9 +40,9 @@ Then('the Person Number is displayed as date of birth followed by 5 stars \\(*)'
     .invoke('text')
     .should('contain', '*****');
 });
-Then('each Person s name is followed by the ORCID-logo if an ORCID is connected', () => { });
-Then('each Persons employments sub-unit-affiliation at current institution is displayed', () => { });
-Then('Persons with more than one employment at current institution has an "show more"-option', () => { });
+Then('each Person s name is followed by the ORCID-logo if an ORCID is connected', () => {});
+Then('each Persons employments sub-unit-affiliation at current institution is displayed', () => {});
+Then('Persons with more than one employment at current institution has an "show more"-option', () => {});
 Then('each Person has an option to edit', () => {
   cy.get(`[data-testid^=${dataTestId.basicData.personAdmin.nin('')}]`)
     .first()
@@ -54,11 +54,11 @@ Then('each Person has an option to edit', () => {
 Then('there is a search option to locate some persons', () => {
   cy.getDataTestId(dataTestId.basicData.personRegisterSearchBar).should('exist');
 });
-Then('the menu has an option to filter the list', () => { });
+Then('the menu has an option to filter the list', () => {});
 Then('the menu has an option to employ a new Person', () => {
   cy.getDataTestId(dataTestId.basicData.addEmployeeLink).should('exist');
 });
-Then('the column titles can be used to sort the list', () => { });
+Then('the column titles can be used to sort the list', () => {});
 
 // Scenario: Create or edit a Person and his emplyment and roles
 When('the Administrator wish to edit or add a new Person', () => {
@@ -104,7 +104,7 @@ Then(
 Then('there is an option to view other employments at current institution', () => {
   cy.get('[title=Next]');
 });
-Then('there is an option to add a new employment', () => { });
+Then('there is an option to add a new employment', () => {});
 Then('the Persons different roles at this institution is listed', () => {
   cy.getDataTestId(dataTestId.basicData.personAdmin.roleSelector).scrollIntoView().should('be.visible');
 });
@@ -138,7 +138,7 @@ Given('the Person viewed got multiple employments at current Institution', () =>
 When('the Administrator scrolls through the multiple employments', () => {
   cy.get('[title=Next]').click();
 });
-Then('details about each employment is displayed', () => { });
+Then('details about each employment is displayed', () => {});
 Then('other details about the Person and his roles are static', () => {
   cy.getDataTestId(dataTestId.basicData.personAdmin.firstName).within(() => {
     cy.get('input').should('have.value', 'Eirik');
@@ -217,11 +217,11 @@ When('the Administrator uses one of the close options', () => {
   });
   cy.get('[role=dialog]').should('not.exist');
 });
-Then('a dialog informing about loss of data is displayed', () => { });
-Then('the Administrator can choose to close or abort the close action', () => { });
+Then('a dialog informing about loss of data is displayed', () => {});
+Then('the Administrator can choose to close or abort the close action', () => {});
 
 // Scenario: Administrator saves the changes to a Person
-Given('the save option is activated', () => { });
+Given('the save option is activated', () => {});
 When('the Administrator uses the save options', () => {
   cy.get('[role=dialog]').within(() => {
     cy.get('button').filter(':contains("Save")').click();

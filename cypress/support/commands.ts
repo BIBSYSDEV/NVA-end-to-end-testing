@@ -3,7 +3,7 @@ import 'cypress-localstorage-commands';
 import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
 import { mockPersonFeideIdSearch, mockPersonNameSearch } from './mock_data';
-import { FileVersions, userSecondEditor } from './constants';
+import { FileVersions, userBIBSYSSecondEditor } from './constants';
 import { createValidRegistrationWithType } from './create_registration';
 import { login } from './login';
 
@@ -652,7 +652,7 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
 });
 
 Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
-  cy.login(userSecondEditor);
+  cy.login(userBIBSYSSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
@@ -663,7 +663,7 @@ Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
 });
 
 Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
-  cy.login(userSecondEditor);
+  cy.login(userBIBSYSSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
@@ -672,7 +672,7 @@ Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
 });
 
 Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
-  cy.login(userSecondEditor);
+  cy.login(userBIBSYSSecondEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();

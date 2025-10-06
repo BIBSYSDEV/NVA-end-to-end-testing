@@ -1,4 +1,4 @@
-import { userSaveReport } from '../../../../support/constants';
+import { userUnitSaveReport } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
@@ -36,7 +36,7 @@ const reportContributorRoles = {
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
-  cy.login(userSaveReport);
+  cy.login(userUnitSaveReport);
   cy.startWizardWithEmptyRegistration();
 });
 Given('selects {string}', (resourceType) => {

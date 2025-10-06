@@ -1,4 +1,4 @@
-import { userSaveRegistration } from '../../../support/constants';
+import { userUnitSaveRegistration } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
@@ -57,7 +57,7 @@ Then('they see that Delete is enabled', () => {
 // Scenario: Creator sees Registration based on a Link is saved
 Given('Creator begins registering with a Link', () => {
   cy.wrap('link').as('registrationMethod');
-  cy.login(userSaveRegistration);
+  cy.login(userUnitSaveRegistration);
   cy.startRegistrationWithLink(doiLink);
 });
 Then('they see the Registration is saved and the title is listed and marked as Draft', () => {
@@ -72,7 +72,7 @@ Then('they see the Registration is saved and the title is listed and marked as D
 const title = `Published Registration ${uuidv4()}`;
 // Scenario: Creator sees Registration is findable
 Given('Creator register a Registration', () => {
-  cy.login(userSaveRegistration);
+  cy.login(userUnitSaveRegistration);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, title);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();

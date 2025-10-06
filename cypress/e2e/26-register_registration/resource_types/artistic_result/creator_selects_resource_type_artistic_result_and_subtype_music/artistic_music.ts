@@ -1,6 +1,6 @@
 // Feature: Creator selects Resource type Artistic Result and subtype Music
 
-import { userMusic } from '../../../../../support/constants';
+import { userUnitMusic } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import {
   musicAudioVideoFields,
@@ -17,7 +17,7 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Music"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
-  cy.login(userMusic);
+  cy.login(userUnitMusic);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
@@ -36,9 +36,7 @@ Then('they can add Exhibitions of type:', (dataTable: DataTable) => {
 Then('they can edit existing Exhibitions', () => {
   cy.get(`[data-testid=${musicAwards['Concert']}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.placeField}]`).type('Test concert place');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDuration}]`).type(
-    '01:00:00'
-  );
+  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputDuration}]`).type('01:00:00');
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
     '11.11.2021'
@@ -55,7 +53,7 @@ Then('they can delete existing Exhibitions', () => {
 
 // Scenario: Creator adds a Concert to a Music result
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Music"', () => {
-  cy.login(userMusic);
+  cy.login(userUnitMusic);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
   cy.get('[data-testid=resource-type-chip-MusicPerformance]').click();
@@ -68,7 +66,7 @@ When('they add a Concert with details for:', (dataTable: DataTable) => {
         `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
         '11.11.2021'
       );
-    } else if (value[0] === 'Extent'){
+    } else if (value[0] === 'Extent') {
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputDuration).type('01:00:00');
     } else if (value[0] !== 'Works') {
       cy.get(`[data-testid=${musicConcertFields[value[0]]}]`).type(`Test ${value[0]}`);

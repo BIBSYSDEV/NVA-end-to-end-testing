@@ -1,4 +1,4 @@
-import { userWithAuthor } from '../../../support/constants';
+import { userUnitWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageFields } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
@@ -9,7 +9,7 @@ const fileName = 'example.txt';
 
 // Scenario: NVA contains Reigstration
 Given('there is a published Registration in NVA', () => {
-  cy.login(userWithAuthor);
+  cy.login(userUnitWithAuthor);
   cy.createPublishedRegistration(landing_page_registration_title, null, fileName);
   cy.wait(5000);
   cy.refreshPublish();
