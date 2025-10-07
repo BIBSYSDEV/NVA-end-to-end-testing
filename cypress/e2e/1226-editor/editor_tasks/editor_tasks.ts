@@ -209,5 +209,5 @@ AfterAll(() => {
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
-  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click();
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click({ force: true });
 });

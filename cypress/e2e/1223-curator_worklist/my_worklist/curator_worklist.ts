@@ -49,7 +49,7 @@ const createWorklistItem = (title: string, type: string) => {
     cy.login(userBIBSYSPublishNoRights);
   }
   cy.createPublishedRegistration(title, publicationType, filename);
-  cy.wait(5000);
+  // cy.wait(5000);
   cy.refreshPublish();
   switch (type) {
     case APPROVAL:
@@ -65,10 +65,10 @@ const createWorklistItem = (title: string, type: string) => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
       break;
     case 'NVI':
-      cy.wait(30000);
+      // cy.wait(30000);
       break;
   }
-  cy.wait(20000);
+  // cy.wait(20000);
 };
 
 const users = {
@@ -118,7 +118,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.get(`[data-value=${year}]`).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.wait(10000);
+    // cy.wait(10000);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
       cy.get('li')
         .filter(`:contains("${title}")`)
@@ -143,7 +143,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   }
   cy.getSuccess();
   if (user === 'Nvi-Curator') {
-    cy.wait(5000);
+    // cy.wait(5000);
   }
   cy.get('[title=Tasks]').click();
 
@@ -165,7 +165,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
 });
 Then('the Request Status is set to "New"', () => {});
 Then('the Request is unassigned the Curator', () => {
-  cy.wait(6000);
+  // cy.wait(6000);
   cy.get('[title=Tasks]').click();
   cy.get('@user').then((user) => {
     cy.get('@title').then((title) => {
@@ -282,7 +282,7 @@ When('the Curator sends an answer of type "Support"', () => {
     cy.getDataTestId('message-field').type('Test message{enter}');
   });
   cy.getSuccess();
-  cy.wait(10000);
+  // cy.wait(10000);
 
   cy.login(userBIBSYSCurator2);
   cy.getDataTestId(dataTestId.header.tasksLink).click();

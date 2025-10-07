@@ -190,7 +190,7 @@ Cypress.Commands.add('refreshPublish', () => {
         .length > 0
     ) {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-      cy.wait(6000);
+      // cy.wait(6000);
       cy.get('body').then(($body) => {
         if (
           $body.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
@@ -659,7 +659,7 @@ Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
   cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click({
     force: true,
   });
-  cy.wait(5000);
+  // cy.wait(5000);
 });
 
 Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
@@ -668,7 +668,7 @@ Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
   cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesMetadata).click({ force: true });
-  cy.wait(5000);
+  // cy.wait(5000);
 });
 
 Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
@@ -682,21 +682,23 @@ Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
 const doiRequests = 'DoiRequests';
 const publishingRequests = 'Publishing Requests';
 const supportRequests = 'Support Requests';
+const checkedBox =
+  'd="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2m-9 14-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"';
 
 Cypress.Commands.add('filterMessages', (messageType) => {
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).then(($button) => {
-    const publishingRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
+    const publishingRequestFilter = $button.find(`[${checkedBox}]`).length > 0;
     ((publishingRequestFilter && !(messageType === publishingRequests)) ||
       (!publishingRequestFilter && messageType === publishingRequests)) &&
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
   });
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).then(($button) => {
-    const doiRequestFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
+    const doiRequestFilter = $button.find(`[${checkedBox}]`).length > 0;
     ((doiRequestFilter && !(messageType === doiRequests)) || (!doiRequestFilter && messageType === doiRequests)) &&
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
   });
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).then(($button) => {
-    const supportFilter = $button.find('[data-testid=CheckBoxIcon]').length > 0;
+    const supportFilter = $button.find(`[${checkedBox}]`).length > 0;
     ((supportFilter && !(messageType === supportRequests)) || (!supportFilter && messageType === supportRequests)) &&
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
   });
@@ -708,11 +710,11 @@ Cypress.Commands.add('getWorklistItem', (title) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then((doc) => {
     if (doc.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length < 1) {
-      cy.wait(30000);
+      // cy.wait(30000);
       cy.reload();
     }
     if (doc.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length < 1) {
-      cy.wait(30000);
+      // cy.wait(30000);
       cy.reload();
     }
   });
@@ -725,11 +727,11 @@ Cypress.Commands.add('getNVIWorklistItem', (title) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then((doc) => {
     if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
-      cy.wait(30000);
+      // cy.wait(30000);
       cy.reload();
     }
     if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
-      cy.wait(30000);
+      // cy.wait(30000);
       cy.reload();
     }
   });
