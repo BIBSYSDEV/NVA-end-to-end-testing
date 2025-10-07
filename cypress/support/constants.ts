@@ -123,8 +123,6 @@ export const userBIBSYSPublishingCurator = 'test-user-publishing-cur@test.no';
 export const userBIBSYSSupportCurator = 'test-user-support-cur@test.no';
 export const userBIBSYSDoiCurator = 'test-user-doi-cur@test.no';
 export const uploaderBIBSYS = 'test-user-colaboration-BIBSYS@test.no';
-export const uploaderNMBU = 'test-user-colaboration-NMBU@test.no';
-export const uploaderUSN = 'test-user-colaboration-USN@test.no';
 export const userBIBSYSCollaborationCurator = 'test-user-colaboration-curator-BIBSYS@test.no';
 export const userBIBSYSNviInstitution = 'test-user-NVI-B@test.no';
 export const userBIBSYSNviCuratorInstitution = 'test-user-curator-NVI-BB@test.no';
@@ -137,12 +135,14 @@ export const userNtnuVerifiedContributor = 'test-user-access-verified-contributo
 export const userNmbuCollaborationCurator = 'test-user-colaboration-curator-NMBU@test.no';
 export const userNmbuNvaInstitution = 'test-user-NVA-C@test.no';
 export const userNmbuChangeNvaInstitution = 'test-user-change-NVA-C@test.no';
+export const uploaderNMBU = 'test-user-colaboration-NMBU@test.no';
 
 export const userUSNCollaborationCurator = 'test-user-colaboration-curator-USN@test.no';
 export const userUSNNviInstitution = 'test-user-NVI-A@test.no';
 export const userUSNNviCuratorInstitution = 'test-user-curator-NVI-A@test.no';
 export const userUSNChangeNviInstitution = 'test-user-change-NVI-A@test.no';
 export const userUSNChangeNviCuratorInstitution = 'test-user-change-cur-NVI-A@test.no';
+export const uploaderUSN = 'test-user-colaboration-USN@test.no';
 
 export const userSintefSupportMessages = 'test-user-support-messages-sintef@test.no';
 export const userSintefPublicationCuratorMessages = 'test-user-publication-curator-messages-sintef@test.no';

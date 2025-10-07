@@ -1,6 +1,6 @@
 import { userUnitEditor, userBIBSYSSecondEditor, userSiktThirdEditor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, DataTable, AfterAll } from '@badeball/cypress-cucumber-preprocessor';
 
 //     In order to see who is responsible for which parts of the institution
 //     As an Editor
@@ -140,7 +140,7 @@ Then('the publications policy is:', () => {
 
 // Scenario: Editor defines publishing rights
 Given('a Editor views the Editor page', () => {
-  cy.login(userBIBSYSSecondEditor);
+  cy.login(userSiktThirdEditor);
   cy.getDataTestId(dataTestId.header.editorLink).click();
   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
@@ -163,7 +163,6 @@ Then('the Editor is notified that a new policy is activated', () => {
       cy.getSuccess();
     }
   });
-  cy.wait(3000);
 });
 
 const vocabularies = {
@@ -204,3 +203,11 @@ Then('they can set a Vocabulary to be one of:', (dataTable: DataTable) => {
 // | Disabled |
 // | Allowed  |
 // | Default  |
+
+AfterAll(() => {
+  cy.login(userSiktThirdEditor);
+  cy.getDataTestId(dataTestId.header.editorLink).click();
+  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
+  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
+  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click();
+});
