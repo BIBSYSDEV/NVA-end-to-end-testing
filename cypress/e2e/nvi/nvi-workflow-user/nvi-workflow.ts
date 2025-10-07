@@ -1,7 +1,7 @@
 // Feature: NVI workflow
 
 import { dataTestId } from '../../../support/dataTestIds';
-import { userNviCuratorInstitutionA, userNviInstitutionA } from '../../../support/constants';
+import { userUSNNviCuratorInstitution, userUSNNviInstitution } from '../../../support/constants';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
 import { NVI_PENDING } from '../../../support/commands';
@@ -28,7 +28,7 @@ Given(
     isNviPublication: string
   ) => {
     const title = `User ${typeOfRegistration} ${category} ${publicationStatus} ${isCollaboration} ${uuid()}`;
-    cy.login(userNviInstitutionA);
+    cy.login(userUSNNviInstitution);
     if (publicationStatus === PUBLISHED) {
       cy.createPublishedRegistration(title);
     } else {
@@ -72,7 +72,7 @@ Given(
 
 // Scenario Outline: Publication NVI status - user
 Given('a Curator views the NVI-tasklist', () => {
-  cy.login(userNviCuratorInstitutionA);
+  cy.login(userUSNNviCuratorInstitution);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');

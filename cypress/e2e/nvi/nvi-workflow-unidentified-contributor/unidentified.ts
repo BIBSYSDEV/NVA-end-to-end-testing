@@ -1,6 +1,6 @@
 // Feature: NVI-candidates with unidentified users
 
-import { userChangeNviCuratorInstitutionA } from '../../../support/constants';
+import { userUSNChangeNviCuratorInstitution } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { todayDatePicker } from '../../../support/commands';
@@ -14,7 +14,7 @@ const PUBLISHER = 'publisher';
 const SERIES = 'series';
 
 Given('a publication of {string} published in the active period', (type) => {
-  cy.login(userChangeNviCuratorInstitutionA);
+  cy.login(userUSNChangeNviCuratorInstitution);
   cy.wrap(type).as('type');
 });
 Given(

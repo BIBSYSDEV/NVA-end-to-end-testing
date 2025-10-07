@@ -1,10 +1,10 @@
 import {
   userBIBSYSPublishNoRights,
   userBIBSYSDoiCurator,
-  userNviCurator,
+  userNtnuNviCurator,
   userBIBSYSPublishingCurator,
   userBIBSYSSupportCurator,
-  userVerifiedContributor,
+  userNtnuVerifiedContributor,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
@@ -21,7 +21,7 @@ const curatorUsers = {
   'Publishing-Curator': userBIBSYSPublishingCurator,
   'Support-Curator': userBIBSYSSupportCurator,
   'Doi-Curator': userBIBSYSDoiCurator,
-  'Nvi-Curator': userNviCurator,
+  'Nvi-Curator': userNtnuNviCurator,
 };
 
 const taskPanels = {
@@ -49,7 +49,7 @@ const NVI = 'NVI';
 
 const createWorklistItem = (title, type) => {
   if (type === NVI) {
-    cy.login(userVerifiedContributor);
+    cy.login(userNtnuVerifiedContributor);
   } else {
     cy.login(userBIBSYSPublishNoRights);
   }

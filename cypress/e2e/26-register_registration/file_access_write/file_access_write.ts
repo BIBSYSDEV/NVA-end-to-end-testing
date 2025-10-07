@@ -5,12 +5,12 @@
 
 import { v4 as uuid } from 'uuid';
 import {
-  userPublicationCuratorMessages,
-  userPublicationMessages,
+  userSintefPublicationCuratorMessages,
+  userSintefPublicationMessages,
   userUnitWithAuthor,
-  userCuratorInstitution,
+  userUnitCuratorInstitution,
   userBIBSYSPublishNoRights,
-  userDOIMessages,
+  userSintefDOIMessages,
   FileVersions,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
@@ -71,7 +71,7 @@ const initData = () => {
   const ACADEMIC_ARTICLE = 'AcademicArticle';
   const fileName = 'lorem_ipsum.txt';
 
-  cy.login(userPublicationMessages);
+  cy.login(userSintefPublicationMessages);
 
   // cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
   // addContributor();
@@ -97,7 +97,7 @@ const initData = () => {
   cy.createPublishedRegistration(titles[HIDDEN_FILE]);
   addContributor();
 
-  cy.login(userPublicationCuratorMessages);
+  cy.login(userSintefPublicationCuratorMessages);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[OPEN_FILE]}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
@@ -164,11 +164,11 @@ const initData = () => {
 };
 
 const users = {
-  'Uploader at X': userPublicationMessages,
-  'Contributor at X': userDOIMessages,
+  'Uploader at X': userSintefPublicationMessages,
+  'Contributor at X': userSintefDOIMessages,
   'Other contributors': userUnitWithAuthor,
-  'File curator at X': userPublicationCuratorMessages,
-  'File curators for other contributors': userCuratorInstitution,
+  'File curator at X': userSintefPublicationCuratorMessages,
+  'File curators for other contributors': userUnitCuratorInstitution,
   'Everyone else': userBIBSYSPublishNoRights,
 };
 

@@ -1,7 +1,7 @@
 // Feature: Changing values in a NVI-candidate
 
 import { NVI_PENDING } from '../../../support/commands';
-import { userChangeNviCuratorInstitutionA, userNviInstitutionA } from '../../../support/constants';
+import { userUSNChangeNviCuratorInstitution, userUSNNviInstitution } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
@@ -61,7 +61,7 @@ const titles = {};
 const collaborations = [noCollaboration, NVICollaboration, NVACollaboration, externalCollaboration];
 
 BeforeAll(() => {
-  cy.login(userNviInstitutionA);
+  cy.login(userUSNNviInstitution);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   titleRoots.forEach((titleRoot) => {
     titles[titleRoot] = [];
@@ -87,7 +87,7 @@ Given('the Result is {string}', (collaboration: string) => {
     const title: string = titles[titleRoot.toString()][collaboration];
     cy.wrap(title).as('title');
 
-    cy.login(userChangeNviCuratorInstitutionA);
+    cy.login(userUSNChangeNviCuratorInstitution);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -176,14 +176,14 @@ Then('the Result is not a NVI-candidate', () => {
 
 // Scenario Outline: Category changes from non-scientific to scientific, contributor changes from unidentified to identified
 Given('a curator opens a non-scientific Result that is a NVI-candidate with unidentified contributor', () => {
-  cy.login(userChangeNviCuratorInstitutionA);
+  cy.login(userUSNChangeNviCuratorInstitution);
   titleRoot = titleNonScientificToScientificUnidentifiedToIdentified;
   cy.wrap(titleRoot).as('titleRoot');
 });
 
 // Scenario Outline: Category changes from scientific to non-scientific, contributor changes from unidentified to identified
 Given('a curator opens a scientific Result that is a NVI-candidate with unidentified contributor', () => {
-  cy.login(userChangeNviCuratorInstitutionA);
+  cy.login(userUSNChangeNviCuratorInstitution);
   titleRoot = titleScientificToNonScientificUnidentfiedToIdentified;
   cy.wrap(titleRoot).as('titleRoot');
 });

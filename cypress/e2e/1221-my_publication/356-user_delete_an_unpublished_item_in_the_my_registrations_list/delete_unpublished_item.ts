@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { userDeleteRegistrations } from '../../../support/constants';
+import { userUnitDeleteRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -8,7 +8,7 @@ const secondTitle = `Delete registration ${uuid()}`;
 
 let init = false;
 const initData = () => {
-  cy.login(userDeleteRegistrations);
+  cy.login(userUnitDeleteRegistrations);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(null, firstTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -24,7 +24,7 @@ const initData = () => {
 BeforeAll(() => initData());
 
 Given('Creator opens My Registrations', () => {
-  cy.login(userDeleteRegistrations);
+  cy.login(userUnitDeleteRegistrations);
   cy.openMyRegistrations();
 });
 When('they click Delete on an item', () => {

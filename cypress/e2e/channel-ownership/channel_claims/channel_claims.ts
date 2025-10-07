@@ -1,6 +1,6 @@
 // Feature: Channel claims
 import { Before, BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { userEditorSintef, userSiktThirdEditor, userUnitWithAuthor } from '../../../support/constants';
+import { userSintefEditor, userSiktThirdEditor, userUnitWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 
 const filterAllClaims = () => {
@@ -21,7 +21,7 @@ BeforeAll(() => {
       cy.claimChannel('Sikt');
     }
   });
-  cy.login(userEditorSintef);
+  cy.login(userSintefEditor);
   cy.editChannelClaims();
   cy.get('table').then(($body) => {
     if ($body.text().includes('SINTEF AS')) {
@@ -34,7 +34,7 @@ BeforeAll(() => {
 });
 
 Before(() => {
-  cy.login(userEditorSintef);
+  cy.login(userSintefEditor);
 });
 
 //   Scenario: Owned channel cannot be claimed

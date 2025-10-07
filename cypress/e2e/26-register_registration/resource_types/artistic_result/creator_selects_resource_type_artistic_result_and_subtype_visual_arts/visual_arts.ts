@@ -1,4 +1,4 @@
-import { userVisualArts } from '../../../../../support/constants';
+import { userUnitVisualArts } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -6,7 +6,7 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 
 //   Scenario: Creator navigates to the Resource Type tab and selects Resource subtype "Visual Arts"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
-  cy.login(userVisualArts);
+  cy.login(userUnitVisualArts);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
@@ -38,7 +38,7 @@ Then('they can add an Exhibition', () => {
 
 //   Scenario: Creator adds an Exhibition
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Visual Arts"', () => {
-  cy.login(userVisualArts);
+  cy.login(userUnitVisualArts);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('VisualArts')).click();

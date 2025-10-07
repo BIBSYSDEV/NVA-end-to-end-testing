@@ -3,9 +3,9 @@
 import { v4 as uuid } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
 import {
-  collaborationCuratorBIBSYS,
-  collaborationCuratorNMBU,
-  collaborationCuratorUSN,
+  userBIBSYSCollaborationCurator,
+  userNmbuCollaborationCurator,
+  userUSNCollaborationCurator,
   FileVersions,
   uploaderBIBSYS,
   uploaderNMBU,
@@ -26,9 +26,9 @@ const collaborators = {
 };
 
 const curators = {
-  'Curator A': collaborationCuratorBIBSYS,
-  'Curator B': collaborationCuratorNMBU,
-  'Curator C': collaborationCuratorUSN,
+  'Curator A': userBIBSYSCollaborationCurator,
+  'Curator B': userNmbuCollaborationCurator,
+  'Curator C': userUSNCollaborationCurator,
 };
 
 // Scenario Outline: Files are approved by Curators from file uploaders institution
@@ -44,9 +44,10 @@ Given('a Publication is created by institution A with contributors from institut
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration B{enter}`);
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
-    cy.get('td')
-    .filter(':contains("colaboration B TestUser")').parent()
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor);
+  cy.get('td')
+    .filter(':contains("colaboration B TestUser")')
+    .parent()
     .within(() => {
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
     });

@@ -3,8 +3,8 @@
 import { BeforeAll, DataTable, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import {
   userBIBSYSNviCuratorInstitution,
-  userNviCuratorInstitutionA,
-  userNviCurator,
+  userUSNNviCuratorInstitution,
+  userNtnuNviCurator,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
@@ -78,7 +78,7 @@ const rejectCandidate = (title: string) => {
 };
 
 BeforeAll(() => {
-  cy.login(userNviCuratorInstitutionA);
+  cy.login(userUSNNviCuratorInstitution);
 
   Object.keys(titles).forEach((key) => {
     const NVItitle = `${key} ${uuid()}`;
@@ -130,7 +130,7 @@ BeforeAll(() => {
 
 // Background:
 Given('a logged-in User', () => {
-  cy.login(userNviCuratorInstitutionA);
+  cy.login(userUSNNviCuratorInstitution);
   cy.getDataTestId(dataTestId.common.skeleton);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });

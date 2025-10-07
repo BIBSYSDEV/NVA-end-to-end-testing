@@ -1,13 +1,13 @@
 // Feature: User marks results as favorites
 
-import { userFavorite, userFavorite1, userFavorite2 } from '../../../support/constants';
+import { userUnitFavorite1, userUnitFavorite2, userUnitFavorite3 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, Before } from '@badeball/cypress-cucumber-preprocessor';
 
 const secondFavoriteResultTitle = 'Favorite result 5';
 const thirdFavoriteResultTitle = 'Favorite result 8';
-let user = userFavorite;
+let user = userUnitFavorite1;
 
 const navigateToMyProfile = () => {
   cy.login(user);
@@ -16,15 +16,15 @@ const navigateToMyProfile = () => {
 
 const createPublications = (user) => {
   const publicationTitleRoot = 'Favorite result';
-  cy.login(userFavorite);
+  cy.login(userUnitFavorite1);
   cy.createPublishedRegistration(`${publicationTitleRoot} 1 ${uuid()}`);
   cy.createPublishedRegistration(`${publicationTitleRoot} 2 ${uuid()}`);
   cy.createPublishedRegistration(`${publicationTitleRoot} 3 ${uuid()}`);
-  cy.login(userFavorite1);
+  cy.login(userUnitFavorite2);
   cy.createPublishedRegistration(`${publicationTitleRoot} 4 ${uuid()}`);
   cy.createPublishedRegistration(`${publicationTitleRoot} 5 ${uuid()}`);
   cy.createPublishedRegistration(`${publicationTitleRoot} 6 ${uuid()}`);
-  cy.login(userFavorite2);
+  cy.login(userUnitFavorite3);
   cy.createPublishedRegistration(`${publicationTitleRoot} 7 ${uuid()}`);
   cy.createPublishedRegistration(`${publicationTitleRoot} 8 ${uuid()}`);
   cy.createPublishedRegistration(`${publicationTitleRoot} 9 ${uuid()}`);
@@ -42,11 +42,11 @@ const clearFavoredResults = () => {
 };
 
 Before({ tags: '@second' }, () => {
-  user = userFavorite1;
+  user = userUnitFavorite2;
 });
 
 Before({ tags: '@third' }, () => {
-  user = userFavorite2;
+  user = userUnitFavorite3;
 });
 
 // Scenario: User sees own results on their User profile

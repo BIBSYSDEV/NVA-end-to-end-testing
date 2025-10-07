@@ -3,10 +3,10 @@ import {
   userBIBSYSCurator2,
   userBIBSYSDoiCurator,
   userBIBSYSMessages,
-  userNviCurator,
+  userNtnuNviCurator,
   userBIBSYSPublishingCurator,
   userBIBSYSSupportCurator,
-  userVerifiedContributor,
+  userNtnuVerifiedContributor,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
@@ -23,20 +23,13 @@ const curatorUsers = {
   'Publishing-Curator': userBIBSYSPublishingCurator,
   'Support-Curator': userBIBSYSSupportCurator,
   'Doi-Curator': userBIBSYSDoiCurator,
-  'Nvi-Curator': userNviCurator,
+  'Nvi-Curator': userNtnuNviCurator,
 };
 
 const taskPanels = {
   'Publishing-Curator': dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion,
   'Support-Curator': dataTestId.registrationLandingPage.tasksPanel.supportAccordion,
   'Doi-Curator': dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion,
-};
-
-const requestTypes = {
-  'Approval': dataTestId.tasksPage.typeSearch.publishingButton,
-  'DOI': dataTestId.tasksPage.typeSearch.doiButton,
-  'Support': dataTestId.tasksPage.typeSearch.supportButton,
-  'NVI': dataTestId.tasksPage.nvi.statusFilter.pendingRadio,
 };
 
 const year = currentYear;
@@ -51,7 +44,7 @@ const NVI = 'NVI';
 
 const createWorklistItem = (title: string, type: string) => {
   if (type === NVI) {
-    cy.login(userVerifiedContributor);
+    cy.login(userNtnuVerifiedContributor);
   } else {
     cy.login(userBIBSYSPublishNoRights);
   }

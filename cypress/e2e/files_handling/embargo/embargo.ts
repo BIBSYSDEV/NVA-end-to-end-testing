@@ -1,6 +1,6 @@
 // Feature: Embargo of files
 
-import { userEmbargo } from '../../../support/constants';
+import { userUnitEmbargo } from '../../../support/constants';
 import { v4 as uuid } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
@@ -15,7 +15,7 @@ const pad = (value: number) => `0${value}`.slice(-2);
 // Scenario: User sets embargo date for files
 Given('User registers a registration', () => {
   const title = `View embargo ${uuid()}`;
-  cy.login(userEmbargo);
+  cy.login(userUnitEmbargo);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, title);
 });
@@ -37,7 +37,7 @@ Given('a User view the landing page for a Registration with embargoed files', ()
   date.setDate(date.getDate() + 1);
   const futureDate = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
 
-  cy.login(userEmbargo);
+  cy.login(userUnitEmbargo);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, title);
   cy.getDataTestId(dataTestId.registrationWizard.files.expandFileRowButton).click();

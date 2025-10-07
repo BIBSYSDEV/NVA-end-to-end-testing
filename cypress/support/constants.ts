@@ -40,12 +40,10 @@ export const userUnitChangeInstitution = 'test-user-change-institution@test.no';
 export const userUnitWithInstitutionRemoveInstitution = 'test-user-with-institution-remove-institution@test.no';
 export const userUnitCurator = 'test-user-curator@test.no';
 export const userUnitInstAdmin = 'test-user-first-inst-admin@test.no';
-export const userSiktInstAdmin = 'test-user-second-inst-admin@test.no';
 export const adminUserUnit = 'test-user-app-admin@test.no';
 export const adminUserUnit1 = 'test-user-app-admin-1@test.no';
 export const userUnitNoRole = 'test-user-with-no-role@test.no';
 export const userUnitRemoveOrcid = 'test-user-remove-existing-orcid@test.no';
-export const userNonCustomer = 'test-user-not-customer@test.no';
 export const userUnitDraftDoi = 'test-user-draft-doi@test.no';
 export const userUnitDraftDoi2 = 'test-user-draft-doi-2@test.no';
 export const userUnitCuratorDraftDoi = 'test-user-curator-draft-doi@test.no';
@@ -59,8 +57,6 @@ export const userUnitResourceTypeReport = 'test-user-resource-type-report@test.n
 export const userUnitResourceTypeArchitecture = 'test-user-resource-type-architecture@test.no';
 export const userUnitViewRegistration = 'test-user-view-registration@test.no';
 export const userUnitEditor = 'test-user-editor@test.no';
-export const userBIBSYSSecondEditor = 'test-user-second-editor@test.no';
-export const userSiktThirdEditor = 'test-user-third-editor@test.no';
 export const userUnitEditor1 = 'test-user-editor-1@test.no';
 export const userUnitEditor2 = 'test-user-editor-2@test.no';
 export const userUnitEditor3 = 'test-user-editor-3@test.no';
@@ -90,66 +86,76 @@ export const userUnitSaveArtisticResult = 'test-user-save-artistic-result@test.n
 export const userUnitSaveMediaContribution = 'test-user-save-media-contribution@test.no';
 export const userUnitSaveResearchData = 'test-user-save-research-data@test.no';
 export const userUnitSaveExhibition = 'test-user-save-exhibition@test.no';
+export const userUnitResearchDataset = 'test-user-research-dataset@test.no';
+export const userUnitContributors = 'test-user-contributors@test.no';
+export const userUnitProjectManager = 'test-user-project-manager@test.no';
+export const userUnitCancelDelete = 'test-user-cancel-delete@test.no';
+export const userUnitTestMenu = 'test-user-menu@test.no';
+export const userUnitEditRegistration = 'test-user-edit-registration@test.no';
+export const userUnitVisualArts = 'test-user-visual-arts@test.no';
+export const userUnitFavorite1 = 'test-user-favorite@test.no';
+export const userUnitFavorite2 = 'test-user-second-favorite@test.no';
+export const userUnitFavorite3 = 'test-user-third-favorite@test.no';
+export const userUnitDeleteRegistrations = 'test-user-delete-registrations@test.no';
+export const userUnitCuratorDegree = 'test-user-access-curator-degree@test.no';
+export const userUnitEditorDelete = 'test-user-access-editor-delete@test.no';
+export const userUnitCuratorResourceOwner = 'test-user-access-curator-resourceowner@test.no';
+export const userUnitCuratorInstitution = 'test-user-access-curator-institution@test.no';
+export const userUnitResourceOwner = 'test-user-access-resource-owner@test.no';
+export const userUnitAdminRRS = 'test-user-admin-rrs@test.no';
+export const userUnitAuthorRRS = 'test-user-author-rrs@test.no';
+export const userUnitEmbargo = 'test-user-author-embargo@test.no';
+
+export const userSiktInstAdmin = 'test-user-second-inst-admin@test.no';
+export const userSiktThirdEditor = 'test-user-third-editor@test.no';
+
+export const userNonCustomer = 'test-user-not-customer@test.no';
+
+export const userBIBSYSSecondEditor = 'test-user-second-editor@test.no';
 export const userBIBSYSPublishNoRights = 'test-user-publish-no-rights@test.no';
 export const userBIBSYSCurator = 'test-user-second-inst-curator-5@test.no';
 export const userBIBSYSCurator2 = 'test-user-second-inst-curator-4@test.no';
 export const userBIBSYSProjectWizard = 'test-user-project-wizard@test.no';
 export const userBIBSYSPublishRegistration = 'test-user-publish-registration@test.no';
-export const userUnitResearchDataset = 'test-user-research-dataset@test.no';
-export const userUnitContributors = 'test-user-contributors@test.no';
-export const userUnitProjectManager = 'test-user-project-manager@test.no';
 export const userBIBSYSMessages = 'test-user-messages@test.no';
 export const userBIBSYSUnreadMessages = 'test-user-unread-messages@test.no';
-export const userUnitCancelDelete = 'test-user-cancel-delete@test.no';
-export const userUnitTestMenu = 'test-user-menu@test.no';
-export const userUnitEditRegistration = 'test-user-edit-registration@test.no';
-export const userVisualArts = 'test-user-visual-arts@test.no';
-export const userFavorite = 'test-user-favorite@test.no';
-export const userFavorite1 = 'test-user-second-favorite@test.no';
-export const userFavorite2 = 'test-user-third-favorite@test.no';
-export const userDeleteRegistrations = 'test-user-delete-registrations@test.no';
-export const userNviCurator = 'test-user-nvi@test.no';
-export const userNviCurator2 = 'test-user-nvi-2@test.no';
 export const userBIBSYSPublishingCurator = 'test-user-publishing-cur@test.no';
 export const userBIBSYSSupportCurator = 'test-user-support-cur@test.no';
 export const userBIBSYSDoiCurator = 'test-user-doi-cur@test.no';
-export const userVerifiedContributor = 'test-user-access-verified-contributors@test.no';
-export const userCuratorDegree = 'test-user-access-curator-degree@test.no';
-export const userEditorDelete = 'test-user-access-editor-delete@test.no';
-export const userCuratorResourceOwner = 'test-user-access-curator-resourceowner@test.no';
-export const userCuratorInstitution = 'test-user-access-curator-institution@test.no';
-export const userResourceOwner = 'test-user-access-resource-owner@test.no';
-export const userAdminRRS = 'test-user-admin-rrs@test.no';
-export const userAuthorRRS = 'test-user-author-rrs@test.no';
-export const userEmbargo = 'test-user-author-embargo@test.no';
-export const userPublicationCuratorMessages = 'test-user-publication-curator-messages-sintef@test.no';
-export const userDOICuratorMessages = 'test-user-doicurator-messages-sintef@test.no';
-export const userSupportCuratorMessages = 'test-user-support-curator-messages-sintef@test.no';
-export const userPublicationMessages = 'test-user-publication-messages-sintef@test.no';
-export const userDOIMessages = 'test-user-doi-messages-sintef@test.no';
-export const userSupportMessages = 'test-user-support-messages-sintef@test.no';
 export const uploaderBIBSYS = 'test-user-colaboration-BIBSYS@test.no';
 export const uploaderNMBU = 'test-user-colaboration-NMBU@test.no';
 export const uploaderUSN = 'test-user-colaboration-USN@test.no';
-export const collaborationCuratorBIBSYS = 'test-user-colaboration-curator-BIBSYS@test.no';
-export const collaborationCuratorNMBU = 'test-user-colaboration-curator-NMBU@test.no';
-export const collaborationCuratorUSN = 'test-user-colaboration-curator-USN@test.no';
-export const userNviInstitutionA = 'test-user-NVI-A@test.no';
+export const userBIBSYSCollaborationCurator = 'test-user-colaboration-curator-BIBSYS@test.no';
 export const userBIBSYSNviInstitution = 'test-user-NVI-B@test.no';
-export const userNvaInstitutionC = 'test-user-NVA-C@test.no';
-export const userNviCuratorInstitutionA = 'test-user-curator-NVI-A@test.no';
 export const userBIBSYSNviCuratorInstitution = 'test-user-curator-NVI-BB@test.no';
-export const userChangeNviInstitutionA = 'test-user-change-NVI-A@test.no';
 export const userBIBSYSChangeNviInstitution = 'test-user-change-NVI-B@test.no';
-export const userChangeNvaInstitutionC = 'test-user-change-NVA-C@test.no';
-export const userChangeNviCuratorInstitutionA = 'test-user-change-cur-NVI-A@test.no';
 
-export const userEditorSintef = 'test-user-editor-sintef@test.no';
-export const userRegistratorSintef = 'test-user-registrator-sintef@test.no';
-export const userPublicationCuratorSintef = 'test-user-publication-curator-messages-sintef@test.no';
-export const userDOICuratorSintef = 'test-user-doicurator-messages-sintef@test.no';
-export const userSupportCuratorSintef = 'test-user-support-curator-messages-sintef@test.no';
-export const userDOISintef = 'test-user-doi-messages-sintef@test.no';
+export const userNtnuNviCurator = 'test-user-nvi@test.no';
+export const userNtnuNviCurator2 = 'test-user-nvi-2@test.no';
+export const userNtnuVerifiedContributor = 'test-user-access-verified-contributors@test.no';
+
+export const userNmbuCollaborationCurator = 'test-user-colaboration-curator-NMBU@test.no';
+export const userNmbuNvaInstitution = 'test-user-NVA-C@test.no';
+export const userNmbuChangeNvaInstitution = 'test-user-change-NVA-C@test.no';
+
+export const userUSNCollaborationCurator = 'test-user-colaboration-curator-USN@test.no';
+export const userUSNNviInstitution = 'test-user-NVI-A@test.no';
+export const userUSNNviCuratorInstitution = 'test-user-curator-NVI-A@test.no';
+export const userUSNChangeNviInstitution = 'test-user-change-NVI-A@test.no';
+export const userUSNChangeNviCuratorInstitution = 'test-user-change-cur-NVI-A@test.no';
+
+export const userSintefSupportMessages = 'test-user-support-messages-sintef@test.no';
+export const userSintefPublicationCuratorMessages = 'test-user-publication-curator-messages-sintef@test.no';
+export const userSintefDOICuratorMessages = 'test-user-doicurator-messages-sintef@test.no';
+export const userSintefSupportCuratorMessages = 'test-user-support-curator-messages-sintef@test.no';
+export const userSintefPublicationMessages = 'test-user-publication-messages-sintef@test.no';
+export const userSintefDOIMessages = 'test-user-doi-messages-sintef@test.no';
+export const userSintefEditor = 'test-user-editor-sintef@test.no';
+export const userSintefRegistrator = 'test-user-registrator-sintef@test.no';
+export const userSintefPublicationCurator = 'test-user-publication-curator-messages-sintef@test.no';
+export const userSintefDOICurator = 'test-user-doicurator-messages-sintef@test.no';
+export const userSintefSupportCurator = 'test-user-support-curator-messages-sintef@test.no';
+export const userSintefDOI = 'test-user-doi-messages-sintef@test.no';
 
 const userData = {
   name: '',
@@ -240,43 +246,43 @@ export const user = {
   [userUnitCancelDelete]: { ...userData, name: 'TestUser, Cancel delete' },
   [userUnitTestMenu]: { ...userData, name: 'TestUser, Menu' },
   [userUnitEditRegistration]: { ...userData, name: 'TestUser, Edit registration' },
-  [userVisualArts]: { ...userData, name: 'TestUser, Visual arts' },
-  [userFavorite]: { ...userData, name: 'TestUser, Favorite' },
-  [userFavorite1]: { ...userData, name: 'TestUser, Second Favorite' },
-  [userFavorite2]: { ...userData, name: 'TestUser, Third Favorite' },
-  [userDeleteRegistrations]: { ...userData, name: 'TestUser, Delete Registrations' },
-  [userNviCurator]: { ...userData, name: 'TestUser, Nvi-curator' },
-  [userNviCurator2]: { ...userData, name: 'TestUser, Nvi-curator 2' },
+  [userUnitVisualArts]: { ...userData, name: 'TestUser, Visual arts' },
+  [userUnitFavorite1]: { ...userData, name: 'TestUser, Favorite' },
+  [userUnitFavorite2]: { ...userData, name: 'TestUser, Second Favorite' },
+  [userUnitFavorite3]: { ...userData, name: 'TestUser, Third Favorite' },
+  [userUnitDeleteRegistrations]: { ...userData, name: 'TestUser, Delete Registrations' },
+  [userNtnuNviCurator]: { ...userData, name: 'TestUser, Nvi-curator' },
+  [userNtnuNviCurator2]: { ...userData, name: 'TestUser, Nvi-curator 2' },
   [userBIBSYSDoiCurator]: { ...userData, name: 'TestUser, DOI-curator' },
   [userBIBSYSPublishingCurator]: { ...userData, name: 'TestUser, Publishing-curator' },
   [userBIBSYSSupportCurator]: { ...userData, name: 'TestUser, Support-curator' },
-  [userVerifiedContributor]: { ...userData, name: 'TestUser, Access Verified contributor' },
-  [userCuratorInstitution]: { ...userData, name: 'TestUser, Access Curator institution' },
-  [userCuratorResourceOwner]: { ...userData, name: 'TestUser, Access Curator resourceowner' },
-  [userResourceOwner]: { ...userData, name: 'TestUser, Access Resource owner' },
-  [userEditorDelete]: { ...userData, name: 'TestUser, Access Editor delete' },
-  [userCuratorDegree]: { ...userData, name: 'TestUser, Access Curator degree' },
-  [userAdminRRS]: { ...userData, name: 'TestUser, Admin RRS' },
-  [userAuthorRRS]: { ...userData, name: 'TestUser, Author RRS' },
-  [userEmbargo]: { ...userData, name: 'TestUser, Author Embargo' },
-  [userPublicationCuratorMessages]: { ...userData, name: 'TestUser, PublicationCurator Messages' },
-  [userDOICuratorMessages]: { ...userData, name: 'TestUser, DoiCurator Messages' },
-  [userSupportCuratorMessages]: { ...userData, name: 'TestUser, SupportCurator Messages' },
-  [userPublicationMessages]: { ...userData, name: 'TestUser, Publication Messages' },
-  [userDOIMessages]: { ...userData, name: 'TestUser, Doi Messages' },
-  [userSupportMessages]: { ...userData, name: 'TestUser, Support Messages' },
+  [userNtnuVerifiedContributor]: { ...userData, name: 'TestUser, Access Verified contributor' },
+  [userUnitCuratorInstitution]: { ...userData, name: 'TestUser, Access Curator institution' },
+  [userUnitCuratorResourceOwner]: { ...userData, name: 'TestUser, Access Curator resourceowner' },
+  [userUnitResourceOwner]: { ...userData, name: 'TestUser, Access Resource owner' },
+  [userUnitEditorDelete]: { ...userData, name: 'TestUser, Access Editor delete' },
+  [userUnitCuratorDegree]: { ...userData, name: 'TestUser, Access Curator degree' },
+  [userUnitAdminRRS]: { ...userData, name: 'TestUser, Admin RRS' },
+  [userUnitAuthorRRS]: { ...userData, name: 'TestUser, Author RRS' },
+  [userUnitEmbargo]: { ...userData, name: 'TestUser, Author Embargo' },
+  [userSintefPublicationCuratorMessages]: { ...userData, name: 'TestUser, PublicationCurator Messages' },
+  [userSintefDOICuratorMessages]: { ...userData, name: 'TestUser, DoiCurator Messages' },
+  [userSintefSupportCuratorMessages]: { ...userData, name: 'TestUser, SupportCurator Messages' },
+  [userSintefPublicationMessages]: { ...userData, name: 'TestUser, Publication Messages' },
+  [userSintefDOIMessages]: { ...userData, name: 'TestUser, Doi Messages' },
+  [userSintefSupportMessages]: { ...userData, name: 'TestUser, Support Messages' },
   [uploaderBIBSYS]: { ...userData, name: 'TestUser, collaboration A' },
   [uploaderNMBU]: { ...userData, name: 'TestUser, collaboration B' },
   [uploaderUSN]: { ...userData, name: 'TestUser, collaboration C' },
-  [collaborationCuratorBIBSYS]: { ...userData, name: 'TestUser, collaboration Curator A' },
-  [collaborationCuratorNMBU]: { ...userData, name: 'TestUser, collaboration Curator B' },
-  [collaborationCuratorUSN]: { ...userData, name: 'TestUser, collaboration Curator C' },
-  [userNviInstitutionA]: { ...userData, name: 'TestUser, User NVI-institution A' },
+  [userBIBSYSCollaborationCurator]: { ...userData, name: 'TestUser, collaboration Curator A' },
+  [userNmbuCollaborationCurator]: { ...userData, name: 'TestUser, collaboration Curator B' },
+  [userUSNCollaborationCurator]: { ...userData, name: 'TestUser, collaboration Curator C' },
+  [userUSNNviInstitution]: { ...userData, name: 'TestUser, User NVI-institution A' },
   [userBIBSYSNviInstitution]: { ...userData, name: 'TestUser, User NVI-institution B' },
-  [userNvaInstitutionC]: { ...userData, name: 'TestUser, User NVA-institution C' },
-  [userNviCuratorInstitutionA]: { ...userData, name: 'TestUser, Curator NVI-institution A' },
-  [userChangeNviInstitutionA]: { ...userData, name: 'TestUser, Change User NVI-institution A' },
+  [userNmbuNvaInstitution]: { ...userData, name: 'TestUser, User NVA-institution C' },
+  [userUSNNviCuratorInstitution]: { ...userData, name: 'TestUser, Curator NVI-institution A' },
+  [userUSNChangeNviInstitution]: { ...userData, name: 'TestUser, Change User NVI-institution A' },
   [userBIBSYSChangeNviInstitution]: { ...userData, name: 'TestUser, Change User NVI-institution B' },
-  [userChangeNvaInstitutionC]: { ...userData, name: 'TestUser, Change User NVA-institution C' },
-  [userChangeNviCuratorInstitutionA]: { ...userData, name: 'TestUser, NVI-Curator NVI-inst A' },
+  [userNmbuChangeNvaInstitution]: { ...userData, name: 'TestUser, Change User NVA-institution C' },
+  [userUSNChangeNviCuratorInstitution]: { ...userData, name: 'TestUser, NVI-Curator NVI-inst A' },
 };

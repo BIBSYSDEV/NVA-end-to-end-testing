@@ -2,9 +2,9 @@
 
 import { NVI_PENDING } from '../../../support/commands';
 import {
-  userChangeNviCuratorInstitutionA,
-  userNviCuratorInstitutionA,
-  userNviInstitutionA,
+  userUSNChangeNviCuratorInstitution,
+  userUSNNviCuratorInstitution,
+  userUSNNviInstitution,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
@@ -67,7 +67,7 @@ const titles = {};
 const collaborations = [noCollaboration, NVICollaboration, NVACollaboration, externalCollaboration];
 
 BeforeAll(() => {
-  cy.login(userNviInstitutionA);
+  cy.login(userUSNNviInstitution);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   titleRoots.forEach((titleRoot) => {
     titles[titleRoot] = [];
@@ -99,7 +99,7 @@ Given('the Result is {string}', (collaboration: string) => {
     const uuid = findUuid(title);
     cy.wrap(title).as('title');
 
-    cy.login(userChangeNviCuratorInstitutionA);
+    cy.login(userUSNChangeNviCuratorInstitution);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -151,7 +151,7 @@ Then('the Result is a NVI-candidate', () => {
 
 // Scenario Outline: Category changes from non-scientific to scientific
 Given('a curator opens a non-scientific Result that is a NVI-candidate', () => {
-  cy.login(userChangeNviCuratorInstitutionA);
+  cy.login(userUSNChangeNviCuratorInstitution);
   titleRoot = titleNonScientificToScientific;
   cy.wrap(titleRoot).as('titleRoot');
 });
@@ -164,7 +164,7 @@ When('the curator changes the Category from non-scientific to scientific', () =>
 
 // Scenario Outline: Category changes from scientific to non-scientific
 Given('a curator opens a scientific Result that is a NVI-candidate', () => {
-  cy.login(userChangeNviCuratorInstitutionA);
+  cy.login(userUSNChangeNviCuratorInstitution);
   titleRoot = titleScientificToNonScientific;
   cy.wrap(titleRoot).as('titleRoot');
 });
@@ -203,9 +203,9 @@ const createNVICandidateTitle = `NVI Change candidate ${uuid()}`;
 
 // Scenario: Publication channel changes and NVI points changes
 Given('an NVI-candidate with a level 1 publication channel', () => {
-  cy.login(userNviInstitutionA);
+  cy.login(userUSNNviInstitution);
   cy.createPublishedRegistration(createNVICandidateTitle, 'AcademicArticle');
-  cy.login(userNviCuratorInstitutionA);
+  cy.login(userUSNNviCuratorInstitution);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
@@ -251,7 +251,7 @@ const chapterTitle = `NVI change chapter ${uuid()}`;
 // Scenario: Adding a series to an anthology where the series level is higher than the publisher of the anthology
 Given('an anthology with a level 1 publisher', () => {
   // lag antologi med nivå 1 publisher
-  cy.login(userNviCuratorInstitutionA);
+  cy.login(userUSNNviCuratorInstitution);
   cy.createPublishedRegistration(anthologyTitle, 'BookAnthology');
   // lag vitenskapelig kapittel
   cy.createPublishedRegistration(chapterTitle, 'AcademicChapter');

@@ -2,9 +2,9 @@
 
 import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import {
-  userEditorSintef,
-  userPublicationCuratorSintef,
-  userRegistratorSintef,
+  userSintefEditor,
+  userSintefPublicationCurator,
+  userSintefRegistrator,
   userUnitWithAuthor,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
@@ -32,7 +32,7 @@ Given('publication instance type is part of channel scope', () => {});
 //   Scenario: Ticket sent to Registrators institution
 Given('a Registrator', () => {});
 Given('Registrators institution owns the channel', () => {
-  cy.login(userRegistratorSintef);
+  cy.login(userSintefRegistrator);
 });
 When('metadata is registered', () => {
   const publicationTitle = `Ticket publication ${uuid()}`;
@@ -63,7 +63,7 @@ When('metadata is registered', () => {
 });
 Then('a ticket is sent to curators at Registrators institution', () => {
   cy.get('@title').then((publicationTitle) => {
-    cy.login(userPublicationCuratorSintef);
+    cy.login(userSintefPublicationCurator);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publicationTitle})`);
@@ -78,7 +78,7 @@ Given('Registrators institution does not own the channel', () => {
 // When ('metadata is registered', () => {});
 Then('a ticket is sent to curators at the channel owner', () => {
   cy.get('@title').then((publicationTitle) => {
-    cy.login(userPublicationCuratorSintef);
+    cy.login(userSintefPublicationCurator);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${publicationTitle}{enter}`);

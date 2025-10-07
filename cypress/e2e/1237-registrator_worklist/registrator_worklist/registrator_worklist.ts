@@ -1,4 +1,8 @@
-import { userBIBSYSUnreadMessages, userBIBSYSMessages, collaborationCuratorBIBSYS } from '../../../support/constants';
+import {
+  userBIBSYSUnreadMessages,
+  userBIBSYSMessages,
+  userBIBSYSCollaborationCurator,
+} from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
