@@ -41,7 +41,7 @@ BeforeAll(() => initData());
 //      Scenario: An anonymous User opens start page and sees search results
 Given('an anonymous User', () => {});
 When('they open the start page', () => {
-  cy.visit('/filter', {
+  cy.visit('/', {
     auth: {
       username: 'osteloff',
       password: 'osteloff',

@@ -316,3 +316,4 @@ chrome/win64-136.0.7103.94/chrome-win64/resources/accessibility/reading_mode_gdo
 chrome/win64-136.0.7103.94/chrome-win64/resources/accessibility/reading_mode_gdocs_helper/content.js
 chrome/win64-136.0.7103.94/chrome-win64/resources/accessibility/reading_mode_gdocs_helper/gdocs_script.js
 cypress/support/customCommands.d.ts
+venv/
