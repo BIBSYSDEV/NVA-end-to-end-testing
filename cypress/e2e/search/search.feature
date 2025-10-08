@@ -1,6 +1,6 @@
 Feature: Scenarios for search
     @test
-    Scenario: An anonymous Aser opens start page and sees search results
+    Scenario: An anonymous User opens start page and sees search results
         Given an anonymous User
         When they open the start page
         Then they see a list of Registratons

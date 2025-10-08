@@ -38,10 +38,15 @@ const initData = () => {
 
 BeforeAll(() => initData());
 
-//      Scenario: An anonymous Aser opens start page and sees search results
+//      Scenario: An anonymous User opens start page and sees search results
 Given('an anonymous User', () => {});
 When('they open the start page', () => {
-  cy.visit('/filter');
+  cy.visit('/filter', {
+    auth: {
+      username: 'osteloff',
+      password: 'osteloff',
+    },
+  });
   cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.getDataTestId(dataTestId.frontPage.searchInputField).should('be.visible');
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
