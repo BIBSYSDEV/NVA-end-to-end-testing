@@ -16,12 +16,13 @@ const visitStartPage = () => {
   cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
 };
 
+const searchUuid = uuid();
 const journalUuid = uuid();
-const searchResultJournal = `Search result - Journal ${journalUuid}`;
+const searchResultJournal = `Search result - Journal ${searchUuid} ${journalUuid}`;
 const conferenceAbstractUuid = uuid();
-const searchResultConferenceAbstract = `Search result - Conference abstract ${conferenceAbstractUuid}`;
+const searchResultConferenceAbstract = `Search result - Conference abstract ${searchUuid} ${conferenceAbstractUuid}`;
 const anthologyUuid = uuid();
-const searchResultAnthology = `Search result - Anthology ${anthologyUuid}`;
+const searchResultAnthology = `Search result - Anthology ${searchUuid} ${anthologyUuid}`;
 
 const initData = () => {
   cy.login(userUnitWithAuthor);
@@ -74,7 +75,7 @@ Then('they can see values for:', (dataTable: DataTable) => {
   const values = {
     'Resource Type': 'Academic article',
     'Publication date': dateValue,
-    'Title': 'Search result',
+    'Title': searchUuid,
     'Contributors': 'Withauthor TestUser',
     'Abstract': 'Abstract',
   };
@@ -109,9 +110,9 @@ Then('they see the landing page for the Registration', () => {
 Given('a User searches for Registrations', () => {
   visitStartPage();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type('search result{enter}');
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchUuid}{enter}`);
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('be.visible');
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().should('contain.text', 'Search result');
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().should('contain.text', searchUuid);
 });
 When('they select the facet for {string}:', (facet: string) => {
   const facets = {

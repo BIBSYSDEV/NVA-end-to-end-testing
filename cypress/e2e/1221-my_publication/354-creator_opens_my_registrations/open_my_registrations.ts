@@ -6,11 +6,12 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 Given('the user is logged in as Creator', () => {
   cy.login(userUnitOpenMyRegistrations);
   const title = `My registration ${uuid()}`;
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, title);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
+  cy.createPublishedRegistration(title, 'AcademicChapter');
+  // cy.startWizardWithEmptyRegistration();
+  // cy.createValidRegistration(null, title);
+  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  // cy.getSuccess();
+  // cy.getSuccessDone();
   cy.wait(3000);
 });
 When('they click the button My Registrations', () => {
