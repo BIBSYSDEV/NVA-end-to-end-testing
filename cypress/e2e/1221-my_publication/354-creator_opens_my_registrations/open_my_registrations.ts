@@ -6,12 +6,11 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 Given('the user is logged in as Creator', () => {
   cy.login(userUnitOpenMyRegistrations);
   const title = `My registration ${uuid()}`;
-  cy.createPublishedRegistration(title, 'AcademicChapter');
-  // cy.startWizardWithEmptyRegistration();
-  // cy.createValidRegistration(null, title);
-  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  // cy.getSuccess();
-  // cy.getSuccessDone();
+  cy.startWizardWithEmptyRegistration();
+  cy.createValidRegistration(null, title);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccess();
+  cy.getSuccessDone();
   cy.wait(3000);
 });
 When('they click the button My Registrations', () => {
@@ -43,7 +42,7 @@ Then('they see the navigation bar for published registrations is enabled', () =>
   cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsPublishedCheckbox}] .Mui-checked`).should('not.exist');
   cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).should('exist');
 });
-Then('they see items with Status', (dataTable: DataTable) => {});
+Then('they see items with Status', (dataTable: DataTable) => { });
 // Examples:
 //   | Draft    |
 //   | Rejected |
