@@ -121,11 +121,11 @@ BeforeAll(() => {
     }
   });
 
-  // cy.login(userNviCurator);
-  // const disputeTitle = titles['Dispute Candidate Dispute'];
-  // cy.getDataTestId(dataTestId.header.tasksLink).click();
-  // cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  // rejectCandidate(disputeTitle);
+  cy.login(userNtnuNviCurator);
+  const disputeTitle = titles['Dispute Candidate Dispute'];
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  rejectCandidate(disputeTitle);
 });
 
 // Background:
