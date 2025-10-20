@@ -87,6 +87,7 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getSuccess();
   cy.getSuccessDone();
+  cy.wait(10000);
 });
 
 Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: FileVersions, fileType?: string) => {
