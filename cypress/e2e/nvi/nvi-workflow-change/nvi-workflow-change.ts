@@ -138,7 +138,7 @@ Then('the Result is a NVI-candidate', () => {
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.selectNVIStatus(NVI_PENDING);
-    cy.getNVIWorklistItem(title.toString());
+    cy.getNVIWorklistItem(title.toString()).should('exist');
   });
 });
 

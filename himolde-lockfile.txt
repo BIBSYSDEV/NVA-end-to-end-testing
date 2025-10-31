@@ -1,3 +1,0 @@
-Denne filen kan ha blitt låst med dato 9998-01-01, sjekk mot brageposten, og korriger lockdato i NVA.
-
-https://hdl.handle.net/11250/225215 , 1_fordypning_stove.pd

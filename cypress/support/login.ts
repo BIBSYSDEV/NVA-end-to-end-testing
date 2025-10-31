@@ -96,6 +96,8 @@ const getCode = (userName: string, password: string) => {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Referer': url,
     };
+    console.log(userName);
+    console.log(password);
 
     const data = {
       '_csrf': randomUuid,
@@ -126,5 +128,6 @@ const generateUrl = () => {
   const queryString = `client_id=${encodeURIComponent(clientId)}&response_type=code&scope=${encodeURIComponent(
     'aws.cognito.signin.user.admin email https://api.nva.unit.no/scopes/frontend openid phone profile'
   )}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+  console.log(`${baseUrl}?${queryString}`);
   return `${baseUrl}?${queryString}`;
 };
