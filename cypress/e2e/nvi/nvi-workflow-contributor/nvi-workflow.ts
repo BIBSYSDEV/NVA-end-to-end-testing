@@ -5,6 +5,7 @@ import { userUSNNviCuratorInstitution, userUSNNviInstitution } from '../../../su
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
 import { NVI_PENDING } from '../../../support/commands';
+import { createValidRegistrationWithType } from '../../../support/create_registration';
 
 const PUBLISHED = 'Published';
 const DRAFT = 'Draft';
@@ -16,6 +17,12 @@ const NO_ONE = 'No one';
 const NVI_USER = 'Change User NVI-institution B TestUser';
 const NVA_USER = 'Change User NVA-institution C TestUser';
 const EXTERNAL_USER = 'External User';
+
+const categories = {
+  'Scientific Article': 'AcademicArticle',
+  'Monograph': 'AcademicMonograph',
+  'Anthology': 'BookAnthology',
+}
 
 // Scenario Outline: Create testdata for NVI workflow - user
 Given(
@@ -29,11 +36,12 @@ Given(
   ) => {
     const title = `Registrator ${typeOfRegistration} ${category} ${publicationStatus} ${isCollaboration} ${uuid()}`;
     cy.login(userUSNNviInstitution);
+    const publicationCategory = categories[category];
     if (publicationStatus === PUBLISHED) {
-      cy.createPublishedRegistration(title);
+      cy.createPublishedRegistration(title, publicationCategory);
     } else {
       cy.startWizardWithEmptyRegistration();
-      cy.createValidRegistration(null, title);
+      createValidRegistrationWithType(title, publicationCategory,);
       cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
       cy.getSuccess();
       cy.getSuccessDone();
