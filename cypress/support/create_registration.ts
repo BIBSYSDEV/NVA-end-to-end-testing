@@ -52,6 +52,14 @@ export const createValidRegistrationWithType = (
 
 const addCategoryData = (type: string) => {
   switch (type) {
+    case 'AcademicMonograph':
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('springer nature', {
+        delay: 1,
+      });
+      cy.contains('Springer Nature').click();
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
+      cy.contains('Archaeology and Conservation').click();
+      break;
     case 'BookAnthology':
     case 'ReportBookOfAbstract':
     case 'ReportResearch':
@@ -64,6 +72,7 @@ const addCategoryData = (type: string) => {
       );
       cy.contains('Academic Conferences International').click();
       break;
+    case 'AcademicArticle':
     case 'ConferenceAbstract':
     case 'JournalReview':
       cy.intercept('GET', 'publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' });
