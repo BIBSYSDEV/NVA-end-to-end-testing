@@ -1,6 +1,6 @@
 // Feature: NVI-candidates with unidentified users
 
-import { userUSNChangeNviCuratorInstitution } from '../../../support/constants';
+import { CategoryTypes, userUSNChangeNviCuratorInstitution } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { todayDatePicker } from '../../../support/commands';
@@ -43,7 +43,7 @@ Given('the publication has at least one Author affiliated with an NVI institutio
           cy.contains('ACS Chemical Biology').click();
           break;
         case PUBLISHER:
-          if (type.toString() === 'AcademicChapter') {
+          if (type.toString() === CategoryTypes.ACADEMIC_ARTICLE) {
             cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(`Anthology NVI ${channel}`);
             cy.contains(`Anthology NVI ${channel}`).click();
           } else {
@@ -54,7 +54,7 @@ Given('the publication has at least one Author affiliated with an NVI institutio
           cy.contains('Art History').click();
           break;
         case SERIES:
-          if (type.toString() === 'AcademicChapter') {
+          if (type.toString() ===  CategoryTypes.ACADEMIC_ARTICLE) {
             cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(`Anthology NVI ${channel}`);
             cy.contains(`Anthology NVI ${channel}`).click();
           } else {

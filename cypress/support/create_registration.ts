@@ -1,5 +1,5 @@
 import { formatedToday, today } from './commands';
-import { FileVersions } from './constants';
+import { CategoryTypes, FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
 import { v4 as uuid } from 'uuid';
 
@@ -52,7 +52,7 @@ export const createValidRegistrationWithType = (
 
 const addCategoryData = (type: string) => {
   switch (type) {
-    case 'AcademicMonograph':
+    case CategoryTypes.BOOK_MONOGRAPH:
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('springer nature', {
         delay: 1,
       });
@@ -60,10 +60,10 @@ const addCategoryData = (type: string) => {
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
       cy.contains('Archaeology and Conservation').click();
       break;
-    case 'BookAnthology':
-    case 'ReportBookOfAbstract':
-    case 'ReportResearch':
-    case 'DataManagementPlan':
+    case CategoryTypes.BOOK_ANTHOLOGY:
+    case CategoryTypes.REPORT_BOOK_OF_ABSTRACT:
+    case CategoryTypes.RESEARCH_REPORT:
+    case CategoryTypes.DATA_MANAGEMENT_PLAN:
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type(
         'academic conferences international',
         {
@@ -72,20 +72,20 @@ const addCategoryData = (type: string) => {
       );
       cy.contains('Academic Conferences International').click();
       break;
-    case 'AcademicArticle':
-    case 'ConferenceAbstract':
-    case 'JournalReview':
+    case CategoryTypes.ACADEMIC_ARTICLE:
+    case CategoryTypes.CONFERENCE_ABSTRACT:
+    case CategoryTypes.JOURNAL_REVIEW:
       cy.intercept('GET', 'publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' });
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acs chemical');
       cy.contains('ACS Chemical Biology').click();
       break;
-    case 'JournalCorrigendum':
+    case CategoryTypes.JOURNAL_CORRIGENDUM:
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.corrigendumForField).type(
         'original publication for corrigendum'
       );
       cy.contains('Original publication for corrigendum').click();
       break;
-    case 'AcademicChapter':
+    case CategoryTypes.ACADEMIC_CHAPTER:
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type('antologi');
       cy.contains('Test Antologi').click();
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();

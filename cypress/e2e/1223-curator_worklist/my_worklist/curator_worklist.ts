@@ -1,12 +1,6 @@
 import {
-  userBIBSYSPublishNoRights,
-  userBIBSYSCurator2,
-  userBIBSYSDoiCurator,
-  userBIBSYSMessages,
-  userNtnuNviCurator,
-  userBIBSYSPublishingCurator,
-  userBIBSYSSupportCurator,
-  userNtnuVerifiedContributor,
+  CategoryTypes,
+  TestUsers,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
@@ -20,10 +14,10 @@ const messageTypes = {
 };
 
 const curatorUsers = {
-  'Publishing-Curator': userBIBSYSPublishingCurator,
-  'Support-Curator': userBIBSYSSupportCurator,
-  'Doi-Curator': userBIBSYSDoiCurator,
-  'Nvi-Curator': userNtnuNviCurator,
+  'Publishing-Curator': TestUsers.curators.bibsys.publishing,
+  'Support-Curator': TestUsers.curators.bibsys.support,
+  'Doi-Curator': TestUsers.curators.bibsys.doi,
+  'Nvi-Curator': TestUsers.curators.ntnu.nvi,
 };
 
 const taskPanels = {
@@ -35,7 +29,7 @@ const taskPanels = {
 const year = currentYear;
 const filename = 'example.txt';
 const registrationTitle = `Support message registration ${uuid()}`;
-const publicationType = 'AcademicArticle';
+const publicationType = CategoryTypes.ACADEMIC_ARTICLE;
 
 const APPROVAL = 'Approval';
 const SUPPORT = 'Support';
@@ -44,9 +38,9 @@ const NVI = 'NVI';
 
 const createWorklistItem = (title: string, type: string) => {
   if (type === NVI) {
-    cy.login(userNtnuVerifiedContributor);
+    cy.login(TestUsers.nvi.ntnu.verifiedContributor);
   } else {
-    cy.login(userBIBSYSPublishNoRights);
+    cy.login(TestUsers.publishing.noRights);
   }
   cy.createPublishedRegistration(title, publicationType, filename);
   // cy.wait(5000);
@@ -273,7 +267,7 @@ const curatorAnswer = 'Test Curator answered';
 
 // Scenario: User gets an answer to a Support Request
 When('the Curator sends an answer of type "Support"', () => {
-  cy.login(userBIBSYSMessages);
+  cy.login(TestUsers.messaging.basic);
   cy.startWizardWithEmptyRegistration();
   cy.createValidRegistration(filename, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
@@ -284,7 +278,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getSuccess();
   // cy.wait(10000);
 
-  cy.login(userBIBSYSCurator2);
+  cy.login(TestUsers.curators.bibsys.curator2);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
   cy.filterMessages('Support Requests');
@@ -298,7 +292,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.getSuccess();
 });
 Then('the Request status is set to "Answered"', () => {
-  cy.login(userBIBSYSMessages);
+  cy.login(TestUsers.messaging.basic);
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
 });

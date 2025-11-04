@@ -3,7 +3,7 @@ import 'cypress-localstorage-commands';
 import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
 import { mockPersonFeideIdSearch, mockPersonNameSearch } from './mock_data';
-import { FileVersions, userBIBSYSSecondEditor } from './constants';
+import { CategoryTypes, FileVersions, userBIBSYSSecondEditor } from './constants';
 import { createValidRegistrationWithType } from './create_registration';
 import { login } from './login';
 
@@ -76,7 +76,7 @@ Cypress.Commands.add('openMyRegistrations', () => {
 
 Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?, fileVersion?, fileType?) => {
   cy.startWizardWithEmptyRegistration();
-  if (!category || category === 'AcademicArticle') {
+  if (!category || category === CategoryTypes.ACADEMIC_ARTICLE) {
     cy.createValidRegistration(fileName, title, fileVersion, fileType);
   } else {
     createValidRegistrationWithType(title, category, fileName, fileVersion, fileType);

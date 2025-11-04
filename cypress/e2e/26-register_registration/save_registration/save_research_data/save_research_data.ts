@@ -1,4 +1,4 @@
-import { userUnitSaveResearchData } from '../../../../support/constants';
+import { CategoryTypes, TestUsers } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
@@ -42,13 +42,13 @@ const researchContributorRoles = {
 Given('Author begins registering a Registration', () => {
   const titleId = uuidv4();
   cy.wrap(titleId).as('titleId');
-  cy.login(userUnitSaveResearchData);
+  cy.login(TestUsers.byWorkflow.researchData.save);
 });
 Given('selects {string}', (resourceType: string) => {
-  if (resourceType === 'DataManagementPlan') {
-    cy.createPublishedRegistration(`Test Antologi ${uuidv4()}`, 'BookAnthology');
+  if (resourceType === CategoryTypes.DATA_MANAGEMENT_PLAN) {
+    cy.createPublishedRegistration(`Test Antologi ${uuidv4()}`, CategoryTypes.BOOK_ANTHOLOGY);
     cy.wait(10000);
-    cy.createPublishedRegistration(`Test registration DMP ${uuidv4()}`, 'DataManagementPlan');
+    cy.createPublishedRegistration(`Test registration DMP ${uuidv4()}`, CategoryTypes.DATA_MANAGEMENT_PLAN);
   }
   cy.startWizardWithEmptyRegistration();
   cy.wrap(resourceType).as('resourceType');

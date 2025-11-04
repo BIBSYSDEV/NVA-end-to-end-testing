@@ -1,4 +1,4 @@
-import { userUnitSavePartOfBook } from '../../../../support/constants';
+import { CategoryTypes, userUnitSavePartOfBook } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,9 +15,9 @@ const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther
 
 const initData = () => {
   cy.login(userUnitSavePartOfBook);
-  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'BookAnthology');
-  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportResearch');
-  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, 'ReportBookOfAbstract');
+  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.BOOK_ANTHOLOGY);
+  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.RESEARCH_REPORT);
+  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.REPORT_BOOK_OF_ABSTRACT);
   cy.wait(20000);
 };
 

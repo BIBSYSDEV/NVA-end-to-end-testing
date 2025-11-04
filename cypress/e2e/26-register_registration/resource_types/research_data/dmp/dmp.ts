@@ -11,7 +11,7 @@
 //	As a User (researcher)
 //	I want to publish new versions of my DMP
 
-import { userUnitResearchDataDmp } from '../../../../../support/constants';
+import { CategoryTypes, userUnitResearchDataDmp } from '../../../../../support/constants';
 import { dataTestId } from '../../../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -25,7 +25,7 @@ Given('User selects Resource type "Research Data"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 Given('they select DMP as subtype', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('DataManagementPlan')).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.DATA_MANAGEMENT_PLAN)).click();
 });
 
 // end common steps

@@ -1,5 +1,5 @@
 import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
-import { userUnitResourceTypeJournal } from '../../../../support/constants';
+import { CategoryTypes, userUnitResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { journalSubtypes, journalFields } from '../../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
@@ -14,7 +14,7 @@ const originalPublication = `Original publication for corrigendum ${uuid()}`;
 BeforeAll(() => {
   cy.login(userUnitResourceTypeJournal);
   cy.createPublishedRegistration(originalPublication);
-  cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
+  cy.createPublishedRegistration(corrigendumTitle, CategoryTypes.JOURNAL_CORRIGENDUM);
 });
 
 Before(() => {
@@ -29,7 +29,7 @@ When('they click the Save button', () => {
 });
 When('they select the Resource type "Contribution to journal"', () => {});
 When('they select Resource subtype Journal article', () => {
-  cy.get('[data-testid=resource-type-chip-AcademicArticle]').click();
+  cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_ARTICLE}]`).click();
 });
 When('they enter an invalid value in fields:', (dataTable: DataTable) => {
   dataTable.raw().forEach((field: string[]) => {
@@ -158,7 +158,7 @@ Given('Creator sees fields for Journal article', () => {
   cy.login(userUnitResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get('[data-testid=resource-type-chip-AcademicArticle]').click({ force: true });
+  cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_ARTICLE}]`).click({ force: true });
 });
 When('they select type to be {string}:', (type: string) => {
   const elements = [];

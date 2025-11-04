@@ -1,6 +1,6 @@
 //  Feature: Scenarios for search
 
-import { userBIBSYSPublishRegistration, userUnitWithAuthor, userUnitWithAuthor1 } from '../../../support/constants';
+import { CategoryTypes, userBIBSYSPublishRegistration, userUnitWithAuthor, userUnitWithAuthor1 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
@@ -30,7 +30,7 @@ const initData = () => {
   cy.login(userUnitWithAuthor1);
   cy.createPublishedRegistration(searchResultConferenceAbstract);
   cy.login(userBIBSYSPublishRegistration);
-  cy.createPublishedRegistration(searchResultAnthology, 'BookAnthology');
+  cy.createPublishedRegistration(searchResultAnthology, CategoryTypes.BOOK_ANTHOLOGY);
   cy.getDataTestId(dataTestId.header.menuButton).click();
   cy.clearAllLocalStorage();
   cy.clearAllCookies();

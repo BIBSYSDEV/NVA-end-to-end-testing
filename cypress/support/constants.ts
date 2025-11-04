@@ -20,9 +20,82 @@ export const AuthorityPaths = {
 };
 
 export enum FileVersions {
-  ACCEPTED,
-  PUBLISHED,
-  NOT_SET,
+  ACCEPTED = 'Accepted',
+  PUBLISHED = 'Published',
+  NOT_SET = 'Not set',
+}
+
+export enum CategoryTypes {
+  ACADEMIC_ARTICLE = 'AcademicArticle',
+  ACADEMIC_REWIEW_ARTICLE = 'AcademicReviewArticle',
+  COMMENTARY = 'Commentary',
+  JOURNAL_REVIEW = 'JournalReview',
+  JOURNAL_LEADER = 'JournalLeader',
+  JOURNAL_CORRIGENDUM = 'JournalCorrigendum',
+  JOURNAL_ISSUE = 'JournalIssue',
+  CONFERENCE_ABSTRACT = 'ConferenceAbstract',
+  CASE_REPORT = 'CaseReport',
+  STUDY_PROTOCOL = 'StudyProtocol',
+  PROFESSIONAL_ARTICLE = 'ProfessionalArticle',
+  POPULAR_SCIENCE_ARTICLE = 'PopularScienceArticle',
+
+  BOOK_MONOGRAPH = 'BookMonograph',
+  ACADEMIC_COMMENTARY = 'AcademicCommentary',
+  NON_FICTION_BOOK = 'NonFictionBook',
+  POPULAR_SCIENCE_BOOK = 'PopularScienceBook',
+  TEXT_BOOK = 'TextBook',
+  ENCYCLOPEDIA = 'Encyclopedia',
+  EXHIBITION_CATALOGUE = 'ExhibitionCatalogue',
+  BOOK_ANTHOLOGY = 'BookAnthology',
+
+  RESEARCH_REPORT = 'ResearchReport',
+  POLICY_REPORT = 'PolicyReport',
+  REPORT_WORKING_PAPER = 'ReportWorkingPaper',
+  REPORT_BOOK_OF_ABSTRACT = 'ReportBookOfAbstract',
+  CONFERENCE_REPORT = 'ConferenceReport',
+  REPORT_BASIC = 'ReportBasic',
+
+  DEGREE_BACHELOR = 'DegreeBachelor',
+  DEGREE_MASTER = 'DegreeMaster',
+  DEGREE_PHD = 'DegreePhD',
+  ARTISTIC_DEGREE_PHD = 'ArtisticDegreePhD',
+  DEGREE_LICENTIATE = 'DegreeLicentiate',
+  OTHER_STUDENT_WORK = 'OtherStudentWork',
+
+  ACADEMIC_CHAPTER = 'AcademicChapter',
+  NON_FICTION_CHAPTER = 'NonFictionChapter',
+  POPULAR_SCIENCE_CHAPTER = 'PopularScienceChapter',
+  TEXT_BOOK_CHAPTER = 'TextBookChapter',
+  ENCYCLOPEDIA_CHAPTER = 'EncyclopediaChapter',
+  INTRODUCTION = 'Introduction',
+  EXHIBITION_CATALOGUE_CHAPTER = 'ExhibitionCatalogueChapter',
+  CHAPTER_IN_REPORT = 'ChapterInReport',
+
+  CONFERENCE_LECTURE = 'ConferenceLecture',
+  CONFERENCE_POSTER = 'ConferencePoster',
+  LECTURE = 'Lecture',
+  OTHER_PRESENTATION = 'OtherPresentation',
+
+  MUSIC_PERFORMANCE = 'MusicPerformance',
+  ARCHITECTURE = 'Architecture',
+  VISUAL_ARTS = 'VisualArts',
+  PERFORMING_ART = 'PerformingArt',
+  MOVING_PICTURE = 'MovingPicture',
+  LITERARY_ART = 'LiteraryArt',
+
+  MEDIA_FEATURE_ARTICLE = 'MediaFeatureArticle',
+  MEDIA_READER_OPINION = 'MediaReaderOpinion',
+  MEDIA_INTERVIEW = 'MediaInterview',
+  MEDIA_BLOG_POST = 'MediaBlogPost',
+  MEDIA_PODCAST = 'MediaPodcast',
+  MEDIA_PARTICIPATION_IN_RADIO_OR_TV = 'MediaParticipationInRadioOrTv',
+
+  DATA_MANAGEMENT_PLAN = 'DataManagementPlan',
+  DATASET = 'Dataset',
+
+  EXHIBITION_PRODUCTION = 'ExhibitionProduction',
+
+  MAP = 'Map',
 }
 
 export const userUnitWithAuthor = 'test-user-with-author@test.no';
@@ -164,6 +237,247 @@ const userData = {
   orcid: true,
   inArp: true,
 };
+
+/**
+ * Consolidated test users organized by role and functionality.
+ * Provides easier discovery and better organization than flat exports.
+ *
+ * @example
+ * import { TestUsers } from './constants';
+ * cy.login(TestUsers.creators.withAuthor);
+ * cy.login(TestUsers.curators.bibsys.publishing);
+ * cy.login(TestUsers.admins.app);
+ */
+export const TestUsers = {
+  // Content creators and authors
+  creators: {
+    withAuthor: userUnitWithAuthor,
+    withAuthor1: userUnitWithAuthor1,
+    withAuthor2: userUnitWithAuthor2,
+    withAuthor3: userUnitWithAuthor3,
+    withAuthor4: userUnitWithAuthor4,
+    withAuthor5: userUnitWithAuthor5,
+    withAuthor6: userUnitWithAuthor6,
+    withAuthor7: userUnitWithAuthor7,
+    withAuthor8: userUnitWithAuthor8,
+    basic: userUnitWithAuthor, // Alias for most common use
+  },
+
+  // Curators by institution
+  curators: {
+    basic: userUnitCurator,
+    bibsys: {
+      curator1: userBIBSYSCurator,
+      curator2: userBIBSYSCurator2,
+      publishing: userBIBSYSPublishingCurator,
+      support: userBIBSYSSupportCurator,
+      doi: userBIBSYSDoiCurator,
+      collaboration: userBIBSYSCollaborationCurator,
+    },
+    ntnu: {
+      nvi: userNtnuNviCurator,
+      nvi2: userNtnuNviCurator2,
+    },
+    nmbu: {
+      collaboration: userNmbuCollaborationCurator,
+    },
+    usn: {
+      nvi: userUSNNviCuratorInstitution,
+      changeNvi: userUSNChangeNviCuratorInstitution,
+      collaboration: userUSNCollaborationCurator,
+    },
+    sintef: {
+      publication: userSintefPublicationCurator,
+      doi: userSintefDOICurator,
+      support: userSintefSupportCurator,
+    },
+    specialty: {
+      degree: userUnitCuratorDegree,
+      resourceOwner: userUnitCuratorResourceOwner,
+      institution: userUnitCuratorInstitution,
+      draftDoi: userUnitCuratorDraftDoi,
+    },
+  },
+
+  // Editors by institution
+  editors: {
+    basic: userUnitEditor,
+    editor1: userUnitEditor1,
+    editor2: userUnitEditor2,
+    editor3: userUnitEditor3,
+    editor4: userUnitEditor4,
+    editor5: userUnitEditor5,
+    bibsys: userBIBSYSSecondEditor,
+    sikt: userSiktThirdEditor,
+    sintef: userSintefEditor,
+    specialty: {
+      delete: userUnitEditorDelete,
+    },
+  },
+
+  // Administrators
+  admins: {
+    app: adminUserUnit,
+    app1: adminUserUnit1,
+    institution: userUnitInstAdmin,
+    siktInstitution: userSiktInstAdmin,
+    rrs: userUnitAdminRRS,
+  },
+
+  // Users by publication type / workflow
+  byWorkflow: {
+    registration: {
+      save: userUnitSaveRegistration,
+      view: userUnitViewRegistration,
+      edit: userUnitEditRegistration,
+      myRegistrations: userUnitMyRegistrations,
+      openMyRegistrations: userUnitOpenMyRegistrations,
+      published: userUnitPublishedRegistration,
+      delete: userUnitDeleteRegistrations,
+      cancelDelete: userUnitCancelDelete,
+    },
+    journal: {
+      save: userUnitSaveJournal,
+      resourceType: userUnitResourceTypeJournal,
+    },
+    book: {
+      save: userUnitSaveBook,
+      resourceType: userUnitResourceTypeBook,
+      partOf: userUnitSavePartOfBook,
+    },
+    chapter: {
+      resourceType: userUnitResourceTypeChapter,
+    },
+    report: {
+      save: userUnitSaveReport,
+      resourceType: userUnitResourceTypeReport,
+    },
+    thesis: {
+      save: userUnitSaveThesis,
+      resourceType: userUnitResourceTypeDegree,
+    },
+    artistic: {
+      basic: userUnitArtistic,
+      save: userUnitSaveArtisticResult,
+      film: userUnitFilm,
+      design: userUnitDesign,
+      music: userUnitMusic,
+      performingArts: userUnitPerformingArts,
+      literaryArts: userUnitLiteraryArts,
+      visualArts: userUnitVisualArts,
+      architecture: userUnitResourceTypeArchitecture,
+    },
+    media: {
+      save: userUnitSaveMediaContribution,
+      resourceType: userUnitResourceTypeMedia,
+    },
+    presentation: {
+      save: userUnitSavePresentation,
+      resourceType: userUnitResourceTypePresentation,
+    },
+    researchData: {
+      save: userUnitSaveResearchData,
+      dmp: userUnitResearchDataDmp,
+      dataset: userUnitResearchDataset,
+    },
+    exhibition: {
+      save: userUnitSaveExhibition,
+    },
+  },
+
+  // DOI-related users
+  doi: {
+    draft: userUnitDraftDoi,
+    draft2: userUnitDraftDoi2,
+    fetch: userUnitFetchDoi,
+  },
+
+  // NVI (Norwegian Science Index) users
+  nvi: {
+    bibsys: {
+      institution: userBIBSYSNviInstitution,
+      curator: userBIBSYSNviCuratorInstitution,
+      change: userBIBSYSChangeNviInstitution,
+    },
+    usn: {
+      institution: userUSNNviInstitution,
+      curator: userUSNNviCuratorInstitution,
+      change: userUSNChangeNviInstitution,
+    },
+    nmbu: {
+      institution: userNmbuNvaInstitution,
+      change: userNmbuChangeNvaInstitution,
+    },
+    ntnu: {
+      verifiedContributor: userNtnuVerifiedContributor,
+    },
+  },
+
+  // Publishing and permissions
+  publishing: {
+    noRights: userBIBSYSPublishNoRights,
+    withRights: userBIBSYSPublishRegistration,
+    registrator: userSintefRegistrator,
+  },
+
+  // Messaging and support
+  messaging: {
+    basic: userBIBSYSMessages,
+    unread: userBIBSYSUnreadMessages,
+    requestSupport: userUnitRequestSupport,
+    sintef: {
+      support: userSintefSupportMessages,
+      publicationCurator: userSintefPublicationCuratorMessages,
+      doiCurator: userSintefDOICuratorMessages,
+      supportCurator: userSintefSupportCuratorMessages,
+      publication: userSintefPublicationMessages,
+      doi: userSintefDOIMessages,
+    },
+  },
+
+  // Collaboration workflows
+  collaboration: {
+    bibsys: uploaderBIBSYS,
+    nmbu: uploaderNMBU,
+    usn: uploaderUSN,
+  },
+
+  // Special features
+  features: {
+    contributors: userUnitContributors,
+    filesAndLicense: userUnitFilesAndLicense,
+    favorites: {
+      favorite1: userUnitFavorite1,
+      favorite2: userUnitFavorite2,
+      favorite3: userUnitFavorite3,
+    },
+    institution: {
+      add: userUnitAddInstitution,
+      change: userUnitChangeInstitution,
+      remove: userUnitWithInstitutionRemoveInstitution,
+    },
+    orcid: {
+      remove: userUnitRemoveOrcid,
+    },
+    project: {
+      manager: userUnitProjectManager,
+      wizard: userBIBSYSProjectWizard,
+    },
+    rrs: {
+      author: userUnitAuthorRRS,
+      embargo: userUnitEmbargo,
+    },
+    resourceOwner: userUnitResourceOwner,
+    menu: userUnitTestMenu,
+    logout: userUnitLogout,
+  },
+
+  // Edge cases and special roles
+  special: {
+    noRole: userUnitNoRole,
+    nonCustomer: userNonCustomer,
+  },
+} as const;
 
 export const user = {
   [userUnitWithAuthor]: { ...userData, name: 'TestUser, Withauthor' },

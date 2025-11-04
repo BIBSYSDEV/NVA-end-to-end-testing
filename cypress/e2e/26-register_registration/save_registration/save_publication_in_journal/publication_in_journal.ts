@@ -1,4 +1,4 @@
-import { userUnitSaveJournal } from '../../../../support/constants';
+import { CategoryTypes, userUnitSaveJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
@@ -34,7 +34,7 @@ const initData = () => {
   const originalPublication = `Original publication for corrigendum ${uuidv4()}`;
   cy.createPublishedRegistration(originalPublication);
   const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
-  cy.createPublishedRegistration(corrigendumTitle, 'JournalCorrigendum');
+  cy.createPublishedRegistration(corrigendumTitle, CategoryTypes.JOURNAL_CORRIGENDUM);
   const articleForCorrigendumTitle = `Test article corrigendum ${uuidv4()}`;
   cy.createPublishedRegistration(articleForCorrigendumTitle);
 };
@@ -81,7 +81,7 @@ Then('they can see the values in the Registration Wizard', () => {
           const field = registrationFields[key][subkey];
           if (
             subkey !== 'version' ||
-            resourceType === 'AcademicArticle' ||
+            resourceType === CategoryTypes.ACADEMIC_ARTICLE ||
             resourceType === 'AcademicLiteratureReview'
           ) {
             cy.checkField(field);
