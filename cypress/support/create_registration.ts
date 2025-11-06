@@ -25,18 +25,18 @@ export const createValidRegistrationWithType = (
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton, { timeOut: 30000 }).should('not.exist');
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).should('not.exist');
 
   // Files and reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
   if (fileName) {
     cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-    const accessabilityType = fileType ? 'Open file' : fileType;
+    const accessibilityType = fileType ?? 'Open file';
     if (fileType !== 'None') {
       cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-      cy.contains(accessabilityType).click();
+      cy.contains(accessibilityType).click();
     }
-    if (accessabilityType === 'Open file') {
+    if (accessibilityType === 'Open file') {
       cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {
         if (fileVersion === FileVersions.ACCEPTED) {
           cy.get('input[type=radio]').first().click();
@@ -52,7 +52,7 @@ export const createValidRegistrationWithType = (
 
 const addCategoryData = (type: string) => {
   switch (type) {
-    case CategoryTypes.BOOK_MONOGRAPH:
+    case CategoryTypes.ACADEMIC_MONOGRAPH:
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('springer nature', {
         delay: 1,
       });
@@ -97,14 +97,12 @@ const addCategoryData = (type: string) => {
 export const changeContributor = (userFrom: string, userTo: string): void => {
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton(userFrom)}"`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.removeContributorButton(userFrom)).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('not.exist');
-  cy.wait(5000);
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(userTo);
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.searchFor(userTo);
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();

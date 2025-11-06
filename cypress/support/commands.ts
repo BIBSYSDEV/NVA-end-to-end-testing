@@ -703,6 +703,122 @@ Cypress.Commands.add('filterMessages', (messageType) => {
   });
 });
 
+Cypress.Commands.add('searchFor', (searchTerm: string) => {
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${searchTerm}{enter}`);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+});
+
+Cypress.Commands.add('createRegistrationViaApi', (title: string, category?: string, status?: 'DRAFT' | 'PUBLISHED') => {
+  const publicationStatus = status ?? 'PUBLISHED';
+  const publicationType = category ?? CategoryTypes.ACADEMIC_ARTICLE;
+
+  // Get authentication tokens from localStorage
+  const clientId = Cypress.env('AWS_CLIENT_ID');
+  const userId = Cypress.env('CURRENT_USER') ?? 'test-user-with-author@test.no';
+  const accessTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.accessToken`;
+
+  cy.getAllLocalStorage().then((localStorage) => {
+    const accessToken = localStorage[Cypress.config().baseUrl][accessTokenKey];
+
+    if (!accessToken) {
+      throw new Error('No access token found. Please login first using cy.login()');
+    }
+
+    // Load the fixture and override necessary fields
+    cy.fixture('save_registration.json').then((fixture) => {
+      const registrationPayload = {
+        ...fixture,
+        type: 'Publication',
+        status: publicationStatus,
+        entityDescription: {
+          ...fixture.entityDescription,
+          mainTitle: title,
+          reference: {
+            ...fixture.entityDescription.reference,
+            publicationContext: getPublicationContext(publicationType),
+            publicationInstance: {
+              ...fixture.entityDescription.reference.publicationInstance,
+              type: publicationType,
+            },
+          },
+        },
+      };
+
+      cy.request({
+        method: 'POST',
+        url: `${Cypress.config().baseUrl}publication`,
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: registrationPayload,
+        failOnStatusCode: false,
+      }).then((response) => {
+        if (response.status === 201 || response.status === 200) {
+          cy.log(`✅ Registration created: ${title}`);
+          cy.wrap(response.body.identifier).as('registrationId');
+
+          // If status is PUBLISHED, publish the registration
+          if (publicationStatus === 'PUBLISHED' && response.body.identifier) {
+            cy.request({
+              method: 'PUT',
+              url: `${Cypress.config().baseUrl}publication/${response.body.identifier}/publish`,
+              headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+              },
+              failOnStatusCode: false,
+            }).then(() => {
+              cy.log(`✅ Registration published: ${title}`);
+            });
+          }
+
+          return response.body;
+        } else {
+          cy.log(`❌ Failed to create registration: ${response.status}`);
+          throw new Error(`Failed to create registration: ${response.statusText}`);
+        }
+      });
+    });
+  });
+});
+
+// Helper function to get publication context based on type
+function getPublicationContext(publicationType: string) {
+  switch (publicationType) {
+    case CategoryTypes.ACADEMIC_ARTICLE:
+    case CategoryTypes.CONFERENCE_ABSTRACT:
+    case CategoryTypes.JOURNAL_REVIEW:
+    case CategoryTypes.JOURNAL_CORRIGENDUM:
+      return {
+        type: 'Journal',
+        id: 'https://api.nva.unit.no/publication-channels/journal/12345',
+        name: 'Test Journal',
+      };
+
+    case CategoryTypes.ACADEMIC_MONOGRAPH:
+    case CategoryTypes.BOOK_ANTHOLOGY:
+      return {
+        type: 'Publisher',
+        id: 'https://api.nva.unit.no/publication-channels/publisher/67890',
+        name: 'Test Publisher',
+      };
+
+    case CategoryTypes.ACADEMIC_CHAPTER:
+      return {
+        type: 'Anthology',
+        id: 'https://api.nva.unit.no/publication/anthology-123',
+        title: 'Test Anthology',
+      };
+
+    default:
+      return {
+        type: 'UnconfirmedPublisher',
+        name: 'Test Publisher',
+      };
+  }
+}
+
 Cypress.Commands.add('getWorklistItem', (title) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);

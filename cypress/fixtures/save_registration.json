@@ -1,24 +1,183 @@
 {
-  "description": {
-    "title": "",
-    "abstract": "",
-    "description": "",
-    "keywords": "",
-    "vocabularies": "",
-    "date": "",
-    "language": "",
-    "project": ""
+  "rightsHolder": "string",
+  "duplicateOf": "string",
+  "projects": [
+    {
+      "approvals": [
+        {
+          "approvalStatus": "NOTAPPLIED",
+          "approvalDate": "2025-11-05T08:00:11.538Z",
+          "approvedBy": "REK",
+          "type": "string",
+          "applicationCode": "string"
+        }
+      ],
+      "name": "string",
+      "id": "string",
+      "type": "string"
+    }
+  ],
+  "resourceOwner": {
+    "owner": "string",
+    "ownerAffiliation": "string"
   },
-  "contributors": {
-    "author": "",
-    "contributors": ""
+  "modelVersion": "string",
+  "importDetails": [
+    {
+      "importDate": "2025-11-05T08:00:11.538Z",
+      "importSource": {
+        "archive": "string",
+        "source": "BRAGE",
+        "type": "string"
+      },
+      "type": "string"
+    }
+  ],
+  "link": "string",
+  "associatedArtifacts": [
+    {
+      "type": "string"
+    }
+  ],
+  "type": "string",
+  "fundings": [
+    {
+      "identifier": "string",
+      "activeTo": "2025-11-05T08:00:11.538Z",
+      "source": "string",
+      "fundingAmount": {
+        "amount": 0,
+        "currency": "NOK"
+      },
+      "type": "string",
+      "activeFrom": "2025-11-05T08:00:11.538Z",
+      "labels": {
+        "additionalProp1": "string",
+        "additionalProp2": "string",
+        "additionalProp3": "string"
+      },
+      "id": "string"
+    },
+    {
+      "identifier": "string",
+      "activeTo": "2025-11-05T08:00:11.538Z",
+      "source": "string",
+      "fundingAmount": {
+        "amount": 0,
+        "currency": "NOK"
+      },
+      "type": "string",
+      "activeFrom": "2025-11-05T08:00:11.538Z",
+      "labels": {
+        "additionalProp1": "string",
+        "additionalProp2": "string",
+        "additionalProp3": "string"
+      }
+    }
+  ],
+  "curatingInstitutions": [
+    "string"
+  ],
+  "entityDescription": {
+    "description": "string",
+    "language": "string",
+    "abstract": "string",
+    "type": "string",
+    "tags": [
+      "string"
+    ],
+    "reference": {
+      "publicationInstance": {
+        "pages": {
+          "type": "string"
+        },
+        "type": "string"
+      },
+      "type": "string",
+      "publicationContext": {
+        "type": "string"
+      },
+      "doi": "string"
+    },
+    "metadataSource": "string",
+    "mainTitle": "string",
+    "alternativeAbstracts": {
+      "additionalProp1": "string",
+      "additionalProp2": "string",
+      "additionalProp3": "string"
+    },
+    "contributors": [
+      {
+        "sequence": 0,
+        "role": {
+          "type": "AcademicCoordinator"
+        },
+        "identity": {
+          "nameType": "Organizational",
+          "verificationStatus": "Verified",
+          "name": "string",
+          "additionalIdentifiers": [
+            {
+              "sourceName": "string",
+              "type": "string",
+              "value": "string"
+            }
+          ],
+          "orcId": "string",
+          "id": "string",
+          "type": "string"
+        },
+        "correspondingAuthor": true,
+        "affiliations": [
+          {
+            "type": "string"
+          }
+        ],
+        "type": "string"
+      }
+    ],
+    "publicationDate": {
+      "month": "string",
+      "year": "string",
+      "type": "string",
+      "day": "string"
+    },
+    "npiSubjectHeading": "string",
+    "alternativeTitles": {
+      "additionalProp1": "string",
+      "additionalProp2": "string",
+      "additionalProp3": "string"
+    }
   },
-  "files and license": {
-    "file": "",
-    "version": "",
-    "author agreement": "",
-    "date": "",
-    "terms of use": ""
+  "additionalIdentifiers": [
+    {
+      "sourceName": "string",
+      "type": "string",
+      "value": "string"
+    }
+  ],
+  "identifier": {},
+  "subjects": [
+    "string"
+  ],
+  "handle": "string",
+  "indexedDate": "2025-11-05T08:00:11.538Z",
+  "createdDate": "2025-11-05T08:00:11.538Z",
+  "allowedOperations": [
+    "update"
+  ],
+  "modifiedDate": "2025-11-05T08:00:11.538Z",
+  "publisher": {
+    "type": "string",
+    "id": "string"
   },
-  "resource type": {}
+  "publishedDate": "2025-11-05T08:00:11.538Z",
+  "publicationNotes": [
+    {
+      "note": "string",
+      "type": "string"
+    }
+  ],
+  "status": "NEW",
+  "doi": "string"
 }

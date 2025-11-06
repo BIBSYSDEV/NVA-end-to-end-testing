@@ -39,7 +39,7 @@ export enum CategoryTypes {
   PROFESSIONAL_ARTICLE = 'ProfessionalArticle',
   POPULAR_SCIENCE_ARTICLE = 'PopularScienceArticle',
 
-  BOOK_MONOGRAPH = 'BookMonograph',
+  ACADEMIC_MONOGRAPH = 'AcademicMonograph',
   ACADEMIC_COMMENTARY = 'AcademicCommentary',
   NON_FICTION_BOOK = 'NonFictionBook',
   POPULAR_SCIENCE_BOOK = 'PopularScienceBook',

@@ -55,6 +55,20 @@ declare global {
       setWorkflowRegistratorRequiresApproval(): void;
 
       filterMessages(messageType: string): void;
+      /**
+       * Search for a term by clearing the search field first and typing the search term
+       * @param searchTerm - The term to search for
+       * @example cy.searchFor('My Publication')
+       */
+      searchFor(searchTerm: string): void;
+      /**
+       * Create a registration via API using cy.request for faster test data setup
+       * @param title - Registration title
+       * @param category - Publication category type (defaults to ACADEMIC_ARTICLE)
+       * @param status - Registration status: 'DRAFT' or 'PUBLISHED' (defaults to 'PUBLISHED')
+       * @example cy.createRegistrationViaApi('My Article', CategoryTypes.ACADEMIC_ARTICLE, 'PUBLISHED')
+       */
+      createRegistrationViaApi(title: string, category?: string, status?: 'DRAFT' | 'PUBLISHED'): Chainable<any>;
       getWorklistItem(title: string): Chainable<JQuery<HTMLElement>>;
       getNVIWorklistItem(title: string): Chainable<JQuery<HTMLElement>>;
 
