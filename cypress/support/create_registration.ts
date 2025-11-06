@@ -97,7 +97,7 @@ const addCategoryData = (type: string) => {
 export const changeContributor = (userFrom: string, userTo: string): void => {
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.removeContributorButton(userFrom)).click();
+  cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton(userFrom)}"`).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
