@@ -48,8 +48,8 @@ export enum CategoryTypes {
   EXHIBITION_CATALOGUE = 'ExhibitionCatalogue',
   BOOK_ANTHOLOGY = 'BookAnthology',
 
-  RESEARCH_REPORT = 'ResearchReport',
-  POLICY_REPORT = 'PolicyReport',
+  RESEARCH_REPORT = 'ReportResearch',
+  POLICY_REPORT = 'ReportPolicy',
   REPORT_WORKING_PAPER = 'ReportWorkingPaper',
   REPORT_BOOK_OF_ABSTRACT = 'ReportBookOfAbstract',
   CONFERENCE_REPORT = 'ConferenceReport',
