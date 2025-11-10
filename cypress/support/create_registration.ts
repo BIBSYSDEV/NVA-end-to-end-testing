@@ -61,6 +61,7 @@ const addCategoryData = (type: string) => {
       cy.contains('Archaeology and Conservation').click();
       break;
     case CategoryTypes.BOOK_ANTHOLOGY:
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.isbnField).type('978-82-02-89590-7');
     case CategoryTypes.REPORT_BOOK_OF_ABSTRACT:
     case CategoryTypes.RESEARCH_REPORT:
     case CategoryTypes.DATA_MANAGEMENT_PLAN:

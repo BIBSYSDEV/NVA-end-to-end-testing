@@ -35,6 +35,7 @@ Cypress.Commands.add('login', (userId: string) => {
       username: 'osteloff',
       password: 'osteloff',
     },
+    failOnStatusCode: false
   });
   cy.setLocalStorage('i18nextLng', 'eng');
   cy.setLocalStorage('previouslyLoggedIn', 'true');

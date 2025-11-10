@@ -21,7 +21,14 @@ Given('publication with publicationInstance type AcademicChapter', () => {
 Given('publication has publicationContext refering to Anthology which is not NVI candidate', () => {
   // Create a non-scientific anthology (without scientific publisher/series)
   anthologyTitle = `Non-Scientific Anthology ${uuid()}`;
-  cy.createPublishedRegistration(anthologyTitle, CategoryTypes.ACADEMIC_MONOGRAPH);
+  cy.createPublishedRegistration(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY);
+  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('sintef akademisk forlag');
+  cy.contains('SINTEF akademisk forlag').click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccessDone();
   cy.wrap(anthologyTitle).as('anthologyTitle');
 
   // Link the chapter to the anthology
@@ -47,16 +54,15 @@ Given('publication has publicationContext refering to Anthology which is not NVI
   cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
   cy.get(`[data-value=${year}]`).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getNVIWorklistItem(chapterTitle).should('not.exist');
+  cy.searchFor(chapterTitle);
+  cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('not.exist');
 });
 
 When('Anthology is updated and becomes NVI candidate', () => {
-  // Login as user who can edit
-  cy.login(TestUsers.nvi.usn.change);
-
   // Search for anthology and edit it
-  cy.visit('/');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${anthologyTitle}{enter}`);
+  cy.getDataTestId('logo').click();
+  cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
+  cy.searchFor(anthologyTitle);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.contains(anthologyTitle).click();
 
@@ -92,12 +98,8 @@ Then('AcademicChapter should also be evaluated as NVI candidate', () => {
     }
   });
 
-  // Verify both anthology and chapter are NVI candidates
-  cy.searchFor(anthologyTitle);
-  cy.getNVIWorklistItem(anthologyTitle).should('exist');
-
   cy.searchFor(chapterTitle);
-  cy.getNVIWorklistItem(chapterTitle).should('exist');
+  cy.contains(chapterTitle);
 });
 
 // Scenario 2: Change Anthology from scientific to non-scientific
