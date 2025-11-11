@@ -7,12 +7,13 @@ Feature: NVI candidate evaluation for Anthology related publications
     When Anthology is updated and becomes NVI candidate
     Then AcademicChapter should also be evaluated as NVI candidate
 
-#   Scenario: Change Anthology from scientific to non-scientific
-#     Given publication with publicationInstance type AcademicChapter
-#     And publication has publicationContext refering to Anthology which is NVI candidate
-#     When Anthology is updated and becomes non NVI candidate
-#     Then AcademicChapter should also be evaluated as non NVI candidate
-
+  @test
+  Scenario: Change Anthology from scientific to non-scientific
+    Given publication with publicationInstance type AcademicChapter
+    And publication has publicationContext refering to Anthology which is NVI candidate
+    When Anthology is updated and becomes non NVI candidate
+    Then AcademicChapter should also be evaluated as non NVI candidate
+    
 #   Scenario: Anthology is moved to correction list for "Antholoy without chapter" when chapter is removed
 #     Given publication with publicationInstance type Antology
 #     And publication is NVI candidate
@@ -20,7 +21,6 @@ Feature: NVI candidate evaluation for Anthology related publications
 #     When AcademicChapter is updated to refer to another Book
 #     And the Antology has no AcademicChapter refering to it
 #     Then AcademicMonograph should appear in correction list for "Antholoy without chapter"
-
 #   Scenario: Anthology is removed from correction list for "Antholoy without chapter" when chapter is added
 #     Given publication with publicationInstance type Antology
 #     And publication is NVI candidate

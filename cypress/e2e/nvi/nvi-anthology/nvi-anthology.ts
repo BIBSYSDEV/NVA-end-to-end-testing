@@ -1,8 +1,8 @@
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 import { CategoryTypes, TestUsers } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { NVI_PENDING, currentYear } from '../../../support/commands';
+import { NVI_PENDING, currentYear, todayDatePicker } from '../../../support/commands';
 
 // Shared state
 let anthologyTitle: string;
@@ -10,16 +10,29 @@ let chapterTitle: string;
 let anotherBookTitle: string;
 const year = currentYear;
 
-// Scenario 1: Change Anthology from non-scientific to scientific
-Given('publication with publicationInstance type AcademicChapter', () => {
-  cy.login(TestUsers.nvi.usn.institution);
-  chapterTitle = `NVI Chapter ${uuid()}`;
-  cy.createPublishedRegistration(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER);
-  cy.wrap(chapterTitle).as('chapterTitle');
+const createChapter = ((title: string, anthology: string,) => {
+  cy.startWizardWithEmptyRegistration();
+  cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type(title);
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, todayDatePicker());
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_CHAPTER)).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(anthology.toLowerCase());
+  cy.contains(anthology).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
+  cy.contains('Archaeology and Conservation').click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccessDone();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getSuccessDone();
 });
 
-Given('publication has publicationContext refering to Anthology which is not NVI candidate', () => {
-  // Create a non-scientific anthology (without scientific publisher/series)
+BeforeAll(() => {
+  cy.login(TestUsers.nvi.usn.institution);
   anthologyTitle = `Non-Scientific Anthology ${uuid()}`;
   cy.createPublishedRegistration(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY);
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
@@ -30,20 +43,19 @@ Given('publication has publicationContext refering to Anthology which is not NVI
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccessDone();
   cy.wrap(anthologyTitle).as('anthologyTitle');
+});
 
-  // Link the chapter to the anthology
-  cy.getDataTestId('logo').click();
-  cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${chapterTitle}{enter}`);
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.contains(chapterTitle).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(anthologyTitle.toLowerCase());
-  cy.contains(anthologyTitle).click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
+
+// Scenario 1: Change Anthology from non-scientific to scientific
+Given('publication with publicationInstance type AcademicChapter', () => {
+  cy.login(TestUsers.nvi.usn.institution);
+  chapterTitle = `NVI Chapter ${uuid()}`;
+  cy.wrap(chapterTitle).as('chapterTitle');
+});
+
+Given('publication has publicationContext refering to Anthology which is not NVI candidate', () => {
+
+  createChapter(chapterTitle, anthologyTitle);
 
   // Verify chapter is not an NVI candidate
   cy.login(TestUsers.nvi.usn.curator);
@@ -59,18 +71,16 @@ Given('publication has publicationContext refering to Anthology which is not NVI
 });
 
 When('Anthology is updated and becomes NVI candidate', () => {
-  // Search for anthology and edit it
   cy.getDataTestId('logo').click();
   cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.searchFor(anthologyTitle);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.contains(anthologyTitle).click();
 
-  // Edit to add scientific series to make it NVI candidate
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type('geoscientific model development');
-  cy.contains('Geoscientific Model Development').click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('springer nature');
+  cy.contains('Springer Nature').click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccessDone();
@@ -102,43 +112,23 @@ Then('AcademicChapter should also be evaluated as NVI candidate', () => {
   cy.contains(chapterTitle);
 });
 
-// Scenario 2: Change Anthology from scientific to non-scientific
+// Change Anthology from scientific to non-scientific
 Given('publication has publicationContext refering to Anthology which is NVI candidate', () => {
   cy.login(TestUsers.nvi.usn.institution);
 
   // Create scientific anthology with series (making it NVI candidate)
   anthologyTitle = `Scientific Anthology ${uuid()}`;
-  cy.createPublishedRegistration(anthologyTitle, CategoryTypes.ACADEMIC_MONOGRAPH);
-
-  // Edit to add scientific series
-  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type('geoscientific model development');
-  cy.contains('Geoscientific Model Development').click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
+  cy.createPublishedRegistration(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY);
 
   cy.wrap(anthologyTitle).as('anthologyTitle');
 
   // Create chapter
   chapterTitle = `NVI Chapter Scientific ${uuid()}`;
-  cy.createPublishedRegistration(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER);
+  createChapter(chapterTitle, anthologyTitle);
   cy.wrap(chapterTitle).as('chapterTitle');
 
-  // Link chapter to anthology
-  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(anthologyTitle.toLowerCase());
-  cy.contains(anthologyTitle).click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
-
-  // Wait for NVI processing
   cy.wait(15000);
 
-  // Verify both are NVI candidates
   cy.login(TestUsers.nvi.usn.curator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
@@ -156,33 +146,24 @@ Given('publication has publicationContext refering to Anthology which is NVI can
     }
   });
 
-  cy.getNVIWorklistItem(anthologyTitle).should('exist');
   cy.getNVIWorklistItem(chapterTitle).should('exist');
 });
 
 When('Anthology is updated and becomes non NVI candidate', () => {
-  cy.login(TestUsers.nvi.usn.change);
+  cy.login(TestUsers.nvi.usn.institution);
 
-  // Search for anthology and edit it
-  cy.visit('/');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${anthologyTitle}{enter}`);
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.searchFor(anthologyTitle);
   cy.contains(anthologyTitle).click();
 
-  // Remove series to make it non-NVI candidate
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-
-  // Clear the series field
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.seriesField}]`).within(() => {
-    cy.get('button[aria-label="Clear"]').click();
-  });
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('sintef akademisk forlag');
+  cy.contains('SINTEF akademisk forlag').click();
 
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccessDone();
 
-  // Wait for NVI processing
   cy.wait(15000);
 });
 
@@ -196,15 +177,10 @@ Then('AcademicChapter should also be evaluated as non NVI candidate', () => {
   cy.get(`[data-value=${year}]`).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 
-  // Wait for processing
   cy.wait(10000);
 
-  // Verify neither anthology nor chapter are NVI candidates
-  cy.searchFor(anthologyTitle);
-  cy.getNVIWorklistItem(anthologyTitle).should('not.exist');
-
   cy.searchFor(chapterTitle);
-  cy.getNVIWorklistItem(chapterTitle).should('not.exist');
+  cy.contains(chapterTitle).should('not.exist');
 });
 
 // Scenario 3: Anthology is moved to correction list when chapter is removed

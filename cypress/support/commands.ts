@@ -83,10 +83,18 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
     createValidRegistrationWithType(title, category, fileName, fileVersion, fileType);
   }
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
   cy.getSuccessDone();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccess();
+  cy.getSuccessDone();
+  cy.wait(15000);
+});
+
+Cypress.Commands.add('createPublishedChapterRegistration', (title, parentTitle, fileName?, fileVersion?, fileType?) => {
+  cy.startWizardWithEmptyRegistration();
+  createValidRegistrationWithType(title, CategoryTypes.ACADEMIC_CHAPTER, fileName, fileVersion, fileType, parentTitle);
+  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.getSuccessDone();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getSuccessDone();
   cy.wait(15000);
 });

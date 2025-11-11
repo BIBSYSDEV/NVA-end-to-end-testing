@@ -30,6 +30,13 @@ declare global {
         fileVersion?: FileVersions,
         fileType?: string
       ): void;
+      createPublishedChapterRegistration(
+        title: string,
+        parentTitle: string,
+        fileName?: string,
+        fileVersion?: FileVersions,
+        fileType?: string
+      ): void;
       addContributor(contributorName: string): void;
       addUnidentifiedContributor(contributorName: string): void;
 

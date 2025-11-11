@@ -8,7 +8,8 @@ export const createValidRegistrationWithType = (
   type?: string,
   fileName?: string,
   fileVersion?: FileVersions,
-  fileType?: string
+  fileType?: string,
+  parentTitle?: string
 ) => {
   // Description
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click({ force: true });
@@ -19,7 +20,7 @@ export const createValidRegistrationWithType = (
   // Reference
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(type)).click();
-  addCategoryData(type);
+  addCategoryData(type, parentTitle);
 
   // Contributors
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
@@ -50,7 +51,7 @@ export const createValidRegistrationWithType = (
   }
 };
 
-const addCategoryData = (type: string) => {
+const addCategoryData = (type: string, parentTitle?: string) => {
   switch (type) {
     case CategoryTypes.ACADEMIC_MONOGRAPH:
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('springer nature', {
@@ -87,8 +88,9 @@ const addCategoryData = (type: string) => {
       cy.contains('Original publication for corrigendum').click();
       break;
     case CategoryTypes.ACADEMIC_CHAPTER:
-      cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type('antologi');
-      cy.contains('Test Antologi').click();
+      const parent = parentTitle ? parentTitle : 'Test Antologi';
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(parent.toLowerCase()) ;
+      cy.contains(parent).click();
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
       cy.contains('Archaeology and Conservation').click();
       break;
