@@ -1,8 +1,8 @@
 // Feature: NVI workflow - contributor
 
 import { dataTestId } from '../../../support/dataTestIds';
-import { userUSNNviCuratorInstitution, userUSNNviInstitution } from '../../../support/constants';
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { CategoryTypes, userUSNNviCuratorInstitution, userUSNNviInstitution } from '../../../support/constants';
+import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
 import { NVI_PENDING } from '../../../support/commands';
 import { createValidRegistrationWithType } from '../../../support/create_registration';
@@ -22,7 +22,10 @@ const categories = {
   'Scientific Article': 'AcademicArticle',
   'Monograph': 'AcademicMonograph',
   'Anthology': 'BookAnthology',
-}
+  'AcademicChapter': 'AcademicChapter',
+};
+
+BeforeAll(() => {});
 
 // Scenario Outline: Create testdata for NVI workflow - user
 Given(
@@ -38,10 +41,16 @@ Given(
     cy.login(userUSNNviInstitution);
     const publicationCategory = categories[category];
     if (publicationStatus === PUBLISHED) {
-      cy.createPublishedRegistration(title, publicationCategory);
+      if (category === 'AcademicChapter') {
+        const anthologyTitle = `Anthology for Article ${uuid()}`;
+        cy.createPublishedRegistration(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY);
+        cy.createPublishedChapter(title, anthologyTitle);
+      } else {
+        cy.createPublishedRegistration(title, publicationCategory);
+      }
     } else {
       cy.startWizardWithEmptyRegistration();
-      createValidRegistrationWithType(title, publicationCategory,);
+      createValidRegistrationWithType(title, publicationCategory);
       cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
       cy.getSuccess();
       cy.getSuccessDone();

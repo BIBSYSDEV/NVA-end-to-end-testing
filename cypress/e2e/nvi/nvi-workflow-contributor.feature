@@ -30,6 +30,18 @@ Feature: NVI workflow - contributor
       | Monograph          | Published         | external institution | Manual Registration | NVI Publication     |
       | Monograph          | Draft             | external institution | Manual Registration | Not NVI Publication |
       | Monograph          | Unpublished       | external institution | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Published         | No one               | Manual Registration | NVI Publication     |
+      | AcademicChapter   | Draft             | No one               | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Unpublished       | No one               | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Published         | NVI-institution      | Manual Registration | NVI Publication     |
+      | AcademicChapter   | Draft             | NVI-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Unpublished       | NVI-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Published         | NVA-institution      | Manual Registration | NVI Publication     |
+      | AcademicChapter   | Draft             | NVA-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Unpublished       | NVA-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Published         | external institution | Manual Registration | NVI Publication     |
+      | AcademicChapter   | Draft             | external institution | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Unpublished       | external institution | Manual Registration | Not NVI Publication |
 
     @test
     Scenario Outline: Publication NVI status - contributor
@@ -66,3 +78,15 @@ Feature: NVI workflow - contributor
       | Monograph          | Published         | external institution | Manual Registration | NVI Publication     |
       | Monograph          | Draft             | external institution | Manual Registration | Not NVI Publication |
       | Monograph          | Unpublished       | external institution | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Published         | No one               | Manual Registration | NVI Publication     |
+      | AcademicChapter   | Draft             | No one               | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Unpublished       | No one               | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Published         | NVI-institution      | Manual Registration | NVI Publication     |
+      | AcademicChapter   | Draft             | NVI-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Unpublished       | NVI-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Published         | NVA-institution      | Manual Registration | NVI Publication     |
+      | AcademicChapter   | Draft             | NVA-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Unpublished       | NVA-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Published         | external institution | Manual Registration | NVI Publication     |
+      | AcademicChapter   | Draft             | external institution | Manual Registration | Not NVI Publication |
+      | AcademicChapter   | Unpublished       | external institution | Manual Registration | Not NVI Publication |

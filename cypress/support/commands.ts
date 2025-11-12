@@ -86,18 +86,29 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
   cy.getSuccessDone();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getSuccessDone();
-  cy.wait(15000);
 });
 
-Cypress.Commands.add('createPublishedChapterRegistration', (title, parentTitle, fileName?, fileVersion?, fileType?) => {
+Cypress.Commands.add('createPublishedChapter', (title, anthology) => {
   cy.startWizardWithEmptyRegistration();
-  createValidRegistrationWithType(title, CategoryTypes.ACADEMIC_CHAPTER, fileName, fileVersion, fileType, parentTitle);
+  cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type(title);
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, todayDatePicker());
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_CHAPTER)).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(anthology.toLowerCase());
+  cy.contains(anthology).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
+  cy.contains('Archaeology and Conservation').click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccessDone();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getSuccessDone();
-  cy.wait(15000);
 });
+
 
 Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: FileVersions, fileType?: string) => {
   if (!fileVersion) {
