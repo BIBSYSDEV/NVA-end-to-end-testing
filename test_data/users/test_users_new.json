@@ -2428,5 +2428,22 @@
     "orcid": true,
     "orgNumber": "7401",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7401.0.0.0"
+  },
+
+  {
+    "lastName": "TestUser",
+    "firstName": "Foreign",
+    "nin": "20070827043",
+    "username": "test-user-foreign@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "10600030",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/10600030.0.0.0",
+    "cristinUser": true
   }
 ]

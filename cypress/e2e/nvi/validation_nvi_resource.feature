@@ -52,13 +52,9 @@ Feature: Validation of an NVI resource
        	Examples:
          	| Status                                      | Own institution | Other institutions         |
          	| Candidate                                   | Candidate       | No status                  |
-         	# | Candidate - Waiting for your institution    | Candidate       | Approved                   |
          	| Being checked                               | Being checked   | No status                  |
-         	# | Being checked - Waiting for your institution| Being checked   | Approved                   |
          	| Approved                                    | Approved        | No status                  |
-         	# | Approved - Waiting for other institution    | Approved        | Being checked              |
          	| Rejected                                    | Rejected        | No status                  |
-         	# | Rejected - Waiting for other institution    | Rejected        | Candidate or Being checked |
          	| Dispute                                     | Rejected        | Approved                   |
          	| Dispute                                     | Approved        | Rejected                   |
          	| Dispute                                     | Candidate       | Dispute                    |

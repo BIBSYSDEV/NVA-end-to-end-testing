@@ -230,6 +230,8 @@ export const userSintefDOICurator = 'test-user-doicurator-messages-sintef@test.n
 export const userSintefSupportCurator = 'test-user-support-curator-messages-sintef@test.no';
 export const userSintefDOI = 'test-user-doi-messages-sintef@test.no';
 
+export const userForegin = 'test-user-foreign@test.no';
+
 const userData = {
   name: '',
   orgunitids: ['https://api.cristin.no/v2/institutions/1111111111'],
@@ -411,6 +413,9 @@ export const TestUsers = {
     ntnu: {
       verifiedContributor: userNtnuVerifiedContributor,
     },
+    foregin: {
+      basic: userForegin,
+    }
   },
 
   // Publishing and permissions
@@ -599,4 +604,5 @@ export const user = {
   [userBIBSYSChangeNviInstitution]: { ...userData, name: 'TestUser, Change User NVI-institution B' },
   [userNmbuChangeNvaInstitution]: { ...userData, name: 'TestUser, Change User NVA-institution C' },
   [userUSNChangeNviCuratorInstitution]: { ...userData, name: 'TestUser, NVI-Curator NVI-inst A' },
+  [userForegin]: { ...userData, name: 'TestUser, Foreign' },
 };
