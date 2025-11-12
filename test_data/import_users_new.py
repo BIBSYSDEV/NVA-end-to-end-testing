@@ -226,9 +226,9 @@ def importUsers(test_users_file_name):
             lastName = test_user['lastName']
             nin = test_user['nin']
             roles = test_user['role']
-            if not test_user['cristinId'] == '':
+            if 'cristinId' in test_user:
                 cristinOrgId = test_user['cristinId']
-            if not test_user['orgNumber'] == '':
+            if 'orgNumber' in test_user:
                 customer = customers[test_user['orgNumber']]
             username = test_user['username']
             print(f'Creating {firstName} {lastName}')
