@@ -2493,6 +2493,10 @@
       {
         "type": "Role",
         "rolename": "Nvi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Creator"
       }
     ],
     "orcid": true,
