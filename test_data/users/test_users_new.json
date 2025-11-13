@@ -2432,6 +2432,28 @@
 
   {
     "lastName": "TestUser",
+    "firstName": "Multiple institutions",
+    "nin": "",
+    "username": "test-user-change-multiple-institutions@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": false,
+    "orgNumber": "222",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0",
+    "additionalOrgs": [
+      "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+    ],
+    "cristinUser": true
+  },
+
+
+
+  {
+    "lastName": "TestUser",
     "firstName": "Foreign",
     "nin": "20070827043",
     "username": "test-user-foreign@test.no",

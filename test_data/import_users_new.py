@@ -74,7 +74,7 @@ def organizationExists(affiliations, organization):
     return False
 
 
-def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
+def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId, additionalOrgs=[]):
     createUrl = f'{apiUrl}cristin/person'
     headers = createHeaders(accessToken=accessToken)
     existingPerson = findCristinPerson(accessToken=accessToken, nin=nin)
@@ -91,6 +91,11 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId):
         cristinPersonId = response.json()['id'].replace(
             f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
         time.sleep(10)
+        for org in additionalOrgs:
+            updateUrl = f'{apiUrl}cristin/person/{cristinPersonId}/employment'
+            payload = createCristinEmploymentPayload(organization=org)
+            response = requests.post(
+                url=updateUrl, json=payload, headers=headers)
     if not cristinPersonId == '':
         updateAffiliations = True
         if 'affiliations' in existingPerson.json():
@@ -226,15 +231,18 @@ def importUsers(test_users_file_name):
             lastName = test_user['lastName']
             nin = test_user['nin']
             roles = test_user['role']
-            if not test_user['cristinId'] == '':
+            additionalOrgs = []
+            if 'cristinId' in test_user and not test_user['cristinId'] == '':
                 cristinOrgId = test_user['cristinId']
-            if not test_user['orgNumber'] == '':
+            if 'orgNumber' in test_user and not test_user['orgNumber'] == '':
                 customer = customers[test_user['orgNumber']]
+            if 'additionalOrgs' in test_user and not test_user['additionalOrgs'] == []:
+                additionalOrgs = test_user['additionalOrgs']
             username = test_user['username']
             print(f'Creating {firstName} {lastName}')
 
             cristinPersonId = createCristinPerson(accessToken=accessToken, nin=nin,
-                                firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId)
+                                firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId, additionalOrgs=additionalOrgs)
             setTermsAndConditions(cristinPersonId=cristinPersonId)
             if not 'cristinUser' in test_user:
                 createNvaUser(accessToken=accessToken, nin=nin,
