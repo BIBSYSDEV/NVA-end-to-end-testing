@@ -2433,7 +2433,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Multiple institutions",
-    "nin": "",
+    "nin": "21074026688",
     "username": "test-user-change-multiple-institutions@test.no",
     "role": [
       {
