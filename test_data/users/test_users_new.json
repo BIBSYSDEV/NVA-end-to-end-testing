@@ -2455,7 +2455,7 @@
   {
     "lastName": "TestUser",
     "firstName": "Foreign",
-    "nin": "20070827043",
+    "nin": "20074026649",
     "username": "test-user-foreign@test.no",
     "role": [
       {
@@ -2464,7 +2464,6 @@
       }
     ],
     "orcid": true,
-    "orgNumber": "7401",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/10600030.0.0.0",
     "cristinUser": true
   }
