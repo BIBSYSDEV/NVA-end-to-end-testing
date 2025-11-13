@@ -2450,7 +2450,24 @@
     "cristinUser": true
   },
 
-
+  {
+    "lastName": "TestUser",
+    "firstName": "Multiple Foreign",
+    "nin": "17105514417",
+    "username": "test-user-multiple-foreign@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0",
+    "additionalOrgs": [
+      "https://api.e2e.nva.aws.unit.no/cristin/organization/10600030.0.0.0"
+    ],
+    "cristinUser": true
+  },
 
   {
     "lastName": "TestUser",
