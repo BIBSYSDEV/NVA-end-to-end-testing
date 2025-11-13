@@ -2483,5 +2483,21 @@
     "orcid": true,
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/10600030.0.0.0",
     "cristinUser": true
+  },
+    {
+    "lastName": "TestUser",
+    "firstName": "NVI-Curator Unit",
+    "nin": "10058938713",
+    "username": "test-user-NVI-curator-unit@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
   }
+
 ]

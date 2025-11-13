@@ -178,6 +178,7 @@ export const userUnitResourceOwner = 'test-user-access-resource-owner@test.no';
 export const userUnitAdminRRS = 'test-user-admin-rrs@test.no';
 export const userUnitAuthorRRS = 'test-user-author-rrs@test.no';
 export const userUnitEmbargo = 'test-user-author-embargo@test.no';
+export const userUnitNVICurator = 'test-user-NVI-curator-unit@test.no';
 
 export const userSiktInstAdmin = 'test-user-second-inst-admin@test.no';
 export const userSiktThirdEditor = 'test-user-third-editor@test.no';
@@ -216,6 +217,8 @@ export const userUSNNviCuratorInstitution = 'test-user-curator-NVI-A@test.no';
 export const userUSNChangeNviInstitution = 'test-user-change-NVI-A@test.no';
 export const userUSNChangeNviCuratorInstitution = 'test-user-change-cur-NVI-A@test.no';
 export const uploaderUSN = 'test-user-colaboration-USN@test.no';
+export const userUSNMultipleInstitutions = 'test-user-change-multiple-institutions@test.no';
+export const userUSNMultipleInstitutionsForeign = 'test-user-multiple-foreign@test.no';
 
 export const userSintefSupportMessages = 'test-user-support-messages-sintef@test.no';
 export const userSintefPublicationCuratorMessages = 'test-user-publication-curator-messages-sintef@test.no';
@@ -268,6 +271,7 @@ export const TestUsers = {
   // Curators by institution
   curators: {
     basic: userUnitCurator,
+    basicnvi: userUnitNVICurator,
     bibsys: {
       curator1: userBIBSYSCurator,
       curator2: userBIBSYSCurator2,
@@ -405,6 +409,8 @@ export const TestUsers = {
       institution: userUSNNviInstitution,
       curator: userUSNNviCuratorInstitution,
       change: userUSNChangeNviInstitution,
+      multipleInstitutions: userUSNMultipleInstitutions,
+      multipleInstitutionsForeign: userUSNMultipleInstitutionsForeign,
     },
     nmbu: {
       institution: userNmbuNvaInstitution,
@@ -605,4 +611,5 @@ export const user = {
   [userNmbuChangeNvaInstitution]: { ...userData, name: 'TestUser, Change User NVA-institution C' },
   [userUSNChangeNviCuratorInstitution]: { ...userData, name: 'TestUser, NVI-Curator NVI-inst A' },
   [userForegin]: { ...userData, name: 'TestUser, Foreign' },
+  [userUnitNVICurator]: { ...userData, name: 'TestUser, NVI-Curator Unit' },
 };
