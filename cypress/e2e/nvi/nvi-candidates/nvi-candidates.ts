@@ -13,9 +13,10 @@ const addContributor = (name: string) => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`${name}{enter}`);
   cy.get('td')
     .filter(`:contains("${name}")`)
+    .first()
     .parent()
     .within(() => {
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
     });
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
@@ -72,14 +73,20 @@ Then('the publication is listed as an NVI-candidate for all institutions the use
 //     | AcademicChapter    |
 
 // Scenario Outline: A user with a foreign institution registrers an NVI-candidate publication
-Given('a user with affiliations to multiple institutions including a foreign institution', () => {
-  cy.login(TestUsers.nvi.usn.multipleInstitutionsForeign);
-});
 // When('the user registrers a publication that is an NVI-candidate with category {string}', (category) => {});
+When('the user adds a contributor with a norwegian and a foreign institution affiliation', () => {
+    addContributor('Multiple Foreign TestUser');
+});
 Then(
   'the publication is listed as an NVI-candidate for the norwegian institutions the user is affiliated with',
-  () => {}
-);
+  () => {
+    cy.login(TestUsers.nvi.usn.curator);
+    cy.get<string>('@registrationTitle').then((title) => {
+      cy.getDataTestId(dataTestId.header.tasksLink).click();
+      cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+      cy.selectNVICandidate(title);
+    });
+  });
 
 // Examples:
 //     | Category           |
@@ -91,14 +98,15 @@ Then(
 Given('a user with an affiliation to a norwegian institution', () => {
   cy.login(TestUsers.nvi.usn.institution);
 });
-When(
-  'the user registrers a publication with category {string} that is an NVI-candidate with a contributor from a foreign institution',
-  (category) => {}
-);
-Then(
-  'the publication is listed as an NVI-candidate for the norwegian institution the user is affiliated with',
-  () => {}
-);
+// When('the user registrers a publication that is an NVI-candidate with category {string}', (category) => {});
+When('the user adds a contributor from a foreign institution affiliation', () => {
+    addContributor('Foreign TestUser');
+});
+// Then(
+//   'the publication is listed as an NVI-candidate for the norwegian institutions the user is affiliated with',
+//   () => {
+
+//   });
 
 // Examples:
 //     | Category           |
