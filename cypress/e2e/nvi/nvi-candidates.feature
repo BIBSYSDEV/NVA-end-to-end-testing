@@ -39,3 +39,18 @@ Feature: Valid NVI candidates
         | Scientific Article |
         | Monograph          |
         | AcademicChapter    |
+
+    @test
+    Scenario: A monograph without ISBN/ISSN is not an NVI-candidate
+        When the user registrers a monograph without ISBN or ISSN
+        Then the publication is not listed as an NVI-candidate for the institution the user is affiliated with
+
+    @test
+    Scenario: An academic chapter without ISBN/ISSN is not an NVI-candidate
+        When the user registrers an academic chapter without ISBN or ISSN
+        Then the publication is not listed as an NVI-candidate for the institution the user is affiliated with
+
+    @test
+    Scenario: A monograph with only editor as contributor is not an NVI-candidate
+        When the user registrers a monograph with only editor as contributor
+        Then the publication is not listed as an NVI-candidate for the institution the user is affiliated with

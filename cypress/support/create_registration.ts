@@ -60,6 +60,7 @@ const addCategoryData = (type: string, parentTitle?: string) => {
       cy.contains('Springer Nature').click();
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
       cy.contains('Archaeology and Conservation').click();
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.isbnField).type('978-3-16-148410-0');
       break;
     case CategoryTypes.BOOK_ANTHOLOGY:
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.isbnField).type('978-82-02-89590-7');
