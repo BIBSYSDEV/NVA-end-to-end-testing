@@ -6,10 +6,12 @@ import {
   userSintefPublicationCurator,
   userSintefRegistrator,
   userUnitWithAuthor,
+  TestUsers,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { today, todayDatePicker } from '../../../support/commands';
+import { Test } from 'mocha';
 
 const claimedChannel = 'SINTEF akademisk forlag';
 const fileName = 'example.txt';
@@ -32,7 +34,7 @@ Given('publication instance type is part of channel scope', () => {});
 //   Scenario: Ticket sent to Registrators institution
 Given('a Registrator', () => {});
 Given('Registrators institution owns the channel', () => {
-  cy.login(userSintefRegistrator);
+  cy.login(TestUsers.features.channelOwnership.registrator);
 });
 When('metadata is registered', () => {
   const publicationTitle = `Ticket publication ${uuid()}`;
@@ -63,7 +65,7 @@ When('metadata is registered', () => {
 });
 Then('a ticket is sent to curators at Registrators institution', () => {
   cy.get('@title').then((publicationTitle) => {
-    cy.login(userSintefPublicationCurator);
+    cy.login(TestUsers.features.channelOwnership.curator);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publicationTitle})`);
@@ -73,20 +75,30 @@ Then('a ticket is sent to curators at Registrators institution', () => {
 //   Scenario: Ticket sent to Channel owner, not Registrators institution
 // Given ('a Registrator', () => {});
 Given('Registrators institution does not own the channel', () => {
-  cy.login(userUnitWithAuthor);
+  cy.login(TestUsers.creators.basic);
 });
 // When ('metadata is registered', () => {});
 Then('a ticket is sent to curators at the channel owner', () => {
   cy.get('@title').then((publicationTitle) => {
-    cy.login(userSintefPublicationCurator);
+    cy.login(TestUsers.features.channelOwnership.curator);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${publicationTitle}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.searchFor(publicationTitle.toString());
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publicationTitle})`);
   });
 });
-Then('a ticket is not sent to curators at Registrators institution', () => {});
+Then('a ticket is not sent to curators at Registrators institution', () => {
+  cy.get('@title').then((publicationTitle) => {
+    cy.login(TestUsers.curators.basic);
+    cy.getDataTestId(dataTestId.header.tasksLink).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.searchFor(publicationTitle.toString());
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).should('not.exist');
+  });
+});
 
 //   Scenario: Ticket sent to Channel owner, not contributors institution
 Given('a contributor not from the channel owner', () => {});

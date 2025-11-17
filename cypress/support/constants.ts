@@ -481,6 +481,10 @@ export const TestUsers = {
     resourceOwner: userUnitResourceOwner,
     menu: userUnitTestMenu,
     logout: userUnitLogout,
+    channelOwnership: {
+      registrator: userSintefRegistrator,
+      curator: userSintefPublicationCurator,
+    },
   },
 
   // Edge cases and special roles
