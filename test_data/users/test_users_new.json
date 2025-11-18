@@ -2444,9 +2444,7 @@
     "orcid": false,
     "orgNumber": "222",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0",
-    "additionalOrgs": [
-      "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
-    ],
+    "additionalOrgs": ["https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"],
     "cristinUser": true
   },
 
@@ -2463,9 +2461,7 @@
     ],
     "orcid": true,
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0",
-    "additionalOrgs": [
-      "https://api.e2e.nva.aws.unit.no/cristin/organization/10600030.0.0.0"
-    ],
+    "additionalOrgs": ["https://api.e2e.nva.aws.unit.no/cristin/organization/10600030.0.0.0"],
     "cristinUser": true
   },
 
@@ -2484,7 +2480,7 @@
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/10600030.0.0.0",
     "cristinUser": true
   },
-    {
+  {
     "lastName": "TestUser",
     "firstName": "NVI-Curator Unit",
     "nin": "10058938713",
@@ -2502,6 +2498,48 @@
     "orcid": true,
     "orgNumber": "20202",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
-  }
+  },
 
+  {
+    "lastName": "TestUser",
+    "firstName": "Creator NIBIO",
+    "nin": "22105514402",
+    "username": "test-user-creator-nibio@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "7677",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7677.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "Curator NIBIO",
+    "nin": "26074026663",
+    "username": "test-user-curator-nibio@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Support-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "7677",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7677.0.0.0"
+  }
 ]

@@ -108,7 +108,6 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId, add
                 url=updateUrl, json=payload, headers=headers)
     else:
         print('Employment exists...')
-        print(existingPerson.json())
         cristinPersonId = existingPerson.json()['id'].replace(
             f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
 

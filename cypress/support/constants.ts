@@ -233,6 +233,9 @@ export const userSintefDOICurator = 'test-user-doicurator-messages-sintef@test.n
 export const userSintefSupportCurator = 'test-user-support-curator-messages-sintef@test.no';
 export const userSintefDOI = 'test-user-doi-messages-sintef@test.no';
 
+export const userCreatorNIBIO = 'test-user-creator-nibio@test.no';
+export const userCuratorNIBIO = 'test-user-curator-nibio@test.no';
+
 export const userForegin = 'test-user-foreign@test.no';
 
 const userData = {
@@ -485,6 +488,10 @@ export const TestUsers = {
       registrator: userSintefRegistrator,
       curator: userSintefPublicationCurator,
     },
+    state: {
+      creatorNIBIO: userCreatorNIBIO,
+      curatorNIBIO: userCuratorNIBIO,
+    },
   },
 
   // Edge cases and special roles
@@ -616,4 +623,6 @@ export const user = {
   [userUSNChangeNviCuratorInstitution]: { ...userData, name: 'TestUser, NVI-Curator NVI-inst A' },
   [userForegin]: { ...userData, name: 'TestUser, Foreign' },
   [userUnitNVICurator]: { ...userData, name: 'TestUser, NVI-Curator Unit' },
+  [userCreatorNIBIO]: { ...userData, name: 'TestUser, Creator NIBIO' },
+  [userCuratorNIBIO]: { ...userData, name: 'TestUser, Curator NIBIO' },
 };
