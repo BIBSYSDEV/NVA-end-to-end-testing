@@ -14,26 +14,27 @@ import { TestUsers } from "../../../support/constants";
         const title = `NVI Candidate ${categoryText} ${levelText} ${uuidv4()}`;
         cy.wrap(title).as('title');
 
+        cy.createPublishedRegistration(title, categoryText);
+        if (levelText === 'Level 1') {
+            cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+            cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
         switch (categoryText) {
             case 'AcademicLiteratureReview':
             case 'AcademicArticle':
-                cy.createPublishedRegistration(title, categoryText);
-                if (levelText === 'Level 1') {
-                    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-                    cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-                    cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acm journal of data and information quality{enter}');
-                    cy.contains('ACM Journal of Data and Information Quality').click();
-                    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-                    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-                    cy.getSuccessDone();
-                }
-                break;
+                cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acm journal of data and information quality{enter}');
+                cy.contains('ACM Journal of Data and Information Quality').click();
+                cy.getSuccessDone();
+            break;
             case 'AcademicMonograph':
-                cy.log(`Category is Academic Monograph with NVI Level: ${levelText}`);
-                break;
+            cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('sintef akademisk forlag');
+            cy.contains('SINTEF akademisk forlag').click();
+            break;
             default:
                 throw new Error(`Unknown category: ${categoryText}`);
+            }
         }
+        cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+        cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     });
     Given ('{string} local contributors and {string} international contributors with {string} total contributors', (contributors, internationalContributors, totalContributors) => {
         if(internationalContributors.toString() === 'yes') {
