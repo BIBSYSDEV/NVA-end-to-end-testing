@@ -9,15 +9,19 @@ Feature: NVI points calculations
 
     Examples:
       | Category                 | NVILevel | Contributors | InternationalContributors | totalContributors | ExpectedPoints |
-      | AcademicMonograph        | Level 1  |            1 | no                        |                 1 |              5 |
-      | AcademicMonograph        | Level 2  |            1 | no                        |                 1 |              8 |
-      | AcademicMonograph        | Level 1  |            1 | one or more               |                 2 |            4.6 |
-      | AcademicMonograph        | Level 2  |            1 | one or more               |                 2 |            7.4 |
       | AcademicArticle          | Level 1  |            1 | no                        |                 1 |            1.0 |
       | AcademicArticle          | Level 2  |            1 | no                        |                 1 |            3.0 |
+      | AcademicArticle          | Level 1  |            1 | no                        |                 2 |            0.7 |
+      | AcademicArticle          | Level 2  |            1 | no                        |                 2 |            2.1 |
       | AcademicArticle          | Level 1  |            1 | one or more               |                 2 |            0.9 |
       | AcademicArticle          | Level 2  |            1 | one or more               |                 2 |            2.8 |
-      | AcademicLiteratureReview | Level 1  |            1 | no                        |                 1 |              1 |
+      | AcademicMonograph        | Level 1  |            1 | no                        |                 1 |            5.0 |
+      | AcademicMonograph        | Level 2  |            1 | no                        |                 1 |            8.0 |
+      | AcademicMonograph        | Level 1  |            1 | no                        |                 2 |            3.5 |
+      | AcademicMonograph        | Level 2  |            1 | no                        |                 2 |            5.7 |
+      | AcademicMonograph        | Level 1  |            1 | one or more               |                 2 |            4.6 |
+      | AcademicMonograph        | Level 2  |            1 | one or more               |                 2 |            7.4 |
+      | AcademicLiteratureReview | Level 1  |            1 | no                        |                 1 |            1.0 |
 
   @test
   Scenario Outline: Verify NVI points calculations for academic chapters

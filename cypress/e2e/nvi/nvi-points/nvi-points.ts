@@ -54,6 +54,12 @@ Given(
       cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Foreign TestUser{enter}');
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+    } else if (totalContributors.toString() === '2') {
+      cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Withauthor TestUser{enter}');
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
+      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
     }
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
