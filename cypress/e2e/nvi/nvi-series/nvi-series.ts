@@ -73,15 +73,7 @@ Then('the publication is listed as an NVI-candidate for the institution the user
         cy.getSuccessDone();
 
         cy.startWizardWithEmptyRegistration();
-        createValidRegistrationWithType(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER);
-        cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
-        cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(anthologyTitle.toLowerCase());
-        cy.contains(anthologyTitle).click();
-        cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-        cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-        cy.getSuccessDone();
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-        cy.getSuccessDone();
+        cy.createPublishedChapter(chapterTitle, anthologyTitle);
         cy.wait(5000);
     });
     //   Then ('the publication is listed as an NVI-candidate for the institution the user is affiliated with', () => {});

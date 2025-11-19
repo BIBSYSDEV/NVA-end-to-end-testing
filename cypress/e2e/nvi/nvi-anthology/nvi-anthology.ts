@@ -63,7 +63,7 @@ When('Anthology is updated and becomes NVI candidate', () => {
   cy.getSuccessDone();
 
   // Wait for NVI processing
-  cy.wait(15000);
+  cy.wait(5000);
 });
 
 Then('AcademicChapter should also be evaluated as NVI candidate', () => {

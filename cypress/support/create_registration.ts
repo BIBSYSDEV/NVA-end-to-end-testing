@@ -76,6 +76,8 @@ const addCategoryData = (type: string, parentTitle?: string) => {
       cy.contains('Academic Conferences International').click();
       break;
     case CategoryTypes.ACADEMIC_ARTICLE:
+
+    case CategoryTypes.ACADEMIC_REWIEW_ARTICLE:
     case CategoryTypes.CONFERENCE_ABSTRACT:
     case CategoryTypes.JOURNAL_REVIEW:
       cy.intercept('GET', 'publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' });
@@ -90,7 +92,7 @@ const addCategoryData = (type: string, parentTitle?: string) => {
       break;
     case CategoryTypes.ACADEMIC_CHAPTER:
       const parent = parentTitle ? parentTitle : 'Test Antologi';
-      cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(parent.toLowerCase()) ;
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(parent.toLowerCase());
       cy.contains(parent).click();
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
       cy.contains('Archaeology and Conservation').click();

@@ -27,7 +27,7 @@ export enum FileVersions {
 
 export enum CategoryTypes {
   ACADEMIC_ARTICLE = 'AcademicArticle',
-  ACADEMIC_REWIEW_ARTICLE = 'AcademicReviewArticle',
+  ACADEMIC_REWIEW_ARTICLE = 'AcademicLiteratureReview',
   COMMENTARY = 'Commentary',
   JOURNAL_REVIEW = 'JournalReview',
   JOURNAL_LEADER = 'JournalLeader',
