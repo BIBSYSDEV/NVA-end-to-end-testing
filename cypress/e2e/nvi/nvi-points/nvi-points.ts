@@ -157,3 +157,21 @@ Given('NVI level {string} series', (series) => {
 //   | Level 1   | level 2     |            1 | no                        |                 1 |            3.0 |
 //   | Level 1   | level 1     |            1 | one or more               |                 2 |            0.9 |
 //   | Level 1   | level 2     |            1 | one or more               |                 2 |            2.8 |
+
+  // Scenario: Verify NVI points calculation for AcademicMonograph with level 1 publisher and level 2 series
+    Given ('a curator looks at a NVI candidate with Category AcademicMonograph, level 1 publisher and level 2 series', () => {
+      cy.login(TestUsers.nvi.usn.institution);
+      const title = `Monograph level 1 publisher level 2 series ${uuid()}`;
+      cy.wrap(title).as('title');
+      cy.createPublishedRegistration(title, CategoryTypes.ACADEMIC_MONOGRAPH);
+      cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+      cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type('geoscientific model development');
+      cy.contains('Geoscientific Model Development').click();
+      cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+      cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+      cy.getSuccessDone();
+      cy.wait(5000);
+    });
+    // When ('the curator reviews the NVI candidate', () => {});
+    // Then ('the NVI points should be calculated as "8.0"', () => {});

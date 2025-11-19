@@ -37,3 +37,9 @@ Feature: NVI points calculations
       | Level 1   | Level 2     |            1 | no                        |                 1 |            3.0 |
       | Level 1   | Level 1     |            1 | one or more               |                 2 |            0.9 |
       | Level 1   | Level 2     |            1 | one or more               |                 2 |            2.8 |
+
+  @test
+  Scenario: Verify NVI points calculation for AcademicMonograph with level 1 publisher and level 2 series
+    Given a curator looks at a NVI candidate with Category AcademicMonograph, level 1 publisher and level 2 series
+    When the curator reviews the NVI candidate
+    Then the NVI points should be calculated as "8.0"
