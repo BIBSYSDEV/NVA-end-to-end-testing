@@ -73,7 +73,6 @@ Then('the publication is listed as an NVI-candidate for the institution the user
         cy.getSuccessDone();
 
         cy.createPublishedChapter(chapterTitle, anthologyTitle);
-        cy.getSuccessDone()
         cy.wait(5000);
     });
     //   Then ('the publication is listed as an NVI-candidate for the institution the user is affiliated with', () => {});
