@@ -7,7 +7,7 @@ import { dataTestId } from "../../../support/dataTestIds";
 
     // Scenario: Verify that a publication with files can be published and is listed as NVI candidate
         Given ('a creator is logged in', () => {
-            cy.login(TestUsers.publishing.noRights);
+            cy.login(TestUsers.curators.bibsys.collaboration);
         });
         When ('the creator creates and publishes an AcademicArticle with with files', () => {
             const title = `File publishing article ${uuid()}`;
