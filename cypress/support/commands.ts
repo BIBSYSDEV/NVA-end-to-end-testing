@@ -243,8 +243,8 @@ Cypress.Commands.add('selectRegistration', (title, type) => {
     });
 });
 
-export const NVI_PENDING = 'pending';
-export const NVI_ASSIGNED = 'pending';
+export const NVI_PENDING = 'canidates_for_control';
+export const NVI_ASSIGNED = 'canidates_for_control';
 export const NVI_APPROVED = 'approved';
 export const NVI_REJECTED = 'rejected';
 export const NVI_DISPUTE = 'dispute';
