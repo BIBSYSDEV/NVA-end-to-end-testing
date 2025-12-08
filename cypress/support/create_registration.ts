@@ -287,13 +287,26 @@ export type EntityDescriptionType = {
   references: ReferenceType;
 };
 
-export const createContributor = (name: string, role: ContributorTypes, affiliation?: string): ContributorType => {
-  const contributor: ContributorType = {
-    name,
-    role,
-  };
-  if (affiliation) {
-    contributor.affiliation = affiliation;
-  }
-  return contributor;
+export const findContributorByName = (accessToken: string, name: string, role: ContributorTypes, affiliation?: string): ContributorType => {
+
+  const auth = `Bearer ${accessToken}`;
+  cy.request('GET', `${baseUrl}cristin/person?results=10&page=1&name="${name}"&sort=name`, {
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': auth,
+    },
+  }).then((response) => {
+    if (response.status !== 200) {
+      throw new Error(`User with name ${name} does not exist.`);
+    }
+    
+    const contributor: ContributorType = {
+      name: response.body.items[0].name,
+      role,
+    };
+    if (affiliation) {
+      contributor.affiliation = affiliation;
+    }
+    return contributor;
+  });
 }
