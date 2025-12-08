@@ -209,7 +209,7 @@ Given('an NVI-candidate with a level 1 publication channel', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
-  cy.get('[data-value=pending]').click();
+  cy.get('[data-value=canidates_for_control]').click();
   cy.selectNVICandidate(createNVICandidateTitle);
   cy.get('table')
     .filter(':contains("Points")')
@@ -234,7 +234,7 @@ Then('the NVI points changes to reflect the new publication channel', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
-  cy.get('[data-value=pending]').click();
+  cy.get('[data-value=canidates_for_control]').click();
   cy.selectNVICandidate(createNVICandidateTitle);
   cy.get('@points').then((points) => {
     cy.get('table')
@@ -269,7 +269,7 @@ Given('an anthology with a level 1 publisher', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
-  cy.get('[data-value=pending]').click();
+  cy.get('[data-value=pendicanidates_for_controlng]').click();
   cy.selectNVICandidate(chapterTitle);
   cy.get('table')
     .filter(':contains("Points")')

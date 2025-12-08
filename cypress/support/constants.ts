@@ -626,3 +626,84 @@ export const user = {
   [userCreatorNIBIO]: { ...userData, name: 'TestUser, Creator NIBIO' },
   [userCuratorNIBIO]: { ...userData, name: 'TestUser, Curator NIBIO' },
 };
+
+export enum ContributorTypes {
+  // Common/Universal
+  CREATOR = 'Creator',
+  EDITOR = 'Editor',
+  CONTACT_PERSON = 'ContactPerson',
+  RIGHTS_HOLDER = 'RightsHolder',
+  SUPERVISOR = 'Supervisor',
+  ROLE_OTHER = 'RoleOther',
+
+  // Artistic Design
+  DESIGNER = 'Designer',
+  CURATOR_ORGANIZER = 'CuratorOrganizer',
+  CONSULTANT = 'Consultant',
+
+  // Architecture
+  ARCHITECT = 'Architect',
+  LANDSCAPE_ARCHITECT = 'LandscapeArchitect',
+  INTERIOR_ARCHITECT = 'InteriorArchitect',
+  ARCHITECTURAL_PLANNER = 'ArchitecturalPlanner',
+
+  // Performing Arts
+  DANCER = 'Dancer',
+  ACTOR = 'Actor',
+  CHOREOGRAPHER = 'Choreographer',
+  DIRECTOR = 'Director',
+  SCENOGRAPHER = 'Scenographer',
+  COSTUME_DESIGNER = 'CostumeDesigner',
+  PRODUCER = 'Producer',
+  ARTISTIC_DIRECTOR = 'ArtisticDirector',
+  DRAMATIST = 'Dramatist',
+  LIBRETTIST = 'Librettist',
+  DRAMATURGE = 'Dramaturge',
+  SOUND_DESIGNER = 'SoundDesigner',
+  LIGHT_DESIGNER = 'LightDesigner',
+
+  // Moving Picture/Film
+  PHOTOGRAPHER = 'Photographer',
+  PRODUCTION_DESIGNER = 'ProductionDesigner',
+  SCREENWRITER = 'Screenwriter',
+  VFX_SUPERVISOR = 'VfxSupervisor',
+  VIDEO_EDITOR = 'VideoEditor',
+
+  // Music Performance
+  SOLOIST = 'Soloist',
+  CONDUCTOR = 'Conductor',
+  MUSICIAN = 'Musician',
+  COMPOSER = 'Composer',
+  ORGANIZER = 'Organizer',
+  WRITER = 'Writer',
+
+  // Visual Arts
+  ARTIST = 'Artist',
+  CURATOR = 'Curator',
+
+  // Literary Arts
+  TRANSLATOR_ADAPTER = 'TranslatorAdapter',
+
+  // Research Data
+  DATA_COLLECTOR = 'DataCollector',
+  DATA_CURATOR = 'DataCurator',
+  DATA_MANAGER = 'DataManager',
+  DISTRIBUTOR = 'Distributor',
+  RELATED_PERSON = 'RelatedPerson',
+  RESEARCHER = 'Researcher',
+
+  // Media Contributions
+  JOURNALIST = 'Journalist',
+  INTERVIEW_SUBJECT = 'InterviewSubject',
+  PROGRAMME_LEADER = 'ProgrammeLeader',
+  PROGRAMME_PARTICIPANT = 'ProgrammeParticipant',
+
+  // Exhibition
+  PROJECT_LEADER = 'ProjectLeader',
+  CONSERVATOR = 'Conservator',
+  REGISTRAR = 'Registrar',
+  MUSEUM_EDUCATOR = 'MuseumEducator',
+  COLLABORATION_PARTNER = 'CollaborationPartner',
+  EXHIBITION_DESIGNER = 'ExhibitionDesigner',
+  AUDIO_VISUAL_CONTRIBUTOR = 'AudioVisualContributor',
+}

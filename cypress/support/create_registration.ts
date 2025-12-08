@@ -1,5 +1,5 @@
 import { formatedToday, today } from './commands';
-import { CategoryTypes, FileVersions } from './constants';
+import { CategoryTypes, ContributorTypes, FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
 import { v4 as uuid } from 'uuid';
 
@@ -114,3 +114,186 @@ export const changeContributor = (userFrom: string, userTo: string): void => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
 };
+
+export enum RegistrationPartTypes {
+  ORGANIZATION = 'organization',
+  ENTITYDESCRIPTION = 'EntityDescription',
+  CONTRIBUTOR = 'Contributor',
+  IDENTITY = 'Identity',
+  REFERENCE = 'Reference',
+}
+
+const baseUrl = 'https://api.e2e.nva.aws.unit.no/';
+
+export const registrationBuilder = (accessToken: string): RegistrationData => {
+  const registrationData: RegistrationData = {
+    create() {
+      console.log(baseUrl);
+      cy.request({
+        method: 'POST',
+        url: `${baseUrl}publication`,
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        failOnStatusCode: false,
+      }).then((response) => {
+        console.log(response);
+        this.identifier = response.body.identifier;
+        this.payload = response.body;
+        this.payload.approvedOperations = [
+          "doi-request-create",
+          "update",
+          "delete",
+          "publishing-request-create",
+          "upload-file",
+          "partial-update",
+          "support-request-create"
+        ];
+      });
+      return this;
+    },
+    addEntityDescription(description: EntityDescriptionType) {
+      if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
+      this.payload.entityDescription = description;
+      this.payloadentityDescription.type = RegistrationPartTypes.ENTITYDESCRIPTION;
+      return this;
+    },
+    addContributors(newContributors: ContributorType[]) {
+      if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
+      this.payload.contributors = newContributors;
+      this.payload.contributors.type = RegistrationPartTypes.CONTRIBUTOR;
+      return this;
+    },
+    addFile(fileName: string) {
+      if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
+      return this;
+    },
+    addProject(project: ProjectType) {
+      if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
+      return this;
+    },
+    addReference(reference: ReferenceType) {
+      if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
+      this.payload.reference = reference;
+      this.payload.reference.type = RegistrationPartTypes.REFERENCE;
+      return this;
+    },
+    update() {
+      if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
+      if (!this.payload.entityDescription) throw new Error('Entity description is not defined. Add entity description first.');
+      const auth = `Bearer ${accessToken}`;
+      const newPayload = this.payload;
+      cy.request({
+        method: 'PUT',
+        url: `${baseUrl}publication/${this.identifier}`,
+        headers: {
+          'Authorization': auth,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'If-ETag': `${this.payload.resourceOwner.owner}:${uuid()}`,
+        },
+
+        body: newPayload,
+        failOnStatusCode: true,
+      }).then((response) => {
+        console.log('Update response:');
+        console.log(response);
+        this.identifier = response.body.identifier;
+        this.payload = response.body;
+        // return this;
+      });
+      return this
+    },
+    publish() {
+      if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
+      return this;
+    },
+  };
+  return registrationData;
+}
+
+export type RegistrationData = {
+  identifier?: string;
+  payload?: string;
+  create(): RegistrationData;
+  addEntityDescription(description: EntityDescriptionType): RegistrationData;
+  addContributors(contributors: ContributorType[]): RegistrationData;
+  addFile(fileName: string): RegistrationData;
+  addProject(project: ProjectType): RegistrationData;
+  addReference(reference: ReferenceType): RegistrationData;
+  update(): RegistrationData;
+  publish(): RegistrationData;
+};
+
+export type ContributorType = {
+  name: string;
+  role: ContributorTypes;
+  affiliation?: string;
+};
+
+
+export type PublicationContextType = {
+  type: string;
+  seriesId?: string;
+  volume?: string;
+  issue?: string;
+  publisher?: {
+    id: string;
+    valid: boolean;
+  }
+  isbnList?: string[];
+  additionalIdentifiers?: string[];
+};
+
+export type PublicationInstanceType = {
+  type: CategoryTypes;
+  pages: {
+    type: string;
+    startPage?: number;
+    endPage?: number;
+    illustrated?: boolean;
+  }
+
+};
+
+export type ReferenceType = {
+  publicationContext: PublicationContextType;
+  publicationInstance: PublicationInstanceType;
+};
+
+export type ProjectType = {
+  projectName: string;
+  projectDescription?: string;
+  startDate: Date;
+  endDate?: Date;
+  contributors: ContributorType[];
+};
+
+export type EntityDescriptionType = {
+  type: string;
+  mainTitle: string;
+  alternativeTitles?: string[];
+  publicationDate: {
+    day: number;
+    month: number;
+    year: number;
+  }
+  contributors: ContributorType[];
+  alternativeAbstracts?: string[];
+  npiSubjectHeadings: string;
+  tags: string[];
+  references: ReferenceType;
+};
+
+export const createContributor = (name: string, role: ContributorTypes, affiliation?: string): ContributorType => {
+  const contributor: ContributorType = {
+    name,
+    role,
+  };
+  if (affiliation) {
+    contributor.affiliation = affiliation;
+  }
+  return contributor;
+}

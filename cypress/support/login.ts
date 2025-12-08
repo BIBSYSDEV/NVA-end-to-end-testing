@@ -81,6 +81,7 @@ const loginNva = (userId: string) => {
       cy.setLocalStorage(signInDetails, `{"loginId":"${userId}","authFlowType":"USER_SRP_AUTH"}`);
       cy.setLocalStorage('i18nextLng', 'eng');
       cy.setLocalStorage('previouslyLoggedIn', 'false');
+      Cypress.env('accessToken', response.body['access_token']);
       cy.reload();
     });
   });
@@ -96,8 +97,6 @@ const getCode = (userName: string, password: string) => {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Referer': url,
     };
-    console.log(userName);
-    console.log(password);
 
     const data = {
       '_csrf': randomUuid,
