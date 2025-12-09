@@ -254,12 +254,12 @@ Cypress.Commands.add('selectNVIStatus', (status) => {
   cy.getDataTestId('status-filter').within(() => {
     cy.get(`[data-value=${status}]`).click();
   });
+  cy.reload();
 });
 
 Cypress.Commands.add('selectNVICandidate', (title?, status?) => {
   if (status) {
-    cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
-    cy.get(`[data-value=${status}]`).click();
+    cy.selectNVIStatus(status);
   }
   if (title) {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);

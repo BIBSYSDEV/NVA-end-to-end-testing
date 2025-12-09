@@ -208,8 +208,6 @@ Given('an NVI-candidate with a level 1 publication channel', () => {
   cy.login(userUSNNviCuratorInstitution);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
-  cy.get('[data-value=candidates_for_control]').click();
   cy.selectNVICandidate(createNVICandidateTitle);
   cy.get('table')
     .filter(':contains("Points")')
@@ -233,8 +231,6 @@ When('a User changes the publication channel to a level 2 publication channel', 
 Then('the NVI points changes to reflect the new publication channel', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
-  cy.get('[data-value=candidates_for_control]').click();
   cy.selectNVICandidate(createNVICandidateTitle);
   cy.get('@points').then((points) => {
     cy.get('table')
@@ -268,8 +264,8 @@ Given('an anthology with a level 1 publisher', () => {
   // sjekk NVI-poeng
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
-  cy.get('[data-value=pendicandidates_for_controlng]').click();
+  // cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
+  // cy.get('[data-value=pendicandidates_for_control]').click();
   cy.selectNVICandidate(chapterTitle);
   cy.get('table')
     .filter(':contains("Points")')
@@ -300,7 +296,7 @@ Then('the NVI points changes to reflect the series added to the anthology', () =
   // sjekk NVI-poeng
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.selectNVICandidate(chapterTitle, 'pending');
+  cy.selectNVICandidate(chapterTitle, NVI_PENDING);
   cy.get('@points').then((points) => {
     cy.get('table')
       .filter(':contains("Points")')

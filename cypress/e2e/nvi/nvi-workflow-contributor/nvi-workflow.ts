@@ -79,7 +79,7 @@ Given('a Curator views the NVI-tasklist', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.selectNVIStatus(NVI_PENDING);
+  // cy.selectNVIStatus(NVI_PENDING);
 });
 When('a Publication is a {string}', (category) => {
   cy.wrap(category).as('category');

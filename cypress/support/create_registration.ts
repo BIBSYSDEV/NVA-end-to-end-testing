@@ -309,4 +309,5 @@ export const findContributorByName = (accessToken: string, name: string, role: C
     }
     return contributor;
   });
+  return null;
 }
