@@ -1,17 +1,26 @@
 import { Given } from "@badeball/cypress-cucumber-preprocessor"
-import { ReferenceType, registrationBuilder, RegistrationData, RegistrationPartTypes } from "../../../support/create_registration";
-import { ContributorTypes, TestUsers } from "../../../support/constants";
+import { findContributorByName, ContributorType, ReferenceType, registrationBuilder, RegistrationData, RegistrationPartTypes, createEntityDescription } from "../../../support/create_registration";
+import { CategoryTypes, ContributorTypes, TestUsers } from "../../../support/constants";
 
-Given ('I create a new registration', () => {
+Given('I create a new registration', () => {
     cy.login(TestUsers.creators.basic).then(() => {
-        console.log(Cypress.env('accessToken'));
-        const regBuilder = registrationBuilder(Cypress.env('accessToken'))
-          .create();
-        cy.wrap(regBuilder).as('registrationData');
-    });
-    cy.get('@registrationData').then((regData: unknown) => {
-        const builder: RegistrationData = regData as RegistrationData;
-
-        builder.update();
+        const builder = registrationBuilder(Cypress.env('accessToken'))
+            .create();
+        const contributor = findContributorByName(Cypress.env('accessToken'), "withauthor", ContributorTypes.CREATOR);
+        cy.then(() => {
+            console.log(`Builder payload: ${JSON.stringify(builder.payload)}`);
+            const entity = createEntityDescription("Test Article", CategoryTypes.ACADEMIC_ARTICLE);
+            const newBuilder = builder.addEntityDescription(entity)
+                .addContributor(contributor);
+            console.log(`Builder payload: ${JSON.stringify(newBuilder.payload)}`);
+            newBuilder.update();
+            cy.then(() => {
+                builder.publish();
+                cy.then(() => {
+                    cy.wait(3000); // Wait for 3 seconds to ensure the registration is processed
+                    cy.reload();
+                });
+            });
+        })
     });
 });

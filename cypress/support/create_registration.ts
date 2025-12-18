@@ -1,3 +1,4 @@
+import { version } from 'chai';
 import { formatedToday, today } from './commands';
 import { CategoryTypes, ContributorTypes, FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
@@ -116,7 +117,8 @@ export const changeContributor = (userFrom: string, userTo: string): void => {
 };
 
 export enum RegistrationPartTypes {
-  ORGANIZATION = 'organization',
+  PUBLICATIONDATE = 'PublicationDate',
+  ORGANIZATION = 'Organization',
   ENTITYDESCRIPTION = 'EntityDescription',
   CONTRIBUTOR = 'Contributor',
   IDENTITY = 'Identity',
@@ -157,13 +159,12 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
     addEntityDescription(description: EntityDescriptionType) {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
       this.payload.entityDescription = description;
-      this.payloadentityDescription.type = RegistrationPartTypes.ENTITYDESCRIPTION;
       return this;
     },
-    addContributors(newContributors: ContributorType[]) {
+    addContributor(newContributor: ContributorType) {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
-      this.payload.contributors = newContributors;
-      this.payload.contributors.type = RegistrationPartTypes.CONTRIBUTOR;
+      if (!this.payload.entityDescription) throw new Error('Entity description is not defined. Add entity description first.');
+      this.payload.entityDescription.contributors.push(newContributor);
       return this;
     },
     addFile(fileName: string) {
@@ -177,7 +178,6 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
     addReference(reference: ReferenceType) {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
       this.payload.reference = reference;
-      this.payload.reference.type = RegistrationPartTypes.REFERENCE;
       return this;
     },
     update() {
@@ -198,28 +198,137 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
         body: newPayload,
         failOnStatusCode: true,
       }).then((response) => {
-        console.log('Update response:');
-        console.log(response);
         this.identifier = response.body.identifier;
         this.payload = response.body;
-        // return this;
       });
       return this
     },
     publish() {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
-      return this;
+      const auth = `Bearer ${accessToken}`;
+      const newPayload = this.payload;
+      cy.request({
+        method: 'POST',
+        url: `${baseUrl}publication/${this.identifier}/publish`,
+        headers: {
+          'Authorization': auth,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'If-ETag': `${this.payload.resourceOwner.owner}:${uuid()}`,
+        },
+
+        body: newPayload,
+        failOnStatusCode: true,
+      }).then((response) => {
+        console.log(response);
+      });
+      return this
     },
   };
   return registrationData;
 }
+
+export const findContributorByName = (accessToken: string, name: string, role: ContributorTypes): ContributorType => {
+  let contributor: ContributorType = {
+    identity: {
+      type: RegistrationPartTypes.IDENTITY,
+      id: '',
+      name: '',
+    },
+    role: {
+      type: role,
+    },
+    affiliations: [],
+    correspondingAuthor: false,
+    sequence: 1,
+    type: RegistrationPartTypes.CONTRIBUTOR,
+  };
+  cy.request({
+    method: 'GET',
+    url: `${baseUrl}cristin/person?name=${name}&page=1&results=10`,
+    failOnStatusCode: false,
+  }).then((response) => {
+    console.log(response);
+    if (response.status !== 200) {
+      throw new Error(`User with name ${name} does not exist.`);
+    }
+    contributor.identity.id = response.body.hits[0].identifiers[0].value;
+    contributor.identity.name = `${response.body.hits[0].names[1].value} ${response.body.hits[0].names[0].value}`;
+    let index = 0;
+    response.body.hits[0].affiliations.forEach((affiliation: any) => {
+      const organization: affiliationType = {
+        id: affiliation.organization,
+        type: RegistrationPartTypes.ORGANIZATION,
+      };
+      console.log(`Affiliation found: ${JSON.stringify(affiliation)}`);
+      contributor.affiliations.push(organization);
+      index++;
+    });
+  });
+  return contributor;
+};
+
+export const createEntityDescription = (title?: string, category?: CategoryTypes): EntityDescriptionType => {
+  const entityDescription: EntityDescriptionType = {
+    type: RegistrationPartTypes.ENTITYDESCRIPTION,
+    mainTitle: !title ? '' : `${title} ${uuid()}`,
+    publicationDate: {
+      type: RegistrationPartTypes.PUBLICATIONDATE,
+      day: new Date().getDate(),
+      month: new Date().getMonth() + 1,
+      year: new Date().getFullYear(),
+    },
+    contributors: [],
+    npiSubjectHeadings: '',
+    tags: [],
+    reference: createReference(category),
+  }
+  return entityDescription;
+}
+
+const createReference = (category: CategoryTypes): ReferenceType => {
+  const reference: ReferenceType = {
+    type: RegistrationPartTypes.REFERENCE,
+    publicationContext: {
+      type: '',
+    },
+    publicationInstance: {
+      type: category,
+      pages: {
+        type: 'Range',
+      },
+    },
+  };
+
+  switch (category) {
+    case CategoryTypes.ACADEMIC_ARTICLE:
+      reference.publicationContext.type = 'Journal';
+      reference.publicationContext.id = 'https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/1864A370-80CA-4BE5-9CB7-40B0CCEF23CA/2025';
+      reference.publicationInstance.pages = {
+        type: 'Range',
+        begin: 10,
+        end: 20,
+        illustrated: false,
+      };
+      reference.publicationInstance.volume = '15';
+      reference.publicationInstance.issue = '3';
+      break;
+    case CategoryTypes.ACADEMIC_MONOGRAPH:
+      reference.publicationContext.type = 'Monograph';
+      break;
+    default:
+      throw new Error(`Category type ${category} not supported in createReference function.`);
+  }
+
+  return reference;
+};
 
 export type RegistrationData = {
   identifier?: string;
   payload?: string;
   create(): RegistrationData;
   addEntityDescription(description: EntityDescriptionType): RegistrationData;
-  addContributors(contributors: ContributorType[]): RegistrationData;
+  addContributor(contributors: ContributorType): RegistrationData;
   addFile(fileName: string): RegistrationData;
   addProject(project: ProjectType): RegistrationData;
   addReference(reference: ReferenceType): RegistrationData;
@@ -228,14 +337,32 @@ export type RegistrationData = {
 };
 
 export type ContributorType = {
-  name: string;
-  role: ContributorTypes;
-  affiliation?: string;
+  identity: IdentityType;
+  role: {
+    type: ContributorTypes;
+  };
+  affiliations: affiliationType[];
+  correspondingAuthor: false;
+  sequence: 1;
+  type: RegistrationPartTypes.CONTRIBUTOR;
 };
 
+export type affiliationType = {
+  id: string;
+  type: RegistrationPartTypes.ORGANIZATION;
+};
+
+export type IdentityType = {
+  type: RegistrationPartTypes.IDENTITY;
+  id: string;
+  name: string;
+  orcid?: string;
+  verificationStatus?: string;
+};
 
 export type PublicationContextType = {
   type: string;
+  id?: string;
   seriesId?: string;
   volume?: string;
   issue?: string;
@@ -251,14 +378,16 @@ export type PublicationInstanceType = {
   type: CategoryTypes;
   pages: {
     type: string;
-    startPage?: number;
-    endPage?: number;
+    begin?: number;
+    end?: number;
     illustrated?: boolean;
   }
-
+  volume?: string;
+  issue?: string;
 };
 
 export type ReferenceType = {
+  type: RegistrationPartTypes.REFERENCE;
   publicationContext: PublicationContextType;
   publicationInstance: PublicationInstanceType;
 };
@@ -272,10 +401,11 @@ export type ProjectType = {
 };
 
 export type EntityDescriptionType = {
-  type: string;
+  type: RegistrationPartTypes.ENTITYDESCRIPTION;
   mainTitle: string;
   alternativeTitles?: string[];
   publicationDate: {
+    type: RegistrationPartTypes.PUBLICATIONDATE;
     day: number;
     month: number;
     year: number;
@@ -284,30 +414,6 @@ export type EntityDescriptionType = {
   alternativeAbstracts?: string[];
   npiSubjectHeadings: string;
   tags: string[];
-  references: ReferenceType;
+  reference: ReferenceType;
 };
 
-export const findContributorByName = (accessToken: string, name: string, role: ContributorTypes, affiliation?: string): ContributorType => {
-
-  const auth = `Bearer ${accessToken}`;
-  cy.request('GET', `${baseUrl}cristin/person?results=10&page=1&name="${name}"&sort=name`, {
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': auth,
-    },
-  }).then((response) => {
-    if (response.status !== 200) {
-      throw new Error(`User with name ${name} does not exist.`);
-    }
-    
-    const contributor: ContributorType = {
-      name: response.body.items[0].name,
-      role,
-    };
-    if (affiliation) {
-      contributor.affiliation = affiliation;
-    }
-    return contributor;
-  });
-  return null;
-}
