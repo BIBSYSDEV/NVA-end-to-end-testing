@@ -127,9 +127,9 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: F
   cy.getDataTestId('resource-type-chip-AcademicArticle').click({
     force: true,
   });
-  cy.intercept('/publication-channels-v2/serial-publication?query=Chemical&year=*&size=10', {
-    fixture: 'channel_mock_serial.json',
-  }).as('serialChannel');
+  // cy.intercept('/publication-channels-v2/serial-publication?query=Chemical&year=*&size=10', {
+  //   fixture: 'channel_mock_serial.json',
+  // }).as('serialChannel');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).click({ force: true }).type('Chemical');
   cy.contains('ACS Chemical Biology').click({ force: true });
 
@@ -315,15 +315,15 @@ const fillInField = (field: Object) => {
       cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, todayDatePicker());
       break;
     case 'search':
-      if (field['fieldTestId'] == dataTestId.registrationWizard.resourceType.seriesField) {
-        cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_series.json' }).as(
-          'serialChannel'
-        );
-      } else {
-        cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as(
-          'serialChannel'
-        );
-      }
+      // if (field['fieldTestId'] == dataTestId.registrationWizard.resourceType.seriesField) {
+      //   cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_series.json' }).as(
+      //     'serialChannel'
+      //   );
+      // } else {
+      //   cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as(
+      //     'serialChannel'
+      //   );
+      // }
       cy.getDataTestId(field['fieldTestId']).should('be.visible').type(field['value'], { delay: 1 });
       cy.contains(field['value']).click();
       break;
