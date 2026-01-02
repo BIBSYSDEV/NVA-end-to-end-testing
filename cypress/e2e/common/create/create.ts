@@ -1,6 +1,7 @@
 import { Given } from "@badeball/cypress-cucumber-preprocessor"
-import { findContributorByName, ContributorType, ReferenceType, registrationBuilder, RegistrationData, RegistrationPartTypes, createEntityDescription } from "../../../support/create_registration";
+import { findContributorByName, registrationBuilder, createEntityDescription } from "../../../support/create_registration";
 import { CategoryTypes, ContributorTypes, TestUsers } from "../../../support/constants";
+import { v4 as uuid } from 'uuid';
 
 Given('I create a new registration', () => {
     cy.login(TestUsers.creators.basic).then(() => {
@@ -8,8 +9,8 @@ Given('I create a new registration', () => {
             .create();
         const contributor = findContributorByName(Cypress.env('accessToken'), "withauthor", ContributorTypes.CREATOR);
         cy.then(() => {
-            console.log(`Builder payload: ${JSON.stringify(builder.payload)}`);
-            const entity = createEntityDescription("Test Article", CategoryTypes.ACADEMIC_ARTICLE);
+            const category: CategoryTypes = CategoryTypes.BOOK_ANTHOLOGY;
+            const entity = createEntityDescription(`Test ${category} ${uuid()}`, category, '1003');
             const newBuilder = builder.addEntityDescription(entity)
                 .addContributor(contributor);
             console.log(`Builder payload: ${JSON.stringify(newBuilder.payload)}`);

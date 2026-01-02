@@ -3,6 +3,7 @@ import { formatedToday, today } from './commands';
 import { CategoryTypes, ContributorTypes, FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
 import { v4 as uuid } from 'uuid';
+import { ReferenceConstants } from './reference';
 
 export const createValidRegistrationWithType = (
   title: string,
@@ -81,7 +82,7 @@ const addCategoryData = (type: string, parentTitle?: string) => {
     case CategoryTypes.ACADEMIC_REWIEW_ARTICLE:
     case CategoryTypes.CONFERENCE_ABSTRACT:
     case CategoryTypes.JOURNAL_REVIEW:
-      // cy.intercept('GET', 'publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' });
+      cy.intercept('GET', 'publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' });
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acs chemical');
       cy.contains('ACS Chemical Biology').click();
       break;
@@ -268,10 +269,10 @@ export const findContributorByName = (accessToken: string, name: string, role: C
   return contributor;
 };
 
-export const createEntityDescription = (title?: string, category?: CategoryTypes): EntityDescriptionType => {
+export const createEntityDescription = (title?: string, category?: CategoryTypes, subjectHeading?: string): EntityDescriptionType => {
   const entityDescription: EntityDescriptionType = {
     type: RegistrationPartTypes.ENTITYDESCRIPTION,
-    mainTitle: !title ? '' : `${title} ${uuid()}`,
+    mainTitle: !title ? '' : title,
     publicationDate: {
       type: RegistrationPartTypes.PUBLICATIONDATE,
       day: new Date().getDate(),
@@ -279,7 +280,7 @@ export const createEntityDescription = (title?: string, category?: CategoryTypes
       year: new Date().getFullYear(),
     },
     contributors: [],
-    npiSubjectHeadings: '',
+    npiSubjectHeading: subjectHeading,
     tags: [],
     reference: createReference(category),
   }
@@ -287,40 +288,8 @@ export const createEntityDescription = (title?: string, category?: CategoryTypes
 }
 
 const createReference = (category: CategoryTypes): ReferenceType => {
-  const reference: ReferenceType = {
-    type: RegistrationPartTypes.REFERENCE,
-    publicationContext: {
-      type: '',
-    },
-    publicationInstance: {
-      type: category,
-      pages: {
-        type: 'Range',
-      },
-    },
-  };
 
-  switch (category) {
-    case CategoryTypes.ACADEMIC_ARTICLE:
-      reference.publicationContext.type = 'Journal';
-      reference.publicationContext.id = 'https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/1864A370-80CA-4BE5-9CB7-40B0CCEF23CA/2025';
-      reference.publicationInstance.pages = {
-        type: 'Range',
-        begin: 10,
-        end: 20,
-        illustrated: false,
-      };
-      reference.publicationInstance.volume = '15';
-      reference.publicationInstance.issue = '3';
-      break;
-    case CategoryTypes.ACADEMIC_MONOGRAPH:
-      reference.publicationContext.type = 'Monograph';
-      break;
-    default:
-      throw new Error(`Category type ${category} not supported in createReference function.`);
-  }
-
-  return reference;
+  return ReferenceConstants[category];
 };
 
 export type RegistrationData = {
@@ -367,9 +336,15 @@ export type PublicationContextType = {
   volume?: string;
   issue?: string;
   publisher?: {
+    type: string;
     id: string;
     valid: boolean;
   }
+  series?: {
+    type: string;
+    id?: string;
+  };
+  seriesNumber?: string;
   isbnList?: string[];
   additionalIdentifiers?: string[];
 };
@@ -380,10 +355,12 @@ export type PublicationInstanceType = {
     type: string;
     begin?: number;
     end?: number;
+    pages?: string;
     illustrated?: boolean;
-  }
+  };
   volume?: string;
   issue?: string;
+  corrigendumFor?: string;
 };
 
 export type ReferenceType = {
@@ -412,7 +389,7 @@ export type EntityDescriptionType = {
   }
   contributors: ContributorType[];
   alternativeAbstracts?: string[];
-  npiSubjectHeadings: string;
+  npiSubjectHeading: string;
   tags: string[];
   reference: ReferenceType;
 };
