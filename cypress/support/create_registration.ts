@@ -82,7 +82,7 @@ const addCategoryData = (type: string, parentTitle?: string) => {
     case CategoryTypes.ACADEMIC_REWIEW_ARTICLE:
     case CategoryTypes.CONFERENCE_ABSTRACT:
     case CategoryTypes.JOURNAL_REVIEW:
-      cy.intercept('GET', 'publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' });
+      // cy.intercept('GET', 'publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' });
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acs chemical');
       cy.contains('ACS Chemical Biology').click();
       break;
