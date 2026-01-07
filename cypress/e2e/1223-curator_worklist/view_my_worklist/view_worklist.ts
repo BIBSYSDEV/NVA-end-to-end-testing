@@ -114,7 +114,7 @@ When('the {string} opens their Worklist', (user: string) => {
   cy.wrap(user).as('user');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.openNVIWorklist();
   } else {
     // cy.getDataTestId(dataTestId.myPage.myMessages.ticketStatusField).type('{downarrow}{enter}{esc}');
   }
@@ -143,10 +143,7 @@ When('{string} clicks on Requests of type {string}', (user: string, type: string
   cy.login(curatorUsers[user]);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.get(`[data-value=${year}]`).click();
+    cy.openNVIWorklist();
   } else {
     cy.get('[value=BIBSYS]');
   }
@@ -209,11 +206,7 @@ When('the {string} open a unassigned Request of type {string}', (user: string, t
   cy.wrap(type).as('type');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.get(`[data-value=${year}]`).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.openNVIWorklist();
     cy.selectNVIStatus(NVI_PENDING);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);

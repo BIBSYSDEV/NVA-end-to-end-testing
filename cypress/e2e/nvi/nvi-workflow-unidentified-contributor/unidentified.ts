@@ -86,7 +86,7 @@ Given('the publication has at least one Author affiliated with an NVI institutio
 });
 When('the publication is not previously reported', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.openNVIWorklist();
 });
 Then('the publication is identified as an NVI candidate', () => {
   cy.get('@title').then((title) => {

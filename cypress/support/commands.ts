@@ -249,6 +249,14 @@ export const NVI_APPROVED = 'approved';
 export const NVI_REJECTED = 'rejected';
 export const NVI_DISPUTE = 'dispute';
 
+Cypress.Commands.add('openNVIWorklist', () => {
+    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+    cy.contains(currentYear).click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+});
+
 Cypress.Commands.add('selectNVIStatus', (status) => {
   cy.getDataTestId('status-filter').click();
   cy.getDataTestId('status-filter').within(() => {

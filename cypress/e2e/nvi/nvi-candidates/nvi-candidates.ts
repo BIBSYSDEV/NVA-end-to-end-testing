@@ -59,17 +59,11 @@ Then('the publication is listed as an NVI-candidate for all institutions the use
   cy.login(TestUsers.nvi.usn.curator);
   cy.get<string>('@registrationTitle').then((title) => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.contains(currentYear).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.openNVIWorklist();
     cy.selectNVICandidate(title);
     cy.login(TestUsers.curators.basicnvi);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.contains(currentYear).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.openNVIWorklist();
     cy.selectNVICandidate(title);
   });
 });
@@ -89,10 +83,7 @@ Then('the publication is listed as an NVI-candidate for the norwegian institutio
   cy.login(TestUsers.nvi.usn.curator);
   cy.get<string>('@registrationTitle').then((title) => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.contains(currentYear).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.openNVIWorklist();
     cy.selectNVICandidate(title);
   });
 });
@@ -142,11 +133,7 @@ Then('the publication is not listed as an NVI-candidate for the institution the 
   cy.login(TestUsers.nvi.usn.curator);
   cy.get<string>('@registrationTitle').then((title) => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.contains(currentYear).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.openNVIWorklist();
     cy.searchFor(title);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('not.exist');
   });

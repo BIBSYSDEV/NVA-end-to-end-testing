@@ -135,9 +135,7 @@ When('saves the changes', () => {
 Then('the Result is a NVI-candidate', () => {
   cy.get('@title').then((title) => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.selectNVIStatus(NVI_PENDING);
+    cy.openNVIWorklist();
     cy.getNVIWorklistItem(title.toString()).should('exist');
   });
 });
@@ -180,9 +178,7 @@ Then('the Result is not a NVI-candidate', () => {
   cy.get('@title').then((title) => {
     const uuid = findUuid(title.toString());
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.selectNVIStatus(NVI_PENDING);
+    cy.openNVIWorklist();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.get('main').then((doc) => {
@@ -207,7 +203,7 @@ Given('an NVI-candidate with a level 1 publication channel', () => {
   cy.createPublishedRegistration(createNVICandidateTitle, 'AcademicArticle');
   cy.login(userUSNNviCuratorInstitution);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.openNVIWorklist();
   cy.selectNVICandidate(createNVICandidateTitle);
   cy.get('table')
     .filter(':contains("Points")')
@@ -230,7 +226,7 @@ When('a User changes the publication channel to a level 2 publication channel', 
 });
 Then('the NVI points changes to reflect the new publication channel', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.openNVIWorklist();
   cy.selectNVICandidate(createNVICandidateTitle);
   cy.get('@points').then((points) => {
     cy.get('table')
@@ -263,9 +259,7 @@ Given('an anthology with a level 1 publisher', () => {
 
   // sjekk NVI-poeng
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  // cy.getDataTestId(dataTestId.tasksPage.nvi.statusFilter).click();
-  // cy.get('[data-value=pendicandidates_for_control]').click();
+  cy.openNVIWorklist();
   cy.selectNVICandidate(chapterTitle);
   cy.get('table')
     .filter(':contains("Points")')
@@ -295,7 +289,7 @@ When('a level 2 series is added to the anthology', () => {
 Then('the NVI points changes to reflect the series added to the anthology', () => {
   // sjekk NVI-poeng
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.openNVIWorklist();
   cy.selectNVICandidate(chapterTitle, NVI_PENDING);
   cy.get('@points').then((points) => {
     cy.get('table')

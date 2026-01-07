@@ -37,12 +37,7 @@ Given('publication has publicationContext refering to Anthology which is not NVI
   // Verify chapter is not an NVI candidate
   cy.login(TestUsers.nvi.usn.curator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.selectNVIStatus(NVI_PENDING);
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.openNVIWorklist();
   cy.searchFor(chapterTitle);
   cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('not.exist');
 });
@@ -69,12 +64,7 @@ When('Anthology is updated and becomes NVI candidate', () => {
 Then('AcademicChapter should also be evaluated as NVI candidate', () => {
   cy.login(TestUsers.nvi.usn.curator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.selectNVIStatus(NVI_PENDING);
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.openNVIWorklist();
 
   // Wait and reload pattern for async NVI processing
   cy.get('main').then((doc) => {
@@ -108,12 +98,7 @@ Given('publication has publicationContext refering to Anthology which is NVI can
 
   cy.login(TestUsers.nvi.usn.curator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.selectNVIStatus(NVI_PENDING);
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.openNVIWorklist();
 
   cy.get('main').then((doc) => {
     if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
@@ -147,13 +132,8 @@ When('Anthology is updated and becomes non NVI candidate', () => {
 Then('AcademicChapter should also be evaluated as non NVI candidate', () => {
   cy.login(TestUsers.nvi.usn.curator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.selectNVIStatus(NVI_PENDING);
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value=${year}]`).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-
+  cy.openNVIWorklist();
+  
   cy.wait(10000);
 
   cy.searchFor(chapterTitle);

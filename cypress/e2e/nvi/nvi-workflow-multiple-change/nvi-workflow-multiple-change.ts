@@ -123,9 +123,7 @@ When('saves the changes', () => {
 Then('the Result is a NVI-candidate', () => {
   cy.get('@title').then((title) => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.selectNVIStatus(NVI_PENDING);
+    cy.openNVIWorklist();
     cy.getNVIWorklistItem(title.toString());
   });
 });
@@ -155,9 +153,7 @@ When('the curator changes the Category from scientific to non-scientific', () =>
 Then('the Result is not a NVI-candidate', () => {
   cy.get('@title').then((title) => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.selectNVIStatus(NVI_PENDING);
+    cy.openNVIWorklist();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.get('main').then((doc) => {

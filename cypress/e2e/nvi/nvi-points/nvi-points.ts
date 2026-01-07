@@ -71,7 +71,7 @@ When('the curator reviews the NVI candidate', () => {
   cy.get('@title').then((title) => {
     cy.login(TestUsers.nvi.usn.curator);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+    cy.openNVIWorklist();
     cy.selectNVICandidate(title.toString());
   });
 });

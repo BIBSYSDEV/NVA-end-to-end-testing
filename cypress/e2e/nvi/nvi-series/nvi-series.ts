@@ -41,7 +41,7 @@ Then('the publication is listed as an NVI-candidate for the institution the user
     cy.login(TestUsers.nvi.usn.curator) 
     cy.get<string>('@registrationTitle').then((title) => {
       cy.getDataTestId(dataTestId.header.tasksLink).click();
-      cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+      cy.openNVIWorklist();
       cy.selectNVICandidate(title);
     });
 });
