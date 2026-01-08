@@ -131,7 +131,6 @@ const baseUrl = 'https://api.e2e.nva.aws.unit.no/';
 export const registrationBuilder = (accessToken: string): RegistrationData => {
   const registrationData: RegistrationData = {
     create() {
-      console.log(baseUrl);
       cy.request({
         method: 'POST',
         url: `${baseUrl}publication`,
@@ -142,7 +141,6 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
         },
         failOnStatusCode: false,
       }).then((response) => {
-        console.log(response);
         this.identifier = response.body.identifier;
         this.payload = response.body;
         this.payload.approvedOperations = [
@@ -221,7 +219,6 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
         body: newPayload,
         failOnStatusCode: true,
       }).then((response) => {
-        // console.log(response);
       });
       return this
     },
@@ -249,22 +246,20 @@ export const findContributorByName = (accessToken: string, name: string, role: C
     url: `${baseUrl}cristin/person?name=${name}&page=1&results=10`,
     failOnStatusCode: false,
   }).then((response) => {
-    console.log(response);
     if (response.status !== 200) {
       throw new Error(`User with name ${name} does not exist.`);
     }
     contributor.identity.id = `https://api.e2e.nva.aws.unit.no/cristin/person/${response.body.hits[0].identifiers[0].value}`;
     contributor.identity.name = `${response.body.hits[0].names[1].value} ${response.body.hits[0].names[0].value}`;
+    contributor.identity.verificationStatus = 'Verified';
     let index = 0;
     response.body.hits[0].affiliations.forEach((affiliation: any) => {
       const organization: affiliationType = {
         id: affiliation.organization,
         type: RegistrationPartTypes.ORGANIZATION,
       };
-      console.log(`Affiliation found: ${JSON.stringify(affiliation)}`);
       contributor.affiliations.push(organization);
       index++;
-      console.log(contributor);
     });
   });
   return contributor;
