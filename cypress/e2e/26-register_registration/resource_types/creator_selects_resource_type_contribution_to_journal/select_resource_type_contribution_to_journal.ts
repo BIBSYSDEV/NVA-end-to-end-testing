@@ -167,9 +167,9 @@ When('they select type to be {string}:', (type: string) => {
   });
   const resourceType = elements.join('');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(resourceType)).click();
-  cy.intercept('GET', '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as(
-    'serialChannel'
-  );
+  // cy.intercept('GET', '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as(
+  //   'serialChannel'
+  // );
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('Chemical');
   cy.contains('ACS Chemical Biology').last().click();
 });

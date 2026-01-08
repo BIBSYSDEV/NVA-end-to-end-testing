@@ -108,9 +108,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.wrap(title).as('title');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
-    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.get(`[data-value=${year}]`).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.openNVIWorklist();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     // cy.wait(10000);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
@@ -136,13 +134,9 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     );
   }
   cy.getSuccess();
-  if (user === 'Nvi-Curator') {
-    // cy.wait(5000);
-  }
   cy.get('[title=Tasks]').click();
 
   if (user === 'Nvi-Curator') {
-    // cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.selectNVIStatus(NVI_ASSIGNED);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
       cy.get('li > div > p > a').filter(`:contains(${title})`).click();
@@ -159,7 +153,6 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
 });
 Then('the Request Status is set to "New"', () => {});
 Then('the Request is unassigned the Curator', () => {
-  // cy.wait(6000);
   cy.get('[title=Tasks]').click();
   cy.get('@user').then((user) => {
     cy.get('@title').then((title) => {
@@ -195,9 +188,7 @@ Given('the {string} receives a Request of type {string}', (user: string, type: s
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  if (user === 'Nvi-Curator') {
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-  } else {
+  if (user !== 'Nvi-Curator') {
     cy.get('[value=BIBSYS]');
   }
   cy.wrap(type).as('type');
@@ -207,10 +198,7 @@ When('the Curator opens the Requests Resource', () => {
   cy.get('@user').then((user) => {
     cy.get('@title').then((title) => {
       if (user.toString() === 'Nvi-Curator') {
-        // cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-        cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-        cy.get(`[data-value=${year}]`).click();
-        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        cy.openNVIWorklist();
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
         cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList)
           .filter(`:contains("${title}")`)

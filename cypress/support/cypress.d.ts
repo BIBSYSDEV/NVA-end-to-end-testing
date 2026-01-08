@@ -34,6 +34,7 @@ declare global {
       addContributor(contributorName: string): void;
       addUnidentifiedContributor(contributorName: string): void;
 
+      openNVIWorklist(): void;
       selectNVIStatus(status: string): void;
       selectNVICandidate(title?: string, status?: string): void;
 

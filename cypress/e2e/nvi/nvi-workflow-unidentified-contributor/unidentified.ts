@@ -38,7 +38,7 @@ Given('the publication has at least one Author affiliated with an NVI institutio
       cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(type.toString())).click();
       switch (channel.toString()) {
         case JOURNAL:
-          cy.intercept('GET', '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' });
+          // cy.intercept('GET', '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' });
           cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acs chemical');
           cy.contains('ACS Chemical Biology').click();
           break;
@@ -86,7 +86,7 @@ Given('the publication has at least one Author affiliated with an NVI institutio
 });
 When('the publication is not previously reported', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.openNVIWorklist();
 });
 Then('the publication is identified as an NVI candidate', () => {
   cy.get('@title').then((title) => {

@@ -1,6 +1,6 @@
 Feature: test for metadata and file publishing
 
-  # @test
+  @test
   Scenario Outline: Verify that a publication with files can be published and is listed as NVI candidate
     Given a creator is logged in
     When the creator creates and publishes an AcademicArticle with with files
