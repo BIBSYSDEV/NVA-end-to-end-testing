@@ -221,7 +221,7 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
         body: newPayload,
         failOnStatusCode: true,
       }).then((response) => {
-        console.log(response);
+        // console.log(response);
       });
       return this
     },
@@ -253,7 +253,7 @@ export const findContributorByName = (accessToken: string, name: string, role: C
     if (response.status !== 200) {
       throw new Error(`User with name ${name} does not exist.`);
     }
-    contributor.identity.id = response.body.hits[0].identifiers[0].value;
+    contributor.identity.id = `https://api.e2e.nva.aws.unit.no/cristin/person/${response.body.hits[0].identifiers[0].value}`;
     contributor.identity.name = `${response.body.hits[0].names[1].value} ${response.body.hits[0].names[0].value}`;
     let index = 0;
     response.body.hits[0].affiliations.forEach((affiliation: any) => {
@@ -264,6 +264,7 @@ export const findContributorByName = (accessToken: string, name: string, role: C
       console.log(`Affiliation found: ${JSON.stringify(affiliation)}`);
       contributor.affiliations.push(organization);
       index++;
+      console.log(contributor);
     });
   });
   return contributor;
