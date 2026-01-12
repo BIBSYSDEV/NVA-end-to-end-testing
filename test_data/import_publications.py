@@ -116,29 +116,27 @@ def set_nvi_period():
     if response.status_code != 201:
         print(response.__dict__)
 
-def reset_nvi_search_index():
-    print('Resetting NVI index...')
-    response = lambda_client.invoke(FunctionName=deleteNviIndexLambda)
-    if response['StatusCode'] != 200:
-        print(response)
-    time.sleep(5)
-    response = lambda_client.invoke(FunctionName=nviInitHandlerLambda)
-    if response['StatusCode'] != 200:
-        print(response)
-    time.sleep(5)
-    print("Finished resetting NVI index")
 
-def reset_search_index():
-    print("Resetting indices in search-api...")
-    response = lambda_client.invoke(FunctionName=deleteSearchIndexLambda)
-    if response['StatusCode'] != 200:
-        print(response)
-    time.sleep(5)
-    response = lambda_client.invoke(FunctionName=searchInitHandlerLambda)
-    if response['StatusCode'] != 200:
-        print(response)
-    time.sleep(5)
-    print("Finished resetting indices in search-api")
+def delete_indices():
+    print("Deleting OpenSearch indices...")
+    delete_handlers = [deleteNviIndexLambda, deleteSearchIndexLambda]
+    for handler in delete_handlers:
+        response = lambda_client.invoke(FunctionName=handler)
+        if response['StatusCode'] != 200:
+            print(response)
+    time.sleep(30)
+    print("Finished deleting OpenSearch indices")
+
+def create_indices():
+    print("Creating OpenSearch indices...")
+    create_handlers = [nviInitHandlerLambda, searchInitHandlerLambda]
+    for handler in create_handlers:
+        response = lambda_client.invoke(FunctionName=handler)
+        if response['StatusCode'] != 200:
+            print(response)
+    time.sleep(30)
+    print("Finished creating OpenSearch indices")
+
 
 def map_user_to_arp():
     print('Map users from Cristin')
