@@ -11,7 +11,11 @@ import {
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { NVI_APPROVED, NVI_ASSIGNED, NVI_DISPUTE, NVI_PENDING, NVI_REJECTED } from '../../../support/commands';
-import { createEntityDescription, findContributorByName, registrationBuilder } from '../../../support/create_registration';
+import {
+  createEntityDescription,
+  findContributorByName,
+  registrationBuilder,
+} from '../../../support/create_registration';
 
 const nviFields = {
   'Search': dataTestId.startPage.searchField,
@@ -59,6 +63,9 @@ const approveCandidate = (title: string) => {
 const checkingCandidate = (title: string, curator: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.selectNVICandidate(title);
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).within(() =>
+    cy.get('input').should('be.enabled')
+  );
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type(curator);
   cy.get('.MuiAutocomplete-option').click();
@@ -80,24 +87,35 @@ const rejectCandidate = (title: string) => {
 
 BeforeAll(() => {
   cy.login(userUSNNviCuratorInstitution).then(() => {
-
     Object.keys(titles).forEach((key) => {
       const NVItitle = `${key} ${uuid()}`;
       titles[key] = NVItitle;
 
-      const builder = registrationBuilder(Cypress.env('accessToken'))
-        .create();
-      const contributorNVIA = findContributorByName(Cypress.env('accessToken'), curatorInstitutionA, ContributorTypes.CREATOR);
+      const builder = registrationBuilder(Cypress.env('accessToken')).create();
+      const contributorNVIA = findContributorByName(
+        Cypress.env('accessToken'),
+        curatorInstitutionA,
+        ContributorTypes.CREATOR
+      );
       cy.then(() => {
-        const contributorNVIB = findContributorByName(Cypress.env('accessToken'), curatorInstitutionB, ContributorTypes.CREATOR);
+        const contributorNVIB = findContributorByName(
+          Cypress.env('accessToken'),
+          curatorInstitutionB,
+          ContributorTypes.CREATOR
+        );
         cy.then(() => {
           const category: CategoryTypes = CategoryTypes.ACADEMIC_ARTICLE;
           const entity = createEntityDescription(NVItitle, category, '1003');
-          const newBuilder = builder.addEntityDescription(entity)
+          const newBuilder = builder
+            .addEntityDescription(entity)
             .addContributor(contributorNVIB)
             .addContributor(contributorNVIA);
           if (key.endsWith('Dispute')) {
-            const contributorNVIC = findContributorByName(Cypress.env('accessToken'), curatorInstitutionB, ContributorTypes.CREATOR);
+            const contributorNVIC = findContributorByName(
+              Cypress.env('accessToken'),
+              curatorInstitutionB,
+              ContributorTypes.CREATOR
+            );
             cy.then(() => {
               newBuilder.addContributor(contributorNVIC);
             });
@@ -106,26 +124,17 @@ BeforeAll(() => {
           cy.then(() => {
             builder.publish();
             cy.then(() => {
-              cy.wait(3000); // Wait for 3 seconds to ensure the registration is processed
+              // cy.wait(3000); // Wait for 3 seconds to ensure the registration is processed
             });
           });
         });
-      })
+      });
 
-      // cy.createPublishedRegistration(NVItitle);
-      // cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-      // cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-      // cy.addContributor(userNVIB);
-      // if (key.endsWith('Dispute')) {
-      //   cy.addContributor(userNVIC);
-      // }
-      // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-      // cy.getSuccess();
-      // cy.getSuccessDone();
       if (!key.startsWith('Candidate')) {
         cy.getDataTestId(dataTestId.header.tasksLink).click();
+        cy.wait(1000);
         cy.openNVIWorklist();
-        cy.wait(3000);
+        // cy.wait(3000);
         if (key.startsWith('Approved') || key === 'Dispute Approved Rejected') {
           approveCandidate(NVItitle);
         } else if (key.startsWith('Being checked')) {
@@ -139,6 +148,7 @@ BeforeAll(() => {
 
   cy.login(userBIBSYSNviCuratorInstitution);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.wait(1000);
   cy.openNVIWorklist();
   Object.keys(titles).forEach((key) => {
     const title = titles[key];
@@ -154,6 +164,7 @@ BeforeAll(() => {
   cy.login(userNtnuNviCurator);
   const disputeTitle = titles['Dispute Candidate Dispute'];
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.wait(1000);
   cy.openNVIWorklist();
   rejectCandidate(disputeTitle);
 });
@@ -164,9 +175,10 @@ Given('a logged-in User', () => {
   cy.getDataTestId(dataTestId.common.skeleton);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });
-Given('the User has the role "NVI-Curator" at an NVI-Institution', () => { });
+Given('the User has the role "NVI-Curator" at an NVI-Institution', () => {});
 Given('the User has navigated to the NVI section from the Tasks option in the main menu', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.wait(1000);
   cy.openNVIWorklist();
 });
 
@@ -198,10 +210,10 @@ Then('the Curator field is set to none by default', () => {
     cy.get('input').should('not.have.value');
   });
 });
-Then('the Area of responsibility field reflects my curator permissions', () => { });
+Then('the Area of responsibility field reflects my curator permissions', () => {});
 
 // Scenario: Menu on NVI page
-When('the User navigate to the Task page', () => { });
+When('the User navigate to the Task page', () => {});
 Then('a menu containing following objects are visable:', () => {
   cy.get('[role=progressbar');
   cy.getDataTestId('status-filter');
@@ -230,9 +242,9 @@ const availabilityFilter = {
 };
 
 // Scenario Outline: Check correct status
-When('the User select a status', () => { });
-When("the Resources have authors that are affiliated with the Curator's Institution", () => { });
-When('the authors affiliation is within the Users Area of responibiliy', () => { });
+When('the User select a status', () => {});
+When("the Resources have authors that are affiliated with the Curator's Institution", () => {});
+When('the authors affiliation is within the Users Area of responibiliy', () => {});
 When('status for own institution is {string}', (ownInstitution) => {
   cy.wrap(ownInstitution).as('ownInstitution');
 });
@@ -276,7 +288,7 @@ Then('the Results are listed under {string}', (status) => {
 // | Dispute                                     | Candidate       | Dispute                    |
 
 // Scenario: The progress bar display the current NVI-report status
-When('the User wish to see details', () => { });
+When('the User wish to see details', () => {});
 Then('the User may select "Show reporting status"', () => {
   cy.getDataTestId('show-reporting-status-button').should('exist');
 });
@@ -304,8 +316,8 @@ Then('the columns show NVI resource statuses', () => {
     cy.get('th').should('contain', status);
   });
 });
-Then("the rows represent my institution's subunits", () => { });
-Then('I can select to view any previous year', () => { });
+Then("the rows represent my institution's subunits", () => {});
+Then('I can select to view any previous year', () => {});
 Then('I has an export option', () => {
   cy.getDataTestId(dataTestId.common.exportButton).should('exist');
 });

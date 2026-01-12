@@ -245,11 +245,12 @@ Cypress.Commands.add('selectRegistration', (title, type) => {
 
 export const NVI_PENDING = 'candidates_for_control';
 export const NVI_ASSIGNED = 'candidates_for_control';
-export const NVI_APPROVED = 'approved';
-export const NVI_REJECTED = 'rejected';
+export const NVI_APPROVED = 'Approved';
+export const NVI_REJECTED = 'Rejected';
 export const NVI_DISPUTE = 'dispute';
 
 Cypress.Commands.add('openNVIWorklist', () => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
