@@ -666,13 +666,13 @@ def run():
     print('publications...')
     bearer_token = common.login(username=username)
     headers['Authorization'] = f'Bearer {bearer_token}'
+    delete_indices()
+    create_indices()
     # set_nvi_period()
-    reset_nvi_search_index()
     # read_customers()
     # map_user_to_arp()
     # upload_file()
     delete_publications()
-    reset_search_index()
     # create_publications()
 
 if __name__ == '__main__':
