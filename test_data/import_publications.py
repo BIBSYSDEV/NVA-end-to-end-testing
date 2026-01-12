@@ -121,17 +121,24 @@ def reset_nvi_search_index():
     response = lambda_client.invoke(FunctionName=deleteNviIndexLambda)
     if response['StatusCode'] != 200:
         print(response)
+    time.sleep(5)
     response = lambda_client.invoke(FunctionName=nviInitHandlerLambda)
     if response['StatusCode'] != 200:
         print(response)
+    time.sleep(5)
+    print("Finished resetting NVI index")
 
 def reset_search_index():
+    print("Resetting indices in search-api...")
     response = lambda_client.invoke(FunctionName=deleteSearchIndexLambda)
     if response['StatusCode'] != 200:
         print(response)
+    time.sleep(5)
     response = lambda_client.invoke(FunctionName=searchInitHandlerLambda)
     if response['StatusCode'] != 200:
         print(response)
+    time.sleep(5)
+    print("Finished resetting indices in search-api")
 
 def map_user_to_arp():
     print('Map users from Cristin')
