@@ -60,13 +60,14 @@ BeforeAll(() => {});
 Given(
   'there is testdata for a NVI candidate with {string}, {string}, {string}, {string}, {string}',
   (
-    category: CategoryTypes,
+    categoryInput: string,
     publicationStatus: string,
     isCollaboration: string,
     typeOfRegistration: string,
     isNviPublication: string
   ) => {
-    const title = `Registrator ${typeOfRegistration} ${category} ${publicationStatus} ${isCollaboration} ${uuid()}`;
+    const title = `Registrator ${typeOfRegistration} ${categoryInput} ${publicationStatus} ${isCollaboration} ${uuid()}`;
+    const category = categories[categoryInput];
     cy.login(userUSNNviInstitution).then(() => {
       const builder = registrationBuilder(Cypress.env('accessToken')).create();
       cy.then(() => {
@@ -74,7 +75,7 @@ Given(
         if (category === 'AcademicChapter') {
           const anthologyTitle = `Anthology for Article ${uuid()}`;
           const anthologyId = createAnthology(anthologyTitle);
-          entity.reference.publicationInstance.corrigendumFor = anthologyId;
+          entity.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
         }
         builder.addEntityDescription(entity);
       });

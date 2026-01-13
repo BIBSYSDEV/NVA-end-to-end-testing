@@ -219,11 +219,21 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
         body: newPayload,
         failOnStatusCode: true,
       }).then((response) => {
+        cy.log(response.body);
       });
       return this
     },
   };
   return registrationData;
+}
+
+const parseName = (nameObject: any): string => {
+  let name = '';
+  const lastName = nameObject[0].type === 'LastName' ? nameObject[0].value : nameObject[1].value;
+  const firstName = nameObject[0].type === 'FirstName' ? nameObject[0].value : nameObject[1].value;
+  name = `${firstName} ${lastName}`;
+
+  return name;
 }
 
 export const findContributorByName = (accessToken: string, name: string, role: ContributorTypes): ContributorType => {
@@ -246,7 +256,6 @@ export const findContributorByName = (accessToken: string, name: string, role: C
     url: `${baseUrl}cristin/person?name=${name}&page=1&results=10`,
     failOnStatusCode: false,
   }).then((response) => {
-    console.log(response);
     if (response.status !== 200) {
       throw new Error(`Error searching for ${name}.`);
     }
@@ -255,20 +264,26 @@ export const findContributorByName = (accessToken: string, name: string, role: C
       contributor.identity.name = name;
       contributor.identity.verificationStatus = 'NotVerified';
     } else {
-      contributor.identity.id = `https://api.e2e.nva.aws.unit.no/cristin/person/${response.body.hits[0].identifiers[0].value}`;
-      contributor.identity.name = `${response.body.hits[0].names[1].value} ${response.body.hits[0].names[0].value}`;
-      contributor.identity.verificationStatus = 'Verified';
-      let index = 0;
-      response.body.hits[0].affiliations.forEach((affiliation: any) => {
-        const organization: affiliationType = {
-          id: affiliation.organization,
-          type: RegistrationPartTypes.ORGANIZATION,
-        };
-        contributor.affiliations.push(organization);
-        index++;
-      });
+      response.body.hits.forEach(hit => {
+        const foundName = parseName(hit.names);
+        if (name === foundName) {
+          contributor.identity.id = `https://api.e2e.nva.aws.unit.no/cristin/person/${hit.identifiers[0].value}`;
+          contributor.identity.name = foundName;
+          contributor.identity.verificationStatus = 'Verified';
+          let index = 0;
+          hit.affiliations.forEach((affiliation: any) => {
+            const organization: affiliationType = {
+              id: affiliation.organization,
+              type: RegistrationPartTypes.ORGANIZATION,
+            };
+            contributor.affiliations.push(organization);
+            index++;
+          });
+        }
+      })
     }
   });
+  
   return contributor;
 };
 
