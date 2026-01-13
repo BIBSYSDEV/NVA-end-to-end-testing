@@ -1,11 +1,21 @@
 // Feature: NVI workflow - contributor
 
 import { dataTestId } from '../../../support/dataTestIds';
-import { CategoryTypes, userUSNNviCuratorInstitution, userUSNNviInstitution } from '../../../support/constants';
+import {
+  CategoryTypes,
+  ContributorTypes,
+  userUSNNviCuratorInstitution,
+  userUSNNviInstitution,
+} from '../../../support/constants';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
 import { NVI_PENDING } from '../../../support/commands';
-import { createValidRegistrationWithType } from '../../../support/create_registration';
+import {
+  createEntityDescription,
+  createValidRegistrationWithType,
+  findContributorByName,
+  registrationBuilder,
+} from '../../../support/create_registration';
 
 const PUBLISHED = 'Published';
 const DRAFT = 'Draft';
@@ -14,15 +24,34 @@ const NVA_INSTITUTION = 'NVA-institution';
 const EXTERNAL_INSTITUTION = 'external institution';
 const NO_ONE = 'No one';
 
+const USER_CREATOR = 'User NVI-institution A TestUser';
 const NVI_USER = 'Change User NVI-institution B TestUser';
 const NVA_USER = 'Change User NVA-institution C TestUser';
 const EXTERNAL_USER = 'External User';
 
 const categories = {
-  'Scientific Article': 'AcademicArticle',
-  'Monograph': 'AcademicMonograph',
-  'Anthology': 'BookAnthology',
-  'AcademicChapter': 'AcademicChapter',
+  'Scientific Article': CategoryTypes.ACADEMIC_ARTICLE,
+  'Monograph': CategoryTypes.ACADEMIC_MONOGRAPH,
+  'Anthology': CategoryTypes.BOOK_ANTHOLOGY,
+  'AcademicChapter': CategoryTypes.ACADEMIC_CHAPTER,
+};
+
+const createAnthology = (title: string): string => {
+  const builder = registrationBuilder(Cypress.env('accessToken')).create();
+  cy.then(() => {
+    const contributorNVIA = findContributorByName(Cypress.env('accessToken'), USER_CREATOR, ContributorTypes.CREATOR);
+    cy.then(() => {
+      const entity = createEntityDescription(title, CategoryTypes.BOOK_ANTHOLOGY, '1003');
+      builder.addEntityDescription(entity);
+      builder.addContributor(contributorNVIA);
+      builder.update();
+      cy.then(() => {
+        builder.publish();
+        cy.then(() => {});
+      });
+    });
+  });
+  return builder.identifier;
 };
 
 BeforeAll(() => {});
@@ -31,45 +60,62 @@ BeforeAll(() => {});
 Given(
   'there is testdata for a NVI candidate with {string}, {string}, {string}, {string}, {string}',
   (
-    category: string,
+    category: CategoryTypes,
     publicationStatus: string,
     isCollaboration: string,
     typeOfRegistration: string,
     isNviPublication: string
   ) => {
     const title = `Registrator ${typeOfRegistration} ${category} ${publicationStatus} ${isCollaboration} ${uuid()}`;
-    cy.login(userUSNNviInstitution);
-    const publicationCategory = categories[category];
-    if (publicationStatus === PUBLISHED) {
-      if (category === 'AcademicChapter') {
-        const anthologyTitle = `Anthology for Article ${uuid()}`;
-        cy.createPublishedRegistration(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY);
-        cy.createPublishedChapter(title, anthologyTitle);
-      } else {
-        cy.createPublishedRegistration(title, publicationCategory);
-      }
-    } else {
-      cy.startWizardWithEmptyRegistration();
-      createValidRegistrationWithType(title, publicationCategory);
-      cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-      cy.getSuccess();
-      cy.getSuccessDone();
-    }
-    if (isCollaboration !== NO_ONE) {
-      cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-      cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-      if (isCollaboration === NVI_INSTITUTION) {
-        cy.addContributor(NVI_USER);
-      } else if (isCollaboration === NVA_INSTITUTION) {
-        cy.addContributor(NVA_USER);
-      } else if (isCollaboration === EXTERNAL_INSTITUTION) {
-        cy.addUnidentifiedContributor(EXTERNAL_USER);
-        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${EXTERNAL_USER}`);
-      }
-      cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-      cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    }
+    cy.login(userUSNNviInstitution).then(() => {
+      const builder = registrationBuilder(Cypress.env('accessToken')).create();
+      cy.then(() => {
+        const entity = createEntityDescription(title, category, '1003');
+        if (category === 'AcademicChapter') {
+          const anthologyTitle = `Anthology for Article ${uuid()}`;
+          const anthologyId = createAnthology(anthologyTitle);
+          entity.reference.publicationInstance.corrigendumFor = anthologyId;
+        }
+        builder.addEntityDescription(entity);
+      });
+
+      const contributorNVIA = findContributorByName(Cypress.env('accessToken'), USER_CREATOR, ContributorTypes.CREATOR);
+      cy.then(() => {
+        builder.addContributor(contributorNVIA);
+        if (isCollaboration !== NO_ONE) {
+          let contributor = '';
+          if (isCollaboration === NVI_INSTITUTION) {
+            contributor = NVI_USER;
+          } else if (isCollaboration === NVA_INSTITUTION) {
+            contributor = NVA_USER;
+          } else if (isCollaboration === EXTERNAL_INSTITUTION) {
+            contributor = EXTERNAL_USER;
+          }
+          const contributorUser = findContributorByName(
+            Cypress.env('accessToken'),
+            contributor,
+            ContributorTypes.CREATOR
+          );
+          cy.then(() => {
+            if (isCollaboration == EXTERNAL_INSTITUTION) {
+              contributorUser.identity.verificationStatus = 'NotVerified';
+            }
+            builder.addContributor(contributorUser);
+          });
+        }
+        cy.then(() => {
+          cy.then(() => {
+            builder.update();
+            cy.then(() => {
+              if (publicationStatus === PUBLISHED) {
+                builder.publish();
+                cy.then(() => {});
+              }
+            });
+          });
+        });
+      });
+    });
   }
 );
 

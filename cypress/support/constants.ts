@@ -70,6 +70,7 @@ export enum CategoryTypes {
   INTRODUCTION = 'Introduction',
   EXHIBITION_CATALOGUE_CHAPTER = 'ExhibitionCatalogueChapter',
   CHAPTER_IN_REPORT = 'ChapterInReport',
+  CHAPTER_CONFERENCE_ABSTRACT = 'ChapterConferenceAbstract',
 
   CONFERENCE_LECTURE = 'ConferenceLecture',
   CONFERENCE_POSTER = 'ConferencePoster',
