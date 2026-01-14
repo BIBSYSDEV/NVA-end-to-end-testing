@@ -96,7 +96,7 @@ const CorrigendumReference = (category: CategoryTypes): ReferenceType => {
 export const ReferenceConstants = {
   [CategoryTypes.ACADEMIC_ARTICLE]: ArticleReference(CategoryTypes.ACADEMIC_ARTICLE),
   [CategoryTypes.JOURNAL_REVIEW]: ArticleReference(CategoryTypes.JOURNAL_REVIEW),
-  [CategoryTypes.ACADEMIC_REWIEW_ARTICLE]: ArticleReference(CategoryTypes.ACADEMIC_REWIEW_ARTICLE),
+  [CategoryTypes.ACADEMIC_REVIEW_ARTICLE]: ArticleReference(CategoryTypes.ACADEMIC_REVIEW_ARTICLE),
   [CategoryTypes.COMMENTARY]: ArticleReference(CategoryTypes.COMMENTARY),
   [CategoryTypes.JOURNAL_LEADER]: ArticleReference(CategoryTypes.JOURNAL_LEADER),
   [CategoryTypes.JOURNAL_ISSUE]: ArticleReference(CategoryTypes.JOURNAL_ISSUE),

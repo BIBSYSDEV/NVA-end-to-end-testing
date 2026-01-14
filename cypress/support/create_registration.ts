@@ -79,7 +79,7 @@ const addCategoryData = (type: string, parentTitle?: string) => {
       break;
     case CategoryTypes.ACADEMIC_ARTICLE:
 
-    case CategoryTypes.ACADEMIC_REWIEW_ARTICLE:
+    case CategoryTypes.ACADEMIC_REVIEW_ARTICLE:
     case CategoryTypes.CONFERENCE_ABSTRACT:
     case CategoryTypes.JOURNAL_REVIEW:
       // cy.intercept('GET', 'publication-channels-v2/serial-publication', { fixture: 'channel_mock_serial.json' });
@@ -144,26 +144,27 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
         this.identifier = response.body.identifier;
         this.payload = response.body;
         this.payload.approvedOperations = [
-          "doi-request-create",
-          "update",
-          "delete",
-          "publishing-request-create",
-          "upload-file",
-          "partial-update",
-          "support-request-create"
+          'doi-request-create',
+          'update',
+          'delete',
+          'publishing-request-create',
+          'upload-file',
+          'partial-update',
+          'support-request-create',
         ];
       });
       return this;
     },
     addEntityDescription(description: EntityDescriptionType) {
-      if (!this.payload) throw new Error('Payload is not defined. Create registration before adding EntityDescription.');
-      this.payload.entityDescription = description;
+      if (!this.payload)
+        throw new Error('Payload is not defined. Create registration before adding EntityDescription.');
+      this.entityDescription = description;
       return this;
     },
     addContributor(newContributor: ContributorType) {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
-      if (!this.payload.entityDescription) throw new Error('Entity description is not defined. Add entity description first.');
-      this.payload.entityDescription.contributors.push(newContributor);
+      if (!this.entityDescription) throw new Error('Entity description is not defined. Add entity description first.');
+      this.entityDescription.contributors.push(newContributor);
       return this;
     },
     addFile(fileName: string) {
@@ -176,14 +177,18 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
     },
     addReference(reference: ReferenceType) {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
-      this.payload.reference = reference;
+      this.reference = reference;
       return this;
     },
     update() {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
-      if (!this.payload.entityDescription) throw new Error('Entity description is not defined. Add entity description first.');
+      if (!this.entityDescription) throw new Error('Entity description is not defined. Add entity description first.');
       const auth = `Bearer ${accessToken}`;
       const newPayload = this.payload;
+      this.payload.entityDescription = this.entityDescription;
+      if (this.reference) {
+        this.payload.entityDescription.reference = this.reference;
+      }
       cy.request({
         method: 'PUT',
         url: `${baseUrl}publication/${this.identifier}`,
@@ -200,7 +205,7 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
         this.identifier = response.body.identifier;
         this.payload = response.body;
       });
-      return this
+      return this;
     },
     publish() {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
@@ -218,14 +223,12 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
 
         body: newPayload,
         failOnStatusCode: true,
-      }).then((response) => {
-        cy.log(response.body);
-      });
-      return this
+      }).then((response) => {});
+      return this;
     },
   };
   return registrationData;
-}
+};
 
 const parseName = (nameObject: any): string => {
   let name = '';
@@ -234,7 +237,7 @@ const parseName = (nameObject: any): string => {
   name = `${firstName} ${lastName}`;
 
   return name;
-}
+};
 
 export const findContributorByName = (accessToken: string, name: string, role: ContributorTypes): ContributorType => {
   let contributor: ContributorType = {
@@ -259,12 +262,12 @@ export const findContributorByName = (accessToken: string, name: string, role: C
     if (response.status !== 200) {
       throw new Error(`Error searching for ${name}.`);
     }
-    if(response.body.hits.length === 0) {
+    if (response.body.hits.length === 0) {
       contributor.identity.id = ``;
       contributor.identity.name = name;
       contributor.identity.verificationStatus = 'NotVerified';
     } else {
-      response.body.hits.forEach(hit => {
+      response.body.hits.forEach((hit) => {
         const foundName = parseName(hit.names);
         if (name === foundName) {
           contributor.identity.id = `https://api.e2e.nva.aws.unit.no/cristin/person/${hit.identifiers[0].value}`;
@@ -280,14 +283,18 @@ export const findContributorByName = (accessToken: string, name: string, role: C
             index++;
           });
         }
-      })
+      });
     }
   });
-  
+
   return contributor;
 };
 
-export const createEntityDescription = (title?: string, category?: CategoryTypes, subjectHeading?: string): EntityDescriptionType => {
+export const createEntityDescription = (
+  title?: string,
+  category?: CategoryTypes,
+  subjectHeading?: string
+): EntityDescriptionType => {
   const entityDescription: EntityDescriptionType = {
     type: RegistrationPartTypes.ENTITYDESCRIPTION,
     mainTitle: !title ? '' : title,
@@ -301,18 +308,19 @@ export const createEntityDescription = (title?: string, category?: CategoryTypes
     npiSubjectHeading: subjectHeading,
     tags: [],
     reference: createReference(category),
-  }
+  };
   return entityDescription;
-}
+};
 
 const createReference = (category: CategoryTypes): ReferenceType => {
-
   return ReferenceConstants[category];
 };
 
 export type RegistrationData = {
   identifier?: string;
   payload?: string;
+  reference?: ReferenceType;
+  entityDescription?: EntityDescriptionType;
   create(): RegistrationData;
   addEntityDescription(description: EntityDescriptionType): RegistrationData;
   addContributor(contributors: ContributorType): RegistrationData;
@@ -357,7 +365,7 @@ export type PublicationContextType = {
     type: string;
     id: string;
     valid: boolean;
-  }
+  };
   series?: {
     type: string;
     id?: string;
@@ -404,11 +412,10 @@ export type EntityDescriptionType = {
     day: number;
     month: number;
     year: number;
-  }
+  };
   contributors: ContributorType[];
   alternativeAbstracts?: string[];
   npiSubjectHeading: string;
   tags: string[];
   reference: ReferenceType;
 };
-

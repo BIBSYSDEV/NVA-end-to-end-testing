@@ -13,7 +13,6 @@ Given('I create a new registration', () => {
             const entity = createEntityDescription(`Test ${category} ${uuid()}`, category, '1003');
             const newBuilder = builder.addEntityDescription(entity)
                 .addContributor(contributor);
-            console.log(`Builder payload: ${JSON.stringify(newBuilder.payload)}`);
             newBuilder.update();
             cy.then(() => {
                 builder.publish();

@@ -27,7 +27,7 @@ export enum FileVersions {
 
 export enum CategoryTypes {
   ACADEMIC_ARTICLE = 'AcademicArticle',
-  ACADEMIC_REWIEW_ARTICLE = 'AcademicLiteratureReview',
+  ACADEMIC_REVIEW_ARTICLE = 'AcademicLiteratureReview',
   COMMENTARY = 'JournalLetter',
   JOURNAL_REVIEW = 'JournalReview',
   JOURNAL_LEADER = 'JournalLeader',
@@ -425,7 +425,7 @@ export const TestUsers = {
     },
     foregin: {
       basic: userForegin,
-    }
+    },
   },
 
   // Publishing and permissions

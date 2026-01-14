@@ -36,9 +36,12 @@ const categories = {
   'AcademicChapter': CategoryTypes.ACADEMIC_CHAPTER,
 };
 
-const createAnthology = (title: string): string => {
+const createAnthology = (title: string) => {
   const builder = registrationBuilder(Cypress.env('accessToken')).create();
+  let identifier = '';
   cy.then(() => {
+    identifier = builder.identifier;
+    cy.wrap(identifier).as('anthologyId');
     const contributorNVIA = findContributorByName(Cypress.env('accessToken'), USER_CREATOR, ContributorTypes.CREATOR);
     cy.then(() => {
       const entity = createEntityDescription(title, CategoryTypes.BOOK_ANTHOLOGY, '1003');
@@ -47,11 +50,11 @@ const createAnthology = (title: string): string => {
       builder.update();
       cy.then(() => {
         builder.publish();
-        cy.then(() => {});
+        cy.then(() => {
+        });
       });
     });
   });
-  return builder.identifier;
 };
 
 BeforeAll(() => {});
@@ -74,9 +77,15 @@ Given(
         const entity = createEntityDescription(title, category, '1003');
         if (category === 'AcademicChapter') {
           const anthologyTitle = `Anthology for Article ${uuid()}`;
-          const anthologyId = createAnthology(anthologyTitle);
-          entity.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
+          createAnthology(anthologyTitle);
+        } else {
+          cy.wrap(null).as('anthologyId');
         }
+        cy.get('@anthologyId').then((anthologyId) => {
+          if(anthologyId) {
+            entity.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
+          }
+        });
         builder.addEntityDescription(entity);
       });
 
