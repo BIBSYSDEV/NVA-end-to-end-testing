@@ -24,7 +24,7 @@ phases:
       - export CYPRESS_AWS_REGION=${AWS_REGION}
   build:
     commands:
-      - if [ -d "messages" ]; then ls -l messages fi
+      - if [ -d "messages" ]; then ls -l messages; fi
       - if [ -d "messages" ]; then if [ -a messages/* ]; then  rm messages/*; fi; fi
       - if [ ! -d "messages" ]; then mkdir messages; fi
       - aws s3 cp s3://$TESTREPORTS_BUCKET/messages messages --recursive
