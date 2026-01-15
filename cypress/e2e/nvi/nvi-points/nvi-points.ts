@@ -24,6 +24,8 @@ const channelIds = {
   'article level 2': `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/1864A370-80CA-4BE5-9CB7-40B0CCEF23CA/${currentYear}`,
   'monograph level 1': `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/DC752087-7122-4D3A-9E4F-382AA2F39D2C/${currentYear}`,
   'monograph level 2': `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/2C26EB7E-B93B-45B8-A5CE-AACBE2B86448/${currentYear}`,
+  'series level 1': `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/DC26EADA-5DA7-42C7-8C70-4250E9C93C64/${currentYear}`,
+  'series level 2': `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/8C757DB5-8205-4A28-A6D5-BABD2DF32180/${currentYear}`,
 };
 
 const USN_USER = 'User NVI-institution A TestUser';
@@ -51,10 +53,14 @@ const createPublication = (title: string, category: CategoryTypes) => {
 };
 
 //   Scenario Outline: Verify NVI points calculations for different NVI candidates
-Given('a curator looks at a NVI candidate with Category {string} and NVI level {string}', (category, level) => {
-  cy.wrap(level.toString()).as('level');
-  cy.wrap(category.toString()).as('category');
-});
+Given(
+  'a curator looks at a NVI candidate with Category {string} and NVI level {string}',
+  (category: unknown, level: unknown) => {
+    cy.wrap(level as string).as('level');
+    cy.wrap(category as string).as('category');
+    cy.wrap(null).as('series');
+  }
+);
 Given(
   '{string} local contributors and {string} international contributors with {string} total contributors',
   (contributors, internationalContributors, totalContributors) => {
@@ -62,7 +68,7 @@ Given(
       cy.get('@category').then((category: unknown) => {
         cy.get('@level').then((level: unknown) => {
           const categoryText = categories[category as string];
-          const levelText = level.toString();
+          const levelText = level as string;
 
           const title = `NVI Candidate ${categoryText} ${levelText} ${uuid()}`;
           cy.wrap(title).as('title');
@@ -89,6 +95,8 @@ Given(
                     // cy.wait(3000);
                   });
                   break;
+                case CategoryTypes.ACADEMIC_CHAPTER:
+                  break;
                 default:
                   throw new Error(`Unknown category: ${categoryText}`);
               }
@@ -109,6 +117,8 @@ Given(
                   cy.then(() => {
                     // cy.wait(3000);
                   });
+                  break;
+                case CategoryTypes.ACADEMIC_CHAPTER:
                   break;
                 default:
                   throw new Error(`Unknown category: ${categoryText}`);
@@ -132,6 +142,12 @@ Given(
               );
               cy.then(() => {
                 registrationBuilder.addContributor(contributor);
+                registrationBuilder.update();
+              });
+            }
+            if (categoryText === CategoryTypes.ACADEMIC_CHAPTER) {
+              cy.get('@anthologyId').then((anthologyId) => {
+                registrationBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
                 registrationBuilder.update();
               });
             }
@@ -176,48 +192,46 @@ Given(
   (publisherLevel) => {
     const publisherLevelString = publisherLevel.toString();
     cy.wrap(publisherLevelString).as('level');
+    cy.wrap(CategoryTypes.ACADEMIC_CHAPTER).as('category');
   }
 );
-Given('NVI level {string} series', (series) => {
-  cy.get('@level').then((level) => {
-    const levelText = level.toString();
-    const seriesText = series.toString();
+Given('NVI level {string} series', (series: unknown) => {
+  cy.get('@level').then((level: unknown) => {
+    const levelText = level as string;
+    const seriesText = series as string;
 
     cy.login(TestUsers.nvi.usn.institution).then(() => {
       const anthologyTitle = `NVI candidate Anthology ${levelText} series ${seriesText} ${uuid()}`;
       const chapterTitle = `NVI candidate AcademicChapter ${levelText} series ${seriesText} ${uuid()}`;
       cy.wrap(chapterTitle).as('title');
 
-      cy.login(TestUsers.nvi.usn.institution);
-      cy.createPublishedRegistration(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY);
+      createPublication(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY);
+      cy.get('@builder2').then((builder: unknown) => {
+        const registrationBuilder = builder as RegistrationData;
+        const anthologyIdentifier = registrationBuilder.identifier;
+        cy.wrap(anthologyIdentifier).as('anthologyId');
 
-      if (levelText === 'Level 2') {
-        cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-        cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-        cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('harvard university press');
-        cy.contains('Harvard University Press (HUP)').click();
-        cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-        cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-        cy.getSuccessDone();
-      }
+        if (seriesText === 'Level 1') {
+          registrationBuilder.entityDescription.reference.publicationContext.series.id = channelIds['series level 1'];
+          registrationBuilder.entityDescription.reference.publicationContext.series.type = 'Series';
+        } else if (seriesText === 'Level 2') {
+          registrationBuilder.entityDescription.reference.publicationContext.series.id = channelIds['series level 2'];
+          registrationBuilder.entityDescription.reference.publicationContext.series.type = 'Series';
+        }
 
-      if (seriesText !== 'Unconfirmed') {
-        const seriesTitle =
-          seriesText === 'Level 1'
-            ? 'Geoscientific Instrumentation, Methods and Data Systems'
-            : 'Geoscientific Model Development';
-        cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-        cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-        cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type(seriesTitle.toLowerCase());
-        cy.contains(seriesTitle).click();
-        cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-        cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-        cy.getSuccessDone();
-      }
-
-      cy.createPublishedChapter(chapterTitle, anthologyTitle);
-      cy.wait(5000);
-      cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+        if (levelText === 'Level 1') {
+          registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
+            channelIds['monograph level 1'];
+        } else {
+          registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
+            channelIds['monograph level 2'];
+        }
+        registrationBuilder.update();
+        console.log(registrationBuilder.entityDescription.reference);
+        cy.then(() => {
+          registrationBuilder.publish();
+        });
+      });
     });
   });
 });
@@ -243,18 +257,19 @@ Given('NVI level {string} series', (series) => {
 Given(
   'a curator looks at a NVI candidate with Category AcademicMonograph, level 1 publisher and level 2 series',
   () => {
-    cy.login(TestUsers.nvi.usn.institution);
-    const title = `Monograph level 1 publisher level 2 series ${uuid()}`;
-    cy.wrap(title).as('title');
-    cy.createPublishedRegistration(title, CategoryTypes.ACADEMIC_MONOGRAPH);
-    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type('geoscientific model development');
-    cy.contains('Geoscientific Model Development').click();
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getSuccessDone();
-    cy.wait(5000);
+    cy.login(TestUsers.nvi.usn.institution).then(() => {
+      const title = `Monograph level 1 publisher level 2 series ${uuid()}`;
+      cy.wrap(title).as('title');
+      createPublication(title, CategoryTypes.ACADEMIC_MONOGRAPH);
+      cy.get('@builder2').then((builder: unknown) => {
+        const registrationBuilder = builder as RegistrationData;
+        registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
+          channelIds['monograph level 1'];
+        registrationBuilder.entityDescription.reference.publicationContext.series.id = channelIds['series level 2'];
+        registrationBuilder.entityDescription.reference.publicationContext.series.type = 'Series';
+        registrationBuilder.update();
+      });
+    });
   }
 );
 // When ('the curator reviews the NVI candidate', () => {});
