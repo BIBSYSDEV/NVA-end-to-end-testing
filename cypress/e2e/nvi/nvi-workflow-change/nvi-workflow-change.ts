@@ -60,16 +60,9 @@ const addUnidentifiedContributor = (unidentifiedContributorName: string, builder
   });
   builder.update();
 
-  // cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  // cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  // cy.addUnidentifiedContributor(unidentifiedContributorName);
-  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  // cy.getSuccess();
-  // cy.getSuccessDone();
 };
 
 const addContributor = (contributor: string, builder: RegistrationData) => {
-  // cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
   if (contributor === externalContributor) {
     addUnidentifiedContributor(contributor, builder);
   } else {
@@ -77,9 +70,6 @@ const addContributor = (contributor: string, builder: RegistrationData) => {
     builder.addContributor(contributorData);
     builder.update();
   }
-  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  // cy.getSuccess();
-  // cy.getSuccessDone();
 };
 
 const findUuid = (title: string) => title.substring(title.lastIndexOf(' '));
@@ -304,14 +294,6 @@ Given('an anthology with a level 1 publisher', () => {
         chapterBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
         chapterBuilder.update();
 
-        // cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-        // cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-        // cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(anthologyTitle.toLowerCase());
-        // cy.contains(anthologyTitle).click();
-        // cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-        // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-        // cy.getSuccessDone();
-        // cy.getDataTestId(dataTestId.header.myPageLink).click();
 
         // sjekk NVI-poeng
         cy.getDataTestId(dataTestId.header.tasksLink).click();
