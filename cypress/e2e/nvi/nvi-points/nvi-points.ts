@@ -1,13 +1,12 @@
 // Feature: NVI points calculations
 
-import { Before, BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
 import { CategoryTypes, ContributorTypes, TestUsers } from '../../../support/constants';
 import {
-  createEntityDescription,
+  createPublicationUsingAPI,
   findContributorByName,
-  registrationBuilder,
   RegistrationData,
 } from '../../../support/create_registration';
 import { currentYear } from '../../../support/commands';
@@ -29,28 +28,6 @@ const channelIds = {
 };
 
 const USN_USER = 'User NVI-institution A TestUser';
-
-const createPublication = (title: string, category: CategoryTypes) => {
-  const builder = registrationBuilder(Cypress.env('accessToken')).create();
-  cy.wrap(builder).as('builder');
-  cy.get('@builder').then((builder: unknown) => {
-    const registrationBuilder = builder as RegistrationData;
-    const entity = createEntityDescription(title, category, '1003');
-    const contributorNVIUSN = findContributorByName(Cypress.env('accessToken'), USN_USER, ContributorTypes.CREATOR);
-
-    cy.then(() => {
-      registrationBuilder.addEntityDescription(entity).addContributor(contributorNVIUSN);
-      cy.then(() => {
-        registrationBuilder.update();
-        cy.wrap(registrationBuilder).as('builder2');
-        cy.then(() => {
-          registrationBuilder.publish();
-          // cy.wait(3000);
-        });
-      });
-    });
-  });
-};
 
 //   Scenario Outline: Verify NVI points calculations for different NVI candidates
 Given(
@@ -74,8 +51,9 @@ Given(
           cy.wrap(title).as('title');
 
           // cy.createPublishedRegistration(title, categoryText);
-          createPublication(title, categoryText);
-          cy.get('@builder2').then((builder: unknown) => {
+          const builder = createPublicationUsingAPI(title, categoryText, USN_USER);
+          cy.wrap(builder).as('builder');
+          cy.get('@builder').then((builder: unknown) => {
             const registrationBuilder = builder as RegistrationData;
             if (levelText === 'Level 1') {
               switch (categoryText) {
@@ -136,7 +114,6 @@ Given(
             }
             if (contributorName !== '') {
               const contributor = findContributorByName(
-                Cypress.env('accessToken'),
                 contributorName,
                 ContributorTypes.CREATOR
               );
@@ -205,8 +182,9 @@ Given('NVI level {string} series', (series: unknown) => {
       const chapterTitle = `NVI candidate AcademicChapter ${levelText} series ${seriesText} ${uuid()}`;
       cy.wrap(chapterTitle).as('title');
 
-      createPublication(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY);
-      cy.get('@builder2').then((builder: unknown) => {
+      const builder = createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER);
+      cy.wrap(builder).as('builder');
+      cy.get('@builder').then((builder: unknown) => {
         const registrationBuilder = builder as RegistrationData;
         const anthologyIdentifier = registrationBuilder.identifier;
         cy.wrap(anthologyIdentifier).as('anthologyId');
@@ -260,8 +238,9 @@ Given(
     cy.login(TestUsers.nvi.usn.institution).then(() => {
       const title = `Monograph level 1 publisher level 2 series ${uuid()}`;
       cy.wrap(title).as('title');
-      createPublication(title, CategoryTypes.ACADEMIC_MONOGRAPH);
-      cy.get('@builder2').then((builder: unknown) => {
+      const builder = createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_MONOGRAPH, USN_USER);
+      cy.wrap(builder).as('builder');
+      cy.get('@builder').then((builder: unknown) => {
         const registrationBuilder = builder as RegistrationData;
         registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
           channelIds['monograph level 1'];

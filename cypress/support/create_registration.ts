@@ -128,7 +128,8 @@ export enum RegistrationPartTypes {
 
 const baseUrl = 'https://api.e2e.nva.aws.unit.no/';
 
-export const registrationBuilder = (accessToken: string): RegistrationData => {
+export const registrationBuilder = (): RegistrationData => {
+  const accessToken = Cypress.env('accessToken');
   const registrationData: RegistrationData = {
     create() {
       cy.request({
@@ -164,6 +165,7 @@ export const registrationBuilder = (accessToken: string): RegistrationData => {
     addContributor(newContributor: ContributorType) {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
       if (!this.entityDescription) throw new Error('Entity description is not defined. Add entity description first.');
+      newContributor.sequence = this.entityDescription.contributors.length + 1;
       this.entityDescription.contributors.push(newContributor);
       return this;
     },
@@ -239,7 +241,7 @@ const parseName = (nameObject: any): string => {
   return name;
 };
 
-export const findContributorByName = (accessToken: string, name: string, role: ContributorTypes): ContributorType => {
+export const findContributorByName = (name: string, role: ContributorTypes): ContributorType => {
   let contributor: ContributorType = {
     identity: {
       type: RegistrationPartTypes.IDENTITY,
@@ -316,6 +318,29 @@ const createReference = (category: CategoryTypes): ReferenceType => {
   return ReferenceConstants[category];
 };
 
+export const createPublicationUsingAPI = (title: string, category: CategoryTypes, creatorName:string) => {
+  const builder = registrationBuilder().create();
+  // cy.wrap(builder).as('builder');
+  // cy.get('@builder').then((builder: unknown) => {
+    // const registrationBuilder = builder as RegistrationData;
+    const entity = createEntityDescription(title, category, '1003');
+    const creator = findContributorByName(creatorName, ContributorTypes.CREATOR);
+
+    cy.then(() => {
+      builder.addEntityDescription(entity).addContributor(creator);
+      cy.then(() => {
+        builder.update();
+        // cy.wrap(registrationBuilder).as('builder2');
+        cy.then(() => {
+          builder.publish();
+          cy.wait(1000);
+        });
+      });
+    });
+  // });
+  return builder;
+};
+
 export type RegistrationData = {
   identifier?: string;
   payload?: string;
@@ -338,7 +363,7 @@ export type ContributorType = {
   };
   affiliations: affiliationType[];
   correspondingAuthor: false;
-  sequence: 1;
+  sequence: number;
   type: RegistrationPartTypes.CONTRIBUTOR;
 };
 

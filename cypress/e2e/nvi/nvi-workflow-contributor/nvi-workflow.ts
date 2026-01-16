@@ -37,12 +37,12 @@ const categories = {
 };
 
 const createAnthology = (title: string) => {
-  const builder = registrationBuilder(Cypress.env('accessToken')).create();
+  const builder = registrationBuilder().create();
   let identifier = '';
   cy.then(() => {
     identifier = builder.identifier;
     cy.wrap(identifier).as('anthologyId');
-    const contributorNVIA = findContributorByName(Cypress.env('accessToken'), USER_CREATOR, ContributorTypes.CREATOR);
+    const contributorNVIA = findContributorByName(USER_CREATOR, ContributorTypes.CREATOR);
     cy.then(() => {
       const entity = createEntityDescription(title, CategoryTypes.BOOK_ANTHOLOGY, '1003');
       builder.addEntityDescription(entity);
@@ -72,7 +72,7 @@ Given(
     const title = `Registrator ${typeOfRegistration} ${categoryInput} ${publicationStatus} ${isCollaboration} ${uuid()}`;
     const category = categories[categoryInput];
     cy.login(userUSNNviInstitution).then(() => {
-      const builder = registrationBuilder(Cypress.env('accessToken')).create();
+      const builder = registrationBuilder().create();
       cy.then(() => {
         const entity = createEntityDescription(title, category, '1003');
         if (category === 'AcademicChapter') {
@@ -89,7 +89,7 @@ Given(
         builder.addEntityDescription(entity);
       });
 
-      const contributorNVIA = findContributorByName(Cypress.env('accessToken'), USER_CREATOR, ContributorTypes.CREATOR);
+      const contributorNVIA = findContributorByName(USER_CREATOR, ContributorTypes.CREATOR);
       cy.then(() => {
         builder.addContributor(contributorNVIA);
         if (isCollaboration !== NO_ONE) {
@@ -102,7 +102,6 @@ Given(
             contributor = EXTERNAL_USER;
           }
           const contributorUser = findContributorByName(
-            Cypress.env('accessToken'),
             contributor,
             ContributorTypes.CREATOR
           );

@@ -91,15 +91,13 @@ BeforeAll(() => {
       const NVItitle = `${key} ${uuid()}`;
       titles[key] = NVItitle;
 
-      const builder = registrationBuilder(Cypress.env('accessToken')).create();
+      const builder = registrationBuilder().create();
       const contributorNVIA = findContributorByName(
-        Cypress.env('accessToken'),
         curatorInstitutionA,
         ContributorTypes.CREATOR
       );
       cy.then(() => {
         const contributorNVIB = findContributorByName(
-          Cypress.env('accessToken'),
           curatorInstitutionB,
           ContributorTypes.CREATOR
         );
@@ -112,7 +110,6 @@ BeforeAll(() => {
             .addContributor(contributorNVIA);
           if (key.endsWith('Dispute')) {
             const contributorNVIC = findContributorByName(
-              Cypress.env('accessToken'),
               curatorInstitutionB,
               ContributorTypes.CREATOR
             );
