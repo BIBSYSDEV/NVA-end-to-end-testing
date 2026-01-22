@@ -4,10 +4,8 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { userUSNNviCuratorInstitution, userUSNNviInstitution } from '../../../support/constants';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
-import { NVI_PENDING } from '../../../support/commands';
 
 const PUBLISHED = 'Published';
-const DRAFT = 'Draft';
 const NVI_INSTITUTION = 'NVI-institution';
 const NVA_INSTITUTION = 'NVA-institution';
 const EXTERNAL_INSTITUTION = 'external institution';
