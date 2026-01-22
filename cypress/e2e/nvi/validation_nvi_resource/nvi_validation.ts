@@ -307,7 +307,6 @@ Then('the columns show NVI resource statuses', () => {
     'Rejected',
     'Total number',
     'Publication points',
-    'Dispute',
   ];
   statuses.forEach((status) => {
     cy.get('th').should('contain', status);
