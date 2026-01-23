@@ -16,19 +16,6 @@ const USN_USER_CHANGE = 'Change User NVI-institution A';
 const SINTEF_AKADEMSIK_FORLAG_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/D4AA649E-CB53-4CA0-89EC-F68FB02CFB96/${year}`;
 const SPRINGER_NATURE_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/DC752087-7122-4D3A-9E4F-382AA2F39D2C/${year}`;
 
-// BeforeAll(() => {
-//   cy.login(TestUsers.nvi.usn.institution).then(() => {
-//     const builder = createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER);
-//     cy.wrap(builder).then((builder) => {
-//       builder.entityDescription.reference.publicationContext.publisher.id = SINTEF_AKADEMSIK_FORLAG_URI;
-//       builder.update();
-//       cy.then(() => {
-//         cy.wrap(builder.identifier).as('anthologyId');
-//       });
-//     });
-//   });
-// });
-
 // Scenario 1: Change Anthology from non-scientific to scientific
 Given('publication with publicationInstance type AcademicChapter', () => {
   cy.login(TestUsers.nvi.usn.institution).then(() => {
