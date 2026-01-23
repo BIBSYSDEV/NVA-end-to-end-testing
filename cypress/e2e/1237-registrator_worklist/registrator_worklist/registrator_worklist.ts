@@ -112,7 +112,6 @@ Given('that the user is logged in as Creator', () => {
   cy.createValidRegistration(filename, `${registrationTitle} ${uuidv4()}`);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  // cy.wait(15000);
   cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
@@ -120,8 +119,7 @@ Given('that the user is logged in as Creator', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId('message-field').last().type('Test message{enter}');
   cy.getDataTestId('message-field').last().should('not.contain', 'Test message');
-  cy.getSuccess();
-  // cy.wait(6000);
+  cy.getSuccessDone();
 });
 When('they click the menu item My Messages', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
