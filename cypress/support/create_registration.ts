@@ -318,27 +318,44 @@ const createReference = (category: CategoryTypes): ReferenceType => {
   return ReferenceConstants[category];
 };
 
-export const createPublicationUsingAPI = (title: string, category: CategoryTypes, creatorName:string) => {
+export const createPublicationUsingAPI = (title: string, category: CategoryTypes, creatorName: string) => {
   const builder = registrationBuilder().create();
-  // cy.wrap(builder).as('builder');
-  // cy.get('@builder').then((builder: unknown) => {
-    // const registrationBuilder = builder as RegistrationData;
-    const entity = createEntityDescription(title, category, '1003');
-    const creator = findContributorByName(creatorName, ContributorTypes.CREATOR);
+  const entity = createEntityDescription(title, category, '1003');
+  const creator = findContributorByName(creatorName, ContributorTypes.CREATOR);
 
+  cy.then(() => {
+    builder.addEntityDescription(entity).addContributor(creator);
     cy.then(() => {
-      builder.addEntityDescription(entity).addContributor(creator);
+      builder.update();
       cy.then(() => {
-        builder.update();
-        // cy.wrap(registrationBuilder).as('builder2');
-        cy.then(() => {
-          builder.publish();
-          cy.wait(1000);
-        });
+        builder.publish();
+        cy.wait(1000);
       });
     });
+  });
   // });
   return builder;
+};
+
+export const createChapterInAnthologyUsingAPI = (chapterTitle: string, anthologyTitle: string, creatorName: string) => {
+  const anthologyBuilder = createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, creatorName);
+  cy.wrap(anthologyBuilder).as('anthologyBuilder');
+  cy.get('@anthologyBuilder').then((builder: unknown) => {
+    const anthology = builder as RegistrationData;
+    cy.wrap(anthology.identifier).as('anthologyIdentifier');
+    cy.wrap(anthologyBuilder).as('anthologyBuilder');
+    cy.get('@anthologyIdentifier').then((anthologyIdentifier: unknown) => {
+      const chapterBuilder = createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, creatorName);
+      cy.wrap(chapterBuilder).as('chapterBuilder');
+      cy.get('@chapterBuilder').then((builder: unknown) => {
+        const chapterBuilder = builder as RegistrationData;
+        chapterBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${
+          anthologyIdentifier as string
+        }`;
+        chapterBuilder.update();
+      });
+    });
+  });
 };
 
 export type RegistrationData = {
