@@ -2,10 +2,12 @@ import {
   userBIBSYSUnreadMessages,
   userBIBSYSMessages,
   userBIBSYSCollaborationCurator,
+  CategoryTypes,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+import { createPublicationUsingAPI } from '../../../support/create_registration';
 // Feature: Registrator worklist
 
 const doiRequests = 'DoiRequests';
@@ -14,6 +16,8 @@ const supportRequests = 'Support Requests';
 
 const filename = 'example.txt';
 const registrationTitle = 'Registration with messages';
+
+const USER_BIBSYS = 'Messages TestUser';
 
 const filterMessages = (messageType: string) => {
   if (!(messageType === publishingRequests)) {
@@ -76,26 +80,27 @@ const filterMessages = (messageType: string) => {
 };
 
 const initData = () => {
-  cy.login(userBIBSYSMessages);
-  const doiTitle = `Registration with DOI request ${uuidv4()}`;
-  cy.createPublishedRegistration(doiTitle);
-  cy.wait(10000);
-  cy.refreshPublish();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-  cy.getSuccess();
-  cy.wait(6000);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, `${registrationTitle}, ${uuidv4()}`);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.openSupportButton).click();
-  cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
-  cy.wait(6000);
+  cy.login(userBIBSYSMessages).then(() => {
+    const doiTitle = `Registration with DOI request ${uuidv4()}`;
+    createPublicationUsingAPI(doiTitle, CategoryTypes.ACADEMIC_ARTICLE, USER_BIBSYS);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.searchFor(doiTitle);
+    cy.contains(doiTitle).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.doiMessageField).type('DOI Support message{enter}');
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+    cy.getSuccessDone();
+
+    cy.startWizardWithEmptyRegistration();
+    cy.createValidRegistration(null, `${registrationTitle}, ${uuidv4()}`);
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.openSupportButton).click();
+    cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getSuccessDone();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+    cy.getSuccessDone();
+  });
 };
 
 BeforeAll(() => initData());
@@ -198,16 +203,20 @@ Given('they open a DOI request item in the Messages list', () => {
 });
 Given('they see previous messages between Creator and Curator\\(s)', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
-  cy.contains('Support message');
+  cy.contains('DOI Support message');
 });
 When('they enter a new message', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion)
-    .getDataTestId('message-field')
-    .type('New message from user{enter}');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).within(() => {
+    cy.getDataTestId('message-field').type('New message from user{enter}');
+  });
 });
 When('they click the Send Answer button', () => {});
 Then('they see that the new message is added to the Messages list', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).should(
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).within(() => {
+      cy.get('label').should('contain', 'Message');
+      cy.getDataTestId('message-field').should('not.contain','New message from user');
+    });
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should(
     'contain',
     'New message from user'
   );
