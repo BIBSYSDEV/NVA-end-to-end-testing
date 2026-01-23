@@ -119,6 +119,7 @@ Given('that the user is logged in as Creator', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId('message-field').last().type('Test message{enter}');
+  cy.getDataTestId('message-field').last().should('not.contain', 'Test message');
   cy.getSuccess();
   // cy.wait(6000);
 });
