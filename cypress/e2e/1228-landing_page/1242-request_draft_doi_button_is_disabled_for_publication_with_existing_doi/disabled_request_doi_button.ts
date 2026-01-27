@@ -1,10 +1,11 @@
 // Feature: Request/Draft DOI button is disabled for Publications with existing DOI
 
-import { userUnitDraftDoi } from '../../../support/constants';
+import { CategoryTypes, userName, userUnitDraftDoi } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageButtons } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+import { createDraftPublicationUsingAPI, createPublicationUsingAPI } from '../../../support/create_registration';
 
 const registrationTitles = {
   'Draft': `Draft registration with DOI ${uuid()}`,
@@ -12,18 +13,38 @@ const registrationTitles = {
 };
 
 const initData = () => {
-  cy.login(userUnitDraftDoi);
-  cy.createPublishedRegistration(registrationTitles['Published']);
-  cy.wait(50000);
-  cy.refreshPublish();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, registrationTitles['Draft']);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+  cy.login(userUnitDraftDoi).then(() => {
+    createPublicationUsingAPI(
+      registrationTitles['Published'],
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitDraftDoi]
+    );
+    createDraftPublicationUsingAPI(
+      registrationTitles['Draft'],
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitDraftDoi]
+    );
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitles['Published']}{enter}`);
+    cy.get('a')
+      .filter(`:contains("${registrationTitles['Published']}")`)
+      .first()
+      .click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+    cy.getSuccessDone();
+
+    cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitles['Draft']}{enter}`);
+    cy.get('a')
+      .filter(`:contains("${registrationTitles['Draft']}")`)
+      .first()
+      .click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
+    cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+  });
 };
 
 BeforeAll(() => initData());
@@ -33,6 +54,7 @@ BeforeAll(() => initData());
 Given('that a Creator views the Landing Page for a Registration', () => {
   cy.login(userUnitDraftDoi);
   cy.openMyRegistrations();
+  cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
 });
 Given('they are the Owner of this Registration', () => {});
 Given('the Registration has status {string}', (status) => {

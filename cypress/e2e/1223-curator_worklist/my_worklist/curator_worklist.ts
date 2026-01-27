@@ -1,7 +1,4 @@
-import {
-  CategoryTypes,
-  TestUsers,
-} from '../../../support/constants';
+import { CategoryTypes, TestUsers } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { currentYear, NVI_ASSIGNED } from '../../../support/commands';
@@ -37,32 +34,27 @@ const DOI = 'DOI';
 const NVI = 'NVI';
 
 const createWorklistItem = (title: string, type: string) => {
-  if (type === NVI) {
-    cy.login(TestUsers.nvi.ntnu.verifiedContributor);
-  } else {
-    cy.login(TestUsers.publishing.noRights);
-  }
-  cy.createPublishedRegistration(title, publicationType, filename);
-  // cy.wait(5000);
-  cy.refreshPublish();
-  switch (type) {
-    case APPROVAL:
-      break;
-    case SUPPORT:
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
-        cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
-      });
-      break;
-    case DOI:
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-      break;
-    case 'NVI':
-      // cy.wait(30000);
-      break;
-  }
-  // cy.wait(20000);
+  const user = type === NVI ? TestUsers.nvi.ntnu.verifiedContributor : TestUsers.publishing.noRights;
+  cy.login(user).then(() => {
+    cy.createPublishedRegistration(title, publicationType, filename);
+    cy.refreshPublish();
+    switch (type) {
+      case APPROVAL:
+        break;
+      case SUPPORT:
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
+          cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
+        });
+        break;
+      case DOI:
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+        break;
+      case 'NVI':
+        break;
+    }
+  });
 };
 
 const users = {

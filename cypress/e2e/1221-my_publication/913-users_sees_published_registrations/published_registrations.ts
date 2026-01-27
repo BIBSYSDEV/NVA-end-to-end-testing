@@ -1,19 +1,21 @@
 // Feature: User sees published Registrations
 
-import { userUnitPublishedRegistration } from '../../../support/constants';
+import { CategoryTypes, userName, userUnitPublishedRegistration } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { myRegistrationsButtons } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { createPublicationUsingAPI } from '../../../support/create_registration';
 
 // Scenario: User sees published Registrations
 Given('Creator opens the page My Registrations', () => {
-  cy.login(userUnitPublishedRegistration);
-  const title = `Published registration ${uuid()}`;
-  cy.createPublishedRegistration(title);
-  cy.wait(3000);
-  cy.getDataTestId(dataTestId.header.myPageLink).click();
-  cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
+  cy.login(userUnitPublishedRegistration).then(() => {
+    const title = `Published registration ${uuid()}`;
+    cy.wrap(title).as('registrationTitle');
+    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[userUnitPublishedRegistration]);
+    cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
+  });
 });
 When('they click Published Registrations in the navigation bar', () => {
   cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
@@ -25,6 +27,11 @@ Then('they see a list of all published Registrations with the fields', (dataTabl
     cy.get(registration).within(() => {
       cy.get('p > a').should('exist');
     });
+  });
+  cy.get('@registrationTitle').then((title: unknown) => {
+    cy.getDataTestId(dataTestId.startPage.searchResultItem)
+      .filter(`:contains("${title as string}")`)
+      .should('exist');
   });
 });
 // | Title   |

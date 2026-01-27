@@ -2,12 +2,7 @@ import { formatedToday } from './commands';
 import { CategoryTypes, ContributorTypes, FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
 import { v4 as uuid } from 'uuid';
-import {
-  ArticleReference,
-  BookReference,
-  ChapterReference,
-  CorrigendumReference,
-} from './reference';
+import { ArticleReference, BookReference, ChapterReference, CorrigendumReference } from './reference';
 
 export const createValidRegistrationWithType = (
   title: string,
@@ -380,6 +375,25 @@ const createReference = (category: CategoryTypes, nviLevel?: NviLevels, seriesLe
   }
 };
 
+export const createDraftPublicationUsingAPI = (
+  title: string,
+  category: CategoryTypes,
+  creatorName: string,
+  nviLevel?: NviLevels,
+  seriesLevel?: NviLevels
+) => {
+  const builder = registrationBuilder().create();
+  const entity = createEntityDescription(title, category, '1003', nviLevel, seriesLevel);
+  const creator = findContributorByName(creatorName, ContributorTypes.CREATOR);
+  cy.then(() => {
+    builder.addEntityDescription(entity).addContributor(creator);
+    cy.then(() => {
+      builder.update();
+    });
+  });
+  return builder;
+};
+
 export const createPublicationUsingAPI = (
   title: string,
   category: CategoryTypes,
@@ -404,8 +418,18 @@ export const createPublicationUsingAPI = (
   return builder;
 };
 
-export const createChapterInAnthologyUsingAPI = (chapterTitle: string, anthologyTitle: string, creatorName: string, nviLevel?: NviLevels) => {
-  const anthologyBuilder = createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, creatorName, nviLevel);
+export const createChapterInAnthologyUsingAPI = (
+  chapterTitle: string,
+  anthologyTitle: string,
+  creatorName: string,
+  nviLevel?: NviLevels
+) => {
+  const anthologyBuilder = createPublicationUsingAPI(
+    anthologyTitle,
+    CategoryTypes.BOOK_ANTHOLOGY,
+    creatorName,
+    nviLevel
+  );
   cy.wrap(anthologyBuilder).as('anthologyBuilder');
   cy.get('@anthologyBuilder').then((builder: unknown) => {
     const anthology = builder as RegistrationData;

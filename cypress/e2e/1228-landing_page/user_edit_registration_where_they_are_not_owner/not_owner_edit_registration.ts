@@ -1,4 +1,7 @@
 import {
+  CategoryTypes,
+  ContributorTypes,
+  userName,
   userUnitCurator,
   userUnitEditRegistration,
   userUnitEditor5,
@@ -7,6 +10,11 @@ import {
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {
+  createPublicationUsingAPI,
+  findContributorByName,
+  RegistrationData,
+} from '../../../support/create_registration';
 
 // Feature; User edit registrations where they are not owner
 
@@ -14,28 +22,34 @@ const registrationTitle = `Edit registration not owner ${uuid()}`;
 
 // Scenario: Curator see option to edit a Registration from own institution
 Given('User is logged in as Curator', () => {
-  cy.login(userUnitWithAuthor);
-  cy.createPublishedRegistration(registrationTitle);
-  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  cy.reload();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type('Edit registration TestUser{enter}');
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
-    .parent()
-    .parent()
-    .parent()
-    .filter(':contains("Edit registration TestUser")')
-    .within(() => {
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+  cy.login(userUnitWithAuthor).then(() => {
+    const builder = createPublicationUsingAPI(
+      registrationTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor]
+    );
+    cy.wrap(builder).as('registrationBuilder');
+    cy.get('@registrationBuilder').then((builder: unknown) => {
+      const registration = builder as RegistrationData;
+      const contributor = findContributorByName(userName[userUnitEditRegistration], ContributorTypes.CREATOR);
+      registration.addContributor(contributor);
+      registration.update();
     });
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
-  cy.wait(10000);
+    // cy.getDataTestId(dataTestId.startPage.searchField).type('Edit registration TestUser{enter}');
+    // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
+    //   .parent()
+    //   .parent()
+    //   .parent()
+    //   .filter(':contains("Edit registration TestUser")')
+    //   .within(() => {
+    //     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+    //   });
+    // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+    // cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+    // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
+    // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    // cy.getSuccess();
+  });
   cy.login(userUnitCurator);
 });
 When('they open the landing page for a Registration from own institution', () => {

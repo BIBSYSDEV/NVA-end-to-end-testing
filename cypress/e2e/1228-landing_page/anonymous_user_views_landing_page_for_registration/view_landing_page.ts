@@ -1,15 +1,23 @@
-import { userUnitWithAuthor } from '../../../support/constants';
+import { CategoryTypes, userName, userUnitWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageFields } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { createPublicationUsingAPI, RegistrationData } from '../../../support/create_registration';
 
 const landing_page_registration_title = `View Landing Page ${uuid()}`;
 const fileName = 'example.txt';
 
 // Scenario: NVA contains Reigstration
 Given('there is a published Registration in NVA', () => {
-  cy.login(userUnitWithAuthor);
+  cy.login(userUnitWithAuthor).then(() => {
+    const builder = createPublicationUsingAPI(landing_page_registration_title, CategoryTypes.ACADEMIC_ARTICLE, userName[userUnitWithAuthor]);
+    cy.wrap(builder).as('registrationBuilder');
+    cy.get('@registrationBuilder').then((builder: unknown) => {
+      const registration = builder as RegistrationData;
+      registration.entityDescription.
+    }
+  });
   cy.createPublishedRegistration(landing_page_registration_title, null, fileName);
   cy.wait(5000);
   cy.refreshPublish();
