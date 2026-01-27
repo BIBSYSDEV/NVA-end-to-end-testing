@@ -1,9 +1,13 @@
-import { version } from 'chai';
-import { formatedToday, today } from './commands';
+import { formatedToday } from './commands';
 import { CategoryTypes, ContributorTypes, FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { ReferenceConstants } from './reference';
+import {
+  ArticleReference,
+  BookReference,
+  ChapterReference,
+  CorrigendumReference,
+} from './reference';
 
 export const createValidRegistrationWithType = (
   title: string,
@@ -127,6 +131,8 @@ export enum RegistrationPartTypes {
 }
 
 const baseUrl = 'https://api.e2e.nva.aws.unit.no/';
+const personApiUrl = `${baseUrl}cristin/person`;
+const publicationApiUrl = `${baseUrl}publication`;
 
 export const registrationBuilder = (): RegistrationData => {
   const accessToken = Cypress.env('accessToken');
@@ -134,7 +140,7 @@ export const registrationBuilder = (): RegistrationData => {
     create() {
       cy.request({
         method: 'POST',
-        url: `${baseUrl}publication`,
+        url: publicationApiUrl,
         headers: {
           'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
@@ -193,7 +199,7 @@ export const registrationBuilder = (): RegistrationData => {
       }
       cy.request({
         method: 'PUT',
-        url: `${baseUrl}publication/${this.identifier}`,
+        url: `${publicationApiUrl}/${this.identifier}`,
         headers: {
           'Authorization': auth,
           'Content-Type': 'application/json',
@@ -215,7 +221,7 @@ export const registrationBuilder = (): RegistrationData => {
       const newPayload = this.payload;
       cy.request({
         method: 'POST',
-        url: `${baseUrl}publication/${this.identifier}/publish`,
+        url: `${publicationApiUrl}/${this.identifier}/publish`,
         headers: {
           'Authorization': auth,
           'Content-Type': 'application/json',
@@ -258,7 +264,7 @@ export const findContributorByName = (name: string, role: ContributorTypes): Con
   };
   cy.request({
     method: 'GET',
-    url: `${baseUrl}cristin/person?name=${name}&page=1&results=10`,
+    url: `${personApiUrl}?name=${name}&page=1&results=10`,
     failOnStatusCode: false,
   }).then((response) => {
     if (response.status !== 200) {
@@ -272,7 +278,7 @@ export const findContributorByName = (name: string, role: ContributorTypes): Con
       response.body.hits.forEach((hit) => {
         const foundName = parseName(hit.names);
         if (name === foundName) {
-          contributor.identity.id = `https://api.e2e.nva.aws.unit.no/cristin/person/${hit.identifiers[0].value}`;
+          contributor.identity.id = `${personApiUrl}/${hit.identifiers[0].value}`;
           contributor.identity.name = foundName;
           contributor.identity.verificationStatus = 'Verified';
           let index = 0;
@@ -295,7 +301,9 @@ export const findContributorByName = (name: string, role: ContributorTypes): Con
 export const createEntityDescription = (
   title?: string,
   category?: CategoryTypes,
-  subjectHeading?: string
+  subjectHeading?: string,
+  nviLevel?: NviLevels,
+  seriesLevel?: NviLevels
 ): EntityDescriptionType => {
   const entityDescription: EntityDescriptionType = {
     type: RegistrationPartTypes.ENTITYDESCRIPTION,
@@ -309,18 +317,78 @@ export const createEntityDescription = (
     contributors: [],
     npiSubjectHeading: subjectHeading,
     tags: [],
-    reference: createReference(category),
+    reference: createReference(category, nviLevel, seriesLevel),
   };
   return entityDescription;
 };
 
-const createReference = (category: CategoryTypes): ReferenceType => {
-  return ReferenceConstants[category];
+export enum NviLevels {
+  LEVEL_0 = 'Level 0',
+  LEVEL_1 = 'Level 1',
+  LEVEL_2 = 'Level 2',
+}
+
+const ArticleTypes = [
+  CategoryTypes.ACADEMIC_ARTICLE,
+  CategoryTypes.ACADEMIC_REVIEW_ARTICLE,
+  CategoryTypes.JOURNAL_REVIEW,
+  CategoryTypes.CONFERENCE_ABSTRACT,
+  CategoryTypes.COMMENTARY,
+  CategoryTypes.JOURNAL_LEADER,
+  CategoryTypes.JOURNAL_ISSUE,
+  CategoryTypes.CASE_REPORT,
+  CategoryTypes.STUDY_PROTOCOL,
+  CategoryTypes.PROFESSIONAL_ARTICLE,
+  CategoryTypes.POPULAR_SCIENCE_ARTICLE,
+];
+
+const BookTypes = [
+  CategoryTypes.ACADEMIC_MONOGRAPH,
+  CategoryTypes.ACADEMIC_COMMENTARY,
+  CategoryTypes.NON_FICTION_BOOK,
+  CategoryTypes.POPULAR_SCIENCE_BOOK,
+  CategoryTypes.TEXT_BOOK,
+  CategoryTypes.ENCYCLOPEDIA,
+  CategoryTypes.EXHIBITION_CATALOGUE,
+  CategoryTypes.BOOK_ANTHOLOGY,
+];
+
+const ChapterTypes = [
+  CategoryTypes.ACADEMIC_CHAPTER,
+  CategoryTypes.NON_FICTION_CHAPTER,
+  CategoryTypes.POPULAR_SCIENCE_CHAPTER,
+  CategoryTypes.TEXT_BOOK_CHAPTER,
+  CategoryTypes.ENCYCLOPEDIA_CHAPTER,
+  CategoryTypes.INTRODUCTION,
+  CategoryTypes.EXHIBITION_CATALOGUE_CHAPTER,
+  CategoryTypes.CHAPTER_IN_REPORT,
+  CategoryTypes.CHAPTER_CONFERENCE_ABSTRACT,
+];
+
+const createReference = (category: CategoryTypes, nviLevel?: NviLevels, seriesLevel?: NviLevels): ReferenceType => {
+  const level = nviLevel ? nviLevel : NviLevels.LEVEL_1;
+  if (ArticleTypes.includes(category)) {
+    return ArticleReference(category, level);
+  } else if (category === CategoryTypes.JOURNAL_CORRIGENDUM) {
+    throw new Error('Corrigendum need parent publication to create reference.');
+  } else if (BookTypes.includes(category)) {
+    return BookReference(category, level, seriesLevel);
+  } else if (ChapterTypes.includes(category)) {
+    return ChapterReference(category);
+  } else {
+    throw new Error(`Category ${category} not supported for reference creation.`);
+  }
 };
 
-export const createPublicationUsingAPI = (title: string, category: CategoryTypes, creatorName: string) => {
+export const createPublicationUsingAPI = (
+  title: string,
+  category: CategoryTypes,
+  creatorName: string,
+  nviLevel?: NviLevels,
+  seriesLevel?: NviLevels
+) => {
   const builder = registrationBuilder().create();
-  const entity = createEntityDescription(title, category, '1003');
+  const entity = createEntityDescription(title, category, '1003', nviLevel, seriesLevel);
   const creator = findContributorByName(creatorName, ContributorTypes.CREATOR);
 
   cy.then(() => {
@@ -333,12 +401,11 @@ export const createPublicationUsingAPI = (title: string, category: CategoryTypes
       });
     });
   });
-  // });
   return builder;
 };
 
-export const createChapterInAnthologyUsingAPI = (chapterTitle: string, anthologyTitle: string, creatorName: string) => {
-  const anthologyBuilder = createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, creatorName);
+export const createChapterInAnthologyUsingAPI = (chapterTitle: string, anthologyTitle: string, creatorName: string, nviLevel?: NviLevels) => {
+  const anthologyBuilder = createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, creatorName, nviLevel);
   cy.wrap(anthologyBuilder).as('anthologyBuilder');
   cy.get('@anthologyBuilder').then((builder: unknown) => {
     const anthology = builder as RegistrationData;
@@ -349,7 +416,7 @@ export const createChapterInAnthologyUsingAPI = (chapterTitle: string, anthology
       cy.wrap(chapterBuilder).as('chapterBuilder');
       cy.get('@chapterBuilder').then((builder: unknown) => {
         const chapterBuilder = builder as RegistrationData;
-        chapterBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${
+        chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${
           anthologyIdentifier as string
         }`;
         chapterBuilder.update();

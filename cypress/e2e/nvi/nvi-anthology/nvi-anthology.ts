@@ -1,5 +1,5 @@
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
-import { CategoryTypes, TestUsers } from '../../../support/constants';
+import { CategoryTypes, TestUsers, userName } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { currentYear } from '../../../support/commands';
@@ -11,8 +11,8 @@ import {
 
 // Shared state
 const year = currentYear;
-const USN_USER = 'User NVI-institution A TestUser';
-const USN_USER_CHANGE = 'Change User NVI-institution A';
+const USN_USER = userName[TestUsers.nvi.usn.institution];
+const USN_USER_CHANGE = userName[TestUsers.nvi.usn.change];
 const SINTEF_AKADEMSIK_FORLAG_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/D4AA649E-CB53-4CA0-89EC-F68FB02CFB96/${year}`;
 const SPRINGER_NATURE_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/DC752087-7122-4D3A-9E4F-382AA2F39D2C/${year}`;
 

@@ -100,21 +100,21 @@ endDate = date(endYear, 1, 31)
 endDate = endDate.replace(endDate.year + 1)
 periodEndDate = endDate.strftime('%Y-%m-%dT00:00:00Z')
 
-def set_nvi_period():
-    babel.Locale('nb', 'NO')
-    startTime = datetime.now() + timedelta(minutes=+1)
-    print(f'Setting NVI period to {year} - {endDate}')
-    startDate = startTime.strftime('%Y-%m-%dT%H:%M:59Z')
-    print(startDate)
-    payload = {
-        "publishingYear": year,
-        "reportingDate": periodEndDate,
-        "startDate": startDate,
-        "type": "NviPeriod"
-    }
-    response = requests.post(url=period_endpoint, json=payload, headers=headers)
-    if response.status_code != 201:
-        print(response.__dict__)
+# def set_nvi_period():
+#     babel.Locale('nb', 'NO')
+#     startTime = datetime.now() + timedelta(minutes=+1)
+#     print(f'Setting NVI period to {year} - {endDate}')
+#     startDate = startTime.strftime('%Y-%m-%dT%H:%M:59Z')
+#     print(startDate)
+#     payload = {
+#         "publishingYear": year,
+#         "reportingDate": periodEndDate,
+#         "startDate": startDate,
+#         "type": "NviPeriod"
+#     }
+#     response = requests.post(url=period_endpoint, json=payload, headers=headers)
+#     if response.status_code != 201:
+#         print(response.__dict__)
 
 
 def delete_indices():
@@ -138,92 +138,92 @@ def create_indices():
     print("Finished creating OpenSearch indices")
 
 
-def map_user_to_arp():
-    print('Map users from Cristin')
-    with open('./users/test_users_new.json') as user_file:
-        users = json.load(user_file)
-        for user in users:
-            arp_dict[user['username']] = {
-                'username': ''
-            }
-            query_response = requests.post(
-                person_query.format(STAGE),
-                json={
-                    "type": "NationalIdentificationNumber",
-                    "value": user['nin']
-                },
-                headers=headers)
-            if query_response.status_code != 200:
-                print(f'GET /person/ {query_response.status_code}')
-                print(query_response.json())
-            if query_response.json() != []:
-                person = query_response.json()
-                cristin_id = person['id']
-                user_id = f"{cristin_id.replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')}@{user['orgNumber']}.0.0.0"
-                name = f'{person["names"][1]["value"]} {person["names"][0]["value"]}'
-                if person["names"][0]["type"] == 'FirstName':
-                    name = f'{person["names"][0]["value"]} {person["names"][1]["value"]}'
-                arp_dict[user['username']]['username'] = user_id
-                arp_dict[user['username']]['cristinid'] = cristin_id
-                arp_dict[user['username']]['name'] = name
+# def map_user_to_arp():
+#     print('Map users from Cristin')
+#     with open('./users/test_users_new.json') as user_file:
+#         users = json.load(user_file)
+#         for user in users:
+#             arp_dict[user['username']] = {
+#                 'username': ''
+#             }
+#             query_response = requests.post(
+#                 person_query.format(STAGE),
+#                 json={
+#                     "type": "NationalIdentificationNumber",
+#                     "value": user['nin']
+#                 },
+#                 headers=headers)
+#             if query_response.status_code != 200:
+#                 print(f'GET /person/ {query_response.status_code}')
+#                 print(query_response.json())
+#             if query_response.json() != []:
+#                 person = query_response.json()
+#                 cristin_id = person['id']
+#                 user_id = f"{cristin_id.replace('https://api.dev.nva.aws.unit.no/cristin/person/', '')}@{user['orgNumber']}.0.0.0"
+#                 name = f'{person["names"][1]["value"]} {person["names"][0]["value"]}'
+#                 if person["names"][0]["type"] == 'FirstName':
+#                     name = f'{person["names"][0]["value"]} {person["names"][1]["value"]}'
+#                 arp_dict[user['username']]['username'] = user_id
+#                 arp_dict[user['username']]['cristinid'] = cristin_id
+#                 arp_dict[user['username']]['name'] = name
 
 
-def upload_file():
-    print('upload file...')
-    # create
-    print('create...')
-    for filekey in fileTypes.keys():
-        test_file_name = fileTypes[filekey]['fileName']
-        test_file_path = f'publications/files/{test_file_name}'
-        test_file_size = os.stat(test_file_path).st_size
-        test_file_modified = os.stat(test_file_path).st_mtime
-        test_file = open(test_file_path, 'rb').read()
-        response = requests.post(
-            upload_create,
-            json={
-                'filename': test_file_name,
-                'size': test_file_size,
-                'lastmodified': test_file_modified,
-                'mimetype': fileTypes[filekey]['mimeType']
-            },
-            headers=headers)
-        uploadId = response.json()['uploadId']
-        key = response.json()['key']
-        # prepare
-        print('prepare...')
-        response = requests.post(
-            upload_prepare,
-            json={
-                'number': 1,
-                'uploadId': uploadId,
-                'body': str(test_file),
-                'key': key
-            },
-            headers=headers)
-        print('upload...')
-        presignedUrl = response.json()['url']
-        # upload
-        response = requests.put(presignedUrl, headers={
-                                'Accept': 'appliation/pdf'}, data=test_file)
-        ETag = response.headers['ETag']
-        # complete
-        print('complete...')
-        payload = {
-            'uploadId': uploadId,
-            'key': key,
-            'parts': [
-                {
-                    'partNumber': 1,
-                    'ETag': ETag
-                }
-            ]
-        }
-        response = requests.post(
-            upload_complete,
-            json=payload,
-            headers=headers)
-        locations[filekey]['location'] = response.json()['location']
-        locations[filekey]['filesize'] = test_file_size
+# def upload_file():
+#     print('upload file...')
+#     # create
+#     print('create...')
+#     for filekey in fileTypes.keys():
+#         test_file_name = fileTypes[filekey]['fileName']
+#         test_file_path = f'publications/files/{test_file_name}'
+#         test_file_size = os.stat(test_file_path).st_size
+#         test_file_modified = os.stat(test_file_path).st_mtime
+#         test_file = open(test_file_path, 'rb').read()
+#         response = requests.post(
+#             upload_create,
+#             json={
+#                 'filename': test_file_name,
+#                 'size': test_file_size,
+#                 'lastmodified': test_file_modified,
+#                 'mimetype': fileTypes[filekey]['mimeType']
+#             },
+#             headers=headers)
+#         uploadId = response.json()['uploadId']
+#         key = response.json()['key']
+#         # prepare
+#         print('prepare...')
+#         response = requests.post(
+#             upload_prepare,
+#             json={
+#                 'number': 1,
+#                 'uploadId': uploadId,
+#                 'body': str(test_file),
+#                 'key': key
+#             },
+#             headers=headers)
+#         print('upload...')
+#         presignedUrl = response.json()['url']
+#         # upload
+#         response = requests.put(presignedUrl, headers={
+#                                 'Accept': 'appliation/pdf'}, data=test_file)
+#         ETag = response.headers['ETag']
+#         # complete
+#         print('complete...')
+#         payload = {
+#             'uploadId': uploadId,
+#             'key': key,
+#             'parts': [
+#                 {
+#                     'partNumber': 1,
+#                     'ETag': ETag
+#                 }
+#             ]
+#         }
+#         response = requests.post(
+#             upload_complete,
+#             json=payload,
+#             headers=headers)
+#         locations[filekey]['location'] = response.json()['location']
+#         locations[filekey]['filesize'] = test_file_size
 
 
 def scan_resources():
@@ -260,22 +260,22 @@ def scan_candidates():
 
     return scanned_candidates
 
-def scan_favorites():
-    print('scanning favorites')
-    paginator = dynamodb_client.get_paginator('scan')
-    operation_parameters = {
-        'TableName': favorites_tablename
-    }
-    favorites = []
-    for response in paginator.paginate(**operation_parameters):
-        favorites.append(response['Items'])
+# def scan_favorites():
+#     print('scanning favorites')
+#     paginator = dynamodb_client.get_paginator('scan')
+#     operation_parameters = {
+#         'TableName': favorites_tablename
+#     }
+#     favorites = []
+#     for response in paginator.paginate(**operation_parameters):
+#         favorites.append(response['Items'])
 
-    scanned_favorites = []
-    for favoritelist in favorites:
-        for item in favoritelist:
-            scanned_favorites.append(item)
+#     scanned_favorites = []
+#     for favoritelist in favorites:
+#         for item in favoritelist:
+#             scanned_favorites.append(item)
 
-    return scanned_favorites
+#     return scanned_favorites
 
 def delete_publications():
     resources = scan_resources()
@@ -313,351 +313,351 @@ def delete_publications():
     return
 
 
-def put_item(new_publication, username):
-    trying = True
-    count = 0
-    while trying:
-        bearer_token = common.login(username=username)
-        if bearer_token != '':
-            headers['Authorization'] = f'Bearer {bearer_token}'
-            response = requests.post(publication_endpoint,
-                                    json=new_publication,
-                                    headers=headers)
-            if response.status_code == 201:
-                trying = False
-            count = count + 1
-            if count == 3:
-                trying = False
-                print('Too many tries...')
-                print(response.json())
-                raise RuntimeError('Failed to create Registration')
-            return response
+# def put_item(new_publication, username):
+#     trying = True
+#     count = 0
+#     while trying:
+#         bearer_token = common.login(username=username)
+#         if bearer_token != '':
+#             headers['Authorization'] = f'Bearer {bearer_token}'
+#             response = requests.post(publication_endpoint,
+#                                     json=new_publication,
+#                                     headers=headers)
+#             if response.status_code == 201:
+#                 trying = False
+#             count = count + 1
+#             if count == 3:
+#                 trying = False
+#                 print('Too many tries...')
+#                 print(response.json())
+#                 raise RuntimeError('Failed to create Registration')
+#             return response
 
 
-def get_customer(username):
-    response = requests.get(user_endpoint.format(
-        STAGE, arp_dict[username]['username']), headers=headers)
-    if response.status_code == 200:
-        return response.json()['institution']
-    return ''
+# def get_customer(username):
+#     response = requests.get(user_endpoint.format(
+#         STAGE, arp_dict[username]['username']), headers=headers)
+#     if response.status_code == 200:
+#         return response.json()['institution']
+#     return ''
 
 
-def create_contributor(contributor, affiliation, sequence):
-    with open('./publications/contributors.json'
-              ) as contributor_template_file:
-        contributor_template = json.load(contributor_template_file)
+# def create_contributor(contributor, affiliation, sequence):
+#     with open('./publications/contributors.json'
+#               ) as contributor_template_file:
+#         contributor_template = json.load(contributor_template_file)
 
-        new_contributor = copy.deepcopy(contributor_template)
-        new_contributor['sequence'] = sequence
-        if contributor in arp_dict:
-            new_contributor['identity']['id'] = arp_dict[contributor]["cristinid"]
-            new_contributor['identity']['name'] = arp_dict[contributor]["name"]
-        else:
-            new_contributor['identity']['id'] = ''
-            new_contributor['identity']['name'] = contributor
-            new_contributor['identity']['verificationStatus'] = 'NotVerified'
-        if affiliation != '':
-            organization =     {
-                "id": affiliation,
-                "type": "Organization"
-            }
-            new_contributor['affiliations'].append(organization)
-        return new_contributor
-
-
-def create_publication_data(publication_template, test_publication, username, customer, status, today):
-    new_publication = copy.deepcopy(publication_template)
-    new_publication['entityDescription']['mainTitle'] = f'{test_publication["title"]} {today}'
-    new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
-    new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
-
-    new_publication['entityDescription']['publicationDate'] = {
-        'type': 'PublicationDate',
-        'year': year,
-        'month': month,
-        'day': day
-    }
-    new_publication['publisher']['id'] = customer
-    new_publication['status'] = status
-    if 'publisher' in test_publication:
-        new_publication['entityDescription']['reference']['publicationContext']['publisher'] = {
-            'type': 'Publisher',
-            'id': test_publication['publisher']
-        }
-    if 'series' in test_publication:
-        new_publication['entityDescription']['reference']['publicationContext']['series'] = {
-            'type': 'Series',
-            'id': test_publication['series']
-        }
-
-    if 'contributor' in test_publication:
-        contributor = test_publication['contributor']
-        affiliation = ''
-        if 'affiliation' in test_publication:
-            affiliation = test_publication['affiliation']
-        new_contributor = create_contributor(contributor=contributor, affiliation=affiliation, sequence=1)
-        new_publication['entityDescription']['contributors'].append(
-            new_contributor)
-    if 'contributors' in test_publication:
-        sequence = 0
-        for contributor in test_publication['contributors']:
-            sequence += 1
-            affiliation = ''
-            if 'affiliation' in contributor:
-                affiliation = contributor['affiliation']
-            new_contributor = create_contributor(contributor=contributor['id'], affiliation=affiliation, sequence=sequence)
-            new_publication['entityDescription']['contributors'].append(
-                new_contributor)
-    if 'scopusId' in test_publication:
-        additionalIdentifier = {
-            "type": "AdditionalIdentifier",
-            "sourceName": "Scopus",
-            "value": test_publication['scopusId']
-        }
-        new_publication['additionalIdentifiers'].append(additionalIdentifier)
-
-    file = {
-        'administrativeAgreement': False,
-        'identifier': 'location',
-        'license': "https://creativecommons.org/licenses/by/4.0",
-        'mimeType': 'application/pdf',
-        'name': 'test_file_name',
-        'publisherAuthority': False,
-        'size': 'test_file_size',
-        'type': 'OpenFile',
-        'administrativeAgreement': False,
-        "publisherVersion" : "PublishedVersion",
-        "legalNote" : "Legal note",
-    }
-    if 'file_name' in test_publication:
-        fileType = 'pdf'
-        if 'fileType' in test_publication:
-            fileType = test_publication['fileType']
-        if 'embargoed' in test_publication:
-            embargoDate = date.today() + timedelta(days=2)
-            dateString = embargoDate.strftime('%Y-%m-%dT00:00:00Z')
-            file['embargoDate'] = dateString
-        if 'fileStatus' in test_publication:
-            file['type'] = test_publication['fileStatus']
-
-        file['name'] = fileTypes[fileType]['fileName']
-        file['mimeType'] = fileTypes[fileType]['mimeType']
-        file['identifier'] = locations[fileType]['location']
-        file['size'] = locations[fileType]['filesize']
-
-        if 'administrativeAgreement' in test_publication:
-            administrative_file = file.copy()
-            administrative_file['type'] = 'InternalFile'
-            administrative_file['mimeType'] = fileTypes['pdf']['mimeType']
-            administrative_file['name'] = fileTypes['pdf']['fileName']
-            new_publication['associatedArtifacts'].append(administrative_file)
-        else:
-            new_publication['associatedArtifacts'].append(file)
-
-    return new_publication
+#         new_contributor = copy.deepcopy(contributor_template)
+#         new_contributor['sequence'] = sequence
+#         if contributor in arp_dict:
+#             new_contributor['identity']['id'] = arp_dict[contributor]["cristinid"]
+#             new_contributor['identity']['name'] = arp_dict[contributor]["name"]
+#         else:
+#             new_contributor['identity']['id'] = ''
+#             new_contributor['identity']['name'] = contributor
+#             new_contributor['identity']['verificationStatus'] = 'NotVerified'
+#         if affiliation != '':
+#             organization =     {
+#                 "id": affiliation,
+#                 "type": "Organization"
+#             }
+#             new_contributor['affiliations'].append(organization)
+#         return new_contributor
 
 
-def create_test_publication(publication_template, test_publication):
-    customer = get_customer(test_publication['owner']).replace(
-        f'https://api.{STAGE}.nva.aws.unit.no/customer/', '')
-    username = arp_dict[test_publication['owner']]['username']
-    status = test_publication['status']
+# def create_publication_data(publication_template, test_publication, username, customer, status, today):
+#     new_publication = copy.deepcopy(publication_template)
+#     new_publication['entityDescription']['mainTitle'] = f'{test_publication["title"]} {today}'
+#     new_publication['entityDescription']['reference']['publicationContext']['type'] = test_publication['publication_context_type']
+#     new_publication['entityDescription']['reference']['publicationInstance']['type'] = test_publication['publication_instance_type']
 
-    today = date.today().strftime('%Y%m%d')
+#     new_publication['entityDescription']['publicationDate'] = {
+#         'type': 'PublicationDate',
+#         'year': year,
+#         'month': month,
+#         'day': day
+#     }
+#     new_publication['publisher']['id'] = customer
+#     new_publication['status'] = status
+#     if 'publisher' in test_publication:
+#         new_publication['entityDescription']['reference']['publicationContext']['publisher'] = {
+#             'type': 'Publisher',
+#             'id': test_publication['publisher']
+#         }
+#     if 'series' in test_publication:
+#         new_publication['entityDescription']['reference']['publicationContext']['series'] = {
+#             'type': 'Series',
+#             'id': test_publication['series']
+#         }
 
-    new_publication = create_publication_data(
-        publication_template=publication_template,
-        test_publication=test_publication,
-        username=username,
-        customer=customer,
-        status=status,
-        today=today
-    )
+#     if 'contributor' in test_publication:
+#         contributor = test_publication['contributor']
+#         affiliation = ''
+#         if 'affiliation' in test_publication:
+#             affiliation = test_publication['affiliation']
+#         new_contributor = create_contributor(contributor=contributor, affiliation=affiliation, sequence=1)
+#         new_publication['entityDescription']['contributors'].append(
+#             new_contributor)
+#     if 'contributors' in test_publication:
+#         sequence = 0
+#         for contributor in test_publication['contributors']:
+#             sequence += 1
+#             affiliation = ''
+#             if 'affiliation' in contributor:
+#                 affiliation = contributor['affiliation']
+#             new_contributor = create_contributor(contributor=contributor['id'], affiliation=affiliation, sequence=sequence)
+#             new_publication['entityDescription']['contributors'].append(
+#                 new_contributor)
+#     if 'scopusId' in test_publication:
+#         additionalIdentifier = {
+#             "type": "AdditionalIdentifier",
+#             "sourceName": "Scopus",
+#             "value": test_publication['scopusId']
+#         }
+#         new_publication['additionalIdentifiers'].append(additionalIdentifier)
 
-    return new_publication
+#     file = {
+#         'administrativeAgreement': False,
+#         'identifier': 'location',
+#         'license': "https://creativecommons.org/licenses/by/4.0",
+#         'mimeType': 'application/pdf',
+#         'name': 'test_file_name',
+#         'publisherAuthority': False,
+#         'size': 'test_file_size',
+#         'type': 'OpenFile',
+#         'administrativeAgreement': False,
+#         "publisherVersion" : "PublishedVersion",
+#         "legalNote" : "Legal note",
+#     }
+#     if 'file_name' in test_publication:
+#         fileType = 'pdf'
+#         if 'fileType' in test_publication:
+#             fileType = test_publication['fileType']
+#         if 'embargoed' in test_publication:
+#             embargoDate = date.today() + timedelta(days=2)
+#             dateString = embargoDate.strftime('%Y-%m-%dT00:00:00Z')
+#             file['embargoDate'] = dateString
+#         if 'fileStatus' in test_publication:
+#             file['type'] = test_publication['fileStatus']
 
+#         file['name'] = fileTypes[fileType]['fileName']
+#         file['mimeType'] = fileTypes[fileType]['mimeType']
+#         file['identifier'] = locations[fileType]['location']
+#         file['size'] = locations[fileType]['filesize']
 
-def create_publications():
-    print(test_publications_file_name)
-    with open(publication_template_file_name) as publication_template_file:
-        publication_template = json.load(publication_template_file)
+#         if 'administrativeAgreement' in test_publication:
+#             administrative_file = file.copy()
+#             administrative_file['type'] = 'InternalFile'
+#             administrative_file['mimeType'] = fileTypes['pdf']['mimeType']
+#             administrative_file['name'] = fileTypes['pdf']['fileName']
+#             new_publication['associatedArtifacts'].append(administrative_file)
+#         else:
+#             new_publication['associatedArtifacts'].append(file)
 
-    with open(test_publications_file_name) as test_publications_file:
-
-        test_publications = json.load(test_publications_file)
-        for test_publication in test_publications:
-            username = test_publication['owner']
-            print(f'Creating {test_publication["title"]}')
-            new_publication = create_test_publication(
-                publication_template=publication_template,
-                test_publication=test_publication
-            )
-            print(f'{test_publication["title"]} created')
-            put_response = put_item(
-                new_publication=new_publication, username=username)
-            if not put_response.status_code == 201 and not put_response.status_code == 200:
-                print(put_response.status_code)
-                print(new_publication)
-                print(put_response.json())
-                break
-            response = put_response.json()
-
-            bearer_token = common.login(username)
-            identifier = response['identifier']
-            if test_publication['status'] == 'PUBLISHED' or test_publication['status'] == 'UNPUBLISHED' or test_publication['status'] == 'DELETED':
-                print(f'publishing...{identifier}')
-                response = publish_publication(identifier=identifier,
-                                               bearer_token=bearer_token)
-                print(response)
-            if test_publication['status'] == 'UNPUBLISHED' or test_publication['status'] == 'DELETED':
-                time.sleep(3)
-                print(f'Unpublishing...{identifier}')
-                response = unpublish_publication(identifier=identifier,
-                                               bearer_token=bearer_token)
-                print(response)
-            if test_publication['status'] == 'DELETED':
-                time.sleep(3)
-                print(f'Deleting...{identifier}')
-                response = delete_publication(identifier=identifier,
-                                               bearer_token=bearer_token)
-                print(response)
-            if 'ticket' in test_publication:
-                print('creating ticket...')
-                create_ticket(
-                    identifier=identifier,
-                    username=username,
-                    type=test_publication['ticket']['type'],
-                    status=test_publication['ticket']['status'],
-                    text=test_publication['ticket']['status']
-                )
-            if 'doi' in test_publication:
-                if test_publication['doi'] == 'created':
-                    print('requesting doi...')
-                    request_doi(identifier=identifier, username=username)
-                    print('approving doi...')
-                    approve_doi(identifier=identifier)
-                if test_publication['doi'] == 'reserved':
-                    print('reserving doi...')
-                    reserve_doi(identifier=identifier, username=username)
-                if test_publication['doi'] == 'requested':
-                    print('requesting doi...')
-                    request_doi(identifier=identifier, username=username)
-
-
-def publish_publication(identifier, bearer_token):
-    publish_bearer_token = bearer_token
-    headers['Authorization'] = f'Bearer {publish_bearer_token}'
-    payload = {
-        'type': 'PublishingRequest'
-    }
-    response = requests.post(publish_endpoint.format(
-        STAGE, identifier), json=payload, headers=headers)
-    check_response(response=response, status_code=201)
-
-def unpublish_publication(identifier, bearer_token):
-    unpublish_bearer_token = bearer_token=bearer_token
-    headers['Authorization'] = f'Bearer {unpublish_bearer_token}'
-    payload = {
-        "type": "UnpublishPublicationRequest",
-        "comment": "Unpublishing..."
-    }
-    response = requests.put(unpublish_endpoint.format(
-        STAGE, identifier), json=payload, headers=headers)
-    check_response(response=response, status_code=202)
-
-def delete_publication(identifier, bearer_token):
-    delete_bearer_token = bearer_token
-    headers['Authorization'] = f'Bearer {delete_bearer_token}'
-    payload = {
-        "type": "DeletePublicationRequest"
-    }
-    response = requests.put(unpublish_endpoint.format(
-        STAGE, identifier), json=payload, headers=headers)
-    check_response(response=response, status_code=202)
-
-def reserve_doi(identifier, username):
-    request_bearer_token = common.login(username=username)
-    headers['Authorization'] = f'Bearer {request_bearer_token}'
-    response = requests.post(reserve_doi_endpoint.format(STAGE, identifier), headers=headers)
-    check_response(response, 200)
-
-def request_doi(identifier, username):
-    request_bearer_token = common.login(username=username)
-    headers['Authorization'] = f'Bearer {request_bearer_token}'
-    doi_request_payload = {
-        'type': 'DoiRequest',
-        'message': 'Test'
-    }
-    response = requests.post(create_ticket_endpoint.format(STAGE, identifier),
-                             json=doi_request_payload, headers=headers)
-    check_response(response, 200)
+#     return new_publication
 
 
-def approve_doi(identifier):
-    time.sleep(5)
-    request_bearer_token = common.login(username=username_curator)
-    headers['Authorization'] = f'Bearer {request_bearer_token}'
-    tickets = requests.get(tickets_endpoint.format(
-        STAGE, identifier), headers=headers).json()
-    ticket_id = ''
-    for ticket in tickets['tickets']:
-        if ticket['type'] == 'DoiRequest':
-            ticket_id = ticket['identifier']
-    if ticket_id != '':
-        doi_request_payload = {
-            'type': 'DoiRequest',
-            'status': 'Completed',
-        }
-        response = requests.put(update_ticket_endpoint.format(STAGE, identifier, ticket_id),
-                                json=doi_request_payload, headers=headers)
-        check_response(response, 202)
-    else:
-        print('DoiRequest not found in tickets')
+# def create_test_publication(publication_template, test_publication):
+#     customer = get_customer(test_publication['owner']).replace(
+#         f'https://api.{STAGE}.nva.aws.unit.no/customer/', '')
+#     username = arp_dict[test_publication['owner']]['username']
+#     status = test_publication['status']
+
+#     today = date.today().strftime('%Y%m%d')
+
+#     new_publication = create_publication_data(
+#         publication_template=publication_template,
+#         test_publication=test_publication,
+#         username=username,
+#         customer=customer,
+#         status=status,
+#         today=today
+#     )
+
+#     return new_publication
 
 
-def create_ticket(identifier, username, type, status, text):
-    print(f'{identifier} - {username} - {type} - {status}')
-    request_bearer_token = common.login(username=username)
-    headers['Authorization'] = f'Bearer {request_bearer_token}'
-    ticket_payload = {
-        'type': type,
-        'message': text
-    }
-    response = requests.post(create_ticket_endpoint.format(STAGE, identifier),
-                             json=ticket_payload, headers=headers)
-    check_response(response, 201)
-    if status != status_requested and status != status_approved:
-        request_bearer_token = common.login(username=username)
-        headers['Authorization'] = f'Bearer {request_bearer_token}'
-        tickets = requests.get(tickets_endpoint.format(
-            STAGE, identifier), headers=headers).json()
-        ticket_id = ''
-        for ticket in tickets['tickets']:
-            if ticket['type'] == type:
-                ticket_id = ticket['identifier']
-        request_payload = {
-            'type': type,
-            'status': status,
-        }
-        response = requests.put(update_ticket_endpoint.format(STAGE, identifier, ticket_id),
-                                json=request_payload, headers=headers)
-        time.sleep(10)
-        check_response(response, 200)
+# def create_publications():
+#     print(test_publications_file_name)
+#     with open(publication_template_file_name) as publication_template_file:
+#         publication_template = json.load(publication_template_file)
+
+#     with open(test_publications_file_name) as test_publications_file:
+
+#         test_publications = json.load(test_publications_file)
+#         for test_publication in test_publications:
+#             username = test_publication['owner']
+#             print(f'Creating {test_publication["title"]}')
+#             new_publication = create_test_publication(
+#                 publication_template=publication_template,
+#                 test_publication=test_publication
+#             )
+#             print(f'{test_publication["title"]} created')
+#             put_response = put_item(
+#                 new_publication=new_publication, username=username)
+#             if not put_response.status_code == 201 and not put_response.status_code == 200:
+#                 print(put_response.status_code)
+#                 print(new_publication)
+#                 print(put_response.json())
+#                 break
+#             response = put_response.json()
+
+#             bearer_token = common.login(username)
+#             identifier = response['identifier']
+#             if test_publication['status'] == 'PUBLISHED' or test_publication['status'] == 'UNPUBLISHED' or test_publication['status'] == 'DELETED':
+#                 print(f'publishing...{identifier}')
+#                 response = publish_publication(identifier=identifier,
+#                                                bearer_token=bearer_token)
+#                 print(response)
+#             if test_publication['status'] == 'UNPUBLISHED' or test_publication['status'] == 'DELETED':
+#                 time.sleep(3)
+#                 print(f'Unpublishing...{identifier}')
+#                 response = unpublish_publication(identifier=identifier,
+#                                                bearer_token=bearer_token)
+#                 print(response)
+#             if test_publication['status'] == 'DELETED':
+#                 time.sleep(3)
+#                 print(f'Deleting...{identifier}')
+#                 response = delete_publication(identifier=identifier,
+#                                                bearer_token=bearer_token)
+#                 print(response)
+#             if 'ticket' in test_publication:
+#                 print('creating ticket...')
+#                 create_ticket(
+#                     identifier=identifier,
+#                     username=username,
+#                     type=test_publication['ticket']['type'],
+#                     status=test_publication['ticket']['status'],
+#                     text=test_publication['ticket']['status']
+#                 )
+#             if 'doi' in test_publication:
+#                 if test_publication['doi'] == 'created':
+#                     print('requesting doi...')
+#                     request_doi(identifier=identifier, username=username)
+#                     print('approving doi...')
+#                     approve_doi(identifier=identifier)
+#                 if test_publication['doi'] == 'reserved':
+#                     print('reserving doi...')
+#                     reserve_doi(identifier=identifier, username=username)
+#                 if test_publication['doi'] == 'requested':
+#                     print('requesting doi...')
+#                     request_doi(identifier=identifier, username=username)
 
 
-def check_response(response, status_code):
-    if response.status_code != status_code:
-        print(response.status_code)
-        print(response.json())
+# def publish_publication(identifier, bearer_token):
+#     publish_bearer_token = bearer_token
+#     headers['Authorization'] = f'Bearer {publish_bearer_token}'
+#     payload = {
+#         'type': 'PublishingRequest'
+#     }
+#     response = requests.post(publish_endpoint.format(
+#         STAGE, identifier), json=payload, headers=headers)
+#     check_response(response=response, status_code=201)
+
+# def unpublish_publication(identifier, bearer_token):
+#     unpublish_bearer_token = bearer_token=bearer_token
+#     headers['Authorization'] = f'Bearer {unpublish_bearer_token}'
+#     payload = {
+#         "type": "UnpublishPublicationRequest",
+#         "comment": "Unpublishing..."
+#     }
+#     response = requests.put(unpublish_endpoint.format(
+#         STAGE, identifier), json=payload, headers=headers)
+#     check_response(response=response, status_code=202)
+
+# def delete_publication(identifier, bearer_token):
+#     delete_bearer_token = bearer_token
+#     headers['Authorization'] = f'Bearer {delete_bearer_token}'
+#     payload = {
+#         "type": "DeletePublicationRequest"
+#     }
+#     response = requests.put(unpublish_endpoint.format(
+#         STAGE, identifier), json=payload, headers=headers)
+#     check_response(response=response, status_code=202)
+
+# def reserve_doi(identifier, username):
+#     request_bearer_token = common.login(username=username)
+#     headers['Authorization'] = f'Bearer {request_bearer_token}'
+#     response = requests.post(reserve_doi_endpoint.format(STAGE, identifier), headers=headers)
+#     check_response(response, 200)
+
+# def request_doi(identifier, username):
+#     request_bearer_token = common.login(username=username)
+#     headers['Authorization'] = f'Bearer {request_bearer_token}'
+#     doi_request_payload = {
+#         'type': 'DoiRequest',
+#         'message': 'Test'
+#     }
+#     response = requests.post(create_ticket_endpoint.format(STAGE, identifier),
+#                              json=doi_request_payload, headers=headers)
+#     check_response(response, 200)
 
 
-def find_caller_identity():
-    client = boto3.client('sts')
-    response = client.get_caller_identity()
-    print(response)
+# def approve_doi(identifier):
+#     time.sleep(5)
+#     request_bearer_token = common.login(username=username_curator)
+#     headers['Authorization'] = f'Bearer {request_bearer_token}'
+#     tickets = requests.get(tickets_endpoint.format(
+#         STAGE, identifier), headers=headers).json()
+#     ticket_id = ''
+#     for ticket in tickets['tickets']:
+#         if ticket['type'] == 'DoiRequest':
+#             ticket_id = ticket['identifier']
+#     if ticket_id != '':
+#         doi_request_payload = {
+#             'type': 'DoiRequest',
+#             'status': 'Completed',
+#         }
+#         response = requests.put(update_ticket_endpoint.format(STAGE, identifier, ticket_id),
+#                                 json=doi_request_payload, headers=headers)
+#         check_response(response, 202)
+#     else:
+#         print('DoiRequest not found in tickets')
 
-def read_customers():
-    print('Reading customers')
+
+# def create_ticket(identifier, username, type, status, text):
+#     print(f'{identifier} - {username} - {type} - {status}')
+#     request_bearer_token = common.login(username=username)
+#     headers['Authorization'] = f'Bearer {request_bearer_token}'
+#     ticket_payload = {
+#         'type': type,
+#         'message': text
+#     }
+#     response = requests.post(create_ticket_endpoint.format(STAGE, identifier),
+#                              json=ticket_payload, headers=headers)
+#     check_response(response, 201)
+#     if status != status_requested and status != status_approved:
+#         request_bearer_token = common.login(username=username)
+#         headers['Authorization'] = f'Bearer {request_bearer_token}'
+#         tickets = requests.get(tickets_endpoint.format(
+#             STAGE, identifier), headers=headers).json()
+#         ticket_id = ''
+#         for ticket in tickets['tickets']:
+#             if ticket['type'] == type:
+#                 ticket_id = ticket['identifier']
+#         request_payload = {
+#             'type': type,
+#             'status': status,
+#         }
+#         response = requests.put(update_ticket_endpoint.format(STAGE, identifier, ticket_id),
+#                                 json=request_payload, headers=headers)
+#         time.sleep(10)
+#         check_response(response, 200)
+
+
+# def check_response(response, status_code):
+#     if response.status_code != status_code:
+#         print(response.status_code)
+#         print(response.json())
+
+
+# def find_caller_identity():
+#     client = boto3.client('sts')
+#     response = client.get_caller_identity()
+#     print(response)
+
+# def read_customers():
+#     print('Reading customers')
 
 
 def run():

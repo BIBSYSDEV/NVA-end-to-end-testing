@@ -1,4 +1,4 @@
-import { user } from './constants';
+import { userName } from './constants';
 
 const stage = Cypress.env('STAGE') ?? 'dev';
 
@@ -23,26 +23,26 @@ const mockPersonData = {
 };
 
 export const mockPersonFeideIdSearch = (userId) => {
-  return user[userId].feideid ? mockPerson(userId) : [];
+  return userName[userId].feideid ? mockPerson(userId) : [];
 };
 
 export const mockPersonNameSearch = (userId) => {
-  return user[userId].inArp ? mockPersonSearch(userId) : [];
+  return userName[userId].inArp ? mockPersonSearch(userId) : [];
 };
 
 export const mockPerson = (userId) => {
   return {
     ...mockPersonData,
-    name: user[userId].name,
-    feideids: user[userId].feideid ? [userId] : [],
-    orcids: user[userId].orcid ? [userId] : [],
-    orgunitids: user[userId].orgunitids,
+    name: userName[userId].name,
+    feideids: userName[userId].feideid ? [userId] : [],
+    orcids: userName[userId].orcid ? [userId] : [],
+    orgunitids: userName[userId].orgunitids,
   };
 };
 
 export const mockPersonSearch = (userId) => {
-  const firstName = user[userId].name.split(', ')[1];
-  const lastName = user[userId].name.split(', ')[0];
+  const firstName = userName[userId].name.split(', ')[1];
+  const lastName = userName[userId].name.split(', ')[0];
 
   return {
     id: 'https://api.dev.nva.aws.unit.no/cristin/person?name=TestUser&page=1&results=1',

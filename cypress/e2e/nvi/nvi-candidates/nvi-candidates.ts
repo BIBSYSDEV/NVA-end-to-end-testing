@@ -1,12 +1,17 @@
 // Feature: Valid NVI candidates
 
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { TestUsers } from '../../../support/constants';
+import { ContributorTypes, TestUsers, userName } from '../../../support/constants';
 import { v4 as uuid } from 'uuid';
 import { CategoryTypes } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
-import { createValidRegistrationWithType } from '../../../support/create_registration';
-import { currentYear } from '../../../support/commands';
+import {
+  createChapterInAnthologyUsingAPI,
+  createPublicationUsingAPI,
+  createValidRegistrationWithType,
+  NviLevels,
+  RegistrationData,
+} from '../../../support/create_registration';
 
 const addContributor = (name: string) => {
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
@@ -30,7 +35,7 @@ const addContributor = (name: string) => {
 Given('a user with an affiliation from an NVI-institution', () => {
   cy.login(TestUsers.nvi.usn.institution);
 });
-When('the user registrers a publication that is an NVI-candidate with category {string}', (category) => {
+When('the user registrers a publication that is an NVI-candidate with category {string}', (category: unknown) => {
   const categories = {
     'Scientific Article': CategoryTypes.ACADEMIC_ARTICLE,
     'Monograph': CategoryTypes.ACADEMIC_MONOGRAPH,
@@ -40,20 +45,36 @@ When('the user registrers a publication that is an NVI-candidate with category {
   const title = `NVI Candidate ${category} ${uuid()}`;
   cy.wrap(title).as('registrationTitle');
 
-  switch (category.toString()) {
-    case 'Scientific Article':
-    case 'Monograph':
-      cy.createPublishedRegistration(title, categories[category.toString()]);
+  switch (categories[category as string]) {
+    case CategoryTypes.ACADEMIC_ARTICLE:
+    case CategoryTypes.ACADEMIC_MONOGRAPH:
+      createPublicationUsingAPI(
+        title,
+        categories[category as string],
+        userName[TestUsers.nvi.usn.institution],
+        NviLevels.LEVEL_1
+      );
       break;
-    case 'AcademicChapter':
+    case CategoryTypes.ACADEMIC_CHAPTER:
       const anthologyTitle = `Anthology for NVI Candidate Anthology ${uuid()}`;
-      cy.createPublishedRegistration(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY);
-      cy.createPublishedChapter(title, anthologyTitle);
+      createChapterInAnthologyUsingAPI(
+        title,
+        anthologyTitle,
+        userName[TestUsers.nvi.usn.institution],
+        NviLevels.LEVEL_1
+      );
       break;
   }
 });
 When('the user adds a contributor with multiple institution affiliations', () => {
-  addContributor('Multiple institutions TestUser');
+  cy.get('@registrationTitle').then((title: unknown) => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+    cy.get('a')
+      .filter(`:contains(${title as string})`)
+      .click();
+    addContributor('Multiple institutions TestUser');
+  });
 });
 Then('the publication is listed as an NVI-candidate for all institutions the user is affiliated with', () => {
   cy.login(TestUsers.nvi.usn.curator);
@@ -77,7 +98,13 @@ Then('the publication is listed as an NVI-candidate for all institutions the use
 // Scenario Outline: A user with a foreign institution registrers an NVI-candidate publication
 // When('the user registrers a publication that is an NVI-candidate with category {string}', (category) => {});
 When('the user adds a contributor with a norwegian and a foreign institution affiliation', () => {
-  addContributor('Multiple Foreign TestUser');
+  cy.get('@registrationTitle').then((title: unknown) => {
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+    cy.get('a')
+      .filter(`:contains(${title as string})`)
+      .click();
+    addContributor('Multiple institutions TestUser');
+  });
 });
 Then('the publication is listed as an NVI-candidate for the norwegian institutions the user is affiliated with', () => {
   cy.login(TestUsers.nvi.usn.curator);
@@ -100,7 +127,13 @@ Given('a user with an affiliation to a norwegian institution', () => {
 });
 // When('the user registrers a publication that is an NVI-candidate with category {string}', (category) => {});
 When('the user adds a contributor from a foreign institution affiliation', () => {
-  addContributor('Foreign TestUser');
+  cy.get('@registrationTitle').then((title: unknown) => {
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+    cy.get('a')
+      .filter(`:contains(${title as string})`)
+      .click();
+    addContributor('Multiple institutions TestUser');
+  });
 });
 // Then(
 //   'the publication is listed as an NVI-candidate for the norwegian institutions the user is affiliated with',
@@ -118,17 +151,19 @@ When('the user adds a contributor from a foreign institution affiliation', () =>
 When('the user registrers a monograph without ISBN or ISSN', () => {
   const title = `Non NVI monograph without ISBN/ISSN ${uuid()}`;
   cy.wrap(title).as('registrationTitle');
-  cy.startWizardWithEmptyRegistration();
-  createValidRegistrationWithType(title, CategoryTypes.ACADEMIC_MONOGRAPH);
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.isbnField).clear();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccessDone();
-  cy.wait(5000);
+  const monographBuilder = createPublicationUsingAPI(
+    title,
+    CategoryTypes.ACADEMIC_MONOGRAPH,
+    userName[TestUsers.nvi.usn.institution]
+  );
+  cy.wrap(monographBuilder).as('registrationBuilder');
+  cy.get('@registrationBuilder').then((builder: unknown) => {
+    const registration = builder as RegistrationData;
+    registration.entityDescription.reference.publicationContext.isbnList = [];
+    registration.update();
+  });
 });
+
 Then('the publication is not listed as an NVI-candidate for the institution the user is affiliated with', () => {
   cy.login(TestUsers.nvi.usn.curator);
   cy.get<string>('@registrationTitle').then((title) => {
@@ -144,17 +179,13 @@ When('the user registrers an academic chapter without ISBN or ISSN', () => {
   const anthologyTitle = `Anthology for Non NVI chapter without ISBN/ISSN ${uuid()}`;
   const chapterTitle = `Non NVI chapter without ISBN/ISSN ${uuid()}`;
   cy.wrap(chapterTitle).as('registrationTitle');
-  cy.startWizardWithEmptyRegistration();
-  createValidRegistrationWithType(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY);
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.isbnField).clear();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccessDone();
-  cy.wait(5000);
-  cy.createPublishedChapter(chapterTitle, anthologyTitle);
+  createChapterInAnthologyUsingAPI(chapterTitle, anthologyTitle, userName[TestUsers.nvi.usn.institution]);
+  cy.get('@anthologyBuilder').then((builder: unknown) => {
+    const anthology = builder as RegistrationData;
+    anthology.entityDescription.reference.publicationContext.isbnList = [];
+    anthology.update();
+  });
+
 });
 // Then ('the publication is not listed as an NVI-candidate for the institution the user is affiliated with', () => {});
 
@@ -162,16 +193,14 @@ When('the user registrers an academic chapter without ISBN or ISSN', () => {
 When('the user registrers a monograph with only editor as contributor', () => {
   const title = `Non NVI monograph with only editor ${uuid()}`;
   cy.wrap(title).as('registrationTitle');
-  cy.startWizardWithEmptyRegistration();
-  createValidRegistrationWithType(title, CategoryTypes.ACADEMIC_MONOGRAPH);
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
-  cy.contains('Select role').parent().click();
-  cy.contains('Editor').last().click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccessDone();
-  cy.wait(5000);
+
+  const monographBuilder = createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_MONOGRAPH, userName[TestUsers.nvi.usn.institution]);
+  cy.wrap(monographBuilder).as('registrationBuilder');
+  cy.get('@registrationBuilder').then((builder: unknown) => {
+    const registration = builder as RegistrationData;
+    registration.entityDescription.contributors[0].role.type = ContributorTypes.EDITOR;
+    registration.update();
+  }); 
+
 });
 // Then ('the publication is not listed as an NVI-candidate for the institution the user is affiliated with', () => {});
