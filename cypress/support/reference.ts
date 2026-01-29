@@ -1,4 +1,3 @@
-import { currentYear } from './commands';
 import { CategoryTypes } from './constants';
 import { NviLevels, ReferenceType, RegistrationPartTypes } from './create_registration';
 
@@ -98,6 +97,8 @@ export const CorrigendumReference = (corrigendumFor: string): ReferenceType => {
   return reference;
 };
 
+const currentYear = new Date().getFullYear();
+
 const UNDER_DUSKEN_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/0FBEE806-981D-4E4C-A7AC-5511153D198C/${currentYear}`;
 const ACM_JOURNAL_OF_DATA_AND_INFORMATION_QUALITY_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/7ECF363E-84A8-4328-B8D0-38A9BF93E356/${currentYear}`;
 const ACM_CHEMICAL_BIOLOGY_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/1864A370-80CA-4BE5-9CB7-40B0CCEF23CA/${currentYear}`;
@@ -105,7 +106,7 @@ const SINTEF_AKADEMSIK_FORLAG_URI = `https://api.e2e.nva.aws.unit.no/publication
 const SPRINGER_NATURE_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/DC752087-7122-4D3A-9E4F-382AA2F39D2C/${currentYear}`;
 const HARVARD_UNIVERSITY_PRESS_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/2C26EB7E-B93B-45B8-A5CE-AACBE2B86448/${currentYear}`;
 const GEOSCIENTIFIC_INSTRUMENTATION = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/DC26EADA-5DA7-42C7-8C70-4250E9C93C64/${currentYear}`;
-const GEOSCIENTIFIC_MODEL_DEVELOPMENT = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/8C757DB5-8205-4A28-A6D5-BABD2DF32180/${currentYear}`;
+const GEOSCIENTIFIC_MODEL_DEVELOPMENT = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/8C757DB5-8205-4A28-A6D5-BABD2DF32180/${currentYear}|`;
 
 
 const SERIES = {
