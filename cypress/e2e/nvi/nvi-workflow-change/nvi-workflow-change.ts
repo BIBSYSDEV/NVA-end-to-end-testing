@@ -11,6 +11,7 @@ import {
 import {
   createPublicationUsingAPI,
   findContributorByName,
+  NviLevels,
   RegistrationData,
   RegistrationPartTypes,
 } from '../../../support/create_registration';
@@ -230,7 +231,7 @@ const createNVICandidateTitle = `NVI Change candidate ${uuid()}`;
 // Scenario: Publication channel changes and NVI points changes
 Given('an NVI-candidate with a level 1 publication channel', () => {
   cy.login(userUSNNviInstitution).then(() => {
-    createPublicationUsingAPI(createNVICandidateTitle, CategoryTypes.ACADEMIC_ARTICLE, USN_USER);
+    createPublicationUsingAPI(createNVICandidateTitle, CategoryTypes.ACADEMIC_ARTICLE, USN_USER, NviLevels.LEVEL_1);
     cy.login(userUSNNviCuratorInstitution).then(() => {
       cy.getDataTestId(dataTestId.header.tasksLink).click();
       cy.openNVIWorklist();
@@ -250,8 +251,8 @@ Given('an NVI-candidate with a level 1 publication channel', () => {
 When('a User changes the publication channel to a level 2 publication channel', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('test');
-  cy.contains('American Journal of Physiology - Gastrointestinal and Liver Physiology').click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('chemical');
+  cy.contains('ACS Chemical Biology').click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccessDone();

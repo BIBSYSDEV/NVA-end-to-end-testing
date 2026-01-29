@@ -375,6 +375,21 @@ const createReference = (category: CategoryTypes, nviLevel?: NviLevels, seriesLe
   }
 };
 
+const uploadFileToRegistration = (registrationId: string, fileName: string): void => {
+  const accessToken = Cypress.env('accessToken');
+  cy.request({
+    method: 'POST',
+    url: `${publicationApiUrl}/${registrationId}/files`,
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'multipart/form-data',
+      'Accept': 'application/json',
+    },
+    body: {},
+    failOnStatusCode: true,
+  }).then((response) => {});
+};
+
 export const createDraftPublicationUsingAPI = (
   title: string,
   category: CategoryTypes,
