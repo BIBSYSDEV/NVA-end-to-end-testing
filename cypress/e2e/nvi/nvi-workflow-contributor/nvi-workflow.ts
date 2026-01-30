@@ -14,6 +14,7 @@ import {
   createEntityDescription,
   createValidRegistrationWithType,
   findContributorByName,
+  NviLevels,
   registrationBuilder,
 } from '../../../support/create_registration';
 
@@ -44,7 +45,7 @@ const createAnthology = (title: string) => {
     cy.wrap(identifier).as('anthologyId');
     const contributorNVIA = findContributorByName(USER_CREATOR, ContributorTypes.CREATOR);
     cy.then(() => {
-      const entity = createEntityDescription(title, CategoryTypes.BOOK_ANTHOLOGY, '1003');
+      const entity = createEntityDescription(title, CategoryTypes.BOOK_ANTHOLOGY, '1003', NviLevels.LEVEL_1);
       builder.addEntityDescription(entity);
       builder.addContributor(contributorNVIA);
       builder.update();
@@ -74,7 +75,7 @@ Given(
     cy.login(userUSNNviInstitution).then(() => {
       const builder = registrationBuilder().create();
       cy.then(() => {
-        const entity = createEntityDescription(title, category, '1003');
+        const entity = createEntityDescription(title, category, '1003', NviLevels.LEVEL_1);
         if (category === 'AcademicChapter') {
           const anthologyTitle = `Anthology for Article ${uuid()}`;
           createAnthology(anthologyTitle);
