@@ -105,11 +105,12 @@ const ACM_CHEMICAL_BIOLOGY_URI = `https://api.e2e.nva.aws.unit.no/publication-ch
 const SINTEF_AKADEMSIK_FORLAG_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/D4AA649E-CB53-4CA0-89EC-F68FB02CFB96/${currentYear}`;
 const SPRINGER_NATURE_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/DC752087-7122-4D3A-9E4F-382AA2F39D2C/${currentYear}`;
 const HARVARD_UNIVERSITY_PRESS_URI = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/2C26EB7E-B93B-45B8-A5CE-AACBE2B86448/${currentYear}`;
+const SINTEF_SERIES = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/01F85FBB-B084-43E5-9C67-E8F3D629CE73/${currentYear}`;
 const GEOSCIENTIFIC_INSTRUMENTATION = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/DC26EADA-5DA7-42C7-8C70-4250E9C93C64/${currentYear}`;
 const GEOSCIENTIFIC_MODEL_DEVELOPMENT = `https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/8C757DB5-8205-4A28-A6D5-BABD2DF32180/${currentYear}|`;
 
-
 const SERIES = {
+  [NviLevels.LEVEL_0]: SINTEF_SERIES,
   [NviLevels.LEVEL_1]: GEOSCIENTIFIC_INSTRUMENTATION,
   [NviLevels.LEVEL_2]: GEOSCIENTIFIC_MODEL_DEVELOPMENT,
 };
@@ -141,7 +142,6 @@ const NVI_CHANNELS = {
     [NviLevels.LEVEL_2]: HARVARD_UNIVERSITY_PRESS_URI,
   },
 };
-
 
 // export const ReferenceConstants = {
 //   [CategoryTypes.ACADEMIC_ARTICLE]: ArticleReference(CategoryTypes.ACADEMIC_ARTICLE),

@@ -361,7 +361,7 @@ const ChapterTypes = [
 ];
 
 const createReference = (category: CategoryTypes, nviLevel?: NviLevels, seriesLevel?: NviLevels): ReferenceType => {
-  const level = nviLevel ? nviLevel : NviLevels.LEVEL_1;
+  const level = nviLevel ? nviLevel : NviLevels.LEVEL_0;
   if (ArticleTypes.includes(category)) {
     return ArticleReference(category, level);
   } else if (category === CategoryTypes.JOURNAL_CORRIGENDUM) {
@@ -437,13 +437,15 @@ export const createChapterInAnthologyUsingAPI = (
   chapterTitle: string,
   anthologyTitle: string,
   creatorName: string,
-  nviLevel?: NviLevels
+  nviLevel?: NviLevels,
+  seriesLevel?: NviLevels
 ) => {
   const anthologyBuilder = createPublicationUsingAPI(
     anthologyTitle,
     CategoryTypes.BOOK_ANTHOLOGY,
     creatorName,
-    nviLevel
+    nviLevel,
+    seriesLevel
   );
   cy.wrap(anthologyBuilder).as('anthologyBuilder');
   cy.get('@anthologyBuilder').then((builder: unknown) => {
@@ -451,7 +453,7 @@ export const createChapterInAnthologyUsingAPI = (
     cy.wrap(anthology.identifier).as('anthologyIdentifier');
     cy.wrap(anthologyBuilder).as('anthologyBuilder');
     cy.get('@anthologyIdentifier').then((anthologyIdentifier: unknown) => {
-      const chapterBuilder = createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, creatorName);
+      const chapterBuilder = createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, creatorName, nviLevel, seriesLevel );
       cy.wrap(chapterBuilder).as('chapterBuilder');
       cy.get('@chapterBuilder').then((builder: unknown) => {
         const chapterBuilder = builder as RegistrationData;
