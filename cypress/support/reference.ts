@@ -141,6 +141,11 @@ const NVI_CHANNELS = {
     [NviLevels.LEVEL_1]: SPRINGER_NATURE_URI,
     [NviLevels.LEVEL_2]: HARVARD_UNIVERSITY_PRESS_URI,
   },
+  [CategoryTypes.ACADEMIC_COMMENTARY]: {
+    [NviLevels.LEVEL_0]: SINTEF_AKADEMSIK_FORLAG_URI,
+    [NviLevels.LEVEL_1]: SPRINGER_NATURE_URI,
+    [NviLevels.LEVEL_2]: HARVARD_UNIVERSITY_PRESS_URI,
+  },
 };
 
 // export const ReferenceConstants = {

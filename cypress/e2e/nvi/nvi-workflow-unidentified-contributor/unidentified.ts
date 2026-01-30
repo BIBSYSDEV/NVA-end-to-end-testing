@@ -1,10 +1,15 @@
 // Feature: NVI-candidates with unidentified users
 
-import { CategoryTypes, userUSNChangeNviCuratorInstitution } from '../../../support/constants';
+import { CategoryTypes, userName, userUSNChangeNviCuratorInstitution } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { todayDatePicker } from '../../../support/commands';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {
+  createChapterInAnthologyUsingAPI,
+  createPublicationUsingAPI,
+  NviLevels,
+} from '../../../support/create_registration';
 
 // Scenario: Identify publication as NVI candidate
 
@@ -21,66 +26,113 @@ Given(
   'the publication has at least one publication channel of type {string} with scientific level of one or two',
   (channel) => {
     cy.wrap(channel).as('channel');
-    cy.startWizardWithEmptyRegistration();
+    // cy.startWizardWithEmptyRegistration();
   }
 );
 Given('the publication has at least one Author affiliated with an NVI institution', () => {
-  cy.get('@type').then((type) => {
-    cy.get('@channel').then((channel) => {
-      const title = `NVI-candidate ${type} ${channel} ${uuid()}`;
+  cy.get('@type').then((type: unknown) => {
+    cy.get('@channel').then((channel: unknown) => {
+      const title = `NVI-candidate ${type as string} ${channel as string} ${uuid()}`;
       cy.wrap(title).as('title');
-      cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type(`${title}`);
-      cy.chooseDatePicker(
-        `[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`,
-        todayDatePicker()
-      );
-      cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-      cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(type.toString())).click();
-      switch (channel.toString()) {
-        case JOURNAL:
-          // cy.intercept('GET', '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' });
-          cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acs chemical');
-          cy.contains('ACS Chemical Biology').click();
+
+      switch (type as string) {
+        case CategoryTypes.ACADEMIC_ARTICLE:
+        case CategoryTypes.ACADEMIC_REVIEW_ARTICLE:
+          createPublicationUsingAPI(
+            title,
+            type as CategoryTypes,
+            userName[userUSNChangeNviCuratorInstitution],
+            NviLevels.LEVEL_1
+          );
           break;
-        case PUBLISHER:
-          if (type.toString() === CategoryTypes.ACADEMIC_ARTICLE) {
-            cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(`Anthology NVI ${channel}`);
-            cy.contains(`Anthology NVI ${channel}`).click();
-          } else {
-            cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('Det Norske Samlaget');
-            cy.contains('Det Norske Samlaget').click();
-          }
-          cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
-          cy.contains('Art History').click();
+          case CategoryTypes.ACADEMIC_MONOGRAPH:
+          case CategoryTypes.ACADEMIC_COMMENTARY:
+          type === SERIES
+            ? createPublicationUsingAPI(
+                title,
+                type as CategoryTypes,
+                userName[userUSNChangeNviCuratorInstitution],
+                NviLevels.LEVEL_1,
+                NviLevels.LEVEL_1
+              )
+            : createPublicationUsingAPI(
+                title,
+                type as CategoryTypes,
+                userName[userUSNChangeNviCuratorInstitution],
+                NviLevels.LEVEL_1
+              );
           break;
-        case SERIES:
-          if (type.toString() ===  CategoryTypes.ACADEMIC_ARTICLE) {
-            cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(`Anthology NVI ${channel}`);
-            cy.contains(`Anthology NVI ${channel}`).click();
-          } else {
-            cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('Norsk barnebokinstitutt');
-            cy.contains('Norsk barnebokinstitutt').click();
-            cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type(
-              'Advances in Computer Science Research'
-            );
-            cy.contains('Advances in Computer Science Research').click();
-          }
-          cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
-          cy.contains('Art History').click();
+        case CategoryTypes.ACADEMIC_CHAPTER:
+          const anthologyTitle = `Anthology NVI ${channel as string} ${uuid()}`;
+          type === SERIES
+            ? createChapterInAnthologyUsingAPI(
+                title,
+                anthologyTitle,
+                userName[userUSNChangeNviCuratorInstitution],
+                NviLevels.LEVEL_1,
+                NviLevels.LEVEL_1
+              )
+            : createChapterInAnthologyUsingAPI(
+                title,
+                anthologyTitle,
+                userName[userUSNChangeNviCuratorInstitution],
+                NviLevels.LEVEL_1
+              );
           break;
       }
-      cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
-      cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-      cy.getDataTestId('CheckBoxOutlineBlankIcon').parent().click();
-      cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).should(
-        'be.enabled'
-      );
-      cy.refreshPublish();
+
+      // cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type(`${title}`);
+      // cy.chooseDatePicker(
+      //   `[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`,
+      //   todayDatePicker()
+      // );
+      // cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+      // cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(type.toString())).click();
+      // switch (channel.toString()) {
+      //   case JOURNAL:
+      //     // // cy.intercept('GET', '/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' });
+      //     // cy.getDataTestId(dataTestId.registrationWizard.resourceType.journalField).type('acs chemical');
+      //     // cy.contains('ACS Chemical Biology').click();
+      //     // break;
+      //   case PUBLISHER:
+      //     if (type.toString() === CategoryTypes.ACADEMIC_ARTICLE) {
+      //       cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(`Anthology NVI ${channel}`);
+      //       cy.contains(`Anthology NVI ${channel}`).click();
+      //     } else {
+      //       cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('Det Norske Samlaget');
+      //       cy.contains('Det Norske Samlaget').click();
+      //     }
+      //     // cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
+      //     // cy.contains('Art History').click();
+      //     break;
+      //   case SERIES:
+      //     if (type.toString() === CategoryTypes.ACADEMIC_ARTICLE) {
+      //       cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(`Anthology NVI ${channel}`);
+      //       cy.contains(`Anthology NVI ${channel}`).click();
+      //     } else {
+      //       cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('Norsk barnebokinstitutt');
+      //       cy.contains('Norsk barnebokinstitutt').click();
+      //       cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type(
+      //         'Advances in Computer Science Research'
+      //       );
+      //       cy.contains('Advances in Computer Science Research').click();
+      //     }
+      //     cy.getDataTestId(dataTestId.registrationWizard.resourceType.scientificSubjectField).click();
+      //     cy.contains('Art History').click();
+      //     break;
+      // }
+      // cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+      // cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+      // cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
+      // cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+      // cy.getDataTestId('CheckBoxOutlineBlankIcon').parent().click();
+      // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+      // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+      // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
+      // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).should(
+      //   'be.enabled'
+      // );
+      // cy.refreshPublish();
     });
   });
 });
