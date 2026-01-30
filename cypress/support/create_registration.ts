@@ -242,7 +242,7 @@ const parseName = (nameObject: any): string => {
   return name;
 };
 
-export const findContributorByName = (name: string, role: ContributorTypes): ContributorType => {
+export const findContributorByName = (name: string, role: ContributorTypes, isUnverified?: boolean): ContributorType => {
   let contributor: ContributorType = {
     identity: {
       type: RegistrationPartTypes.IDENTITY,
@@ -273,9 +273,9 @@ export const findContributorByName = (name: string, role: ContributorTypes): Con
       response.body.hits.forEach((hit) => {
         const foundName = parseName(hit.names);
         if (name === foundName) {
-          contributor.identity.id = `${personApiUrl}/${hit.identifiers[0].value}`;
+          contributor.identity.id = isUnverified ? '' : `${personApiUrl}/${hit.identifiers[0].value}`;
           contributor.identity.name = foundName;
-          contributor.identity.verificationStatus = 'Verified';
+          contributor.identity.verificationStatus = isUnverified ? 'NotVerified' : 'Verified';
           let index = 0;
           hit.affiliations.forEach((affiliation: any) => {
             const organization: affiliationType = {
