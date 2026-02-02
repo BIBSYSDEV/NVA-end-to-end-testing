@@ -1,6 +1,12 @@
 // Feature: User marks results as favorites
 
-import { CategoryTypes, userName, userUnitFavorite1, userUnitFavorite2, userUnitFavorite3 } from '../../../support/constants';
+import {
+  CategoryTypes,
+  userName,
+  userUnitFavorite1,
+  userUnitFavorite2,
+  userUnitFavorite3,
+} from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, Before } from '@badeball/cypress-cucumber-preprocessor';
@@ -21,18 +27,66 @@ const navigateToMyProfile = () => {
 
 const createPublications = (user) => {
   const publicationTitleRoot = 'Favorite result';
-  cy.login(userUnitFavorite1);
-  createPublicationUsingAPI(`${publicationTitleRoot} 1 ${uuid()}`, CategoryTypes.ACADEMIC_ARTICLE, userFavorite1Name, NviLevels.LEVEL_1);
-  createPublicationUsingAPI(`${publicationTitleRoot} 2 ${uuid()}`, CategoryTypes.ACADEMIC_ARTICLE, userFavorite1Name, NviLevels.LEVEL_1);
-  createPublicationUsingAPI(`${publicationTitleRoot} 3 ${uuid()}`, CategoryTypes.ACADEMIC_ARTICLE, userFavorite1Name, NviLevels.LEVEL_1);
-  cy.login(userUnitFavorite2);
-  createPublicationUsingAPI(`${publicationTitleRoot} 4 ${uuid()}`, CategoryTypes.ACADEMIC_ARTICLE, userFavorite2Name, NviLevels.LEVEL_1);
-  createPublicationUsingAPI(`${publicationTitleRoot} 5 ${uuid()}`, CategoryTypes.ACADEMIC_ARTICLE, userFavorite2Name, NviLevels.LEVEL_1);
-  createPublicationUsingAPI(`${publicationTitleRoot} 6 ${uuid()}`, CategoryTypes.ACADEMIC_ARTICLE, userFavorite2Name, NviLevels.LEVEL_1);
-  cy.login(userUnitFavorite3);
-  createPublicationUsingAPI(`${publicationTitleRoot} 7 ${uuid()}`, CategoryTypes.ACADEMIC_ARTICLE, userFavorite3Name, NviLevels.LEVEL_1);
-  createPublicationUsingAPI(`${publicationTitleRoot} 8 ${uuid()}`, CategoryTypes.ACADEMIC_ARTICLE, userFavorite3Name, NviLevels.LEVEL_1);
-  createPublicationUsingAPI(`${publicationTitleRoot} 9 ${uuid()}`, CategoryTypes.ACADEMIC_ARTICLE, userFavorite3Name, NviLevels.LEVEL_1);
+  cy.login(userUnitFavorite1).then(() => {
+    createPublicationUsingAPI(
+      `${publicationTitleRoot} 1 ${uuid()}`,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userFavorite1Name,
+      NviLevels.LEVEL_1
+    );
+    createPublicationUsingAPI(
+      `${publicationTitleRoot} 2 ${uuid()}`,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userFavorite1Name,
+      NviLevels.LEVEL_1
+    );
+    createPublicationUsingAPI(
+      `${publicationTitleRoot} 3 ${uuid()}`,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userFavorite1Name,
+      NviLevels.LEVEL_1
+    );
+  });
+  cy.login(userUnitFavorite2).then(() => {
+    createPublicationUsingAPI(
+      `${publicationTitleRoot} 4 ${uuid()}`,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userFavorite2Name,
+      NviLevels.LEVEL_1
+    );
+    createPublicationUsingAPI(
+      `${publicationTitleRoot} 5 ${uuid()}`,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userFavorite2Name,
+      NviLevels.LEVEL_1
+    );
+    createPublicationUsingAPI(
+      `${publicationTitleRoot} 6 ${uuid()}`,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userFavorite2Name,
+      NviLevels.LEVEL_1
+    );
+  });
+  cy.login(userUnitFavorite3).then(() => {
+    createPublicationUsingAPI(
+      `${publicationTitleRoot} 7 ${uuid()}`,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userFavorite3Name,
+      NviLevels.LEVEL_1
+    );
+    createPublicationUsingAPI(
+      `${publicationTitleRoot} 8 ${uuid()}`,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userFavorite3Name,
+      NviLevels.LEVEL_1
+    );
+    createPublicationUsingAPI(
+      `${publicationTitleRoot} 9 ${uuid()}`,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userFavorite3Name,
+      NviLevels.LEVEL_1
+    );
+  });
 };
 
 const clearFavoredResults = () => {

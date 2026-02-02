@@ -1,6 +1,6 @@
 // Feature: NVI points calculations
 
-import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
 import { CategoryTypes, ContributorTypes, TestUsers } from '../../../support/constants';
@@ -29,6 +29,13 @@ const channelIds = {
 };
 
 const USN_USER = 'User NVI-institution A TestUser';
+
+BeforeAll(() => {
+  cy.login(TestUsers.nvi.usn.institution).then(() => {
+    createPublicationUsingAPI('Publication for warmup', CategoryTypes.ACADEMIC_ARTICLE, USN_USER, NviLevels.LEVEL_1);
+    cy.wait(5000);
+  });
+});
 
 //   Scenario Outline: Verify NVI points calculations for different NVI candidates
 Given(

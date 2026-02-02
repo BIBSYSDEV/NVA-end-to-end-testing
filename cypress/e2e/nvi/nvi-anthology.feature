@@ -31,3 +31,9 @@ Feature: NVI candidate evaluation for Anthology related publications
     And Anthology is present in correction list for "Anthology without chapter"
     When adding AcademicChapter that refers to that Anthology
     Then Anthology should disappear from correction list for "Anthology without chapter"
+
+  @test
+  Scenario: A chapter in a Monograph is not a NVI-candidate
+    Given a Monograph that is a NVI-candidate
+    When you add a Chapter to the Monograph
+    Then the Chapter is not a NVI-candidate

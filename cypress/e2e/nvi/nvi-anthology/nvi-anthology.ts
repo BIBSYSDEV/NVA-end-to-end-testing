@@ -286,3 +286,48 @@ Then('Anthology should disappear from correction list for "Anthology without cha
     cy.contains(anthology as string).should('not.exist');
   });
 });
+
+// Scenario: A chapter in a Monograph is not a NVI-candidate
+Given('a Monograph that is a NVI-candidate', () => {
+  cy.login(TestUsers.nvi.usn.institution).then(() => {
+    const title = `Monograph for NVI Candidate Chapter ${uuid()}`;
+    const monographBuilder = createPublicationUsingAPI(
+      title,
+      CategoryTypes.ACADEMIC_MONOGRAPH,
+      USN_USER,
+      NviLevels.LEVEL_1
+    );
+    cy.wrap(monographBuilder).as('monographBuilder');
+    cy.wrap(title).as('monographTitle');
+  });
+});
+When('you add a Chapter to the Monograph', () => {
+  cy.get('@monographBuilder').then((builder: unknown) => {
+    const monographBuilder = builder as RegistrationData;
+    const chapterTitle = `Chapter in Monograph ${uuid()}`;
+    cy.wrap(chapterTitle).as('chapterTitle');
+    const chapterBuilder = createPublicationUsingAPI(
+      chapterTitle,
+      CategoryTypes.ACADEMIC_CHAPTER,
+      USN_USER,
+      NviLevels.LEVEL_1
+    );
+    cy.wrap(chapterBuilder).as('chapterBuilder');
+    cy.get('@chapterBuilder').then((chapter: unknown) => {
+      const chapterBuilder = chapter as RegistrationData;
+      chapterBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${monographBuilder.identifier}`;
+      chapterBuilder.entityDescription.reference.publicationContext.type = 'Anthology';
+      chapterBuilder.update();
+    });
+  });
+});
+Then('the Chapter is not a NVI-candidate', () => {
+  cy.wait(30000); // Wait for NVI processing
+  cy.login(TestUsers.nvi.usn.curator);
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.openNVIWorklist();
+  cy.get('@chapterTitle').then((chapterTitle: unknown) => {
+    cy.searchFor(chapterTitle as string);
+    cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('not.exist');
+  });
+});
