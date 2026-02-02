@@ -7,7 +7,7 @@ import {
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
-import { createPublicationUsingAPI } from '../../../support/create_registration';
+import { createPublicationUsingAPI, NviLevels } from '../../../support/create_registration';
 // Feature: Registrator worklist
 
 const doiRequests = 'DoiRequests';
@@ -82,7 +82,7 @@ const filterMessages = (messageType: string) => {
 const initData = () => {
   cy.login(userBIBSYSMessages).then(() => {
     const doiTitle = `Registration with DOI request ${uuidv4()}`;
-    createPublicationUsingAPI(doiTitle, CategoryTypes.ACADEMIC_ARTICLE, USER_BIBSYS);
+    createPublicationUsingAPI(doiTitle, CategoryTypes.ACADEMIC_ARTICLE, USER_BIBSYS, NviLevels.LEVEL_1);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.searchFor(doiTitle);
     cy.contains(doiTitle).click();

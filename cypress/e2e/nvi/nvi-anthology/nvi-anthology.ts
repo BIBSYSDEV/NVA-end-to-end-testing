@@ -6,6 +6,7 @@ import { currentYear } from '../../../support/commands';
 import {
   createChapterInAnthologyUsingAPI,
   createPublicationUsingAPI,
+  NviLevels,
   RegistrationData,
 } from '../../../support/create_registration';
 
@@ -23,7 +24,7 @@ Given('publication with publicationInstance type AcademicChapter', () => {
     cy.wrap(anthologyTitle).as('anthologyTitle');
     const scientificChapterTitle = `NVI Chapter ${uuid()}`;
     cy.wrap(scientificChapterTitle).as('scientificChapterTitle');
-    createChapterInAnthologyUsingAPI(scientificChapterTitle, anthologyTitle, USN_USER);
+    createChapterInAnthologyUsingAPI(scientificChapterTitle, anthologyTitle, USN_USER, NviLevels.LEVEL_1);
     cy.get('@anthologyBuilder').then((builder: unknown) => {
       const anthologyBuilder = builder as RegistrationData;
       anthologyBuilder.entityDescription.reference.publicationContext.publisher.id = SINTEF_AKADEMSIK_FORLAG_URI;
@@ -91,7 +92,7 @@ Given('publication has publicationContext refering to Anthology which is NVI can
     const scientificChapterTitle = `NVI Chapter Scientific ${uuid()}`;
     cy.wrap(scientificChapterTitle).as('scientificChapterTitle');
 
-    createChapterInAnthologyUsingAPI(scientificChapterTitle, scientificAnthologyTitle, USN_USER);
+    createChapterInAnthologyUsingAPI(scientificChapterTitle, scientificAnthologyTitle, USN_USER, NviLevels.LEVEL_1);
     cy.get('@anthologyBuilder').then((builder: unknown) => {
       const anthologyBuilder = builder as RegistrationData;
       anthologyBuilder.entityDescription.reference.publicationContext.publisher.id = SPRINGER_NATURE_URI;
@@ -159,7 +160,12 @@ Given('publication with publicationInstance type Anthology', () => {
 Given('publication is NVI candidate', () => {
   cy.login(TestUsers.nvi.usn.change).then(() => {
     cy.get('@anthologyTitle').then((anthology: unknown) => {
-      const builder = createPublicationUsingAPI(anthology as string, CategoryTypes.BOOK_ANTHOLOGY, USN_USER);
+      const builder = createPublicationUsingAPI(
+        anthology as string,
+        CategoryTypes.BOOK_ANTHOLOGY,
+        USN_USER,
+        NviLevels.LEVEL_1
+      );
       cy.wrap(builder).then(() => {
         cy.wrap(builder.identifier).as('anthologyId');
       });
@@ -170,7 +176,7 @@ Given('publication is NVI candidate', () => {
 Given('publication has AcademicChapter refering to the Anthology', () => {
   cy.then(() => {
     const scientificChapterTitle = `Chapter for Anthology ${uuid()}`;
-    createPublicationUsingAPI(scientificChapterTitle, CategoryTypes.ACADEMIC_CHAPTER, USN_USER);
+    createPublicationUsingAPI(scientificChapterTitle, CategoryTypes.ACADEMIC_CHAPTER, USN_USER, NviLevels.LEVEL_1);
     cy.wrap(scientificChapterTitle).as('chapterTitle');
   });
 });
@@ -179,7 +185,7 @@ When('AcademicChapter is updated to refer to another Book', () => {
   // Create another book
   cy.then(() => {
     const anotherBookTitle = `Another Book ${uuid()}`;
-    createPublicationUsingAPI(anotherBookTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER_CHANGE);
+    createPublicationUsingAPI(anotherBookTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER_CHANGE, NviLevels.LEVEL_1);
     cy.searchFor(anotherBookTitle);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.contains(anotherBookTitle).click();

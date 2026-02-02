@@ -7,6 +7,7 @@ import { CategoryTypes, ContributorTypes, TestUsers } from '../../../support/con
 import {
   createPublicationUsingAPI,
   findContributorByName,
+  NviLevels,
   RegistrationData,
 } from '../../../support/create_registration';
 import { currentYear } from '../../../support/commands';
@@ -51,7 +52,7 @@ Given(
           cy.wrap(title).as('title');
 
           // cy.createPublishedRegistration(title, categoryText);
-          const builder = createPublicationUsingAPI(title, categoryText, USN_USER);
+          const builder = createPublicationUsingAPI(title, categoryText, USN_USER, NviLevels.LEVEL_1);
           cy.wrap(builder).as('builder');
           cy.get('@builder').then((builder: unknown) => {
             const registrationBuilder = builder as RegistrationData;
@@ -113,10 +114,7 @@ Given(
               contributorName = 'Withauthor TestUser';
             }
             if (contributorName !== '') {
-              const contributor = findContributorByName(
-                contributorName,
-                ContributorTypes.CREATOR
-              );
+              const contributor = findContributorByName(contributorName, ContributorTypes.CREATOR);
               cy.then(() => {
                 registrationBuilder.addContributor(contributor);
                 registrationBuilder.update();
@@ -182,7 +180,12 @@ Given('NVI level {string} series', (series: unknown) => {
       const chapterTitle = `NVI candidate AcademicChapter ${levelText} series ${seriesText} ${uuid()}`;
       cy.wrap(chapterTitle).as('title');
 
-      const builder = createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER);
+      const builder = createPublicationUsingAPI(
+        anthologyTitle,
+        CategoryTypes.BOOK_ANTHOLOGY,
+        USN_USER,
+        NviLevels.LEVEL_1
+      );
       cy.wrap(builder).as('builder');
       cy.get('@builder').then((builder: unknown) => {
         const registrationBuilder = builder as RegistrationData;
@@ -238,7 +241,7 @@ Given(
     cy.login(TestUsers.nvi.usn.institution).then(() => {
       const title = `Monograph level 1 publisher level 2 series ${uuid()}`;
       cy.wrap(title).as('title');
-      const builder = createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_MONOGRAPH, USN_USER);
+      const builder = createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_MONOGRAPH, USN_USER, NviLevels.LEVEL_1);
       cy.wrap(builder).as('builder');
       cy.get('@builder').then((builder: unknown) => {
         const registrationBuilder = builder as RegistrationData;

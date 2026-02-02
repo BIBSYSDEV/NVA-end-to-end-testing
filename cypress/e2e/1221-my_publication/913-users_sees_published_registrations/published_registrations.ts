@@ -5,14 +5,14 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { myRegistrationsButtons } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
-import { createPublicationUsingAPI } from '../../../support/create_registration';
+import { createPublicationUsingAPI, NviLevels } from '../../../support/create_registration';
 
 // Scenario: User sees published Registrations
 Given('Creator opens the page My Registrations', () => {
   cy.login(userUnitPublishedRegistration).then(() => {
     const title = `Published registration ${uuid()}`;
     cy.wrap(title).as('registrationTitle');
-    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[userUnitPublishedRegistration]);
+    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[userUnitPublishedRegistration], NviLevels.LEVEL_1);
     cy.getDataTestId(dataTestId.header.myPageLink).click();
     cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
   });

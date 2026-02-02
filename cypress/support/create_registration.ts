@@ -242,7 +242,11 @@ const parseName = (nameObject: any): string => {
   return name;
 };
 
-export const findContributorByName = (name: string, role: ContributorTypes, isUnverified?: boolean): ContributorType => {
+export const findContributorByName = (
+  name: string,
+  role: ContributorTypes,
+  isUnverified?: boolean
+): ContributorType => {
   let contributor: ContributorType = {
     identity: {
       type: RegistrationPartTypes.IDENTITY,
@@ -413,7 +417,7 @@ export const createPublicationUsingAPI = (
   title: string,
   category: CategoryTypes,
   creatorName: string,
-  nviLevel?: NviLevels,
+  nviLevel: NviLevels,
   seriesLevel?: NviLevels
 ) => {
   const builder = registrationBuilder().create();
@@ -437,7 +441,7 @@ export const createChapterInAnthologyUsingAPI = (
   chapterTitle: string,
   anthologyTitle: string,
   creatorName: string,
-  nviLevel?: NviLevels,
+  nviLevel: NviLevels,
   seriesLevel?: NviLevels
 ) => {
   const anthologyBuilder = createPublicationUsingAPI(
@@ -453,7 +457,13 @@ export const createChapterInAnthologyUsingAPI = (
     cy.wrap(anthology.identifier).as('anthologyIdentifier');
     cy.wrap(anthologyBuilder).as('anthologyBuilder');
     cy.get('@anthologyIdentifier').then((anthologyIdentifier: unknown) => {
-      const chapterBuilder = createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, creatorName, nviLevel, seriesLevel );
+      const chapterBuilder = createPublicationUsingAPI(
+        chapterTitle,
+        CategoryTypes.ACADEMIC_CHAPTER,
+        creatorName,
+        nviLevel,
+        seriesLevel
+      );
       cy.wrap(chapterBuilder).as('chapterBuilder');
       cy.get('@chapterBuilder').then((builder: unknown) => {
         const chapterBuilder = builder as RegistrationData;

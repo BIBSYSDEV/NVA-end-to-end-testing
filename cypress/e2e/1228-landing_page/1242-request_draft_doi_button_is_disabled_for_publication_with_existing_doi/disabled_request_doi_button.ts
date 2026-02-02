@@ -5,7 +5,7 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageButtons } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
-import { createDraftPublicationUsingAPI, createPublicationUsingAPI } from '../../../support/create_registration';
+import { createDraftPublicationUsingAPI, createPublicationUsingAPI, NviLevels } from '../../../support/create_registration';
 
 const registrationTitles = {
   'Draft': `Draft registration with DOI ${uuid()}`,
@@ -17,7 +17,8 @@ const initData = () => {
     createPublicationUsingAPI(
       registrationTitles['Published'],
       CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userUnitDraftDoi]
+      userName[userUnitDraftDoi],
+      NviLevels.LEVEL_1
     );
     createDraftPublicationUsingAPI(
       registrationTitles['Draft'],

@@ -60,7 +60,6 @@ const addUnidentifiedContributor = (unidentifiedContributorName: string, builder
     type: RegistrationPartTypes.CONTRIBUTOR,
   });
   builder.update();
-
 };
 
 const addContributor = (contributor: string, builder: RegistrationData) => {
@@ -99,7 +98,7 @@ BeforeAll(() => {
         titles[titleRoot][collaboration] = title;
         const category =
           titleRoot === titleNonScientificToScientific ? CategoryTypes.JOURNAL_REVIEW : CategoryTypes.ACADEMIC_ARTICLE;
-        const builder = createPublicationUsingAPI(title, category, USN_USER);
+        const builder = createPublicationUsingAPI(title, category, USN_USER, NviLevels.LEVEL_1);
         cy.wrap(builder).as('builder');
         cy.get('@builder').then((builder: unknown) => {
           const registrationBuilder = builder as RegistrationData;
@@ -277,7 +276,12 @@ const chapterTitle = `NVI change chapter ${uuid()}`;
 Given('an anthology with a level 1 publisher', () => {
   cy.login(userUSNNviCuratorInstitution).then(() => {
     // lag antologi med nivå 1 publisher
-    const anthologyBuilder = createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER);
+    const anthologyBuilder = createPublicationUsingAPI(
+      anthologyTitle,
+      CategoryTypes.BOOK_ANTHOLOGY,
+      USN_USER,
+      NviLevels.LEVEL_1
+    );
     cy.wrap(anthologyBuilder).as('anthologyBuilder');
     cy.get('@anthologyBuilder').then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
@@ -285,7 +289,12 @@ Given('an anthology with a level 1 publisher', () => {
       cy.wrap(anthologyIdentifier).as('anthologyId');
     });
     // lag vitenskapelig kapittel
-    const chapterBuilder = createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, USN_USER);
+    const chapterBuilder = createPublicationUsingAPI(
+      chapterTitle,
+      CategoryTypes.ACADEMIC_CHAPTER,
+      USN_USER,
+      NviLevels.LEVEL_1
+    );
     cy.wrap(chapterBuilder).as('chapterBuilder');
     cy.get('@chapterBuilder').then((builder: unknown) => {
       const chapterBuilder = builder as RegistrationData;
@@ -294,7 +303,6 @@ Given('an anthology with a level 1 publisher', () => {
         const anthology = anthologyId as string;
         chapterBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
         chapterBuilder.update();
-
 
         // sjekk NVI-poeng
         cy.getDataTestId(dataTestId.header.tasksLink).click();

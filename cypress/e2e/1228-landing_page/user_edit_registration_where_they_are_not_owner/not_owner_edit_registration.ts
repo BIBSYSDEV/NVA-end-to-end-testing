@@ -13,6 +13,7 @@ import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import {
   createPublicationUsingAPI,
   findContributorByName,
+  NviLevels,
   RegistrationData,
 } from '../../../support/create_registration';
 
@@ -26,7 +27,8 @@ Given('User is logged in as Curator', () => {
     const builder = createPublicationUsingAPI(
       registrationTitle,
       CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userUnitWithAuthor]
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
     );
     cy.wrap(builder).as('registrationBuilder');
     cy.get('@registrationBuilder').then((builder: unknown) => {
