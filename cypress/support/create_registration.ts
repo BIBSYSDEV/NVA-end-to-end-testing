@@ -379,19 +379,87 @@ const createReference = (category: CategoryTypes, nviLevel?: NviLevels, seriesLe
   }
 };
 
-const uploadFileToRegistration = (registrationId: string, fileName: string): void => {
+const uploadFileToRegistration = (registrationId: string, fileName: string): FileType => {
   const accessToken = Cypress.env('accessToken');
-  cy.request({
-    method: 'POST',
-    url: `${publicationApiUrl}/${registrationId}/files`,
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'multipart/form-data',
-      'Accept': 'application/json',
-    },
-    body: {},
-    failOnStatusCode: true,
-  }).then((response) => {});
+  cy.fixture(`{fileName}`).then((fileContent) => {
+    const fileSize = fileContent.length;
+    const lastModified = new Date().toISOString();
+    const mimeType = 'application/pdf';
+    cy.request({
+      method: 'POST',
+      url: `${publicationApiUrl}/${registrationId}/upload/create`,
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json',
+      },
+      body: {
+        filename: fileName,
+        size: fileSize,
+        lastModified: lastModified,
+        mimeType: mimeType,
+      },
+      failOnStatusCode: true,
+    }).then((response) => {
+      const uploadID = response.body.uploadId;
+      const key = response.body.key;
+      cy.request({
+        method: 'POST',
+        url: `${publicationApiUrl}/${response.body.registrationId}/upload/${uploadID}/prepare`,
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: {
+          number: 1,
+          uploadId: uploadID,
+          body: fileContent,
+          key: key,
+        },
+        failOnStatusCode: true,
+      }).then((uploadResponse) => {
+        const presignedUrl = uploadResponse.body.url;
+        cy.request({
+          method: 'PUT',
+          url: presignedUrl,
+          headers: {
+            'Accept': 'application/pdf',
+          },
+          body: {
+            data: fileContent,
+          },
+          failOnStatusCode: true,
+        }).then((presignedResponse) => {
+          const eTag = presignedResponse.headers.ETag;
+          cy.request({
+            method: 'POST',
+            url: `${publicationApiUrl}/${response.body.registrationId}/upload/${uploadID}/complete`,
+            headers: {
+              'Authorization': `Bearer ${accessToken}`,
+            },
+            body: {
+              uploadId: uploadID,
+              key: key,
+              parts: [
+                {
+                  eTag: eTag,
+                  partNumber: 1,
+                },
+              ],
+            },
+            failOnStatusCode: true,
+          }).then((completeResponse) => {
+            return {
+              allowedOperations: ['delete', 'set-primary', 'update-metadata'],
+              embargoDate: null,
+              identifier: response.body.identifier,
+              license: completeResponse.body.license,
+            };
+          });
+        });
+      });
+    });
+  });
+  return null;
 };
 
 export const createDraftPublicationUsingAPI = (
@@ -578,4 +646,24 @@ export type EntityDescriptionType = {
   npiSubjectHeading: string;
   tags: string[];
   reference: ReferenceType;
+};
+
+export type FileType = {
+  allowedOperations: ['delete', 'download', 'write-metadata'];
+  embargoDate?: null;
+  identifier: string;
+  license: string;
+  mimeType: string;
+  name: string;
+  size: number;
+  type: 'UploadedFile';
+  uploadDetails: {
+    type: 'UserUploadDetails';
+    uploadedBy: string;
+    uploadedDate: string;
+  };
+  rightsRetentionStrategy: {
+    type: 'NullRightsRetentionStrategy';
+    configuredType: 'NullRightsRetentionStrategy';
+  };
 };

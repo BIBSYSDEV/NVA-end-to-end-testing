@@ -5,15 +5,16 @@ import { v4 as uuid } from 'uuid';
 
 Given('I create a new registration', () => {
     cy.login(TestUsers.creators.basic).then(() => {
-        const builder = registrationBuilder(Cypress.env('accessToken'))
+        const builder = registrationBuilder()
             .create();
-        const contributor = findContributorByName(Cypress.env('accessToken'), "withauthor", ContributorTypes.CREATOR);
+        const contributor = findContributorByName("withauthor", ContributorTypes.CREATOR);
         cy.then(() => {
             const category: CategoryTypes = CategoryTypes.BOOK_ANTHOLOGY;
             const entity = createEntityDescription(`Test ${category} ${uuid()}`, category, '1003');
             const newBuilder = builder.addEntityDescription(entity)
                 .addContributor(contributor);
             newBuilder.update();
+            const fileUpload = 
             cy.then(() => {
                 builder.publish();
                 cy.then(() => {
