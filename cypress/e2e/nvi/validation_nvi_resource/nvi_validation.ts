@@ -91,55 +91,41 @@ BeforeAll(() => {
       const NVItitle = `${key} ${uuid()}`;
       titles[key] = NVItitle;
 
-      const builder = registrationBuilder().create();
-      const contributorNVIA = findContributorByName(
-        curatorInstitutionA,
-        ContributorTypes.CREATOR
-      );
-      cy.then(() => {
-        const contributorNVIB = findContributorByName(
-          curatorInstitutionB,
-          ContributorTypes.CREATOR
-        );
-        cy.then(() => {
-          const category: CategoryTypes = CategoryTypes.ACADEMIC_ARTICLE;
-          const entity = createEntityDescription(NVItitle, category, '1003');
-          const newBuilder = builder
-            .addEntityDescription(entity)
-            .addContributor(contributorNVIB)
-            .addContributor(contributorNVIA);
-          if (key.endsWith('Dispute')) {
-            const contributorNVIC = findContributorByName(
-              curatorInstitutionB,
-              ContributorTypes.CREATOR
-            );
-            cy.then(() => {
-              newBuilder.addContributor(contributorNVIC);
-            });
-          }
-          newBuilder.update();
-          cy.then(() => {
-            builder.publish();
-            cy.then(() => {
-              // cy.wait(3000); // Wait for 3 seconds to ensure the registration is processed
+      const builder = registrationBuilder()
+        .create()
+        .then((builder) => {
+          findContributorByName(curatorInstitutionA, ContributorTypes.CREATOR).then((contributorNVIA) => {
+            findContributorByName(curatorInstitutionB, ContributorTypes.CREATOR).then((contributorNVIB) => {
+              const category: CategoryTypes = CategoryTypes.ACADEMIC_ARTICLE;
+              const entity = createEntityDescription(NVItitle, category, '1003');
+              builder.addEntityDescription(entity).addContributor(contributorNVIB).addContributor(contributorNVIA);
+              if (key.endsWith('Dispute')) {
+                findContributorByName(curatorInstitutionB, ContributorTypes.CREATOR).then((contributorNVIC) => {
+                  builder.addContributor(contributorNVIC);
+                });
+              }
+              builder.update().then(() => {
+                builder.publish().then(() => {
+                  // cy.wait(3000); // Wait for 3 seconds to ensure the registration is processed
+                });
+              });
             });
           });
-        });
-      });
 
-      if (!key.startsWith('Candidate')) {
-        cy.getDataTestId(dataTestId.header.tasksLink).click();
-        cy.wait(1000);
-        cy.openNVIWorklist();
-        // cy.wait(3000);
-        if (key.startsWith('Approved') || key === 'Dispute Approved Rejected') {
-          approveCandidate(NVItitle);
-        } else if (key.startsWith('Being checked')) {
-          checkingCandidate(NVItitle, curatorInstitutionA);
-        } else if (key.startsWith('Rejected') || key === 'Dispute Rejected Approved') {
-          rejectCandidate(NVItitle);
-        }
-      }
+          if (!key.startsWith('Candidate')) {
+            cy.getDataTestId(dataTestId.header.tasksLink).click();
+            cy.wait(1000);
+            cy.openNVIWorklist();
+            // cy.wait(3000);
+            if (key.startsWith('Approved') || key === 'Dispute Approved Rejected') {
+              approveCandidate(NVItitle);
+            } else if (key.startsWith('Being checked')) {
+              checkingCandidate(NVItitle, curatorInstitutionA);
+            } else if (key.startsWith('Rejected') || key === 'Dispute Rejected Approved') {
+              rejectCandidate(NVItitle);
+            }
+          }
+        });
     });
   });
 
@@ -300,14 +286,7 @@ Then('the User see a table displaying status for the current open NVI-periode by
   });
 });
 Then('the columns show NVI resource statuses', () => {
-  const statuses = [
-    'Candidate',
-    'Being checked',
-    'Approved',
-    'Rejected',
-    'Total number',
-    'Publication points',
-  ];
+  const statuses = ['Candidate', 'Being checked', 'Approved', 'Rejected', 'Total number', 'Publication points'];
   statuses.forEach((status) => {
     cy.get('th').should('contain', status);
   });

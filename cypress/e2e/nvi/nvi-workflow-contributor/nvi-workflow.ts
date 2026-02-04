@@ -38,24 +38,21 @@ const categories = {
 };
 
 const createAnthology = (title: string) => {
-  const builder = registrationBuilder().create();
   let identifier = '';
-  cy.then(() => {
-    identifier = builder.identifier;
-    cy.wrap(identifier).as('anthologyId');
-    const contributorNVIA = findContributorByName(USER_CREATOR, ContributorTypes.CREATOR);
-    cy.then(() => {
-      const entity = createEntityDescription(title, CategoryTypes.BOOK_ANTHOLOGY, '1003', NviLevels.LEVEL_1);
-      builder.addEntityDescription(entity);
-      builder.addContributor(contributorNVIA);
-      builder.update();
-      cy.then(() => {
-        builder.publish();
-        cy.then(() => {
+  registrationBuilder()
+    .create()
+    .then((builder) => {
+      identifier = builder.identifier;
+      cy.wrap(identifier).as('anthologyId');
+      findContributorByName(USER_CREATOR, ContributorTypes.CREATOR).then((contributorNVIA) => {
+        const entity = createEntityDescription(title, CategoryTypes.BOOK_ANTHOLOGY, '1003', NviLevels.LEVEL_1);
+        builder.addEntityDescription(entity);
+        builder.addContributor(contributorNVIA);
+        builder.update().then(() => {
+          builder.publish().then(() => {});
         });
       });
     });
-  });
 };
 
 BeforeAll(() => {});
@@ -73,58 +70,48 @@ Given(
     const title = `Registrator ${typeOfRegistration} ${categoryInput} ${publicationStatus} ${isCollaboration} ${uuid()}`;
     const category = categories[categoryInput];
     cy.login(userUSNNviInstitution).then(() => {
-      const builder = registrationBuilder().create();
-      cy.then(() => {
-        const entity = createEntityDescription(title, category, '1003', NviLevels.LEVEL_1);
-        if (category === 'AcademicChapter') {
-          const anthologyTitle = `Anthology for Article ${uuid()}`;
-          createAnthology(anthologyTitle);
-        } else {
-          cy.wrap(null).as('anthologyId');
-        }
-        cy.get('@anthologyId').then((anthologyId) => {
-          if(anthologyId) {
-            entity.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
+      registrationBuilder()
+        .create()
+        .then((builder) => {
+          const entity = createEntityDescription(title, category, '1003', NviLevels.LEVEL_1);
+          if (category === 'AcademicChapter') {
+            const anthologyTitle = `Anthology for Article ${uuid()}`;
+            createAnthology(anthologyTitle);
+          } else {
+            cy.wrap(null).as('anthologyId');
           }
-        });
-        builder.addEntityDescription(entity);
-      });
-
-      const contributorNVIA = findContributorByName(USER_CREATOR, ContributorTypes.CREATOR);
-      cy.then(() => {
-        builder.addContributor(contributorNVIA);
-        if (isCollaboration !== NO_ONE) {
-          let contributor = '';
-          if (isCollaboration === NVI_INSTITUTION) {
-            contributor = NVI_USER;
-          } else if (isCollaboration === NVA_INSTITUTION) {
-            contributor = NVA_USER;
-          } else if (isCollaboration === EXTERNAL_INSTITUTION) {
-            contributor = EXTERNAL_USER;
-          }
-          const contributorUser = findContributorByName(
-            contributor,
-            ContributorTypes.CREATOR
-          );
-          cy.then(() => {
-            if (isCollaboration == EXTERNAL_INSTITUTION) {
-              contributorUser.identity.verificationStatus = 'NotVerified';
+          cy.get('@anthologyId').then((anthologyId) => {
+            if (anthologyId) {
+              entity.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
             }
-            builder.addContributor(contributorUser);
           });
-        }
-        cy.then(() => {
-          cy.then(() => {
-            builder.update();
-            cy.then(() => {
+          builder.addEntityDescription(entity);
+
+          findContributorByName(USER_CREATOR, ContributorTypes.CREATOR).then((contributorNVIA) => {
+            builder.addContributor(contributorNVIA);
+            if (isCollaboration !== NO_ONE) {
+              let contributor = '';
+              if (isCollaboration === NVI_INSTITUTION) {
+                contributor = NVI_USER;
+              } else if (isCollaboration === NVA_INSTITUTION) {
+                contributor = NVA_USER;
+              } else if (isCollaboration === EXTERNAL_INSTITUTION) {
+                contributor = EXTERNAL_USER;
+              }
+              findContributorByName(contributor, ContributorTypes.CREATOR).then((contributorUser) => {
+                if (isCollaboration == EXTERNAL_INSTITUTION) {
+                  contributorUser.identity.verificationStatus = 'NotVerified';
+                }
+                builder.addContributor(contributorUser);
+              });
+            }
+            builder.update().then(() => {
               if (publicationStatus === PUBLISHED) {
-                builder.publish();
-                cy.then(() => {});
+                builder.publish().then(() => {});
               }
             });
           });
         });
-      });
     });
   }
 );

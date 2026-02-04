@@ -52,7 +52,7 @@ When('the user registrers a publication that is an NVI-candidate with category {
         categories[category as string],
         userName[TestUsers.nvi.usn.institution],
         NviLevels.LEVEL_1
-      );
+      ).then();
       break;
     case CategoryTypes.ACADEMIC_CHAPTER:
       const anthologyTitle = `Anthology for NVI Candidate Anthology ${uuid()}`;
@@ -150,17 +150,14 @@ When('the user adds a contributor from a foreign institution affiliation', () =>
 When('the user registrers a monograph without ISBN or ISSN', () => {
   const title = `Non NVI monograph without ISBN/ISSN ${uuid()}`;
   cy.wrap(title).as('registrationTitle');
-  const monographBuilder = createPublicationUsingAPI(
+  createPublicationUsingAPI(
     title,
     CategoryTypes.ACADEMIC_MONOGRAPH,
     userName[TestUsers.nvi.usn.institution],
     NviLevels.LEVEL_1
-  );
-  cy.wrap(monographBuilder).as('registrationBuilder');
-  cy.get('@registrationBuilder').then((builder: unknown) => {
-    const registration = builder as RegistrationData;
+  ).then((registration) => {
     registration.entityDescription.reference.publicationContext.isbnList = [];
-    registration.update();
+    registration.update().then();
   });
 });
 
@@ -188,7 +185,7 @@ When('the user registrers an academic chapter without ISBN or ISSN', () => {
   cy.get('@anthologyBuilder').then((builder: unknown) => {
     const anthology = builder as RegistrationData;
     anthology.entityDescription.reference.publicationContext.isbnList = [];
-    anthology.update();
+    anthology.update().then();
   });
 });
 // Then ('the publication is not listed as an NVI-candidate for the institution the user is affiliated with', () => {});
@@ -198,17 +195,14 @@ When('the user registrers a monograph with only editor as contributor', () => {
   const title = `Non NVI monograph with only editor ${uuid()}`;
   cy.wrap(title).as('registrationTitle');
 
-  const monographBuilder = createPublicationUsingAPI(
+  createPublicationUsingAPI(
     title,
     CategoryTypes.ACADEMIC_MONOGRAPH,
     userName[TestUsers.nvi.usn.institution],
     NviLevels.LEVEL_1
-  );
-  cy.wrap(monographBuilder).as('registrationBuilder');
-  cy.get('@registrationBuilder').then((builder: unknown) => {
-    const registration = builder as RegistrationData;
-    registration.entityDescription.contributors[0].role.type = ContributorTypes.EDITOR;
-    registration.update();
+  ).then((builder) => {
+    builder.entityDescription.contributors[0].role.type = ContributorTypes.EDITOR;
+    builder.update().then();
   });
 });
 // Then ('the publication is not listed as an NVI-candidate for the institution the user is affiliated with', () => {});

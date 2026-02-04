@@ -43,7 +43,7 @@ Given('the publication has at least one Author affiliated with an NVI institutio
             type as CategoryTypes,
             userName[userUSNChangeNviCuratorInstitution],
             NviLevels.LEVEL_1
-          );
+          ).then();
           break;
         case CategoryTypes.ACADEMIC_MONOGRAPH:
         case CategoryTypes.ACADEMIC_COMMENTARY:
@@ -54,13 +54,13 @@ Given('the publication has at least one Author affiliated with an NVI institutio
                 userName[userUSNChangeNviCuratorInstitution],
                 NviLevels.LEVEL_1,
                 NviLevels.LEVEL_1
-              )
+              ).then()
             : createPublicationUsingAPI(
                 title,
                 type as CategoryTypes,
                 userName[userUSNChangeNviCuratorInstitution],
                 NviLevels.LEVEL_1
-              );
+              ).then();
           break;
         case CategoryTypes.ACADEMIC_CHAPTER:
           const anthologyTitle = `Anthology NVI ${channel as string} ${uuid()}`;

@@ -44,7 +44,11 @@ Cypress.Commands.add('login', (userId: string) => {
   });
 });
 
-// });
+Cypress.Commands.add('getNvaUserName', () => {
+  const token = Cypress.env('accessToken');
+  const payload = JSON.parse(atob((token).split('.')[1]));
+  return payload['custom:nvaUsername'];
+})
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
   cy.getDataTestId(dataTestId.header.newRegistrationLink).click({

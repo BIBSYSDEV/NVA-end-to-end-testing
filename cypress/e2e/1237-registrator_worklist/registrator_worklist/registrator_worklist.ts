@@ -82,7 +82,7 @@ const filterMessages = (messageType: string) => {
 const initData = () => {
   cy.login(userBIBSYSMessages).then(() => {
     const doiTitle = `Registration with DOI request ${uuidv4()}`;
-    createPublicationUsingAPI(doiTitle, CategoryTypes.ACADEMIC_ARTICLE, USER_BIBSYS, NviLevels.LEVEL_1);
+    createPublicationUsingAPI(doiTitle, CategoryTypes.ACADEMIC_ARTICLE, USER_BIBSYS, NviLevels.LEVEL_1).then();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.searchFor(doiTitle);
     cy.contains(doiTitle).click();

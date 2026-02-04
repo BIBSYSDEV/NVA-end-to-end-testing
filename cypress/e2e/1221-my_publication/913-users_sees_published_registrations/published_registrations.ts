@@ -12,9 +12,15 @@ Given('Creator opens the page My Registrations', () => {
   cy.login(userUnitPublishedRegistration).then(() => {
     const title = `Published registration ${uuid()}`;
     cy.wrap(title).as('registrationTitle');
-    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[userUnitPublishedRegistration], NviLevels.LEVEL_1);
-    cy.getDataTestId(dataTestId.header.myPageLink).click();
-    cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
+    createPublicationUsingAPI(
+      title,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitPublishedRegistration],
+      NviLevels.LEVEL_1
+    ).then(() => {
+      cy.getDataTestId(dataTestId.header.myPageLink).click();
+      cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
+    });
   });
 });
 When('they click Published Registrations in the navigation bar', () => {

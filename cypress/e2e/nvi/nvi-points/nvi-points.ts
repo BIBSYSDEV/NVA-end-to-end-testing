@@ -32,7 +32,12 @@ const USN_USER = 'User NVI-institution A TestUser';
 
 BeforeAll(() => {
   cy.login(TestUsers.nvi.usn.institution).then(() => {
-    createPublicationUsingAPI('Publication for warmup', CategoryTypes.ACADEMIC_ARTICLE, USN_USER, NviLevels.LEVEL_1);
+    createPublicationUsingAPI(
+      'Publication for warmup',
+      CategoryTypes.ACADEMIC_ARTICLE,
+      USN_USER,
+      NviLevels.LEVEL_1
+    ).then();
     cy.wait(5000);
   });
 });
@@ -59,24 +64,20 @@ Given(
           cy.wrap(title).as('title');
 
           // cy.createPublishedRegistration(title, categoryText);
-          const builder = createPublicationUsingAPI(title, categoryText, USN_USER, NviLevels.LEVEL_1);
-          cy.wrap(builder).as('builder');
-          cy.get('@builder').then((builder: unknown) => {
-            const registrationBuilder = builder as RegistrationData;
+          createPublicationUsingAPI(title, categoryText, USN_USER, NviLevels.LEVEL_1).then((builder) => {
             if (levelText === 'Level 1') {
               switch (categoryText) {
                 case CategoryTypes.ACADEMIC_REVIEW_ARTICLE:
                 case CategoryTypes.ACADEMIC_ARTICLE:
-                  registrationBuilder.entityDescription.reference.publicationContext.id = channelIds['article level 1'];
-                  registrationBuilder.update();
+                  builder.entityDescription.reference.publicationContext.id = channelIds['article level 1'];
+                  builder.update().then();
                   cy.then(() => {
                     // cy.wait(3000);
                   });
                   break;
                 case CategoryTypes.ACADEMIC_MONOGRAPH:
-                  registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
-                    channelIds['monograph level 1'];
-                  registrationBuilder.update();
+                  builder.entityDescription.reference.publicationContext.publisher.id = channelIds['monograph level 1'];
+                  builder.update().then();
                   cy.then(() => {
                     // cy.wait(3000);
                   });
@@ -90,16 +91,15 @@ Given(
               switch (categoryText) {
                 case CategoryTypes.ACADEMIC_REVIEW_ARTICLE:
                 case CategoryTypes.ACADEMIC_ARTICLE:
-                  registrationBuilder.entityDescription.reference.publicationContext.id = channelIds['article level 2'];
-                  registrationBuilder.update();
+                  builder.entityDescription.reference.publicationContext.id = channelIds['article level 2'];
+                  builder.update().then();
                   cy.then(() => {
                     // cy.wait(3000);
                   });
                   break;
                 case CategoryTypes.ACADEMIC_MONOGRAPH:
-                  registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
-                    channelIds['monograph level 2'];
-                  registrationBuilder.update();
+                  builder.entityDescription.reference.publicationContext.publisher.id = channelIds['monograph level 2'];
+                  builder.update().then();
                   cy.then(() => {
                     // cy.wait(3000);
                   });
@@ -110,7 +110,7 @@ Given(
                   throw new Error(`Unknown category: ${categoryText}`);
               }
             }
-            cy.wrap(registrationBuilder).as('builder');
+            cy.wrap(builder).as('builder');
           });
           cy.get('@builder').then((builder: unknown) => {
             const registrationBuilder = builder as RegistrationData;
@@ -121,16 +121,15 @@ Given(
               contributorName = 'Withauthor TestUser';
             }
             if (contributorName !== '') {
-              const contributor = findContributorByName(contributorName, ContributorTypes.CREATOR);
-              cy.then(() => {
+              findContributorByName(contributorName, ContributorTypes.CREATOR).then((contributor) => {
                 registrationBuilder.addContributor(contributor);
-                registrationBuilder.update();
+                registrationBuilder.update().then(() => {});
               });
             }
             if (categoryText === CategoryTypes.ACADEMIC_CHAPTER) {
               cy.get('@anthologyId').then((anthologyId) => {
                 registrationBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
-                registrationBuilder.update();
+                registrationBuilder.update().then();
               });
             }
           });
@@ -187,39 +186,34 @@ Given('NVI level {string} series', (series: unknown) => {
       const chapterTitle = `NVI candidate AcademicChapter ${levelText} series ${seriesText} ${uuid()}`;
       cy.wrap(chapterTitle).as('title');
 
-      const builder = createPublicationUsingAPI(
-        anthologyTitle,
-        CategoryTypes.BOOK_ANTHOLOGY,
-        USN_USER,
-        NviLevels.LEVEL_1
+      createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER, NviLevels.LEVEL_1).then(
+        (builder) => {
+          const registrationBuilder = builder as RegistrationData;
+          const anthologyIdentifier = registrationBuilder.identifier;
+          cy.wrap(anthologyIdentifier).as('anthologyId');
+
+          if (seriesText === 'Level 1') {
+            registrationBuilder.entityDescription.reference.publicationContext.series.id = channelIds['series level 1'];
+            registrationBuilder.entityDescription.reference.publicationContext.series.type = 'Series';
+          } else if (seriesText === 'Level 2') {
+            registrationBuilder.entityDescription.reference.publicationContext.series.id = channelIds['series level 2'];
+            registrationBuilder.entityDescription.reference.publicationContext.series.type = 'Series';
+          }
+
+          if (levelText === 'Level 1') {
+            registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
+              channelIds['monograph level 1'];
+          } else {
+            registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
+              channelIds['monograph level 2'];
+          }
+          registrationBuilder.update().then();
+          console.log(registrationBuilder.entityDescription.reference);
+          cy.then(() => {
+            registrationBuilder.publish();
+          });
+        }
       );
-      cy.wrap(builder).as('builder');
-      cy.get('@builder').then((builder: unknown) => {
-        const registrationBuilder = builder as RegistrationData;
-        const anthologyIdentifier = registrationBuilder.identifier;
-        cy.wrap(anthologyIdentifier).as('anthologyId');
-
-        if (seriesText === 'Level 1') {
-          registrationBuilder.entityDescription.reference.publicationContext.series.id = channelIds['series level 1'];
-          registrationBuilder.entityDescription.reference.publicationContext.series.type = 'Series';
-        } else if (seriesText === 'Level 2') {
-          registrationBuilder.entityDescription.reference.publicationContext.series.id = channelIds['series level 2'];
-          registrationBuilder.entityDescription.reference.publicationContext.series.type = 'Series';
-        }
-
-        if (levelText === 'Level 1') {
-          registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
-            channelIds['monograph level 1'];
-        } else {
-          registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
-            channelIds['monograph level 2'];
-        }
-        registrationBuilder.update();
-        console.log(registrationBuilder.entityDescription.reference);
-        cy.then(() => {
-          registrationBuilder.publish();
-        });
-      });
     });
   });
 });
@@ -248,16 +242,14 @@ Given(
     cy.login(TestUsers.nvi.usn.institution).then(() => {
       const title = `Monograph level 1 publisher level 2 series ${uuid()}`;
       cy.wrap(title).as('title');
-      const builder = createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_MONOGRAPH, USN_USER, NviLevels.LEVEL_1);
-      cy.wrap(builder).as('builder');
-      cy.get('@builder').then((builder: unknown) => {
-        const registrationBuilder = builder as RegistrationData;
-        registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
-          channelIds['monograph level 1'];
-        registrationBuilder.entityDescription.reference.publicationContext.series.id = channelIds['series level 2'];
-        registrationBuilder.entityDescription.reference.publicationContext.series.type = 'Series';
-        registrationBuilder.update();
-      });
+      createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_MONOGRAPH, USN_USER, NviLevels.LEVEL_1).then(
+        (builder) => {
+          builder.entityDescription.reference.publicationContext.publisher.id = channelIds['monograph level 1'];
+          builder.entityDescription.reference.publicationContext.series.id = channelIds['series level 2'];
+          builder.entityDescription.reference.publicationContext.series.type = 'Series';
+          builder.update().then();
+        }
+      );
     });
   }
 );

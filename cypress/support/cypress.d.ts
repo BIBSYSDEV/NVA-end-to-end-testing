@@ -10,6 +10,7 @@ declare global {
        * @example cy.login('test-user-with-author@test.no')
        */
       login(userId: string): Chainable<string>;
+      getNvaUserName(): String;
       /**
        * Get element by data-testid
        *

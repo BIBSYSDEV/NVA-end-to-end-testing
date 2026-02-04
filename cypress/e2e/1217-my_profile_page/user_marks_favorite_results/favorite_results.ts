@@ -33,19 +33,19 @@ const createPublications = (user) => {
       CategoryTypes.ACADEMIC_ARTICLE,
       userFavorite1Name,
       NviLevels.LEVEL_1
-    );
+    ).then();
     createPublicationUsingAPI(
       `${publicationTitleRoot} 2 ${uuid()}`,
       CategoryTypes.ACADEMIC_ARTICLE,
       userFavorite1Name,
       NviLevels.LEVEL_1
-    );
+    ).then();
     createPublicationUsingAPI(
       `${publicationTitleRoot} 3 ${uuid()}`,
       CategoryTypes.ACADEMIC_ARTICLE,
       userFavorite1Name,
       NviLevels.LEVEL_1
-    );
+    ).then();
   });
   cy.login(userUnitFavorite2).then(() => {
     createPublicationUsingAPI(
@@ -53,19 +53,19 @@ const createPublications = (user) => {
       CategoryTypes.ACADEMIC_ARTICLE,
       userFavorite2Name,
       NviLevels.LEVEL_1
-    );
+    ).then();
     createPublicationUsingAPI(
       `${publicationTitleRoot} 5 ${uuid()}`,
       CategoryTypes.ACADEMIC_ARTICLE,
       userFavorite2Name,
       NviLevels.LEVEL_1
-    );
+    ).then();
     createPublicationUsingAPI(
       `${publicationTitleRoot} 6 ${uuid()}`,
       CategoryTypes.ACADEMIC_ARTICLE,
       userFavorite2Name,
       NviLevels.LEVEL_1
-    );
+    ).then();
   });
   cy.login(userUnitFavorite3).then(() => {
     createPublicationUsingAPI(
@@ -73,19 +73,19 @@ const createPublications = (user) => {
       CategoryTypes.ACADEMIC_ARTICLE,
       userFavorite3Name,
       NviLevels.LEVEL_1
-    );
+    ).then();
     createPublicationUsingAPI(
       `${publicationTitleRoot} 8 ${uuid()}`,
       CategoryTypes.ACADEMIC_ARTICLE,
       userFavorite3Name,
       NviLevels.LEVEL_1
-    );
+    ).then();
     createPublicationUsingAPI(
       `${publicationTitleRoot} 9 ${uuid()}`,
       CategoryTypes.ACADEMIC_ARTICLE,
       userFavorite3Name,
       NviLevels.LEVEL_1
-    );
+    ).then();
   });
 };
 

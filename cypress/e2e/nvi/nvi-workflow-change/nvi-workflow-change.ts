@@ -59,16 +59,17 @@ const addUnidentifiedContributor = (unidentifiedContributorName: string, builder
     sequence: squenceNumber,
     type: RegistrationPartTypes.CONTRIBUTOR,
   });
-  builder.update();
+  builder.update().then(() => {});
 };
 
 const addContributor = (contributor: string, builder: RegistrationData) => {
   if (contributor === externalContributor) {
     addUnidentifiedContributor(contributor, builder);
   } else {
-    const contributorData = findContributorByName(contributor, ContributorTypes.CREATOR);
-    builder.addContributor(contributorData);
-    builder.update();
+    findContributorByName(contributor, ContributorTypes.CREATOR).then((contributorData) => {
+      builder.addContributor(contributorData);
+      builder.update().then(() => {});
+    });
   }
 };
 
@@ -98,15 +99,12 @@ BeforeAll(() => {
         titles[titleRoot][collaboration] = title;
         const category =
           titleRoot === titleNonScientificToScientific ? CategoryTypes.JOURNAL_REVIEW : CategoryTypes.ACADEMIC_ARTICLE;
-        const builder = createPublicationUsingAPI(title, category, USN_USER, NviLevels.LEVEL_1);
-        cy.wrap(builder).as('builder');
-        cy.get('@builder').then((builder: unknown) => {
-          const registrationBuilder = builder as RegistrationData;
+        createPublicationUsingAPI(title, category, USN_USER, NviLevels.LEVEL_1).then((builder) => {
           if (titleRoot === titleUnidentifiedToIdentifiedContributor) {
-            changeToUnidentifiedUser(unidentifiedContributor, registrationBuilder);
+            changeToUnidentifiedUser(unidentifiedContributor, builder);
           }
           if (collaboration !== noCollaboration) {
-            addContributor(contributors[collaboration], registrationBuilder);
+            addContributor(contributors[collaboration], builder);
           }
         });
       });
@@ -230,7 +228,12 @@ const createNVICandidateTitle = `NVI Change candidate ${uuid()}`;
 // Scenario: Publication channel changes and NVI points changes
 Given('an NVI-candidate with a level 1 publication channel', () => {
   cy.login(userUSNNviInstitution).then(() => {
-    createPublicationUsingAPI(createNVICandidateTitle, CategoryTypes.ACADEMIC_ARTICLE, USN_USER, NviLevels.LEVEL_1);
+    createPublicationUsingAPI(
+      createNVICandidateTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      USN_USER,
+      NviLevels.LEVEL_1
+    ).then();
     cy.login(userUSNNviCuratorInstitution).then(() => {
       cy.getDataTestId(dataTestId.header.tasksLink).click();
       cy.openNVIWorklist();
@@ -276,49 +279,37 @@ const chapterTitle = `NVI change chapter ${uuid()}`;
 Given('an anthology with a level 1 publisher', () => {
   cy.login(userUSNNviCuratorInstitution).then(() => {
     // lag antologi med nivå 1 publisher
-    const anthologyBuilder = createPublicationUsingAPI(
-      anthologyTitle,
-      CategoryTypes.BOOK_ANTHOLOGY,
-      USN_USER,
-      NviLevels.LEVEL_1
+    createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER, NviLevels.LEVEL_1).then(
+      (builder) => {
+        const anthologyIdentifier = builder.identifier;
+        cy.wrap(anthologyIdentifier).as('anthologyId');
+      }
     );
-    cy.wrap(anthologyBuilder).as('anthologyBuilder');
-    cy.get('@anthologyBuilder').then((builder: unknown) => {
-      const registrationBuilder = builder as RegistrationData;
-      const anthologyIdentifier = registrationBuilder.identifier;
-      cy.wrap(anthologyIdentifier).as('anthologyId');
-    });
     // lag vitenskapelig kapittel
-    const chapterBuilder = createPublicationUsingAPI(
-      chapterTitle,
-      CategoryTypes.ACADEMIC_CHAPTER,
-      USN_USER,
-      NviLevels.LEVEL_1
-    );
-    cy.wrap(chapterBuilder).as('chapterBuilder');
-    cy.get('@chapterBuilder').then((builder: unknown) => {
-      const chapterBuilder = builder as RegistrationData;
-      // legg til kapittel til antologi
-      cy.get('@anthologyId').then((anthologyId: unknown) => {
-        const anthology = anthologyId as string;
-        chapterBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
-        chapterBuilder.update();
+    createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, USN_USER, NviLevels.LEVEL_1).then(
+      (builder) => {
+        // legg til kapittel til antologi
+        cy.get('@anthologyId').then((anthologyId: unknown) => {
+          const anthology = anthologyId as string;
+          builder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
+          builder.update().then();
 
-        // sjekk NVI-poeng
-        cy.getDataTestId(dataTestId.header.tasksLink).click();
-        cy.openNVIWorklist();
-        cy.selectNVICandidate(chapterTitle);
-        cy.get('table')
-          .filter(':contains("Points")')
-          .within(() => {
-            cy.get('p')
-              .last()
-              .then(($p) => {
-                cy.wrap($p.text()).as('points');
-              });
-          });
-      });
-    });
+          // sjekk NVI-poeng
+          cy.getDataTestId(dataTestId.header.tasksLink).click();
+          cy.openNVIWorklist();
+          cy.selectNVICandidate(chapterTitle);
+          cy.get('table')
+            .filter(':contains("Points")')
+            .within(() => {
+              cy.get('p')
+                .last()
+                .then(($p) => {
+                  cy.wrap($p.text()).as('points');
+                });
+            });
+        });
+      }
+    );
   });
 });
 When('a level 2 series is added to the anthology', () => {

@@ -129,38 +129,42 @@ const baseUrl = 'https://api.e2e.nva.aws.unit.no/';
 const personApiUrl = `${baseUrl}cristin/person`;
 const publicationApiUrl = `${baseUrl}publication`;
 
-export const registrationBuilder = (): RegistrationData => {
+export const registrationBuilder = () => {
   const accessToken = Cypress.env('accessToken');
   const registrationData: RegistrationData = {
+    associatedArtifacsts: [],
     create() {
-      cy.request({
-        method: 'POST',
-        url: publicationApiUrl,
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        failOnStatusCode: false,
-      }).then((response) => {
-        this.identifier = response.body.identifier;
-        this.payload = response.body;
-        this.payload.approvedOperations = [
-          'doi-request-create',
-          'update',
-          'delete',
-          'publishing-request-create',
-          'upload-file',
-          'partial-update',
-          'support-request-create',
-        ];
+      return new Cypress.Promise<RegistrationData>((resolve, reject) => {
+        cy.request({
+          method: 'POST',
+          url: publicationApiUrl,
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          failOnStatusCode: true,
+        }).then((response) => {
+          this.identifier = response.body.identifier;
+          this.payload = response.body;
+          this.payload.approvedOperations = [
+            'doi-request-create',
+            'update',
+            'delete',
+            'publishing-request-create',
+            'upload-file',
+            'partial-update',
+            'support-request-create',
+          ];
+          resolve(this);
+        });
       });
-      return this;
     },
     addEntityDescription(description: EntityDescriptionType) {
       if (!this.payload)
         throw new Error('Payload is not defined. Create registration before adding EntityDescription.');
       this.entityDescription = description;
+      this.payload.entityDescription = description;
       return this;
     },
     addContributor(newContributor: ContributorType) {
@@ -168,10 +172,13 @@ export const registrationBuilder = (): RegistrationData => {
       if (!this.entityDescription) throw new Error('Entity description is not defined. Add entity description first.');
       newContributor.sequence = this.entityDescription.contributors.length + 1;
       this.entityDescription.contributors.push(newContributor);
+      this.payload.entityDescription = this.entityDescription;
       return this;
     },
-    addFile(fileName: string) {
+    addFile(file: FileType) {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
+      this.payload.associatedArtifacts.push(file);
+      this.associatedArtifacsts.push(file);
       return this;
     },
     addProject(project: ProjectType) {
@@ -180,54 +187,64 @@ export const registrationBuilder = (): RegistrationData => {
     },
     addReference(reference: ReferenceType) {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
+      if (!this.payload.entityDescription)
+        throw new Error('Entity description is not defined. Add entity description first.');
       this.reference = reference;
+      this.payload.entityDescription.reference = reference;
       return this;
     },
     update() {
-      if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
-      if (!this.entityDescription) throw new Error('Entity description is not defined. Add entity description first.');
-      const auth = `Bearer ${accessToken}`;
-      const newPayload = this.payload;
-      this.payload.entityDescription = this.entityDescription;
-      if (this.reference) {
-        this.payload.entityDescription.reference = this.reference;
-      }
-      cy.request({
-        method: 'PUT',
-        url: `${publicationApiUrl}/${this.identifier}`,
-        headers: {
-          'Authorization': auth,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'If-ETag': `${this.payload.resourceOwner.owner}:${uuid()}`,
-        },
+      return new Cypress.Promise<RegistrationData>((resolve, reject) => {
+        if (!this.payload) reject('Payload is not defined. Create registration first.');
+        if (!this.entityDescription) reject('Entity description is not defined. Add entity description first.');
+        const auth = `Bearer ${accessToken}`;
+        const newPayload = this.payload;
+        this.payload.entityDescription = this.entityDescription;
+        this.payload.associatedArtifacts = this.associatedArtifacsts;
+        if (this.reference) {
+          this.payload.entityDescription.reference = this.reference;
+        }
+        cy.request({
+          method: 'PUT',
+          url: `${publicationApiUrl}/${this.identifier}`,
+          headers: {
+            'Authorization': auth,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'If-ETag': `${this.payload.resourceOwner.owner}:${uuid()}`,
+          },
 
-        body: newPayload,
-        failOnStatusCode: true,
-      }).then((response) => {
-        this.identifier = response.body.identifier;
-        this.payload = response.body;
+          body: newPayload,
+          failOnStatusCode: true,
+        }).then((response) => {
+          this.identifier = response.body.identifier;
+          this.payload = response.body;
+          resolve(this);
+        });
       });
-      return this;
     },
     publish() {
-      if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
-      const auth = `Bearer ${accessToken}`;
-      const newPayload = this.payload;
-      cy.request({
-        method: 'POST',
-        url: `${publicationApiUrl}/${this.identifier}/publish`,
-        headers: {
-          'Authorization': auth,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'If-ETag': `${this.payload.resourceOwner.owner}:${uuid()}`,
-        },
+      return new Cypress.Promise<RegistrationData>((resolve, reject) => {
+        if (!this.payload) reject('Payload is not defined. Create registration first.');
+        const auth = `Bearer ${accessToken}`;
+        const newPayload = this.payload;
+        cy.request({
+          method: 'POST',
+          url: `${publicationApiUrl}/${this.identifier}/publish`,
+          headers: {
+            'Authorization': auth,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'If-ETag': `${this.payload.resourceOwner.owner}:${uuid()}`,
+          },
 
-        body: newPayload,
-        failOnStatusCode: true,
-      }).then((response) => {});
-      return this;
+          body: newPayload,
+          failOnStatusCode: true,
+        }).then((response) => {
+          console.log(response);
+          resolve(this);
+        });
+      });
     },
   };
   return registrationData;
@@ -242,59 +259,56 @@ const parseName = (nameObject: any): string => {
   return name;
 };
 
-export const findContributorByName = (
-  name: string,
-  role: ContributorTypes,
-  isUnverified?: boolean
-): ContributorType => {
-  let contributor: ContributorType = {
-    identity: {
-      type: RegistrationPartTypes.IDENTITY,
-      id: '',
-      name: '',
-    },
-    role: {
-      type: role,
-    },
-    affiliations: [],
-    correspondingAuthor: false,
-    sequence: 1,
-    type: RegistrationPartTypes.CONTRIBUTOR,
-  };
-  cy.request({
-    method: 'GET',
-    url: `${personApiUrl}?name=${name}&page=1&results=10`,
-    failOnStatusCode: false,
-  }).then((response) => {
-    if (response.status !== 200) {
-      throw new Error(`Error searching for ${name}.`);
-    }
-    if (response.body.hits.length === 0) {
-      contributor.identity.id = ``;
-      contributor.identity.name = name;
-      contributor.identity.verificationStatus = 'NotVerified';
-    } else {
-      response.body.hits.forEach((hit) => {
-        const foundName = parseName(hit.names);
-        if (name === foundName) {
-          contributor.identity.id = isUnverified ? '' : `${personApiUrl}/${hit.identifiers[0].value}`;
-          contributor.identity.name = foundName;
-          contributor.identity.verificationStatus = isUnverified ? 'NotVerified' : 'Verified';
-          let index = 0;
-          hit.affiliations.forEach((affiliation: any) => {
-            const organization: affiliationType = {
-              id: affiliation.organization,
-              type: RegistrationPartTypes.ORGANIZATION,
-            };
-            contributor.affiliations.push(organization);
-            index++;
-          });
-        }
-      });
-    }
+export const findContributorByName = (name: string, role: ContributorTypes, isUnverified?: boolean) => {
+  return new Cypress.Promise<ContributorType | null>((resolve, reject) => {
+    let contributor: ContributorType = {
+      identity: {
+        type: RegistrationPartTypes.IDENTITY,
+        id: '',
+        name: '',
+      },
+      role: {
+        type: role,
+      },
+      affiliations: [],
+      correspondingAuthor: false,
+      sequence: 1,
+      type: RegistrationPartTypes.CONTRIBUTOR,
+    };
+    cy.request({
+      method: 'GET',
+      url: `${personApiUrl}?name=${name}&page=1&results=10`,
+      failOnStatusCode: false,
+    }).then((response) => {
+      if (response.status !== 200) {
+        reject(`Error searching for ${name}.`);
+      }
+      if (response.body.hits.length === 0) {
+        contributor.identity.id = ``;
+        contributor.identity.name = name;
+        contributor.identity.verificationStatus = 'NotVerified';
+      } else {
+        response.body.hits.forEach((hit) => {
+          const foundName = parseName(hit.names);
+          if (name === foundName) {
+            contributor.identity.id = isUnverified ? '' : `${personApiUrl}/${hit.identifiers[0].value}`;
+            contributor.identity.name = foundName;
+            contributor.identity.verificationStatus = isUnverified ? 'NotVerified' : 'Verified';
+            let index = 0;
+            hit.affiliations.forEach((affiliation: any) => {
+              const organization: affiliationType = {
+                id: affiliation.organization,
+                type: RegistrationPartTypes.ORGANIZATION,
+              };
+              contributor.affiliations.push(organization);
+              index++;
+            });
+          }
+        });
+      }
+      resolve(contributor);
+    });
   });
-
-  return contributor;
 };
 
 export const createEntityDescription = (
@@ -379,87 +393,91 @@ const createReference = (category: CategoryTypes, nviLevel?: NviLevels, seriesLe
   }
 };
 
-const uploadFileToRegistration = (registrationId: string, fileName: string): FileType => {
-  const accessToken = Cypress.env('accessToken');
-  cy.fixture(`{fileName}`).then((fileContent) => {
-    const fileSize = fileContent.length;
-    const lastModified = new Date().toISOString();
-    const mimeType = 'application/pdf';
-    cy.request({
-      method: 'POST',
-      url: `${publicationApiUrl}/${registrationId}/upload/create`,
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'multipart/form-data',
-        'Accept': 'application/json',
-      },
-      body: {
-        filename: fileName,
-        size: fileSize,
-        lastModified: lastModified,
-        mimeType: mimeType,
-      },
-      failOnStatusCode: true,
-    }).then((response) => {
-      const uploadID = response.body.uploadId;
-      const key = response.body.key;
+export const uploadFileToRegistration = (registrationId: string, fileName: string) => {
+  return new Cypress.Promise<FileType | null>((resolve, reject) => {
+    const accessToken = Cypress.env('accessToken');
+
+    cy.fixture(fileName).then((fileContent) => {
+      const fileSize = fileContent.length;
+      const lastModified = new Date().getTime();
       cy.request({
         method: 'POST',
-        url: `${publicationApiUrl}/${response.body.registrationId}/upload/${uploadID}/prepare`,
+        url: `${publicationApiUrl}/${registrationId}/file-upload/create`,
         headers: {
           'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'multipart/form-data',
         },
         body: {
-          number: 1,
-          uploadId: uploadID,
-          body: fileContent,
-          key: key,
+          filename: fileName,
+          size: fileSize,
+          lastmodified: lastModified,
+          mimetype: 'text/plain',
         },
         failOnStatusCode: true,
-      }).then((uploadResponse) => {
-        const presignedUrl = uploadResponse.body.url;
+      }).then((response) => {
+        const uploadID = response.body.uploadId;
+        const key = response.body.key;
         cy.request({
-          method: 'PUT',
-          url: presignedUrl,
+          method: 'POST',
+          url: `${publicationApiUrl}/${registrationId}/file-upload/prepare`,
           headers: {
-            'Accept': 'application/pdf',
+            'Authorization': `Bearer ${accessToken}`,
           },
           body: {
-            data: fileContent,
+            number: 1,
+            uploadId: uploadID,
+            body: fileContent,
+            key: key,
           },
           failOnStatusCode: true,
-        }).then((presignedResponse) => {
-          const eTag = presignedResponse.headers.ETag;
+        }).then((uploadResponse) => {
+          const presignedUrl = uploadResponse.body.url;
           cy.request({
-            method: 'POST',
-            url: `${publicationApiUrl}/${response.body.registrationId}/upload/${uploadID}/complete`,
+            method: 'PUT',
+            url: presignedUrl,
             headers: {
-              'Authorization': `Bearer ${accessToken}`,
+              'Accept': 'application/pdf',
             },
             body: {
-              uploadId: uploadID,
-              key: key,
-              parts: [
-                {
-                  eTag: eTag,
-                  partNumber: 1,
-                },
-              ],
+              data: fileContent,
             },
             failOnStatusCode: true,
-          }).then((completeResponse) => {
-            return {
-              allowedOperations: ['delete', 'set-primary', 'update-metadata'],
-              embargoDate: null,
-              identifier: response.body.identifier,
-              license: completeResponse.body.license,
-            };
+          }).then((presignedResponse) => {
+            const eTag = presignedResponse.headers.etag;
+            cy.request({
+              method: 'POST',
+              url: `${publicationApiUrl}/${registrationId}/file-upload/complete`,
+              headers: {
+                'Authorization': `Bearer ${accessToken}`,
+              },
+              body: {
+                uploadId: uploadID,
+                key: key,
+                type: 'InternalCompleteUpload',
+                parts: [
+                  {
+                    etag: `${eTag}`,
+                    partNumber: 1,
+                  },
+                ],
+              },
+              failOnStatusCode: true,
+            }).then((completeResponse) => {
+              const file: FileType = {
+                ...completeResponse.body,
+                type: 'PendingOpenFile',
+                allowedOperations: ['delete', 'set-primary', 'update-metadata'],
+                embargoDate: null,
+                license: 'https://creativecommons.org/licenses/by/4.0/',
+                publisherVersion: 'AcceptedVersion',
+              };
+              resolve(file);
+            });
           });
         });
       });
     });
   });
-  return null;
 };
 
 export const createDraftPublicationUsingAPI = (
@@ -469,16 +487,22 @@ export const createDraftPublicationUsingAPI = (
   nviLevel?: NviLevels,
   seriesLevel?: NviLevels
 ) => {
-  const builder = registrationBuilder().create();
-  const entity = createEntityDescription(title, category, '1003', nviLevel, seriesLevel);
-  const creator = findContributorByName(creatorName, ContributorTypes.CREATOR);
-  cy.then(() => {
-    builder.addEntityDescription(entity).addContributor(creator);
-    cy.then(() => {
-      builder.update();
-    });
+  return new Cypress.Promise<RegistrationData>((resolve, reject) => {
+    registrationBuilder()
+      .create()
+      .then((builder) => {
+        const entity = createEntityDescription(title, category, '1003', nviLevel, seriesLevel);
+        findContributorByName(creatorName, ContributorTypes.CREATOR).then((creator) => {
+          builder
+            .addEntityDescription(entity)
+            .addContributor(creator)
+            .update()
+            .then((builder) => {
+              resolve(builder);
+            });
+        });
+      });
   });
-  return builder;
 };
 
 export const createPublicationUsingAPI = (
@@ -488,21 +512,25 @@ export const createPublicationUsingAPI = (
   nviLevel: NviLevels,
   seriesLevel?: NviLevels
 ) => {
-  const builder = registrationBuilder().create();
-  const entity = createEntityDescription(title, category, '1003', nviLevel, seriesLevel);
-  const creator = findContributorByName(creatorName, ContributorTypes.CREATOR);
-
-  cy.then(() => {
-    builder.addEntityDescription(entity).addContributor(creator);
-    cy.then(() => {
-      builder.update();
-      cy.then(() => {
-        builder.publish();
-        cy.wait(1000);
+  return new Cypress.Promise<RegistrationData>((resolve, reject) => {
+    registrationBuilder()
+      .create()
+      .then((builder) => {
+        const entity = createEntityDescription(title, category, '1003', nviLevel, seriesLevel);
+        findContributorByName(creatorName, ContributorTypes.CREATOR).then((creator) => {
+          builder
+            .addEntityDescription(entity)
+            .addContributor(creator)
+            .update()
+            .then(() => {
+              builder.publish().then((builder) => {
+                cy.wait(1000);
+                resolve(builder);
+              });
+            });
+        });
       });
-    });
   });
-  return builder;
 };
 
 export const createChapterInAnthologyUsingAPI = (
@@ -512,51 +540,37 @@ export const createChapterInAnthologyUsingAPI = (
   nviLevel: NviLevels,
   seriesLevel?: NviLevels
 ) => {
-  const anthologyBuilder = createPublicationUsingAPI(
-    anthologyTitle,
-    CategoryTypes.BOOK_ANTHOLOGY,
-    creatorName,
-    nviLevel,
-    seriesLevel
-  );
-  cy.wrap(anthologyBuilder).as('anthologyBuilder');
-  cy.get('@anthologyBuilder').then((builder: unknown) => {
-    const anthology = builder as RegistrationData;
-    cy.wrap(anthology.identifier).as('anthologyIdentifier');
-    cy.wrap(anthologyBuilder).as('anthologyBuilder');
-    cy.get('@anthologyIdentifier').then((anthologyIdentifier: unknown) => {
-      const chapterBuilder = createPublicationUsingAPI(
-        chapterTitle,
-        CategoryTypes.ACADEMIC_CHAPTER,
-        creatorName,
-        nviLevel,
-        seriesLevel
+  createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, creatorName, nviLevel, seriesLevel).then(
+    (anthologyBuilder) => {
+      cy.wrap(anthologyBuilder.identifier).as('anthologyIdentifier');
+      cy.wrap(anthologyBuilder).as('anthologyBuilder');
+      createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, creatorName, nviLevel, seriesLevel).then(
+        (chapterBuilder) => {
+          cy.wrap(chapterBuilder).as('chapterBuilder');
+          chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${
+            anthologyBuilder.identifier as string
+          }`;
+          chapterBuilder.update().then();
+        }
       );
-      cy.wrap(chapterBuilder).as('chapterBuilder');
-      cy.get('@chapterBuilder').then((builder: unknown) => {
-        const chapterBuilder = builder as RegistrationData;
-        chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${
-          anthologyIdentifier as string
-        }`;
-        chapterBuilder.update();
-      });
-    });
-  });
+    }
+  );
 };
 
 export type RegistrationData = {
+  associatedArtifacsts: [];
   identifier?: string;
   payload?: string;
   reference?: ReferenceType;
   entityDescription?: EntityDescriptionType;
-  create(): RegistrationData;
+  create(): Promise<RegistrationData>;
   addEntityDescription(description: EntityDescriptionType): RegistrationData;
   addContributor(contributors: ContributorType): RegistrationData;
-  addFile(fileName: string): RegistrationData;
+  addFile(file: FileType): RegistrationData;
   addProject(project: ProjectType): RegistrationData;
   addReference(reference: ReferenceType): RegistrationData;
-  update(): RegistrationData;
-  publish(): RegistrationData;
+  update(): Promise<RegistrationData>;
+  publish(): Promise<RegistrationData>;
 };
 
 export type ContributorType = {

@@ -19,12 +19,12 @@ const initData = () => {
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitDraftDoi],
       NviLevels.LEVEL_1
-    );
+    ).then();
     createDraftPublicationUsingAPI(
       registrationTitles['Draft'],
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitDraftDoi]
-    );
+    ).then();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitles['Published']}{enter}`);
     cy.get('a')
       .filter(`:contains("${registrationTitles['Published']}")`)

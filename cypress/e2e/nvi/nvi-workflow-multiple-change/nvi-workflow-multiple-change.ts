@@ -76,45 +76,45 @@ const collaborations = [noCollaboration, NVICollaboration, NVACollaboration, ext
 BeforeAll(() => {
   cy.login(userUSNNviInstitution).then(() => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    const unidentifiedUser: ContributorType = findContributorByName(
-      unidentifiedContributor,
-      ContributorTypes.CREATOR,
-      true
-    );
-    const nviUser = findContributorByName(NVIContributor, ContributorTypes.CREATOR);
-    const nvaUser = findContributorByName(NVAContributor, ContributorTypes.CREATOR);
-    const externalUser = findContributorByName(externalContributor, ContributorTypes.CREATOR, true);
-    titleRoots.forEach((titleRoot) => {
-      titles[titleRoot] = [];
-      collaborations.forEach((collaboration) => {
-        const title = `${titleRoot} Manual ${collaboration} ${uuid()}`;
-        titles[titleRoot][collaboration] = title;
-        const category =
-          titleRoot === titleNonScientificToScientificUnidentifiedToIdentified
-            ? CategoryTypes.JOURNAL_REVIEW
-            : CategoryTypes.ACADEMIC_ARTICLE;
-        const builder = createPublicationUsingAPI(title, category, userName[userUSNNviInstitution], NviLevels.LEVEL_1);
-        cy.wrap(builder).as('registrationBuilder');
-        cy.get('@registrationBuilder').then((regBuilder: unknown) => {
-          const builder = regBuilder as RegistrationData;
-          builder.entityDescription.contributors[0] = unidentifiedUser;
-          switch (collaboration) {
-            case NVICollaboration:
-              builder.addContributor(nviUser);
-              break;
-            case NVACollaboration:
-              builder.addContributor(nvaUser);
-              break;
-            case externalCollaboration:
-              builder.addContributor(externalUser);
-              break;
-          }
-          builder.update();
-          // cy.createPublishedRegistration(title, category);
-          // changeToUnidentifiedUser();
-          // if (collaboration !== noCollaboration) {
-          //   addContributor(contributors[collaboration]);
-          // }
+    findContributorByName(unidentifiedContributor, ContributorTypes.CREATOR, true).then((unidentifiedUser) => {
+      findContributorByName(NVIContributor, ContributorTypes.CREATOR).then((nviUser) => {
+        findContributorByName(NVAContributor, ContributorTypes.CREATOR).then((nvaUser) => {
+          findContributorByName(externalContributor, ContributorTypes.CREATOR, true).then((externalUser) => {
+            titleRoots.forEach((titleRoot) => {
+              titles[titleRoot] = [];
+              collaborations.forEach((collaboration) => {
+                const title = `${titleRoot} Manual ${collaboration} ${uuid()}`;
+                titles[titleRoot][collaboration] = title;
+                const category =
+                  titleRoot === titleNonScientificToScientificUnidentifiedToIdentified
+                    ? CategoryTypes.JOURNAL_REVIEW
+                    : CategoryTypes.ACADEMIC_ARTICLE;
+                const builder = createPublicationUsingAPI(
+                  title,
+                  category,
+                  userName[userUSNNviInstitution],
+                  NviLevels.LEVEL_1
+                );
+                cy.wrap(builder).as('registrationBuilder');
+                cy.get('@registrationBuilder').then((regBuilder: unknown) => {
+                  const builder = regBuilder as RegistrationData;
+                  builder.entityDescription.contributors[0] = unidentifiedUser;
+                  switch (collaboration) {
+                    case NVICollaboration:
+                      builder.addContributor(nviUser);
+                      break;
+                    case NVACollaboration:
+                      builder.addContributor(nvaUser);
+                      break;
+                    case externalCollaboration:
+                      builder.addContributor(externalUser);
+                      break;
+                  }
+                  builder.update().then();
+                });
+              });
+            });
+          });
         });
       });
     });

@@ -503,7 +503,7 @@ export const TestUsers = {
 } as const;
 
 export const userName = {
-  [userUnitWithAuthor]: 'Withauthor  TestUser',
+  [userUnitWithAuthor]: 'Withauthor TestUser',
   [userUnitWithAuthor1]: 'Withauthor 1 TestUser',
   [userUnitWithAuthor2]: 'Withauthor 2 TestUser',
   [userUnitWithAuthor3]: 'Withauthor 3 TestUser',

@@ -28,7 +28,7 @@ Given('publication with publicationInstance type AcademicChapter', () => {
     cy.get('@anthologyBuilder').then((builder: unknown) => {
       const anthologyBuilder = builder as RegistrationData;
       anthologyBuilder.entityDescription.reference.publicationContext.publisher.id = SINTEF_AKADEMSIK_FORLAG_URI;
-      anthologyBuilder.update();
+      anthologyBuilder.update().then();
     });
   });
 });
@@ -96,7 +96,7 @@ Given('publication has publicationContext refering to Anthology which is NVI can
     cy.get('@anthologyBuilder').then((builder: unknown) => {
       const anthologyBuilder = builder as RegistrationData;
       anthologyBuilder.entityDescription.reference.publicationContext.publisher.id = SPRINGER_NATURE_URI;
-      anthologyBuilder.update();
+      anthologyBuilder.update().then();
     });
   });
 
@@ -160,15 +160,11 @@ Given('publication with publicationInstance type Anthology', () => {
 Given('publication is NVI candidate', () => {
   cy.login(TestUsers.nvi.usn.change).then(() => {
     cy.get('@anthologyTitle').then((anthology: unknown) => {
-      const builder = createPublicationUsingAPI(
-        anthology as string,
-        CategoryTypes.BOOK_ANTHOLOGY,
-        USN_USER,
-        NviLevels.LEVEL_1
+      createPublicationUsingAPI(anthology as string, CategoryTypes.BOOK_ANTHOLOGY, USN_USER, NviLevels.LEVEL_1).then(
+        (builder) => {
+          cy.wrap(builder.identifier).as('anthologyId');
+        }
       );
-      cy.wrap(builder).then(() => {
-        cy.wrap(builder.identifier).as('anthologyId');
-      });
     });
   });
 });
@@ -176,7 +172,12 @@ Given('publication is NVI candidate', () => {
 Given('publication has AcademicChapter refering to the Anthology', () => {
   cy.then(() => {
     const scientificChapterTitle = `Chapter for Anthology ${uuid()}`;
-    createPublicationUsingAPI(scientificChapterTitle, CategoryTypes.ACADEMIC_CHAPTER, USN_USER, NviLevels.LEVEL_1);
+    createPublicationUsingAPI(
+      scientificChapterTitle,
+      CategoryTypes.ACADEMIC_CHAPTER,
+      USN_USER,
+      NviLevels.LEVEL_1
+    ).then();
     cy.wrap(scientificChapterTitle).as('chapterTitle');
   });
 });
@@ -185,7 +186,12 @@ When('AcademicChapter is updated to refer to another Book', () => {
   // Create another book
   cy.then(() => {
     const anotherBookTitle = `Another Book ${uuid()}`;
-    createPublicationUsingAPI(anotherBookTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER_CHANGE, NviLevels.LEVEL_1);
+    createPublicationUsingAPI(
+      anotherBookTitle,
+      CategoryTypes.BOOK_ANTHOLOGY,
+      USN_USER_CHANGE,
+      NviLevels.LEVEL_1
+    ).then();
     cy.searchFor(anotherBookTitle);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.contains(anotherBookTitle).click();
@@ -291,14 +297,12 @@ Then('Anthology should disappear from correction list for "Anthology without cha
 Given('a Monograph that is a NVI-candidate', () => {
   cy.login(TestUsers.nvi.usn.institution).then(() => {
     const title = `Monograph for NVI Candidate Chapter ${uuid()}`;
-    const monographBuilder = createPublicationUsingAPI(
-      title,
-      CategoryTypes.ACADEMIC_MONOGRAPH,
-      USN_USER,
-      NviLevels.LEVEL_1
+    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_MONOGRAPH, USN_USER, NviLevels.LEVEL_1).then(
+      (monographBuilder) => {
+        cy.wrap(monographBuilder).as('monographBuilder');
+        cy.wrap(title).as('monographTitle');
+      }
     );
-    cy.wrap(monographBuilder).as('monographBuilder');
-    cy.wrap(title).as('monographTitle');
   });
 });
 When('you add a Chapter to the Monograph', () => {
@@ -306,23 +310,17 @@ When('you add a Chapter to the Monograph', () => {
     const monographBuilder = builder as RegistrationData;
     const chapterTitle = `Chapter in Monograph ${uuid()}`;
     cy.wrap(chapterTitle).as('chapterTitle');
-    const chapterBuilder = createPublicationUsingAPI(
-      chapterTitle,
-      CategoryTypes.ACADEMIC_CHAPTER,
-      USN_USER,
-      NviLevels.LEVEL_1
+    createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, USN_USER, NviLevels.LEVEL_1).then(
+      (chapter: unknown) => {
+        const chapterBuilder = chapter as RegistrationData;
+        chapterBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${monographBuilder.identifier}`;
+        chapterBuilder.entityDescription.reference.publicationContext.type = 'Anthology';
+        chapterBuilder.update().then();
+      }
     );
-    cy.wrap(chapterBuilder).as('chapterBuilder');
-    cy.get('@chapterBuilder').then((chapter: unknown) => {
-      const chapterBuilder = chapter as RegistrationData;
-      chapterBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${monographBuilder.identifier}`;
-      chapterBuilder.entityDescription.reference.publicationContext.type = 'Anthology';
-      chapterBuilder.update();
-    });
   });
 });
 Then('the Chapter is not a NVI-candidate', () => {
-  cy.wait(30000); // Wait for NVI processing
   cy.login(TestUsers.nvi.usn.curator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.openNVIWorklist();

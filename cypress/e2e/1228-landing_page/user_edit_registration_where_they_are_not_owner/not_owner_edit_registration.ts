@@ -24,36 +24,21 @@ const registrationTitle = `Edit registration not owner ${uuid()}`;
 // Scenario: Curator see option to edit a Registration from own institution
 Given('User is logged in as Curator', () => {
   cy.login(userUnitWithAuthor).then(() => {
-    const builder = createPublicationUsingAPI(
+    createPublicationUsingAPI(
       registrationTitle,
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitWithAuthor],
       NviLevels.LEVEL_1
-    );
-    cy.wrap(builder).as('registrationBuilder');
-    cy.get('@registrationBuilder').then((builder: unknown) => {
-      const registration = builder as RegistrationData;
-      const contributor = findContributorByName(userName[userUnitEditRegistration], ContributorTypes.CREATOR);
-      registration.addContributor(contributor);
-      registration.update();
+    ).then(builder => {
+      findContributorByName(userName[userUnitEditRegistration], ContributorTypes.CREATOR).then((contributor) => {
+        builder.addContributor(contributor);
+        builder.update().then(() => {});
+      });
     });
-    // cy.getDataTestId(dataTestId.startPage.searchField).type('Edit registration TestUser{enter}');
-    // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
-    //   .parent()
-    //   .parent()
-    //   .parent()
-    //   .filter(':contains("Edit registration TestUser")')
-    //   .within(() => {
-    //     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
-    //   });
-    // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-    // cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-    // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
-    // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    // cy.getSuccess();
   });
   cy.login(userUnitCurator);
 });
+
 When('they open the landing page for a Registration from own institution', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
@@ -64,7 +49,9 @@ When('they open the landing page for a Registration from own institution', () =>
       cy.get('p > a').first().click();
     });
 });
+
 When('they are not owner of the Registration', () => {});
+
 Then('they have the option to edit the Registration', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).should('be.visible');
 });
