@@ -1,8 +1,9 @@
-import { CategoryTypes, TestUsers } from '../../../support/constants';
+import { CategoryTypes, TestUsers, userName } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { currentYear, NVI_ASSIGNED } from '../../../support/commands';
 import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+import { createPublicationUsingAPI, NviLevels, uploadFileToRegistration } from '../../../support/create_registration';
 
 const messageTypes = {
   'Approval': 'Publishing Requests',
@@ -36,24 +37,33 @@ const NVI = 'NVI';
 const createWorklistItem = (title: string, type: string) => {
   const user = type === NVI ? TestUsers.nvi.ntnu.verifiedContributor : TestUsers.publishing.noRights;
   cy.login(user).then(() => {
-    cy.createPublishedRegistration(title, publicationType, filename);
-    cy.refreshPublish();
-    switch (type) {
-      case APPROVAL:
-        break;
-      case SUPPORT:
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
-          cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
-        });
-        break;
-      case DOI:
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-        break;
-      case 'NVI':
-        break;
-    }
+    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[user], NviLevels.LEVEL_1).then(
+      (builder) => {
+        switch (type) {
+          case APPROVAL:
+            uploadFileToRegistration(builder.identifier, filename).then((file) => {
+              builder.addFile(file).update().then();
+            });
+            break;
+          case SUPPORT:
+            cy.searchFor(title);
+            cy.get('a').filter(`:contains("${title}")`).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
+              cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
+            });
+            break;
+          case DOI:
+            cy.searchFor(title);
+            cy.get('a').filter(`:contains("${title}")`).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+            break;
+          case 'NVI':
+            break;
+        }
+      }
+    );
   });
 };
 
