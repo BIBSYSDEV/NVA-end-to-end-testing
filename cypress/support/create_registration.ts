@@ -240,8 +240,7 @@ export const registrationBuilder = () => {
 
           body: newPayload,
           failOnStatusCode: true,
-        }).then((response) => {
-          console.log(response);
+        }).then(() => {
           resolve(this);
         });
       });
@@ -392,6 +391,49 @@ const createReference = (category: CategoryTypes, nviLevel?: NviLevels, seriesLe
     throw new Error(`Category ${category} not supported for reference creation.`);
   }
 };
+
+const PUBLISHING_REQUEST = 'PublishingRequest';
+export const publishFile = (registrationId: string, file: FileType) => {
+  return new Promise((resolve, reject) => {
+    const accessToken = Cypress.env('accessToken');
+    cy.request({
+      method: 'GET',
+      url: `${publicationApiUrl}/${registrationId}/tickets`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      }
+    }).then(response => {
+      const tickets = response.body.tickets;
+      const ticketTypes = [];
+      tickets.forEach(ticket => {
+        ticketTypes.push(ticket.type);
+      });
+
+      if (!ticketTypes.includes(PUBLISHING_REQUEST)) {
+        reject('No publishing request found');
+      }
+
+
+      tickets.forEach(ticket => {
+        if (ticket.type === PUBLISHING_REQUEST) {
+          const tickedId = ticket.identifier;
+          cy.request({
+            method: 'PUT',
+            url: `${publicationApiUrl}/${registrationId}/ticket/${tickedId}`,
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              Accept: 'application/json',
+            },
+            body: { status: "Completed" }
+          }).then(() => {
+            resolve(null);
+          })
+        }
+      });
+    })
+  })
+}
 
 export const uploadFileToRegistration = (registrationId: string, fileName: string) => {
   return new Cypress.Promise<FileType | null>((resolve, reject) => {
@@ -547,9 +589,8 @@ export const createChapterInAnthologyUsingAPI = (
       createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, creatorName, nviLevel, seriesLevel).then(
         (chapterBuilder) => {
           cy.wrap(chapterBuilder).as('chapterBuilder');
-          chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${
-            anthologyBuilder.identifier as string
-          }`;
+          chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${anthologyBuilder.identifier as string
+            }`;
           chapterBuilder.update().then();
         }
       );
@@ -670,7 +711,8 @@ export type FileType = {
   mimeType: string;
   name: string;
   size: number;
-  type: 'UploadedFile';
+  type: string;
+  publisherVersion?: string;
   uploadDetails: {
     type: 'UserUploadDetails';
     uploadedBy: string;
