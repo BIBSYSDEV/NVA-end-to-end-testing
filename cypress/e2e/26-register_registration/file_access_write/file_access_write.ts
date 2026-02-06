@@ -12,9 +12,13 @@ import {
   userBIBSYSPublishNoRights,
   userSintefDOIMessages,
   FileVersions,
+  ContributorTypes,
+  userName,
+  CategoryTypes,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+import { createPublicationUsingAPI, FileType, findContributorByName, NviLevels, publishFile, RegistrationData, uploadFileToRegistration } from '../../../support/create_registration';
 
 const UPLOADED_FILE = 'UploadedFile';
 const PENDING_OPEN_FILE = 'PendingOpenFile';
@@ -28,35 +32,47 @@ const OPEN = 'Open file';
 const INTERNAL = 'Internal file';
 const HIDDEN = 'Hidden file';
 
-const addContributor = () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  cy.reload();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton);
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type('Withauthor TestUser{enter}');
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type('Doi Messages TestUser{enter}');
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
-    .parent()
-    .parent()
-    .parent()
-    .filter(':contains("Doi Messages TestUser")')
-    .filter(':contains("SINTEF")')
-    .within(() => {
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+const addContributor = (builder: RegistrationData) => {
+
+  findContributorByName('Withauthor TestUser', ContributorTypes.CREATOR).then(contributor => {
+    builder.addContributor(contributor);
+    findContributorByName('Doi Messages TestUser', ContributorTypes.CREATOR).then(doiContributor => {
+      builder.addContributor(doiContributor);
+      builder.update().then(() => { });
     });
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
+  });
 };
+
+
+// const addContributor = () => {
+//   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+//   cy.reload();
+//   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+//   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton);
+//   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+//   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+//   cy.getDataTestId(dataTestId.startPage.searchField).type('Withauthor TestUser{enter}');
+//   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
+//   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+//   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+//   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+//   cy.getDataTestId(dataTestId.startPage.searchField).type('Doi Messages TestUser{enter}');
+//   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
+//     .parent()
+//     .parent()
+//     .parent()
+//     .filter(':contains("Doi Messages TestUser")')
+//     .filter(':contains("SINTEF")')
+//     .within(() => {
+//       cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+//     });
+//   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+//   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+//   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('be.enabled');
+//   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+//   cy.getSuccess();
+//   cy.getSuccessDone();
+// };
 
 const titles = {
   [UPLOADED_FILE]: `${UPLOADED_FILE} ${uuid()}`,
@@ -70,97 +86,70 @@ const titles = {
 const initData = () => {
   const ACADEMIC_ARTICLE = 'AcademicArticle';
   const fileName = 'lorem_ipsum.txt';
+  const user = userName[userSintefPublicationMessages];
 
-  cy.login(userSintefPublicationMessages);
+  cy.login(userSintefPublicationMessages).then(() => {
 
-  // cy.createPublishedRegistration(titles[UPLOADED_FILE], ACADEMIC_ARTICLE, fileName, null, NONE);
-  // addContributor();
-
-  cy.createPublishedRegistration(titles[PENDING_OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.ACCEPTED, OPEN);
-  addContributor();
-
-  cy.createPublishedRegistration(
-    titles[PENDING_INTERNAL_FILE],
-    ACADEMIC_ARTICLE,
-    fileName,
-    FileVersions.ACCEPTED,
-    INTERNAL
-  );
-  addContributor();
-
-  cy.createPublishedRegistration(titles[OPEN_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.ACCEPTED, OPEN);
-  addContributor();
-
-  cy.createPublishedRegistration(titles[INTERNAL_FILE], ACADEMIC_ARTICLE, fileName, FileVersions.ACCEPTED, INTERNAL);
-  addContributor();
-
-  cy.createPublishedRegistration(titles[HIDDEN_FILE]);
-  addContributor();
-
-  cy.login(userSintefPublicationCuratorMessages);
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[OPEN_FILE]}{enter}`);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains(${titles[OPEN_FILE]})`)
-    .within(() => {
-      cy.get('a').first().click();
+    createPublicationUsingAPI(titles[PENDING_OPEN_FILE], CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(builder => {
+      addContributor(builder);
+      uploadFileToRegistration(builder.identifier, fileName).then(file => {
+        builder.addFile(file).update().then(() => {});
+      })
     });
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then(
-    ($publishAccordion) => {
-      if (
-        $publishAccordion.find(
-          `[data-testid=${dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton}]`
-        ).length === 0
-      ) {
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
-      }
-    }
-  );
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
-
-  cy.getDataTestId('logo').click();
-  cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[INTERNAL_FILE]}{enter}`);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains(${titles[INTERNAL_FILE]})`)
-    .within(() => {
-      cy.get('a').first().click();
+    
+    createPublicationUsingAPI(titles[PENDING_INTERNAL_FILE], CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(builder => {
+      addContributor(builder);
+      uploadFileToRegistration(builder.identifier, fileName).then(file => {
+        file.type = 'PendingInternalFile';
+        builder.addFile(file).update().then(() => {});
+      })
     });
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).then(
-    ($publishAccordion) => {
-      if (
-        $publishAccordion.find(
-          `[data-testid=${dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton}]`
-        ).length === 0
-      ) {
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
-      }
-    }
-  );
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
-
-  cy.getDataTestId('logo').click();
-  cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${titles[HIDDEN_FILE]}{enter}`);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains(${titles[HIDDEN_FILE]})`)
-    .within(() => {
-      cy.get('a').first().click();
+  
+    createPublicationUsingAPI(titles[OPEN_FILE], CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(builder => {
+      addContributor(builder);
+      cy.wrap(builder).as('openFileBuilder');
+      uploadFileToRegistration(builder.identifier, fileName).then(file => {
+        cy.wrap(file).as('openFile');
+        builder.addFile(file).update().then(() => {});
+      })
     });
-  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-  cy.contains(HIDDEN).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
+  
+    createPublicationUsingAPI(titles[INTERNAL_FILE], CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(builder => {
+      addContributor(builder);
+      cy.wrap(builder).as('internalFileBuilder');
+      uploadFileToRegistration(builder.identifier, fileName).then(file => {
+        file.type = 'PendingInternalFile';
+        cy.wrap(file).as('internalFile');
+        builder.addFile(file).update().then(() => {});
+      })
+    });
+  
+    createPublicationUsingAPI(titles[HIDDEN_FILE], CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(builder => {
+      addContributor(builder);
+      uploadFileToRegistration(builder.identifier, fileName).then(file => {
+        file.type = 'HiddenFile';
+        builder.addFile(file).update().then(() => {});
+      })
+    });
+  
+});
+
+  cy.login(userSintefPublicationCuratorMessages).then(() => {
+      cy.get('@openFileBuilder').then((openFileBuilder: unknown) => {
+        const builder = openFileBuilder as RegistrationData;
+        cy.get('@openFile').then((openFile: unknown) => {
+          const file = openFile as FileType;
+          publishFile(builder.identifier, file).then(() => { });
+        });
+      });
+      cy.get('@internalFileBuilder').then((openFileBuilder: unknown) => {
+        const builder = openFileBuilder as RegistrationData;
+        cy.get('@internalFile').then((openFile: unknown) => {
+          const file = openFile as FileType;
+          publishFile(builder.identifier, file).then(() => { });
+        });
+      });
+  });
 };
 
 const users = {
