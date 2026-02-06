@@ -2,7 +2,7 @@ import { formatedToday } from './commands';
 import { CategoryTypes, ContributorTypes, FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { ArticleReference, BookReference, ChapterReference, CorrigendumReference } from './reference';
+import { ArticleReference, BookReference, ChapterReference, CorrigendumReference, ReportReference } from './reference';
 
 export const createValidRegistrationWithType = (
   title: string,
@@ -133,6 +133,7 @@ export const registrationBuilder = () => {
   const accessToken = Cypress.env('accessToken');
   const registrationData: RegistrationData = {
     associatedArtifacsts: [],
+    projects: [],
     create() {
       return new Cypress.Promise<RegistrationData>((resolve, reject) => {
         cy.request({
@@ -183,6 +184,8 @@ export const registrationBuilder = () => {
     },
     addProject(project: ProjectType) {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
+      this.projects.push(project);
+      this.payload.projects = this.projects;
       return this;
     },
     addReference(reference: ReferenceType) {
@@ -315,7 +318,8 @@ export const createEntityDescription = (
   category?: CategoryTypes,
   subjectHeading?: string,
   nviLevel?: NviLevels,
-  seriesLevel?: NviLevels
+  seriesLevel?: NviLevels,
+  corrigendumFor?: string
 ): EntityDescriptionType => {
   const entityDescription: EntityDescriptionType = {
     type: RegistrationPartTypes.ENTITYDESCRIPTION,
@@ -329,7 +333,7 @@ export const createEntityDescription = (
     contributors: [],
     npiSubjectHeading: subjectHeading,
     tags: [],
-    reference: createReference(category, nviLevel, seriesLevel),
+    reference: createReference(category, nviLevel, seriesLevel, corrigendumFor),
   };
   return entityDescription;
 };
@@ -377,16 +381,33 @@ const ChapterTypes = [
   CategoryTypes.CHAPTER_CONFERENCE_ABSTRACT,
 ];
 
-const createReference = (category: CategoryTypes, nviLevel?: NviLevels, seriesLevel?: NviLevels): ReferenceType => {
+const ReportTypes = [
+  CategoryTypes.REPORT_BASIC,
+  CategoryTypes.REPORT_WORKING_PAPER,
+  CategoryTypes.RESEARCH_REPORT,
+  CategoryTypes.POLICY_REPORT,
+  CategoryTypes.CONFERENCE_REPORT,
+  CategoryTypes.REPORT_BOOK_OF_ABSTRACT,
+];
+
+const createReference = (
+  category: CategoryTypes,
+  nviLevel?: NviLevels,
+  seriesLevel?: NviLevels,
+  corrigendumFor?: string
+): ReferenceType => {
   const level = nviLevel ? nviLevel : NviLevels.LEVEL_0;
   if (ArticleTypes.includes(category)) {
     return ArticleReference(category, level);
   } else if (category === CategoryTypes.JOURNAL_CORRIGENDUM) {
-    throw new Error('Corrigendum need parent publication to create reference.');
+    if (!corrigendumFor) throw new Error('Corrigendum need parent publication to create reference.');
+    return CorrigendumReference(`${publicationApiUrl}/${corrigendumFor}`, nviLevel);
   } else if (BookTypes.includes(category)) {
     return BookReference(category, level, seriesLevel);
   } else if (ChapterTypes.includes(category)) {
     return ChapterReference(category);
+  } else if (ReportTypes.includes(category)) {
+    return ReportReference(category);
   } else {
     throw new Error(`Category ${category} not supported for reference creation.`);
   }
@@ -402,11 +423,11 @@ export const publishFile = (registrationId: string, file: FileType) => {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         Accept: 'application/json',
-      }
-    }).then(response => {
+      },
+    }).then((response) => {
       const tickets = response.body.tickets;
       const ticketTypes = [];
-      tickets.forEach(ticket => {
+      tickets.forEach((ticket) => {
         ticketTypes.push(ticket.type);
       });
 
@@ -414,8 +435,7 @@ export const publishFile = (registrationId: string, file: FileType) => {
         reject('No publishing request found');
       }
 
-
-      tickets.forEach(ticket => {
+      tickets.forEach((ticket) => {
         if (ticket.type === PUBLISHING_REQUEST) {
           const tickedId = ticket.identifier;
           cy.request({
@@ -425,17 +445,31 @@ export const publishFile = (registrationId: string, file: FileType) => {
               Authorization: `Bearer ${accessToken}`,
               Accept: 'application/json',
             },
-            body: { status: "Completed" }
+            body: { status: 'Completed' },
           }).then(() => {
             resolve(null);
-          })
+          });
         }
       });
-    })
-  })
+    });
+  });
+};
+
+export enum FileTypes {
+  PENDING_OPEN = 'PendingOpenFile',
+  PENDING_INTERNAL = 'PendingInternalFile',
+  HIDDEN = 'HiddenFIle',
+  OPEN = 'OpenFile',
+  INTERNAL = 'InternalFile',
 }
 
-export const uploadFileToRegistration = (registrationId: string, fileName: string) => {
+export const uploadFileToRegistration = (
+  registrationId: string,
+  fileName: string,
+  type?: string,
+  mimeType?: string,
+  embargoDate?: string
+) => {
   return new Cypress.Promise<FileType | null>((resolve, reject) => {
     const accessToken = Cypress.env('accessToken');
 
@@ -453,7 +487,7 @@ export const uploadFileToRegistration = (registrationId: string, fileName: strin
           filename: fileName,
           size: fileSize,
           lastmodified: lastModified,
-          mimetype: 'text/plain',
+          mimetype: mimeType ? mimeType : 'text/plain',
         },
         failOnStatusCode: true,
       }).then((response) => {
@@ -507,9 +541,9 @@ export const uploadFileToRegistration = (registrationId: string, fileName: strin
             }).then((completeResponse) => {
               const file: FileType = {
                 ...completeResponse.body,
-                type: 'PendingOpenFile',
+                type: type ? type : FileTypes.PENDING_OPEN,
                 allowedOperations: ['delete', 'set-primary', 'update-metadata'],
-                embargoDate: null,
+                embargoDate: embargoDate ? embargoDate : null,
                 license: 'https://creativecommons.org/licenses/by/4.0/',
                 publisherVersion: 'AcceptedVersion',
               };
@@ -552,13 +586,14 @@ export const createPublicationUsingAPI = (
   category: CategoryTypes,
   creatorName: string,
   nviLevel: NviLevels,
-  seriesLevel?: NviLevels
+  seriesLevel?: NviLevels,
+  corrigendumFor?: string
 ) => {
   return new Cypress.Promise<RegistrationData>((resolve, reject) => {
     registrationBuilder()
       .create()
       .then((builder) => {
-        const entity = createEntityDescription(title, category, '1003', nviLevel, seriesLevel);
+        const entity = createEntityDescription(title, category, '1003', nviLevel, seriesLevel, corrigendumFor);
         findContributorByName(creatorName, ContributorTypes.CREATOR).then((creator) => {
           builder
             .addEntityDescription(entity)
@@ -572,6 +607,24 @@ export const createPublicationUsingAPI = (
             });
         });
       });
+  });
+};
+
+export const createCorrigendumUsingAPI = (
+  corrigendumTitle: string,
+  corrigendumFor: string,
+  creatorName: string,
+  nviLevel: NviLevels
+) => {
+  createPublicationUsingAPI(corrigendumFor, CategoryTypes.ACADEMIC_ARTICLE, creatorName, nviLevel).then((builder) => {
+    createPublicationUsingAPI(
+      corrigendumTitle,
+      CategoryTypes.JOURNAL_CORRIGENDUM,
+      creatorName,
+      nviLevel,
+      null,
+      builder.identifier
+    );
   });
 };
 
@@ -589,13 +642,30 @@ export const createChapterInAnthologyUsingAPI = (
       createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, creatorName, nviLevel, seriesLevel).then(
         (chapterBuilder) => {
           cy.wrap(chapterBuilder).as('chapterBuilder');
-          chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${anthologyBuilder.identifier as string
-            }`;
+          chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${
+            anthologyBuilder.identifier as string
+          }`;
           chapterBuilder.update().then();
         }
       );
     }
   );
+};
+
+export const createProject = (name?: string, id?: string): ProjectType => {
+  return !name
+    ? {
+        type: 'ResearchProject',
+        name: "Project for testing 20230512'",
+        id: 'https://api.e2e.nva.aws.unit.no/cristin/project/2745236',
+        approvals: [],
+      }
+    : {
+        type: 'ResearchProject',
+        name: name,
+        id: id,
+        approvals: [],
+      };
 };
 
 export type RegistrationData = {
@@ -604,6 +674,7 @@ export type RegistrationData = {
   payload?: string;
   reference?: ReferenceType;
   entityDescription?: EntityDescriptionType;
+  projects?: [];
   create(): Promise<RegistrationData>;
   addEntityDescription(description: EntityDescriptionType): RegistrationData;
   addContributor(contributors: ContributorType): RegistrationData;
@@ -679,17 +750,19 @@ export type ReferenceType = {
 };
 
 export type ProjectType = {
-  projectName: string;
-  projectDescription?: string;
-  startDate: Date;
-  endDate?: Date;
-  contributors: ContributorType[];
+  type: 'ResearchProject';
+  id: string;
+  name: string;
+  approvals: [];
 };
 
 export type EntityDescriptionType = {
   type: RegistrationPartTypes.ENTITYDESCRIPTION;
   mainTitle: string;
   alternativeTitles?: string[];
+  abstract?: string;
+  alternativeAbstracts?: string[];
+  language?: string;
   publicationDate: {
     type: RegistrationPartTypes.PUBLICATIONDATE;
     day: number;
@@ -697,7 +770,6 @@ export type EntityDescriptionType = {
     year: number;
   };
   contributors: ContributorType[];
-  alternativeAbstracts?: string[];
   npiSubjectHeading: string;
   tags: string[];
   reference: ReferenceType;

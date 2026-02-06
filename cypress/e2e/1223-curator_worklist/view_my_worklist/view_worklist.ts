@@ -53,30 +53,34 @@ const NVI = 'NVI';
 const createWorklistItem = (title, type) => {
   const user = type === NVI ? userNtnuVerifiedContributor : userBIBSYSPublishNoRights;
   cy.login(user).then(() => {
-    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[user], NviLevels.LEVEL_1).then(builder => {
-      uploadFileToRegistration(builder.identifier, filename).then(file => {
-        builder.addFile(file).update().then(() => {});
-      })
-    });
-
-    cy.searchFor(title);
-    cy.get('a').filter(`:contains(${title})`).click();
-    switch (type) {
-      case APPROVAL:
-        break;
-      case SUPPORT:
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
-          cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
-        });
-        break;
-      case DOI:
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-        break;
-      case 'NVI':
-        break;
-    }
+    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[user], NviLevels.LEVEL_1).then(
+      (builder) => {
+        cy.searchFor(title);
+        cy.get('a').filter(`:contains(${title})`).click();
+        switch (type) {
+          case APPROVAL:
+            uploadFileToRegistration(builder.identifier, filename).then((file) => {
+              builder
+                .addFile(file)
+                .update()
+                .then(() => {});
+            });
+            break;
+          case SUPPORT:
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
+              cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
+            });
+            break;
+          case DOI:
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+            break;
+          case 'NVI':
+            break;
+        }
+      }
+    );
   });
 };
 
@@ -173,7 +177,7 @@ Then('Curator see a list of Requests displayed with:', (dataTable: DataTable) =>
             .first()
             .within(() => {
               cy.get('div > span');
-              cy.get('div > p').should('have.length', 4);
+              cy.get('div > p').should('have.length', 5);
               cy.get('div > p > a').should('have.length', 2);
             });
         });

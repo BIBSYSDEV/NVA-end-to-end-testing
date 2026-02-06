@@ -18,7 +18,7 @@ import {
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
-import { createPublicationUsingAPI, FileType, findContributorByName, NviLevels, publishFile, RegistrationData, uploadFileToRegistration } from '../../../support/create_registration';
+import { createPublicationUsingAPI, FileType, FileTypes, findContributorByName, NviLevels, publishFile, RegistrationData, uploadFileToRegistration } from '../../../support/create_registration';
 
 const UPLOADED_FILE = 'UploadedFile';
 const PENDING_OPEN_FILE = 'PendingOpenFile';
@@ -99,8 +99,7 @@ const initData = () => {
     
     createPublicationUsingAPI(titles[PENDING_INTERNAL_FILE], CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(builder => {
       addContributor(builder);
-      uploadFileToRegistration(builder.identifier, fileName).then(file => {
-        file.type = 'PendingInternalFile';
+      uploadFileToRegistration(builder.identifier, fileName, FileTypes.PENDING_INTERNAL).then(file => {
         builder.addFile(file).update().then(() => {});
       })
     });
@@ -117,8 +116,7 @@ const initData = () => {
     createPublicationUsingAPI(titles[INTERNAL_FILE], CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(builder => {
       addContributor(builder);
       cy.wrap(builder).as('internalFileBuilder');
-      uploadFileToRegistration(builder.identifier, fileName).then(file => {
-        file.type = 'PendingInternalFile';
+      uploadFileToRegistration(builder.identifier, fileName, FileTypes.PENDING_INTERNAL).then(file => {
         cy.wrap(file).as('internalFile');
         builder.addFile(file).update().then(() => {});
       })
@@ -126,8 +124,7 @@ const initData = () => {
   
     createPublicationUsingAPI(titles[HIDDEN_FILE], CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(builder => {
       addContributor(builder);
-      uploadFileToRegistration(builder.identifier, fileName).then(file => {
-        file.type = 'HiddenFile';
+      uploadFileToRegistration(builder.identifier, fileName, FileTypes.HIDDEN).then(file => {
         builder.addFile(file).update().then(() => {});
       })
     });

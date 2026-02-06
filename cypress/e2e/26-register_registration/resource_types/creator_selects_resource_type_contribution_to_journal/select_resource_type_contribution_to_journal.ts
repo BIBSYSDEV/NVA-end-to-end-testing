@@ -1,8 +1,9 @@
 import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
-import { CategoryTypes, userUnitResourceTypeJournal } from '../../../../support/constants';
+import { CategoryTypes, userName, userUnitResourceTypeJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { journalSubtypes, journalFields } from '../../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
+import { createPublicationUsingAPI, NviLevels } from '../../../../support/create_registration';
 
 // Feature: Creator selects Resource type Contribution to journal
 
@@ -12,9 +13,15 @@ const corrigendumTitle = `Test article corrigendum ${uuid()}`;
 const originalPublication = `Original publication for corrigendum ${uuid()}`;
 
 BeforeAll(() => {
-  cy.login(userUnitResourceTypeJournal);
-  cy.createPublishedRegistration(originalPublication);
-  cy.createPublishedRegistration(corrigendumTitle, CategoryTypes.JOURNAL_CORRIGENDUM);
+  cy.login(userUnitResourceTypeJournal).then(() => {
+    const user = userName[userUnitResourceTypeJournal];
+    createPublicationUsingAPI(originalPublication, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(
+      (builder) => {
+        createPublicationUsingAPI(corrigendumTitle, CategoryTypes.JOURNAL_CORRIGENDUM, user, NviLevels.LEVEL_0, null, builder.identifier).then(
+          (builder) => {}
+        );
+      });
+  });
 });
 
 Before(() => {
@@ -65,8 +72,9 @@ When('they select the Resource subtype "Corrigendum"', () => {
 // @274
 // Scenario: Creator navigates to the Resource Type tab and see list of Journal types
 Given('Creator begins registering a Registration in the Wizard', () => {
-  cy.login(userUnitResourceTypeJournal);
-  cy.startWizardWithEmptyRegistration();
+  cy.login(userUnitResourceTypeJournal).then(() => {
+    cy.startWizardWithEmptyRegistration();
+  });
 });
 When('they navigate to the Resource Type tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();

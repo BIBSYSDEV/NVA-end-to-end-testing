@@ -1,8 +1,9 @@
-import { CategoryTypes, userUnitSavePartOfBook } from '../../../../support/constants';
+import { CategoryTypes, userName, userUnitSavePartOfBook } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+import { createPublicationUsingAPI, NviLevels } from '../../../../support/create_registration';
 
 const fields = [
   resourceTypeFields.partOf,
@@ -13,15 +14,31 @@ const fields = [
 
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
-const initData = () => {
-  cy.login(userUnitSavePartOfBook);
-  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.BOOK_ANTHOLOGY);
-  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.RESEARCH_REPORT);
-  cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.REPORT_BOOK_OF_ABSTRACT);
-  cy.wait(20000);
-};
-
-BeforeAll(() => initData());
+BeforeAll(() => {
+  cy.login(userUnitSavePartOfBook).then(() => {
+    createPublicationUsingAPI(
+      `Antologi ${uuidv4()}`,
+      CategoryTypes.BOOK_ANTHOLOGY,
+      userName[userUnitSavePartOfBook],
+      NviLevels.LEVEL_0
+    ).then(() => {});
+    createPublicationUsingAPI(
+      `Antologi ${uuidv4()}`,
+      CategoryTypes.RESEARCH_REPORT,
+      userName[userUnitSavePartOfBook],
+      NviLevels.LEVEL_0
+    ).then(() => {});
+    createPublicationUsingAPI(
+      `Antologi ${uuidv4()}`,
+      CategoryTypes.REPORT_BOOK_OF_ABSTRACT,
+      userName[userUnitSavePartOfBook],
+      NviLevels.LEVEL_0
+    ).then(() => {});
+    // cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.BOOK_ANTHOLOGY);
+    // cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.RESEARCH_REPORT);
+    // cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.REPORT_BOOK_OF_ABSTRACT);
+  });
+});
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Part of book
 Given('Author begins registering a Registration', () => {

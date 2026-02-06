@@ -1,7 +1,8 @@
 import { v4 as uuid, v4 } from 'uuid';
-import { userUnitCuratorDraftDoi, userUnitDraftDoi2 } from '../../../support/constants';
+import { CategoryTypes, userName, userUnitCuratorDraftDoi, userUnitDraftDoi2 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { createPublicationUsingAPI, NviLevels } from '../../../support/create_registration';
 
 // Feature: DOI related scenarios moved from MVP feature
 
@@ -75,23 +76,30 @@ Then('the DOI request is listed in the Curators work list', () => {
 //   @1251
 //   Scenario: Creator opens a Registration with a DOI request
 Given('that the Creator Opens a DOI request entry from My Worklist', () => {
-  cy.login(userUnitDraftDoi2);
-  cy.createPublishedRegistration(publicRegistrationRequestingDoi);
-  cy.refreshPublish();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
-  cy.getDataTestId(dataTestId.header.myPageLink).click();
-  cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
-  cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
-  cy.get('[data-testid^=result-list-item]').first().parent().parent().parent().click();
+  cy.login(userUnitDraftDoi2).then(() => {
+    createPublicationUsingAPI(
+      publicRegistrationRequestingDoi,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitDraftDoi2],
+      NviLevels.LEVEL_0
+    ).then((builder) => {});
+    cy.searchFor(publicRegistrationRequestingDoi);
+    cy.get('a').filter(`:contains(${publicRegistrationRequestingDoi})`).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+    cy.getSuccess();
+    cy.getSuccessDone();
+    cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
+    cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
+    cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
+    cy.get('[data-testid^=result-list-item]').first().parent().parent().parent().click();
+  });
 });
 
 When('they click the Edit Registration button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.editButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
 });
 Then('the Registration is opened in the Wizard on the first tab', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.descriptionField).should('exist');
@@ -106,16 +114,16 @@ Given('that a Creator navigates to the Landing Page for Registration for publish
 });
 Given('they are the Owner of this Registration', () => {});
 Given('they click the "Request a DOI" button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.requestDoiButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
 });
 Then('the "Request a DOI" dialog is opened', () => {});
 Then('they see fields for Message', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiMessageField}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.doiMessageField).should('be.visible');
 });
 Then('they see a "Send Request" button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.sendDoiButton}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).should('be.visible');
 });
 
 //   @1232

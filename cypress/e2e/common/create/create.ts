@@ -20,7 +20,6 @@ Given('I create a new registration', () => {
           builder.addEntityDescription(entity).addContributor(contributor);
           builder.update().then();
           uploadFileToRegistration(builder.identifier, 'example.txt').then((fileUpload) => {
-            console.log(fileUpload);
             builder.addFile(fileUpload);
             builder.update().then();
             cy.then(() => {

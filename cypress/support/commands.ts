@@ -35,20 +35,20 @@ Cypress.Commands.add('login', (userId: string) => {
       username: 'osteloff',
       password: 'osteloff',
     },
-    failOnStatusCode: false
+    failOnStatusCode: false,
   });
   cy.setLocalStorage('i18nextLng', 'eng');
   cy.setLocalStorage('previouslyLoggedIn', 'true');
   cy.wrap(null).then(() => {
-    return login(userId).then(() => { });
+    return login(userId).then(() => {});
   });
 });
 
 Cypress.Commands.add('getNvaUserName', () => {
   const token = Cypress.env('accessToken');
-  const payload = JSON.parse(atob((token).split('.')[1]));
+  const payload = JSON.parse(atob(token.split('.')[1]));
   return payload['custom:nvaUsername'];
-})
+});
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
   cy.getDataTestId(dataTestId.header.newRegistrationLink).click({
@@ -95,7 +95,10 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
 Cypress.Commands.add('createPublishedChapter', (title, anthology) => {
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.description.titleField).type(title);
-  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, todayDatePicker());
+  cy.chooseDatePicker(
+    `[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`,
+    todayDatePicker()
+  );
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_CHAPTER)).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
@@ -112,7 +115,6 @@ Cypress.Commands.add('createPublishedChapter', (title, anthology) => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getSuccessDone();
 });
-
 
 Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: FileVersions, fileType?: string) => {
   if (!fileVersion) {
@@ -235,16 +237,10 @@ Cypress.Commands.add('testDataTestidList', (dataTable, values) => {
 Cypress.Commands.add('selectRegistration', (title, type) => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
-  if (type === 'published') {
-    cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
-    cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).click();
-  }
-  cy.get('[data-testid^=result-list-item]')
-    .filter(`:contains(${title})`)
-    .first()
-    .within(() => {
-      cy.get('p > a').first().click();
-    });
+  type === 'published'
+    ? cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click()
+    : cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).click();
+  cy.get('a').filter(`:contains(${title})`).click();
 });
 
 export const NVI_PENDING = 'candidates_for_control';
@@ -254,12 +250,12 @@ export const NVI_REJECTED = 'Rejected';
 export const NVI_DISPUTE = 'dispute';
 
 Cypress.Commands.add('openNVIWorklist', () => {
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-    cy.contains(currentYear).click();
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  cy.contains(currentYear).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });
 
 Cypress.Commands.add('selectNVIStatus', (status) => {

@@ -2,43 +2,37 @@
 
 import { dataTestId } from '../../../support/dataTestIds';
 import { today } from '../../../support/commands';
-import { userUnitWithAuthor, userUnitWithAuthor2 } from '../../../support/constants';
+import { CategoryTypes, userName, userUnitWithAuthor, userUnitWithAuthor2 } from '../../../support/constants';
 import { v4 as uuid } from 'uuid';
 import { Before, Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {
+  createPublicationUsingAPI,
+  FileTypes,
+  NviLevels,
+  uploadFileToRegistration,
+} from '../../../support/create_registration';
 
-const fileTypes = {
-  'PDF': 'test_file.pdf',
-  'Image': 'sikt.png',
-  'Microsoft Office': 'example.docx',
+const fileType = {
+  'PDF': {
+    type: 'PDF',
+    name: 'test_file.pdf',
+    mimeType: 'application/pdf',
+  },
+  'Image': {
+    type: 'Image',
+    name: 'sikt.png',
+    mimeType: 'image/png',
+  },
+  'Microsoft Office': {
+    type: 'Microsoft Office',
+    name: 'example.docx',
+    mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  },
 };
 
 const OPEN_FILE = 'Open file';
 const INTERNAL_FILE = 'Internal file';
 const EMBARGOED_FILE = 'Embargoed file';
-
-const addFileToRegistration = (fileName, type) => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  cy.reload();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-  if (type == EMBARGOED_FILE) {
-    cy.contains(OPEN_FILE).click();
-  } else {
-    cy.contains(type).click();
-  }
-  if (type === OPEN_FILE || type === EMBARGOED_FILE) {
-    cy.getDataTestId(dataTestId.registrationWizard.files.version).within(() => {
-      cy.get('input').first().click();
-    });
-  }
-  if (type === EMBARGOED_FILE) {
-    cy.getDataTestId(dataTestId.registrationWizard.files.expandFileRowButton).click();
-    cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.files.embargoDateField}]`, '12.12.2030');
-  }
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
-};
 
 let preview = false;
 
@@ -52,24 +46,69 @@ Given('Anonymous User views Landing Page for Registration', () => {
 Before({ 'tags': '@init' }, () => {
   const textFileName = 'lorem_ipsum.txt';
 
-  cy.login(userUnitWithAuthor);
-  const internalFileTitle = `File with Administrative agreement ${uuid()}`;
-  cy.createPublishedRegistration(internalFileTitle);
-  addFileToRegistration(textFileName, INTERNAL_FILE);
+  cy.login(userUnitWithAuthor).then(() => {
+    const user = userName[userUnitWithAuthor];
+    const internalFileTitle = `File with Administrative agreement ${uuid()}`;
+    createPublicationUsingAPI(internalFileTitle, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(
+      (builder) => {
+        uploadFileToRegistration(builder.identifier, textFileName, FileTypes.PENDING_INTERNAL).then((file) => {
+          builder
+            .addFile(file)
+            .update()
+            .then(() => {});
+        });
+      }
+    );
 
-  const publicFileTitle = `No administrative agreement ${uuid()}`;
-  cy.createPublishedRegistration(publicFileTitle);
-  addFileToRegistration(textFileName, OPEN_FILE);
+    const publicFileTitle = `No administrative agreement ${uuid()}`;
+    createPublicationUsingAPI(publicFileTitle, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(
+      (builder) => {
+        uploadFileToRegistration(builder.identifier, textFileName).then((file) => {
+          builder
+            .addFile(file)
+            .update()
+            .then(() => {});
+        });
+      }
+    );
 
-  Object.keys(fileTypes).forEach((fileType) => {
-    const fileTypeTitle = `Not Embargoed ${fileType} file ${uuid()}`;
-    cy.createPublishedRegistration(fileTypeTitle);
-    addFileToRegistration(fileTypes[fileType], OPEN_FILE);
+    Object.keys(fileType).forEach((fileType) => {
+      const fileTypeTitle = `Not Embargoed ${fileType['type']} file ${uuid()}`;
+      createPublicationUsingAPI(fileTypeTitle, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(
+        (builder) => {
+          uploadFileToRegistration(
+            builder.identifier,
+            fileType[fileType]['name'],
+            FileTypes.PENDING_OPEN,
+            fileType[fileType]['mimeType']
+          ).then((file) => {
+            builder
+              .addFile(file)
+              .update()
+              .then(() => {});
+          });
+        }
+      );
+    });
+
+    const embargoedFileTitle = `Check Embargoed PDF file ${uuid()}`;
+    createPublicationUsingAPI(embargoedFileTitle, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(
+      (builder) => {
+        uploadFileToRegistration(
+          builder.identifier,
+          'test_file.pdf',
+          FileTypes.PENDING_OPEN,
+          'application/pdf',
+          '2100-01-01T23:00:00.000Z'
+        ).then((file) => {
+          builder
+            .addFile(file)
+            .update()
+            .then(() => {});
+        });
+      }
+    );
   });
-
-  const embargoedFileTitle = `Check Embargoed PDF file ${uuid()}`;
-  cy.createPublishedRegistration(embargoedFileTitle);
-  addFileToRegistration('test_file.pdf', EMBARGOED_FILE);
 });
 
 // Scenario: User sees the option to claim Ownership of a Resource
@@ -146,7 +185,7 @@ Given('every File has an expandable Preview panel', () => {
 When('the user expands the Preview panel', () => {});
 Then('the selected File is downloaded', () => {});
 Then('they see the downloaded File is of type {string}', (type: string) => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).contains(fileTypes[type]);
+  cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).contains(fileType[type]['name']);
 });
 Then('they see the preview of the downloaded File', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.filePreview).should('be.visible');

@@ -1,33 +1,39 @@
-import { userUnitWithAuthor } from '../../../support/constants';
+import { CategoryTypes, userName, userUnitWithAuthor } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageFields } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import {
+  createProject,
+  createPublicationUsingAPI,
+  NviLevels,
+  uploadFileToRegistration,
+} from '../../../support/create_registration';
 
 const landing_page_registration_title = `View Landing Page ${uuid()}`;
 const fileName = 'example.txt';
 
 // Scenario: NVA contains Reigstration
 Given('there is a published Registration in NVA', () => {
-  cy.login(userUnitWithAuthor).then(() => {});
-  cy.createPublishedRegistration(landing_page_registration_title, null, fileName);
-  cy.wait(5000);
-  cy.refreshPublish();
-  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  cy.reload();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.tagField).type('Keyword{enter}');
-  cy.getDataTestId(dataTestId.registrationWizard.description.languageField).click();
-  cy.contains('Norwegian, bokmål').click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectSearchField).type('project for testing 20230512');
-  cy.contains('Project for testing 20230512').click();
-  cy.getDataTestId(dataTestId.registrationWizard.description.abstractField).type('Test abstract');
-
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
-  cy.wait(5000);
+  cy.login(userUnitWithAuthor).then(() => {
+    createPublicationUsingAPI(
+      landing_page_registration_title,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
+    ).then((builder) => {
+      uploadFileToRegistration(builder.identifier, fileName).then((file) => {
+        builder.entityDescription.abstract = 'Test abstract';
+        builder.entityDescription.tags.push('Keyword');
+        builder.entityDescription.language = 'http://lexvo.org/id/iso639-3/nob';
+        builder
+          .addProject(createProject())
+          .addFile(file)
+          .update()
+          .then(() => {});
+      });
+    });
+  });
 });
 
 // @881
