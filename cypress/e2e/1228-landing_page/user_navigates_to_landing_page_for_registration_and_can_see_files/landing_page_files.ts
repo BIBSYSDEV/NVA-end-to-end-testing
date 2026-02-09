@@ -12,7 +12,7 @@ import {
   uploadFileToRegistration,
 } from '../../../support/create_registration';
 
-const fileType = {
+const fileTypes = {
   'PDF': {
     type: 'PDF',
     name: 'test_file.pdf',
@@ -72,15 +72,16 @@ Before({ 'tags': '@init' }, () => {
       }
     );
 
-    Object.keys(fileType).forEach((fileType) => {
-      const fileTypeTitle = `Not Embargoed ${fileType['type']} file ${uuid()}`;
+    Object.keys(fileTypes).forEach((fileType) => {
+      console.log(fileType)
+      const fileTypeTitle = `Not Embargoed ${fileTypes[fileType]['type']} file ${uuid()}`;
       createPublicationUsingAPI(fileTypeTitle, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(
         (builder) => {
           uploadFileToRegistration(
             builder.identifier,
-            fileType[fileType]['name'],
+            fileTypes[fileType]['name'],
             FileTypes.PENDING_OPEN,
-            fileType[fileType]['mimeType']
+            fileTypes[fileType]['mimeType']
           ).then((file) => {
             builder
               .addFile(file)
@@ -185,7 +186,7 @@ Given('every File has an expandable Preview panel', () => {
 When('the user expands the Preview panel', () => {});
 Then('the selected File is downloaded', () => {});
 Then('they see the downloaded File is of type {string}', (type: string) => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).contains(fileType[type]['name']);
+  cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).contains(fileTypes[type]['name']);
 });
 Then('they see the preview of the downloaded File', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.filePreview).should('be.visible');
