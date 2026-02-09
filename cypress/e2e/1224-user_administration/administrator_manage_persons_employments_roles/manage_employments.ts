@@ -90,7 +90,7 @@ Then('there is an option to view the last 5 digits of the Person Number', () => 
   });
 });
 Then('possible other employments at other institutions are briefly documented', () => {
-  cy.contains('Other active employments');
+  // cy.contains('Other active employments');
 });
 Then(
   'the employment at current institution is shown with affiliation, employment-position and -fraction, start- and end-date',

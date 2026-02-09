@@ -208,11 +208,11 @@ Then('they see the "Create new Author" Button in the Create new Author Dialog', 
 
 // Scenario: Creator sees Button to Verify Contributor
 When('the Registration has an Unverified Contributor', () => {
-  cy.mockPersonSearch(TestUsers.creators.basic);
+  // cy.mockPersonSearch(TestUsers.creators.basic);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('Unverified Creator');
+  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}]`).type('Save Registration TestUser');
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
 });
@@ -248,11 +248,11 @@ Then('they see a list of Persons matching the search', () => {
 
 // Scenario: Creator verifies Contributor
 Given('Creator opens Dialog to Verify Contributor', () => {
-  cy.mockPersonSearch(TestUsers.creators.basic);
+  // cy.mockPersonSearch(TestUsers.creators.basic);
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
   cy.get('[data-testid=add-contributor]').click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Unverified Creator');
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Save Registration TestUser');
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
   cy.get(`[data-testid^=button-set-unverified-contributor-]`).first().click();
