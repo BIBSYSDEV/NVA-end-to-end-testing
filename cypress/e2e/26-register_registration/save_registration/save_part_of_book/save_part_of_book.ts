@@ -34,9 +34,6 @@ BeforeAll(() => {
       userName[userUnitSavePartOfBook],
       NviLevels.LEVEL_0
     ).then(() => {});
-    // cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.BOOK_ANTHOLOGY);
-    // cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.RESEARCH_REPORT);
-    // cy.createPublishedRegistration(`Antologi ${uuidv4()}`, CategoryTypes.REPORT_BOOK_OF_ABSTRACT);
   });
 });
 

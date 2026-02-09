@@ -458,7 +458,7 @@ export const publishFile = (registrationId: string, file: FileType) => {
 export enum FileTypes {
   PENDING_OPEN = 'PendingOpenFile',
   PENDING_INTERNAL = 'PendingInternalFile',
-  HIDDEN = 'HiddenFIle',
+  HIDDEN = 'HiddenFile',
   OPEN = 'OpenFile',
   INTERNAL = 'InternalFile',
 }

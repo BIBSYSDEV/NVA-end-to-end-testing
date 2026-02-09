@@ -30,16 +30,18 @@ const fields = {
 const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther'];
 
 const initData = () => {
-  cy.login(userUnitSaveJournal);
-  const originalPublication = `Original publication for corrigendum ${uuidv4()}`;
-  cy.createPublishedRegistration(originalPublication);
-  const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
-  cy.createPublishedRegistration(corrigendumTitle, CategoryTypes.JOURNAL_CORRIGENDUM);
-  const articleForCorrigendumTitle = `Test article corrigendum ${uuidv4()}`;
-  cy.createPublishedRegistration(articleForCorrigendumTitle);
+  cy.login(userUnitSaveJournal).then(() => {
+
+    const originalPublication = `Original publication for corrigendum ${uuidv4()}`;
+    cy.createPublishedRegistration(originalPublication);
+    const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
+    cy.createPublishedRegistration(corrigendumTitle, CategoryTypes.JOURNAL_CORRIGENDUM);
+    const articleForCorrigendumTitle = `Test article corrigendum ${uuidv4()}`;
+    cy.createPublishedRegistration(articleForCorrigendumTitle);
+  });
 };
 
-BeforeAll(() => initData());
+// BeforeAll(() => initData());
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Publication in Journal
 Given('Author begins registering a Registration', () => {
