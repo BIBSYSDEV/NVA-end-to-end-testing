@@ -1,8 +1,9 @@
-import { CategoryTypes, userUnitSaveJournal } from '../../../../support/constants';
+import { CategoryTypes, userName, userUnitSaveJournal } from '../../../../support/constants';
 import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+import { createPublicationUsingAPI, NviLevels } from '../../../../support/create_registration';
 
 const commonFields = [
   resourceTypeFields.volume,
@@ -31,17 +32,31 @@ const contributorRoles = ['Creator', 'ContactPerson', 'RightsHolder', 'RoleOther
 
 const initData = () => {
   cy.login(userUnitSaveJournal).then(() => {
-
     const originalPublication = `Original publication for corrigendum ${uuidv4()}`;
-    cy.createPublishedRegistration(originalPublication);
+    createPublicationUsingAPI(
+      originalPublication,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitSaveJournal],
+      NviLevels.LEVEL_1
+    ).then(() => {});
     const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
-    cy.createPublishedRegistration(corrigendumTitle, CategoryTypes.JOURNAL_CORRIGENDUM);
+    createPublicationUsingAPI(
+      corrigendumTitle,
+      CategoryTypes.JOURNAL_CORRIGENDUM,
+      userName[userUnitSaveJournal],
+      NviLevels.LEVEL_1
+    ).then(() => {});
     const articleForCorrigendumTitle = `Test article corrigendum ${uuidv4()}`;
-    cy.createPublishedRegistration(articleForCorrigendumTitle);
+    createPublicationUsingAPI(
+      articleForCorrigendumTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitSaveJournal],
+      NviLevels.LEVEL_1
+    ).then(() => {});
   });
 };
 
-// BeforeAll(() => initData());
+BeforeAll(() => initData());
 
 // Scenario Outline: Creator sees registration is saved with correct values presented on landing page for Publication in Journal
 Given('Author begins registering a Registration', () => {
