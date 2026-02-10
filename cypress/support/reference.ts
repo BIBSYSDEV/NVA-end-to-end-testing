@@ -6,7 +6,7 @@ export const ArticleReference = (category: CategoryTypes, nviLevel: NviLevels): 
     type: RegistrationPartTypes.REFERENCE,
     publicationContext: {
       type: 'Journal',
-      id: NVI_CHANNELS[category][nviLevel],
+      id: JOURNAL[nviLevel],
       volume: '15',
       issue: '3',
     },
@@ -36,7 +36,7 @@ export const BookReference = (category: CategoryTypes, nviLevel: NviLevels, seri
       },
       publisher: {
         type: 'Publisher',
-        id: NVI_CHANNELS[category][nviLevel],
+        id: PUBLISHER[nviLevel],
         valid: true,
       },
       isbnList: ['9783161484100'],
@@ -84,7 +84,7 @@ export const ReportReference = (category: CategoryTypes): ReferenceType => {
   };
 
   return reference;
-}
+};
 
 export const ChapterReference = (category: CategoryTypes): ReferenceType => {
   const reference: ReferenceType = {
@@ -111,7 +111,7 @@ export const CorrigendumReference = (corrigendumFor: string, nviLevel: NviLevels
     type: RegistrationPartTypes.REFERENCE,
     publicationContext: {
       type: 'Journal',
-      id: NVI_CHANNELS[CategoryTypes.ACADEMIC_ARTICLE][nviLevel]
+      id: JOURNAL[nviLevel],
     },
     publicationInstance: {
       type: CategoryTypes.JOURNAL_CORRIGENDUM,
@@ -126,6 +126,40 @@ export const CorrigendumReference = (corrigendumFor: string, nviLevel: NviLevels
   };
   return reference;
 };
+
+export const DegreeReference = (category: CategoryTypes, nviLevel: NviLevels, seriesLevel?: NviLevels): ReferenceType => {
+  const reference: ReferenceType = {
+    type: RegistrationPartTypes.REFERENCE,
+    publicationContext: {
+      type: 'Degree',
+      course: {
+        type: 'UnconfirmedCourse',
+        code: '1001',
+      },
+      isbnList: ['9783161484100'],
+      publisher: {
+        type: 'Publisher',
+        id: PUBLISHER[nviLevel],
+        valid: true,
+      },
+    },
+    publicationInstance: {
+      type: category,
+      pages: {
+        type: 'MonographPages',
+        pages: '',
+      }
+    }
+  }
+  if (category === CategoryTypes.DEGREE_PHD && seriesLevel ) {
+    reference.publicationContext.series = {
+      type: 'Series',
+      id: SERIES[seriesLevel],
+    };
+    reference.publicationContext.seriesNumber = '4';
+  }
+  return reference;
+}
 
 const currentYear = new Date().getFullYear();
 
@@ -145,36 +179,47 @@ const SERIES = {
   [NviLevels.LEVEL_2]: GEOSCIENTIFIC_MODEL_DEVELOPMENT,
 };
 
-const NVI_CHANNELS = {
-  [CategoryTypes.ACADEMIC_ARTICLE]: {
-    [NviLevels.LEVEL_0]: UNDER_DUSKEN_URI,
-    [NviLevels.LEVEL_1]: ACM_JOURNAL_OF_DATA_AND_INFORMATION_QUALITY_URI,
-    [NviLevels.LEVEL_2]: ACM_CHEMICAL_BIOLOGY_URI,
-  },
-  [CategoryTypes.ACADEMIC_REVIEW_ARTICLE]: {
-    [NviLevels.LEVEL_0]: UNDER_DUSKEN_URI,
-    [NviLevels.LEVEL_1]: ACM_JOURNAL_OF_DATA_AND_INFORMATION_QUALITY_URI,
-    [NviLevels.LEVEL_2]: ACM_CHEMICAL_BIOLOGY_URI,
-  },
-  [CategoryTypes.JOURNAL_REVIEW]: {
-    [NviLevels.LEVEL_0]: UNDER_DUSKEN_URI,
-    [NviLevels.LEVEL_1]: ACM_JOURNAL_OF_DATA_AND_INFORMATION_QUALITY_URI,
-    [NviLevels.LEVEL_2]: ACM_CHEMICAL_BIOLOGY_URI,
-  },
-  [CategoryTypes.ACADEMIC_MONOGRAPH]: {
-    [NviLevels.LEVEL_0]: SINTEF_AKADEMSIK_FORLAG_URI,
-    [NviLevels.LEVEL_1]: SPRINGER_NATURE_URI,
-    [NviLevels.LEVEL_2]: HARVARD_UNIVERSITY_PRESS_URI,
-  },
-  [CategoryTypes.BOOK_ANTHOLOGY]: {
-    [NviLevels.LEVEL_0]: SINTEF_AKADEMSIK_FORLAG_URI,
-    [NviLevels.LEVEL_1]: SPRINGER_NATURE_URI,
-    [NviLevels.LEVEL_2]: HARVARD_UNIVERSITY_PRESS_URI,
-  },
-  [CategoryTypes.ACADEMIC_COMMENTARY]: {
-    [NviLevels.LEVEL_0]: SINTEF_AKADEMSIK_FORLAG_URI,
-    [NviLevels.LEVEL_1]: SPRINGER_NATURE_URI,
-    [NviLevels.LEVEL_2]: HARVARD_UNIVERSITY_PRESS_URI,
-  },
+const PUBLISHER = {
+  [NviLevels.LEVEL_0]: SINTEF_AKADEMSIK_FORLAG_URI,
+  [NviLevels.LEVEL_1]: SPRINGER_NATURE_URI,
+  [NviLevels.LEVEL_2]: HARVARD_UNIVERSITY_PRESS_URI,
 };
 
+const JOURNAL = {
+  [NviLevels.LEVEL_0]: UNDER_DUSKEN_URI,
+  [NviLevels.LEVEL_1]: ACM_JOURNAL_OF_DATA_AND_INFORMATION_QUALITY_URI,
+  [NviLevels.LEVEL_2]: ACM_CHEMICAL_BIOLOGY_URI,
+};
+
+// const NVI_CHANNELS = {
+//   [CategoryTypes.ACADEMIC_ARTICLE]: {
+//     [NviLevels.LEVEL_0]: UNDER_DUSKEN_URI,
+//     [NviLevels.LEVEL_1]: ACM_JOURNAL_OF_DATA_AND_INFORMATION_QUALITY_URI,
+//     [NviLevels.LEVEL_2]: ACM_CHEMICAL_BIOLOGY_URI,
+//   },
+//   [CategoryTypes.ACADEMIC_REVIEW_ARTICLE]: {
+//     [NviLevels.LEVEL_0]: UNDER_DUSKEN_URI,
+//     [NviLevels.LEVEL_1]: ACM_JOURNAL_OF_DATA_AND_INFORMATION_QUALITY_URI,
+//     [NviLevels.LEVEL_2]: ACM_CHEMICAL_BIOLOGY_URI,
+//   },
+//   [CategoryTypes.JOURNAL_REVIEW]: {
+//     [NviLevels.LEVEL_0]: UNDER_DUSKEN_URI,
+//     [NviLevels.LEVEL_1]: ACM_JOURNAL_OF_DATA_AND_INFORMATION_QUALITY_URI,
+//     [NviLevels.LEVEL_2]: ACM_CHEMICAL_BIOLOGY_URI,
+//   },
+//   [CategoryTypes.ACADEMIC_MONOGRAPH]: {
+//     [NviLevels.LEVEL_0]: SINTEF_AKADEMSIK_FORLAG_URI,
+//     [NviLevels.LEVEL_1]: SPRINGER_NATURE_URI,
+//     [NviLevels.LEVEL_2]: HARVARD_UNIVERSITY_PRESS_URI,
+//   },
+//   [CategoryTypes.BOOK_ANTHOLOGY]: {
+//     [NviLevels.LEVEL_0]: SINTEF_AKADEMSIK_FORLAG_URI,
+//     [NviLevels.LEVEL_1]: SPRINGER_NATURE_URI,
+//     [NviLevels.LEVEL_2]: HARVARD_UNIVERSITY_PRESS_URI,
+//   },
+//   [CategoryTypes.ACADEMIC_COMMENTARY]: {
+//     [NviLevels.LEVEL_0]: SINTEF_AKADEMSIK_FORLAG_URI,
+//     [NviLevels.LEVEL_1]: SPRINGER_NATURE_URI,
+//     [NviLevels.LEVEL_2]: HARVARD_UNIVERSITY_PRESS_URI,
+//   },
+// };

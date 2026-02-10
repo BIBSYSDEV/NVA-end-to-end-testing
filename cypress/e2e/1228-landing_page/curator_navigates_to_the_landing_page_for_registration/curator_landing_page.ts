@@ -205,6 +205,12 @@ When('they approve the DOI Request', () => {
   cy.wait(5000);
   cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).click();
+  cy.get('body').then((body) => {
+    if (body.find(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).length > 0) {
+      cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+      cy.getSuccessDone();
+    }
+  });
 });
 Then('the DOI is findable', () => {
   cy.get('[data-testid=logo]').click();

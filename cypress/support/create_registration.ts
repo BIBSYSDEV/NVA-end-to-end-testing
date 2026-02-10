@@ -2,7 +2,7 @@ import { formatedToday } from './commands';
 import { CategoryTypes, ContributorTypes, FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { ArticleReference, BookReference, ChapterReference, CorrigendumReference, ReportReference } from './reference';
+import { ArticleReference, BookReference, ChapterReference, CorrigendumReference, DegreeReference, ReportReference } from './reference';
 
 export const createValidRegistrationWithType = (
   title: string,
@@ -390,6 +390,14 @@ const ReportTypes = [
   CategoryTypes.REPORT_BOOK_OF_ABSTRACT,
 ];
 
+const DegreeTypes = [
+  CategoryTypes.DEGREE_BACHELOR,
+  CategoryTypes.DEGREE_MASTER,
+  CategoryTypes.DEGREE_PHD,
+  CategoryTypes.DEGREE_LICENTIATE,
+  CategoryTypes.OTHER_STUDENT_WORK,
+]
+
 const createReference = (
   category: CategoryTypes,
   nviLevel?: NviLevels,
@@ -408,6 +416,8 @@ const createReference = (
     return ChapterReference(category);
   } else if (ReportTypes.includes(category)) {
     return ReportReference(category);
+  } else if (DegreeTypes.includes(category)) {
+    return DegreeReference(category, level, seriesLevel);
   } else {
     throw new Error(`Category ${category} not supported for reference creation.`);
   }
@@ -727,6 +737,10 @@ export type PublicationContextType = {
   seriesNumber?: string;
   isbnList?: string[];
   additionalIdentifiers?: string[];
+  course?: {
+    type: string;
+    code: string;
+  };
 };
 
 export type PublicationInstanceType = {
