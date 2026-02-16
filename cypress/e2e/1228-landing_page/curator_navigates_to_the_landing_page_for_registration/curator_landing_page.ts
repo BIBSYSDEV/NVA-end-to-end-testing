@@ -45,11 +45,6 @@ Before({ tags: '@file_restrictions' }, () => {
   cy.setWorkflowRegistratorPublishesMetadata();
 });
 
-Before({ tags: '@all_restrictions' }, () => {
-  cy.setWorkflowRegistratorRequiresApproval();
-  cy.wrap(curatorPublishesWorkflow).as('workflow');
-});
-
 Before({ tags: '@doi_request' }, () => {
   cy.wrap(true).as('doiRequest');
 });

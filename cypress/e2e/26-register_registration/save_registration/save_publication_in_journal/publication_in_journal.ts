@@ -3,7 +3,12 @@ import { dataTestId } from '../../../../support/dataTestIds';
 import { registrationFields, resourceTypeFields } from '../../../../support/save_registration';
 import { v4 as uuidv4 } from 'uuid';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
-import { createPublicationUsingAPI, NviLevels } from '../../../../support/create_registration';
+import {
+  createPublicationUsingAPI,
+  NviLevels,
+  registrationBuilder,
+  RegistrationData,
+} from '../../../../support/create_registration';
 
 const commonFields = [
   resourceTypeFields.volume,
@@ -38,14 +43,18 @@ const initData = () => {
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitSaveJournal],
       NviLevels.LEVEL_1
-    ).then(() => {});
-    const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
-    createPublicationUsingAPI(
-      corrigendumTitle,
-      CategoryTypes.JOURNAL_CORRIGENDUM,
-      userName[userUnitSaveJournal],
-      NviLevels.LEVEL_1
-    ).then(() => {});
+    ).then((builder: unknown) => {
+      const corrigendumBuilder = builder as RegistrationData;
+      const corrigendumTitle = `Test article corrigendum ${uuidv4()}`;
+      createPublicationUsingAPI(
+        corrigendumTitle,
+        CategoryTypes.JOURNAL_CORRIGENDUM,
+        userName[userUnitSaveJournal],
+        NviLevels.LEVEL_1,
+        NviLevels.LEVEL_0,
+        corrigendumBuilder.identifier
+      ).then(() => {});
+    });
     const articleForCorrigendumTitle = `Test article corrigendum ${uuidv4()}`;
     createPublicationUsingAPI(
       articleForCorrigendumTitle,

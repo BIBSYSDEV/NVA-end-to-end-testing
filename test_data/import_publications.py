@@ -121,7 +121,7 @@ def delete_indices():
     print("Deleting OpenSearch indices...")
     delete_handlers = [deleteNviIndexLambda, deleteSearchIndexLambda]
     for handler in delete_handlers:
-        response = lambda_client.invoke(FunctionName=handler)
+        response = lambda_client.invoke(FunctionName=handler, Payload=json.dumps('{"indices": [ "resources", "tickets", "import-candidates" ]}'))
         if response['StatusCode'] != 200:
             print(response)
     time.sleep(30)

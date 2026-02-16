@@ -1,6 +1,6 @@
 // Feature: Hidden and internal files
 
-import { userBIBSYSPublishRegistration, userBIBSYSPublishingCurator } from '../../../support/constants';
+import { TestUsers, userBIBSYSPublishRegistration, userBIBSYSPublishingCurator } from '../../../support/constants';
 import { v4 as uuid } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
@@ -43,8 +43,7 @@ Then('they see the file under Internal files', () => {
 
 // Scenario Outline: Curator approves non-open file
 Given('a registration with a {string}', (fileType: string) => {
-  cy.login(userBIBSYSPublishRegistration);
-  cy.setWorkflowRegistratorPublishesMetadata();
+  cy.login(TestUsers.byWorkflow.registration.published);
   cy.startWizardWithEmptyRegistration();
   const title = `Non-open file ${uuid()}`;
   cy.wrap(title).as('title');

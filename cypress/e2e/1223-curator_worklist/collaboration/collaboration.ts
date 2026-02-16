@@ -33,7 +33,6 @@ const curators = {
 
 // Scenario Outline: Files are approved by Curators from file uploaders institution
 Given('a Publication is created by institution A with contributors from institutions A, B and C', () => {
-  cy.setWorkflowRegistratorPublishesMetadata();
   cy.login(uploaderBIBSYS);
   const title = `Collaboration ${uuid()}`;
   cy.log(title);
@@ -117,7 +116,6 @@ Then('the curator for institution A will not get a task to approve a publication
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
-    // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   });
 });
 Then(
@@ -131,7 +129,6 @@ Then(
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
       cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
-      // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
     });
   }
 );
@@ -144,7 +141,6 @@ Then('the curator institution C will get a task to approve the file from Uploade
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
-    // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
   });
 });
 
@@ -169,10 +165,6 @@ When('a message for files sent from:', (dataTable: DataTable) => {
         cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Message from ${data[0]}{enter}`);
       });
       cy.contains('Message sent');
-      // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
-      // cy.getSuccess();
-      // cy.getSuccessDone();
-      // cy.wait(5000);
     });
   });
 });
@@ -224,16 +216,10 @@ When('a DOI is requested from:', (dataTable: DataTable) => {
           cy.get('p > a').first().click();
         });
     });
-    // if (collaborator === 'Collaborator A') {
-
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.doiMessageField).type(`DOI request from ${collaborator}`);
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-    // } else {
-    //     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion);
-    //     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('not.exist');
-    // }
   });
 });
 // | Collaborator A |
