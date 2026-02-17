@@ -6,12 +6,21 @@ import {
   userBIBSYSCollaborationCurator,
   userNmbuCollaborationCurator,
   userUSNCollaborationCurator,
-  FileVersions,
   uploaderBIBSYS,
   uploaderNMBU,
   uploaderUSN,
+  CategoryTypes,
+  userName,
+  ContributorTypes,
 } from '../../../support/constants';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import {
+  createPublicationUsingAPI,
+  findContributorByName,
+  NviLevels,
+  RegistrationData,
+  uploadFileToRegistration,
+} from '../../../support/create_registration';
 
 const fileName = 'exampleA.txt';
 
@@ -33,79 +42,103 @@ const curators = {
 
 // Scenario Outline: Files are approved by Curators from file uploaders institution
 Given('a Publication is created by institution A with contributors from institutions A, B and C', () => {
-  cy.login(uploaderBIBSYS);
-  const title = `Collaboration ${uuid()}`;
-  cy.log(title);
-  cy.wrap(title).as('title');
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title, FileVersions.PUBLISHED);
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration B{enter}`);
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor);
-  cy.get('td')
-    .filter(':contains("colaboration B TestUser")')
-    .parent()
-    .within(() => {
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
-    });
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration C{enter}`);
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor);
-  cy.get('td')
-    .filter(":contains('colaboration C TestUser')")
-    .within(() => {
-      cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
-    });
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-  cy.wait(30000);
+  cy.login(uploaderBIBSYS).then(() => {
+    const title = `Collaboration ${uuid()}`;
+    cy.wrap(title).as('title');
+    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[uploaderBIBSYS], NviLevels.LEVEL_0).then(
+      (builder) => {
+        findContributorByName('colaboration B TestUser', ContributorTypes.CREATOR).then((contributorB) => {
+          findContributorByName('colaboration C TestUser', ContributorTypes.CREATOR).then((contributorC) => {
+            builder
+              .addContributor(contributorB)
+              .addContributor(contributorC)
+              .update()
+              .then((builder) => {
+                cy.wrap(builder).as('builder');
+              });
+          });
+        });
+      }
+    );
+  });
+  // cy.startWizardWithEmptyRegistration();
+  // cy.createValidRegistration(fileName, title, FileVersions.PUBLISHED);
+  // cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  // cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration B{enter}`);
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor);
+  // cy.get('td')
+  //   .filter(':contains("colaboration B TestUser")')
+  //   .parent()
+  //   .within(() => {
+  //     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+  //   });
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
+  // cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration C{enter}`);
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor);
+  // cy.get('td')
+  //   .filter(":contains('colaboration C TestUser')")
+  //   .within(() => {
+  //     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
+  //   });
+  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
+  // cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
+  // cy.wait(30000);
 });
 Given('a file is uploaded from:', (dataTable: DataTable) => {
-  dataTable.raw().forEach((data) => {
-    const collaborator = data[0];
-    cy.get('@title').then((title) => {
-      cy.login(collaborators[collaborator]);
-      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-      cy.getDataTestId(dataTestId.startPage.searchResultItem)
-        .filter(`:contains(${title})`)
-        .within(() => {
-          cy.get('p > a').first().click();
+  cy.get('@builder').then((builder: unknown) => {
+    const registrationBuilder = builder as RegistrationData;
+    dataTable.raw().forEach((data) => {
+      const collaborator = data[0];
+      cy.login(collaborators[collaborator]).then(() => {
+        const uploadedFileName = `example${collaborator.replace('Collaborator ', '')}.txt`;
+        uploadFileToRegistration(registrationBuilder.identifier as string, uploadedFileName).then((file) => {
+          registrationBuilder
+            .addFile(file)
+            .update()
+            .then(() => {});
         });
-    });
-    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-    const uploadedFileName = `example${collaborator.replace('Collaborator ', '')}.txt`;
-    cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${uploadedFileName}`, { force: true });
-    cy.getDataTestId(dataTestId.registrationWizard.files.fileRow)
-      .filter(`:contains(${uploadedFileName})`)
-      .within(() => {
-        cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).last().click();
-        cy.contains('Open file').click();
-        cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
-          .last()
-          .within(() => {
-            cy.get('input[type=radio]').first().click();
-          });
-        cy.getDataTestId(dataTestId.registrationWizard.files.selectLicenseField)
-          .last()
-          .scrollIntoView()
-          .click({ force: true })
-          .type(' ');
       });
-    cy.getDataTestId(dataTestId.registrationWizard.files.licenseItem).first().click({ force: true });
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
-    cy.contains(uploadedFileName);
+    });
   });
-  cy.wait(5000);
+
+  //   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  //   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+  //   cy.getDataTestId(dataTestId.startPage.searchResultItem)
+  //     .filter(`:contains(${title})`)
+  //     .within(() => {
+  //       cy.get('p > a').first().click();
+  //     });
+  // });
+  // cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+  // cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+  // cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${uploadedFileName}`, { force: true });
+  // cy.getDataTestId(dataTestId.registrationWizard.files.fileRow)
+  //   .filter(`:contains(${uploadedFileName})`)
+  //   .within(() => {
+  //     cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).last().click();
+  //     cy.contains('Open file').click();
+  //     cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
+  //       .last()
+  //       .within(() => {
+  //         cy.get('input[type=radio]').first().click();
+  //       });
+  //     cy.getDataTestId(dataTestId.registrationWizard.files.selectLicenseField)
+  //       .last()
+  //       .scrollIntoView()
+  //       .click({ force: true })
+  //       .type(' ');
+  //   });
+  // cy.getDataTestId(dataTestId.registrationWizard.files.licenseItem).first().click({ force: true });
+  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
+  // cy.contains(uploadedFileName);
 });
 Then('the curator for institution A will not get a task to approve a publication request', () => {
   cy.login(curators['Curator A']);
