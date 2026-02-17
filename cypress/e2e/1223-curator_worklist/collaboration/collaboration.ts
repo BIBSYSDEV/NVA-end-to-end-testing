@@ -18,7 +18,6 @@ import {
   createPublicationUsingAPI,
   findContributorByName,
   NviLevels,
-  RegistrationData,
   uploadFileToRegistration,
 } from '../../../support/create_registration';
 
@@ -49,13 +48,16 @@ Given('a Publication is created by institution A with contributors from institut
       (builder) => {
         findContributorByName('colaboration B TestUser', ContributorTypes.CREATOR).then((contributorB) => {
           findContributorByName('colaboration C TestUser', ContributorTypes.CREATOR).then((contributorC) => {
-            builder
-              .addContributor(contributorB)
-              .addContributor(contributorC)
-              .update()
-              .then((builder) => {
-                cy.wrap(builder).as('builder');
-              });
+            uploadFileToRegistration(builder.identifier, fileName).then((file) => {
+              builder
+                .addContributor(contributorB)
+                .addContributor(contributorC)
+                .addFile(file)
+                .update()
+                .then((builder) => {
+                  cy.wrap(builder).as('builder');
+                });
+            });
           });
         });
       }
@@ -92,53 +94,44 @@ Given('a Publication is created by institution A with contributors from institut
   // cy.wait(30000);
 });
 Given('a file is uploaded from:', (dataTable: DataTable) => {
-  cy.get('@builder').then((builder: unknown) => {
-    const registrationBuilder = builder as RegistrationData;
-    dataTable.raw().forEach((data) => {
-      const collaborator = data[0];
-      cy.login(collaborators[collaborator]).then(() => {
-        const uploadedFileName = `example${collaborator.replace('Collaborator ', '')}.txt`;
-        uploadFileToRegistration(registrationBuilder.identifier as string, uploadedFileName).then((file) => {
-          registrationBuilder
-            .addFile(file)
-            .update()
-            .then(() => {});
+  dataTable.raw().forEach((data) => {
+    const collaborator = data[0];
+    cy.get('@title').then((title) => {
+      cy.login(collaborators[collaborator]);
+      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+      cy.getDataTestId(dataTestId.startPage.searchResultItem)
+        .filter(`:contains(${title})`)
+        .within(() => {
+          cy.get('p > a').first().click();
         });
-      });
     });
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
+    const uploadedFileName = `example${collaborator.replace('Collaborator ', '')}.txt`;
+    cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${uploadedFileName}`, { force: true });
+    cy.getDataTestId(dataTestId.registrationWizard.files.fileRow)
+      .filter(`:contains(${uploadedFileName})`)
+      .within(() => {
+        cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).last().click();
+        cy.contains('Open file').click();
+        cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
+          .last()
+          .within(() => {
+            cy.get('input[type=radio]').first().click();
+          });
+        cy.getDataTestId(dataTestId.registrationWizard.files.selectLicenseField)
+          .last()
+          .scrollIntoView()
+          .click({ force: true })
+          .type(' ');
+      });
+    cy.getDataTestId(dataTestId.registrationWizard.files.licenseItem).first().click({ force: true });
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+    cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
+    cy.contains(uploadedFileName);
   });
-
-  //   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  //   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-  //   cy.getDataTestId(dataTestId.startPage.searchResultItem)
-  //     .filter(`:contains(${title})`)
-  //     .within(() => {
-  //       cy.get('p > a').first().click();
-  //     });
-  // });
-  // cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  // cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  // cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${uploadedFileName}`, { force: true });
-  // cy.getDataTestId(dataTestId.registrationWizard.files.fileRow)
-  //   .filter(`:contains(${uploadedFileName})`)
-  //   .within(() => {
-  //     cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).last().click();
-  //     cy.contains('Open file').click();
-  //     cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
-  //       .last()
-  //       .within(() => {
-  //         cy.get('input[type=radio]').first().click();
-  //       });
-  //     cy.getDataTestId(dataTestId.registrationWizard.files.selectLicenseField)
-  //       .last()
-  //       .scrollIntoView()
-  //       .click({ force: true })
-  //       .type(' ');
-  //   });
-  // cy.getDataTestId(dataTestId.registrationWizard.files.licenseItem).first().click({ force: true });
-  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).should('not.exist');
-  // cy.contains(uploadedFileName);
+  cy.wait(5000);
 });
 Then('the curator for institution A will not get a task to approve a publication request', () => {
   cy.login(curators['Curator A']);
