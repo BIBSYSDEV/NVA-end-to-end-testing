@@ -1,11 +1,28 @@
 // Feature: Hidden and internal files
 
-import { TestUsers, userBIBSYSPublishRegistration, userBIBSYSPublishingCurator } from '../../../support/constants';
+import {
+  CategoryTypes,
+  TestUsers,
+  userBIBSYSPublishRegistration,
+  userBIBSYSPublishingCurator,
+  userName,
+} from '../../../support/constants';
 import { v4 as uuid } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {
+  createPublicationUsingAPI,
+  FileTypes,
+  NviLevels,
+  uploadFileToRegistration,
+} from '../../../support/create_registration';
 
 const fileName = 'example.txt';
+const fileTypes = {
+  ['Open file']: FileTypes.PENDING_OPEN,
+  ['Internal file']: FileTypes.PENDING_INTERNAL,
+  ['Hidden file']: FileTypes.HIDDEN,
+};
 
 // Scenario Outline: Creator adds a non-open file
 Given('Creator navigates to Files and License tab', () => {
@@ -42,21 +59,23 @@ Then('they see the file under Internal files', () => {
 //     | Internal file |
 
 // Scenario Outline: Curator approves non-open file
-Given('a registration with a {string}', (fileType: string) => {
-  cy.login(TestUsers.byWorkflow.registration.published);
-  cy.startWizardWithEmptyRegistration();
-  const title = `Non-open file ${uuid()}`;
-  cy.wrap(title).as('title');
-  cy.wrap(fileType).as('fileType');
-  cy.createValidRegistration(null, title);
-  cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-  cy.contains(fileType).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccess();
-  cy.refreshPublish();
-  cy.wait(5000);
+Given('a registration with a {string}', (type: unknown) => {
+  const fileType = type as string;
+  const user = userBIBSYSPublishRegistration;
+  cy.login(user).then(() => {
+    const title = `Non-open file ${uuid()}`;
+    cy.wrap(title).as('title');
+    cy.wrap(fileType).as('fileType');
+    console.log(fileType);
+    console.log(fileTypes[fileType]);
+    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[user], NviLevels.LEVEL_0).then(
+      (builder) => {
+        uploadFileToRegistration(builder.identifier, fileName, fileTypes[fileType]).then((file) => {
+          builder.addFile(file).update();
+        });
+      }
+    );
+  });
 });
 Given('the files need approval from a Curator', () => {});
 When('a Curator view the landing page of the registration', () => {
@@ -106,15 +125,23 @@ Then('they see the file is approved', () => {
 
 // Scenario Outline: Curator changes open file to non-open file
 Given('a published registration with an open file', () => {
-  cy.login(userBIBSYSPublishRegistration);
-  cy.setWorkflowRegistratorPublishesMetadata();
-  cy.startWizardWithEmptyRegistration();
-  const title = `Non-open file ${uuid()}`;
-  cy.wrap(title).as('title');
-  cy.createValidRegistration(fileName, title);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.wait(30000);
+  cy.login(userBIBSYSPublishRegistration).then(() => {
+    const title = `Non-open file ${uuid()}`;
+    cy.wrap(title).as('title');
+    createPublicationUsingAPI(
+      title,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userBIBSYSPublishRegistration],
+      NviLevels.LEVEL_0
+    ).then((builder) => {
+      uploadFileToRegistration(builder.identifier, fileName, FileTypes.PENDING_OPEN).then((file) => {
+        builder
+          .addFile(file)
+          .update()
+          .then(() => {});
+      });
+    });
+  });
 });
 Given('the file needs approval', () => {});
 When('a curator edit the registration and changes the open file to {string}', (fileType: string) => {
