@@ -326,6 +326,7 @@ When('a level 2 series is added to the anthology', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccessDone();
+  cy.wait(5000);
 });
 Then('the NVI points changes to reflect the series added to the anthology', () => {
   // sjekk NVI-poeng
