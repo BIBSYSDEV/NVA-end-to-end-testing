@@ -38,6 +38,9 @@ phases:
       - if [ -d "cypress/videos" ]; then aws s3 cp cypress/videos s3://$TESTREPORTS_BUCKET/videos --recursive; fi
       - if [ -d "TestReport" ]; then aws s3 cp TestReport s3://$TESTREPORTS_BUCKET/TestReport --recursive; aws s3 cp TestReport s3://$TESTREPORTS_BUCKET --recursive; fi
       - if [ -d "mochawesome" ]; then aws s3 cp mochawesome-report s3://$TESTREPORTS_BUCKET/mochawesome-report --recursive; fi
+  post_build:
+    commands:
+      - aws s3 rm s3://$TESTREPORTS_BUCKET/messages/* --recursive
 artifacts:
   files:
     - '**/*'
