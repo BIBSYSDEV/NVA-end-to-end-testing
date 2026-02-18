@@ -40,9 +40,7 @@ phases:
       - if [ -d "mochawesome" ]; then aws s3 cp mochawesome-report s3://$TESTREPORTS_BUCKET/mochawesome-report --recursive; fi
   post_build:
     commands:
-      - aws s3 ls s3://$TESTREPORTS_BUCKET/ --recursive
       - aws s3 rm s3://$TESTREPORTS_BUCKET/messages --recursive
-      - aws s3 ls s3://$TESTREPORTS_BUCKET/ --recursive
 artifacts:
   files:
     - '**/*'
