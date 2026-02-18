@@ -41,7 +41,7 @@ phases:
   post_build:
     commands:
       - aws s3 ls s3://$TESTREPORTS_BUCKET/ --recursive
-      - aws s3api delete-objects --bucket $TESTREPORTS_BUCKET --delete /messages/*
+      - aws s3 rm s3://$TESTREPORTS_BUCKET/messages/* --recursive
       - aws s3 ls s3://$TESTREPORTS_BUCKET/ --recursive
 artifacts:
   files:
