@@ -21,9 +21,7 @@ phases:
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')
       - export CYPRESS_AWS_SESSION_TOKEN=$(cat Credentials | jq -r '.Credentials.SessionToken')
       - export CYPRESS_AWS_REGION=${AWS_REGION}
-      - aws s3 ls s3://$TESTREPORTS_BUCKET/ --recursive
       - aws s3api delete-objects --bucket $TESTREPORTS_BUCKET --delete /messages/*
-      - aws s3 ls s3://$TESTREPORTS_BUCKET/ --recursive
   build:
     commands:
       - cd test_data
