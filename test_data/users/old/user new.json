@@ -1,0 +1,16 @@
+[
+  { "Name": "custom:nin", "Value": "" },
+  { "Name": "custom:feideId", "Value": "" },
+  { "Name": "custom:feidememberrole", "Value": "" },
+  { "Name": "custom:feideIdNin", "Value": "" },
+  { "Name": "custom:orgFeideDomain", "Value": "" },
+  { "Name": "custom:firstName", "Value": "###################" },
+  { "Name": "custom:lastName", "Value": "###################" },
+  { "Name": "custom:roles", "Value": "###################" },
+  { "Name": "custom:accessRights", "Value": "###################" },
+  { "Name": "custom:customerId", "Value": "###################" },
+  { "Name": "custom:allowedCustomers", "Value": "###################" },
+  { "Name": "custom:nvaUsername", "Value": "" },
+  { "Name": "custom:cristinId", "Value": "###################" },
+  { "Name": "custom:topOrgCristinId", "Value": "###################" }
+]

@@ -572,7 +572,7 @@ export const userName = {
   [userBIBSYSCurator]: 'Curator 1 TestUser',
   [userBIBSYSCurator2]: 'Curator 2 TestUser',
   [userBIBSYSProjectWizard]: 'Project Wizard TestUser',
-  [userBIBSYSPublishRegistration]: 'Publish registration TestUser',
+  [userBIBSYSPublishRegistration]: 'PublishRegistration TestUser',
   [userUnitResearchDataset]: 'Research dataset TestUser',
   [userUnitProjectManager]: 'Project manager TestUser',
   [userBIBSYSMessages]: 'Messages TestUser',

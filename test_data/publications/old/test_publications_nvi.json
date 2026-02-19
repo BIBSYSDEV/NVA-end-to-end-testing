@@ -1,0 +1,30 @@
+[
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicArticle",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
+    ],
+    "title": "NVI-candidate AcademicArticle"
+  },
+  {
+    "publication_type": "Journal",
+    "publication_context_type": "Journal",
+    "publication_instance_type": "AcademicChapter",
+    "owner": "test-user-change-NVI-A@test.no",
+    "status": "PUBLISHED",
+    "contributors": [
+      {
+        "id": "test-user-change-NVI-A@test.no",
+        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
+      }
+    ],
+    "title": "NVI-candidate AcademicChapter (published in Anthology)"
+  }
+]
