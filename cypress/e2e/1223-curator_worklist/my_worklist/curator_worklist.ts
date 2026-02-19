@@ -106,11 +106,11 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.wrap(title).as('title');
+  cy.wait(5000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.openNVIWorklist();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    // cy.wait(10000);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
       cy.get('li')
         .filter(`:contains("${title}")`)
@@ -187,6 +187,7 @@ Given('the {string} receives a Request of type {string}', (user: string, type: s
   const title = openTitles[type];
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
+  cy.wait(5000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user !== 'Nvi-Curator') {
     cy.get('[value=BIBSYS]');
@@ -200,12 +201,9 @@ When('the Curator opens the Requests Resource', () => {
       if (user.toString() === 'Nvi-Curator') {
         cy.openNVIWorklist();
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-        cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList)
-          .filter(`:contains("${title}")`)
-          .first()
-          .within(() => {
-            cy.get('li > div > p > a').first().click();
-          });
+        cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+          cy.get('a').filter(`:contains("${title}")`).click();
+        });
       } else {
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
@@ -264,7 +262,6 @@ When('the Curator sends an answer of type "Support"', () => {
     cy.getDataTestId('message-field').type('Test message{enter}');
   });
   cy.getSuccess();
-  // cy.wait(10000);
 
   cy.login(TestUsers.curators.bibsys.curator2);
   cy.getDataTestId(dataTestId.header.tasksLink).click();

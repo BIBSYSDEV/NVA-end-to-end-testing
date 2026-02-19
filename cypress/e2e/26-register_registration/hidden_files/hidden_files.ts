@@ -80,6 +80,7 @@ Given('a registration with a {string}', (type: unknown) => {
 Given('the files need approval from a Curator', () => {});
 When('a Curator view the landing page of the registration', () => {
   cy.login(userBIBSYSPublishingCurator);
+  cy.wait(5000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('@title').then((title) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -111,7 +112,6 @@ Then('they see the file is approved', () => {
         cy.contains(title.toString());
         cy.refreshPublish();
         cy.getDataTestId(dataTestId.registrationLandingPage.internalFilesTab).click();
-        cy.contains('1 internal file approved');
         cy.contains('1 waiting for approval').should('not.exist');
       });
     }

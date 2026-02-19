@@ -215,6 +215,7 @@ When('the {string} open a unassigned Request of type {string}', (user: string, t
   cy.login(curatorUsers[user]);
   cy.wrap(user).as('user');
   cy.wrap(type).as('type');
+  cy.wait(5000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   if (user === 'Nvi-Curator') {
     cy.openNVIWorklist();
