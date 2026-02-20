@@ -8,7 +8,9 @@ Given('the user is logged in as Creator', () => {
   cy.login(userUnitOpenMyRegistrations).then(() => {
     const title = `My registration ${uuid()}`;
     createDraftPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[userUnitOpenMyRegistrations]).then(
-      () => {}
+      () => {
+        cy.wait(3000);
+      }
     );
   });
 });

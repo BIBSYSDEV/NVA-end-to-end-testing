@@ -1,15 +1,23 @@
 // Feature: Curator navigates to the Landing Page for Registration
 
 import {
+  CategoryTypes,
   userBIBSYSCurator,
   userBIBSYSDoiCurator,
   userBIBSYSPublishingCurator,
   userBIBSYSPublishNoRights,
   userBIBSYSPublishRegistration,
+  userName,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
 import { Before, Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {
+  createPublicationUsingAPI,
+  NviLevels,
+  RegistrationData,
+  uploadFileToRegistration,
+} from '../../../support/create_registration';
 
 const fileName = 'example.txt';
 const title = `Curator published registration`;
@@ -53,34 +61,45 @@ Before({ tags: '@doi_request' }, () => {
 
 //   Scenario: Curator Approves a Publishing Request
 Given('a Curator opens the Landing Page of a Registration', () => {
-  cy.login(userBIBSYSPublishNoRights);
-  cy.startWizardWithEmptyRegistration();
-  const registrationTitle = `${title} ${uuidv4()}`;
-  cy.wrap(registrationTitle).as('registrationTitle');
-  cy.createValidRegistration(fileName, registrationTitle);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccess();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-  cy.wait(5000);
-  cy.reload();
-  cy.get('@doiRequest').then((doiRequest) => {
-    if (doiRequest) {
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-      cy.getSuccess();
-      cy.login(userBIBSYSDoiCurator);
-    } else {
-      cy.login(userBIBSYSPublishingCurator);
-    }
-    cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
-    cy.wait(5000);
-    cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.get('[value=BIBSYS]');
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
+  cy.login(userBIBSYSPublishNoRights).then(() => {
+    const registrationTitle = `${title} ${uuidv4()}`;
+    createPublicationUsingAPI(
+      registrationTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userBIBSYSPublishNoRights],
+      NviLevels.LEVEL_0
+    ).then((builder: unknown) => {
+      const registrationBuilder = builder as RegistrationData;
+      uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
+        registrationBuilder
+          .addFile(file)
+          .update()
+          .then(() => {});
+      });
+    });
+    cy.get('@doiRequest').then((doiRequest) => {
+      if (doiRequest) {
+        cy.searchFor(registrationTitle);
+        cy.get('a').filter(`:contains(${registrationTitle})`).click();
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+        cy.getSuccess();
+        cy.login(userBIBSYSDoiCurator);
+      } else {
+        cy.login(userBIBSYSPublishingCurator);
+      }
+      cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
+      cy.wait(5000);
+      cy.getDataTestId(dataTestId.header.tasksLink).click();
+      cy.get('[value=BIBSYS]');
+      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+      cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
+      cy.getDataTestId(dataTestId.startPage.searchResultItem)
+        .filter(`:contains("${registrationTitle}")`)
+        .first()
+        .click();
+    });
   });
 });
 Given('the Registration has a Publishing Request', () => {
@@ -98,20 +117,23 @@ Then('all files are Published', () => {
 
 //   Scenario: Curator Rejects a Publishing Request
 Given('a Curator from a customer with Workflow {string}', (workflow) => {
-  if (workflow === 'Registrator can only publish metadata') {
-    cy.setWorkflowRegistratorPublishesMetadata();
-  } else if (workflow === 'Only Curator can publish') {
-    cy.setWorkflowRegistratorRequiresApproval();
-  }
-  cy.login(userBIBSYSPublishNoRights);
-  cy.startWizardWithEmptyRegistration();
-  const registrationTitle = `${title} ${uuidv4()}`;
-  cy.wrap(registrationTitle).as('registrationTitle');
-  cy.createValidRegistration(fileName, registrationTitle);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.location('pathname').as('path');
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.wait(5000);
+  cy.login(userBIBSYSPublishNoRights).then(() => {
+    const registrationTitle = `${title} ${uuidv4()}`;
+    createPublicationUsingAPI(
+      registrationTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userBIBSYSPublishNoRights],
+      NviLevels.LEVEL_0
+    ).then((builder: unknown) => {
+      const registrationBuilder = builder as RegistrationData;
+      uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
+        registrationBuilder
+          .addFile(file)
+          .update()
+          .then(() => {});
+      });
+    });
+  });
 });
 Given('they opens the Landing Page of a Registration', () => {
   cy.get('@path').then((path) => {
@@ -119,7 +141,6 @@ Given('they opens the Landing Page of a Registration', () => {
     cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.get('[value=BIBSYS]');
-    // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
     cy.get('@registrationTitle').then((registrationTitle) => {
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
@@ -156,20 +177,30 @@ Then('all files are {string}', (fileStatus) => {});
 // Scenario: Curator opens a Registration from a DOI Request
 Given('that a Curator views their Worklist', () => {
   cy.login(userBIBSYSPublishNoRights);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, doiRequestTitle);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId('button-publish-registration', { timeout: 20000 }).click();
-  cy.wait(5000);
-  cy.reload();
+  createPublicationUsingAPI(
+    doiRequestTitle,
+    CategoryTypes.ACADEMIC_ARTICLE,
+    userName[userBIBSYSPublishNoRights],
+    NviLevels.LEVEL_0
+  ).then((builder: unknown) => {
+    const registrationBuilder = builder as RegistrationData;
+    uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
+      registrationBuilder
+        .addFile(file)
+        .update()
+        .then(() => {});
+    });
+  });
+  cy.searchFor(doiRequestTitle);
+  cy.get('a').filter(`:contains(${doiRequestTitle})`).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+  cy.getSuccessDone();
   cy.login(userBIBSYSCurator);
   cy.wait(5000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
-  // cy.getDataTestId(dataTestId.tasksPage.dialoguesWithoutCuratorButton).click();
 });
 Given('they have selected the DOI Requests tab', () => {});
 Given('they have expanded an Message', () => {
