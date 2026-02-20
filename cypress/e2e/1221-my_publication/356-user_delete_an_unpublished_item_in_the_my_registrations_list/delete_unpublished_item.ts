@@ -1,24 +1,28 @@
 import { v4 as uuid } from 'uuid';
-import { userUnitDeleteRegistrations } from '../../../support/constants';
+import { CategoryTypes, userName, userUnitDeleteRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+import { createDraftPublicationUsingAPI, NviLevels } from '../../../support/create_registration';
 
 const firstTitle = `Delete registration ${uuid()}`;
 const secondTitle = `Delete registration ${uuid()}`;
 
 let init = false;
 const initData = () => {
-  cy.login(userUnitDeleteRegistrations);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, firstTitle);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, secondTitle);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
+  cy.login(userUnitDeleteRegistrations).then(() => {
+    createDraftPublicationUsingAPI(
+      firstTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitDeleteRegistrations],
+      NviLevels.LEVEL_0
+    ).then(() => {});
+    createDraftPublicationUsingAPI(
+      secondTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitDeleteRegistrations],
+      NviLevels.LEVEL_0
+    ).then(() => {});
+  });
 };
 
 BeforeAll(() => initData());
@@ -29,7 +33,7 @@ Given('Creator opens My Registrations', () => {
 });
 When('they click Delete on an item', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(':contains("Delete registration")')
+    .filter(`:contains(${firstTitle})`)
     .first()
     .parent()
     .within(() => {
@@ -46,7 +50,7 @@ When('they select Yes', () => {
   cy.reload();
 });
 Then('they see that the Registration is deleted', () => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length', 1);
+  cy.get('a').filter(`:contains(${firstTitle})`).should('not.exist');
 });
 
 // Scenario: Creator deletes all Draft Registrations

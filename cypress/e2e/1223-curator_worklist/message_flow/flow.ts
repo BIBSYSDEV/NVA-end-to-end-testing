@@ -1,6 +1,8 @@
 // Feature: Curator tasks and message flow
 
 import {
+  CategoryTypes,
+  userName,
   userSintefDOICuratorMessages,
   userSintefDOIMessages,
   userSintefPublicationCuratorMessages,
@@ -11,6 +13,13 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {
+  createPublicationUsingAPI,
+  NviLevels,
+  registrationBuilder,
+  RegistrationData,
+  uploadFileToRegistration,
+} from '../../../support/create_registration';
 
 const PUBLISHING_CURATOR = 'Publish-curator';
 const DOI_CURATOR = 'DOI-curator';
@@ -72,25 +81,33 @@ When('they see the number of unassigned tasks', () => {});
 When('a User with the role Creator send a {string} request', (type: string) => {
   const title = `Messages ${type} ${uuidv4()}`;
   cy.wrap(title).as('title');
-  cy.login(users[type]);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.wait(15000);
-  cy.reload();
-  switch (type) {
-    case PUBLISHING_REQUEST:
-      break;
-    case DOI_REQUEST:
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-      break;
-    case SUPPORT_REQUEST:
-      cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
-      break;
-  }
+  cy.login(users[type]).then(() => {
+    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[users[type]], NviLevels.LEVEL_0).then(
+      (builder) => {
+        const registrationBuilder = builder as RegistrationData;
+        uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
+          registrationBuilder
+            .addFile(file)
+            .update()
+            .then(() => {});
+        });
+        cy.searchFor(title);
+        cy.get('a').filter(`:contains(${title})`).click();
+        switch (type) {
+          case PUBLISHING_REQUEST:
+            break;
+          case DOI_REQUEST:
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+            cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+            break;
+          case SUPPORT_REQUEST:
+            cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
+            break;
+        }
+      }
+    );
+  });
 });
 Then('the User with role {string} see that the number of unassigned tasks are increased', (role: string) => {
   cy.login(curatorUsers[role]);
@@ -115,29 +132,108 @@ Then('the User with role {string} see that the number of unassigned tasks are in
 Given('a User with the role Creator sends a {string} request', (type: string) => {
   const title = `Messages ${type} ${uuidv4()}`;
   cy.wrap(title).as('title');
-  cy.login(users[type]);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, title);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.wait(15000);
-  cy.reload();
-  switch (type) {
-    case PUBLISHING_REQUEST:
-      break;
-    case DOI_REQUEST:
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-      break;
-    case SUPPORT_REQUEST:
-      cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('Support message{enter}');
-      break;
-  }
+  cy.login(users[type]).then(() => {
+    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[users[type]], NviLevels.LEVEL_0).then(
+      (builder: unknown) => {
+        const registrationBuilder = builder as RegistrationData;
+        uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
+          registrationBuilder
+            .addFile(file)
+            .update()
+            .then(() => {});
+        });
+      }
+    );
+  });
 });
-When('they send a message with the {string} request', (type) => {});
-When('a curator with role {string} responds to the message', (role) => {});
-Then('the Creator can read the message on the landing page of the Registration', () => {});
+When('they send a message with the {string} request', (type) => {
+  cy.wrap(type).as('type');
+  cy.get('@title').then((title: unknown) => {
+    const registrationTitle = title as string;
+    cy.searchFor(registrationTitle);
+    cy.get('a').filter(`:contains(${registrationTitle})`).click();
+    switch (type) {
+      case PUBLISHING_REQUEST:
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
+          cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('Publishing request message{enter}');
+        });
+        cy.getSuccessDone();
+        break;
+      case DOI_REQUEST:
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+        break;
+      case SUPPORT_REQUEST:
+        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
+          cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
+        });
+        break;
+    }
+  });
+});
+When('a curator with role {string} responds to the message', (role: unknown) => {
+  cy.get('@type').then((type: unknown) => {
+    const messageType = type as string;
+    cy.get('@title').then((title: unknown) => {
+      const registrationTitle = title as string;
+      const curatorRole = role as string;
+      cy.login(curatorUsers[curatorRole]);
+      cy.getDataTestId(dataTestId.header.tasksLink).click();
+      cy.searchFor(registrationTitle);
+      cy.get('a').filter(`:contains(${registrationTitle})`).click();
+      switch (messageType) {
+        case PUBLISHING_REQUEST:
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
+            cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('Publishing response message{enter}');
+          });
+          cy.getSuccessDone();
+          break;
+        case DOI_REQUEST:
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).within(() => {
+            cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('DOI response message{enter}');
+          });
+          cy.getSuccessDone();
+          break;
+        case SUPPORT_REQUEST:
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
+            cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support response message{enter}');
+          });
+          break;
+      }
+    });
+  });
+});
+Then('the Creator can read the message on the landing page of the Registration', () => {
+  cy.get('@type').then((type: unknown) => {
+    const messageType = type as string;
+    cy.get('@title').then((title: unknown) => {
+      const registrationTitle = title as string;
+      cy.login(users[messageType]);
+      cy.searchFor(registrationTitle);
+      cy.get('a').filter(`:contains(${registrationTitle})`).click();
+      switch (messageType) {
+        case PUBLISHING_REQUEST:
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
+            cy.contains('Publishing response message');
+          });
+          break;
+        case DOI_REQUEST:
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).within(() => {
+            cy.contains('DOI response message');
+          });
+          break;
+        case SUPPORT_REQUEST:
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
+            cy.contains('Support response message');
+          });
+          break;
+      }
+    });
+  });
+});
 
 // Examples:
 //     | Role               | Type         |

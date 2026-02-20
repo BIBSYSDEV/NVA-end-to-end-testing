@@ -63,35 +63,6 @@ Given('a Publication is created by institution A with contributors from institut
       }
     );
   });
-  // cy.startWizardWithEmptyRegistration();
-  // cy.createValidRegistration(fileName, title, FileVersions.PUBLISHED);
-  // cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  // cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration B{enter}`);
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor);
-  // cy.get('td')
-  //   .filter(':contains("colaboration B TestUser")')
-  //   .parent()
-  //   .within(() => {
-  //     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
-  //   });
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  // cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type(`colaboration C{enter}`);
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor);
-  // cy.get('td')
-  //   .filter(":contains('colaboration C TestUser')")
-  //   .within(() => {
-  //     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
-  //   });
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-  // cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  // cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-  // cy.wait(30000);
 });
 Given('a file is uploaded from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {

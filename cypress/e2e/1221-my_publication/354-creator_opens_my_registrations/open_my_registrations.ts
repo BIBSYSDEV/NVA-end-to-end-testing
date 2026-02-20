@@ -1,17 +1,16 @@
-import { userUnitOpenMyRegistrations } from '../../../support/constants';
+import { CategoryTypes, userName, userUnitOpenMyRegistrations } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { createDraftPublicationUsingAPI, NviLevels } from '../../../support/create_registration';
 
 Given('the user is logged in as Creator', () => {
-  cy.login(userUnitOpenMyRegistrations);
-  const title = `My registration ${uuid()}`;
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, title);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccess();
-  cy.getSuccessDone();
-  cy.wait(3000);
+  cy.login(userUnitOpenMyRegistrations).then(() => {
+    const title = `My registration ${uuid()}`;
+    createDraftPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[userUnitOpenMyRegistrations]).then(
+      () => {}
+    );
+  });
 });
 When('they click the button My Registrations', () => {
   cy.openMyRegistrations();
@@ -42,7 +41,7 @@ Then('they see the navigation bar for published registrations is enabled', () =>
   cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsPublishedCheckbox}] .Mui-checked`).should('not.exist');
   cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).should('exist');
 });
-Then('they see items with Status', (dataTable: DataTable) => { });
+Then('they see items with Status', (dataTable: DataTable) => {});
 // Examples:
 //   | Draft    |
 //   | Rejected |

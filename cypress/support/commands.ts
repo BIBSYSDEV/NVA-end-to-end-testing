@@ -77,6 +77,7 @@ Cypress.Commands.add('startWizardWithEmptyRegistration', () => {
 Cypress.Commands.add('openMyRegistrations', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });
 
 Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?, fileVersion?, fileType?) => {
