@@ -91,6 +91,7 @@ When('a Curator view the landing page of the registration', () => {
         cy.log('File not found in search results, waiting for indexing and refreshing the page');
         cy.wait(15000);
         cy.reload();
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
       }
     });
