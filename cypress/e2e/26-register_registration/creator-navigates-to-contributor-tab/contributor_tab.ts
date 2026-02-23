@@ -12,6 +12,10 @@ Before({ tags: '@verifyUser' }, () => {
 });
 
 Before(() => {
+  cy.login(TestUsers.features.contributors);
+  cy.startWizardWithEmptyRegistration();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
 });
 
 // Feature: Creator navigates to Contributors tab
