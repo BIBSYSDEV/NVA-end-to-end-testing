@@ -216,7 +216,7 @@ Cypress.Commands.add('refreshPublish', () => {
         .length > 0
     ) {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton).click();
-      // cy.wait(6000);
+      cy.wait(6000);
       cy.get('body').then(($body) => {
         if (
           $body.find(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.refreshPublishingRequestButton}]`)
@@ -277,7 +277,8 @@ Cypress.Commands.add('selectNVICandidate', (title?, status?) => {
     cy.get('body').then((body) => {
       if (body.find(`[data-testid="${dataTestId.tasksPage.nvi.candidatesList}"]`).length === 0) {
         cy.log('Candidate not found in search results, waiting for indexing and refreshing the page');
-        cy.wait(5000);
+        cy.wait(10000);
+        cy.reload();
         cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       }
@@ -863,11 +864,11 @@ Cypress.Commands.add('getWorklistItem', (title) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then((doc) => {
     if (doc.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length < 1) {
-      // cy.wait(30000);
+      cy.wait(10000);
       cy.reload();
     }
     if (doc.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length < 1) {
-      // cy.wait(30000);
+      cy.wait(10000);
       cy.reload();
     }
   });
@@ -880,11 +881,11 @@ Cypress.Commands.add('getNVIWorklistItem', (title) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('main').then((doc) => {
     if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
-      // cy.wait(30000);
+      cy.wait(10000);
       cy.reload();
     }
     if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
-      // cy.wait(30000);
+      cy.wait(10000);
       cy.reload();
     }
   });
