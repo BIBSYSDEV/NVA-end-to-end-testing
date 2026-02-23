@@ -28,7 +28,7 @@ const registratorPublishesWorkflow = 'registrator publishes';
 // Common steps
 
 Then('the Registration is Published', () => {
-  cy.wait(5000);
+  cy.wait(1000);
   cy.reload();
   cy.get('@workflow').then((workflow) => {
     if (workflow.toString() === curatorPublishesWorkflow) {
@@ -63,6 +63,7 @@ Before({ tags: '@doi_request' }, () => {
 Given('a Curator opens the Landing Page of a Registration', () => {
   cy.login(userBIBSYSPublishNoRights).then(() => {
     const registrationTitle = `${title} ${uuidv4()}`;
+    cy.wrap(registrationTitle).as('registrationTitle');
     createPublicationUsingAPI(
       registrationTitle,
       CategoryTypes.ACADEMIC_ARTICLE,
@@ -90,7 +91,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
         cy.login(userBIBSYSPublishingCurator);
       }
       cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
-      cy.wait(5000);
+      cy.wait(1000);
       cy.getDataTestId(dataTestId.header.tasksLink).click();
       cy.get('[value=BIBSYS]');
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -111,7 +112,7 @@ When('they approve the Publishing Request', () => {
 });
 Then('all files are Published', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.fileVersion).within(() => {
-    cy.contains('Published version');
+    cy.contains('Accepted version');
   });
 });
 
@@ -119,6 +120,7 @@ Then('all files are Published', () => {
 Given('a Curator from a customer with Workflow {string}', (workflow) => {
   cy.login(userBIBSYSPublishNoRights).then(() => {
     const registrationTitle = `${title} ${uuidv4()}`;
+    cy.wrap(registrationTitle).as('registrationTitle');
     createPublicationUsingAPI(
       registrationTitle,
       CategoryTypes.ACADEMIC_ARTICLE,
@@ -136,19 +138,14 @@ Given('a Curator from a customer with Workflow {string}', (workflow) => {
   });
 });
 Given('they opens the Landing Page of a Registration', () => {
-  cy.get('@path').then((path) => {
-    cy.login(userBIBSYSCurator);
-    cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
-    cy.getDataTestId(dataTestId.header.tasksLink).click();
-    cy.get('[value=BIBSYS]');
-    cy.get('@registrationTitle').then((registrationTitle) => {
-      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
-      cy.getDataTestId(dataTestId.startPage.searchResultItem)
-        .filter(`:contains("${registrationTitle}")`)
-        .first()
-        .click();
-    });
+  cy.login(userBIBSYSCurator);
+  cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.get('[value=BIBSYS]');
+  cy.get('@registrationTitle').then((registrationTitle) => {
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
+    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
   });
 });
 When('they reject the Publishing Request', () => {
@@ -176,29 +173,30 @@ Then('all files are {string}', (fileStatus) => {});
 
 // Scenario: Curator opens a Registration from a DOI Request
 Given('that a Curator views their Worklist', () => {
-  cy.login(userBIBSYSPublishNoRights);
-  createPublicationUsingAPI(
-    doiRequestTitle,
-    CategoryTypes.ACADEMIC_ARTICLE,
-    userName[userBIBSYSPublishNoRights],
-    NviLevels.LEVEL_0
-  ).then((builder: unknown) => {
-    const registrationBuilder = builder as RegistrationData;
-    uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
-      registrationBuilder
-        .addFile(file)
-        .update()
-        .then(() => {});
+  cy.login(userBIBSYSPublishNoRights).then(() => {
+    createPublicationUsingAPI(
+      doiRequestTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userBIBSYSPublishNoRights],
+      NviLevels.LEVEL_0
+    ).then((builder: unknown) => {
+      const registrationBuilder = builder as RegistrationData;
+      uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
+        registrationBuilder
+          .addFile(file)
+          .update()
+          .then(() => {});
+      });
     });
+    cy.searchFor(doiRequestTitle);
+    cy.get('a').filter(`:contains(${doiRequestTitle})`).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+    cy.getSuccessDone();
   });
-  cy.searchFor(doiRequestTitle);
-  cy.get('a').filter(`:contains(${doiRequestTitle})`).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-  cy.getSuccessDone();
   cy.login(userBIBSYSCurator);
-  cy.wait(5000);
+  cy.wait(1000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
 });
@@ -220,7 +218,7 @@ Then('the Decline DOI button is enabled', () => {
 //   Scenario: Curator Approves a DOI Request
 Given('the Registration has a DOI Request', () => {});
 When('they approve the DOI Request', () => {
-  cy.wait(5000);
+  cy.wait(1000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[value=BIBSYS]');
   cy.get('@registrationTitle').then((searchTitle) => {
@@ -228,7 +226,7 @@ When('they approve the DOI Request', () => {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 1 });
     cy.contains(searchTitle.toString(), { timeout: 30000 }).click();
   });
-  cy.wait(5000);
+  cy.wait(1000);
   cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.createDoiButton).click();
   cy.get('body').then((body) => {
