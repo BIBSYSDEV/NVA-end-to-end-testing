@@ -278,23 +278,19 @@ const chapterTitle = `NVI change chapter ${uuid()}`;
 // Scenario: Adding a series to an anthology where the series level is higher than the publisher of the anthology
 Given('an anthology with a level 1 publisher', () => {
   cy.login(userUSNNviCuratorInstitution).then(() => {
-    // lag antologi med nivå 1 publisher
     createPublicationUsingAPI(anthologyTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER, NviLevels.LEVEL_1).then(
       (builder) => {
         const anthologyIdentifier = builder.identifier;
         cy.wrap(anthologyIdentifier).as('anthologyId');
       }
     );
-    // lag vitenskapelig kapittel
     createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, USN_USER, NviLevels.LEVEL_1).then(
       (builder) => {
-        // legg til kapittel til antologi
         cy.get('@anthologyId').then((anthologyId: unknown) => {
           const anthology = anthologyId as string;
           builder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
           builder.update().then();
 
-          // sjekk NVI-poeng
           cy.getDataTestId(dataTestId.header.tasksLink).click();
           cy.openNVIWorklist();
           cy.selectNVICandidate(chapterTitle);

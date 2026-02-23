@@ -274,6 +274,14 @@ Cypress.Commands.add('selectNVICandidate', (title?, status?) => {
   if (title) {
     cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.get('body').then((body) => {
+      if (body.find(`[data-testid="${dataTestId.tasksPage.nvi.candidatesList}"]`).length === 0) {
+        cy.log('Candidate not found in search results, waiting for indexing and refreshing the page');
+        cy.wait(5000);
+        cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+      }
+    });
   }
   cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
     if (title) {
