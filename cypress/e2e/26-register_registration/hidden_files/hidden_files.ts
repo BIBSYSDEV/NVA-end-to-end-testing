@@ -84,6 +84,7 @@ When('a Curator view the landing page of the registration', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('@title').then((title) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.wait(2000);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.get('body').then((body) => {
