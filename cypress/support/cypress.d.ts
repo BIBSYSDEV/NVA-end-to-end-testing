@@ -53,9 +53,9 @@ declare global {
       fillInContributors(contributorRoles: any): void;
       checkLandingPage(): void;
 
-      setWorkflowRegistratorPublishesAll(): void;
-      setWorkflowRegistratorPublishesMetadata(): void;
-      setWorkflowRegistratorRequiresApproval(): void;
+      // setWorkflowRegistratorPublishesAll(): void;
+      // setWorkflowRegistratorPublishesMetadata(): void;
+      // setWorkflowRegistratorRequiresApproval(): void;
 
       filterMessages(messageType: string): void;
       /**

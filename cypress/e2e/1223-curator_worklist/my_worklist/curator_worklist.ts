@@ -3,7 +3,12 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { currentYear, NVI_ASSIGNED } from '../../../support/commands';
 import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
-import { createPublicationUsingAPI, NviLevels, uploadFileToRegistration } from '../../../support/create_registration';
+import {
+  createPublicationUsingAPI,
+  NviLevels,
+  RegistrationData,
+  uploadFileToRegistration,
+} from '../../../support/create_registration';
 
 const messageTypes = {
   'Approval': 'Publishing Requests',
@@ -253,15 +258,29 @@ const curatorAnswer = 'Test Curator answered';
 
 // Scenario: User gets an answer to a Support Request
 When('the Curator sends an answer of type "Support"', () => {
-  cy.login(TestUsers.messaging.basic);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(filename, registrationTitle);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
-    cy.getDataTestId('message-field').type('Test message{enter}');
+  cy.login(TestUsers.messaging.basic).then(() => {
+    createPublicationUsingAPI(
+      registrationTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[TestUsers.messaging.basic],
+      NviLevels.LEVEL_1
+    ).then((builder: unknown) => {
+      const registrationBuilder = builder as RegistrationData;
+      uploadFileToRegistration(registrationBuilder.identifier, filename).then((file) => {
+        registrationBuilder
+          .addFile(file)
+          .update()
+          .then(() => {});
+      });
+      cy.searchFor(registrationTitle);
+      cy.get('a').filter(`:contains(${registrationTitle})`).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
+        cy.getDataTestId('message-field').type('Test message{enter}');
+      });
+      cy.getSuccessDone();
+    });
   });
-  cy.getSuccess();
 
   cy.login(TestUsers.curators.bibsys.curator2);
   cy.getDataTestId(dataTestId.header.tasksLink).click();

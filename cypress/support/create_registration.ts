@@ -201,12 +201,12 @@ export const registrationBuilder = () => {
         if (!this.payload) reject('Payload is not defined. Create registration first.');
         if (!this.entityDescription) reject('Entity description is not defined. Add entity description first.');
         const auth = `Bearer ${accessToken}`;
-        const newPayload = this.payload;
         this.payload.entityDescription = this.entityDescription;
         this.payload.associatedArtifacts = this.associatedArtifacsts;
         if (this.reference) {
           this.payload.entityDescription.reference = this.reference;
         }
+        const newPayload = this.payload;
         cy.request({
           method: 'PUT',
           url: `${publicationApiUrl}/${this.identifier}`,
@@ -230,7 +230,11 @@ export const registrationBuilder = () => {
       return new Cypress.Promise<RegistrationData>((resolve, reject) => {
         if (!this.payload) reject('Payload is not defined. Create registration first.');
         const auth = `Bearer ${accessToken}`;
-        const newPayload = this.payload;
+        this.payload.entityDescription = this.entityDescription;
+        this.payload.associatedArtifacts = this.associatedArtifacsts;
+        if (this.reference) {
+          this.payload.entityDescription.reference = this.reference;
+        }
         cy.request({
           method: 'POST',
           url: `${publicationApiUrl}/${this.identifier}/publish`,
@@ -241,9 +245,10 @@ export const registrationBuilder = () => {
             'If-ETag': `${this.payload.resourceOwner.owner}:${uuid()}`,
           },
 
-          body: newPayload,
+          body: this.payload,
           failOnStatusCode: true,
-        }).then(() => {
+        }).then((response) => {
+          console.log(response)
           resolve(this);
         });
       });

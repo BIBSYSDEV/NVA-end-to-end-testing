@@ -689,33 +689,33 @@ Cypress.Commands.add('chooseDatePicker', (selector, value) => {
     });
 });
 
-Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
-  cy.login(userBIBSYSSecondEditor);
-  cy.getDataTestId(dataTestId.header.editorLink).click();
-  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
-  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
-  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click({
-    force: true,
-  });
-  // cy.wait(5000);
-});
+// Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
+//   cy.login(userBIBSYSSecondEditor);
+//   cy.getDataTestId(dataTestId.header.editorLink).click();
+//   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
+//   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
+//   cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click({
+//     force: true,
+//   });
+//   // cy.wait(5000);
+// });
 
-Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
-  cy.login(userBIBSYSSecondEditor);
-  cy.getDataTestId(dataTestId.header.editorLink).click();
-  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
-  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
-  cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesMetadata).click({ force: true });
-  // cy.wait(5000);
-});
+// Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
+//   cy.login(userBIBSYSSecondEditor);
+//   cy.getDataTestId(dataTestId.header.editorLink).click();
+//   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
+//   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
+//   cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesMetadata).click({ force: true });
+//   // cy.wait(5000);
+// });
 
-Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
-  cy.login(userBIBSYSSecondEditor);
-  cy.getDataTestId(dataTestId.header.editorLink).click();
-  cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
-  cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
-  cy.getDataTestId(dataTestId.editor.workflowRegistratorRequiresApproval).click({ force: true });
-});
+// Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
+//   cy.login(userBIBSYSSecondEditor);
+//   cy.getDataTestId(dataTestId.header.editorLink).click();
+//   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
+//   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
+//   cy.getDataTestId(dataTestId.editor.workflowRegistratorRequiresApproval).click({ force: true });
+// });
 
 const doiRequests = 'DoiRequests';
 const publishingRequests = 'Publishing Requests';

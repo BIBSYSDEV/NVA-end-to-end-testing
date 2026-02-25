@@ -1,24 +1,37 @@
-import { userBIBSYSCurator, userUnitDraftDoi, userBIBSYSPublishNoRights } from '../../../support/constants';
+import {
+  userBIBSYSCurator,
+  userUnitDraftDoi,
+  userBIBSYSPublishNoRights,
+  CategoryTypes,
+  userName,
+} from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Before, Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {
+  createDraftPublicationUsingAPI,
+  createPublicationUsingAPI,
+  NviLevels,
+  RegistrationData,
+  uploadFileToRegistration,
+} from '../../../support/create_registration';
 
 const fileName = 'example.txt';
 const title = `Publication - `;
 
 // Feature: Owner navigates to the Landing Page for their Registration
 
-Before({ tags: '@no_restriction' }, () => {
-  cy.setWorkflowRegistratorPublishesAll();
-});
+// Before({ tags: '@no_restriction' }, () => {
+//   cy.setWorkflowRegistratorPublishesAll();
+// });
 
-Before({ tags: '@file_restrictions' }, () => {
-  cy.setWorkflowRegistratorPublishesMetadata();
-});
+// Before({ tags: '@file_restrictions' }, () => {
+//   cy.setWorkflowRegistratorPublishesMetadata();
+// });
 
-Before({ tags: '@all_restrictions' }, () => {
-  cy.setWorkflowRegistratorRequiresApproval();
-});
+// Before({ tags: '@all_restrictions' }, () => {
+//   cy.setWorkflowRegistratorRequiresApproval();
+// });
 
 // Scenario: Owner Requests a DOI
 Given('the owner opens the Landing Page of their Registration', () => {
@@ -41,10 +54,21 @@ Then('they can see a reserved DOI', () => {
 
 // Scenario: Owner wants to publish Resource
 When("the Owner previews the Resource's Landing Page", () => {
-  cy.login(userBIBSYSPublishNoRights);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, `${title} ${uuid()}`);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  cy.login(userBIBSYSPublishNoRights).then(() => {
+    const registrationTitle = `${title} ${uuid()}`;
+    createDraftPublicationUsingAPI(
+      registrationTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userBIBSYSPublishNoRights],
+      NviLevels.LEVEL_0
+    ).then(() => {
+      cy.wait(3000);
+    });
+    cy.getDataTestId(dataTestId.header.myPageLink).click();
+    cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
+    cy.searchFor(registrationTitle);
+    cy.get('a').filter(`:contains(${registrationTitle})`).click();
+  });
 });
 When('the Registraion has "Draft" Status', () => {
   cy.contains('file and selected license are waiting to be verified');
@@ -58,8 +82,9 @@ Then('they see a "Publish" option', () => {
 Given('the Registration has "Draft" Status', () => {});
 Given('there is a pending Approval Request on the Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getSuccessDone();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
-  cy.wait(15000);
+  cy.wait(5000);
   cy.reload();
 });
 Then('they see a "Publishing pending" notice', () => {
@@ -69,43 +94,32 @@ Then('they see a "Publishing pending" notice', () => {
 });
 Then('the user is informed that progress can be viewed in My Messages', () => {});
 
-// Scenario: Owner wants to publish Resource, all restrictions
-Given('Institutions publications policy is "Only Curator can publish"', () => {
-  cy.login(userBIBSYSPublishNoRights);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, `${title} ${uuid()}`);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-});
-When('the Owner uses the Publish option', () => {
-  cy.getDataTestId('button-publish-registration', { timeOut: 20000 }).click();
-});
-Then('the Owner see a Landing Page with an Unpublished Resource', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-    cy.contains('Publishing request - Draft');
-  });
-});
-Then('an Approval Request is sent to his Curator', () => {
-  cy.login(userBIBSYSCurator);
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.contains(title);
-});
-Then(
-  'the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages',
-  () => {}
-);
-
 // Scenario: Owner wants to publish Resource, file restrictions
 Given('Institutions publications policy is "Registrator can only publish metadata"', () => {
   cy.login(userBIBSYSPublishNoRights);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, `${title} ${uuid()}`);
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
+  const registrationTitle = `${title} ${uuid()}`;
+  createDraftPublicationUsingAPI(
+    registrationTitle,
+    CategoryTypes.ACADEMIC_ARTICLE,
+    userName[userBIBSYSPublishNoRights],
+    NviLevels.LEVEL_0
+  ).then(() => {
+    cy.wait(3000);
+  });
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
+  cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
+  cy.searchFor(registrationTitle);
+  cy.get('a').filter(`:contains(${registrationTitle})`).click();
+});
+When('the Owner uses the Publish option', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
+  cy.getSuccessDone();
 });
 Then('the Owner sees a Landing Page with a Published Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
 });
 Then("the Resource's status is Published", () => {
-  cy.wait(15000);
+  cy.wait(5000);
   cy.reload();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
     cy.contains('Published metadata', { timeout: 20000 });

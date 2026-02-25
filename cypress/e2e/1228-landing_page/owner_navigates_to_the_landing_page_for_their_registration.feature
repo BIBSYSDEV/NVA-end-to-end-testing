@@ -24,15 +24,6 @@ Feature: Owner navigates to the Landing Page for their Resource
         Then they see a "Publishing pending" notice
         And the user is informed that progress can be viewed in My Messages
 
-    # @test
-    # @all_restrictions
-    # Scenario: Owner wants to publish Resource, all restrictions
-    #     Given Institutions publications policy is "Only Curator can publish"
-    #     When the Owner uses the Publish option
-    #     Then the Owner see a Landing Page with an Unpublished Resource
-    #     And an Approval Request is sent to his Curator
-    #     And the Owner is notified that an Approval Request is sent to his Curator and progress can be viewed in My Messages
-
     @test
     @file_restrictions
     Scenario: Owner wants to publish Resource, file restrictions
@@ -47,7 +38,7 @@ Feature: Owner navigates to the Landing Page for their Resource
 
 
     @test
-    Scenario: Owner uses the Publish option on Langing Page
+    Scenario: Owner uses the Publish option on Landing Page
         Given Institutions publications policy is "Registrator has full publishing rights"
         When the Owner uses the Publish option
         Then the Resource's status is "Published"

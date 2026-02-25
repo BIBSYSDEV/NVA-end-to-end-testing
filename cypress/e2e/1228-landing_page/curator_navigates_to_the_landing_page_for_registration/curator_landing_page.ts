@@ -2,12 +2,13 @@
 
 import {
   CategoryTypes,
+  TestUsers,
   userBIBSYSCurator,
   userBIBSYSDoiCurator,
   userBIBSYSPublishingCurator,
   userBIBSYSPublishNoRights,
-  userBIBSYSPublishRegistration,
   userName,
+  userUnitEditRegistration,
 } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,6 +19,7 @@ import {
   RegistrationData,
   uploadFileToRegistration,
 } from '../../../support/create_registration';
+import { Test } from 'mocha';
 
 const fileName = 'example.txt';
 const title = `Curator published registration`;
@@ -45,14 +47,14 @@ Before(() => {
 });
 
 Before({ tags: '@no_restriction' }, () => {
-  cy.setWorkflowRegistratorPublishesAll();
   cy.wrap(registratorPublishesWorkflow).as('workflow');
+  cy.wrap(TestUsers.publishing.registrator).as('user');
 });
 
 Before({ tags: '@file_restrictions' }, () => {
-  cy.setWorkflowRegistratorPublishesMetadata();
+  cy.wrap(TestUsers.publishing.noRights).as('user');
 });
-
+  
 Before({ tags: '@doi_request' }, () => {
   cy.wrap(true).as('doiRequest');
 });
@@ -61,45 +63,47 @@ Before({ tags: '@doi_request' }, () => {
 
 //   Scenario: Curator Approves a Publishing Request
 Given('a Curator opens the Landing Page of a Registration', () => {
-  cy.login(userBIBSYSPublishNoRights).then(() => {
-    const registrationTitle = `${title} ${uuidv4()}`;
-    cy.wrap(registrationTitle).as('registrationTitle');
-    createPublicationUsingAPI(
-      registrationTitle,
-      CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userBIBSYSPublishNoRights],
-      NviLevels.LEVEL_0
-    ).then((builder: unknown) => {
-      const registrationBuilder = builder as RegistrationData;
-      uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
-        registrationBuilder
-          .addFile(file)
-          .update()
-          .then(() => {});
+  cy.get('@user').then((user: unknown) => {
+    const registrationUser = user as string;
+    cy.login(registrationUser).then(() => {
+      const registrationTitle = `${title} ${uuidv4()}`;
+      cy.wrap(registrationTitle).as('registrationTitle');
+      createPublicationUsingAPI(
+        registrationTitle,
+        CategoryTypes.ACADEMIC_ARTICLE,
+        userName[userBIBSYSPublishNoRights],
+        NviLevels.LEVEL_0
+      ).then((builder: unknown) => {
+        const registrationBuilder = builder as RegistrationData;
+        uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
+          registrationBuilder
+            .addFile(file)
+            .update()
+            .then(() => {});
+        });
       });
-    });
-    cy.get('@doiRequest').then((doiRequest) => {
-      if (doiRequest) {
-        cy.searchFor(registrationTitle);
-        cy.get('a').filter(`:contains(${registrationTitle})`).click();
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-        cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-        cy.getSuccess();
-        cy.login(userBIBSYSDoiCurator);
-      } else {
-        cy.login(userBIBSYSPublishingCurator);
-      }
-      cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
-      cy.wait(1000);
-      cy.getDataTestId(dataTestId.header.tasksLink).click();
-      cy.get('[value=BIBSYS]');
-      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
-      cy.getDataTestId(dataTestId.startPage.searchResultItem)
-        .filter(`:contains("${registrationTitle}")`)
-        .first()
-        .click();
+      cy.get('@doiRequest').then((doiRequest) => {
+        if (doiRequest) {
+          cy.searchFor(registrationTitle);
+          cy.get('a').filter(`:contains(${registrationTitle})`).click();
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+          cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+          cy.getSuccess();
+          cy.login(TestUsers.curators.sintef.doi);
+        } else {
+          cy.login(TestUsers.curators.bibsys.publishing);
+        }
+        cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
+        cy.wait(1000);
+        cy.getDataTestId(dataTestId.header.tasksLink).click();
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
+        cy.getDataTestId(dataTestId.startPage.searchResultItem)
+          .filter(`:contains("${registrationTitle}")`)
+          .first()
+          .click();
+      });
     });
   });
 });
@@ -118,21 +122,24 @@ Then('all files are Published', () => {
 
 //   Scenario: Curator Rejects a Publishing Request
 Given('a Curator from a customer with Workflow {string}', (workflow) => {
-  cy.login(userBIBSYSPublishNoRights).then(() => {
-    const registrationTitle = `${title} ${uuidv4()}`;
-    cy.wrap(registrationTitle).as('registrationTitle');
-    createPublicationUsingAPI(
-      registrationTitle,
-      CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userBIBSYSPublishNoRights],
-      NviLevels.LEVEL_0
-    ).then((builder: unknown) => {
-      const registrationBuilder = builder as RegistrationData;
-      uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
-        registrationBuilder
-          .addFile(file)
-          .update()
-          .then(() => {});
+  cy.get('@user').then((user: unknown) => {
+    const registrationUser = user as string;
+    cy.login(registrationUser).then(() => {
+      const registrationTitle = `${title} ${uuidv4()}`;
+      cy.wrap(registrationTitle).as('registrationTitle');
+      createPublicationUsingAPI(
+        registrationTitle,
+        CategoryTypes.ACADEMIC_ARTICLE,
+        userName[userBIBSYSPublishNoRights],
+        NviLevels.LEVEL_0
+      ).then((builder: unknown) => {
+        const registrationBuilder = builder as RegistrationData;
+        uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
+          registrationBuilder
+            .addFile(file)
+            .update()
+            .then(() => {});
+        });
       });
     });
   });
@@ -141,7 +148,6 @@ Given('they opens the Landing Page of a Registration', () => {
   cy.login(userBIBSYSCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.get('[value=BIBSYS]');
   cy.get('@registrationTitle').then((registrationTitle) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
@@ -173,32 +179,34 @@ Then('all files are {string}', (fileStatus) => {});
 
 // Scenario: Curator opens a Registration from a DOI Request
 Given('that a Curator views their Worklist', () => {
-  cy.login(userBIBSYSPublishNoRights).then(() => {
-    createPublicationUsingAPI(
-      doiRequestTitle,
-      CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userBIBSYSPublishNoRights],
-      NviLevels.LEVEL_0
-    ).then((builder: unknown) => {
-      const registrationBuilder = builder as RegistrationData;
-      uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
-        registrationBuilder
-          .addFile(file)
-          .update()
-          .then(() => {});
+  cy.get('@user').then((user: unknown) => {
+    const registrationUser = user as string;
+    cy.login(registrationUser).then(() => {
+      createPublicationUsingAPI(
+        doiRequestTitle,
+        CategoryTypes.ACADEMIC_ARTICLE,
+        userName[userBIBSYSPublishNoRights],
+        NviLevels.LEVEL_0
+      ).then((builder: unknown) => {
+        const registrationBuilder = builder as RegistrationData;
+        uploadFileToRegistration(registrationBuilder.identifier, fileName).then((file) => {
+          registrationBuilder
+            .addFile(file)
+            .update()
+            .then(() => {});
+        });
       });
+      cy.searchFor(doiRequestTitle);
+      cy.get('a').filter(`:contains(${doiRequestTitle})`).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
+      cy.getSuccessDone();
     });
-    cy.searchFor(doiRequestTitle);
-    cy.get('a').filter(`:contains(${doiRequestTitle})`).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-    cy.getSuccessDone();
+    cy.login(TestUsers.curators.sintef.doi);
+    cy.wait(1000);
+    cy.getDataTestId(dataTestId.header.tasksLink).click();
   });
-  cy.login(userBIBSYSCurator);
-  cy.wait(1000);
-  cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.get('[value=BIBSYS]');
 });
 Given('they have selected the DOI Requests tab', () => {});
 Given('they have expanded an Message', () => {
@@ -220,7 +228,6 @@ Given('the Registration has a DOI Request', () => {});
 When('they approve the DOI Request', () => {
   cy.wait(1000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.get('[value=BIBSYS]');
   cy.get('@registrationTitle').then((searchTitle) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 1 });
@@ -254,9 +261,8 @@ Then('the DOI is findable', () => {
 
 //   Scenario: Curator Rejects a DOI Request
 When('they reject the DOI Request', () => {
-  cy.login(userBIBSYSCurator);
+  cy.login(TestUsers.curators.sintef.doi);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.get('[value=BIBSYS]');
   cy.get('@registrationTitle').then((searchTitle) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 1 });

@@ -137,11 +137,11 @@ Then('the selected Author identity is added to the list of Authors', () => {
 Given('they navigate to the Resources tab', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
 });
-Given('they select Resource Type "Book"', () => { });
-Given('they select Registration Subtype "Monograph"', () => { });
+Given('they select Resource Type "Book"', () => {});
+Given('they select Registration Subtype "Monograph"', () => {});
 
 //   Scenario: Creator adds an Creator to the list of Creators for Resource Type Chapter
-Given('they select the Resource Type', (dataTable: DataTable) => { });
+Given('they select the Resource Type', (dataTable: DataTable) => {});
 Given('they select the Registration Subtype "Chapter in anthology"', () => {
   cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
   cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_CHAPTER}]`).click();
@@ -172,7 +172,7 @@ Then('the selected Author identity is added to the list of Editors', () => {
 
 //   @2204
 //   Scenario: Creator adds a Supervisor to the list of Supervisors for Resource Type Student Thesis
-Given('they select Resource Type "Student Thesis"', () => { });
+Given('they select Resource Type "Student Thesis"', () => {});
 Given('they select any Registration Subtype', () => {
   cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
   cy.get(`[data-testid=resource-type-chip-${CategoryTypes.DEGREE_MASTER}]`).click();
@@ -254,24 +254,27 @@ Then('they see a list of Persons matching the search', () => {
 
 // Scenario: Creator verifies Contributor
 Given('Creator opens Dialog to Verify Contributor', () => {
-  const title = `Verify contributor ${uuid()}`
+  const title = `Verify contributor ${uuid()}`;
   const user = userName[TestUsers.features.contributors];
 
   cy.login(TestUsers.features.contributors).then(() => {
-    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(builder => {
+    createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then((builder) => {
       builder.entityDescription.contributors[0].identity.verificationStatus = 'NotVerified';
-      builder.update().then(() => { });
-    })
-  })
+      builder.update().then(() => {});
+    });
 
-  cy.mockPersonSearch(TestUsers.creators.basic);
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
-  cy.get('[data-testid=add-contributor]').click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Unverified Creator');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
-  cy.get(`[data-testid^=button-set-unverified-contributor-]`).first().click();
+    cy.searchFor(title);
+    cy.get('a').filter(`:contains(${title})`).click();
+    cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
+    cy.mockPersonSearch(TestUsers.creators.basic);
+    cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
+    cy.get('[data-testid=add-contributor]').click();
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    cy.getDataTestId(dataTestId.registrationWizard.contributors.searchField).type('Unverified Creator');
+    cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.addUnverifiedContributorButton}]`).click();
+    cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click();
+    cy.get(`[data-testid^=button-set-unverified-contributor-]`).first().click();
+  });
 });
 When('they select a Person from the Search Results', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectPersonForContributor}]`).first().click();
@@ -303,7 +306,7 @@ Given('a registration with several registrered Contributors', () => {
     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
   }
 });
-When('a User opens the Registration wizard in the Contributor tab', () => { });
+When('a User opens the Registration wizard in the Contributor tab', () => {});
 When('they search for a Contributor', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.contributorSearchField).within(() => {
