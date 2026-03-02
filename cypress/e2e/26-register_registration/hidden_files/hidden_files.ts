@@ -148,10 +148,9 @@ When('a curator edit the registration and changes the open file to {string}', (f
   cy.wrap(fileType).as('fileType');
   cy.login(userBIBSYSPublishingCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.get('@title').then((title) => {
+  cy.get('@title').then((title: unknown) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+    cy.searchFor(title.toString());
   });
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();

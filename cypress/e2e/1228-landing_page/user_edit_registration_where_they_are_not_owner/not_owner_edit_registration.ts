@@ -29,7 +29,7 @@ Given('User is logged in as Curator', () => {
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitWithAuthor],
       NviLevels.LEVEL_1
-    ).then(builder => {
+    ).then((builder) => {
       findContributorByName(userName[userUnitEditRegistration], ContributorTypes.CREATOR).then((contributor) => {
         builder.addContributor(contributor);
         builder.update().then(() => {});
@@ -41,13 +41,7 @@ Given('User is logged in as Curator', () => {
 
 When('they open the landing page for a Registration from own institution', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
-  cy.contains(registrationTitle);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains('${registrationTitle}')`)
-    .within(() => {
-      cy.get('p > a').first().click();
-    });
+  cy.searchFor(registrationTitle);
 });
 
 When('they are not owner of the Registration', () => {});
@@ -62,26 +56,14 @@ Given('User is logged in as Editor', () => {
 });
 When('they open the landing page for a Registration', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
-  cy.contains(registrationTitle);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains('${registrationTitle}')`)
-    .within(() => {
-      cy.get('p > a').first().click();
-    });
+  cy.searchFor(registrationTitle);
 });
 
 // Scenario: Curator edit a Registration from own institution
 Given('Curator open landing page for a Registration from own institution', () => {
   cy.login(userUnitCurator);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
-  cy.contains(registrationTitle);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains('${registrationTitle}')`)
-    .within(() => {
-      cy.get('p > a').first().click();
-    });
+  cy.searchFor(registrationTitle);
 });
 When('they edit the Registration', () => {
   cy.location('pathname').then((pathname) => {
@@ -101,13 +83,7 @@ Then('the Registration is opened in the Registration wizard', () => {
 Given('Editor open landing page for a Registration', () => {
   cy.login(userUnitEditor5);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
-  cy.contains(registrationTitle);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains('${registrationTitle}')`)
-    .within(() => {
-      cy.get('p > a').first().click();
-    });
+  cy.searchFor;
 });
 
 // Scenario: User see option to edit a Registration where they are Contributor
@@ -117,24 +93,12 @@ Given('a User is logged in', () => {
 Given('they are not Curator or Editor', () => {});
 When('they open the landing page for a Registration where they are registred as a Contributor', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
-  cy.contains(registrationTitle);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains('${registrationTitle}')`)
-    .within(() => {
-      cy.get('p > a').first().click();
-    });
+  cy.searchFor(registrationTitle);
 });
 
 // Scenario: User edit registration where they are registred as Contributer
 Given('a User open landing page for Registration where they are registred as a Contributor', () => {
   cy.login(userUnitEditRegistration);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
-  cy.contains(registrationTitle);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains('${registrationTitle}')`)
-    .within(() => {
-      cy.get('p > a').first().click();
-    });
+  cy.searchFor(registrationTitle);
 });

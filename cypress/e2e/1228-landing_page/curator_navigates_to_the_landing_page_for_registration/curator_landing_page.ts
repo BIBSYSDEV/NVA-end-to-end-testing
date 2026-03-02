@@ -97,11 +97,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
         cy.wait(1000);
         cy.getDataTestId(dataTestId.header.tasksLink).click();
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
-        cy.getDataTestId(dataTestId.startPage.searchResultItem)
-          .filter(`:contains("${registrationTitle}")`)
-          .first()
-          .click();
+        cy.searchFor(registrationTitle);
       });
     });
   });
@@ -147,10 +143,9 @@ Given('they opens the Landing Page of a Registration', () => {
   cy.login(userBIBSYSCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.get('@registrationTitle').then((registrationTitle) => {
+  cy.get('@registrationTitle').then((registrationTitle: unknown) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`, { delay: 1 });
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${registrationTitle}")`).first().click();
+    cy.searchFor(registrationTitle as string);
   });
 });
 When('they reject the Publishing Request', () => {
@@ -209,8 +204,7 @@ Given('that a Curator views their Worklist', () => {
 Given('they have selected the DOI Requests tab', () => {});
 Given('they have expanded an Message', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${doiRequestTitle}{enter}`, { delay: 1 });
-  cy.contains(doiRequestTitle).click();
+  cy.searchFor(doiRequestTitle);
 });
 When('they click "Go to registration"', () => {});
 Then("they see the Landing Page for the DOI Request's Registration", () => {});
@@ -226,10 +220,9 @@ Given('the Registration has a DOI Request', () => {});
 When('they approve the DOI Request', () => {
   cy.wait(1000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.get('@registrationTitle').then((searchTitle) => {
+  cy.get('@registrationTitle').then((searchTitle: unknown) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 1 });
-    cy.contains(searchTitle.toString(), { timeout: 30000 }).click();
+    cy.searchFor(searchTitle as string);
   });
   cy.wait(1000);
   cy.reload();
@@ -243,16 +236,10 @@ When('they approve the DOI Request', () => {
 });
 Then('the DOI is findable', () => {
   cy.get('[data-testid=logo]').click();
-  cy.get('@registrationTitle').then((searchTitle) => {
+  cy.get('@registrationTitle').then((searchTitle: unknown) => {
     cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 1 });
-    cy.getDataTestId('result-list-item')
-      .filter(`:contains(${searchTitle})`)
-      .first()
-      .within(() => {
-        cy.get('a').first().click();
-      });
+    cy.searchFor(searchTitle as string);
   });
   cy.contains('https://handle.stage.datacite.org');
 });
@@ -261,10 +248,9 @@ Then('the DOI is findable', () => {
 When('they reject the DOI Request', () => {
   cy.login(TestUsers.curators.sintef.doi);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.get('@registrationTitle').then((searchTitle) => {
+  cy.get('@registrationTitle').then((searchTitle: unknown) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`, { delay: 1 });
-    cy.contains(searchTitle.toString()).click();
+    cy.searchFor(searchTitle as string);
   });
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton)

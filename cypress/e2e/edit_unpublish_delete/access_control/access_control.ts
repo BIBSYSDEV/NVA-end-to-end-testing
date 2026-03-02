@@ -51,13 +51,7 @@ When('they {string} and want to edit the Registration', (condition) => {
   cy.get('@user').then((user) => {
     const registrationTitle = `Edit registration ${user}`;
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem)
-      .filter(`:contains("${registrationTitle}")`)
-      .first()
-      .within(() => {
-        cy.get('a').first().click();
-      });
+    cy.searchFor(registrationTitle);
   });
 });
 Then('they have an option to edit the Registration', () => {
@@ -81,13 +75,7 @@ When('they {string} and want to unpublish the Registration', (condition) => {
   cy.get('@user').then((user) => {
     const title = `Unpublish registration ${user}`;
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem)
-      .filter(`:contains("${title}")`)
-      .first()
-      .within(() => {
-        cy.get('a').first().click();
-      });
+    cy.searchFor(title);
   });
 });
 Then('they have an option to unpublish the Registration', () => {

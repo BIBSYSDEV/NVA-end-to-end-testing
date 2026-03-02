@@ -47,14 +47,7 @@ When('an Anonymous user navigates to a Landing Page for a Resource', () => {
   });
   cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.get(`[data-testid=${dataTestId.startPage.searchField}]`).type(`${landing_page_registration_title}{enter}`);
-  cy.get('[data-testid=result-list-item]').filter(`:contains(${landing_page_registration_title})`).should('be.visible');
-  cy.get('[data-testid=result-list-item]')
-    .filter(`:contains(${landing_page_registration_title})`)
-    .first()
-    .within((result) => {
-      cy.wrap(result).get('a').filter(`:contains(${landing_page_registration_title})`).click();
-    });
+  cy.searchFor(landing_page_registration_title);
 });
 Then('they see', (dataTable: DataTable) => {
   cy.contains(landing_page_registration_title);

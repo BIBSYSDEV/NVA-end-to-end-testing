@@ -215,9 +215,7 @@ When('AcademicChapter is updated to refer to another Book', () => {
     cy.getDataTestId('logo').click();
     cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
     cy.get('@chapterTitle').then((scientificChapterTitle: unknown) => {
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${scientificChapterTitle}{enter}`);
-      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.contains(scientificChapterTitle as string).click();
+      cy.searchFor(scientificChapterTitle as string);
     });
 
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();

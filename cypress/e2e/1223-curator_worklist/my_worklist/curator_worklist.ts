@@ -292,8 +292,7 @@ Then('the Request status is set to "Answered"', () => {
 });
 Then('the User can read the answer in My Messages', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).parent().parent().filter(`:contains(${curatorAnswer})`);
+  cy.searchFor(registrationTitle);
 });
 
 // Scenario: User gets an answer to a Request

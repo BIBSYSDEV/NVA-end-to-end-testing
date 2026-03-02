@@ -49,12 +49,7 @@ Given('a User view the landing page for a Registration with embargoed files', ()
   cy.getDataTestId('logo').click();
   cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains("${title}")`)
-    .within(() => {
-      cy.get('a').first().click();
-    });
+  cy.searchFor(title);
 });
 When('the embargo date is in the future', () => {});
 Then('they see a message that the files will be available at the embargo date', () => {});

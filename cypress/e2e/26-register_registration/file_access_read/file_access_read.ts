@@ -49,32 +49,6 @@ const addContributor = (builder: RegistrationData) => {
       builder.update().then(() => {});
     });
   });
-  // cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-  // cy.reload();
-  // cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton);
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  // cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  // cy.getDataTestId(dataTestId.startPage.searchField).type('Withauthor TestUser{enter}');
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
-  // cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  // cy.getDataTestId(dataTestId.startPage.searchField).type('Doi Messages TestUser{enter}');
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
-  //   .parent()
-  //   .parent()
-  //   .parent()
-  //   .filter(':contains("Doi Messages TestUser")')
-  //   .filter(':contains("SINTEF")')
-  //   .within(() => {
-  //     cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).click();
-  //   });
-  // cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
-  // cy.wait(3000);
-  // cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  // cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
-  // cy.getSuccess();
 };
 
 const titles = {
@@ -211,13 +185,7 @@ When('the user attempts to "read-metadata"', () => {
   cy.get('@fileType').then((fileType) => {
     const title = titles[fileType.toString()];
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchResultItem)
-      .filter(`:contains(${title})`)
-      .within(() => {
-        cy.get('a').first().click();
-      });
+    cy.searchFor(title);
     cy.getDataTestId(dataTestId.registrationLandingPage.contributors).should('exist');
   });
 });

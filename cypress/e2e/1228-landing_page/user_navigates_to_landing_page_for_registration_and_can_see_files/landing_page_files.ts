@@ -127,11 +127,7 @@ Then('the User is notified that progress on this claim can be viewed in My Messa
 Given('the Registration contains a File, which is an Administrative Agreement', () => {
   const title = `File with Administrative agreement`;
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
-    .filter(`:contains("${title}")`)
-    .first()
-    .click();
+  cy.searchFor(title);
 });
 Then('they do not see the File that is an Administrative Agreement', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).should('not.exist');
@@ -141,11 +137,8 @@ Then('they do not see the File that is an Administrative Agreement', () => {
 Given('the Registration contains Files', () => {
   const searchTitle = preview ? 'Not Embargoed Image file' : 'No administrative agreement';
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${searchTitle}{enter}`);
-  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
-    .filter(`:contains(${searchTitle}) `)
-    .first()
-    .click();
+  cy.searchFor(searchTitle);
+
 });
 When('they view the Files section', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).as('files').should('be.visible');
@@ -174,11 +167,7 @@ Then('they can see a download button for Files that are not Embargoed', () => {
 // Scenario Outline: Files can be previewed
 Given('the Registration contains Files that are not Embargoed of type {string}', (fileType) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`Not Embargoed ${fileType} file {enter}`);
-  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
-    .filter(`:contains("Not Embargoed ${fileType} file")`)
-    .first()
-    .click();
+  cy.searchFor(`Not Embargoed ${fileType} file`);
 });
 Given('every File has an expandable Preview panel', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).should('have.length', 1);
@@ -213,11 +202,7 @@ Then('the downloaded File is displayed', (file) => {
 // Scenario: Lock Embargoed Files
 Given('the Registration contains a File that is Embargoed', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`Check Embargoed PDF file{enter}`);
-  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`)
-    .filter(`:contains("Embargoed PDF file")`)
-    .first()
-    .click();
+  cy.searchFor('Check Embargoed PDF file');
 });
 Then('the Embargoed File does not have an expandable Preview panel', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.file).should('not.exist');
