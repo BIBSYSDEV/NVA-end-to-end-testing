@@ -52,14 +52,12 @@ const createWorklistItem = (title: string, type: string) => {
             break;
           case SUPPORT:
             cy.searchFor(title);
-            cy.get('a').filter(`:contains("${title}")`).click();
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
               cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
             });
             break;
           case DOI:
             cy.searchFor(title);
-            cy.get('a').filter(`:contains("${title}")`).click();
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
             cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
@@ -117,18 +115,13 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     cy.openNVIWorklist();
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
-      cy.get('li')
-        .filter(`:contains("${title}")`)
-        .within(() => {
-          cy.get('div > p > a').first().click();
-        });
+      cy.get('a').filter(`:contains("${title}")`).click();
     });
     cy.getDataTestId(dataTestId.tasksPage.messageField).first().type('Curator message{enter}');
   } else {
     cy.get('[value=BIBSYS]');
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
+    cy.searchFor(title);
     cy.getDataTestId(taskPanels[user]).within(() => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).should('be.visible');
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
@@ -202,7 +195,7 @@ Given('the {string} receives a Request of type {string}', (user: string, type: s
 });
 When('the Curator opens the Requests Resource', () => {
   cy.get('@user').then((user) => {
-    cy.get('@title').then((title) => {
+    cy.get('@title').then((title: unknown) => {
       if (user.toString() === 'Nvi-Curator') {
         cy.openNVIWorklist();
         cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
@@ -211,8 +204,7 @@ When('the Curator opens the Requests Resource', () => {
         });
       } else {
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-        cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
+        cy.searchFor(title as string);
       }
     });
   });
@@ -273,7 +265,6 @@ When('the Curator sends an answer of type "Support"', () => {
           .then(() => {});
       });
       cy.searchFor(registrationTitle);
-      cy.get('a').filter(`:contains(${registrationTitle})`).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
         cy.getDataTestId('message-field').type('Test message{enter}');
@@ -287,8 +278,7 @@ When('the Curator sends an answer of type "Support"', () => {
   cy.get('[value=BIBSYS]');
   cy.filterMessages('Support Requests');
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitle}{enter}`);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().click();
+  cy.searchFor(registrationTitle);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
     cy.getDataTestId('message-field').type(`${curatorAnswer}{enter}`);

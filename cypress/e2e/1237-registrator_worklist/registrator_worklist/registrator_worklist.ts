@@ -85,7 +85,6 @@ const initData = () => {
     createPublicationUsingAPI(doiTitle, CategoryTypes.ACADEMIC_ARTICLE, USER_BIBSYS, NviLevels.LEVEL_1).then();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.searchFor(doiTitle);
-    cy.contains(doiTitle).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.doiMessageField).type('DOI Support message{enter}');

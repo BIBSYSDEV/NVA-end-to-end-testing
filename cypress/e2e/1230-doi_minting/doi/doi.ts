@@ -84,7 +84,6 @@ Given('that the Creator Opens a DOI request entry from My Worklist', () => {
       NviLevels.LEVEL_0
     ).then((builder) => {});
     cy.searchFor(publicRegistrationRequestingDoi);
-    cy.get('a').filter(`:contains(${publicRegistrationRequestingDoi})`).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();

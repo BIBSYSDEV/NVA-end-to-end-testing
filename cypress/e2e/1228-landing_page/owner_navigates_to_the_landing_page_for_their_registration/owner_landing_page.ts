@@ -67,7 +67,6 @@ When("the Owner previews the Resource's Landing Page", () => {
     cy.getDataTestId(dataTestId.header.myPageLink).click();
     cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
     cy.searchFor(registrationTitle);
-    cy.get('a').filter(`:contains(${registrationTitle})`).click();
   });
 });
 When('the Registraion has "Draft" Status', () => {
@@ -109,7 +108,6 @@ Given('Institutions publications policy is "Registrator can only publish metadat
   cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
   cy.searchFor(registrationTitle);
-  cy.get('a').filter(`:contains(${registrationTitle})`).click();
 });
 When('the Owner uses the Publish option', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();

@@ -29,7 +29,6 @@ When('the creator creates and publishes an AcademicArticle with with files', () 
     cy.login(TestUsers.curators.bibsys.collaboration);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.searchFor(title);
-    cy.contains(title).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
     cy.wait(1000);
     cy.reload();

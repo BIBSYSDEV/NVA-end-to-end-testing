@@ -19,7 +19,6 @@ Given('the Creator publishes Publication', () => {
 });
 When('they click a Contributor', () => {
   cy.searchFor(title);
-  cy.get('a').filter(`:contains(${title})`).click();
   cy.get(`[data-testid^=${dataTestId.registrationLandingPage.authorLink('')}]`)
     .first()
     .click({ force: true });

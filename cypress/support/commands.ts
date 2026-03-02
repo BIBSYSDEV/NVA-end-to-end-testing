@@ -747,6 +747,16 @@ Cypress.Commands.add('filterMessages', (messageType) => {
 Cypress.Commands.add('searchFor', (searchTerm: string) => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${searchTerm}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.get('body').then((body) => {
+    if (body.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length === 0) {
+      cy.log('No search results found, waiting for indexing and refreshing the page');
+      cy.wait(10000);
+      cy.reload();
+      cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${searchTerm}{enter}`);
+      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+    }
+  });
+  cy.get('a').filter(`:contains(${searchTerm})`).first().click();
 });
 
 Cypress.Commands.add('createRegistrationViaApi', (title: string, category?: string, status?: 'DRAFT' | 'PUBLISHED') => {

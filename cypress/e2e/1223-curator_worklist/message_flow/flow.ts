@@ -92,7 +92,6 @@ When('a User with the role Creator send a {string} request', (type: string) => {
             .then(() => {});
         });
         cy.searchFor(title);
-        cy.get('a').filter(`:contains(${title})`).click();
         switch (type) {
           case PUBLISHING_REQUEST:
             break;
@@ -151,7 +150,6 @@ When('they send a message with the {string} request', (type) => {
   cy.get('@title').then((title: unknown) => {
     const registrationTitle = title as string;
     cy.searchFor(registrationTitle);
-    cy.get('a').filter(`:contains(${registrationTitle})`).click();
     switch (type) {
       case PUBLISHING_REQUEST:
         cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
@@ -181,7 +179,6 @@ When('a curator with role {string} responds to the message', (role: unknown) => 
       cy.login(curatorUsers[curatorRole]);
       cy.getDataTestId(dataTestId.header.tasksLink).click();
       cy.searchFor(registrationTitle);
-      cy.get('a').filter(`:contains(${registrationTitle})`).click();
       switch (messageType) {
         case PUBLISHING_REQUEST:
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
@@ -212,7 +209,6 @@ Then('the Creator can read the message on the landing page of the Registration',
       const registrationTitle = title as string;
       cy.login(users[messageType]);
       cy.searchFor(registrationTitle);
-      cy.get('a').filter(`:contains(${registrationTitle})`).click();
       switch (messageType) {
         case PUBLISHING_REQUEST:
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {

@@ -25,11 +25,7 @@ const initData = () => {
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitDraftDoi]
     ).then();
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitles['Published']}{enter}`);
-    cy.get('a')
-      .filter(`:contains("${registrationTitles['Published']}")`)
-      .first()
-      .click();
+    cy.searchFor(registrationTitles['Published']);
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
@@ -37,11 +33,7 @@ const initData = () => {
 
     cy.getDataTestId(dataTestId.header.myPageLink).click();
     cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${registrationTitles['Draft']}{enter}`);
-    cy.get('a')
-      .filter(`:contains("${registrationTitles['Draft']}")`)
-      .first()
-      .click();
+    cy.searchFor(registrationTitles['Draft']);
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();

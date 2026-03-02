@@ -114,7 +114,8 @@ export const changeContributor = (userFrom: string, userTo: string): void => {
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.searchFor(userTo);
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`${userTo}{enter}`);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor).first().click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();

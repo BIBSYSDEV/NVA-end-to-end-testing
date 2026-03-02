@@ -38,7 +38,7 @@ Given('publication has publicationContext refering to Anthology which is not NVI
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.openNVIWorklist();
   cy.get('@scientificChapterTitle').then((scientificChapterTitle: unknown) => {
-    cy.searchFor(scientificChapterTitle as string);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${scientificChapterTitle as string}{enter}`);
   });
   cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('not.exist');
 });
@@ -48,8 +48,6 @@ When('Anthology is updated and becomes NVI candidate', () => {
   cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.get('@anthologyTitle').then((anthology: unknown) => {
     cy.searchFor(anthology as string);
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.contains(anthology as string).click();
   });
 
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
@@ -71,14 +69,21 @@ Then('AcademicChapter should also be evaluated as NVI candidate', () => {
   // Wait and reload pattern for async NVI processing
   cy.get('main').then((doc) => {
     if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
-      cy.wait(30000);
+      cy.wait(10000);
       cy.reload();
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     }
   });
 
   cy.get('@scientificChapterTitle').then((scientificChapterTitle: unknown) => {
-    cy.searchFor(scientificChapterTitle as string);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${scientificChapterTitle as string}{enter}`);
+    cy.get('main').then((doc) => {
+      if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
+        cy.wait(10000);
+        cy.reload();
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+      }
+    });
     cy.contains(scientificChapterTitle as string).should('exist');
   });
 });
@@ -123,7 +128,6 @@ When('Anthology is updated and becomes non NVI candidate', () => {
 
   cy.get('@scientificAnthologyTitle').then((anthology: unknown) => {
     cy.searchFor(anthology as string);
-    cy.contains(anthology as string).click();
   });
 
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
@@ -146,7 +150,14 @@ Then('AcademicChapter should also be evaluated as non NVI candidate', () => {
   // cy.wait(10000);
 
   cy.get('@scientificChapterTitle').then((scientificChapterTitle: unknown) => {
-    cy.searchFor(scientificChapterTitle as string);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${scientificChapterTitle as string}{enter}`);
+    cy.get('main').then((doc) => {
+      if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
+        cy.wait(10000);
+        cy.reload();
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+      }
+    });
     cy.contains(scientificChapterTitle as string).should('not.exist');
   });
 });
@@ -193,8 +204,6 @@ When('AcademicChapter is updated to refer to another Book', () => {
       NviLevels.LEVEL_1
     ).then();
     cy.searchFor(anotherBookTitle);
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.contains(anotherBookTitle).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('sintef akademisk forlag');
@@ -325,7 +334,14 @@ Then('the Chapter is not a NVI-candidate', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.openNVIWorklist();
   cy.get('@chapterTitle').then((chapterTitle: unknown) => {
-    cy.searchFor(chapterTitle as string);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${chapterTitle as string}{enter}`);
+    cy.get('main').then((doc) => {
+      if (doc.find(`[data-testid=${dataTestId.tasksPage.nvi.candidatesList}]`).length < 1) {
+        cy.wait(10000);
+        cy.reload();
+        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+      }
+    });
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('not.exist');
   });
 });

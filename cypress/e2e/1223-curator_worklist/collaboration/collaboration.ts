@@ -68,15 +68,10 @@ Given('a Publication is created by institution A with contributors from institut
 Given('a file is uploaded from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {
     const collaborator = data[0];
-    cy.get('@title').then((title) => {
+    cy.get('@title').then((title: unknown) => {
       cy.login(collaborators[collaborator]);
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-      cy.getDataTestId(dataTestId.startPage.searchResultItem)
-        .filter(`:contains(${title})`)
-        .within(() => {
-          cy.get('p > a').first().click();
-        });
+      cy.searchFor(title as string);
     });
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
@@ -110,10 +105,9 @@ Then('the curator for institution A will not get a task to approve a publication
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
-  cy.get('@title').then((title) => {
+  cy.get('@title').then((title: unknown) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+    cy.searchFor(title as string);
   });
 });
 Then(
@@ -123,10 +117,9 @@ Then(
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
-    cy.get('@title').then((title) => {
+    cy.get('@title').then((title: unknown) => {
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-      cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+      cy.searchFor(title as string);
     });
   }
 );
@@ -135,10 +128,9 @@ Then('the curator institution C will get a task to approve the file from Uploade
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
   cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
-  cy.get('@title').then((title) => {
+  cy.get('@title').then((title: unknown) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+    cy.searchFor(title as string);
   });
 });
 
@@ -155,10 +147,9 @@ When('a message for files sent from:', (dataTable: DataTable) => {
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
-    cy.get('@title').then((title) => {
+    cy.get('@title').then((title: unknown) => {
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-      cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+      cy.searchFor(title as string);
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
         cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Message from ${data[0]}{enter}`);
       });
@@ -176,14 +167,13 @@ Then('the message is only sent to:', (dataTable: DataTable) => {
     const institution = curator.replace('Curator ', '');
     const ignore = ['A', 'B', 'C'].filter((inst) => inst !== institution);
     cy.login(collborator);
-    cy.get('@title').then((title) => {
+    cy.get('@title').then((title: unknown) => {
       cy.getDataTestId(dataTestId.header.myPageLink).click();
       cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-      cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+      cy.searchFor(title as string);
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
         cy.contains(`Message from ${curator}`);
@@ -202,17 +192,11 @@ Then('the message is only sent to:', (dataTable: DataTable) => {
 When('a DOI is requested from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {
     const collaborator = data[0];
-    cy.get('@title').then((title) => {
+    cy.get('@title').then((title: unknown) => {
       cy.login(collaborators[collaborator]);
       cy.getDataTestId(dataTestId.startPage.searchField);
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-      cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchResultItem)
-        .filter(`:contains(${title})`)
-        .within(() => {
-          cy.get('p > a').first().click();
-        });
+      cy.searchFor(title as string);
     });
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
@@ -242,7 +226,7 @@ Then(
           cy.contains(`DOI request from Collaborator ${inst}`).should('not.exist');
         });
         if (curator === 'Curator A') {
-          cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+          cy.getDataTestId('a').filter(`:contains(${title})`).click();
         }
         cy.contains(`DOI request from Collaborator ${institution}`);
       });
@@ -257,15 +241,10 @@ Then(
 When('a support message is sent from:', (dataTable: DataTable) => {
   dataTable.raw().forEach((data) => {
     const collaborator = data[0];
-    cy.get('@title').then((title) => {
+    cy.get('@title').then((title: unknown) => {
       cy.login(collaborators[collaborator]);
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-      cy.getDataTestId(dataTestId.startPage.searchResultItem)
-        .filter(`:contains(${title})`)
-        .within(() => {
-          cy.get('p > a').first().click();
-        });
+      cy.searchFor(title as string);
     });
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.openSupportButton).click();
@@ -291,9 +270,9 @@ Then(
       cy.getDataTestId(dataTestId.header.tasksLink).click();
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
-      cy.get('@title').then((title) => {
+      cy.get('@title').then((title: unknown) => {
         cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+        cy.getDataTestId(dataTestId.startPage.searchField).type(`${title as string}{enter}`);
         cy.getDataTestId(dataTestId.startPage.searchResultItem);
         ignore.forEach((inst) => {
           cy.getDataTestId(dataTestId.startPage.searchResultItem)
@@ -320,14 +299,13 @@ When('a response is sent from:', (dataTable: DataTable) => {
     const curator = data[0];
     const institution = curator.replace('Curator ', '');
     const ignore = institutions.filter((inst) => inst !== institution);
-    cy.get('@title').then((title) => {
+    cy.get('@title').then((title: unknown) => {
       cy.login(curators[curator]);
       cy.getDataTestId(dataTestId.header.tasksLink).click();
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-      cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+      cy.searchFor(title as string);
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
         cy.getDataTestId(dataTestId.tasksPage.messageField).type(`Response from ${curator}{enter}`);
       });
@@ -346,15 +324,14 @@ Then('the collaborators will only see messages responding to their own messages:
     const curator = data[1];
     const institution = curator.replace('Curator ', '');
     const ignore = institutions.filter((inst) => inst !== institution);
-    cy.get('@title').then((title) => {
+    cy.get('@title').then((title: unknown) => {
       cy.login(collaborators[collaborator]);
       cy.getDataTestId(dataTestId.header.myPageLink).click();
       cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.doiButton).click();
       cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-      cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${title})`).click();
+      cy.searchFor(title as string);
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
         cy.contains(`Response from ${curator}`);
         ignore.forEach((inst) => {

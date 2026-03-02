@@ -85,7 +85,6 @@ Given('a Curator opens the Landing Page of a Registration', () => {
       cy.get('@doiRequest').then((doiRequest) => {
         if (doiRequest) {
           cy.searchFor(registrationTitle);
-          cy.get('a').filter(`:contains(${registrationTitle})`).click();
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
@@ -197,7 +196,6 @@ Given('that a Curator views their Worklist', () => {
         });
       });
       cy.searchFor(doiRequestTitle);
-      cy.get('a').filter(`:contains(${doiRequestTitle})`).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();

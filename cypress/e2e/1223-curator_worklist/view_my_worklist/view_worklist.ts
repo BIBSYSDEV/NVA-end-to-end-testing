@@ -56,7 +56,6 @@ const createWorklistItem = (title, type) => {
     createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[user], NviLevels.LEVEL_1).then(
       (builder) => {
         cy.searchFor(title);
-        cy.get('a').filter(`:contains(${title})`).click();
         switch (type) {
           case APPROVAL:
             uploadFileToRegistration(builder.identifier, filename).then((file) => {
@@ -222,17 +221,13 @@ When('the {string} open a unassigned Request of type {string}', (user: string, t
     cy.selectNVIStatus(NVI_PENDING);
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
     cy.wait(3000);
-    cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList)
-      .filter(`:contains("${title}")`)
-      .within(() => {
-        cy.get('li > div > p > a').first().click();
-      });
+    cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
+      cy.get('a').filter(`:contains("${title}")`).click();
+    });
   } else {
     cy.get('[value=BIBSYS]');
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.wait(3000);
-    cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains("${title}")`).first().click();
+    cy.searchFor(title);
   }
 });
 Then('the Curator is assigned the Request', () => {

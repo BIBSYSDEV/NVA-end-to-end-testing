@@ -166,7 +166,8 @@ Then('the publication is not listed as an NVI-candidate for the institution the 
   cy.get<string>('@registrationTitle').then((title) => {
     cy.getDataTestId(dataTestId.header.tasksLink).click();
     cy.openNVIWorklist();
-    cy.searchFor(title);
+    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).should('not.exist');
   });
 });

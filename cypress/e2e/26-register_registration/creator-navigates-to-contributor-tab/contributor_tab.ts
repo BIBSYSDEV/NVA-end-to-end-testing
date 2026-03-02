@@ -264,7 +264,6 @@ Given('Creator opens Dialog to Verify Contributor', () => {
     });
 
     cy.searchFor(title);
-    cy.get('a').filter(`:contains(${title})`).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     cy.mockPersonSearch(TestUsers.creators.basic);
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
