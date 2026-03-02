@@ -16,6 +16,7 @@ import {
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 import {
   createPublicationUsingAPI,
+  FileTypes,
   findContributorByName,
   NviLevels,
   uploadFileToRegistration,
@@ -85,7 +86,7 @@ Given('a file is uploaded from:', (dataTable: DataTable) => {
       .filter(`:contains(${uploadedFileName})`)
       .within(() => {
         cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).last().click();
-        cy.contains('Open file').click();
+        cy.get(`[data-value=${FileTypes.PENDING_OPEN}]`).click();
         cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
           .last()
           .within(() => {
