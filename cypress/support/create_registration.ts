@@ -34,9 +34,14 @@ export const createValidRegistrationWithType = (
   if (fileName) {
     cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
     const accessibilityType = fileType ?? 'Open file';
+    const fileSelect = {
+      ['Open file']: FileTypes.PENDING_OPEN,
+      ['Internal file']: FileTypes.PENDING_INTERNAL,
+    };
+
     if (fileType !== 'None') {
       cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-      cy.contains(accessibilityType).click();
+      cy.get(`[data-value=${fileSelect[accessibilityType]}]`).click();
     }
     if (accessibilityType === 'Open file') {
       cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 }).within(() => {

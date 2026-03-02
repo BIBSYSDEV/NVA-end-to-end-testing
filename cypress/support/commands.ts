@@ -4,7 +4,7 @@ import { dataTestId } from './dataTestIds';
 import { registrationFields } from './save_registration';
 import { mockPersonFeideIdSearch, mockPersonNameSearch } from './mock_data';
 import { CategoryTypes, FileVersions, userBIBSYSSecondEditor } from './constants';
-import { createValidRegistrationWithType } from './create_registration';
+import { createValidRegistrationWithType, FileTypes } from './create_registration';
 import { login } from './login';
 
 const stage = Cypress.env('STAGE') ?? 'e2e';
@@ -153,11 +153,13 @@ Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: F
   if (fileName) {
     cy.get('input[type=file]').first().selectFile(`cypress/fixtures/${fileName}`, { force: true });
     cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-    if (fileType) {
-      cy.contains(fileType).click();
-    } else {
-      cy.contains('Open file').click();
-    }
+    const fileSelect = {
+      ['Open file']: FileTypes.PENDING_OPEN,
+      ['Internal file']: FileTypes.PENDING_INTERNAL,
+    };
+
+    const fileTypeSelected = fileType ? fileSelect[fileType] : FileTypes.PENDING_OPEN;
+    cy.get(`[data-value=${fileTypeSelected}]`).click();
     if (!fileType || fileType === 'Open file') {
       cy.getDataTestId(dataTestId.registrationWizard.files.version, {
         timeout: 30000,
@@ -351,7 +353,7 @@ const fillInField = (field: Object) => {
         .first()
         .selectFile(`cypress/fixtures/${field['value']}`, { force: true, timeout: 30000 });
       cy.getDataTestId(dataTestId.registrationWizard.files.fileTypeSelect).click();
-      cy.contains('Open file').click();
+      cy.get(`[data-value=${FileTypes.PENDING_OPEN}]`).click();
       cy.get('body').then(($body) => {
         if ($body.find(`[data-testid=${dataTestId.registrationWizard.files.version}]`).length > 0) {
           cy.get('[value=PublishedVersion').click();
