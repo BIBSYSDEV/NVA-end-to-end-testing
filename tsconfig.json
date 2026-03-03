@@ -3,8 +3,8 @@
       "target": "ES2024",
       "lib": ["ES2024", "dom"],
       "types": ["cypress", "node"],
-      "module": "Node18",
-      "moduleResolution": "node16",
+      "module": "NodeNext",
+      "moduleResolution": "nodenext",
       "esModuleInterop": true
     },
     "include": ["**/*.ts", "scripts/cucumber_report.js", "cypress/e2e/nvi/validation_nvi_resource/nvi_validation.ts_old"]

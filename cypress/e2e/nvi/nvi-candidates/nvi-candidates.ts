@@ -68,10 +68,7 @@ When('the user registrers a publication that is an NVI-candidate with category {
 When('the user adds a contributor with multiple institution affiliations', () => {
   cy.get('@registrationTitle').then((title: unknown) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.get('a')
-      .filter(`:contains(${title as string})`)
-      .click();
+    cy.searchFor(title as string);
     addContributor('Multiple institutions TestUser');
   });
 });
@@ -98,10 +95,7 @@ Then('the publication is listed as an NVI-candidate for all institutions the use
 // When('the user registrers a publication that is an NVI-candidate with category {string}', (category) => {});
 When('the user adds a contributor with a norwegian and a foreign institution affiliation', () => {
   cy.get('@registrationTitle').then((title: unknown) => {
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.get('a')
-      .filter(`:contains(${title as string})`)
-      .click();
+    cy.searchFor(title as string);
     addContributor('Multiple institutions TestUser');
   });
 });
@@ -127,10 +121,7 @@ Given('a user with an affiliation to a norwegian institution', () => {
 // When('the user registrers a publication that is an NVI-candidate with category {string}', (category) => {});
 When('the user adds a contributor from a foreign institution affiliation', () => {
   cy.get('@registrationTitle').then((title: unknown) => {
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.get('a')
-      .filter(`:contains(${title as string})`)
-      .click();
+    cy.searchFor(title as string);
     addContributor('Multiple institutions TestUser');
   });
 });

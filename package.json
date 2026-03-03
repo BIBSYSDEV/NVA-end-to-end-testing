@@ -25,11 +25,9 @@
     }
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^1.14.0",
-    "@aws-amplify/backend-cli": "^1.4.8",
     "@types/express": "^5.0.1",
-    "aws-cdk": "^2.177.0",
-    "aws-cdk-lib": "^2.177.0",
+    "aws-cdk": "^2.1108.0",
+    "aws-cdk-lib": "^2.241.0",
     "constructs": "^10.4.2",
     "cucumber-html-reporter": "^5.5.1",
     "cypress": "^14.5.4",
@@ -43,12 +41,12 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.734.0",
-    "@aws-sdk/client-secrets-manager": "^3.734.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.893.0",
+    "@aws-sdk/client-secrets-manager": "^3.893.0",
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
-    "aws-amplify": "^6.12.2",
     "cypress-html-reporter": "^11.0.0",
-    "cypress-localstorage-commands": "^2.2.7"
+    "cypress-localstorage-commands": "^2.2.7",
+    "uuid": "^13.0.0"
   }
 }

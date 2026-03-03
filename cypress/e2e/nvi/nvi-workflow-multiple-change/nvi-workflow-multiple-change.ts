@@ -131,14 +131,7 @@ Given('the Result is {string}', (collaboration: string) => {
 
     cy.login(userUSNChangeNviCuratorInstitution);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchResultItem)
-      .filter(`:contains(${title})`)
-      .first()
-      .within(() => {
-        cy.get('a').filter(`:contains(${title})`).first().click();
-      });
+    cy.searchFor(title);
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   });
 });

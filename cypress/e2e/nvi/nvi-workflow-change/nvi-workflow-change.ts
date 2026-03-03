@@ -129,14 +129,7 @@ Given('the Result is {string}', (collaboration: string) => {
 
     cy.login(userUSNChangeNviCuratorInstitution);
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.getDataTestId(dataTestId.startPage.searchResultItem)
-      .filter(`:contains(${title})`)
-      .first()
-      .within(() => {
-        cy.get('a').filter(`:contains(${title})`).first().click();
-      });
+    cy.searchFor(title);
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   });
 });
@@ -313,8 +306,7 @@ When('a level 2 series is added to the anthology', () => {
   cy.get('[title=Search]').click();
   const uuid = findUuid(anthologyTitle);
 
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid}{enter}`);
-  cy.contains(anthologyTitle).last().click();
+  cy.searchFor(anthologyTitle);
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.seriesField).type('geoscientific model development');

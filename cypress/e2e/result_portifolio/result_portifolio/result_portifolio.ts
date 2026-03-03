@@ -74,12 +74,7 @@ Before({ 'tags': '@init' }, () => {
   cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
   cy.getDataTestId(dataTestId.editor.resultsPortfolioUnpublishedCheckbox).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(deletedTitle);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains(${deletedTitle})`)
-    .within(() => {
-      cy.get('a').first().click();
-    });
+  cy.searchFor(deletedTitle);
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.terminateRegistrationButton).click();
@@ -192,13 +187,7 @@ Given('a User deletes an unpublished Result', () => {
   cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
   selectPortifolio('Unpublished Results');
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${deletedTitle}{enter}`);
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .filter(`:contains(${deletedTitle})`)
-    .within(() => {
-      cy.get('a').first().click();
-    });
+  cy.searchFor(deletedTitle);
 
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();

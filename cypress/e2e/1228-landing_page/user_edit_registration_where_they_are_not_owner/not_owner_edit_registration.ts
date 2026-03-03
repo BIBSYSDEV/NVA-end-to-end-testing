@@ -83,7 +83,7 @@ Then('the Registration is opened in the Registration wizard', () => {
 Given('Editor open landing page for a Registration', () => {
   cy.login(userUnitEditor5);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.searchFor;
+  cy.searchFor(registrationTitle);
 });
 
 // Scenario: User see option to edit a Registration where they are Contributor
