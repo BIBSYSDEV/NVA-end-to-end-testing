@@ -226,7 +226,7 @@ Then(
           cy.contains(`DOI request from Collaborator ${inst}`).should('not.exist');
         });
         if (curator === 'Curator A') {
-          cy.getDataTestId('a').filter(`:contains(${title})`).click();
+          cy.get('a').filter(`:contains(${title})`).click();
         }
         cy.contains(`DOI request from Collaborator ${institution}`);
       });

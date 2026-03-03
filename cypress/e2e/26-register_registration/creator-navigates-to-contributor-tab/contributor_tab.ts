@@ -259,13 +259,14 @@ Given('Creator opens Dialog to Verify Contributor', () => {
 
   cy.login(TestUsers.features.contributors).then(() => {
     createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then((builder) => {
+      console.log(builder.payload);
       builder.entityDescription.contributors[0].identity.verificationStatus = 'NotVerified';
       builder.update().then(() => {});
     });
 
     cy.searchFor(title);
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
-    cy.mockPersonSearch(TestUsers.creators.basic);
+    // cy.mockPersonSearch(TestUsers.creators.basic);
     cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click();
     cy.get('[data-testid=add-contributor]').click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
