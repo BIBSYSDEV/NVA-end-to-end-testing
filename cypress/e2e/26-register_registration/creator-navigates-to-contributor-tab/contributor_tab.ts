@@ -11,21 +11,21 @@ Before({ tags: '@verifyUser' }, () => {
   cy.wrap(dataTestId.registrationWizard.contributors.selectUserButton).as('button');
 });
 
-Before(() => {
-  cy.login(TestUsers.features.contributors);
-  cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
-});
+// Before(() => {
+//   cy.login(TestUsers.features.contributors);
+//   cy.startWizardWithEmptyRegistration();
+//   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+//   cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
+// });
 
 // Feature: Creator navigates to Contributors tab
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(TestUsers.features.contributors);
-  cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
 });
+cy.startWizardWithEmptyRegistration();
+cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
 When('they navigate to the Contributors tab', () => {
   cy.get('[data-testid=nav-tabpanel-contributors]').click();
 });
@@ -259,9 +259,8 @@ Given('Creator opens Dialog to Verify Contributor', () => {
 
   cy.login(TestUsers.features.contributors).then(() => {
     createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then((builder) => {
-      console.log(builder.payload);
-      builder.entityDescription.contributors[0].identity.verificationStatus = 'NotVerified';
-      builder.update().then(() => {});
+      // builder.entityDescription.contributors[0].identity.verificationStatus = 'NotVerified';
+      // builder.update().then(() => {});
     });
 
     cy.searchFor(title);

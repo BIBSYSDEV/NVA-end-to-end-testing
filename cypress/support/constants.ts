@@ -237,6 +237,9 @@ export const userSintefDOI = 'test-user-doi-messages-sintef@test.no';
 export const userCreatorNIBIO = 'test-user-creator-nibio@test.no';
 export const userCuratorNIBIO = 'test-user-curator-nibio@test.no';
 
+export const userNviCreatorNord = 'test-user-nvicreator-nord@test.no';
+export const userNviCuratorNord = 'test-user-nvicurator-nord@test.no';
+
 export const userForegin = 'test-user-foreign@test.no';
 
 const userData = {
@@ -300,6 +303,9 @@ export const TestUsers = {
       publication: userSintefPublicationCurator,
       doi: userSintefDOICurator,
       support: userSintefSupportCurator,
+    },
+    nord: {
+      nviCurator: userNviCuratorNord,
     },
     specialty: {
       degree: userUnitCuratorDegree,
@@ -422,6 +428,10 @@ export const TestUsers = {
     },
     ntnu: {
       verifiedContributor: userNtnuVerifiedContributor,
+    },
+    nord: {
+      creator: userNviCreatorNord,
+      curator: userNviCuratorNord,
     },
     foregin: {
       basic: userForegin,
@@ -623,6 +633,8 @@ export const userName = {
   [userUnitNVICurator]: 'NVI-Curator Unit TestUser',
   [userCreatorNIBIO]: 'Creator NIBIO TestUser',
   [userCuratorNIBIO]: 'Curator NIBIO TestUser',
+  [userNviCreatorNord]: 'NVICreator Nord TestUser',
+  [userNviCuratorNord]: 'NviCurator Nord TestUser',
 };
 
 export enum ContributorTypes {

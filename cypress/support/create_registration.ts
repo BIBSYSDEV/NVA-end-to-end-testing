@@ -2,7 +2,14 @@ import { formatedToday } from './commands';
 import { CategoryTypes, ContributorTypes, FileVersions } from './constants';
 import { dataTestId } from './dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { ArticleReference, BookReference, ChapterReference, CorrigendumReference, DegreeReference, ReportReference } from './reference';
+import {
+  ArticleReference,
+  BookReference,
+  ChapterReference,
+  CorrigendumReference,
+  DegreeReference,
+  ReportReference,
+} from './reference';
 
 export const createValidRegistrationWithType = (
   title: string,
@@ -134,6 +141,7 @@ export enum RegistrationPartTypes {
 const baseUrl = 'https://api.e2e.nva.aws.unit.no/';
 const personApiUrl = `${baseUrl}cristin/person`;
 const publicationApiUrl = `${baseUrl}publication`;
+const nviApiUrl = `${baseUrl}scientific-index/candidate`;
 
 export const registrationBuilder = () => {
   const accessToken = Cypress.env('accessToken');
@@ -254,7 +262,7 @@ export const registrationBuilder = () => {
           body: this.payload,
           failOnStatusCode: true,
         }).then((response) => {
-          console.log(response)
+          console.log(response);
           resolve(this);
         });
       });
@@ -407,7 +415,7 @@ const DegreeTypes = [
   CategoryTypes.DEGREE_PHD,
   CategoryTypes.DEGREE_LICENTIATE,
   CategoryTypes.OTHER_STUDENT_WORK,
-]
+];
 
 const createReference = (
   category: CategoryTypes,
@@ -475,6 +483,64 @@ export const publishFile = (registrationId: string, file: FileType) => {
     });
   });
 };
+
+export const listNviCandidates = (institution: string, year: string, size?: string, offset?: string) => {
+  return new Promise((resolve, reject) => {
+    const accessToken = Cypress.env('accessToken');
+    const url =
+      `${nviApiUrl}?affiliations=${institution}&year=${year}` +
+      (size ? `&size=${size}` : '') +
+      (offset ? `&offset=${offset}` : '');
+    cy.request({
+      method: 'GET',
+      url: url,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+    }).then((response) => {
+      resolve(response.body);
+    });
+  });
+};
+
+export enum NviStatus {
+  ASSIGNED = 'Assigned',
+  APPROVED = 'Approved',
+  REJECTED = 'Rejected',
+}
+
+export const updateNVICandidate = (registrationId: string, institution: string, status: NviStatus, cristinId?: string) => {
+  return new Promise((resolve, reject) => {
+    const accessToken = Cypress.env('accessToken');
+    if (status === NviStatus.ASSIGNED) {
+      cy.request({
+        method: 'POST',
+        url: `${nviApiUrl}/${registrationId}/assignee`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+        body: { institutionId: institution, assignee: cristinId },
+      }).then(() => {
+        resolve(null);
+      });
+    } else {
+      cy.request({
+        method: 'PUT',
+        url: `${nviApiUrl}/${registrationId}/status`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+        body: { status: status, institutionId: institution, reason: 'Test reason' },
+      }).then(() => {
+        resolve(null);
+      });
+    }
+  });
+};
+
 
 export enum FileTypes {
   PENDING_OPEN = 'PendingOpenFile',
