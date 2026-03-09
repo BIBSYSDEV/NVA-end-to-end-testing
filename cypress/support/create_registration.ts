@@ -510,34 +510,37 @@ export enum NviStatus {
   REJECTED = 'Rejected',
 }
 
-export const updateNVICandidate = (registrationId: string, institution: string, status: NviStatus, cristinId?: string) => {
+export const assignNVICandidate = (registrationId: string, institution: string, cristinId: string) => {
   return new Promise((resolve, reject) => {
     const accessToken = Cypress.env('accessToken');
-    if (status === NviStatus.ASSIGNED) {
-      cy.request({
-        method: 'POST',
-        url: `${nviApiUrl}/${registrationId}/assignee`,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          Accept: 'application/json',
-        },
-        body: { institutionId: institution, assignee: cristinId },
-      }).then(() => {
-        resolve(null);
-      });
-    } else {
-      cy.request({
-        method: 'PUT',
-        url: `${nviApiUrl}/${registrationId}/status`,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          Accept: 'application/json',
-        },
-        body: { status: status, institutionId: institution, reason: 'Test reason' },
-      }).then(() => {
-        resolve(null);
-      });
-    }
+    cy.request({
+      method: 'PUT',
+      url: `${nviApiUrl}/${registrationId}/assignee`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+      body: { institutionId: institution, assignee: cristinId },
+    }).then(() => {
+      resolve(null);
+    });
+  });
+};
+
+export const updateNVICandidate = (registrationId: string, institution: string, status: NviStatus) => {
+  return new Promise((resolve, reject) => {
+    const accessToken = Cypress.env('accessToken');
+    cy.request({
+      method: 'PUT',
+      url: `${nviApiUrl}/${registrationId}/status`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+      body: { status: status, institutionId: institution, reason: 'Test reason' },
+    }).then(() => {
+      resolve(null);
+    });
   });
 };
 
@@ -729,9 +732,8 @@ export const createChapterInAnthologyUsingAPI = (
       createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, creatorName, nviLevel, seriesLevel).then(
         (chapterBuilder) => {
           cy.wrap(chapterBuilder).as('chapterBuilder');
-          chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${
-            anthologyBuilder.identifier as string
-          }`;
+          chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${anthologyBuilder.identifier as string
+            }`;
           chapterBuilder.update().then();
         }
       );
@@ -742,17 +744,17 @@ export const createChapterInAnthologyUsingAPI = (
 export const createProject = (name?: string, id?: string): ProjectType => {
   return !name
     ? {
-        type: 'ResearchProject',
-        name: "Project for testing 20230512'",
-        id: 'https://api.e2e.nva.aws.unit.no/cristin/project/2745236',
-        approvals: [],
-      }
+      type: 'ResearchProject',
+      name: "Project for testing 20230512'",
+      id: 'https://api.e2e.nva.aws.unit.no/cristin/project/2745236',
+      approvals: [],
+    }
     : {
-        type: 'ResearchProject',
-        name: name,
-        id: id,
-        approvals: [],
-      };
+      type: 'ResearchProject',
+      name: name,
+      id: id,
+      approvals: [],
+    };
 };
 
 export type RegistrationData = {

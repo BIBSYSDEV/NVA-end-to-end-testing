@@ -40,7 +40,9 @@ Cypress.Commands.add('login', (userId: string) => {
   cy.setLocalStorage('i18nextLng', 'eng');
   cy.setLocalStorage('previouslyLoggedIn', 'true');
   cy.wrap(null).then(() => {
-    return login(userId).then(() => {});
+    return login(userId).then(() => {
+        cy.setLocalStorage('beta', 'true');
+    });
   });
 });
 
