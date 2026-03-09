@@ -188,7 +188,7 @@ BeforeAll(() => {
 
 //   Scenario Outline: An administrator looks at reporting status
 Given('an administrtor opens the NVI status page in master data', () => {
-  cy.login(adminUserUnit);
+  cy.login(adminUserUnit).then(() => {});
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
   cy.getDataTestId(dataTestId.basicData.nviPeriodsLink).click();
   cy.getDataTestId('nvi-status-link').click();
