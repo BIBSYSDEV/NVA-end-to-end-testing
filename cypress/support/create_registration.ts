@@ -694,9 +694,12 @@ export const createPublicationUsingAPI = (
                 cy.wait(1000);
                 resolve(builder);
               });
+              reject(new Error('Failed to publish publication'));
             });
         });
+        reject(new Error('Failed to find contributor'));
       });
+      reject(new Error('Failed to create registration'));
   });
 };
 

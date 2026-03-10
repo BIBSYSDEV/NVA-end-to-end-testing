@@ -32,7 +32,7 @@ const NORD_UNIVERSITET = `https://api.e2e.nva.aws.unit.no/cristin/organization/$
 const BIBSYS = `https://api.e2e.nva.aws.unit.no/cristin/organization/${BIBSYS_ID}`;
 
 const createNVICandidate = (title: string, level: NviLevels, multipleAuthors?: boolean) => {
-  return new Cypress.Promise((resolve) => {
+  return new Cypress.Promise((resolve, reject) => {
     createPublicationUsingAPI(
       title,
       CategoryTypes.ACADEMIC_ARTICLE,
@@ -47,6 +47,8 @@ const createNVICandidate = (title: string, level: NviLevels, multipleAuthors?: b
         });
       }
       resolve(registrationBuilder.identifier);
+    }).catch((error) => {
+      reject(error);
     });
   });
 }
@@ -135,7 +137,7 @@ const createTwistPublications = () => {
 };
 
 const createAllNVIPublications = () => {
-  return new Cypress.Promise((resolve) => {
+  return new Cypress.Promise((resolve, reject) => {
     cy.login(userNviCreatorNord).then(() => {
       createCandidates();
       createApprovedPublications().then((approvedIds) => {
@@ -147,6 +149,7 @@ const createAllNVIPublications = () => {
           });
         });
       });
+      reject(new Error('Failed to create NVI publications'));
     });
   });
 }
