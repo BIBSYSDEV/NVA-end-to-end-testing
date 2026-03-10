@@ -94,7 +94,7 @@ const createRejectedPublications = () => {
       { title: `NVI report publication article level 2 rejected`, level: NviLevels.LEVEL_2 },
     ];
     rejectedList.forEach((candidate) => {
-       createNVICandidate(`${candidate.title} ${uuid()}`, candidate.level, candidate.multipleAuthors).then((identifier: unknown) => {
+      createNVICandidate(`${candidate.title} ${uuid()}`, candidate.level, candidate.multipleAuthors).then((identifier: unknown) => {
         rejectedIdList.push(identifier as string);
       });
     });
@@ -108,7 +108,7 @@ const createAssignedPublications = () => {
     const assignedIdList: string[] = [];
     const assignedList = [
       { title: `NVI report publication article level 1 assigned`, level: NviLevels.LEVEL_1 },
-      { title: `NVI report publication article level 1 2 authors assigned`, level: NviLevels.LEVEL_1 , multipleAuthors: true },
+      { title: `NVI report publication article level 1 2 authors assigned`, level: NviLevels.LEVEL_1, multipleAuthors: true },
     ];
     assignedList.forEach((candidate) => {
       createNVICandidate(`${candidate.title} ${uuid()}`, candidate.level, candidate.multipleAuthors).then((identifier: unknown) => {
@@ -174,14 +174,14 @@ BeforeAll(() => {
           });
         });
       });
-    });
-    cy.login(userBIBSYSNviCuratorInstitution).then(() => {
-      listNviCandidates(BIBSYS_ID, currentYear).then((candidates) => {
-        candidates['hits'].forEach((candidate) => {
-          const publicationId = candidate['publicationDetails']['identifier'];
-          if (twistIds.includes(publicationId)) {
-            updateNVICandidate(candidate['identifier'], BIBSYS, NviStatus.REJECTED).then(() => { });
-          }
+      cy.login(userBIBSYSNviCuratorInstitution).then(() => {
+        listNviCandidates(BIBSYS_ID, currentYear).then((candidates) => {
+          candidates['hits'].forEach((candidate) => {
+            const publicationId = candidate['publicationDetails']['identifier'];
+            if (twistIds.includes(publicationId)) {
+              updateNVICandidate(candidate['identifier'], BIBSYS, NviStatus.REJECTED).then(() => { });
+            }
+          });
         });
       });
     });
@@ -190,18 +190,18 @@ BeforeAll(() => {
 
 //   Scenario Outline: An administrator looks at reporting status
 Given('an administrtor opens the NVI status page in master data', () => {
-  cy.login(adminUserUnit).then(() => {});
+  cy.login(adminUserUnit).then(() => { });
   cy.getDataTestId(dataTestId.header.basicDataLink).click();
   cy.getDataTestId(dataTestId.basicData.nviPeriodsLink).click();
   cy.getDataTestId('nvi-status-link').click();
- });
+});
 When('they open the reporting status for the current year', () => {
   cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click()
   cy.contains(currentYear.toString()).click();
- });
+});
 When('they look at the data for {string}', (institution: string) => {
   cy.wrap(institution).as('institution');
- });
+});
 Then(
   'they see numbers for {string}, {string}, {string}, {string}, {string}, {string}, {string}:',
   (
@@ -212,7 +212,7 @@ Then(
     twists: string,
     total: string,
     controlled: string
-  ) => { 
+  ) => {
     cy.get('@institution').then((institution: unknown) => {
       cy.get('tr').filter(`:contains(${institution as string})`).within(() => {
         cy.get('td').eq(2).should('have.text', candidates);
