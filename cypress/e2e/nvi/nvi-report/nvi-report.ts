@@ -137,7 +137,7 @@ const createTwistPublications = () => {
 };
 
 const createAllNVIPublications = () => {
-  return new Cypress.Promise((resolve, reject) => {
+  return new Cypress.Promise<{ approvedIds: string[]; rejectedIds: string[]; assignedIds: string[]; twistIds: string[] }>((resolve, reject) => {
     cy.login(userNviCreatorNord).then(() => {
       createCandidates();
       createApprovedPublications().then((approvedIds) => {
@@ -149,7 +149,6 @@ const createAllNVIPublications = () => {
           });
         });
       });
-      reject(new Error('Failed to create NVI publications'));
     });
   });
 }
