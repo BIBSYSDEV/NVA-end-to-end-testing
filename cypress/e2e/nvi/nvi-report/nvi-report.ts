@@ -139,13 +139,13 @@ const createTwistPublications = () => {
 const createAllNVIPublications = () => {
   return new Cypress.Promise<{ approvedIds: string[]; rejectedIds: string[]; assignedIds: string[]; twistIds: string[] }>((resolve, reject) => {
     cy.login(userNviCreatorNord).then(() => {
-      createCandidates();
-      createApprovedPublications().then((approvedIds) => {
-        createRejectedPublications().then((rejectedIds) => {
-          createAssignedPublications().then((assignedIds) => {
-            createTwistPublications().then((twistIds) => {
-              resolve({ approvedIds, rejectedIds, assignedIds, twistIds });
-            });
+    });
+    createCandidates();
+    createApprovedPublications().then((approvedIds) => {
+      createRejectedPublications().then((rejectedIds) => {
+        createAssignedPublications().then((assignedIds) => {
+          createTwistPublications().then((twistIds) => {
+            resolve({ approvedIds, rejectedIds, assignedIds, twistIds });
           });
         });
       });
