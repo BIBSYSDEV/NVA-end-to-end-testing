@@ -138,8 +138,7 @@ const createTwistPublications = () => {
 
 const createAllNVIPublications = () => {
   return new Cypress.Promise<{ approvedIds: string[]; rejectedIds: string[]; assignedIds: string[]; twistIds: string[] }>((resolve, reject) => {
-    cy.login(userNviCreatorNord).then(() => {
-    });
+    // cy.login(userNviCreatorNord).then(() => {
     createCandidates();
     createApprovedPublications().then((approvedIds) => {
       createRejectedPublications().then((rejectedIds) => {
@@ -149,14 +148,15 @@ const createAllNVIPublications = () => {
           });
         });
       });
+      // });
     });
   });
 }
 
 BeforeAll(() => {
 
-  createAllNVIPublications().then(({ approvedIds, rejectedIds, assignedIds, twistIds }) => {
-    cy.login(userNviCuratorNord).then(() => {
+  cy.login(userNviCuratorNord).then(() => {
+    createAllNVIPublications().then(({ approvedIds, rejectedIds, assignedIds, twistIds }) => {
       findContributorByName(userName[userNviCuratorNord], ContributorTypes.CURATOR).then((contributor: ContributorType) => {
         const cristinId = contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '');
         listNviCandidates(NORD_UNIVERSITET_ID, currentYear).then((candidates) => {
