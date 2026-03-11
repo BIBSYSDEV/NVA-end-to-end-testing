@@ -180,6 +180,7 @@ const createAllNVIPublications = () => {
         cy.wrap(twistIds).as('twistIds');
       });
     });
+    resolve(null);
   });
 };
 
