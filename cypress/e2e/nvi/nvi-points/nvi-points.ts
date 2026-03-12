@@ -208,7 +208,6 @@ Given('NVI level {string} series', (series: unknown) => {
               channelIds['monograph level 2'];
           }
           registrationBuilder.update().then();
-          console.log(registrationBuilder.entityDescription.reference);
           cy.then(() => {
             registrationBuilder.publish();
           });

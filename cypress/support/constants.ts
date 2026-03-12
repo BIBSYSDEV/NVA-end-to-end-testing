@@ -240,6 +240,12 @@ export const userCuratorNIBIO = 'test-user-curator-nibio@test.no';
 export const userNviCreatorNord = 'test-user-nvicreator-nord@test.no';
 export const userNviCuratorNord = 'test-user-nvicurator-nord@test.no';
 
+export const userNviCreatorUia = 'test-user-nvicreator-uia@test.no';
+export const userNviCuratorUia = 'test-user-nvicurator-uia@test.no';
+
+export const userNviCreatorVolda = 'test-user-nvicreator-volda@test.no';
+export const userNviCuratorVolda = 'test-user-nvicurator-volda@test.no';
+
 export const userForegin = 'test-user-foreign@test.no';
 
 const userData = {
@@ -306,6 +312,12 @@ export const TestUsers = {
     },
     nord: {
       nviCurator: userNviCuratorNord,
+    },
+    uia: {
+      nviCurator: userNviCuratorUia,
+    },
+    volda: {
+      nviCurator: userNviCuratorVolda,
     },
     specialty: {
       degree: userUnitCuratorDegree,
@@ -432,6 +444,14 @@ export const TestUsers = {
     nord: {
       creator: userNviCreatorNord,
       curator: userNviCuratorNord,
+    },
+    uia: {
+      creator: userNviCreatorUia,
+      curator: userNviCuratorUia,
+    },
+    volda: {
+      creator: userNviCreatorVolda,
+      curator: userNviCuratorVolda,
     },
     foregin: {
       basic: userForegin,
@@ -635,6 +655,10 @@ export const userName = {
   [userCuratorNIBIO]: 'Curator NIBIO TestUser',
   [userNviCreatorNord]: 'NVICreator Nord TestUser',
   [userNviCuratorNord]: 'NviCurator Nord TestUser',
+  [userNviCreatorUia]: 'NVICreator UiA TestUser',
+  [userNviCuratorUia]: 'NviCurator UiA TestUser',
+  [userNviCreatorVolda]: 'NVICreator Volda TestUser',
+  [userNviCuratorVolda]: 'NviCurator Volda TestUser',
 };
 
 export enum ContributorTypes {

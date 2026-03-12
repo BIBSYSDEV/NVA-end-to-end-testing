@@ -73,7 +73,6 @@ Before({ 'tags': '@init' }, () => {
     );
 
     Object.keys(fileTypes).forEach((fileType) => {
-      console.log(fileType)
       const fileTypeTitle = `Not Embargoed ${fileTypes[fileType]['type']} file ${uuid()}`;
       createPublicationUsingAPI(fileTypeTitle, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(
         (builder) => {

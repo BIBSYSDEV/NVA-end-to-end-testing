@@ -262,7 +262,6 @@ export const registrationBuilder = () => {
           body: this.payload,
           failOnStatusCode: true,
         }).then((response) => {
-          console.log(response);
           resolve(this);
         });
       });

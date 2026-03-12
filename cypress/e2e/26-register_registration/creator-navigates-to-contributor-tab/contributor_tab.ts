@@ -22,10 +22,10 @@ Before({ tags: '@verifyUser' }, () => {
 // Common steps
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(TestUsers.features.contributors);
+  cy.startWizardWithEmptyRegistration();
+  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
 });
-cy.startWizardWithEmptyRegistration();
-cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
 When('they navigate to the Contributors tab', () => {
   cy.get('[data-testid=nav-tabpanel-contributors]').click();
 });

@@ -2542,7 +2542,7 @@
     "orgNumber": "7677",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/7677.0.0.0"
   },
-    {
+  {
     "lastName": "TestUser",
     "firstName": "NviCurator Nord",
     "nin": "05025614420",
@@ -2575,5 +2575,73 @@
     "orcid": true,
     "orgNumber": "204",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/204.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "NviCurator UiA",
+    "nin": "26129923422",
+    "username": "test-user-nvicurator-uia@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "201",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/201.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "NVICreator UiA",
+    "nin": "27096128075",
+    "username": "test-user-nvicreator-uia@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "201",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/201.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "NviCurator Volda",
+    "nin": "19080690366",
+    "username": "test-user-nvicurator-volda@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "223",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/223.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "NVICreator Volda",
+    "nin": "09090197883",
+    "username": "test-user-nvicreator-volda@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "223",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/223.0.0.0"
   }
 ]

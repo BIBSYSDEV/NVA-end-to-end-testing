@@ -43,7 +43,6 @@ Then('the channel cannot be claimed by insitution B', () => {
   cy.editChannelClaims();
   cy.claimChannel('Sikt');
   cy.on('uncaught:exception', (err, runnable) => {
-    console.log('Exception!');
     return false;
   });
   cy.getDataTestId('snackbar-error').within(() => cy.contains('Channel is already claimed'));

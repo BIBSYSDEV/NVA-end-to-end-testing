@@ -14,7 +14,6 @@ Given('I create a new registration', () => {
       .create()
       .then((builder) => {
         findContributorByName(userName[TestUsers.creators.basic], ContributorTypes.CREATOR).then((contributor) => {
-          console.log(`Contributor: ${contributor}`);
           const category: CategoryTypes = CategoryTypes.ACADEMIC_ARTICLE;
           const entity = createEntityDescription(`Test ${category} ${uuid()}`, category, '1003');
           builder.addEntityDescription(entity).addContributor(contributor);

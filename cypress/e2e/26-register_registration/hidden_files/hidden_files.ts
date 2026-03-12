@@ -66,8 +66,6 @@ Given('a registration with a {string}', (type: unknown) => {
     const title = `Non-open file ${uuid()}`;
     cy.wrap(title).as('title');
     cy.wrap(fileType).as('fileType');
-    console.log(fileType);
-    console.log(fileTypes[fileType]);
     createPublicationUsingAPI(title, CategoryTypes.ACADEMIC_ARTICLE, userName[user], NviLevels.LEVEL_0).then(
       (builder) => {
         uploadFileToRegistration(builder.identifier, fileName, fileTypes[fileType]).then((file) => {

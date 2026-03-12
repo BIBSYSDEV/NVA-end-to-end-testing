@@ -117,7 +117,6 @@ Given('publication has publicationContext refering to Anthology which is NVI can
     }
   });
   cy.get('@scientificChapterTitle').then((chapterTitle: unknown) => {
-    console.log(`Chapter ${chapterTitle}`);
 
     cy.getNVIWorklistItem(chapterTitle as string).should('exist');
   });
