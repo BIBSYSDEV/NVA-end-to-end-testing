@@ -15,7 +15,7 @@ env:
     CYPRESS_DEVUSER: 'E2ETesting:DevUser'
     CYPRESS_DEVPASSWORD: 'E2ETesting:DevPassword'
   variables:
-    image: public.ecr.aws/cypress-io/cypress/included:cypress-14.2.0-node-22.14.0-chrome-134.0.6998.88-1-ff-136.0.2-edge-134.0.3124.68-1
+    image: public.ecr.aws/cypress-io/cypress/included:cypress-15.11.0-node-24.14.0-chrome-145.0.7632.116-1-ff-148.0-edge-145.0.3800.70-1
 
 phases:
   install:
