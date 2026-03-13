@@ -18,6 +18,7 @@ import {
   RegistrationData,
   NviStatus,
   ContributorType,
+  assignNVICandidate,
 } from '../../../support/create_registration';
 import { v4 as uuid } from 'uuid';
 import { list } from '@badeball/cypress-cucumber-preprocessor/pretty-reporter';
@@ -122,17 +123,19 @@ BeforeAll(() => {
   });
   cy.login(userNviCuratorNord).then(() => {
     findContributorByName(userName[userNviCuratorNord], ContributorTypes.CURATOR).then((contributor: ContributorType) => {
-      const cristinId = contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '');
+      const cristinId = `${contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '')}@${NORD_UNIVERSITET_ID}`;
       listNviCandidates(NORD_UNIVERSITET_ID, currentYear).then((candidates) => {
-        candidates['hits'].forEach((candidate) => {
-          if (approvedList.includes(candidate['publicationDetails']['identifier'])) {
-            updateNVICandidate(candidate['identifier'], NORD_UNIVERSITET, NviStatus.APPROVED).then(() => {});
+        cy.each(candidates['hits']).then((candidate) => {
+          const publicationId = candidate['publicationDetails']['identifier'];
+          const ticketId = candidate['identifier'];
+          if (approvedList.includes(publicationId)) {
+            updateNVICandidate(ticketId, NORD_UNIVERSITET, NviStatus.APPROVED).then(() => {});
           }
-          if (rejectedList.includes(candidate['publicationDetails']['identifier'])) {
-            updateNVICandidate(candidate['identifier'], NORD_UNIVERSITET, NviStatus.REJECTED).then(() => {});
+          if (rejectedList.includes(publicationId)) {
+            updateNVICandidate(ticketId, NORD_UNIVERSITET, NviStatus.REJECTED).then(() => {});
           }
-          if(assignedList.includes(candidate['identifier'])) {
-            updateNVICandidate(candidate['identifier'], NORD_UNIVERSITET, NviStatus.ASSIGNED).then(() => {});
+          if(assignedList.includes(publicationId)) {
+            assignNVICandidate(ticketId, NORD_UNIVERSITET, cristinId).then(() => {});
           }
         });
       });
