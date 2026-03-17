@@ -27,7 +27,7 @@ export const mockPersonFeideIdSearch = (userId) => {
 };
 
 export const mockPersonNameSearch = (userId) => {
-  return userName[userId].inArp ? mockPersonSearch(userId) : [];
+  return mockPersonSearch(userId);
 };
 
 export const mockPerson = (userId) => {
@@ -41,8 +41,10 @@ export const mockPerson = (userId) => {
 };
 
 export const mockPersonSearch = (userId) => {
-  const firstName = userName[userId].name.split(', ')[1];
-  const lastName = userName[userId].name.split(', ')[0];
+  const firstName = userName[userId].split(' ')[0];
+  const lastName = userName[userId].split(' ')[1];
+
+  console.log('mockPersonSearch', { firstName, lastName });
 
   return {
     id: 'https://api.dev.nva.aws.unit.no/cristin/person?name=TestUser&page=1&results=1',

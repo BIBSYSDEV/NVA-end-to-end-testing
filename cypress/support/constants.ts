@@ -629,6 +629,7 @@ export const userName = {
   [userUnitAdminRRS]: 'Admin RRS TestUser',
   [userUnitAuthorRRS]: 'Author RRS TestUser',
   [userUnitEmbargo]: 'Author Embargo TestUser',
+  [userUnitContributors]: 'Contributors TestUser',
   [userSintefPublicationCuratorMessages]: 'PublicationCurator Messages TestUser',
   [userSintefDOICuratorMessages]: 'DoiCurator Messages TestUser',
   [userSintefSupportCuratorMessages]: 'SupportCurator Messages TestUser',
