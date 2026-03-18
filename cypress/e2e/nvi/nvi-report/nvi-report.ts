@@ -122,24 +122,29 @@ BeforeAll(() => {
     });
   });
   cy.login(userNviCuratorNord).then(() => {
-    findContributorByName(userName[userNviCuratorNord], ContributorTypes.CURATOR).then((contributor: ContributorType) => {
-      const cristinId = `${contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '')}@${NORD_UNIVERSITET_ID}`;
-      listNviCandidates(NORD_UNIVERSITET_ID, currentYear).then((candidates) => {
-        cy.each(candidates['hits']).then((candidate) => {
-          const publicationId = candidate['publicationDetails']['identifier'];
-          const ticketId = candidate['identifier'];
-          if (approvedList.includes(publicationId)) {
-            updateNVICandidate(ticketId, NORD_UNIVERSITET, NviStatus.APPROVED).then(() => {});
-          }
-          if (rejectedList.includes(publicationId)) {
-            updateNVICandidate(ticketId, NORD_UNIVERSITET, NviStatus.REJECTED).then(() => {});
-          }
-          if(assignedList.includes(publicationId)) {
-            assignNVICandidate(ticketId, NORD_UNIVERSITET, cristinId).then(() => {});
-          }
-        });
-      });
-    });
+    cy.wrap(
+      findContributorByName(userName[userNviCuratorNord], ContributorTypes.CURATOR).then(
+        (contributor: ContributorType) => {
+          const cristinId = `${contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '')}@${NORD_UNIVERSITET_ID}`;
+          cy.wrap(listNviCandidates(NORD_UNIVERSITET_ID, currentYear, '50')).then((candidates) => {
+            cy.log('NVI candidates', candidates);
+            candidates['hits'].forEach((candidate) => {
+              const publicationId = candidate['publicationDetails']['identifier'];
+              const ticketId = candidate['identifier'];
+              if (approvedList.includes(publicationId)) {
+                cy.wrap(updateNVICandidate(ticketId, NORD_UNIVERSITET, NviStatus.APPROVED)).then(() => {});
+              }
+              if (rejectedList.includes(publicationId)) {
+                cy.wrap(updateNVICandidate(ticketId, NORD_UNIVERSITET, NviStatus.REJECTED)).then(() => {});
+              }
+              if (assignedList.includes(publicationId)) {
+                cy.wrap(assignNVICandidate(ticketId, NORD_UNIVERSITET, cristinId)).then(() => {});
+              }
+            });
+          });
+        }
+      )
+    );
   });
 });
 
