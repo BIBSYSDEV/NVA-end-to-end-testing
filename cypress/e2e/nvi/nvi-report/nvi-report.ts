@@ -4,6 +4,7 @@ import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preproc
 import {
   CategoryTypes,
   ContributorTypes,
+  TestUsers,
   userBIBSYSPublishNoRights,
   userName,
   userNviCreatorNord,
@@ -23,6 +24,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import { list } from '@badeball/cypress-cucumber-preprocessor/pretty-reporter';
 import { currentYear } from '../../../support/commands';
+import { dataTestId } from '../../../support/dataTestIds';
 
 const NORD_UNIVERSITET = 'https://api.e2e.nva.aws.unit.no/cristin/organization/204.0.0.0';
 const NORD_UNIVERSITET_ID = '204.0.0.0';
@@ -149,11 +151,23 @@ BeforeAll(() => {
 });
 
 //   Scenario Outline: An administrator looks at reporting status
-Given('an administrtor opens the NVI status page in master data', () => {});
-When('they open the reporting status for the current year', () => {});
-When('they look at the data for {string}', (institution: string) => {});
+Given('an administrtor opens the NVI status page in master data', () => {
+  cy.login(TestUsers.admins.app).then(() => {
+    cy.getDataTestId(dataTestId.header.basicDataLink).click();
+    cy.getDataTestId(dataTestId.basicData.nviPeriodsLink).click();
+  });
+});
+When('they open the reporting status for the current year', () => {
+  cy.getDataTestId('nvi-status-link').click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  cy.contains(currentYear).click();
+});
+When('they look at the data for {string}', (institution: string) => {
+  cy.getDataTestId('nvi-filter-institution').type(institution);
+  cy.wrap(institution).as('institution');
+});
 Then(
-  'they see numbers for {string}, {string}, {string}, {string}, {string}, {string}, {string}',
+  'they see numbers for {string}, {string}, {string}, {string}, {string}, {string}, {string}:',
   (
     candidates: string,
     underControl: string,
@@ -162,7 +176,21 @@ Then(
     twists: string,
     total: string,
     controlled: string
-  ) => {}
+  ) => {
+    cy.get('@institution').then((institution: unknown) => {
+      cy.get('tr')
+        .filter(`:contains(${institution as string})`)
+        .within(() => {
+          cy.get('td').eq(2).should('have.text', candidates);
+          cy.get('td').eq(3).should('have.text', underControl);
+          cy.get('td').eq(4).should('have.text', approved);
+          cy.get('td').eq(5).should('have.text', rejected);
+          cy.get('td').eq(6).should('have.text', twists);
+          cy.get('td').eq(7).should('have.text', total);
+          cy.get('td').eq(8).should('have.text', controlled);
+        });
+    });
+  }
 );
 
 // Examples:
