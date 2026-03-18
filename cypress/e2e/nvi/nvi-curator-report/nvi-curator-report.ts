@@ -291,12 +291,7 @@ BeforeAll(() => {
     cy.wrap(findContributorByName(userName[userNviCuratorUia], ContributorTypes.CURATOR)).then(
       (contributor: ContributorType) => {
         const cristinId = `${contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '')}@${UIA_ID}`;
-        cy.wrap(cristinId).as('uiaCuratorCristinId');
-      }
-    );
-    cy.wrap(listNviCandidates(UIA_ID, currentYear, '50')).then((candidates) => {
-      cy.get('@uiaCandidates').then((candidates) => {
-        cy.get('@uiaCuratorCristinId').then((cristinId: unknown) => {
+        cy.wrap(listNviCandidates(UIA_ID, currentYear, '50')).then((candidates) => {
           candidates['hits'].forEach((candidate) => {
             if (approvedList.includes(candidate['publicationDetails']['identifier'])) {
               cy.wrap(updateNVICandidate(candidate['identifier'], UIA, NviStatus.APPROVED)).then(() => {});
@@ -309,20 +304,15 @@ BeforeAll(() => {
             }
           });
         });
-      });
-    });
+      }
+    );
   });
   cy.login(userNviCuratorVolda).then(() => {
     cy.wrap(findContributorByName(userName[userNviCuratorVolda], ContributorTypes.CURATOR)).then(
       (contributor: ContributorType) => {
         const cristinId = `${contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '')}@${VOLDA_ID}`;
-        cy.wrap(cristinId).as('voldaCuratorCristinId');
-      }
-    );
 
-    cy.wrap(listNviCandidates(VOLDA_ID, currentYear, '50')).then((candidates) => {
-      cy.get('@voldaCandidates').then((candidates) => {
-        cy.get('@voldaCuratorCristinId').then((cristinId: unknown) => {
+        cy.wrap(listNviCandidates(VOLDA_ID, currentYear, '50')).then((candidates) => {
           candidates['hits'].forEach((candidate) => {
             if (voldaApprovedList.includes(candidate['publicationDetails']['identifier'])) {
               cy.wrap(updateNVICandidate(candidate['identifier'], VOLDA, NviStatus.APPROVED)).then(() => {});
@@ -335,11 +325,10 @@ BeforeAll(() => {
             }
           });
         });
-      });
-    });
+      }
+    );
   });
 });
-// });
 
 //   Scenario: An NVI-curator examines the status reports
 Given('an NVI-curator', () => {});
