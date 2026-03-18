@@ -147,65 +147,68 @@ def setTermsAndConditions(cristinPersonId):
 
 
 
-def createNvaUser(accessToken, nin, customer, roles, username):
-    print('Creating NVA user...')
-    url = f'{apiUrl}users-roles/users/'
-    termsUri = 'https://nva.sikt.no/terms/2024-10-01'
-    payload = {
-        "nationalIdentityNumber": nin,
-        "customerId": customer,
-        "roles": roles,
-        "feideId": username
-    }
-    headers = createHeaders(accessToken=accessToken)
-    response = requests.post(url=url, json=payload, headers=headers)
-    if not response.status_code == 201 and not response.status_code == 200:
-        print(response.status_code)
-        print(payload)
-        print(response.json())
+def createNvaUser(accessToken, nin, customer, roles, username, givenName, userMap):
+    if givenName in userMap:
+        print(f'found user with name {givenName} TestUser')
+    else:
+        print('Creating NVA user...')
+        url = f'{apiUrl}users-roles/users/'
+        termsUri = 'https://nva.sikt.no/terms/2024-10-01'
+        payload = {
+            "nationalIdentityNumber": nin,
+            "customerId": customer,
+            "roles": roles,
+            "feideId": username
+        }
+        headers = createHeaders(accessToken=accessToken)
+        response = requests.post(url=url, json=payload, headers=headers)
+        if not response.status_code == 201 and not response.status_code == 200:
+            print(response.status_code)
+            print(payload)
+            print(response.json())
 
-    client = boto3.client('cognito-idp')
-    print(f'Username: {username}')
+        client = boto3.client('cognito-idp')
+        print(f'Username: {username}')
 
-    try:
-        response = client.admin_get_user(
-            UserPoolId=USER_POOL_ID,
-            Username=username,
-        )
-    except:
-        client.admin_create_user(
-            UserPoolId=USER_POOL_ID,
-            Username=username,
-            UserAttributes=[
-                {
-                    'Name': 'custom:feideIdNin',
-                    'Value': nin
-                },
-                {
-                    'Name': 'custom:feideId',
-                    'Value': username
-                },
-                {
-                    'Name': "custom:currentTerms",
-                    'Value': termsUri
-                },
-                {
-                    "Name": "custom:acceptedTerms",
-                    "Value": termsUri
-                }
-            ],
-            MessageAction='SUPPRESS'
-        )
-    print('setting password')
-    try:
-        client.admin_set_user_password(
-            UserPoolId=USER_POOL_ID,
-            Username=username,
-            Password=USER_PASSWORD,
-            Permanent=True
-        )
-    except:
-        print('Failed setting password')
+        try:
+            response = client.admin_get_user(
+                UserPoolId=USER_POOL_ID,
+                Username=username,
+            )
+        except:
+            client.admin_create_user(
+                UserPoolId=USER_POOL_ID,
+                Username=username,
+                UserAttributes=[
+                    {
+                        'Name': 'custom:feideIdNin',
+                        'Value': nin
+                    },
+                    {
+                        'Name': 'custom:feideId',
+                        'Value': username
+                    },
+                    {
+                        'Name': "custom:currentTerms",
+                        'Value': termsUri
+                    },
+                    {
+                        "Name": "custom:acceptedTerms",
+                        "Value": termsUri
+                    }
+                ],
+                MessageAction='SUPPRESS'
+            )
+        print('setting password')
+        try:
+            client.admin_set_user_password(
+                UserPoolId=USER_POOL_ID,
+                Username=username,
+                Password=USER_PASSWORD,
+                Permanent=True
+            )
+        except:
+            print('Failed setting password')
 
 
 def importUsers(test_users_file_name):
@@ -223,6 +226,7 @@ def importUsers(test_users_file_name):
             customers[cristinOrgId] = f'https://api.{STAGE}.nva.aws.unit.no/customer/{customer["identifier"]["S"]}'
 
     with open(test_users_file_name) as test_users_file:
+        userMap = readUsers()
 
         test_users = json.load(test_users_file)
         for test_user in test_users:
@@ -239,13 +243,12 @@ def importUsers(test_users_file_name):
                 additionalOrgs = test_user['additionalOrgs']
             username = test_user['username']
             print(f'Creating {firstName} {lastName}')
-
             cristinPersonId = createCristinPerson(accessToken=accessToken, nin=nin,
                                 firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId, additionalOrgs=additionalOrgs)
             setTermsAndConditions(cristinPersonId=cristinPersonId)
             if not 'cristinUser' in test_user:
                 createNvaUser(accessToken=accessToken, nin=nin,
-                              customer=customer, roles=roles, username=username)
+                              customer=customer, roles=roles, username=username, givenName=firstName, userMap=userMap)
 
 
 def createNin():
@@ -254,6 +257,17 @@ def createNin():
             nin = nin.replace('\n', '')
             print(f'    "nin": "{nin}",')
 
+def readUsers():
+    print('reading users from DynamoDb...')
+    client = boto3.client('dynamodb')
+    users = client.scan(TableName=USERS_ROLES_TABLE_NAME)['Items']
+    userMap = {}
+    for user in users:
+        if 'givenName' in user:
+            userMap[user["givenName"]["S"]] = user
+
+    print(f'{len(users)} users found...')
+    return userMap
 
 def deleteUsers(admin):
     print('deleting from DynamoDb...')
@@ -281,7 +295,7 @@ def deleteUsers(admin):
 
 
 def run(user_file, admin):
-    deleteUsers(admin=admin)
+    # deleteUsers(admin=admin)
     importUsers(test_users_file_name=user_file)
 
 
