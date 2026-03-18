@@ -288,54 +288,52 @@ BeforeAll(() => {
     });
   });
   cy.login(userNviCuratorUia).then(() => {
-    findContributorByName(userName[userNviCuratorUia], ContributorTypes.CURATOR).then(
+    cy.wrap(findContributorByName(userName[userNviCuratorUia], ContributorTypes.CURATOR)).then(
       (contributor: ContributorType) => {
         const cristinId = `${contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '')}@${UIA_ID}`;
         cy.wrap(cristinId).as('uiaCuratorCristinId');
       }
     );
-    listNviCandidates(UIA_ID, currentYear, '50').then((candidates) => {
-      cy.wrap(candidates).as('uiaCandidates');
-    });
-    cy.get('@uiaCandidates').then((candidates) => {
-      cy.get('@uiaCuratorCristinId').then((cristinId: unknown) => {
-        candidates['hits'].forEach((candidate) => {
-          if (approvedList.includes(candidate['publicationDetails']['identifier'])) {
-            updateNVICandidate(candidate['identifier'], UIA, NviStatus.APPROVED).then(() => {});
-          }
-          if (rejectedList.includes(candidate['publicationDetails']['identifier'])) {
-            updateNVICandidate(candidate['identifier'], UIA, NviStatus.REJECTED).then(() => {});
-          }
-          if (assignedList.includes(candidate['publicationDetails']['identifier'])) {
-            assignNVICandidate(candidate['identifier'], UIA, cristinId as string).then(() => {});
-          }
+    cy.wrap(listNviCandidates(UIA_ID, currentYear, '50')).then((candidates) => {
+      cy.get('@uiaCandidates').then((candidates) => {
+        cy.get('@uiaCuratorCristinId').then((cristinId: unknown) => {
+          candidates['hits'].forEach((candidate) => {
+            if (approvedList.includes(candidate['publicationDetails']['identifier'])) {
+              cy.wrap(updateNVICandidate(candidate['identifier'], UIA, NviStatus.APPROVED)).then(() => {});
+            }
+            if (rejectedList.includes(candidate['publicationDetails']['identifier'])) {
+              cy.wrap(updateNVICandidate(candidate['identifier'], UIA, NviStatus.REJECTED)).then(() => {});
+            }
+            if (assignedList.includes(candidate['publicationDetails']['identifier'])) {
+              cy.wrap(assignNVICandidate(candidate['identifier'], UIA, cristinId as string)).then(() => {});
+            }
+          });
         });
       });
     });
   });
   cy.login(userNviCuratorVolda).then(() => {
-    findContributorByName(userName[userNviCuratorVolda], ContributorTypes.CURATOR).then(
+    cy.wrap(findContributorByName(userName[userNviCuratorVolda], ContributorTypes.CURATOR)).then(
       (contributor: ContributorType) => {
         const cristinId = `${contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '')}@${VOLDA_ID}`;
         cy.wrap(cristinId).as('voldaCuratorCristinId');
       }
     );
 
-    listNviCandidates(VOLDA_ID, currentYear, '50').then((candidates) => {
-      cy.wrap(candidates).as('voldaCandidates');
-    });
-    cy.get('@voldaCandidates').then((candidates) => {
-      cy.get('@voldaCuratorCristinId').then((cristinId: unknown) => {
-        candidates['hits'].forEach((candidate) => {
-          if (voldaApprovedList.includes(candidate['publicationDetails']['identifier'])) {
-            updateNVICandidate(candidate['identifier'], VOLDA, NviStatus.APPROVED).then(() => {});
-          }
-          if (voldaRejectedList.includes(candidate['publicationDetails']['identifier'])) {
-            updateNVICandidate(candidate['identifier'], VOLDA, NviStatus.REJECTED).then(() => {});
-          }
-          if (voldaAssignedList.includes(candidate['publicationDetails']['identifier'])) {
-            assignNVICandidate(candidate['identifier'], VOLDA, cristinId as string).then(() => {});
-          }
+    cy.wrap(listNviCandidates(VOLDA_ID, currentYear, '50')).then((candidates) => {
+      cy.get('@voldaCandidates').then((candidates) => {
+        cy.get('@voldaCuratorCristinId').then((cristinId: unknown) => {
+          candidates['hits'].forEach((candidate) => {
+            if (voldaApprovedList.includes(candidate['publicationDetails']['identifier'])) {
+              cy.wrap(updateNVICandidate(candidate['identifier'], VOLDA, NviStatus.APPROVED)).then(() => {});
+            }
+            if (voldaRejectedList.includes(candidate['publicationDetails']['identifier'])) {
+              cy.wrap(updateNVICandidate(candidate['identifier'], VOLDA, NviStatus.REJECTED)).then(() => {});
+            }
+            if (voldaAssignedList.includes(candidate['publicationDetails']['identifier'])) {
+              cy.wrap(assignNVICandidate(candidate['identifier'], VOLDA, cristinId as string)).then(() => {});
+            }
+          });
         });
       });
     });
