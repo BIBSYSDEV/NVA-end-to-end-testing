@@ -32,6 +32,5 @@ Given('I create a new registration', () => {
           });
         });
       });
-      cy.searchFor('Publication');
   });
 });

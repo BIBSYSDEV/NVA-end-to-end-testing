@@ -305,6 +305,7 @@ When('a level 2 series is added to the anthology', () => {
   // legg serie til antologi med nivå 2
   cy.get('[title=Search]').click();
   const uuid = findUuid(anthologyTitle);
+  cy.location('href').should('include', '/filter');
 
   cy.searchFor(anthologyTitle);
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
