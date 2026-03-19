@@ -9,16 +9,19 @@ Feature: Reports from navigate
 
     Examples:
       | Institution | Candidates | Under control | Approved | Rejected | Twists | Total | Controlled |
-      | Nord        |          4 |             0 |        4 |        2 |      0 |    10 |         44 |
-#   @test
-#   Scenario: An administrator looks at publication points status
-#     Given an administrtor opens the NVI status page in master data
-#     When they open the publication points status for the current year
-#     And look at the data for "<Institution>"
-#     Then they see numbers for "<Candidates>", "<Approved>", "<Publication points>", "<Controlled>":
-#     Examples:
-#       | Institution                        | Candidates | Approved | Publication points | Controlled |
-#       | Nord |          7 |        0 |                  1 |         85 |
+      | Nord        |          4 |             0 |        4 |        2 |      0 |    10 |         60 |
+
+  @test
+  Scenario: An administrator looks at publication points status
+    Given an administrtor opens the NVI status page in master data
+    When they open the publication points status for the current year
+    And they look at the data for "<Institution>"
+    Then they see numbers for "<Approved by us>", "<Approved by all>", "<Publication points>", "<Approved>":
+
+    Examples:
+      | Institution | Approved by us | Approved by all | Publication points | Approved |
+      | Nord        |              4 |               3 |                 12 |       30 |
+
 #   @test
 #   Scenario: An curator exports file for NVI reporting status
 #     Given a curator in an NVI Institution

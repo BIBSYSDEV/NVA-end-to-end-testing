@@ -746,6 +746,10 @@ Cypress.Commands.add('filterMessages', (messageType) => {
 });
 
 Cypress.Commands.add('searchFor', (searchTerm: string) => {
+  cy.getDataTestId(dataTestId.common.pagination).within(() => {
+    cy.get('input').last().parent().click();
+    cy.contains('50').click();
+  });
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${searchTerm}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('body').then((body) => {

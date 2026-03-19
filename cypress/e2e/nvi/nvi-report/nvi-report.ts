@@ -187,7 +187,7 @@ Then(
           cy.get('td').eq(5).should('have.text', rejected);
           cy.get('td').eq(6).should('have.text', twists);
           cy.get('td').eq(7).should('have.text', total);
-          cy.get('td').eq(8).should('have.text', controlled);
+          cy.get('td').eq(8).should('have.text', `${controlled}%`);
         });
     });
   }
@@ -199,9 +199,28 @@ Then(
 
 //   Scenario: An administrator looks at publication points status
 // Given('an administrtor opens the NVI status page in master data', () => {});
-When('they open the publication points status for the current year', () => {});
+When('they open the publication points status for the current year', () => {
+  cy.getDataTestId('nvi-publication-points-link').click();
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  cy.contains(currentYear).click();
+});
 // When('they look at the data for "<Institution>"', () => {});
-Then('they see numbers for "<Candidates>", "<Approved>", "<Publication points>", "<Controlled>"', () => {});
+Then(
+  'they see numbers for {string}, {string}, {string}, {string}:',
+  (approvedByUs: string, approvedByAll: string, publicationPoints: string, approved: string) => {
+        cy.get('@institution').then((institution: unknown) => {
+      cy.get('tr')
+        .filter(`:contains(${institution as string})`)
+        .within(() => {
+          cy.get('td').eq(2).should('have.text', approvedByUs);
+          cy.get('td').eq(3).should('have.text', approvedByAll);
+          cy.get('td').eq(4).should('have.text', publicationPoints);
+          cy.get('td').eq(5).should('have.text', `${approved}%`);
+        });
+    });
+
+  }
+);
 
 // Examples:
 //   | Institution                        | Candidates | Approved | Publication points | Controlled |

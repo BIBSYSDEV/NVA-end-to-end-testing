@@ -7,6 +7,7 @@ import {
 } from '../../../support/create_registration';
 import { CategoryTypes, ContributorTypes, TestUsers, userName } from '../../../support/constants';
 import { v4 as uuid } from 'uuid';
+import { dataTestId } from '../../../support/dataTestIds';
 
 Given('I create a new registration', () => {
   cy.login(TestUsers.creators.basic).then(() => {
@@ -31,5 +32,6 @@ Given('I create a new registration', () => {
           });
         });
       });
+      cy.searchFor('Publication');
   });
 });

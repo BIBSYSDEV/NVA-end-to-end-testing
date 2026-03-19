@@ -9,7 +9,7 @@ from datetime import datetime, date, timedelta
 import babel
 import sys
 
-dynamodb_client = boto3.client('dynamodb')
+dynamodb_client = boto3.resource('dynamodb')
 s3_client = boto3.client('s3')
 ssm = boto3.client('ssm')
 cognito_client = boto3.client('cognito-idp')
@@ -17,11 +17,7 @@ lambda_client = boto3.client('lambda')
 
 publications_tablename = ssm.get_parameter(Name='/test/ResourceTable',
                                            WithDecryption=False)['Parameter']['Value']
-user_tablename = ssm.get_parameter(Name='/test/UserTable',
-                                   WithDecryption=False)['Parameter']['Value']
 nvi_tablename = ssm.get_parameter(Name='/test/NviTable',
-                                   WithDecryption=False)['Parameter']['Value']
-favorites_tablename = ssm.get_parameter(Name='/test/FavoritesTable',
                                    WithDecryption=False)['Parameter']['Value']
 s3_bucket_name = ssm.get_parameter(Name='/test/ResourceS3Bucket',
                                    WithDecryption=False)['Parameter']['Value']
@@ -103,40 +99,73 @@ def scan_candidates():
 
     return scanned_candidates
 
+def delete_items(items, table):
+  with table.batch_writer() as batch:
+    for item in items:
+      print('deleting', 'registration', item['PK0'])
+      batch.delete_item(Key={'PK0': item['PK0'], 'SK0': item['SK0']})
+
+def delete_nvi_items(items, table):
+  with table.batch_writer() as batch:
+    for item in items:
+      if item['PrimaryKeyHashKey'] != 'PERIOD':
+        print('deleting', 'NVI candidate', item['PrimaryKeyHashKey'])
+        batch.delete_item(Key={'PrimaryKeyHashKey': item['PrimaryKeyHashKey'], 'PrimaryKeyRangeKey': item['PrimaryKeyRangeKey']})
+
+def delete_all_in_dynamoDb():
+  table = dynamodb_client.Table(publications_tablename)
+  response = table.scan()
+  delete_items(response['Items'], table)
+  while 'LastEvaluatedKey' in response:
+    response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+    delete_items(response['Items'], table)
+
+def delete_all_nvi_in_dynamoDb():
+  table = dynamodb_client.Table(nvi_tablename)
+  response = table.scan()
+  delete_nvi_items(response['Items'], table)
+  while 'LastEvaluatedKey' in response:
+    response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+    delete_nvi_items(response['Items'], table)
+
 
 def delete_publications():
-    resources = scan_resources()
-    for resource in resources:
-        primary_partition_key = resource['PK0'][STRING]
-        primary_sort_key = resource['SK0'][STRING]
-        print(
-            f'Deleting {primary_partition_key}')
-        response = dynamodb_client.delete_item(
-            TableName=publications_tablename,
-            Key={
-                'PK0': {
-                    STRING: primary_partition_key
-                },
-                'SK0': {
-                    STRING: primary_sort_key
-                }
-            })
-    candidates = scan_candidates()
-    for candidate in candidates:
-        primary_partition_key = candidate['PrimaryKeyHashKey'][STRING]
-        primary_sort_key = candidate['PrimaryKeyRangeKey'][STRING]
-        if primary_partition_key != 'PERIOD':
-            print(f'deleting nvi candidate {primary_partition_key}')
-            response = dynamodb_client.delete_item(
-                TableName=nvi_tablename,
-                Key={
-                    'PrimaryKeyHashKey': {
-                        STRING: primary_partition_key
-                    },
-                    'PrimaryKeyRangeKey': {
-                        STRING: primary_sort_key
-                    }
-                })
+    delete_all_in_dynamoDb()
+    delete_all_nvi_in_dynamoDb()
+
+
+    # resources = scan_resources()
+    # for resource in resources:
+    #     primary_partition_key = resource['PK0'][STRING]
+    #     primary_sort_key = resource['SK0'][STRING]
+    #     print(
+    #         f'Deleting {primary_partition_key}')
+    #     response = dynamodb_client.delete_item(
+    #         TableName=publications_tablename,
+    #         Key={
+    #             'PK0': {
+    #                 STRING: primary_partition_key
+    #             },
+    #             'SK0': {
+    #                 STRING: primary_sort_key
+    #             }
+    #         })
+    # candidates = scan_candidates()
+    # for candidate in candidates:
+    #     primary_partition_key = candidate['PrimaryKeyHashKey'][STRING]
+    #     primary_sort_key = candidate['PrimaryKeyRangeKey'][STRING]
+    #     if primary_partition_key != 'PERIOD':
+    #         print(f'deleting nvi candidate {primary_partition_key}')
+    #         response = dynamodb_client.delete_item(
+    #             TableName=nvi_tablename,
+    #             Key={
+    #                 'PrimaryKeyHashKey': {
+    #                     STRING: primary_partition_key
+    #                 },
+    #                 'PrimaryKeyRangeKey': {
+    #                     STRING: primary_sort_key
+    #                 }
+    #             })
     return
 
 
@@ -149,7 +178,4 @@ def run():
     delete_publications()
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        test_publications_file_name = sys.argv[1]
-
     run()
