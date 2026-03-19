@@ -283,6 +283,7 @@ Resources:
                   - 'dynamodb:Query'
                   - 'dynamodb:PutItem'
                   - 'dynamodb:DeleteItem'
+                  - 'dynamodb:BatchWriteItem' 
                 Resource: '*'
               - Effect: Allow
                 Action:
