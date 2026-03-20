@@ -96,7 +96,7 @@ Given('a Curator opens the Landing Page of a Registration', () => {
         cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
         cy.wait(1000);
         cy.getDataTestId(dataTestId.header.tasksLink).click();
-        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+        cy.getDataTestId(dataTestId.tasksPage.userDialogAccordion).should('exist');
         cy.searchFor(registrationTitle);
       });
     });
@@ -143,6 +143,7 @@ Given('they opens the Landing Page of a Registration', () => {
   cy.login(userBIBSYSCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).should('be.visible');
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.userDialogAccordion).should('exist');
   cy.get('@registrationTitle').then((registrationTitle: unknown) => {
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.searchFor(registrationTitle as string);
@@ -199,6 +200,7 @@ Given('that a Curator views their Worklist', () => {
     cy.login(TestUsers.curators.sintef.doi);
     cy.wait(1000);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
+    cy.getDataTestId(dataTestId.tasksPage.userDialogAccordion).should('exist');
   });
 });
 Given('they have selected the DOI Requests tab', () => {});
@@ -220,8 +222,8 @@ Given('the Registration has a DOI Request', () => {});
 When('they approve the DOI Request', () => {
   cy.wait(1000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.userDialogAccordion).should('exist');
   cy.get('@registrationTitle').then((searchTitle: unknown) => {
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.searchFor(searchTitle as string);
   });
   cy.wait(1000);
@@ -248,8 +250,8 @@ Then('the DOI is findable', () => {
 When('they reject the DOI Request', () => {
   cy.login(TestUsers.curators.sintef.doi);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.userDialogAccordion).should('exist');
   cy.get('@registrationTitle').then((searchTitle: unknown) => {
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.searchFor(searchTitle as string);
   });
   cy.getDataTestId(dataTestId.registrationLandingPage.rejectDoiButton).click();

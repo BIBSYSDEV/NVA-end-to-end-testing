@@ -80,10 +80,9 @@ When('a Curator view the landing page of the registration', () => {
   cy.login(userBIBSYSPublishingCurator);
   cy.wait(5000);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.get('@title').then((title) => {
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.wait(2000);
-    cy.searchFor(title.toString());
+  cy.getDataTestId(dataTestId.tasksPage.userDialogAccordion).should('exist');
+  cy.get('@title').then((title: unknown) => {
+    cy.searchFor(title as string);
   });
 });
 Then('they see {string}', (approvalMessage: string) => {
@@ -146,9 +145,9 @@ When('a curator edit the registration and changes the open file to {string}', (f
   cy.wrap(fileType).as('fileType');
   cy.login(userBIBSYSPublishingCurator);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
+  cy.getDataTestId(dataTestId.tasksPage.userDialogAccordion).should('exist');
   cy.get('@title').then((title: unknown) => {
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.searchFor(title.toString());
+    cy.searchFor(title as string);
   });
   cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();

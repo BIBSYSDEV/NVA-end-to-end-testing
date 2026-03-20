@@ -178,6 +178,7 @@ When('a curator with role {string} responds to the message', (role: unknown) => 
       const curatorRole = role as string;
       cy.login(curatorUsers[curatorRole]);
       cy.getDataTestId(dataTestId.header.tasksLink).click();
+      cy.getDataTestId(dataTestId.tasksPage.userDialogAccordion).should('exist');
       cy.searchFor(registrationTitle);
       switch (messageType) {
         case PUBLISHING_REQUEST:

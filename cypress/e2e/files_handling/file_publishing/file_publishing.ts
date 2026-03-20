@@ -28,6 +28,7 @@ When('the creator creates and publishes an AcademicArticle with with files', () 
     cy.createPublishedRegistration(title, 'AcademicArticle', 'example.txt');
     cy.login(TestUsers.curators.bibsys.collaboration);
     cy.getDataTestId(dataTestId.header.tasksLink).click();
+    cy.getDataTestId(dataTestId.tasksPage.userDialogAccordion).should('exist');
     cy.searchFor(title);
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
     cy.wait(1000);

@@ -115,9 +115,7 @@ BeforeAll(() => {
 
       if (!key.startsWith('Candidate')) {
         cy.getDataTestId(dataTestId.header.tasksLink).click();
-        cy.wait(1000);
         cy.openNVIWorklist();
-        // cy.wait(3000);
         if (key.startsWith('Approved') || key === 'Dispute Approved Rejected') {
           approveCandidate(NVItitle);
         } else if (key.startsWith('Being checked')) {
@@ -131,7 +129,6 @@ BeforeAll(() => {
 
   cy.login(userBIBSYSNviCuratorInstitution);
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.wait(1000);
   cy.openNVIWorklist();
   Object.keys(titles).forEach((key) => {
     const title = titles[key];
@@ -147,7 +144,6 @@ BeforeAll(() => {
   cy.login(userNtnuNviCurator);
   const disputeTitle = titles['Dispute Candidate Dispute'];
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.wait(1000);
   cy.openNVIWorklist();
   rejectCandidate(disputeTitle);
 });
@@ -161,7 +157,6 @@ Given('a logged-in User', () => {
 Given('the User has the role "NVI-Curator" at an NVI-Institution', () => {});
 Given('the User has navigated to the NVI section from the Tasks option in the main menu', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
-  cy.wait(1000);
   cy.openNVIWorklist();
 });
 
