@@ -41,7 +41,7 @@ Cypress.Commands.add('login', (userId: string) => {
   cy.setLocalStorage('previouslyLoggedIn', 'true');
   cy.wrap(null).then(() => {
     return login(userId).then(() => {
-        cy.setLocalStorage('beta', 'true');
+      cy.setLocalStorage('beta', 'true');
     });
   });
 });
@@ -747,10 +747,18 @@ Cypress.Commands.add('filterMessages', (messageType) => {
 
 Cypress.Commands.add('searchFor', (searchTerm: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.common.pagination).within(() => {
-    cy.get('input').last().parent().click();
-    cy.get('[data-value=50]').click();
+  cy.url().then((url) => {
+    cy.visit(url + '?from=0&results=50', {
+      auth: {
+        username: Cypress.env('DEVUSER'),
+        password: Cypress.env('DEVPASSWORD'),
+      },
+    });
   });
+  // cy.getDataTestId(dataTestId.common.pagination).within(() => {
+  //   cy.get('input').last().parent().click();
+  //   cy.get('[data-value=50]').click();
+  // });
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${searchTerm}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('body').then((body) => {

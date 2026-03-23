@@ -47,7 +47,7 @@ def delete_indices():
     print("Deleting OpenSearch indices...")
     delete_handlers = [deleteNviIndexLambda, deleteSearchIndexLambda]
     for handler in delete_handlers:
-        response = lambda_client.invoke(FunctionName=handler, Payload=json.dumps('{"indices": [ "resources", "tickets", "import-candidates" ]}'))
+        response = lambda_client.invoke(FunctionName=handler, Payload=json.dumps({"indices": ["resources", "tickets", "import-candidates"]}))
         if response['StatusCode'] != 200:
             print(response)
     time.sleep(30)
@@ -133,39 +133,6 @@ def delete_publications():
     delete_all_in_dynamoDb()
     delete_all_nvi_in_dynamoDb()
 
-
-    # resources = scan_resources()
-    # for resource in resources:
-    #     primary_partition_key = resource['PK0'][STRING]
-    #     primary_sort_key = resource['SK0'][STRING]
-    #     print(
-    #         f'Deleting {primary_partition_key}')
-    #     response = dynamodb_client.delete_item(
-    #         TableName=publications_tablename,
-    #         Key={
-    #             'PK0': {
-    #                 STRING: primary_partition_key
-    #             },
-    #             'SK0': {
-    #                 STRING: primary_sort_key
-    #             }
-    #         })
-    # candidates = scan_candidates()
-    # for candidate in candidates:
-    #     primary_partition_key = candidate['PrimaryKeyHashKey'][STRING]
-    #     primary_sort_key = candidate['PrimaryKeyRangeKey'][STRING]
-    #     if primary_partition_key != 'PERIOD':
-    #         print(f'deleting nvi candidate {primary_partition_key}')
-    #         response = dynamodb_client.delete_item(
-    #             TableName=nvi_tablename,
-    #             Key={
-    #                 'PrimaryKeyHashKey': {
-    #                     STRING: primary_partition_key
-    #                 },
-    #                 'PrimaryKeyRangeKey': {
-    #                     STRING: primary_sort_key
-    #                 }
-    #             })
     return
 
 
