@@ -42,8 +42,8 @@ Then('they can edit existing Exhibitions', () => {
     '11.11.2021'
   );
   cy.getDataTestId(musicConcertProgramFields['Works']).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.concertProgramTitle).type('Title');
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.concertProgramComposer).type('Composer');
+  cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`).first().type('Title');
+  cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramComposer}]`).first().type('Composer');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
   cy.get('[aria-label=Edit]');
 });
