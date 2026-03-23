@@ -12,13 +12,13 @@ const fileTitle = '[Missing title]';
 
 // common steps
 When('they click Start', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
     .filter(':visible', { timeout: 30000 })
     .should('be.enabled', { timeout: 30000 });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.new.startRegistrationButton}]`)
+  cy.getDataTestId(dataTestId.registrationWizard.new.startRegistrationButton)
     .filter(':visible', { timeout: 30000 })
     .click({ timeout: 30000 });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).should('be.visible');
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
   cy.getSuccessDone();

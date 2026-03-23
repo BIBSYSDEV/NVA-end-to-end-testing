@@ -15,15 +15,15 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
   cy.login(userUnitLiteraryArts);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 When('they select Resource Subtype "Literary Arts"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.resourceTypeChip('LiteraryArts')}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('LiteraryArts')).click();
 });
 Then('they see fields:', () => {});
 //   | More information |
 Then('they see field for Type Work with options:', (dataTable: DataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticTypeField}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticTypeField).click();
   dataTable.raw().forEach((value) => {
     if (value[0] === 'Other') {
       cy.get(`[data-value=LiteraryArtsOther]`).should('be.visible');
@@ -53,17 +53,17 @@ Then('they can add Announcements of type:', (dataTable: DataTable) => {
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"', () => {
   cy.login(userUnitLiteraryArts);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.resourceTypeChip('LiteraryArts')}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('LiteraryArts')).click();
 });
 When('they add a Monograph with details for:', (dataTable: DataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addBookButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.addBookButton).click();
   dataTable.raw().forEach((field: string[]) => {
-    cy.get(`[data-testid=${literaryArtsBookFields[field[0]]['field']}]`).type(
+    cy.getDataTestId(literaryArtsBookFields[field[0]]['field']).type(
       literaryArtsBookFields[field[0]]['value']
     );
   });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
 });
 //   | Publisher   |
 //   | Year        |
@@ -82,11 +82,11 @@ Then('they can remove the Monograph', () => {
 //   Scenario: Creator adds an Web Publication
 // Given('Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"', () => { })
 When('they add a Web Publication with details for:', (dataTable: DataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addWebPublicationButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.addWebPublicationButton).click();
   dataTable.raw().forEach((field: string[]) => {
-    cy.get(`[data-testid=${literaryArtsWebFields[field[0]]['field']}]`).type(literaryArtsWebFields[field[0]]['value']);
+    cy.getDataTestId(literaryArtsWebFields[field[0]]['field']).type(literaryArtsWebFields[field[0]]['value']);
   });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
 });
 //   | Link      |
 //   | Publisher |
@@ -104,10 +104,10 @@ Then('they can remove the Web Publication', () => {
 //   Scenario: Creator adds an Performance
 // Given('Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"', () => { })
 When('they add a Performance with details for:', (dataTable: DataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addPerformanceButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.addPerformanceButton).click();
   dataTable.raw().forEach((field) => {
     if (field[0] === 'Type of Performance') {
-      cy.get(`[data-testid=${literaryArtsPerformanceFields[field[0]]['field']}]`).click();
+      cy.getDataTestId(literaryArtsPerformanceFields[field[0]]['field']).click();
       cy.get(`[data-value=${literaryArtsPerformanceFields[field[0]]['value']}]`).click();
     } else if (field[0] === 'Date') {
       cy.chooseDatePicker(
@@ -115,7 +115,7 @@ When('they add a Performance with details for:', (dataTable: DataTable) => {
         literaryArtsPerformanceFields[field[0]]['value']
       );
     } else {
-      cy.get(`[data-testid=${literaryArtsPerformanceFields[field[0]]['field']}]`).type(
+      cy.getDataTestId(literaryArtsPerformanceFields[field[0]]['field']).type(
         literaryArtsPerformanceFields[field[0]]['value']
       );
     }
@@ -125,7 +125,7 @@ When('they add a Performance with details for:', (dataTable: DataTable) => {
 //   | Place               |
 //   | Date                |
 When('Type of Performance can be one of:', (dataTable: DataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.subtypeField}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.subtypeField).click();
   dataTable.raw().forEach((type) => {
     if (type[0] !== 'Other') {
       cy.get(`[data-value=${type}]`);
@@ -134,7 +134,7 @@ When('Type of Performance can be one of:', (dataTable: DataTable) => {
     }
   });
   cy.get(`[data-value=${literaryArtsPerformanceFields['Type of Performance']['value']}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
 });
 //   | Reading |
 //   | Play    |
@@ -152,13 +152,13 @@ Then('they can remove the Performance', () => {
 //   Scenario: Creator adds an Audio/Visual Publication
 // Given('Creator navigates to the Resource Type tab and selects Resource subtype "Literary Arts"', () => { })
 When('they add an AudioVisual Publication with details for:', (dataTable: DataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addAudioVideoButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.addAudioVideoButton).click();
   dataTable.raw().forEach((field) => {
     if (field[0] === 'Type of audio/visual publication') {
-      cy.get(`[data-testid=${literaryArtsAudioVisualFields[field[0]]['field']}]`).click();
+      cy.getDataTestId(literaryArtsAudioVisualFields[field[0]]['field']).click();
       cy.get(`[data-value=${literaryArtsAudioVisualFields[field[0]]['value']}]`).click();
     } else {
-      cy.get(`[data-testid=${literaryArtsAudioVisualFields[field[0]]['field']}]`).type(
+      cy.getDataTestId(literaryArtsAudioVisualFields[field[0]]['field']).type(
         literaryArtsAudioVisualFields[field[0]]['value']
       );
     }
@@ -170,7 +170,7 @@ When('they add an AudioVisual Publication with details for:', (dataTable: DataTa
 //   | ISBN                             |
 //   | Duration                         |
 When('Type of Type of audiovisual publication can be one of:', (dataTable: DataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.subtypeField}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.subtypeField).click();
   dataTable.raw().forEach((type: string[]) => {
     if (type[0] === 'Other') {
       cy.get(`[data-value=LiteraryArtsAudioVisualOther]`);
@@ -179,7 +179,7 @@ When('Type of Type of audiovisual publication can be one of:', (dataTable: DataT
     }
   });
   cy.get(`[data-value=${literaryArtsAudioVisualFields['Type of audio/visual publication']['value']}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
 });
 //   | Audiobook |
 //   | RadioPlay |

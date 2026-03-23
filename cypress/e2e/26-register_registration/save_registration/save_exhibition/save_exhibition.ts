@@ -46,7 +46,7 @@ Given('fill in values for all fields', () => {
   cy.fillInCommonFields();
 });
 When('they saves Registration', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('be.enabled');
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
@@ -55,9 +55,9 @@ Then('they can see the values on the Registration Landing Page', () => {
   cy.checkLandingPage();
 });
 Then('they can see the values in the Registration Wizard', () => {
-  cy.get('[data-testid=button-edit-registration]').click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
   Object.keys(registrationFields).forEach((key) => {
-    cy.get(`[data-testid=${registrationFields[key].tab}]`).click();
+    cy.getDataTestId(registrationFields[key].tab).click();
     Object.keys(registrationFields[key]).forEach((subkey) => {
       if (subkey !== 'tab' && subkey !== 'version') {
         const field = registrationFields[key][subkey];
@@ -65,7 +65,7 @@ Then('they can see the values in the Registration Wizard', () => {
       }
     });
   });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
   fields.forEach((field) => {
     cy.checkField(field);
   });

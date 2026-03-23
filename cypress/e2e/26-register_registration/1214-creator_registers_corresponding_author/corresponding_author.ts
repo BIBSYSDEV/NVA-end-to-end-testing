@@ -5,11 +5,11 @@ import { dataTestId } from '../../../support/dataTestIds';
 Given('Creator begins registering a Registration in the Wizard', () => {
   cy.login(userUnitWithAuthor);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get('[data-testid=resource-type-chip-AcademicMonograph]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph')).click();
 });
 Given('they navigate to the Contributors tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click({ force: true });
 });
 Given('they see an Author', () => {
   cy.get('[data-testid=add-contributor]').click({ force: true });
@@ -17,10 +17,10 @@ Given('they see an Author', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.searchField}] > div > input`).type(
     'Testuser Withauthor{enter}'
   );
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectPersonForContributor}]`)
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectPersonForContributor)
     .first()
     .click({ force: true });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectUserButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click({ force: true });
 });
 When('they check the Corresponding checkbox', () => {
   cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.correspondingCheckbox}] > input`).click({
@@ -28,7 +28,7 @@ When('they check the Corresponding checkbox', () => {
   });
 });
 Then('they see the Corresponding Author checkbox is checked', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.correspondingCheckbox}]`).within((checkbox) => {
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.correspondingCheckbox).within((checkbox) => {
     cy.wrap(checkbox).get('input').should('be.checked');
   });
 });

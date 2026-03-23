@@ -13,7 +13,7 @@ Before(() => {
 // @393
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Report"
 Given('Creator navigates to Resource Type tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 });
 When('they select the Resource type "Report"', () => {});
 Then('they see a list of subtypes:', (dataTable: DataTable) => {
@@ -28,10 +28,10 @@ Then('they see a list of subtypes:', (dataTable: DataTable) => {
 // @1693
 // Scenario Outline: Creator sees fields for Resource subtypes for "Report"
 Given('Creator navigates to the Resource Type tab and selects Resource type "Report"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 });
 When('they select the Subtype {string}', (subtype: string) => {
-  cy.get(`[data-testid=${reportSubtypes[subtype]}]`).click();
+  cy.getDataTestId(reportSubtypes[subtype]).click();
 });
 Then('they see fields:', (dataTable: DataTable) => {
   cy.testDataTestidList(dataTable, reportFields);
@@ -50,22 +50,22 @@ Then('they see fields:', (dataTable: DataTable) => {
 
 // Scenario Outline: Creator sees that fields are validated for Resource subtypes for "Report"
 Given('Creator sees fields for Resource subtypes for "Report"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 });
 Given('they have selected the Subtype {string}', (subtype: string) => {
-  cy.get(`[data-testid=${reportSubtypes[subtype]}]`).click();
+  cy.getDataTestId(reportSubtypes[subtype]).click();
 });
 When('they enter an invalid value in fields:', (dataTable: DataTable) => {
   dataTable.raw().forEach((field) => {
-    cy.get(`[data-testid=${reportFields[field[0]]}]`).type('{selectall}{del}invalid');
+    cy.getDataTestId(reportFields[field[0]]).type('{selectall}{del}invalid');
   });
 });
 // | ISBN                  |
 // | Total number of pages |
 Then('they can see the "Invalid ISBN" error message', () => {
-  cy.get(`[data-testid=${reportFields['ISBN']}]`).type('{selectall}{del}111111111111111');
+  cy.getDataTestId(reportFields['ISBN']).type('{selectall}{del}111111111111111');
   cy.get(`[data-testid=${reportFields['ISBN']}] > div > input`).blur();
-  cy.get(`[data-testid=${reportFields['ISBN']}]`).within(() => {
+  cy.getDataTestId(reportFields['ISBN']).within(() => {
     cy.get('p').should('have.class', 'Mui-error');
   });
 });
@@ -75,7 +75,7 @@ When('they click the Save button', () => {
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable: DataTable) => {
   dataTable.raw().forEach((field) => {
-    cy.get(`[data-testid=${reportFields[field[0]]}]`).within(() => {
+    cy.getDataTestId(reportFields[field[0]]).within(() => {
       cy.get('p').should('have.class', 'Mui-error');
       cy.get('p').should('have.class', 'Mui-required');
     });
@@ -84,7 +84,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable: DataTabl
 // | Search box for Publisher |
 Then('they can see "Invalid format" error messages for fields:', (dataTable: DataTable) => {
   dataTable.raw().forEach((field) => {
-    cy.get(`[data-testid=${reportFields[field[0]]}]`).within(() => {
+    cy.getDataTestId(reportFields[field[0]]).within(() => {
       cy.get('input').focus().blur();
       cy.get('p').should('have.class', 'Mui-error');
     });

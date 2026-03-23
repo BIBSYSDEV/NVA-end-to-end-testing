@@ -16,13 +16,13 @@ Given('Creator navigates to the Resource Type tab and selects Resource type "Cha
   navigateToResourceTab();
 });
 When('they select the Resource Subtype {string}', (chapterType: string) => {
-  cy.get(`[data-testid=${chapterSubtypes[chapterType]}]`).click();
+  cy.getDataTestId(chapterSubtypes[chapterType]).click();
   cy.wrap(chapterType).as('chapterType');
 });
 // end common steps
 
 const navigateToResourceTab = () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 };
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Chapter"
@@ -40,7 +40,7 @@ Then('they see a list of subtypes:', (dataTable: DataTable) => {
 // Scenario Outline: Creator sees fields for Chapter subtypes
 Then('they see an information box describing that a Container report must be published first', () => {
   cy.get('@chapterType').then((chapterType) => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.partOfField}]`)
+    cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField)
       .parent()
       .within(() => {
         if (chapterType.toString() === 'Chapter in Anthology') {
@@ -58,7 +58,7 @@ Then('they see an information box describing that a Container report must be pub
   });
 });
 Then('they see a field {string}', (containerField: string) => {
-  cy.get(`[data-testid=${chapterContainerField[containerField]}]`);
+  cy.getDataTestId(chapterContainerField[containerField]);
 });
 Then('they see fields:', (dataTable: DataTable) => {
   cy.testDataTestidList(dataTable, chapterFields);
@@ -87,14 +87,14 @@ Then('they see Content type field with options:', (dataTable: DataTable) => {
 // Scenario: Creator selects Resource subtype "Chapter in Anthology" and Content type "Academic chapter"
 Given('Creator sees fields for Resource subtype "Chapter in Anthology"', () => {
   navigateToResourceTab();
-  cy.get(`[data-testid=${chapterSubtypes['Chapter in Anthology']}]`).click();
+  cy.getDataTestId(chapterSubtypes['Chapter in Anthology']).click();
 });
 When('they select Content type "Academic chapter"', () => {
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();
-  // cy.get(`[data-testid=${chapterContentTypes['Academic Chapter']}]`).click();
+  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.contentField).click();
+  // cy.getDataTestId(chapterContentTypes['Academic Chapter']).click();
 });
 Then('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.partOfField}]`).type('Antologi');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type('Antologi');
   cy.contains('Antologi').first().click({ force: true });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.nviFailed).should('be.visible');
 });

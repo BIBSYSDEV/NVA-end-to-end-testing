@@ -9,7 +9,7 @@ Given('that a Creator views a Registration', () => {
   cy.createValidRegistration(null, `View Registration ${uuid()}`);
 });
 Given('they navigate to the Files and License tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click({ force: true });
 });
 When('they click Save and Present', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });

@@ -72,13 +72,13 @@ Given('the Registration has a DOI', () => {
 When('they see the Status Bar', () => {
   cy.get('@status').then((status) => {
     if (status.toString() === 'Draft') {
-      cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
-      cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('be.visible');
+      cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     }
   });
 });
 Then('they see that the {string} button is not visible', (button: string) => {
-  cy.get(`[data-testid=${landingPageButtons[button]}]`).should('not.exist');
+  cy.getDataTestId(landingPageButtons[button]).should('not.exist');
 });
 // Examples:
 // | Status    | Button      |

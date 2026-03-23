@@ -52,7 +52,7 @@ Then('they can select next page of items', () => {
 When('they click {string} under {string}', (button: string, section) => {
   cy.wrap(button).as('button');
   cy.wrap(section).as('section');
-  cy.get(`[data-testid=${userAdministrationButtons[button]}]`).click();
+  cy.getDataTestId(userAdministrationButtons[button]).click();
 });
 
 // End common steps
@@ -64,7 +64,7 @@ Given('that the user is logged in as Administrator', () => {
   cy.login(userSiktInstAdmin);
 });
 When('they click the menu item Users', () => {
-  cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.header.basicDataLink).click({ force: true });
 });
 Then('they see the User Administration page', () => {
   cy.location('pathname').should('equal', '/basic-data/person-register');
@@ -74,19 +74,19 @@ Then(
   (section: string, role: string) => {
     cy.wrap(section).as('section');
     cy.wrap(role).as('role');
-    cy.get(`[data-testid=${userAdministrationSections[section]}]`).should('exist').and('be.visible');
-    cy.get(`[data-testid=${userAdministrationSections[section]}]`).within(() => {
+    cy.getDataTestId(userAdministrationSections[section]).should('exist').and('be.visible');
+    cy.getDataTestId(userAdministrationSections[section]).within(() => {
       cy.get('tbody > tr').should('have.length', 5);
       cy.get(`[data-testid=user-pagination-${userAdministrationPagination[role]}]`).as('listControls');
     });
   }
 );
 Then('they see a Button {string}', (button: string) => {
-  cy.get(`[data-testid=${userAdministrationButtons[button]}]`).should('exist').and('be.visible');
+  cy.getDataTestId(userAdministrationButtons[button]).should('exist').and('be.visible');
 });
 Then('they see that the list has the fields "Username" and "Name" for each user', () => {
   cy.get('@section').then((section: any) => {
-    cy.get(`[data-testid=${userAdministrationSections[section]}]`).within(() => {
+    cy.getDataTestId(userAdministrationSections[section]).within(() => {
       cy.get('tbody > tr').each((user_line) => {
         cy.wrap(user_line).within(() => {
           cy.get('td').should('have.length.at.least', 2);
@@ -97,11 +97,11 @@ Then('they see that the list has the fields "Username" and "Name" for each user'
 });
 Then('they see a button "Remove" that is enabled for each user', () => {
   cy.get('@role').then((role: any) => {
-    cy.get(`[data-testid^=${userAdministrationRemoveRoleButtons[role]}]`).should('have.length', 5);
+    cy.getDataTestId(userAdministrationRemoveRoleButtons[role]).should('have.length', 5);
   });
 });
 Then('they see a section Registrator with a policy for who are able to publish', () => {
-  cy.get(`[data-testid=${dataTestId.myInstitutionUsersPage.usersCreators}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.myInstitutionUsersPage.usersCreators).should('be.visible');
   cy.get('[data-testid=checkbox-assign-creators]').should('be.visible');
 });
 // Examples:
@@ -115,7 +115,7 @@ Then('they see a section Registrator with a policy for who are able to publish',
 // Scenario Outline: Administrator opens the Add Role Dialog
 Given('Administrator opens User Administration', () => {
   cy.login(userSiktInstAdmin);
-  cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.header.basicDataLink).click({ force: true });
 });
 Then('they see the Add Role Dialog', () => {
   cy.get('[data-testid=add-role-modal]').as('roleModal');
@@ -230,7 +230,7 @@ Then('the Add Role Dialog is closed', () => {
 
 // Scenario: Administrator inspect a Curators scope
 When('they see on the Curator section of the User Administration', () => {
-  cy.get(`[data-testid=${dataTestId.myInstitutionUsersPage.usersCurators}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.myInstitutionUsersPage.usersCurators).should('be.visible');
 });
 Then('they see that each Curator has a "Scope" field', () => {
   cy.get(`[data-testid=${dataTestId.myInstitutionUsersPage.usersCurators}] > table > tbody > tr`).each((row) => {

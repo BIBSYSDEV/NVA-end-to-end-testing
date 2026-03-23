@@ -61,7 +61,7 @@ When('they click Edit on an item', () => {
 });
 Then('they see the item is opened in the Wizard', () => {});
 Then('they see the Description tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`);
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton);
 });
 Then('they see fields:', (dataTable: DataTable) => {
   cy.testDataTestidList(dataTable, descriptionFields);
@@ -97,7 +97,7 @@ When('they see the Registration has Validation Errors', () => {
   cy.get('[data-testid=error-tab]').should('exist');
 });
 Then('they see that tabs with Validation Errors are marked with an Error Icon', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).within(() => {
-    cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.errorStep}]`);
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).within(() => {
+    cy.getDataTestId(dataTestId.registrationWizard.stepper.errorStep);
   });
 });

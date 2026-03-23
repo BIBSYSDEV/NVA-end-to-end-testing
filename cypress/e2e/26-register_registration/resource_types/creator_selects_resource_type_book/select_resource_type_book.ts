@@ -11,13 +11,13 @@ Before(() => {
 
 // Common steps
 Given('Creator navigates to the Resource Type tab and sees Resource types for "Book"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 });
 // end Common steps
 
 // Scenario: Creator navigates to the Resource Type tab and sees Resource types for "Book"
 Given('Creator navigates to Resource Type tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 });
 When('they select the Resource type "Book"', () => {});
 Then('they see a list of subtypes:', (dataTable: DataTable) => {
@@ -56,7 +56,7 @@ When('they click the Save button', () => {
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable: DataTable) => {
   dataTable.raw().forEach((field) => {
-    cy.get(`[data-testid=${bookFields[field[0]]}]`).within(() => {
+    cy.getDataTestId(bookFields[field[0]]).within(() => {
       cy.get('p').should('have.class', 'Mui-error');
       cy.get('p').should('have.class', 'Mui-required');
     });
@@ -72,5 +72,5 @@ When('they select type "Academic Monograph"', () => {
 Then('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('sintef akademisk forlag');
   cy.contains('SINTEF akademisk forlag').click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviFailed}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.nviFailed).should('be.visible');
 });

@@ -9,17 +9,17 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
   cy.login(userUnitFilm);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 When('they select Resource Subtype "Film"', () => {
-  cy.get('[data-testid=resource-type-chip-MovingPicture]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('MovingPicture')).click();
 });
 Then('they see fields:', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticDescriptionField}]`);
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticDescriptionField);
 });
 //   | More information |
 Then('they see field for Type Work with options:', (dataTable: DataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticTypeField}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticTypeField).click();
   dataTable.raw().forEach((value: string[]) => {
     cy.get(`[data-value=${filmTypes[value[0]]}]`);
   });
@@ -33,20 +33,20 @@ Then('they see field for Type Work with options:', (dataTable: DataTable) => {
 //   | Other            |
 Then('they can add Exhibitions of type:', (dataTable: DataTable) => {
   dataTable.raw().forEach((value) => {
-    cy.get(`[data-testid=${filmAnnouncements[value[0]]}]`);
+    cy.getDataTestId(filmAnnouncements[value[0]]);
   });
 });
 //   | Broadcast         |
 //   | Cinematic release |
 //   | Other release     |
 Then('they can edit existing Exhibitions', () => {
-  cy.get(`[data-testid=${filmAnnouncements['Broadcast']}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.broadcastPublisher}]`).type('Broadcast publisher');
+  cy.getDataTestId(filmAnnouncements['Broadcast']).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.broadcastPublisher).type('Broadcast publisher');
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
     '11.11.2021'
   );
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
   cy.get('[aria-label=Edit]');
 });
 Then('they can delete existing Exhibitions', () => {
@@ -57,19 +57,19 @@ Then('they can delete existing Exhibitions', () => {
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Film"', () => {
   cy.login(userUnitFilm);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get('[data-testid=resource-type-chip-MovingPicture]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('MovingPicture')).click();
 });
 When('they add a Broadcast with details for:', () => {
-  cy.get(`[data-testid=${filmAnnouncements['Broadcast']}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.broadcastPublisher}]`).type(
+  cy.getDataTestId(filmAnnouncements['Broadcast']).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.broadcastPublisher).type(
     'Test Broadcast Publisher'
   );
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
     '11.11.2021'
   );
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
 });
 //   | Publisher |
 //   | Date      |
@@ -79,13 +79,13 @@ Then('the Broadcast is listed under Exhibitions', () => {
 
 //   Scenario: Creator adds an Cinematic release to a Film
 When('they add a Cinematic release with details for:', () => {
-  cy.get(`[data-testid=${filmAnnouncements['Cinematic release']}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.placeField}]`).type('Test Cinematic release Place');
+  cy.getDataTestId(filmAnnouncements['Cinematic release']).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.placeField).type('Test Cinematic release Place');
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
     '11.11.2021'
   );
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
 });
 //   | Place |
 //   | Date  |
@@ -95,19 +95,19 @@ Then('the Cinematic release is listed under Exhibitions', () => {
 
 //   Scenario: Creator adds an Other release to a Film
 When('they add a Other release with details for:', () => {
-  cy.get(`[data-testid=${filmAnnouncements['Other release']}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.outputDescriptionField}]`).type(
+  cy.getDataTestId(filmAnnouncements['Other release']).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.outputDescriptionField).type(
     'Test Other release type'
   );
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.placeField}]`).type('Test Other release place');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.otherReleasePublisher}]`).type(
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.placeField).type('Test Other release place');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.otherReleasePublisher).type(
     'Test Other release publisher'
   );
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
     '11.11.2021'
   );
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
 });
 //   | Type of release     |
 //   | Place               |

@@ -132,26 +132,26 @@ Given('that the Creator navigates to the Landing Page for Registration for publi
   cy.selectRegistration(publicRegistrationRequestingDoi, published);
 });
 Given('open "Request a DOI" dialog', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
 });
 Given('optional add a message to the Curator', () => {
   cy.get('textarea').first().type('Optional message');
 });
 When('the user click the Send Button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.sendDoiButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
 });
 Then('the "Request a DOI" button is renamed to "DOI pending" and is disabled', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.sendDoiButton}]`).should('not.exist');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).should('not.exist');
 });
 Then('the request is listed in User Worklist', () => {
-  cy.get(`[data-testid=${dataTestId.header.myPageLink}]`).click();
+  cy.getDataTestId(dataTestId.header.myPageLink).click();
   cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
   cy.get('[data-testid^=message-title]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
 });
 Then('the request is listed in Curator Worklist', () => {
-  cy.get(`[data-testid=${dataTestId.header.menuButton}]`).click();
-  cy.get(`[data-testid=${dataTestId.header.logOutLink}]`).click();
+  cy.getDataTestId(dataTestId.header.menuButton).click();
+  cy.getDataTestId(dataTestId.header.logOutLink).click();
   cy.login(userUnitCuratorDraftDoi);
   cy.visit(`/`, {
     auth: {
@@ -159,7 +159,7 @@ Then('the request is listed in Curator Worklist', () => {
       password: Cypress.env('DEVPASSWORD'),
     },
   });
-  cy.get(`[data-testid=${dataTestId.header.tasksLink}]`).click();
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[data-testid^=message-title]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
 });
 
@@ -180,11 +180,11 @@ Given('the Registration has no DOI', () => {
   cy.get('[data-testid=doi-presentation]').should('not.exist');
 });
 When('they look at the Status Bar', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should('be.visible');
 });
 Then('they see buttons for Draft a DOI and Edit Registration', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion}]`).click();
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).should('be.visible');
 });
 
 //   @1234
@@ -207,7 +207,7 @@ When('they click the "Draft a DOI" button', () => {
   cy.contains('DOI is reserved', { matchCase: false });
 });
 Then('the "Draft a DOI" button is renamed to "DOI pending" and is disabled', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton}]`).should('not.exist');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).should('not.exist');
 });
 Then('the Draft DOI is added to the metadata', () => {
   cy.wait(5000);
@@ -215,7 +215,7 @@ Then('the Draft DOI is added to the metadata', () => {
 });
 Then('the Landing Page for Registration contains the Draft DOI', () => {
   cy.selectRegistration(registrationTitle, unpublished);
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.doiLink).should('be.visible');
 });
 Then('the Draft DOI is not a link', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).within(() => {
@@ -233,8 +233,8 @@ Then('the Draft DOI is not a link', () => {
 Given('the Registration has a Draft DOI', () => {
   cy.wait(3000);
   cy.reload();
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`).should('be.visible');
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.doiLink}]`)
+  cy.getDataTestId(dataTestId.registrationLandingPage.doiLink).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.doiLink)
     .parent()
     .within(() => {
       cy.contains('reserved', { matchCase: false });
@@ -242,14 +242,14 @@ Given('the Registration has a Draft DOI', () => {
 });
 Then('the "Request a DOI" button is still named "DOI pending" and is disabled', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton}]`).should('not.exist');
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).should('not.exist');
 });
 
 //   @358
 //   Scenario: Curator opens a Registration from a DOI Request Worklist Item
 Given('that a Curator views details of a Worklist item', () => {
   cy.login(userUnitCuratorDraftDoi);
-  cy.get(`[data-testid=${dataTestId.header.tasksLink}]`).click();
+  cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[data-testid^=message-type]').last().click();
 });
 Given('the item is a DOI request', () => {
@@ -259,7 +259,7 @@ When('they click "Go to Registration"', () => {
   cy.get('[data-testid^=go-to-registration]').last().click();
 });
 Then('they see the Registration is opened in the Wizard', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.generalInfo}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.generalInfo).should('be.visible');
 });
 Then('they see the Submission tab', () => {});
 Then('they see the Create DOI button is enabled', () => {});

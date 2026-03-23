@@ -9,7 +9,7 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 Given('Creator navigates to the Resource Type tab and selects Resource type "Student thesis"', () => {
   cy.login(userUnitResourceTypeDegree);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 Then('they see fields:', (dataTable: DataTable) => {
   cy.testDataTestidList(dataTable, studentThesisFields);
@@ -21,10 +21,10 @@ Then('they see fields:', (dataTable: DataTable) => {
 Given('Creator navigates to Resource Type tab', () => {
   cy.login(userUnitResourceTypeDegree);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 });
 When('they select the Resource type "Student thesis"', () => {
-  // cy.get('[data-testid^=resource-type-chip-]').first().click();
+  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('StudentThesis')).click();
 });
 Then('they see a list of subtypes:', (dataTable: DataTable) => {
   cy.testDataTestidList(dataTable, studentThesisSubtypes);
@@ -38,11 +38,11 @@ Then('they see a list of subtypes:', (dataTable: DataTable) => {
 Given('Creator without rights to register thesis navigates to Resource Type tab', () => {
   cy.login(userUnitWithAuthor);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
 });
 Then('they are unable to select resource type:', (dataTable: DataTable) => {
   dataTable.raw().forEach((type) => {
-    cy.get(`[data-testid=${studentThesisSubtypes[type[0]]}`).should('have.class', 'Mui-disabled');
+    cy.getDataTestId(studentThesisSubtypes[type[0]]).should('have.class', 'Mui-disabled');
   });
 });
 // | Bachelor thesis      |
@@ -54,7 +54,7 @@ Then('they are unable to select resource type:', (dataTable: DataTable) => {
 // Scenario Outline: Creator sees fields for Resource subtypes for "Student thesis"
 When('they select the Subtype {string}', (subtype: string) => {
   if (subtype in studentThesisSubtypes) {
-    cy.get(`[data-testid=${studentThesisSubtypes[subtype]}]`).click({ force: true });
+    cy.getDataTestId(studentThesisSubtypes[subtype]).click({ force: true });
   }
 });
 // Examples:
@@ -68,8 +68,8 @@ When('they select the Subtype {string}', (subtype: string) => {
 Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
   cy.login(userUnitResourceTypeDegree);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get(`[data-testid^=resource-type-chip-Degree]`).first().click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('StudentThesis')).first().click();
 });
 When('they click the Save button', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
@@ -77,7 +77,7 @@ When('they click the Save button', () => {
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable: DataTable) => {
   dataTable.raw().forEach((field) => {
-    cy.get(`[data-testid=${studentThesisFields[field[0]]}]`)
+    cy.getDataTestId(studentThesisFields[field[0]])
       .scrollIntoView()
       .within(() => {
         cy.get('p').should('have.class', 'Mui-error');
@@ -90,6 +90,6 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable: DataTabl
 // @2776
 // Scenario: Creator sees series fields for Resource subtypes "Doctoral thesis"
 When('they select the Subtype "Doctoral thesis" and "Licentiate thesis"', () => {
-  cy.get(`[data-testid=${studentThesisSubtypes['Doctoral thesis']}]`).click({ force: true });
-  cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+  cy.getDataTestId(studentThesisSubtypes['Doctoral thesis']).click({ force: true });
+  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
 });

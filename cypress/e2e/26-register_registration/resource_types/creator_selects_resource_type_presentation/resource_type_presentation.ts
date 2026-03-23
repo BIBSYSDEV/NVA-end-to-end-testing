@@ -12,7 +12,7 @@ Before(() => {
 
 // Scenario: Creator navigates to the Resource Type tab and selects Resource type "Presentation"
 Given('Creator navigates to Resource Type tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 When('they select the Resource type "Presentation"', () => {});
 Then('they see a list of subtypes:', (dataTable: DataTable) => {
@@ -25,10 +25,10 @@ Then('they see a list of subtypes:', (dataTable: DataTable) => {
 
 // Scenario: Creator navigates to the Resource Type tab and selects a Resource subtype for Presentation
 Given('Creator navigates to the Resource Type tab and selects Resource type "Presentation"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 When('they select a Resource Subtype', () => {
-  cy.get('[data-testid=resource-type-chip-ConferenceLecture]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('ConferenceLecture')).click();
 });
 Then('they see fields:', (dataTable: DataTable) => {
   cy.testDataTestidList(dataTable, persentationFields);

@@ -9,17 +9,17 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 Given('Creator navigates to the Resource Type tab and selects Resource type "Artistic Result"', () => {
   cy.login(userUnitPerformingArts);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 When('they select Resource Subtype "Performing arts"', () => {
-  cy.get('[data-testid=resource-type-chip-PerformingArts]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('PerformingArts')).click();
 });
 Then('they see fields:', (dataTable: DataTable) => {
   cy.testDataTestidList(dataTable, performingArtsFields);
 });
 //   | More information |
 Then('they see field for Type Work with options:', (dataTable: DataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticTypeField}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticTypeField).click();
   dataTable.raw().forEach((value) => {
     cy.get(`[data-value=${performingArtsWorkTypes[value[0]]}]`);
   });
@@ -29,7 +29,7 @@ Then('they see field for Type Work with options:', (dataTable: DataTable) => {
 //   | TV/film/radio |
 //   | Other         |
 Then('they see a list of Exhibition Places with fields:', (dataTable: DataTable) => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.addVenueButton).click();
   cy.testDataTestidList(dataTable, performingArtsFields);
 });
 //   | Name       |
@@ -42,39 +42,39 @@ Then('they see that each Exhibition Place has a Delete Button', () => {
       if (value === 'Date start' || value === 'Date end') {
         cy.chooseDatePicker(`[data-testid=${performingArtsFields[value]}]`, '11.11.2021');
       } else {
-        cy.get(`[data-testid=${performingArtsFields[value]}]`).type(`Test ${value}`);
+        cy.getDataTestId(performingArtsFields[value]).type(`Test ${value}`);
       }
     }
   });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
   cy.get('[aria-label=Delete]');
 });
 Then('they see that each Exhibition Place has an Edit Button', () => {
   cy.get('[aria-label=Edit]');
 });
 Then('they see an Add Exhibition Place Button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`);
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.addVenueButton);
 });
 
 //   Scenario: Creator adds an Exhibition Place to Performing arts
 Given('Creator navigates to the Resource Type tab and selects Resource subtype "Performing arts"', () => {
   cy.login(userUnitPerformingArts);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get('[data-testid=resource-type-chip-PerformingArts]').click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('PerformingArts')).click();
 });
 When('they click the Add Exhibition Place Button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.addVenueButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.addVenueButton).click();
 });
 Then('they see the Add Exhibition Place Dialog', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.venueNameField}]`);
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.venueNameField);
 });
 // And they see fields:
 //   | Exhibition place |
 //   | Date from        |
 //   | Date to          |
 Then('they see an Add Button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`);
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton);
 });
 When('they fill the fields with input data', () => {
   Object.keys(performingArtsFields).forEach((value) => {
@@ -82,13 +82,13 @@ When('they fill the fields with input data', () => {
       if (value === 'Date start' || value === 'Date end') {
         cy.chooseDatePicker(`[data-testid=${performingArtsFields[value]}]`, '11.11.2021');
       } else {
-        cy.get(`[data-testid=${performingArtsFields[value]}]`).type(`Test ${value}`);
+        cy.getDataTestId(performingArtsFields[value]).type(`Test ${value}`);
       }
     }
   });
 });
 Then('they click the Add Button', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.artisticOutputSaveButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
 });
 Then('the new Exhibition Place is listed under Exhibition places', () => {
   cy.contains(`Test Name`);

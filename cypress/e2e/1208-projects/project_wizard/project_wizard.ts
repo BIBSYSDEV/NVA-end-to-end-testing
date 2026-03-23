@@ -102,8 +102,8 @@ When('they selects Empty registration', () => {
   cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
 });
 Then('the Project Wizard opens with no metadata pre-filled', () => {
-  cy.get(`[data-testid=${dataTestId.projectWizard.descriptionPanel.startDateField}]`).should('be.empty');
-  cy.get(`[data-testid=${dataTestId.projectWizard.descriptionPanel.endDateField}]`).should('be.empty');
+  cy.getDataTestId(dataTestId.projectWizard.descriptionPanel.startDateField).should('be.empty');
+  cy.getDataTestId(dataTestId.projectWizard.descriptionPanel.endDateField).should('be.empty');
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click();
   cy.get(
     `[data-testid=${dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField}] > div > input`
@@ -440,10 +440,12 @@ Then('the User selects a Financing source for Project', () => {
   cy.contains('Research Council of Norway').click();
 });
 Then('the selected Financing source is listed', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.description.fundingSourceSearchField}] > div > textarea`).should(
-    'have.text',
-    'Research Council of Norway (RCN)'
-  );
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).within(() => {
+    cy.get('textarea').should(
+      'have.text',
+      'Research Council of Norway (RCN)'
+    );
+  });
 });
 
 // Scenario: User selects NFR as Financing source for Project
@@ -471,10 +473,12 @@ Then('they selects a NFR project', () => {
   cy.contains('User Testing Tool').click();
 });
 Then('the selected Financing title and ID is listed', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.description.fundingIdField}] > div > input`).should(
-    'have.value',
-    '222925'
-  );
+  cy.getDataTestId(dataTestId.registrationWizard.description.fundingIdField).within(() => {
+    cy.get('input').should(
+      'have.value',
+      '222925'
+    );
+  });
 });
 
 // Scenario: User selects a non-NFR as Financing source for Project

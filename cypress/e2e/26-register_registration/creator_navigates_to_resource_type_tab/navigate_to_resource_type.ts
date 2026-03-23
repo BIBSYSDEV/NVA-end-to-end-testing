@@ -11,7 +11,7 @@ Given('Creator begins registering a Registration in the Wizard with a File', () 
   cy.startWizardWithEmptyRegistration();
 });
 When('they navigate to the Resource Type tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
   cy.wrap(resourceTypeFields).as('fields');
 });
 // end common steps
@@ -22,16 +22,16 @@ Then('they see the field for Type', () => {
   cy.get(`[data-testid^=resource-type-]`).should('exist');
 });
 Then('they see the tab Description is clickable', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).should('be.enabled');
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).should('be.enabled');
 });
 Then('they see the tab Resource Type is selected', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.descriptionStepButton}]`).get('[tabindex=0]');
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).get('[tabindex=0]');
 });
 Then('they see the tab Contributors is clickable', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.contributorsStepButton}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).should('be.visible');
 });
 Then('they see the tab Files and License is clickable', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).should('be.visible');
 });
 Then('they see Previous is enabled', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.previousTabButton).should('be.enabled');

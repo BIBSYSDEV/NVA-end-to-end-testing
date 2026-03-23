@@ -20,7 +20,7 @@ const openContributorAddDialog = () => {
 };
 
 const selectContributorType = () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectContributorType).click();
   cy.get('[data-value=Creator]').click();
 };
 
@@ -74,7 +74,7 @@ Then('they see a dropdown with Contributor Types {string}', (typeList: string) =
   const otherTypes = {
     '': 'RoleOther',
   };
-  cy.get(`[data-testid=${dataTestId.registrationWizard.contributors.selectContributorType}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.contributors.selectContributorType).click();
   types.forEach((contributorType) => {
     if (contributorType !== 'Other') {
       cy.get(`[data-value=${contributorTypes[contributorType]}]`).should('be.visible');

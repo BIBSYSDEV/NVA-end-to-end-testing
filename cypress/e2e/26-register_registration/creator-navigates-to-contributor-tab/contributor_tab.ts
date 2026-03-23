@@ -8,23 +8,12 @@ Before({ tags: '@openVerifyDialog' }, () => {
   cy.wrap('button-set-unverified-contributor-').as('button');
   cy.login(TestUsers.features.contributors);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_MONOGRAPH)).click();
 });
 Before({ tags: '@verifyUser' }, () => {
   cy.wrap(dataTestId.registrationWizard.contributors.selectUserButton).as('button');
-  // cy.login(TestUsers.features.contributors);
-  // cy.startWizardWithEmptyRegistration();
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-  // cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
 });
-
-// Before(() => {
-//   cy.login(TestUsers.features.contributors);
-//   cy.startWizardWithEmptyRegistration();
-//   cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
-//   cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_MONOGRAPH}]`).click();
-// });
 
 // Feature: Creator navigates to Contributors tab
 // Common steps

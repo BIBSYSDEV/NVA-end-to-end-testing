@@ -21,7 +21,7 @@ Then('they see My Registrations', () => {
   cy.location('pathname').should('eq', '/my-page/registrations');
 });
 Then('they see a list of all unpublished Registrations with the fields', () => {
-  cy.get(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`);
+  cy.getDataTestId(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`);
 });
 // | Publication name |
 // | Status           |
@@ -37,10 +37,10 @@ Then('they see each list item has a button Delete and Edit that is enabled', () 
     });
 });
 Then('they see the navigation bar for unpublished Registrations is selected', () => {
-  cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsUnpublishedCheckbox}] .Mui-checked`).should('exist');
+  cy.getDataTestId(dataTestId.myPage.myRegistrationsUnpublishedCheckbox).find('.Mui-checked').should('exist');
 });
 Then('they see the navigation bar for published registrations is enabled', () => {
-  cy.get(`[data-testid=${dataTestId.myPage.myRegistrationsPublishedCheckbox}] .Mui-checked`).should('not.exist');
+  cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).find('.Mui-checked').should('not.exist');
   cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).should('exist');
 });
 Then('they see items with Status', (dataTable: DataTable) => {});

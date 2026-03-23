@@ -40,13 +40,13 @@ When('they select Resource subtype Journal article', () => {
 });
 When('they enter an invalid value in fields:', (dataTable: DataTable) => {
   dataTable.raw().forEach((field: string[]) => {
-    cy.get(`[data-testid=${journalFields[field[0]]}]`).type('{selectall}{del}invalid');
+    cy.getDataTestId(journalFields[field[0]]).type('{selectall}{del}invalid');
   });
 });
 
 Then('they can see "Invalid format" error messages for fields:', (dataTable: DataTable) => {
   dataTable.raw().forEach((field) => {
-    cy.get(`[data-testid=${journalFields[field[0]]}]`).within(() => {
+    cy.getDataTestId(journalFields[field[0]]).within(() => {
       cy.get('input').focus().blur();
       cy.wrap(field).get('p').should('have.class', 'Mui-error');
     });
@@ -62,9 +62,9 @@ Then('they see fields:', (dataTable: DataTable) => {
   });
 });
 When('they select the Resource subtype "Corrigendum"', () => {
-  cy.get(`[data-testid=${journalSubtypes['Corrigendum']}]`).click({ force: true });
+  cy.getDataTestId(journalSubtypes['Corrigendum']).click({ force: true });
   cy.get('@link').then((link) => {
-    link && cy.get(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).click();
+    link && cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   });
 });
 // End common steps
@@ -77,7 +77,7 @@ Given('Creator begins registering a Registration in the Wizard', () => {
   });
 });
 When('they navigate to the Resource Type tab', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 Then('they can select Journal Resource types:', (dataTable: DataTable) => {
   cy.testDataTestidList(dataTable, journalSubtypes);
@@ -109,12 +109,16 @@ Given('Creator sees fields for Journal type', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle')).click();
 });
 When('they enter numbers for "Pages from" and "Pages to"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`).type('10');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}]`).type('9');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.pagesFromField).type('10');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.pagesToField).type('9');
 });
 When('the number for "Pages from" is greater than the number for "Pages to"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}] > div > input`).type('10');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}] > div > input`).type('9');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.pagesFromField).within(() => {
+    cy.get('input').type('10');
+  });
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.pagesToField).within(() => {
+    cy.get('input').type('9');
+  });
 });
 Then('they can see "Mandatory" error messages for fields:', (dataTable: DataTable) => {
   cy.get('[data-testid^=snackbar]').should('not.exist');
@@ -124,7 +128,7 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable: DataTabl
       fields['Search box for Journal'] = dataTestId.registrationWizard.resourceType.corrigendumForField;
     }
     dataTable.raw().forEach((field) => {
-      cy.get(`[data-testid=${fields[field[0]]}]`).within(() => {
+      cy.getDataTestId(fields[field[0]]).within(() => {
         cy.get('p').should('have.class', 'Mui-error');
         cy.get('p').should('have.class', 'Mui-required');
       });
@@ -132,10 +136,10 @@ Then('they can see "Mandatory" error messages for fields:', (dataTable: DataTabl
   });
 });
 Then('they can see error messages for fields "Pages from" and "Pages to"', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesFromField}]`).within(() => {
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.pagesFromField).within(() => {
     cy.get('p').should('have.class', 'Mui-error');
   });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.pagesToField}]`).within(() => {
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.pagesToField).within(() => {
     cy.get('p').should('have.class', 'Mui-error');
   });
 });
@@ -165,8 +169,8 @@ Given('Creator sees fields for Resource subtype "Corrigendum"', () => {
 Given('Creator sees fields for Journal article', () => {
   cy.login(userUnitResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click({ force: true });
-  cy.get(`[data-testid=resource-type-chip-${CategoryTypes.ACADEMIC_ARTICLE}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_ARTICLE)).click({ force: true });
 });
 When('they select type to be {string}:', (type: string) => {
   const elements = [];
@@ -182,7 +186,7 @@ When('they select type to be {string}:', (type: string) => {
   cy.contains('ACS Chemical Biology').last().click();
 });
 Then('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.nviSuccess}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.nviSuccess).should('be.visible');
 });
 // | Academic article           |
 // | Academic literature review |

@@ -4,10 +4,10 @@ import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('that an App Admin or Institution Admin opens User Administration', () => {
   cy.login(adminUserUnit);
-  cy.get(`[data-testid=${dataTestId.header.basicDataLink}]`).click({ force: true });
+  cy.getDataTestId(dataTestId.header.basicDataLink).click({ force: true });
 });
 Given('they see only one current Institution Admin', () => {
-  cy.get(`[data-testid=${dataTestId.basicData.adminInstitutionsLink}]`).click();
+  cy.getDataTestId(dataTestId.basicData.adminInstitutionsLink).click();
   cy.get('[data-testid=customer-institutions-list] > tbody > tr > td > p', { timeout: 30000 })
     .filter(':contains("UNIT")')
     .first()

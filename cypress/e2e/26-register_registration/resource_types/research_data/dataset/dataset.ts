@@ -19,10 +19,10 @@ import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preproc
 Given('User selects Resource type "Research Data"', () => {
   cy.login(userUnitResearchDataset);
   cy.startWizardWithEmptyRegistration();
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.resourceStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 Given('they select Dataset as subtype', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.resourceTypeChip('DataSet')}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('DataSet')).click();
 });
 
 // end common steps
@@ -32,20 +32,20 @@ Given('they select Dataset as subtype', () => {
 // Scenario: User sees information about types of data that are illegal to publish on this service
 When('the User has selected to register a Dataset', () => {});
 Then('the User sees information about types of data that are illegal to publish on this service', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog}]`).should('exist');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog).should('exist');
 });
 
 // @TEST_NP-13252
 // @9141
 // Scenario: User confirms to register data that are legal to publish on this service
 Given('User sees information about types of data that are illegal to publish on this service', () => {
-  cy.get('[data-testid=cancel-button]').should('be.visible');
+  cy.getDataTestId(dataTestId.confirmDialog.cancelButton).should('be.visible');
 });
 When('they confirm that the data intended to be published complies with the terms of the service', () => {
-  cy.get('[data-testid=cancel-button]').click();
+  cy.getDataTestId(dataTestId.confirmDialog.cancelButton).click();
 });
 Then('the dialog is closed', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog}]`).should('not.exist');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.confirmDatasetTypeDialog).should('not.exist');
 });
 
 // @TEST_NP-13253
@@ -72,8 +72,8 @@ Given('User confirms to register data that are legal to publish on this service'
   cy.get('[data-testid=cancel-button]').click();
 });
 When('the User writes some free-text geographical data', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.geographicDescriptionField}]`).should('be.visible');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.geographicDescriptionField}]`).type(
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.geographicDescriptionField).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.geographicDescriptionField).type(
     'Trondheim, Norway'
   );
 });
@@ -87,7 +87,7 @@ Then('it is stored', () => {
 // @9140
 // Scenario: User adds zero or more use-references to resource published in NVA
 When('the User searches for published Registrations', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.relatedRegistrationField}]`).type('Antologi');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.relatedRegistrationField).type('Antologi');
   cy.contains('Antologi').first().click({ force: true });
 });
 Then('the User can store any search result as a use-reference', () => {
@@ -107,7 +107,7 @@ Then('the User can store any search result as a related-reference', () => {});
 // @9140
 // Scenario: User adds zero or more comply-to-references to a DMP resource published in NVA
 When('the User searches for published DMPs', () => {
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.compliesWithField}]`).type('Test registration DMP');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.compliesWithField).type('Test registration DMP');
   cy.contains('Test registration DMP').first().click({ force: true });
 });
 Then('the User can store any search result as a comply-to-reference', () => {
@@ -138,46 +138,46 @@ Then('the User has an option to contact user support', () => {});
 // @9146
 // Scenario: User sees Landing Page for Dataset
 When('User opens Landing Page for a Dataset', () => {
-  cy.get('[data-testid=cancel-button]').click();
+  cy.getDataTestId(dataTestId.confirmDialog.cancelButton).click();
 
   // fill in data in the Resouce type page
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.geographicDescriptionField}]`).type(
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.geographicDescriptionField).type(
     'Trondheim, Norway'
   );
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.relatedRegistrationField}]`).type('Antologi');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.relatedRegistrationField).type('Antologi');
   cy.contains('Antologi').first().click({ force: true });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.compliesWithField}]`).type('Test registration DMP');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.compliesWithField).type('Test registration DMP');
   cy.contains('Test registration DMP').first().click({ force: true });
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkField}]`).type('https://sikt.no/');
-  cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.externalLinkAddButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.externalLinkField).type('https://sikt.no/');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.externalLinkAddButton).click();
 
   // go to files and license page
-  cy.get(`[data-testid=${dataTestId.registrationWizard.stepper.filesStepButton}]`).click();
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.wait(3000);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.wait(3000);
 });
 Then('the User sees geographical information', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.geographicAccordion}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.geographicAccordion).should('be.visible');
   cy.get(`[data-testid^=${dataTestId.registrationLandingPage.geographicAccordion}]`).within(() => {
     cy.contains('Trondheim, Norway');
   });
 });
 Then('the User sees publications that use this dataset', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.publicationsUsingDatasetAccordion}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.publicationsUsingDatasetAccordion).should('be.visible');
   cy.get(`[data-testid^=${dataTestId.registrationLandingPage.publicationsUsingDatasetAccordion}]`).within(() => {
     cy.contains('Antologi');
   });
 });
 Then('the User sees projects assosiated with this dataset', () => {});
 Then('the User sees DMPs this dataset complay to', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.dmpAccordion}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.dmpAccordion).should('be.visible');
   cy.get(`[data-testid^=${dataTestId.registrationLandingPage.dmpAccordion}]`).within(() => {
     cy.contains('Test registration DMP');
   });
 });
 Then('the User sees other related resources', () => {
-  cy.get(`[data-testid=${dataTestId.registrationLandingPage.externalLinksAccordion}]`).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationLandingPage.externalLinksAccordion).should('be.visible');
   cy.get(`[data-testid^=${dataTestId.registrationLandingPage.externalLinksAccordion}]`).within(() => {
     cy.contains('https://sikt.no');
   });

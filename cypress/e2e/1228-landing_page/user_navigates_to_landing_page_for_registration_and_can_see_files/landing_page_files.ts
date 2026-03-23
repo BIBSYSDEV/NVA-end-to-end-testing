@@ -190,7 +190,7 @@ When('the first File is not Embargoed', () => {});
 When("the File's size is less than 10 MB", () => {});
 Then("the File's Preview panel is expanded by default", () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.file).within(() => {
-    cy.get(`[data-testid=${dataTestId.registrationLandingPage.fileName}]`).should('be.visible');
+    cy.getDataTestId(dataTestId.registrationLandingPage.fileName).should('be.visible');
   });
 });
 Then('the File is automatically downloaded', () => {});

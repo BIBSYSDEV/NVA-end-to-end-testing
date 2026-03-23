@@ -465,7 +465,7 @@ Cypress.Commands.add('checkField', (field: Object) => {
       break;
     case 'date':
       const dateValue = todayDatePicker();
-      cy.get(`[data-testid=${field['fieldTestId']}]`).parent().find('input').should('have.value', dateValue);
+      cy.getDataTestId(field['fieldTestId']).parent().find('input').should('have.value', dateValue);
       break;
     case 'textArea':
       cy.get(`[data-testid=${field['fieldTestId']}] textArea`).should('contain', value);
@@ -755,10 +755,6 @@ Cypress.Commands.add('searchFor', (searchTerm: string) => {
       },
     });
   });
-  // cy.getDataTestId(dataTestId.common.pagination).within(() => {
-  //   cy.get('input').last().parent().click();
-  //   cy.get('[data-value=50]').click();
-  // });
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${searchTerm}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.get('body').then((body) => {
