@@ -118,7 +118,7 @@ When('they add a Audiovisual publication with details for:', (dataTable: DataTab
   dataTable.raw().forEach((value) => {
     if (value[0] === 'Format') {
       cy.getDataTestId(musicAudioVideoFields[value[0]]).click();
-      cy.getDataTestId(musicAudioVideoTrackTypes['CD']).click();
+      cy.get(`[data-value=${musicAudioVideoTrackTypes['CD']}]`).click();
     } else if (value[0] === 'Track list') {
       cy.getDataTestId(musicAudioVideoFields[value[0]]).click();
     } else if (value[0] === 'ISRC') {
