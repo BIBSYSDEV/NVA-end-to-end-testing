@@ -42,8 +42,8 @@ Then('they can edit existing Exhibitions', () => {
     '11.11.2021'
   );
   cy.getDataTestId(musicConcertProgramFields['Works']).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.concertProgramTitle).type('Title');
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.concertProgramComposer).type('Composer');
+  cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`).first().type('Title');
+  cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramComposer}]`).first().type('Composer');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
   cy.get('[aria-label=Edit]');
 });
@@ -118,7 +118,7 @@ When('they add a Audiovisual publication with details for:', (dataTable: DataTab
   dataTable.raw().forEach((value) => {
     if (value[0] === 'Format') {
       cy.getDataTestId(musicAudioVideoFields[value[0]]).click();
-      cy.getDataTestId(musicAudioVideoTrackTypes['CD']).click();
+      cy.get(`[data-value=${musicAudioVideoTrackTypes['CD']}]`).click();
     } else if (value[0] === 'Track list') {
       cy.getDataTestId(musicAudioVideoFields[value[0]]).click();
     } else if (value[0] === 'ISRC') {

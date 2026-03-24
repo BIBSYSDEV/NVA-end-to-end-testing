@@ -69,7 +69,7 @@ Given('Creator sees fields for Resource subtypes for "Student thesis"', () => {
   cy.login(userUnitResourceTypeDegree);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('StudentThesis')).first().click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip('DegreeBachelor')).first().click();
 });
 When('they click the Save button', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click({ force: true });
