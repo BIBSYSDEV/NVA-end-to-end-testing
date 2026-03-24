@@ -483,6 +483,40 @@ export const publishFile = (registrationId: string, file: FileType) => {
   });
 };
 
+export const unpublishPublication = (registrationId: string) => {
+  return new Promise((resolve, reject) => {
+    const accessToken = Cypress.env('accessToken');
+    cy.request({
+      method: 'PUT',
+      url: `${publicationApiUrl}/${registrationId}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+      body: { type: 'UnpublishPublicationRequest', comment: 'Comment' },
+    }).then(() => {
+      resolve(null);
+    });
+  });
+};
+
+export const deletePublication = (registrationId: string) => {
+  return new Promise((resolve, reject) => {
+    const accessToken = Cypress.env('accessToken');
+    cy.request({
+      method: 'PUT',
+      url: `${publicationApiUrl}/${registrationId}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+      body: { type: 'DeletePublicationRequest' },
+    }).then(() => {
+      resolve(null);
+    });
+  });
+};
+
 export const listNviCandidates = (institution: string, year: string, size?: string, offset?: string) => {
   return new Promise((resolve, reject) => {
     const accessToken = Cypress.env('accessToken');
@@ -542,7 +576,6 @@ export const updateNVICandidate = (registrationId: string, institution: string, 
     });
   });
 };
-
 
 export enum FileTypes {
   PENDING_OPEN = 'PendingOpenFile',
@@ -731,8 +764,9 @@ export const createChapterInAnthologyUsingAPI = (
       createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, creatorName, nviLevel, seriesLevel).then(
         (chapterBuilder) => {
           cy.wrap(chapterBuilder).as('chapterBuilder');
-          chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${anthologyBuilder.identifier as string
-            }`;
+          chapterBuilder.entityDescription.reference.publicationContext.id = `${publicationApiUrl}/${
+            anthologyBuilder.identifier as string
+          }`;
           chapterBuilder.update().then();
         }
       );
@@ -743,17 +777,17 @@ export const createChapterInAnthologyUsingAPI = (
 export const createProject = (name?: string, id?: string): ProjectType => {
   return !name
     ? {
-      type: 'ResearchProject',
-      name: "Project for testing 20230512'",
-      id: 'https://api.e2e.nva.aws.unit.no/cristin/project/2745236',
-      approvals: [],
-    }
+        type: 'ResearchProject',
+        name: "Project for testing 20230512'",
+        id: 'https://api.e2e.nva.aws.unit.no/cristin/project/2745236',
+        approvals: [],
+      }
     : {
-      type: 'ResearchProject',
-      name: name,
-      id: id,
-      approvals: [],
-    };
+        type: 'ResearchProject',
+        name: name,
+        id: id,
+        approvals: [],
+      };
 };
 
 export type RegistrationData = {

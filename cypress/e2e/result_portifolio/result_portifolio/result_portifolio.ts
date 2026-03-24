@@ -1,9 +1,23 @@
 // Feature: Scenarios for Result portifolio
 
-import { userUnitEditor, userUnitWithAuthor } from '../../../support/constants';
+import {
+  CategoryTypes,
+  userName,
+  userUnitCurator,
+  userUnitEditor,
+  userUnitWithAuthor,
+} from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
-import { Given, When, Then, Before, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, Before, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+import {
+  createPublicationUsingAPI,
+  deletePublication,
+  NviLevels,
+  RegistrationData,
+  unpublishPublication,
+} from '../../../support/create_registration';
+import { build } from 'esbuild';
 
 const portifolios = new Map([
   ['Published Results', dataTestId.editor.resultsPortfolioPublishedCheckbox],
@@ -16,70 +30,65 @@ const fileName = 'example.txt';
 const selectPortifolio = (portifolio: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 
-  if (portifolio !== 'Published Results') {
-    cy.getDataTestId(dataTestId.editor.resultsPortfolioPublishedCheckbox).click();
-    if (portifolio === 'Unpublished Results') {
-      cy.getDataTestId(dataTestId.editor.resultsPortfolioUnpublishedCheckbox).click();
-    } else {
-      cy.getDataTestId(dataTestId.editor.resultsPortfolioDeletedCheckbox).click();
-    }
-  }
-
-  portifolios.forEach((value, key) => {
-    cy.getDataTestId(value).then(($element) => {
-      if (key === portifolio) {
-        cy.log('Select');
-        if ($element.find('[data-testid="CheckBoxOutlineBlankIcon"]').length > 0) {
-          cy.getDataTestId(portifolios.get(key)).click();
-        }
-      } else {
-        cy.log('Unselect');
-        if ($element.find('[data-testid="CheckBoxIcon"]').length > 0) {
-          cy.getDataTestId(portifolios.get(key)).click();
-        }
-      }
-    });
-    cy.wait(1000);
+  cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).within(() => {
+    cy.get(':checkbox').uncheck();
   });
+
+  switch (portifolio) {
+    case 'Published Results':
+      cy.getDataTestId(dataTestId.editor.resultsPortfolioPublishedCheckbox).within(() => {
+        cy.get(':checkbox').check();
+      });
+      break;
+    case 'Unpublished Results':
+      cy.getDataTestId(dataTestId.editor.resultsPortfolioUnpublishedCheckbox).within(() => {
+        cy.get(':checkbox').check();
+      });
+      break;
+    case 'Deleted Results':
+      cy.getDataTestId(dataTestId.editor.resultsPortfolioDeletedCheckbox).within(() => {
+        cy.get(':checkbox').check();
+      });
+      break;
+  }
 };
 
-Before({ 'tags': '@init' }, () => {
-  cy.login(userUnitWithAuthor);
-  const publishedTitle = `Published registration ${uuid()}`;
-  cy.createPublishedRegistration(publishedTitle);
-  const unpublishedTitle = `Unpublished registration ${uuid()}`;
-  cy.createPublishedRegistration(unpublishedTitle);
-  cy.wait(3000);
-  cy.refreshPublish();
-  cy.wait(5000);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
-  cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
-  cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Unpublish');
-  cy.getDataTestId(dataTestId.unpublishActions.confirmUnpublishCheckbox).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('be.enabled');
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.getSuccessDone();
-  const deletedTitle = `Deleted registration ${uuid()}`;
-  cy.createPublishedRegistration(deletedTitle);
-  cy.refreshPublish();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
-  cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
-  cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Unpublish');
-  cy.getDataTestId(dataTestId.unpublishActions.confirmUnpublishCheckbox).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).should('be.enabled');
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.getSuccessDone();
-  cy.login(userUnitEditor);
-  cy.getDataTestId(dataTestId.header.editorLink).click();
-  cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
-  cy.getDataTestId(dataTestId.editor.resultsPortfolioUnpublishedCheckbox).click();
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.searchFor(deletedTitle);
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.terminateRegistrationButton).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.getSuccessDone();
+BeforeAll(() => {
+  cy.login(userUnitEditor).then(() => {
+    const publishedTitle = `Published registration ${uuid()}`;
+    createPublicationUsingAPI(
+      publishedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
+    ).then((builder: unknown) => {
+      const publicationBuilder = builder as RegistrationData;
+    });
+
+    const unpublishedTitle = `Unpublished registration ${uuid()}`;
+    createPublicationUsingAPI(
+      unpublishedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
+    ).then((builder: unknown) => {
+      const publicationBuilder = builder as RegistrationData;
+      unpublishPublication(publicationBuilder.identifier).then(() => {});
+    });
+
+    const deletedTitle = `Deleted registration ${uuid()}`;
+    createPublicationUsingAPI(
+      deletedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
+    ).then((builder: unknown) => {
+      const publicationBuilder = builder as RegistrationData;
+      unpublishPublication(publicationBuilder.identifier).then(() => {
+        deletePublication(publicationBuilder.identifier).then(() => {});
+      });
+    });
+  });
 });
 
 // Scenario: Editor views Result portifolio
@@ -105,15 +114,13 @@ const publishedTitle = `Portfolio published result ${uuid()}`;
 
 // Scenario: Published Result is added to portifolio
 Given('a User publishes a Result', () => {
-  cy.login(userUnitWithAuthor);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(fileName, publishedTitle);
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.refreshPublish();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-    cy.contains('Result published');
+  cy.login(userUnitWithAuthor).then(() => {
+    createPublicationUsingAPI(
+      publishedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
+    ).then(() => {});
   });
 });
 When('an Editor views the Result portifolio for Published Results', () => {
@@ -133,21 +140,17 @@ const unpublishedTitle = `Portfolio unpublished result ${uuid()}`;
 
 // Scenario: Unublished Result is added to portifolio
 Given('a User unpublish a Result', () => {
-  cy.login(userUnitWithAuthor);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, unpublishedTitle);
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.refreshPublish();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-    cy.contains('Result published');
+  cy.login(userUnitWithAuthor).then(() => {
+    createPublicationUsingAPI(
+      unpublishedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
+    ).then((builder: unknown) => {
+      const registrationBuilder = builder as RegistrationData;
+      unpublishPublication(registrationBuilder.identifier).then(() => {});
+    });
   });
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
-  cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
-  cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Justification');
-  cy.getDataTestId(dataTestId.unpublishActions.confirmUnpublishCheckbox).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
 });
 When('an Editor views the Result portifolio for Unpublished Results', () => {
   cy.login(userUnitEditor);
@@ -166,33 +169,24 @@ const deletedTitle = `Portfolio unpublished result ${uuid()}`;
 
 // Scenario: Deleted Result is added to portifolio
 Given('a User deletes an unpublished Result', () => {
-  cy.login(userUnitWithAuthor);
-  cy.startWizardWithEmptyRegistration();
-  cy.createValidRegistration(null, deletedTitle);
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.refreshPublish();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.panelRoot).within(() => {
-    cy.contains('Result published');
+  cy.login(userUnitWithAuthor).then(() => {
+    createPublicationUsingAPI(
+      deletedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
+    ).then((builder: unknown) => {
+      const registrationBuilder = builder as RegistrationData;
+      cy.wrap(registrationBuilder.identifier).as('identifier');
+      unpublishPublication(registrationBuilder.identifier).then(() => {});
+    });
   });
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
-  cy.getDataTestId(dataTestId.unpublishActions.openUnpublishModalButton).click();
-  cy.getDataTestId(dataTestId.unpublishActions.unpublishJustificationTextField).type('Justification');
-  cy.getDataTestId(dataTestId.unpublishActions.confirmUnpublishCheckbox).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
 
-  cy.login(userUnitEditor);
-  cy.getDataTestId(dataTestId.header.editorLink).click();
-  cy.getDataTestId(dataTestId.editor.resultsPortfolioAccordion).click();
-  selectPortifolio('Unpublished Results');
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.searchFor(deletedTitle);
-
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.morePublishingActionsButton).click();
-  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.terminateRegistrationButton).click();
-  cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+  cy.login(userUnitEditor).then(() => {
+    cy.get('@identifier').then((identifier: unknown) => {
+      deletePublication(identifier as string).then(() => {});
+    })
+  });
 });
 When('an Editor views the Result portifolion for Deleted Results', () => {
   cy.getDataTestId(dataTestId.header.editorLink).click();

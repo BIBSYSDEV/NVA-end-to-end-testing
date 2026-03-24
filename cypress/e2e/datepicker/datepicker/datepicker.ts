@@ -16,7 +16,7 @@ Given('New registration', () => {
   cy.getDataTestId(dataTestId.registrationWizard.new.emptyRegistrationAccordion).click();
 });
 When('typing in a date', () => {
-  cy.chooseDatePicker(dataTestId.registrationWizard.description.datePublishedField, '11.11.2022');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.description.datePublishedField}]`, '11.11.2022');
   // cy.getDataTestId('CalendarIcon').click();
   // cy.get('.MuiPickersDay-today').click();
   // cy.getDataTestId(dataTestId.registrationWizard.description.datePublishedField).type('11.11.2022');

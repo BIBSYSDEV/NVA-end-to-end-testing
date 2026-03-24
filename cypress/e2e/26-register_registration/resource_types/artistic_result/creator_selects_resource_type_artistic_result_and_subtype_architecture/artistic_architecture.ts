@@ -53,8 +53,8 @@ Then('they can edit existing Exhibitions', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.exhibitionName).type('Exhibition name');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.placeField).type('Exhibition place');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.exhibitionOrganizer).type('Exhibition organizer');
-  cy.chooseDatePicker(dataTestId.registrationWizard.resourceType.dateFromField, '11.11.2021');
-  cy.chooseDatePicker(dataTestId.registrationWizard.resourceType.dateToField, '11.11.2021');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateFromField}]`, '11.11.2021');
+  cy.chooseDatePicker(`[data-testid=${dataTestId.registrationWizard.resourceType.dateToField}]`, '11.11.2021');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.exhibitionOther).type('Exhibition other');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
   //   });
