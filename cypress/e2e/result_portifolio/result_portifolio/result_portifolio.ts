@@ -66,23 +66,23 @@ BeforeAll(() => {
     });
 
     const unpublishedTitle = `Unpublished registration ${uuid()}`;
-    createPublicationUsingAPI(
+    cy.wrap(createPublicationUsingAPI(
       unpublishedTitle,
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitWithAuthor],
       NviLevels.LEVEL_0
-    ).then((builder: unknown) => {
+    )).then((builder: unknown) => {
       const publicationBuilder = builder as RegistrationData;
       unpublishPublication(publicationBuilder.identifier).then(() => {});
     });
 
     const deletedTitle = `Deleted registration ${uuid()}`;
-    createPublicationUsingAPI(
+    cy.wrap(createPublicationUsingAPI(
       deletedTitle,
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitWithAuthor],
       NviLevels.LEVEL_0
-    ).then((builder: unknown) => {
+    )).then((builder: unknown) => {
       const publicationBuilder = builder as RegistrationData;
       unpublishPublication(publicationBuilder.identifier).then(() => {
         deletePublication(publicationBuilder.identifier).then(() => {});
@@ -141,12 +141,12 @@ const unpublishedTitle = `Portfolio unpublished result ${uuid()}`;
 // Scenario: Unublished Result is added to portifolio
 Given('a User unpublish a Result', () => {
   cy.login(userUnitWithAuthor).then(() => {
-    createPublicationUsingAPI(
+    cy.wrap(createPublicationUsingAPI(
       unpublishedTitle,
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitWithAuthor],
       NviLevels.LEVEL_0
-    ).then((builder: unknown) => {
+    )).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       unpublishPublication(registrationBuilder.identifier).then(() => {});
     });
@@ -170,12 +170,12 @@ const deletedTitle = `Portfolio unpublished result ${uuid()}`;
 // Scenario: Deleted Result is added to portifolio
 Given('a User deletes an unpublished Result', () => {
   cy.login(userUnitWithAuthor).then(() => {
-    createPublicationUsingAPI(
+    cy.wrap(createPublicationUsingAPI(
       deletedTitle,
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitWithAuthor],
       NviLevels.LEVEL_0
-    ).then((builder: unknown) => {
+    )).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       cy.wrap(registrationBuilder.identifier).as('identifier');
       unpublishPublication(registrationBuilder.identifier).then(() => {});
