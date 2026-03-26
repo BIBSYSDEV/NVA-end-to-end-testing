@@ -103,7 +103,9 @@ Given('Institutions publications policy is "Registrator can only publish metadat
     CategoryTypes.ACADEMIC_ARTICLE,
     userName[userBIBSYSPublishNoRights],
     NviLevels.LEVEL_0
-  ).then(() => {
+  ).then((builder: unknown) => {
+    const registrationBuilder = builder as RegistrationData;
+    cy.wrap(uploadFileToRegistration(registrationBuilder.identifier, fileName)).then(() => {});
     cy.wait(3000);
   });
   cy.getDataTestId(dataTestId.header.myPageLink).click();

@@ -21,7 +21,7 @@ Then('they see My Registrations', () => {
   cy.location('pathname').should('eq', '/my-page/registrations');
 });
 Then('they see a list of all unpublished Registrations with the fields', () => {
-  cy.getDataTestId(`[data-testid=${dataTestId.startPage.searchResultItem}] > p > a`);
+  cy.getDataTestId(dataTestId.startPage.searchResultItem);
 });
 // | Publication name |
 // | Status           |
