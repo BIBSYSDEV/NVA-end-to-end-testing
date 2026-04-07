@@ -1,6 +1,6 @@
 import import_users_new
 import import_customers
-import test_data.delete_publications as delete_publications
+import delete_publications
 
 import_users_new.run('./users/testdata_user.json', True)
 # import_customers.run()
