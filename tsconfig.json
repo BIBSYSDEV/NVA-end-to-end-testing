@@ -5,7 +5,8 @@
       "types": ["cypress", "node"],
       "module": "NodeNext",
       "moduleResolution": "nodenext",
-      "esModuleInterop": true
+      "esModuleInterop": true,
+      "strict": false
     },
     "include": ["**/*.ts", "scripts/cucumber_report.js", "cypress/e2e/nvi/validation_nvi_resource/nvi_validation.ts_old"]
   }

@@ -72,5 +72,9 @@ When('they select type "Academic Monograph"', () => {
 Then('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('sintef akademisk forlag');
   cy.contains('SINTEF akademisk forlag').click();
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.isbnField).within(() => {
+    cy.get('input').type('978-31-614-8410-0');
+    cy.get('input').blur();
+  });
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.nviFailed).should('be.visible');
 });

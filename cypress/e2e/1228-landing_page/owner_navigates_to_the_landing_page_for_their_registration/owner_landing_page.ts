@@ -11,6 +11,7 @@ import { Before, Given, When, Then } from '@badeball/cypress-cucumber-preprocess
 import {
   createDraftPublicationUsingAPI,
   createPublicationUsingAPI,
+  FileType,
   NviLevels,
   RegistrationData,
   uploadFileToRegistration,
@@ -20,18 +21,6 @@ const fileName = 'example.txt';
 const title = `Publication - `;
 
 // Feature: Owner navigates to the Landing Page for their Registration
-
-// Before({ tags: '@no_restriction' }, () => {
-//   cy.setWorkflowRegistratorPublishesAll();
-// });
-
-// Before({ tags: '@file_restrictions' }, () => {
-//   cy.setWorkflowRegistratorPublishesMetadata();
-// });
-
-// Before({ tags: '@all_restrictions' }, () => {
-//   cy.setWorkflowRegistratorRequiresApproval();
-// });
 
 // Scenario: Owner Requests a DOI
 Given('the owner opens the Landing Page of their Registration', () => {
@@ -55,7 +44,7 @@ Then('they can see a reserved DOI', () => {
 // Scenario: Owner wants to publish Resource
 When("the Owner previews the Resource's Landing Page", () => {
   cy.login(userBIBSYSPublishNoRights).then(() => {
-    const registrationTitle = `${title} ${uuid()}`;
+    const registrationTitle = `${title}${uuid()}`;
     createDraftPublicationUsingAPI(
       registrationTitle,
       CategoryTypes.ACADEMIC_ARTICLE,
@@ -96,7 +85,7 @@ Then('the user is informed that progress can be viewed in My Messages', () => {}
 // Scenario: Owner wants to publish Resource, file restrictions
 Given('Institutions publications policy is "Registrator can only publish metadata"', () => {
   cy.login(userBIBSYSPublishNoRights);
-  const registrationTitle = `${title} ${uuid()}`;
+  const registrationTitle = `${title}${uuid()}`;
   cy.wrap(registrationTitle).as('registrationTitle');
   createDraftPublicationUsingAPI(
     registrationTitle,
@@ -105,7 +94,18 @@ Given('Institutions publications policy is "Registrator can only publish metadat
     NviLevels.LEVEL_0
   ).then((builder: unknown) => {
     const registrationBuilder = builder as RegistrationData;
-    cy.wrap(uploadFileToRegistration(registrationBuilder.identifier, fileName)).then(() => {});
+    cy.wrap(uploadFileToRegistration(registrationBuilder.identifier, fileName)).then((file) => {
+      const uploadedFile = file as FileType;
+      registrationBuilder.associatedArtifacsts.push({
+        identifier: uploadedFile.identifier,
+        type: 'PendingOpenFile',
+        license: 'https://creativecommons.org/licenses/by/4.0/',
+        publisherVersion: 'AcceptedVersion',
+        mimeType: 'text/plain',
+        size: '448',
+      });
+      cy.wrap(registrationBuilder.update()).then(() => {});
+    });
     cy.wait(3000);
   });
   cy.getDataTestId(dataTestId.header.myPageLink).click();
@@ -137,7 +137,7 @@ Then('an Approval Request is sent to the Curator', () => {
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.supportButton).click();
     cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
     cy.getDataTestId(dataTestId.startPage.searchField).type(`${title as string}{enter}`);
-    cy.contains(title as string);
+    cy.get('a').filter(`:contains(${title})`).should('be.visible');
   });
 });
 Then(

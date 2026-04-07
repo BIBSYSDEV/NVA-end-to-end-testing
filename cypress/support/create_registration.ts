@@ -443,7 +443,7 @@ const createReference = (
 
 const PUBLISHING_REQUEST = 'PublishingRequest';
 export const publishFile = (registrationId: string, file: FileType) => {
-  return new Promise((resolve, reject) => {
+  return new Cypress.Promise((resolve, reject) => {
     const accessToken = Cypress.env('accessToken');
     cy.request({
       method: 'GET',
@@ -484,7 +484,7 @@ export const publishFile = (registrationId: string, file: FileType) => {
 };
 
 export const unpublishPublication = (registrationId: string) => {
-  return new Promise((resolve, reject) => {
+  return new Cypress.Promise((resolve, reject) => {
     const accessToken = Cypress.env('accessToken');
     cy.request({
       method: 'PUT',
@@ -501,7 +501,7 @@ export const unpublishPublication = (registrationId: string) => {
 };
 
 export const deletePublication = (registrationId: string) => {
-  return new Promise((resolve, reject) => {
+  return new Cypress.Promise((resolve, reject) => {
     const accessToken = Cypress.env('accessToken');
     cy.request({
       method: 'PUT',
@@ -518,7 +518,7 @@ export const deletePublication = (registrationId: string) => {
 };
 
 export const listNviCandidates = (institution: string, year: string, size?: string, offset?: string) => {
-  return new Promise((resolve, reject) => {
+  return new Cypress.Promise((resolve, reject) => {
     const accessToken = Cypress.env('accessToken');
     const url =
       `${nviApiUrl}?affiliations=${institution}&year=${year}` +
@@ -544,7 +544,7 @@ export enum NviStatus {
 }
 
 export const assignNVICandidate = (registrationId: string, institution: string, cristinId: string) => {
-  return new Promise((resolve, reject) => {
+  return new Cypress.Promise((resolve, reject) => {
     const accessToken = Cypress.env('accessToken');
     cy.request({
       method: 'PUT',
@@ -561,7 +561,7 @@ export const assignNVICandidate = (registrationId: string, institution: string, 
 };
 
 export const updateNVICandidate = (registrationId: string, institution: string, status: NviStatus) => {
-  return new Promise((resolve, reject) => {
+  return new Cypress.Promise((resolve, reject) => {
     const accessToken = Cypress.env('accessToken');
     cy.request({
       method: 'PUT',
@@ -575,6 +575,56 @@ export const updateNVICandidate = (registrationId: string, institution: string, 
       resolve(null);
     });
   });
+};
+
+export const openNviPeriod = (year: string) => {
+  return new Cypress.Promise((resolve, rejectsponse) => {
+
+    const nextYear = new Date().getFullYear() + 1;
+    const periodPayload = {
+      'type': 'NviPeriod',
+      'id': `https://api.e2e.nva.aws.unit.no/scientific-index/period/${year}`,
+      'publishingYear': `${year}`,
+      'startDate': `${year}-01-01T00:00:00Z`,
+      'reportingDate': `${nextYear}-01-01T00:00:00.000Z`,
+    };
+    const accessToken = Cypress.env('accessToken');
+    
+      cy.request({
+        method: 'PUT',
+        url: `${baseUrl}scientific-index/period`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+        body: periodPayload,
+      }).then(() => {resolve(null)});
+  });
+};
+
+export const closeNviPeriod = (year: string) => {
+    return new Cypress.Promise((resolve, reject) => {
+
+    const periodPayload = {
+      'type': 'NviPeriod',
+      'id': `https://api.e2e.nva.aws.unit.no/scientific-index/period/${year}`,
+      'publishingYear': `${year}`,
+      'startDate': `${year}-01-01T00:00:00Z`,
+      'reportingDate': `${year}-12-31T00:00:00Z`,
+    };
+    const accessToken = Cypress.env('accessToken');
+    
+      cy.request({
+        method: 'PUT',
+        url: `${baseUrl}scientific-index/period`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+        body: periodPayload,
+      }).then(() => {resolve(null)});
+  });
+
 };
 
 export enum FileTypes {
@@ -791,7 +841,7 @@ export const createProject = (name?: string, id?: string): ProjectType => {
 };
 
 export type RegistrationData = {
-  associatedArtifacsts: [];
+  associatedArtifacsts: Record<string, string>[];
   identifier?: string;
   payload?: string;
   reference?: ReferenceType;

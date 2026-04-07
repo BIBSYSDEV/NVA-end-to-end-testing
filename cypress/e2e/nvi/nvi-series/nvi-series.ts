@@ -6,7 +6,6 @@ import { v4 as uuid } from 'uuid';
 import {
   createChapterInAnthologyUsingAPI,
   createPublicationUsingAPI,
-  createValidRegistrationWithType,
   NviLevels,
 } from '../../../support/create_registration';
 import { dataTestId } from '../../../support/dataTestIds';

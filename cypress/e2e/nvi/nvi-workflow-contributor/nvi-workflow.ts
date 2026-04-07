@@ -12,7 +12,6 @@ import { v4 as uuid } from 'uuid';
 import { NVI_PENDING } from '../../../support/commands';
 import {
   createEntityDescription,
-  createValidRegistrationWithType,
   findContributorByName,
   NviLevels,
   registrationBuilder,
