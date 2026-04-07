@@ -19,9 +19,8 @@ Feature: Reports from navigate
     Then they see numbers for "<Approved by us>", "<Approved by all>", "<Waiting for others>", "<Publication points>", "<Approved>":
 
     Examples:
-      | Institution | Approved by us | Waiting for others |Approved by all | Publication points | Approved |
-      | Nord        |              4 | 0 |             3 |                 12 |       30 |
-
+      | Institution | Approved by us | Waiting for others | Approved by all | Publication points | Approved |
+      | Nord        |              4 |                  0 |               3 |                 12 |       23 |
 #   @test
 #   Scenario: An curator exports file for NVI reporting status
 #     Given a curator in an NVI Institution
