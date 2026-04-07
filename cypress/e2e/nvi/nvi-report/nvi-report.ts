@@ -206,25 +206,22 @@ When('they open the publication points status for the current year', () => {
 });
 // When('they look at the data for "<Institution>"', () => {});
 Then(
-  'they see numbers for {string}, {string}, {string}, {string}:',
-  (approvedByUs: string, approvedByAll: string, publicationPoints: string, approved: string) => {
+  'they see numbers for {string}, {string}, {string}, {string}. {string}:',
+  (approvedByUs: string, waitingForOthers: string, approvedByAll: string, publicationPoints: string, approved: string) => {
         cy.get('@institution').then((institution: unknown) => {
       cy.get('tr')
         .filter(`:contains(${institution as string})`)
         .within(() => {
           cy.get('td').eq(2).should('have.text', approvedByUs);
-          cy.get('td').eq(3).should('have.text', approvedByAll);
-          cy.get('td').eq(4).should('have.text', publicationPoints);
-          cy.get('td').eq(5).should('have.text', `${approved}%`);
+          cy.get('td').eq(3).should('have.text', waitingForOthers);
+          cy.get('td').eq(4).should('have.text', approvedByAll);
+          cy.get('td').eq(5).should('have.text', publicationPoints);
+          cy.get('td').eq(6).should('have.text', `${approved}%`);
         });
     });
 
   }
 );
-
-// Examples:
-//   | Institution                        | Candidates | Approved | Publication points | Controlled |
-//   | University of South-Eastern Norway |          7 |        0 |                  1 |         85 |
 
 //   Scenario: An curator exports file for NVI reporting status
 Given('a curator in an NVI Institution', () => {});
