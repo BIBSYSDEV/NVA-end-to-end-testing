@@ -20,7 +20,7 @@ Feature: Reports from navigate
 
     Examples:
       | Institution | Approved by us | Waiting for others | Approved by all | Publication points | Approved |
-      | Nord        |              4 |                  0 |               3 |                 12 |       23 |
+      | Nord        |              4 |                  0 |               3 |                 12 |       30 |
 #   @test
 #   Scenario: An curator exports file for NVI reporting status
 #     Given a curator in an NVI Institution

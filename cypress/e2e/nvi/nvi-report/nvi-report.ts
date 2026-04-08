@@ -163,7 +163,7 @@ When('they open the reporting status for the current year', () => {
   cy.contains(currentYear).click();
 });
 When('they look at the data for {string}', (institution: string) => {
-  cy.getDataTestId('nvi-filter-institution').type(institution);
+  cy.getDataTestId('nvi-filter-institution').type(institution, { delay: 10 });
   cy.wrap(institution).as('institution');
 });
 Then(
@@ -206,7 +206,7 @@ When('they open the publication points status for the current year', () => {
 });
 // When('they look at the data for "<Institution>"', () => {});
 Then(
-  'they see numbers for {string}, {string}, {string}, {string}. {string}:',
+  'they see numbers for {string}, {string}, {string}, {string}, {string}:',
   (approvedByUs: string, waitingForOthers: string, approvedByAll: string, publicationPoints: string, approved: string) => {
     cy.get('@institution').then((institution: unknown) => {
       cy.get('tr')
@@ -222,6 +222,10 @@ Then(
 
   }
 );
+    // Examples:
+    //   | Institution | Approved by us | Waiting for others | Approved by all | Publication points | Approved |
+    //   | Nord        |              4 |                  0 |               3 |                 12 |       23 |
+
 
 //   Scenario: An curator exports file for NVI reporting status
 Given('a curator in an NVI Institution', () => { });

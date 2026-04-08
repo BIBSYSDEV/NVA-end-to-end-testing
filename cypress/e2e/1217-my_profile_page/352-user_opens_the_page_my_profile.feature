@@ -13,3 +13,16 @@ Feature: User opens the page My Profile
             | Roles     |
             # | Organizations |
             # | Language  |
+
+    @test
+    Scenario: User view list of publications
+        Given that the user is logged in
+        When they view their research profile
+        Then they see a list of their publications
+        Then the list of publications is sorted by newest first
+
+    # @test
+    # Scenario: User sort list of publications
+    #     Given User view list of publications
+    #     When they sort the list by oldest first
+    #     Then the list show publications sorted by oldest first
