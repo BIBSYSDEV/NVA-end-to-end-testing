@@ -12,7 +12,7 @@ Feature: Reports from navigate
       | Nord        |          4 |             0 |        4 |        2 |      0 |    10 |         60 |
 
   @test
-  Scenario: An administrator looks at publication points status
+  Scenario Outline: An administrator looks at publication points status
     Given an administrtor opens the NVI status page in master data
     When they open the publication points status for the current year
     And they look at the data for "<Institution>"
