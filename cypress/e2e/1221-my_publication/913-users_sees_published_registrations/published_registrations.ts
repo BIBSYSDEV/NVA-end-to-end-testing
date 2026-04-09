@@ -26,9 +26,13 @@ Given('Creator opens the page My Registrations', () => {
 When('they click Published Registrations in the navigation bar', () => {
   cy.getDataTestId(dataTestId.myPage.myRegistrationsPublishedCheckbox).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.get('body').then(($body) => {
+    if ($body.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length === 0) {
+      cy.wait(10000);
+      cy.reload();
+    }
 });
 Then('they see a list of all published Registrations with the fields', (dataTable: DataTable) => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).should('exist');
   cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration: any) => {
     cy.get(registration).within(() => {
       cy.get('p > a').should('exist');
