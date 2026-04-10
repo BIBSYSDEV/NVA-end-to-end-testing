@@ -31,7 +31,9 @@ When('they click Published Registrations in the navigation bar', () => {
       cy.wait(10000);
       cy.reload();
     }
+  });
 });
+
 Then('they see a list of all published Registrations with the fields', (dataTable: DataTable) => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).each((registration: any) => {
     cy.get(registration).within(() => {
