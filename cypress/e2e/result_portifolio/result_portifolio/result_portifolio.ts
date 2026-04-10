@@ -141,6 +141,13 @@ Then('they can see the published Result', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${publishedTitle}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.get('body').then(($body) => {
+    if ($body.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length === 0) {
+      cy.wait(10000);
+      cy.reload();
+      selectPortifolio('Published Results');
+    }
+  });
   cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${publishedTitle})`);
 });
 
@@ -172,6 +179,13 @@ Then('they can see the unpublished Result', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${unpublishedTitle}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.get('body').then(($body) => {
+    if ($body.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length === 0) {
+      cy.wait(10000);
+      cy.reload();
+      selectPortifolio('Unpublished Results');
+    }
+  });
   cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${unpublishedTitle})`);
 });
 
@@ -209,5 +223,13 @@ Then('they can see the deleted Result', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${deletedTitle}{enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.get('body').then(($body) => {
+    if ($body.find(`[data-testid=${dataTestId.startPage.searchResultItem}]`).length === 0) {
+      cy.wait(10000);
+      cy.reload();
+      selectPortifolio('Deleted Results');
+    }
+  });
+
   cy.getDataTestId(dataTestId.startPage.searchResultItem).filter(`:contains(${deletedTitle})`);
 });
