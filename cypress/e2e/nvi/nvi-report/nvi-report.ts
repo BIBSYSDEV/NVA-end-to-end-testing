@@ -160,7 +160,7 @@ Given('an administrtor opens the NVI status page in master data', () => {
 When('they open the reporting status for the current year', () => {
   cy.getDataTestId('nvi-status-link').click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.contains(currentYear).click();
+  cy.get(`[data-value=${currentYear}]`).click();
 });
 When('they look at the data for {string}', (institution: string) => {
   cy.getDataTestId('nvi-filter-institution').type(institution, { delay: 10 });
@@ -202,7 +202,7 @@ Then(
 When('they open the publication points status for the current year', () => {
   cy.getDataTestId('nvi-publication-points-link').click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.contains(currentYear).click();
+  cy.get(`[data-value=${currentYear}]`).click();
 });
 // When('they look at the data for "<Institution>"', () => {});
 Then(

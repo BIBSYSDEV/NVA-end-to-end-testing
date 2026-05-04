@@ -162,7 +162,7 @@ export const registrationBuilder = () => {
         }).then((response) => {
           this.identifier = response.body.identifier;
           this.payload = response.body;
-          this.payload.approvedOperations = [
+          this.payload.allowedOperations = [
             'doi-request-create',
             'update',
             'delete',

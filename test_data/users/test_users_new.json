@@ -2643,5 +2643,116 @@
     "orcid": true,
     "orgNumber": "223",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/223.0.0.0"
+  },
+
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "Creator UiB",
+    "nin": "26124026651",
+    "username": "api-test-user-creator-uib@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "184",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/184.0.0.0"
+  },
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "Publishing Curator UiB",
+    "nin": "23035614494",
+    "username": "api-test-user-publishing-curator-uib@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Publishing-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "184",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/184.0.0.0"
+  },
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "NVI Curator UiB",
+    "nin": "15108938797",
+    "username": "api-test-user-nvi-curator-uib@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "184",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/184.0.0.0"
+  },
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "Support Curator UiB",
+    "nin": "25102735458",
+    "username": "api-test-user-support-curator-uib@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Support-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "184",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/184.0.0.0"
+  },
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "Doi Curator UiB",
+    "nin": "24102070719",
+    "username": "api-test-user-doi-curator-uib@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Doi-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "184",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/184.0.0.0"
+  },
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "Editor UiB",
+    "nin": "29122139571",
+    "username": "api-test-user-editor-uib@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Editor"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "184",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/184.0.0.0"
   }
 ]

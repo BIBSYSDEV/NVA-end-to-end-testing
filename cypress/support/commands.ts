@@ -259,7 +259,7 @@ Cypress.Commands.add('openNVIWorklist', () => {
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.contains(currentYear).click();
+  cy.get(`[data-value=${currentYear}]`).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });
 

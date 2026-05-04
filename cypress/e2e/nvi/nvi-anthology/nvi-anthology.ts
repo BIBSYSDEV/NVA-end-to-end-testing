@@ -237,7 +237,7 @@ Then('Anthology should appear in correction list for "Anthology without chapter"
   cy.getDataTestId(dataTestId.tasksPage.correctionList.anthologyWithoutChapterButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.contains(year.toString()).click();
+  cy.get(`[data-value=${year}]`).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 
   cy.get('@anthologyTitle').then((anthology: unknown) => {
@@ -260,7 +260,7 @@ Given('Anthology is present in correction list for "Anthology without chapter"',
   cy.getDataTestId(dataTestId.tasksPage.correctionList.anthologyWithoutChapterButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.contains(year.toString()).click();
+  cy.get(`[data-value=${year}]`).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 
   cy.get('@anthologyTitle').then((anthology: unknown) => {
@@ -291,7 +291,7 @@ Then('Anthology should disappear from correction list for "Anthology without cha
   cy.getDataTestId(dataTestId.tasksPage.correctionList.anthologyWithoutChapterButton).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.contains(year.toString()).click();
+  cy.get(`[data-value=${year}]`).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 
   cy.get('@anthologyTitle').then((anthology: unknown) => {
