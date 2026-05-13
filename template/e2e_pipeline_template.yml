@@ -14,11 +14,19 @@ Parameters:
     Description: GitHub username owning the repo
     Type: String
     Default: BIBSYSDEV
-  GitHubRepo:
+  ApiTestGitHubRepo:
+    Description: GitHub repo name
+    Type: String
+    Default: nva-api-integration-test
+  ApiTestGitHubBranch:
+    Description: GitHub repo branch name. It defaults to main if not specified.
+    Type: String
+    Default: main
+  E2EGitHubRepo:
     Description: GitHub repo name
     Type: String
     Default: NVA-end-to-end-testing
-  GitHubBranch:
+  E2EGitHubBranch:
     Description: GitHub repo branch name. It defaults to main if not specified.
     Type: String
     Default: test-deploy
@@ -27,11 +35,19 @@ Parameters:
     Type: String
     Default: https://dev.nva.sikt.no
 Resources:
-  TestReportBucket:
+  E2ETestReportBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
       AccessControl: PublicRead
       BucketName: !Sub 'nva-testreport2-${AWS::AccountId}'
+      WebsiteConfiguration:
+        IndexDocument: cucumber_report.html
+        ErrorDocument: cucumber_report.html
+  ApiTestReportBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      AccessControl: PublicRead
+      BucketName: !Sub 'nva-apitestreport-${AWS::AccountId}'
       WebsiteConfiguration:
         IndexDocument: cucumber_report.html
         ErrorDocument: cucumber_report.html
@@ -71,7 +87,7 @@ Resources:
         EnvironmentVariables:
           - Name: TESTREPORTS_BUCKET
             Type: PLAINTEXT
-            Value: !Ref TestReportBucket
+            Value: !Ref E2ETestReportBucket
           - Name: S3_BUCKET
             Type: PLAINTEXT
             Value: !Ref ArtifactStoreBucket
@@ -98,7 +114,7 @@ Resources:
       Stages:
         - Name: Source
           Actions:
-            - Name: GitHubSource
+            - Name: E2EGitHubSource
               ActionTypeId:
                 Category: Source
                 Owner: ThirdParty
@@ -108,7 +124,7 @@ Resources:
                 Owner: !Ref GitHubOwner
                 OAuthToken: !Ref GitHubOAuthToken
                 Repo: !Ref GitHubRepo
-                Branch: !Ref GitHubBranch
+                Branch: !Ref E2EGitHubBranch
                 PollForSourceChanges: true
               OutputArtifacts:
                 - Name: SourceArtifact
@@ -227,7 +243,7 @@ Resources:
                 Resource:
                   - !Sub 'arn:aws:s3:::${ArtifactStoreBucket}/*'
                   - !Sub 'arn:aws:s3:::${ArtifactStoreBucket}/'
-                  - !Sub 'arn:aws:s3:::${TestReportBucket}/*'
+                  - !Sub 'arn:aws:s3:::${E2ETestReportBucket}/*'
         - PolicyName: secretsPolicy
           PolicyDocument:
             Version: '2012-10-17'

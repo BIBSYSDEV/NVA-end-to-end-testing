@@ -2754,5 +2754,20 @@
     "orcid": true,
     "orgNumber": "184",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/184.0.0.0"
+  },
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "Contributor UiB",
+    "nin": "15010629249",
+    "username": "api-test-user-contributor-uib@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "184",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/184.0.0.0"
   }
 ]
