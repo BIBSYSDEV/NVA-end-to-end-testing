@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 
 Description: >
-  Pipeline for e2e-testing - typescript
+  Pipeline for api testing and e2e testing
 
 Parameters:
   GitHubOAuthToken:
@@ -14,11 +14,19 @@ Parameters:
     Description: GitHub username owning the repo
     Type: String
     Default: BIBSYSDEV
-  GitHubRepo:
+  ApiTestGitHubRepo:
+    Description: Api test GitHub repo name
+    Type: String
+    Default: nva-api-integration-test
+  ApiTestGitHubBranch:
+    Description: Api test GitHub repo branch name. It defaults to main if not specified.
+    Type: String
+    Default: main
+  E2EGitHubRepo:
     Description: GitHub repo name
     Type: String
     Default: NVA-end-to-end-testing
-  GitHubBranch:
+  E2EGitHubBranch:
     Description: GitHub repo branch name. It defaults to main if not specified.
     Type: String
     Default: test-deploy
@@ -27,15 +35,31 @@ Parameters:
     Type: String
     Default: https://dev.nva.sikt.no
 Resources:
-  TestReportBucket:
+  E2ETestReportBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      AccessControl: PublicRead
-      BucketName: !Sub 'nva-testreport2-${AWS::AccountId}'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: ObjectWriter
+      BucketName: !Sub 'nva-e2e-testreport-${AWS::AccountId}'
       WebsiteConfiguration:
         IndexDocument: cucumber_report.html
         ErrorDocument: cucumber_report.html
-  CodeBuildE2ETestDataProject:
+  ApiTestReportBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: ObjectWriter
+      BucketName: !Sub 'nva-api-test-report-${AWS::AccountId}'
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+  CodeBuildTestDataProject:
     Type: AWS::CodeBuild::Project
     Properties:
       ServiceRole: !GetAtt CodeBuildServiceRole.Arn
@@ -55,6 +79,29 @@ Resources:
       Source:
         Type: CODEPIPELINE
         BuildSpec: template/buildspec.testdata.yml
+  CodeBuildApiTestingProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      ServiceRole: !GetAtt CodeBuildServiceRole.Arn
+      Artifacts:
+        Type: CODEPIPELINE
+      Environment:
+        ComputeType: BUILD_GENERAL1_LARGE
+        Image: aws/codebuild/standard:7.0
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: TESTREPORTS_BUCKET
+            Type: PLAINTEXT
+            Value: !Ref ApiTestReportBucket
+          - Name: S3_BUCKET
+            Type: PLAINTEXT
+            Value: !Ref ArtifactStoreBucket
+          - Name: ROLE_ARN
+            Type: PLAINTEXT
+            Value: !GetAtt TestrunnerRole.Arn
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: template/buildspec.yml
   CodeBuildE2ETestingProject:
     Type: AWS::CodeBuild::Project
     Properties:
@@ -71,7 +118,7 @@ Resources:
         EnvironmentVariables:
           - Name: TESTREPORTS_BUCKET
             Type: PLAINTEXT
-            Value: !Ref TestReportBucket
+            Value: !Ref E2ETestReportBucket
           - Name: S3_BUCKET
             Type: PLAINTEXT
             Value: !Ref ArtifactStoreBucket
@@ -98,7 +145,7 @@ Resources:
       Stages:
         - Name: Source
           Actions:
-            - Name: GitHubSource
+            - Name: ApiTestGitHubSource
               ActionTypeId:
                 Category: Source
                 Owner: ThirdParty
@@ -107,11 +154,26 @@ Resources:
               Configuration:
                 Owner: !Ref GitHubOwner
                 OAuthToken: !Ref GitHubOAuthToken
-                Repo: !Ref GitHubRepo
-                Branch: !Ref GitHubBranch
+                Repo: !Ref ApiTestGitHubRepo
+                Branch: !Ref ApiTestGitHubBranch
                 PollForSourceChanges: true
               OutputArtifacts:
-                - Name: SourceArtifact
+                - Name: ApiTestSourceArtifact
+              RunOrder: 1
+            - Name: E2EGitHubSource
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Provider: GitHub
+                Version: '1'
+              Configuration:
+                Owner: !Ref GitHubOwner
+                OAuthToken: !Ref GitHubOAuthToken
+                Repo: !Ref E2EGitHubRepo
+                Branch: !Ref E2EGitHubBranch
+                PollForSourceChanges: true
+              OutputArtifacts:
+                - Name: E2ESourceArtifact
               RunOrder: 1
         - Name: E2ETestDataCreation
           Actions:
@@ -122,11 +184,24 @@ Resources:
                 Provider: CodeBuild
                 Version: '1'
               Configuration:
-                ProjectName: !GetAtt CodeBuildE2ETestDataProject.Arn
+                ProjectName: !GetAtt CodeBuildTestDataProject.Arn
               InputArtifacts:
-                - Name: SourceArtifact
+                - Name: E2ESourceArtifact
               OutputArtifacts:
                 - Name: TestDataArtifact
+              RunOrder: 1
+        - Name: ApiTesting
+          Actions:
+            - Name: ApiTesting
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: '1'
+              Configuration:
+                ProjectName: !GetAtt CodeBuildApiTestingProject.Arn
+              InputArtifacts:
+                - Name: ApiTestSourceArtifact
               RunOrder: 1
         - Name: E2ETesting
           Actions:
@@ -140,7 +215,7 @@ Resources:
                 ProjectName: !GetAtt CodeBuildE2ETestingProject.Arn
                 BatchEnabled: true
               InputArtifacts:
-                - Name: SourceArtifact
+                - Name: E2ESourceArtifact
               RunOrder: 1
 
   PipelineRole:
@@ -175,8 +250,9 @@ Resources:
                   - 'codebuild:BatchGetBuildBatches'
                 Effect: Allow
                 Resource:
-                  - !GetAtt CodeBuildE2ETestDataProject.Arn
+                  - !GetAtt CodeBuildTestDataProject.Arn
                   - !GetAtt CodeBuildE2ETestingProject.Arn
+                  - !GetAtt CodeBuildApiTestingProject.Arn
               - Action:
                   - 'ssm:getParameter'
                   - 'ssm:getParameters'
@@ -227,7 +303,8 @@ Resources:
                 Resource:
                   - !Sub 'arn:aws:s3:::${ArtifactStoreBucket}/*'
                   - !Sub 'arn:aws:s3:::${ArtifactStoreBucket}/'
-                  - !Sub 'arn:aws:s3:::${TestReportBucket}/*'
+                  - !Sub 'arn:aws:s3:::${E2ETestReportBucket}/*'
+                  - !Sub 'arn:aws:s3:::${ApiTestReportBucket}/*'
         - PolicyName: secretsPolicy
           PolicyDocument:
             Version: '2012-10-17'
