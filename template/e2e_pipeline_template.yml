@@ -33,7 +33,7 @@ Parameters:
   CypressBaseUrl:
     Description: Base url for application under testing
     Type: String
-    Default: https://dev.nva.sikt.no
+    Default: https://e2e.nva.aws.unit.no/
 Resources:
   E2ETestReportBucket:
     Type: 'AWS::S3::Bucket'
@@ -43,10 +43,22 @@ Resources:
       OwnershipControls:
         Rules:
           - ObjectOwnership: ObjectWriter
-      BucketName: !Sub 'nva-e2e-testreport-${AWS::AccountId}'
+      BucketName: !Sub 'nva-testreport2-${AWS::AccountId}'
       WebsiteConfiguration:
         IndexDocument: cucumber_report.html
         ErrorDocument: cucumber_report.html
+  E2ETestReportBucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref E2ETestReportBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Sub '${E2ETestReportBucket.Arn}/*'
   ApiTestReportBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
@@ -59,6 +71,18 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: index.html
+  ApiTestReportBucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref ApiTestReportBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Sub '${ApiTestReportBucket.Arn}/*'
   CodeBuildTestDataProject:
     Type: AWS::CodeBuild::Project
     Properties:
@@ -101,7 +125,7 @@ Resources:
             Value: !GetAtt TestrunnerRole.Arn
       Source:
         Type: CODEPIPELINE
-        BuildSpec: template/buildspec.yml
+        BuildSpec: buildspec.yaml
   CodeBuildE2ETestingProject:
     Type: AWS::CodeBuild::Project
     Properties:
@@ -254,8 +278,8 @@ Resources:
                   - !GetAtt CodeBuildE2ETestingProject.Arn
                   - !GetAtt CodeBuildApiTestingProject.Arn
               - Action:
-                  - 'ssm:getParameter'
-                  - 'ssm:getParameters'
+                  - 'ssm:GetParameter'
+                  - 'ssm:GetParameters'
                 Effect: Allow
                 Resource: '*'
               - Effect: Allow
@@ -295,16 +319,21 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
+                  - 's3:ListBucket'
+                Resource:
+                  - !GetAtt ArtifactStoreBucket.Arn
+                  - !GetAtt E2ETestReportBucket.Arn
+                  - !GetAtt ApiTestReportBucket.Arn
+              - Effect: Allow
+                Action:
                   - 's3:GetObject'
                   - 's3:GetObjectVersion'
                   - 's3:PutObject'
                   - 's3:DeleteObject'
-                  - 's3:ListBucket'
                 Resource:
-                  - !Sub 'arn:aws:s3:::${ArtifactStoreBucket}/*'
-                  - !Sub 'arn:aws:s3:::${ArtifactStoreBucket}/'
-                  - !Sub 'arn:aws:s3:::${E2ETestReportBucket}/*'
-                  - !Sub 'arn:aws:s3:::${ApiTestReportBucket}/*'
+                  - !Sub '${ArtifactStoreBucket.Arn}/*'
+                  - !Sub '${E2ETestReportBucket.Arn}/*'
+                  - !Sub '${ApiTestReportBucket.Arn}/*'
         - PolicyName: secretsPolicy
           PolicyDocument:
             Version: '2012-10-17'
@@ -313,7 +342,16 @@ Resources:
                 Action:
                   - 'ssm:GetParameters'
                   - 'secretsmanager:GetSecretValue'
-                Resource: '*'
+                Resource: 
+                  - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:E2ECypressDashboardKey-nwJlda'
+                  - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:backendClientSecret-hXGNg1'
+                  - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:TestUserPassword-vGQcUm'
+                  - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:E2ETesting-62EqP9'
+                  - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/CognitoUserPoolId'
+                  - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/NVA/ApplicationDomain'
+                  - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/test/CognitoTestClient1'
+                  - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/NVA/ApiDomain'
+                  - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/NVA/CognitoUri'
         - PolicyName: searchIndexLambdaPolicy
           PolicyDocument:
             Version: '2012-10-17'
@@ -342,10 +380,10 @@ Resources:
                 Action:
                   - 'sts:AssumeRole'
                 Resource:
-                  - 'arn:aws:iam::884807050265:role/e2e-testing-CodeBuildServiceRole-YJMJ03VHJ0CB'
+                  - !Sub 'arn:aws:iam::${AWS::AccountId}:role/e2e-testing-CodeBuildServiceRole-YJMJ03VHJ0CB'
               - Effect: Allow
                 Action:
-                  - 'ssm:getParameter'
+                  - 'ssm:GetParameter'
                 Resource: '*'
               - Effect: Allow
                 Action:
@@ -353,7 +391,7 @@ Resources:
                   - 'secretsmanager:GetResourcePolicy'
                   - 'secretsmanager:DescribeSecret'
                   - 'secretsmanager:ListSecretVersionIds'
-                Resource: 'arn:aws:secretsmanager:eu-west-1:884807050265:secret:E2ECypressDashboardKey-nwJlda'
+                Resource: !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:E2ECypressDashboardKey-nwJlda'
               - Effect: Allow
                 Action:
                   - 'dynamodb:Scan'

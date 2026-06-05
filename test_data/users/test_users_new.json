@@ -2662,6 +2662,21 @@
   },
   {
     "lastName": "ApiTestUser",
+    "firstName": "Contributor UiB",
+    "nin": "10024126639",
+    "username": "api-test-user-contributor-uib@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "184",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/184.0.0.0"
+  },
+  {
+    "lastName": "ApiTestUser",
     "firstName": "Publishing Curator UiB",
     "nin": "23035614494",
     "username": "api-test-user-publishing-curator-uib@test.sikt.no",
