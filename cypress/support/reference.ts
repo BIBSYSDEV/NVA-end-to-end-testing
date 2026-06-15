@@ -66,6 +66,7 @@ export const ReportReference = (category: CategoryTypes): ReferenceType => {
         type: 'UnconfirmedSeries',
         id: SINTEF_SERIES,
       },
+      seriesNumber: '123',
       publisher: {
         type: 'Publisher',
         id: SINTEF_AKADEMSIK_FORLAG_URI,
@@ -127,7 +128,11 @@ export const CorrigendumReference = (corrigendumFor: string, nviLevel: NviLevels
   return reference;
 };
 
-export const DegreeReference = (category: CategoryTypes, nviLevel: NviLevels, seriesLevel?: NviLevels): ReferenceType => {
+export const DegreeReference = (
+  category: CategoryTypes,
+  nviLevel: NviLevels,
+  seriesLevel?: NviLevels
+): ReferenceType => {
   const reference: ReferenceType = {
     type: RegistrationPartTypes.REFERENCE,
     publicationContext: {
@@ -148,10 +153,10 @@ export const DegreeReference = (category: CategoryTypes, nviLevel: NviLevels, se
       pages: {
         type: 'MonographPages',
         pages: '',
-      }
-    }
-  }
-  if (category === CategoryTypes.DEGREE_PHD && seriesLevel ) {
+      },
+    },
+  };
+  if (category === CategoryTypes.DEGREE_PHD && seriesLevel) {
     reference.publicationContext.series = {
       type: 'Series',
       id: SERIES[seriesLevel],
@@ -159,7 +164,7 @@ export const DegreeReference = (category: CategoryTypes, nviLevel: NviLevels, se
     reference.publicationContext.seriesNumber = '4';
   }
   return reference;
-}
+};
 
 const currentYear = new Date().getFullYear();
 
