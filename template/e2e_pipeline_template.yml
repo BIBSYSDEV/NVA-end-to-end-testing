@@ -71,6 +71,13 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: index.html
+      LifecycleConfiguration:
+        Rules:
+          - Id: expire-reports-after-30-days
+            Status: Enabled
+            ExpirationInDays: 30
+            Filter:
+              Prefix: ''
   ApiTestReportBucketPolicy:
     Type: 'AWS::S3::BucketPolicy'
     Properties:

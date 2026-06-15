@@ -811,6 +811,8 @@ export const createChapterInAnthologyUsingAPI = (
     (anthologyBuilder) => {
       cy.wrap(anthologyBuilder.identifier).as('anthologyIdentifier');
       cy.wrap(anthologyBuilder).as('anthologyBuilder');
+      anthologyBuilder.entityDescription.contributors[0].role.type = ContributorTypes.EDITOR;
+      anthologyBuilder.update().then();
       createPublicationUsingAPI(chapterTitle, CategoryTypes.ACADEMIC_CHAPTER, creatorName, nviLevel, seriesLevel).then(
         (chapterBuilder) => {
           cy.wrap(chapterBuilder).as('chapterBuilder');
