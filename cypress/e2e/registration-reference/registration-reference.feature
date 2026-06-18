@@ -19,15 +19,16 @@ Feature: reference in right-hand menu on NVA landing page
 
     Examples:
       | resourceType       |  template |
-      # | JournalArticle     |  authors; year; title; journalName; volume; pages; PID          |
-      # | Book               |  authors; year; title; PID; publisher                           | 
+      | JournalArticle     |  authors; year; title; journalName; volume; pages; PID          |
+      | Book               |  authors; year; title; PID; publisher                           | 
       | BookChapter        |  authors; year; title; PID; chapterPages; publisher; editor; bookTitle | 
-      # | Report             |  authors; year; title; PID; institution; reportNumber           |
+      | Report             |  authors; year; title; PID; institution; reportNumber           |
 
-  # Scenario: Unsupported resource type falls back to generic APA template (KR-02)
-  #   Given a resource of type "Dataset"
-  #   When the reference is generated
-  #   Then the output follows the generic APA fallback template
+  @test
+  Scenario: Unsupported resource type falls back to generic APA template (KR-02)
+    Given a resource of an unsupported type "DegreeBachelor"
+    When the reference is generated
+    Then the output follows the generic APA fallback template
   #
   #
   # # ─── Author list formatting (KR-03) ──────────────────────────────────────────

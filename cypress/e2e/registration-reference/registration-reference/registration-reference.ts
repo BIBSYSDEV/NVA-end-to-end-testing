@@ -12,12 +12,16 @@ import { currentYear } from '../../../support/commands';
 const articleTitleUuid = uuid();
 const bookTitleUuid = uuid();
 const chapterTitleUuid = uuid();
+const degreeTitleUuid = uuid();
 const reportTitleUuid = uuid();
+
+const anthologyTitle = `testPublicationRefernceAnhology ${uuid()}`;
 const articleTitle = `testPublicationRefernceArticle ${articleTitleUuid}`;
 const bookTitle = `testPublicationReferenceBook ${bookTitleUuid}`;
-const anthologyTitle = `testPublicationRefernceAnhology ${uuid()}`;
 const chapterTitle = `testPublicationReferenceChapter ${chapterTitleUuid}`;
+const degreeTitle = `testPublicationReferenceDegreeBachelor ${degreeTitleUuid}`;
 const reportTitle = `testPublicationReferenceReport ${reportTitleUuid}`;
+
 const journalName = 'ACM Journal of Data and Information Quality';
 
 BeforeAll(() => {
@@ -46,6 +50,12 @@ BeforeAll(() => {
       userName[TestUsers.creators.withAuthor],
       NviLevels.LEVEL_1
     );
+    createPublicationUsingAPI(
+      degreeTitle,
+      CategoryTypes.DEGREE_BACHELOR,
+      userName[TestUsers.creators.withAuthor],
+      NviLevels.LEVEL_1
+    );
   });
 });
 
@@ -69,22 +79,24 @@ const findResource = (uuid: string) => {
       cy.get('a').first().click();
     });
 };
+
 // Scenario Outline: Citation is formatted correctly for supported resource types (KR-02)
-Given('a resource of type {string}', (resourceType) => {
-  switch (resourceType) {
-    case 'JournalArticle':
-      findResource(articleTitleUuid);
-      break;
-    case 'Book':
-      findResource(bookTitleUuid);
-      break;
-    case 'Report':
-      findResource(reportTitleUuid);
-      break;
-    case 'BookChapter':
-      findResource(chapterTitleUuid);
-      break;
+const resourceUuidByType = {
+  JournalArticle: articleTitleUuid,
+  Book: bookTitleUuid,
+  Report: reportTitleUuid,
+  BookChapter: chapterTitleUuid,
+  DegreeBachelor: degreeTitleUuid,
+} as const;
+
+type ResourceType = keyof typeof resourceUuidByType;
+
+Given('a resource of type {string}', (resourceType: string) => {
+  const resourceUuid = resourceUuidByType[resourceType as ResourceType];
+  if (!resourceUuid) {
+    throw new Error(`Unknown resource type "${resourceType}"`);
   }
+  findResource(resourceUuid);
 });
 When('the reference is generated', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
@@ -155,9 +167,16 @@ Then('the output follows the {string} for {string}', (template: unknown, resourc
 //   | Report             |  authors; year; title; PID; institution; reportNumber           |
 
 // Scenario: Unsupported resource type falls back to generic APA template (KR-02)
-Given('a resource of type "Dataset"', () => {});
-// When('the reference is generated', () => {});
-Then('the output follows the generic APA fallback template', () => {});
+Given('a resource of an unsupported type "DegreeBachelor"', () => {
+  findResource(degreeTitleUuid);
+});
+Then('the output follows the generic APA fallback template', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('contain.text', 'Withauthor TestUser');
+    cy.get('p').should('contain.text', `(${currentYear}).`);
+    cy.get('p').should('contain.text', degreeTitle);
+  });
+});
 
 // Scenario: Authors are taken only from contributors with role Creator (KR-03)
 Given('a resource with contributors of mixed roles including "Creator" and "Editor"', () => {});
