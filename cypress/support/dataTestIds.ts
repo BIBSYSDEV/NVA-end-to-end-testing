@@ -368,10 +368,12 @@ export const dataTestId = {
     codeRepositoryLink: 'code-repository-link',
     contributors: 'public-registration-contributors',
     detailsTab: {
-      copyCitationButton: 'copy-citation-button',
+      copyReferenceButton: 'copy-reference-button',
       detailsTab: 'details-tab',
       emailLink: (id: string) => `email-link-${id}`,
       infoLink: 'info-link',
+      referenceFormatToggle: 'reference-format-toggle',
+      referenceTextBox: 'reference-text-box',
       resultContactModal: 'result-contact-modal',
     },
     dmpAccordion: 'dmp-accordion',

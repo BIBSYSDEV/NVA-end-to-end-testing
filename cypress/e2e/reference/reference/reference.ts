@@ -105,52 +105,46 @@ Then('the output follows the {string} for {string}', (template: unknown, resourc
       title = chapterTitle;
       break;
   }
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.copyCitationButton)
-    .parent()
-    .within(() => {
-      cy.get('div')
-        .first()
-        .within(() => {
-          const elements = (template as string).split('; ');
-          elements.forEach((element) => {
-            switch (element) {
-              case 'authors':
-                cy.get('p').should('contain.text', 'Withauthor TestUser');
-                break;
-              case 'year':
-                cy.get('p').should('contain.text', `(${currentYear}).`);
-                break;
-              case 'journalName':
-                cy.get('p').should('contain.text', journalName);
-                break;
-              case 'title':
-                cy.get('p').should('contain.text', title);
-                break;
-              case 'volume':
-                cy.get('p').should('contain.text', '15(3),');
-                break;
-              case 'pages':
-                cy.get('p').should('contain.text', '10–20');
-                break;
-              case 'publisher':
-                cy.get('p').should('contain.text', 'Springer Nature');
-                break;
-              case 'institution':
-                cy.get('p').should('contain.text', 'SINTEF akademisk forlag');
-                break;
-              case 'reportNumber':
-                cy.get('p').should('contain.text', '(Report No. 123)');
-                break;
-              case 'chapterPages':
-                cy.get('p').should('contain.text', '(pp. 1–20)');
-                break;
-              case 'bookTitle':
-                cy.get('p').should('contain.text', anthologyTitle);
-                break;
-            }
-          });
-        });
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    const elements = (template as string).split('; ');
+    elements.forEach((element) => {
+      switch (element) {
+        case 'authors':
+          cy.get('p').should('contain.text', 'Withauthor TestUser');
+          break;
+        case 'year':
+          cy.get('p').should('contain.text', `(${currentYear}).`);
+          break;
+        case 'journalName':
+          cy.get('p').should('contain.text', journalName);
+          break;
+        case 'title':
+          cy.get('p').should('contain.text', title);
+          break;
+        case 'volume':
+          cy.get('p').should('contain.text', '15(3),');
+          break;
+        case 'pages':
+          cy.get('p').should('contain.text', '10–20');
+          break;
+        case 'publisher':
+          cy.get('p').should('contain.text', 'Springer Nature');
+          break;
+        case 'institution':
+          cy.get('p').should('contain.text', 'SINTEF akademisk forlag');
+          break;
+        case 'reportNumber':
+          cy.get('p').should('contain.text', '(Report No. 123)');
+          break;
+        case 'chapterPages':
+          cy.get('p').should('contain.text', '(pp. 1–20)');
+          break;
+        case 'bookTitle':
+          cy.get('p').should('contain.text', anthologyTitle);
+          break;
+      }
     });
+  });
 });
 
 // Examples:
