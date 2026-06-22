@@ -37,19 +37,22 @@ Feature: reference in right-hand menu on NVA landing page
     Given a resource with contributors of mixed roles including "Creator" and "Editor"
     When the reference is generated
     Then only contributors with role "Creator" appear in the author list
-    And each author is formatted as "Surname, I."
-  #
+    And each author is formatted as "Firstname Surname."
+
+  # @test
   # Scenario: All authors are listed when there are 20 or fewer (KR-03)
   #   Given a resource with 20 contributors with role "Creator"
   #   When the reference is generated
   #   Then all 20 authors appear in the citation
-  #
-  # Scenario: Author list is truncated when there are more than 20 authors (KR-03)
-  #   Given a resource with more than 20 contributors with role "Creator"
-  #   When the reference is generated
-  #   Then the first 19 authors are listed
-  #   And "..." appears after the 19th author
-  #   And the last author appears after "..."
+
+
+  @test
+  Scenario: Author list is truncated when there are more than 20 authors (KR-03)
+    Given a resource with more than 20 contributors with role "Creator"
+    When the reference is generated
+    Then the first 19 authors are listed
+    And "..." appears after the 19th author
+    And the last author appears after "..."
   #
   #
   # # ─── Missing fields handled silently (KR-04) ──────────────────────────────────

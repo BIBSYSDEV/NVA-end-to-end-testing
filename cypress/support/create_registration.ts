@@ -579,7 +579,6 @@ export const updateNVICandidate = (registrationId: string, institution: string, 
 
 export const openNviPeriod = (year: string) => {
   return new Cypress.Promise((resolve, rejectsponse) => {
-
     const nextYear = new Date().getFullYear() + 1;
     const periodPayload = {
       'type': 'NviPeriod',
@@ -589,22 +588,23 @@ export const openNviPeriod = (year: string) => {
       'reportingDate': `${nextYear}-01-01T00:00:00.000Z`,
     };
     const accessToken = Cypress.env('accessToken');
-    
-      cy.request({
-        method: 'PUT',
-        url: `${baseUrl}scientific-index/period`,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          Accept: 'application/json',
-        },
-        body: periodPayload,
-      }).then(() => {resolve(null)});
+
+    cy.request({
+      method: 'PUT',
+      url: `${baseUrl}scientific-index/period`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+      body: periodPayload,
+    }).then(() => {
+      resolve(null);
+    });
   });
 };
 
 export const closeNviPeriod = (year: string) => {
-    return new Cypress.Promise((resolve, reject) => {
-
+  return new Cypress.Promise((resolve, reject) => {
     const periodPayload = {
       'type': 'NviPeriod',
       'id': `https://api.e2e.nva.aws.unit.no/scientific-index/period/${year}`,
@@ -613,18 +613,19 @@ export const closeNviPeriod = (year: string) => {
       'reportingDate': `${year}-12-31T00:00:00Z`,
     };
     const accessToken = Cypress.env('accessToken');
-    
-      cy.request({
-        method: 'PUT',
-        url: `${baseUrl}scientific-index/period`,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          Accept: 'application/json',
-        },
-        body: periodPayload,
-      }).then(() => {resolve(null)});
-  });
 
+    cy.request({
+      method: 'PUT',
+      url: `${baseUrl}scientific-index/period`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+      body: periodPayload,
+    }).then(() => {
+      resolve(null);
+    });
+  });
 };
 
 export enum FileTypes {

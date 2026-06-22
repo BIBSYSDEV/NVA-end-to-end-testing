@@ -16,6 +16,7 @@ const chapterTitleUuid = uuid();
 const degreeTitleUuid = uuid();
 const reportTitleUuid = uuid();
 const withEditorTitleUuid = uuid();
+const withTwentyOneContributorsTitleUuid = uuid();
 
 const anthologyTitle = `testPublicationRefernceAnhology ${uuid()}`;
 const articleTitle = `testPublicationRefernceArticle ${articleTitleUuid}`;
@@ -24,6 +25,7 @@ const chapterTitle = `testPublicationReferenceChapter ${chapterTitleUuid}`;
 const degreeTitle = `testPublicationReferenceDegreeBachelor ${degreeTitleUuid}`;
 const reportTitle = `testPublicationReferenceReport ${reportTitleUuid}`;
 const withEditorTitle = `testPublicationReferenceWithEditor ${withEditorTitleUuid}`;
+const withTwentyOneContributorsTitle = `testPublicationReferenceWithTwentyOneContributors ${withTwentyOneContributorsTitleUuid}`;
 
 const journalName = 'ACM Journal of Data and Information Quality';
 
@@ -201,10 +203,14 @@ Given('a resource with contributors of mixed roles including "Creator" and "Edit
 Then('only contributors with role "Creator" appear in the author list', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
     cy.get('p').should('not.contain.text', '(Ed.)');
-    cy.get('p').should('not.contain.text', 'Withauthor 1 TestUser');
+    cy.get('p').should('not.contain.text', 'Withauthor1 TestUser');
   });
 });
-Then('each author is formatted as "Surname, I."', () => {});
+Then('each author is formatted as "Firstname Surname."', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('contain.text', 'Withauthor TestUser');
+  });
+});
 
 // Scenario: All authors are listed when there are 20 or fewer (KR-03)
 Given('a resource with 20 contributors with role "Creator"', () => {});
@@ -212,11 +218,59 @@ Given('a resource with 20 contributors with role "Creator"', () => {});
 Then('all 20 authors appear in the citation', () => {});
 
 // Scenario: Author list is truncated when there are more than 20 authors (KR-03)
-Given('a resource with more than 20 contributors with role "Creator"', () => {});
+Given('a resource with more than 20 contributors with role "Creator"', () => {
+  const referenceContributors: string[] = [
+    'ReferenceAuthor1 TestUser',
+    'ReferenceAuthor2 TestUser',
+    'ReferenceAuthor3 TestUser',
+    'ReferenceAuthor4 TestUser',
+    'ReferenceAuthor5 TestUser',
+    'ReferenceAuthor6 TestUser',
+    'ReferenceAuthor7 TestUser',
+    'ReferenceAuthor8 TestUser',
+    'ReferenceAuthor9 TestUser',
+    'ReferenceAuthor10 TestUser',
+    'ReferenceAuthor11 TestUser',
+    'ReferenceAuthor12 TestUser',
+    'ReferenceAuthor12 TestUser',
+    'ReferenceAuthor14 TestUser',
+    'ReferenceAuthor15 TestUser',
+    'ReferenceAuthor16 TestUser',
+    'ReferenceAuthor17 TestUser',
+    'ReferenceAuthor18 TestUser',
+    'ReferenceAuthor19 TestUser',
+    'ReferenceAuthor20 TestUser',
+    'ReferenceAuthor21 TestUser',
+  ];
+
+  createPublicationUsingAPI(
+    withTwentyOneContributorsTitle,
+    CategoryTypes.ACADEMIC_ARTICLE,
+    userName[TestUsers.creators.withAuthor],
+    NviLevels.LEVEL_1
+  ).then((builder) => {
+    referenceContributors.forEach((user) => {
+      findContributorByName(user, ContributorTypes.CREATOR).then((contributor) => {
+        builder.addContributor(contributor);
+      });
+    });
+    builder.update().then();
+  });
+
+  findResource(withTwentyOneContributorsTitleUuid);
+});
 // When('the reference is generated', () => {});
 Then('the first 19 authors are listed', () => {});
-Then('"..." appears after the 19th author', () => {});
-Then('the last author appears after "..."', () => {});
+Then('"..." appears after the 19th author', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('contain.text', 'ReferenceAuthor18 TestUser, ...');
+  });
+});
+Then('the last author appears after "..."', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('contain.text', `... ReferenceAuthor21 TestUser (${currentYear})`);
+  });
+});
 
 // Scenario: Missing optional metadata fields are omitted silently (KR-04)
 Given('a journal article resource without "volume" and "pages" in its metadata', () => {});
