@@ -62,7 +62,7 @@ const addUnidentifiedContributor = (unidentifiedContributorName: string, builder
   builder.update().then(() => {});
 };
 
-const addContributor = (contributor: string, builder: RegistrationData) => {
+const addContributor = (contributor: string, builder: RegistrationData, role?: ContributorTypes) => {
   if (contributor === externalContributor) {
     addUnidentifiedContributor(contributor, builder);
   } else {

@@ -2,10 +2,11 @@ import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preproc
 import {
   createChapterInAnthologyUsingAPI,
   createPublicationUsingAPI,
+  findContributorByName,
   NviLevels,
 } from '../../../support/create_registration';
 import { v4 as uuid } from 'uuid';
-import { CategoryTypes, TestUsers, userName } from '../../../support/constants';
+import { CategoryTypes, ContributorTypes, TestUsers, userName } from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { currentYear } from '../../../support/commands';
 
@@ -14,6 +15,7 @@ const bookTitleUuid = uuid();
 const chapterTitleUuid = uuid();
 const degreeTitleUuid = uuid();
 const reportTitleUuid = uuid();
+const withEditorTitleUuid = uuid();
 
 const anthologyTitle = `testPublicationRefernceAnhology ${uuid()}`;
 const articleTitle = `testPublicationRefernceArticle ${articleTitleUuid}`;
@@ -21,6 +23,7 @@ const bookTitle = `testPublicationReferenceBook ${bookTitleUuid}`;
 const chapterTitle = `testPublicationReferenceChapter ${chapterTitleUuid}`;
 const degreeTitle = `testPublicationReferenceDegreeBachelor ${degreeTitleUuid}`;
 const reportTitle = `testPublicationReferenceReport ${reportTitleUuid}`;
+const withEditorTitle = `testPublicationReferenceWithEditor ${withEditorTitleUuid}`;
 
 const journalName = 'ACM Journal of Data and Information Quality';
 
@@ -56,6 +59,16 @@ BeforeAll(() => {
       userName[TestUsers.creators.withAuthor],
       NviLevels.LEVEL_1
     );
+    createPublicationUsingAPI(
+      withEditorTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[TestUsers.creators.withAuthor],
+      NviLevels.LEVEL_1
+    ).then((builder) => {
+      findContributorByName(userName[TestUsers.creators.withAuthor1], ContributorTypes.EDITOR).then((editor) => {
+        builder.addContributor(editor).update();
+      });
+    });
   });
 });
 
@@ -179,9 +192,18 @@ Then('the output follows the generic APA fallback template', () => {
 });
 
 // Scenario: Authors are taken only from contributors with role Creator (KR-03)
-Given('a resource with contributors of mixed roles including "Creator" and "Editor"', () => {});
-// When('the reference is generated', () => {});
-Then('only contributors with role "Creator" appear in the author list', () => {});
+Given('a resource with contributors of mixed roles including "Creator" and "Editor"', () => {
+  findResource(withEditorTitleUuid);
+});
+// When('the reference is generated', () => {
+//   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
+// });
+Then('only contributors with role "Creator" appear in the author list', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('not.contain.text', '(Ed.)');
+    cy.get('p').should('not.contain.text', 'Withauthor 1 TestUser');
+  });
+});
 Then('each author is formatted as "Surname, I."', () => {});
 
 // Scenario: All authors are listed when there are 20 or fewer (KR-03)

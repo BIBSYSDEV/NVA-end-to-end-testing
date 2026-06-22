@@ -18,11 +18,11 @@ Feature: reference in right-hand menu on NVA landing page
     Then the output follows the "<template>" for "<resourceType>"
 
     Examples:
-      | resourceType       |  template |
-      | JournalArticle     |  authors; year; title; journalName; volume; pages; PID          |
-      | Book               |  authors; year; title; PID; publisher                           | 
+      | resourceType       |  template                                                              |
+      | JournalArticle     |  authors; year; title; journalName; volume; pages; PID                 |
+      | Book               |  authors; year; title; PID; publisher                                  | 
       | BookChapter        |  authors; year; title; PID; chapterPages; publisher; editor; bookTitle | 
-      | Report             |  authors; year; title; PID; institution; reportNumber           |
+      | Report             |  authors; year; title; PID; institution; reportNumber                  |
 
   @test
   Scenario: Unsupported resource type falls back to generic APA template (KR-02)
@@ -32,12 +32,12 @@ Feature: reference in right-hand menu on NVA landing page
   #
   #
   # # ─── Author list formatting (KR-03) ──────────────────────────────────────────
-  #
-  # Scenario: Authors are taken only from contributors with role Creator (KR-03)
-  #   Given a resource with contributors of mixed roles including "Creator" and "Editor"
-  #   When the reference is generated
-  #   Then only contributors with role "Creator" appear in the author list
-  #   And each author is formatted as "Surname, I."
+  @test
+  Scenario: Authors are taken only from contributors with role Creator (KR-03)
+    Given a resource with contributors of mixed roles including "Creator" and "Editor"
+    When the reference is generated
+    Then only contributors with role "Creator" appear in the author list
+    And each author is formatted as "Surname, I."
   #
   # Scenario: All authors are listed when there are 20 or fewer (KR-03)
   #   Given a resource with 20 contributors with role "Creator"
