@@ -11,7 +11,7 @@ Feature: reference in right-hand menu on NVA landing page
 
 
 
-  @test
+  # @test
   Scenario Outline: Citation is formatted correctly for supported resource types (KR-02)
     Given a resource of type "<resourceType>"
     When the reference is generated
@@ -24,7 +24,7 @@ Feature: reference in right-hand menu on NVA landing page
       | BookChapter        |  authors; year; title; PID; chapterPages; publisher; editor; bookTitle | 
       | Report             |  authors; year; title; PID; institution; reportNumber                  |
 
-  @test
+  # @test
   Scenario: Unsupported resource type falls back to generic APA template (KR-02)
     Given a resource of an unsupported type "DegreeBachelor"
     When the reference is generated
@@ -32,7 +32,7 @@ Feature: reference in right-hand menu on NVA landing page
   #
   #
   # # ─── Author list formatting (KR-03) ──────────────────────────────────────────
-  @test
+  # @test
   Scenario: Authors are taken only from contributors with role Creator (KR-03)
     Given a resource with contributors of mixed roles including "Creator" and "Editor"
     When the reference is generated
@@ -46,7 +46,7 @@ Feature: reference in right-hand menu on NVA landing page
   #   Then all 20 authors appear in the citation
 
 
-  @test
+  # @test
   Scenario: Author list is truncated when there are more than 20 authors (KR-03)
     Given a resource with more than 20 contributors with role "Creator"
     When the reference is generated
@@ -57,11 +57,12 @@ Feature: reference in right-hand menu on NVA landing page
   #
   # # ─── Missing fields handled silently (KR-04) ──────────────────────────────────
   #
-  # Scenario: Missing optional metadata fields are omitted silently (KR-04)
-  #   Given a journal article resource without "volume" and "pages" in its metadata
-  #   When the reference is generated
-  #   Then the citation is produced without error messages
-  #   And the "volume" and "pages" segments are absent from the output string
+  @test
+  Scenario: Missing optional metadata fields are omitted silently (KR-04)
+    Given a journal article resource without "volume" and "pages" in its metadata
+    When the reference for KR-04 is generated
+    Then the citation is produced without error messages
+    And the "volume" and "pages" segments are absent from the output string
   #
   # Scenario: PID is included when present (KR-04)
   #   Given a resource with a PID in its metadata

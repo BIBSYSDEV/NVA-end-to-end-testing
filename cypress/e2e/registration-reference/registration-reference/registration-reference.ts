@@ -1,6 +1,7 @@
 import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import {
   createChapterInAnthologyUsingAPI,
+  createDraftPublicationUsingAPI,
   createPublicationUsingAPI,
   findContributorByName,
   NviLevels,
@@ -16,7 +17,9 @@ const chapterTitleUuid = uuid();
 const degreeTitleUuid = uuid();
 const reportTitleUuid = uuid();
 const withEditorTitleUuid = uuid();
+const withTwentyContributorsTitleUuid = uuid();
 const withTwentyOneContributorsTitleUuid = uuid();
+const withoutVolumeAndPagesUuid = uuid();
 
 const anthologyTitle = `testPublicationRefernceAnhology ${uuid()}`;
 const articleTitle = `testPublicationRefernceArticle ${articleTitleUuid}`;
@@ -25,9 +28,35 @@ const chapterTitle = `testPublicationReferenceChapter ${chapterTitleUuid}`;
 const degreeTitle = `testPublicationReferenceDegreeBachelor ${degreeTitleUuid}`;
 const reportTitle = `testPublicationReferenceReport ${reportTitleUuid}`;
 const withEditorTitle = `testPublicationReferenceWithEditor ${withEditorTitleUuid}`;
+const withTwentyContributorsTitle = `testPublicationReferenceWithTwentyContributors ${withTwentyContributorsTitleUuid}`;
 const withTwentyOneContributorsTitle = `testPublicationReferenceWithTwentyOneContributors ${withTwentyOneContributorsTitleUuid}`;
+const withoutVolumeAndPagesTitle = `testPublicationReferenceWithoutVolumeAndPages ${withoutVolumeAndPagesUuid}`;
 
 const journalName = 'ACM Journal of Data and Information Quality';
+
+const referenceContributors: string[] = [
+  'ReferenceAuthor1 TestUser',
+  'ReferenceAuthor2 TestUser',
+  'ReferenceAuthor3 TestUser',
+  'ReferenceAuthor4 TestUser',
+  'ReferenceAuthor5 TestUser',
+  'ReferenceAuthor6 TestUser',
+  'ReferenceAuthor7 TestUser',
+  'ReferenceAuthor8 TestUser',
+  'ReferenceAuthor9 TestUser',
+  'ReferenceAuthor10 TestUser',
+  'ReferenceAuthor11 TestUser',
+  'ReferenceAuthor12 TestUser',
+  'ReferenceAuthor12 TestUser',
+  'ReferenceAuthor14 TestUser',
+  'ReferenceAuthor15 TestUser',
+  'ReferenceAuthor16 TestUser',
+  'ReferenceAuthor17 TestUser',
+  'ReferenceAuthor18 TestUser',
+  'ReferenceAuthor19 TestUser',
+  'ReferenceAuthor20 TestUser',
+  'ReferenceAuthor21 TestUser',
+];
 
 BeforeAll(() => {
   cy.login(TestUsers.creators.withAuthor).then(() => {
@@ -213,36 +242,34 @@ Then('each author is formatted as "Firstname Surname."', () => {
 });
 
 // Scenario: All authors are listed when there are 20 or fewer (KR-03)
-Given('a resource with 20 contributors with role "Creator"', () => {});
+Given('a resource with 20 contributors with role "Creator"', () => {
+  createPublicationUsingAPI(
+    withTwentyContributorsTitle,
+    CategoryTypes.ACADEMIC_ARTICLE,
+    userName[TestUsers.creators.withAuthor],
+    NviLevels.LEVEL_1
+  ).then((builder) => {
+    referenceContributors.slice(0, 20).forEach((user) => {
+      findContributorByName(user, ContributorTypes.CREATOR).then((contributor) => {
+        builder.addContributor(contributor);
+      });
+    });
+    builder.update().then();
+  });
+
+  findResource(withTwentyContributorsTitleUuid);
+});
 // When('the reference is generated', () => {});
-Then('all 20 authors appear in the citation', () => {});
+Then('all 20 authors appear in the citation', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('not.contain.text', '...');
+    cy.get('p').should('contain.text', 'ReferenceAuthor1 TestUser');
+    cy.get('p').should('contain.text', `ReferenceAuthor20 TestUser (${currentYear})`);
+  });
+});
 
 // Scenario: Author list is truncated when there are more than 20 authors (KR-03)
 Given('a resource with more than 20 contributors with role "Creator"', () => {
-  const referenceContributors: string[] = [
-    'ReferenceAuthor1 TestUser',
-    'ReferenceAuthor2 TestUser',
-    'ReferenceAuthor3 TestUser',
-    'ReferenceAuthor4 TestUser',
-    'ReferenceAuthor5 TestUser',
-    'ReferenceAuthor6 TestUser',
-    'ReferenceAuthor7 TestUser',
-    'ReferenceAuthor8 TestUser',
-    'ReferenceAuthor9 TestUser',
-    'ReferenceAuthor10 TestUser',
-    'ReferenceAuthor11 TestUser',
-    'ReferenceAuthor12 TestUser',
-    'ReferenceAuthor12 TestUser',
-    'ReferenceAuthor14 TestUser',
-    'ReferenceAuthor15 TestUser',
-    'ReferenceAuthor16 TestUser',
-    'ReferenceAuthor17 TestUser',
-    'ReferenceAuthor18 TestUser',
-    'ReferenceAuthor19 TestUser',
-    'ReferenceAuthor20 TestUser',
-    'ReferenceAuthor21 TestUser',
-  ];
-
   createPublicationUsingAPI(
     withTwentyOneContributorsTitle,
     CategoryTypes.ACADEMIC_ARTICLE,
@@ -260,7 +287,14 @@ Given('a resource with more than 20 contributors with role "Creator"', () => {
   findResource(withTwentyOneContributorsTitleUuid);
 });
 // When('the reference is generated', () => {});
-Then('the first 19 authors are listed', () => {});
+Then('the first 19 authors are listed', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('not.contain.text', '...');
+    cy.get('p').should('contain.text', 'ReferenceAuthor1 TestUser');
+    cy.get('p').should('contain.text', 'ReferenceAuthor21 TestUser');
+    cy.get('p').should('not.contain.text', `ReferenceAuthor19 TestUser (${currentYear})`);
+  });
+});
 Then('"..." appears after the 19th author', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
     cy.get('p').should('contain.text', 'ReferenceAuthor18 TestUser, ...');
@@ -273,13 +307,47 @@ Then('the last author appears after "..."', () => {
 });
 
 // Scenario: Missing optional metadata fields are omitted silently (KR-04)
-Given('a journal article resource without "volume" and "pages" in its metadata', () => {});
-// When('the reference is generated', () => {});
-Then('the citation is produced without error messages', () => {});
-Then('the "volume" and "pages" segments are absent from the output string', () => {});
+Given('a journal article resource without "volume" and "pages" in its metadata', () => {
+  createDraftPublicationUsingAPI(
+    withoutVolumeAndPagesTitle,
+    CategoryTypes.ACADEMIC_ARTICLE,
+    userName[TestUsers.creators.withAuthor]
+  ).then((builder) => {
+    const { publicationContext, publicationInstance } = builder.entityDescription.reference;
+    delete publicationContext.volume;
+    delete publicationContext.issue;
+    delete publicationInstance.volume;
+    delete publicationInstance.issue;
+    delete publicationInstance.pages;
+
+    builder.update().then(() => {
+      builder.publish().then();
+    });
+
+    cy.searchFor(withoutVolumeAndPagesUuid);
+  });
+});
+When('the reference for KR-04 is generated', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
+});
+Then('the citation is produced without error messages', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('contain.text', withoutVolumeAndPagesTitle);
+    cy.get('p').should('contain.text', `(${currentYear}).`);
+    cy.get('[data-testid=snackbar-error]').should('not.exist');
+  });
+});
+Then('the "volume" and "pages" segments are absent from the output string', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('not.contain.text', '15(3),');
+    cy.get('p').should('not.contain.text', '10–20');
+  });
+});
 
 // Scenario: PID is included when present (KR-04)
-Given('a resource with a PID in its metadata', () => {});
+Given('a resource with a PID in its metadata', () => {
+  cy.searchFor(articleTitle);
+});
 // When('the reference is generated', () => {});
 Then('the PID appears in the citation string', () => {});
 
