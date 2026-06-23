@@ -1,10 +1,12 @@
 import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import {
+  approveDoi,
   createChapterInAnthologyUsingAPI,
   createDraftPublicationUsingAPI,
   createPublicationUsingAPI,
   findContributorByName,
   NviLevels,
+  requestDoi,
 } from '../../../support/create_registration';
 import { v4 as uuid } from 'uuid';
 import { CategoryTypes, ContributorTypes, TestUsers, userName } from '../../../support/constants';
@@ -17,6 +19,7 @@ const chapterTitleUuid = uuid();
 const degreeTitleUuid = uuid();
 const reportTitleUuid = uuid();
 const withEditorTitleUuid = uuid();
+const withDoiUuid = uuid();
 const withTwentyContributorsTitleUuid = uuid();
 const withTwentyOneContributorsTitleUuid = uuid();
 const withoutVolumeAndPagesUuid = uuid();
@@ -28,6 +31,7 @@ const chapterTitle = `testPublicationReferenceChapter ${chapterTitleUuid}`;
 const degreeTitle = `testPublicationReferenceDegreeBachelor ${degreeTitleUuid}`;
 const reportTitle = `testPublicationReferenceReport ${reportTitleUuid}`;
 const withEditorTitle = `testPublicationReferenceWithEditor ${withEditorTitleUuid}`;
+const withDoiTitle = `testPublicationReferenceWithDoi ${withDoiUuid}`;
 const withTwentyContributorsTitle = `testPublicationReferenceWithTwentyContributors ${withTwentyContributorsTitleUuid}`;
 const withTwentyOneContributorsTitle = `testPublicationReferenceWithTwentyOneContributors ${withTwentyOneContributorsTitleUuid}`;
 const withoutVolumeAndPagesTitle = `testPublicationReferenceWithoutVolumeAndPages ${withoutVolumeAndPagesUuid}`;
@@ -346,10 +350,36 @@ Then('the "volume" and "pages" segments are absent from the output string', () =
 
 // Scenario: PID is included when present (KR-04)
 Given('a resource with a PID in its metadata', () => {
-  cy.searchFor(articleTitle);
+  const publicationApiUrl = 'https://api.e2e.nva.aws.unit.no/publication';
+
+  createDraftPublicationUsingAPI(
+    withDoiTitle,
+    CategoryTypes.ACADEMIC_ARTICLE,
+    userName[TestUsers.creators.withAuthor]
+  ).then((builder) => {
+    const creatorToken = Cypress.env('accessToken');
+
+    builder.publish().then(() => {
+      requestDoi(builder.identifier, creatorToken, publicationApiUrl).then(() => {
+        cy.login(TestUsers.curators.specialty.draftDoi).then(() => {
+          const curatorToken = Cypress.env('accessToken');
+          approveDoi(builder.identifier, curatorToken, publicationApiUrl).then(() => {
+            cy.searchFor(withDoiTitle);
+          });
+        });
+      });
+    });
+  });
 });
-// When('the reference is generated', () => {});
-Then('the PID appears in the citation string', () => {});
+
+When('the reference is generated for the publication with a DOI', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
+});
+Then('the PID appears in the citation string', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('contain.text', 'https://doi.org/10.1002/mpr.1935');
+  });
+});
 
 // Scenario: Handle is used as fallback when DOI is absent (KR-04)
 Given('a resource without a DOI but with a handle in its metadata', () => {});

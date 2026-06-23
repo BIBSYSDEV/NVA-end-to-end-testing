@@ -843,6 +843,63 @@ export const createProject = (name?: string, id?: string): ProjectType => {
       };
 };
 
+export const requestDoi = (
+  identifier: string,
+  accessToken: string,
+  publicationApiUrl: string,
+  message?: string
+): Cypress.Chainable<Cypress.Response<unknown>> => {
+  const body = message?.trim()
+    ? { type: 'DoiRequest', messages: [{ type: 'Message', text: message.trim() }] }
+    : { type: 'DoiRequest' };
+
+  return cy.request({
+    method: 'POST',
+    url: `${publicationApiUrl}/${identifier}/ticket`,
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body,
+    failOnStatusCode: true,
+  });
+};
+
+export const approveDoi = (
+  identifier: string,
+  accessToken: string,
+  publicationApiUrl: string
+): Cypress.Chainable<Cypress.Response<unknown>> => {
+  const headers = {
+    'Authorization': `Bearer ${accessToken}`,
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
+
+  return cy
+    .request({
+      method: 'GET',
+      url: `${publicationApiUrl}/${identifier}/tickets`,
+      headers,
+      failOnStatusCode: true,
+    })
+    .then((response) => {
+      const doiTicket = response.body.tickets?.findLast((ticket) => ticket.type === 'DoiRequest');
+      if (!doiTicket) {
+        throw new Error(`No DoiRequest ticket found for registration ${identifier}`);
+      }
+
+      // ticket.id is a full URL, so PUT directly to it
+      return cy.request({
+        method: 'PUT',
+        url: doiTicket.id,
+        headers,
+        body: { status: 'Completed' },
+        failOnStatusCode: true,
+      });
+    });
+};
 export type RegistrationData = {
   associatedArtifacsts: Record<string, string>[];
   identifier?: string;

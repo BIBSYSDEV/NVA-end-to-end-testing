@@ -57,18 +57,19 @@ Feature: reference in right-hand menu on NVA landing page
   #
   # # ─── Missing fields handled silently (KR-04) ──────────────────────────────────
   #
-  @test
+  # @test
   Scenario: Missing optional metadata fields are omitted silently (KR-04)
     Given a journal article resource without "volume" and "pages" in its metadata
     When the reference for KR-04 is generated
     Then the citation is produced without error messages
     And the "volume" and "pages" segments are absent from the output string
   #
-  # Scenario: PID is included when present (KR-04)
-  #   Given a resource with a PID in its metadata
-  #   When the reference is generated
-  #   Then the PID appears in the citation string
-  #
+  @test
+  Scenario: PID is included when present (KR-04)
+    Given a resource with a PID in its metadata
+    When the reference is generated for the publication with a DOI
+    Then the PID appears in the citation string
+  
   # Scenario: Handle is used as fallback when DOI is absent (KR-04)
   #   Given a resource without a DOI but with a handle in its metadata
   #   When the reference is generated
