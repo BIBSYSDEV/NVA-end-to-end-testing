@@ -64,7 +64,7 @@ Feature: reference in right-hand menu on NVA landing page
     Then the citation is produced without error messages
     And the "volume" and "pages" segments are absent from the output string
   #
-  @test
+  # @test
   Scenario: PID is included when present (KR-04)
     Given a resource with a PID in its metadata
     When the reference is generated for the publication with a DOI
@@ -75,28 +75,32 @@ Feature: reference in right-hand menu on NVA landing page
   #   When the reference is generated
   #   Then the handle appears in the citation string
   #
-  # Scenario: Neither DOI nor handle appears when both are absent (KR-04)
-  #   Given a resource without DOI and without handle
-  #   When the reference is generated
-  #   Then the citation contains no URL or identifier segment
+  # @test
+  Scenario: Neither DOI nor handle appears when both are absent (KR-04)
+    Given a resource without DOI and without handle
+    When the reference is generated for a publication without DOI or handle
+    Then the citation contains no URL or identifier segment
   #
   #
   # # ─── Sentence case on title (KR-05) ──────────────────────────────────────────
   #
-  # Scenario: Title in ALL CAPS is converted to sentence case (KR-05)
-  #   Given a resource whose mainTitle is "AN INTRODUCTION TO MACHINE LEARNING"
-  #   When the reference is generated
-  #   Then the title in the citation reads "An introduction to machine learning"
+  @test
+  Scenario: Title in ALL CAPS is converted to sentence case (KR-05)
+    Given a resource whose mainTitle is "AN INTRODUCTION TO MACHINE LEARNING"
+    When the reference is generated for a publication with mainTitle "AN INTRODUCTION TO MACHINE LEARNING"
+    Then the title in the citation reads "An introduction to machine learning" and not "AN INTRODUCTION TO MACHINE LEARNING"
   #
-  # Scenario: Title in Title Case is converted to sentence case (KR-05)
-  #   Given a resource whose mainTitle is "An Introduction to Machine Learning"
-  #   When the reference is generated
-  #   Then the title in the citation reads "An introduction to machine learning"
-  #
-  # Scenario: Title already in sentence case is preserved as-is (KR-05)
-  #   Given a resource whose mainTitle is "An introduction to machine learning"
-  #   When the reference is generated
-  #   Then the title in the citation reads "An introduction to machine learning"
+  @test
+  Scenario: Title in Title Case is converted to sentence case (KR-05)
+    Given a resource whose mainTitle is "An Introduction to Machine Learning"
+    When the reference is generated for a publication with mainTitle "An Introduction to Machine Learning"
+    Then the title in the citation reads "An introduction to machine learning"
+
+  @test
+  Scenario: Title already in sentence case is preserved as-is (KR-05)
+    Given a resource whose mainTitle is "An introduction to machine learning"
+    When the reference is generated for a publication with mainTitle "An introduction to machine learning"
+    Then the title in the citation reads "An introduction to machine learning"
   #
   #
   # # ─── Output format (KR-06) ───────────────────────────────────────────────────

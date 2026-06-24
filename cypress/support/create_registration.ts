@@ -843,12 +843,9 @@ export const createProject = (name?: string, id?: string): ProjectType => {
       };
 };
 
-export const requestDoi = (
-  identifier: string,
-  accessToken: string,
-  publicationApiUrl: string,
-  message?: string
-): Cypress.Chainable<Cypress.Response<unknown>> => {
+export const requestDoi = (identifier: string, message?: string): Cypress.Chainable<Cypress.Response<unknown>> => {
+  const accessToken = Cypress.env('accessToken');
+
   const body = message?.trim()
     ? { type: 'DoiRequest', messages: [{ type: 'Message', text: message.trim() }] }
     : { type: 'DoiRequest' };
@@ -866,11 +863,8 @@ export const requestDoi = (
   });
 };
 
-export const approveDoi = (
-  identifier: string,
-  accessToken: string,
-  publicationApiUrl: string
-): Cypress.Chainable<Cypress.Response<unknown>> => {
+export const approveDoi = (identifier: string): Cypress.Chainable<Cypress.Response<unknown>> => {
+  const accessToken = Cypress.env('accessToken');
   const headers = {
     'Authorization': `Bearer ${accessToken}`,
     'Content-Type': 'application/json',

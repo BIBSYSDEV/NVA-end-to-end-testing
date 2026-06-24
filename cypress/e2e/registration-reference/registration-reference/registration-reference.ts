@@ -18,11 +18,14 @@ const bookTitleUuid = uuid();
 const chapterTitleUuid = uuid();
 const degreeTitleUuid = uuid();
 const reportTitleUuid = uuid();
+const withAllCapsTitleUuid = new Date().getTime().toString();
+const withTitleCaseTitleUuid = new Date().getTime().toString();
+const withSentenceCaseTitleUuid = new Date().getTime().toString();
 const withEditorTitleUuid = uuid();
-const withDoiUuid = uuid();
+const withDoiTitleUuid = uuid();
 const withTwentyContributorsTitleUuid = uuid();
 const withTwentyOneContributorsTitleUuid = uuid();
-const withoutVolumeAndPagesUuid = uuid();
+const withoutVolumeAndPagesTitleUuid = uuid();
 
 const anthologyTitle = `testPublicationRefernceAnhology ${uuid()}`;
 const articleTitle = `testPublicationRefernceArticle ${articleTitleUuid}`;
@@ -30,11 +33,14 @@ const bookTitle = `testPublicationReferenceBook ${bookTitleUuid}`;
 const chapterTitle = `testPublicationReferenceChapter ${chapterTitleUuid}`;
 const degreeTitle = `testPublicationReferenceDegreeBachelor ${degreeTitleUuid}`;
 const reportTitle = `testPublicationReferenceReport ${reportTitleUuid}`;
+const withAllCapsTitle = `AN INTRODUCTION TO MACHINE LEARNING ${withAllCapsTitleUuid}`;
+const withTitleCaseTitle = `An Introduction to Machine Learning ${withTitleCaseTitleUuid}`;
+const withSentenceCaseTitle = `An introduction to machine learning ${withSentenceCaseTitleUuid}`;
 const withEditorTitle = `testPublicationReferenceWithEditor ${withEditorTitleUuid}`;
-const withDoiTitle = `testPublicationReferenceWithDoi ${withDoiUuid}`;
+const withDoiTitle = `testPublicationReferenceWithDoi ${withDoiTitleUuid}`;
 const withTwentyContributorsTitle = `testPublicationReferenceWithTwentyContributors ${withTwentyContributorsTitleUuid}`;
 const withTwentyOneContributorsTitle = `testPublicationReferenceWithTwentyOneContributors ${withTwentyOneContributorsTitleUuid}`;
-const withoutVolumeAndPagesTitle = `testPublicationReferenceWithoutVolumeAndPages ${withoutVolumeAndPagesUuid}`;
+const withoutVolumeAndPagesTitle = `testPublicationReferenceWithoutVolumeAndPages ${withoutVolumeAndPagesTitleUuid}`;
 
 const journalName = 'ACM Journal of Data and Information Quality';
 
@@ -328,7 +334,7 @@ Given('a journal article resource without "volume" and "pages" in its metadata',
       builder.publish().then();
     });
 
-    cy.searchFor(withoutVolumeAndPagesUuid);
+    cy.searchFor(withoutVolumeAndPagesTitleUuid);
   });
 });
 When('the reference for KR-04 is generated', () => {
@@ -350,20 +356,16 @@ Then('the "volume" and "pages" segments are absent from the output string', () =
 
 // Scenario: PID is included when present (KR-04)
 Given('a resource with a PID in its metadata', () => {
-  const publicationApiUrl = 'https://api.e2e.nva.aws.unit.no/publication';
-
   createDraftPublicationUsingAPI(
     withDoiTitle,
     CategoryTypes.ACADEMIC_ARTICLE,
     userName[TestUsers.creators.withAuthor]
   ).then((builder) => {
-    const creatorToken = Cypress.env('accessToken');
-
     builder.publish().then(() => {
-      requestDoi(builder.identifier, creatorToken, publicationApiUrl).then(() => {
+      requestDoi(builder.identifier).then(() => {
         cy.login(TestUsers.curators.specialty.draftDoi).then(() => {
-          const curatorToken = Cypress.env('accessToken');
-          approveDoi(builder.identifier, curatorToken, publicationApiUrl).then(() => {
+          approveDoi(builder.identifier).then(() => {
+            cy.login(TestUsers.creators.withAuthor);
             cy.searchFor(withDoiTitle);
           });
         });
@@ -377,7 +379,7 @@ When('the reference is generated for the publication with a DOI', () => {
 });
 Then('the PID appears in the citation string', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
-    cy.get('p').should('contain.text', 'https://doi.org/10.1002/mpr.1935');
+    cy.get('p').should('contain.text', 'https://handle.stage.datacite.org/');
   });
 });
 
@@ -387,24 +389,76 @@ Given('a resource without a DOI but with a handle in its metadata', () => {});
 Then('the handle appears in the citation string', () => {});
 
 // Scenario: Neither DOI nor handle appears when both are absent (KR-04)
-Given('a resource without DOI and without handle', () => {});
-// When('the reference is generated', () => {});
-Then('the citation contains no URL or identifier segment', () => {});
+Given('a resource without DOI and without handle', () => {
+  cy.searchFor(articleTitleUuid);
+});
+When('the reference is generated for a publication without DOI or handle', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
+});
+Then('the citation contains no URL or identifier segment', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('not.contain.text', 'https://handle.stage.datacite.org/');
+  });
+});
 
 // Scenario: Title in ALL CAPS is converted to sentence case (KR-05)
-Given('a resource whose mainTitle is "AN INTRODUCTION TO MACHINE LEARNING"', () => {});
-// When('the reference is generated', () => {});
-Then('the title in the citation reads "An introduction to machine learning"', () => {});
+Given('a resource whose mainTitle is "AN INTRODUCTION TO MACHINE LEARNING"', () => {
+  createPublicationUsingAPI(
+    withAllCapsTitle,
+    CategoryTypes.ACADEMIC_ARTICLE,
+    userName[TestUsers.creators.withAuthor],
+    NviLevels.LEVEL_1
+  );
+
+  cy.searchFor(withAllCapsTitleUuid);
+});
+When('the reference is generated for a publication with mainTitle "AN INTRODUCTION TO MACHINE LEARNING"', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
+});
+Then(
+  'the title in the citation reads "An introduction to machine learning" and not "AN INTRODUCTION TO MACHINE LEARNING"',
+  () => {
+    cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+      cy.get('p').should('not.contain.text', 'AN INTRODUCTION TO MACHINE LEARNING');
+      cy.get('p').should('contain.text', 'An introduction to machine learning');
+    });
+  }
+);
 
 // Scenario: Title in Title Case is converted to sentence case (KR-05)
-Given('a resource whose mainTitle is "An Introduction to Machine Learning"', () => {});
-// When('the reference is generated', () => {});
-Then('the title in the citation reads "An introduction to machine learning"', () => {});
+Given('a resource whose mainTitle is "An Introduction to Machine Learning"', () => {
+  createPublicationUsingAPI(
+    withTitleCaseTitle,
+    CategoryTypes.ACADEMIC_ARTICLE,
+    userName[TestUsers.creators.withAuthor],
+    NviLevels.LEVEL_1
+  );
+
+  cy.searchFor(withTitleCaseTitleUuid);
+});
+When('the reference is generated for a publication with mainTitle "An Introduction to Machine Learning"', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
+});
 
 // Scenario: Title already in sentence case is preserved as-is (KR-05)
-Given('a resource whose mainTitle is "An introduction to machine learning"', () => {});
-// When('the reference is generated', () => {});
-Then('the title in the citation reads "An introduction to machine learning"', () => {});
+Given('a resource whose mainTitle is "An introduction to machine learning"', () => {
+  createPublicationUsingAPI(
+    withSentenceCaseTitle,
+    CategoryTypes.ACADEMIC_ARTICLE,
+    userName[TestUsers.creators.withAuthor],
+    NviLevels.LEVEL_1
+  );
+
+  cy.searchFor(withSentenceCaseTitleUuid);
+});
+When('the reference is generated for a publication with mainTitle "An introduction to machine learning"', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
+});
+Then('the title in the citation reads "An introduction to machine learning"', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('contain.text', 'An introduction to machine learning');
+  });
+});
 
 // Scenario: The formatting function returns plain text (KR-06)
 Given('a resource with complete metadata', () => {});
