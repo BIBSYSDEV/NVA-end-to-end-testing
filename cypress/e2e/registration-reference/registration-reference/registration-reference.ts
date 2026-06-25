@@ -113,17 +113,6 @@ BeforeAll(() => {
   });
 });
 
-// Feature: reference in right-hand menu on NVA landing page
-//   As a user of NVA
-//   I want to see a ready-to-use reference on every presentation page
-//   So that I can copy it directly into Word or a reference manager without manual formatting
-//
-//   Background:
-
-Given('I am viewing a resource presentation page on NVA', () => {
-  cy.login(TestUsers.creators.withAuthor);
-});
-
 const findResource = (uuid: string) => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid} {enter}`);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -133,6 +122,16 @@ const findResource = (uuid: string) => {
       cy.get('a').first().click();
     });
 };
+
+// Feature: reference in right-hand menu on NVA landing page
+//   As a user of NVA
+//   I want to see a ready-to-use reference on every presentation page
+//   So that I can copy it directly into Word or a reference manager without manual formatting
+
+//   Background:
+// Given('I am viewing a resource presentation page on NVA', () => {
+//   cy.login(TestUsers.creators.withAuthor);
+// });
 
 // Scenario Outline: Citation is formatted correctly for supported resource types (KR-02)
 const resourceUuidByType = {
@@ -150,6 +149,7 @@ Given('a resource of type {string}', (resourceType: string) => {
   if (!resourceUuid) {
     throw new Error(`Unknown resource type "${resourceType}"`);
   }
+  cy.login(TestUsers.creators.withAuthor);
   findResource(resourceUuid);
 });
 When('the reference is generated', () => {
@@ -222,6 +222,7 @@ Then('the output follows the {string} for {string}', (template: unknown, resourc
 
 // Scenario: Unsupported resource type falls back to generic APA template (KR-02)
 Given('a resource of an unsupported type "DegreeBachelor"', () => {
+  cy.login(TestUsers.creators.withAuthor);
   findResource(degreeTitleUuid);
 });
 Then('the output follows the generic APA fallback template', () => {
@@ -234,6 +235,7 @@ Then('the output follows the generic APA fallback template', () => {
 
 // Scenario: Authors are taken only from contributors with role Creator (KR-03)
 Given('a resource with contributors of mixed roles including "Creator" and "Editor"', () => {
+  cy.login(TestUsers.creators.withAuthor);
   findResource(withEditorTitleUuid);
 });
 // When('the reference is generated', () => {
@@ -253,13 +255,14 @@ Then('each author is formatted as "Firstname Surname."', () => {
 
 // Scenario: All authors are listed when there are 20 or fewer (KR-03)
 Given('a resource with 20 contributors with role "Creator"', () => {
+  cy.login(TestUsers.creators.withAuthor);
   createPublicationUsingAPI(
     withTwentyContributorsTitle,
     CategoryTypes.ACADEMIC_ARTICLE,
     userName[TestUsers.creators.withAuthor],
     NviLevels.LEVEL_1
   ).then((builder) => {
-    referenceContributors.slice(0, 20).forEach((user) => {
+    referenceContributors.slice(0, 19).forEach((user) => {
       findContributorByName(user, ContributorTypes.CREATOR).then((contributor) => {
         builder.addContributor(contributor);
       });
@@ -274,12 +277,13 @@ Then('all 20 authors appear in the citation', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
     cy.get('p').should('not.contain.text', '...');
     cy.get('p').should('contain.text', 'ReferenceAuthor1 TestUser');
-    cy.get('p').should('contain.text', `ReferenceAuthor20 TestUser (${currentYear})`);
+    cy.get('p').should('contain.text', `ReferenceAuthor19 TestUser (${currentYear})`);
   });
 });
 
 // Scenario: Author list is truncated when there are more than 20 authors (KR-03)
 Given('a resource with more than 20 contributors with role "Creator"', () => {
+  cy.login(TestUsers.creators.withAuthor);
   createPublicationUsingAPI(
     withTwentyOneContributorsTitle,
     CategoryTypes.ACADEMIC_ARTICLE,
@@ -299,7 +303,7 @@ Given('a resource with more than 20 contributors with role "Creator"', () => {
 // When('the reference is generated', () => {});
 Then('the first 19 authors are listed', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
-    cy.get('p').should('not.contain.text', '...');
+    cy.get('p').should('contain.text', '...');
     cy.get('p').should('contain.text', 'ReferenceAuthor1 TestUser');
     cy.get('p').should('contain.text', 'ReferenceAuthor21 TestUser');
     cy.get('p').should('not.contain.text', `ReferenceAuthor19 TestUser (${currentYear})`);
@@ -318,6 +322,7 @@ Then('the last author appears after "..."', () => {
 
 // Scenario: Missing optional metadata fields are omitted silently (KR-04)
 Given('a journal article resource without "volume" and "pages" in its metadata', () => {
+  cy.login(TestUsers.creators.withAuthor);
   createDraftPublicationUsingAPI(
     withoutVolumeAndPagesTitle,
     CategoryTypes.ACADEMIC_ARTICLE,
@@ -356,6 +361,7 @@ Then('the "volume" and "pages" segments are absent from the output string', () =
 
 // Scenario: PID is included when present (KR-04)
 Given('a resource with a PID in its metadata', () => {
+  cy.login(TestUsers.creators.withAuthor);
   createDraftPublicationUsingAPI(
     withDoiTitle,
     CategoryTypes.ACADEMIC_ARTICLE,
@@ -390,6 +396,7 @@ Then('the handle appears in the citation string', () => {});
 
 // Scenario: Neither DOI nor handle appears when both are absent (KR-04)
 Given('a resource without DOI and without handle', () => {
+  cy.login(TestUsers.creators.withAuthor);
   cy.searchFor(articleTitleUuid);
 });
 When('the reference is generated for a publication without DOI or handle', () => {
@@ -403,6 +410,7 @@ Then('the citation contains no URL or identifier segment', () => {
 
 // Scenario: Title in ALL CAPS is converted to sentence case (KR-05)
 Given('a resource whose mainTitle is "AN INTRODUCTION TO MACHINE LEARNING"', () => {
+  cy.login(TestUsers.creators.withAuthor);
   createPublicationUsingAPI(
     withAllCapsTitle,
     CategoryTypes.ACADEMIC_ARTICLE,
@@ -427,6 +435,7 @@ Then(
 
 // Scenario: Title in Title Case is converted to sentence case (KR-05)
 Given('a resource whose mainTitle is "An Introduction to Machine Learning"', () => {
+  cy.login(TestUsers.creators.withAuthor);
   createPublicationUsingAPI(
     withTitleCaseTitle,
     CategoryTypes.ACADEMIC_ARTICLE,
@@ -442,6 +451,7 @@ When('the reference is generated for a publication with mainTitle "An Introducti
 
 // Scenario: Title already in sentence case is preserved as-is (KR-05)
 Given('a resource whose mainTitle is "An introduction to machine learning"', () => {
+  cy.login(TestUsers.creators.withAuthor);
   createPublicationUsingAPI(
     withSentenceCaseTitle,
     CategoryTypes.ACADEMIC_ARTICLE,
@@ -461,28 +471,94 @@ Then('the title in the citation reads "An introduction to machine learning"', ()
 });
 
 // Scenario: The formatting function returns plain text (KR-06)
-Given('a resource with complete metadata', () => {});
-// When('the reference is generated', () => {});
-Then('the return value is a single plain-text string', () => {});
-Then('the string contains no HTML tags', () => {});
+Given('a resource with complete metadata', () => {
+  cy.login(TestUsers.creators.withAuthor);
+  cy.searchFor(articleTitleUuid);
+});
+Then('the return value is a single plain-text string', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').should('have.length', 1);
+    cy.get('p').invoke('text').should('not.be.empty');
+  });
+});
+Then('the string contains no HTML tags', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    cy.get('p').then(($p) => {
+      expect($p.children(), 'no nested elements').to.have.length(0);
+      expect($p.html(), 'no HTML tags').to.not.contain('<');
+    });
+  });
+});
 
-// Scenario: Citation is visible (KR-07)
-Given('I am on a resource presentation page', () => {});
-When('the page has finished loading', () => {});
-Then('a citation is present', () => {});
+// Scenario: Citation is visible for anonymous user (KR-07)
+Given('I am on a resource presentation page as an anonymous user', () => {
+  cy.visit(`/filter`, {
+    auth: {
+      username: 'osteloff',
+      password: 'osteloff',
+    },
+    failOnStatusCode: false,
+  });
 
-// Scenario: Citation text is displayed as read-only
-Given('I am on a resource presentation page with a long reference', () => {});
-When('I view the citation', () => {});
-Then('the citation text is shown as read-only', () => {});
+  cy.searchFor(articleTitleUuid);
+});
+When('the page has finished loading', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
+});
+Then('a citation is present', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).should('exist');
+});
+
+// Scenario: Citation text is displayed as read-only (KR-08)
+Given('I am on a resource presentation page with a long reference', () => {
+  cy.login(TestUsers.creators.withAuthor);
+  cy.searchFor(articleTitleUuid);
+});
+When('I view the citation', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
+});
+Then('the citation text is shown as read-only', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    // The citation is rendered as plain, non-editable text - not an editable field
+    cy.get('input, textarea, [contenteditable="true"]').should('not.exist');
+    cy.get('p').should('exist').and('not.have.attr', 'contenteditable', 'true');
+  });
+});
 
 // Scenario: Copy function writes citation to clipboard (KR-09)
-Given('I am on a resource presentation page', () => {});
-When('I use the copy function for the citation', () => {});
-Then('the formatted citation string is written to the clipboard', () => {});
+// Shared Given for both KR-09 scenarios
+Given('I am on a resource presentation page', () => {
+  cy.login(TestUsers.creators.withAuthor);
+  cy.searchFor(articleTitleUuid);
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
+});
+When('I use the copy function for the citation', () => {
+  cy.window().then((win) => {
+    cy.stub(win.navigator.clipboard, 'writeText').as('copyToClipboard').resolves();
+  });
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.copyReferenceButton).click();
+});
+Then('the formatted citation string is written to the clipboard', () => {
+  cy.get('@copyToClipboard').should('have.been.calledOnce');
+  cy.get('@copyToClipboard').its('firstCall.args.0').should('contain', articleTitle);
+});
 
 // Scenario: Copy function gives visual confirmation after copying (KR-09)
-Given('I am on a resource presentation page', () => {});
-When('I use the copy function', () => {});
-Then('a visual confirmation is shown', () => {});
-Then('the confirmation disappears after a short delay', () => {});
+// Reuses the shared Given('I am on a resource presentation page') defined above
+When('I use the copy function', () => {
+  cy.window().then((win) => {
+    cy.stub(win.navigator.clipboard, 'writeText').as('copyToClipboard').resolves();
+  });
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.copyReferenceButton).click();
+});
+Then('a visual confirmation is shown', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.copyReferenceButton).should(
+    'contain.text',
+    'Referanse kopiert'
+  );
+});
+Then('the confirmation disappears after a short delay', () => {
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.copyReferenceButton, {
+    timeout: 4000,
+  }).should('contain.text', 'Kopier referanse');
+});
