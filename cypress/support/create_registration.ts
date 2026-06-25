@@ -843,6 +843,11 @@ export const createProject = (name?: string, id?: string): ProjectType => {
       };
 };
 
+/**
+ * Creates a DOI request ticket for a published registration via the API.
+ * @param identifier - The registration's identifier.
+ * @param message - Optional message to attach to the request.
+ */
 export const requestDoi = (identifier: string, message?: string): Cypress.Chainable<Cypress.Response<unknown>> => {
   const accessToken = Cypress.env('accessToken');
 
@@ -863,6 +868,11 @@ export const requestDoi = (identifier: string, message?: string): Cypress.Chaina
   });
 };
 
+/**
+ * Approves a registration's most recent DOI request by completing its ticket.
+ * Looks up the latest DoiRequest ticket and throws if none exists.
+ * @param identifier - The registration's identifier.
+ */
 export const approveDoi = (identifier: string): Cypress.Chainable<Cypress.Response<unknown>> => {
   const accessToken = Cypress.env('accessToken');
   const headers = {
