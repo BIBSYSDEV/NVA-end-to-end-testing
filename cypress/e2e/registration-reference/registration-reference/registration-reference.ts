@@ -83,7 +83,6 @@ const referenceContributors: string[] = [
   'ReferenceAuthor21 TestUser',
 ];
 
-// Returns the reference text box; the long data-testid path lives here only.
 const getReferenceBoxDataTestId = () =>
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox);
 
