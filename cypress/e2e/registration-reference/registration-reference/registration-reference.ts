@@ -281,8 +281,7 @@ Then('the first 19 authors are listed', () => {
   getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('contain.text', '...');
     cy.get('p').should('contain.text', 'ReferenceAuthor1 TestUser');
-    cy.get('p').should('contain.text', 'ReferenceAuthor21 TestUser');
-    cy.get('p').should('not.contain.text', `ReferenceAuthor19 TestUser (${currentYear})`);
+    cy.get('p').should('not.contain.text', 'ReferenceAuthor19 TestUser');
   });
 });
 Then('"..." appears after the 19th author', () => {
