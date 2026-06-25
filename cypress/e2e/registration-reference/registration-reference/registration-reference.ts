@@ -21,8 +21,7 @@ const reportTitleUuid = uuid();
 // Numeric-only suffixes on purpose: the sentence-case logic decides whether to
 // down-case a title based on the percentage of all-caps characters. A regular
 // uuid() introduces lowercase letters that "poison" that ratio, so we use a
-// digits-only timestamp instead. Derive all three from one base so they can't
-// collide on the same millisecond (they're also used as unique search terms).
+// digits-only timestamp instead.
 const sentenceCaseBaseUuid = new Date().getTime();
 const withAllCapsTitleUuid = `${sentenceCaseBaseUuid}1`;
 const withTitleCaseTitleUuid = `${sentenceCaseBaseUuid}2`;
@@ -158,6 +157,9 @@ Given('a resource of type {string}', (resourceType: string) => {
   cy.login(TestUsers.creators.withAuthor);
   findResource(resourceUuid);
 });
+// Shared action step: every scenario reaches the reference the same way (open the
+// details tab). The specific resource/title is set up in each scenario's Given, so
+// this single When is reused across all of them.
 When('the reference is generated', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
 });
@@ -348,9 +350,6 @@ Given('a journal article resource without "volume" and "pages" in its metadata',
     cy.searchFor(withoutVolumeAndPagesTitleUuid);
   });
 });
-When('the reference for KR-04 is generated', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
-});
 Then('the citation is produced without error messages', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
     cy.get('p').should('contain.text', withoutVolumeAndPagesTitle);
@@ -386,9 +385,6 @@ Given('a resource with a PID in its metadata', () => {
   });
 });
 
-When('the reference is generated for the publication with a DOI', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
-});
 Then('the PID appears in the citation string', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
     cy.get('p').should('contain.text', 'https://handle.stage.datacite.org/');
@@ -399,9 +395,6 @@ Then('the PID appears in the citation string', () => {
 Given('a resource without DOI and without handle', () => {
   cy.login(TestUsers.creators.withAuthor);
   cy.searchFor(articleTitleUuid);
-});
-When('the reference is generated for a publication without DOI or handle', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
 });
 Then('the citation contains no URL or identifier segment', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
@@ -420,9 +413,6 @@ Given('a resource whose mainTitle is "AN INTRODUCTION TO MACHINE LEARNING"', () 
   );
 
   cy.searchFor(withAllCapsTitleUuid);
-});
-When('the reference is generated for a publication with mainTitle "AN INTRODUCTION TO MACHINE LEARNING"', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
 });
 Then(
   'the title in the citation reads "An introduction to machine learning" and not "AN INTRODUCTION TO MACHINE LEARNING"',
@@ -446,9 +436,6 @@ Given('a resource whose mainTitle is "An Introduction to Machine Learning"', () 
 
   cy.searchFor(withTitleCaseTitleUuid);
 });
-When('the reference is generated for a publication with mainTitle "An Introduction to Machine Learning"', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
-});
 
 // Scenario: Title already in sentence case is preserved as-is (KR-05)
 Given('a resource whose mainTitle is "An introduction to machine learning"', () => {
@@ -461,9 +448,6 @@ Given('a resource whose mainTitle is "An introduction to machine learning"', () 
   );
 
   cy.searchFor(withSentenceCaseTitleUuid);
-});
-When('the reference is generated for a publication with mainTitle "An introduction to machine learning"', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
 });
 Then('the title in the citation reads "An introduction to machine learning"', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
@@ -503,9 +487,6 @@ Given('I am on a resource presentation page as an anonymous user', () => {
 
   cy.searchFor(articleTitleUuid);
 });
-When('the page has finished loading', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
-});
 Then('a citation is present', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).should('exist');
 });
@@ -515,9 +496,6 @@ Given('I am on a resource presentation page with a long reference', () => {
   cy.login(TestUsers.creators.withAuthor);
   cy.searchFor(articleTitleUuid);
 });
-When('I view the citation', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
-});
 Then('the citation text is shown as read-only', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
     // The citation is rendered as plain, non-editable text - not an editable field
@@ -526,14 +504,14 @@ Then('the citation text is shown as read-only', () => {
   });
 });
 
-// Scenario: Copy function writes citation to clipboard (KR-09)
-// Shared Given for both KR-09 scenarios
+// Scenarios: Copy function writes citation to clipboard / gives visual confirmation (KR-09)
+// The Given and When below are shared by both KR-09 scenarios.
 Given('I am on a resource presentation page', () => {
   cy.login(TestUsers.creators.withAuthor);
   cy.searchFor(articleTitleUuid);
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
 });
-When('I use the copy function for the citation', () => {
+When('I use the copy function', () => {
   cy.window().then((win) => {
     cy.stub(win.navigator.clipboard, 'writeText').as('copyToClipboard').resolves();
   });
@@ -542,15 +520,6 @@ When('I use the copy function for the citation', () => {
 Then('the formatted citation string is written to the clipboard', () => {
   cy.get('@copyToClipboard').should('have.been.calledOnce');
   cy.get('@copyToClipboard').its('firstCall.args.0').should('contain', articleTitle);
-});
-
-// Scenario: Copy function gives visual confirmation after copying (KR-09)
-// Reuses the shared Given('I am on a resource presentation page') defined above
-When('I use the copy function', () => {
-  cy.window().then((win) => {
-    cy.stub(win.navigator.clipboard, 'writeText').as('copyToClipboard').resolves();
-  });
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.copyReferenceButton).click();
 });
 Then('a visual confirmation is shown', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.copyReferenceButton).should(

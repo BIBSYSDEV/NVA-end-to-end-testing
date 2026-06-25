@@ -48,39 +48,39 @@ Feature: reference in right-hand menu on NVA landing page
   @test
   Scenario: Missing optional metadata fields are omitted silently (KR-04)
     Given a journal article resource without "volume" and "pages" in its metadata
-    When the reference for KR-04 is generated
+    When the reference is generated
     Then the citation is produced without error messages
     And the "volume" and "pages" segments are absent from the output string
 
   @test
   Scenario: PID is included when present (KR-04)
     Given a resource with a PID in its metadata
-    When the reference is generated for the publication with a DOI
+    When the reference is generated
     Then the PID appears in the citation string
 
   @test
   Scenario: Neither DOI nor handle appears when both are absent (KR-04)
     Given a resource without DOI and without handle
-    When the reference is generated for a publication without DOI or handle
+    When the reference is generated
     Then the citation contains no URL or identifier segment
 
   # ─── Sentence case on title (KR-05) ──────────────────────────────────────────
   @test
   Scenario: Title in ALL CAPS is converted to sentence case (KR-05)
     Given a resource whose mainTitle is "AN INTRODUCTION TO MACHINE LEARNING"
-    When the reference is generated for a publication with mainTitle "AN INTRODUCTION TO MACHINE LEARNING"
+    When the reference is generated
     Then the title in the citation reads "An introduction to machine learning" and not "AN INTRODUCTION TO MACHINE LEARNING"
 
   @test
   Scenario: Title in Title Case is converted to sentence case (KR-05)
     Given a resource whose mainTitle is "An Introduction to Machine Learning"
-    When the reference is generated for a publication with mainTitle "An Introduction to Machine Learning"
+    When the reference is generated
     Then the title in the citation reads "An introduction to machine learning"
 
   @test
   Scenario: Title already in sentence case is preserved as-is (KR-05)
     Given a resource whose mainTitle is "An introduction to machine learning"
-    When the reference is generated for a publication with mainTitle "An introduction to machine learning"
+    When the reference is generated
     Then the title in the citation reads "An introduction to machine learning"
 
   # ─── Output format (KR-06) ───────────────────────────────────────────────────
@@ -95,21 +95,21 @@ Feature: reference in right-hand menu on NVA landing page
   @test
   Scenario: Citation is visible for anonymous user (KR-07)
     Given I am on a resource presentation page as an anonymous user
-    When the page has finished loading
+    When the reference is generated
     Then a citation is present
 
   # ─── Read-only preview box (KR-08) ───────────────────────────────────────────
   @test
   Scenario: Citation text is displayed as read-only (KR-08)
     Given I am on a resource presentation page with a long reference
-    When I view the citation
+    When the reference is generated
     Then the citation text is shown as read-only
 
   # ─── Copy button (KR-09) ─────────────────────────────────────────────────────
   @test
   Scenario: Copy function writes citation to clipboard (KR-09)
     Given I am on a resource presentation page
-    When I use the copy function for the citation
+    When I use the copy function
     Then the formatted citation string is written to the clipboard
 
   @test
