@@ -49,15 +49,13 @@ const withoutVolumeAndPagesTitle = `testPublicationReferenceWithoutVolumeAndPage
 
 const journalName = 'ACM Journal of Data and Information Quality';
 
-// Expected APA-rendered citation fragments. The underlying fixture data lives in
-// support/reference.ts; publisher/institution names are resolved from their channel
-// URIs by the channel registry, so they are asserted here as the resolved literals.
+// Expected APA-rendered citation fragments origin reference.
 const expectedCitation = {
   volumeIssue: '15(3),', // reference.ts ArticleReference: volume '15', issue '3'
   pages: '10–20', // reference.ts ArticleReference: pages begin 10, end 20 (en-dash)
   chapterPages: '(pp. 1–20)',
-  publisher: 'Springer Nature', // resolved from PUBLISHER[nviLevel] channel URI
-  institution: 'SINTEF akademisk forlag', // resolved from the report's publisher channel URI
+  publisher: 'Springer Nature', // from PUBLISHER[nviLevel] channel URI
+  institution: 'SINTEF akademisk forlag', // from publisher channel URI
   reportNumber: '(Report No. 123)', // reference.ts ReportReference: seriesNumber '123'
 } as const;
 
@@ -84,6 +82,10 @@ const referenceContributors: string[] = [
   'ReferenceAuthor20 TestUser',
   'ReferenceAuthor21 TestUser',
 ];
+
+// Returns the reference text box; the long data-testid path lives here only.
+const getReferenceBoxDataTestId = () =>
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox);
 
 BeforeAll(() => {
   cy.login(TestUsers.creators.withAuthor).then(() => {
@@ -129,9 +131,6 @@ BeforeAll(() => {
     });
   });
 });
-
-const getReferenceBoxDataTestId = () =>
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox);
 
 // Scenario Outline: Citation is formatted correctly for supported resource types (KR-02)
 const resourcesByType = {
