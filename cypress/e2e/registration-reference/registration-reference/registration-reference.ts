@@ -49,6 +49,18 @@ const withoutVolumeAndPagesTitle = `testPublicationReferenceWithoutVolumeAndPage
 
 const journalName = 'ACM Journal of Data and Information Quality';
 
+// Expected APA-rendered citation fragments. The underlying fixture data lives in
+// support/reference.ts; publisher/institution names are resolved from their channel
+// URIs by the channel registry, so they are asserted here as the resolved literals.
+const expectedCitation = {
+  volumeIssue: '15(3),', // reference.ts ArticleReference: volume '15', issue '3'
+  pages: '10–20', // reference.ts ArticleReference: pages begin 10, end 20 (en-dash)
+  chapterPages: '(pp. 1–20)',
+  publisher: 'Springer Nature', // resolved from PUBLISHER[nviLevel] channel URI
+  institution: 'SINTEF akademisk forlag', // resolved from the report's publisher channel URI
+  reportNumber: '(Report No. 123)', // reference.ts ReportReference: seriesNumber '123'
+} as const;
+
 const referenceContributors: string[] = [
   'ReferenceAuthor1 TestUser',
   'ReferenceAuthor2 TestUser',
@@ -122,45 +134,31 @@ const getReferenceBoxDataTestId = () =>
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox);
 
 // Scenario Outline: Citation is formatted correctly for supported resource types (KR-02)
-const resourceUuidByType = {
-  JournalArticle: articleTitleUuid,
-  Book: bookTitleUuid,
-  Report: reportTitleUuid,
-  BookChapter: chapterTitleUuid,
-  DegreeBachelor: degreeTitleUuid,
+const resourcesByType = {
+  JournalArticle: { uuid: articleTitleUuid, title: articleTitle },
+  Book: { uuid: bookTitleUuid, title: bookTitle },
+  Report: { uuid: reportTitleUuid, title: reportTitle },
+  BookChapter: { uuid: chapterTitleUuid, title: chapterTitle },
+  DegreeBachelor: { uuid: degreeTitleUuid, title: degreeTitle },
 } as const;
 
-type ResourceType = keyof typeof resourceUuidByType;
+type ResourceType = keyof typeof resourcesByType;
 
 Given('a resource of type {string}', (resourceType: string) => {
-  const resourceUuid = resourceUuidByType[resourceType as ResourceType];
-  if (!resourceUuid) {
+  const resource = resourcesByType[resourceType as ResourceType];
+  if (!resource) {
     throw new Error(`Unknown resource type "${resourceType}"`);
   }
   cy.login(TestUsers.creators.withAuthor);
-  cy.searchFor(resourceUuid);
+  cy.searchFor(resource.uuid);
 });
 When('the reference is generated', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
 });
-Then('the output follows the {string} for {string}', (template: unknown, resourceType) => {
-  let title = '';
-  switch (resourceType) {
-    case 'JournalArticle':
-      title = articleTitle;
-      break;
-    case 'Book':
-      title = bookTitle;
-      break;
-    case 'Report':
-      title = reportTitle;
-      break;
-    case 'BookChapter':
-      title = chapterTitle;
-      break;
-  }
+Then('the output follows the {string} for {string}', (template: string, resourceType: string) => {
+  const title = resourcesByType[resourceType as ResourceType].title;
   getReferenceBoxDataTestId().within(() => {
-    const elements = (template as string).split('; ');
+    const elements = template.split('; ');
     elements.forEach((element) => {
       switch (element) {
         case 'authors':
@@ -176,22 +174,22 @@ Then('the output follows the {string} for {string}', (template: unknown, resourc
           cy.get('p').should('contain.text', title);
           break;
         case 'volume':
-          cy.get('p').should('contain.text', '15(3),');
+          cy.get('p').should('contain.text', expectedCitation.volumeIssue);
           break;
         case 'pages':
-          cy.get('p').should('contain.text', '10–20');
+          cy.get('p').should('contain.text', expectedCitation.pages);
           break;
         case 'publisher':
-          cy.get('p').should('contain.text', 'Springer Nature');
+          cy.get('p').should('contain.text', expectedCitation.publisher);
           break;
         case 'institution':
-          cy.get('p').should('contain.text', 'SINTEF akademisk forlag');
+          cy.get('p').should('contain.text', expectedCitation.institution);
           break;
         case 'reportNumber':
-          cy.get('p').should('contain.text', '(Report No. 123)');
+          cy.get('p').should('contain.text', expectedCitation.reportNumber);
           break;
         case 'chapterPages':
-          cy.get('p').should('contain.text', '(pp. 1–20)');
+          cy.get('p').should('contain.text', expectedCitation.chapterPages);
           break;
         case 'editor':
           // The anthology's editor is rendered with the APA "(Ed.)" marker
@@ -331,8 +329,8 @@ Then('the citation is produced without error messages', () => {
 });
 Then('the "volume" and "pages" segments are absent from the output string', () => {
   getReferenceBoxDataTestId().within(() => {
-    cy.get('p').should('not.contain.text', '15(3),');
-    cy.get('p').should('not.contain.text', '10–20');
+    cy.get('p').should('not.contain.text', expectedCitation.volumeIssue);
+    cy.get('p').should('not.contain.text', expectedCitation.pages);
   });
 });
 
