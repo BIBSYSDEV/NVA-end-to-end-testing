@@ -118,16 +118,6 @@ BeforeAll(() => {
   });
 });
 
-const findResource = (uuid: string) => {
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`${uuid} {enter}`);
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.startPage.searchResultItem)
-    .first()
-    .within(() => {
-      cy.get('a').first().click();
-    });
-};
-
 // Feature: reference in right-hand menu on NVA landing page
 //   As a user of NVA
 //   I want to see a ready-to-use reference on every presentation page
@@ -155,11 +145,8 @@ Given('a resource of type {string}', (resourceType: string) => {
     throw new Error(`Unknown resource type "${resourceType}"`);
   }
   cy.login(TestUsers.creators.withAuthor);
-  findResource(resourceUuid);
+  cy.searchFor(resourceUuid);
 });
-// Shared action step: every scenario reaches the reference the same way (open the
-// details tab). The specific resource/title is set up in each scenario's Given, so
-// this single When is reused across all of them.
 When('the reference is generated', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
 });
@@ -231,7 +218,7 @@ Then('the output follows the {string} for {string}', (template: unknown, resourc
 // Scenario: Unsupported resource type falls back to generic APA template (KR-02)
 Given('a resource of an unsupported type "DegreeBachelor"', () => {
   cy.login(TestUsers.creators.withAuthor);
-  findResource(degreeTitleUuid);
+  cy.searchFor(degreeTitleUuid);
 });
 Then('the output follows the generic APA fallback template', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
@@ -244,7 +231,7 @@ Then('the output follows the generic APA fallback template', () => {
 // Scenario: Authors are taken only from contributors with role Creator (KR-03)
 Given('a resource with contributors of mixed roles including "Creator" and "Editor"', () => {
   cy.login(TestUsers.creators.withAuthor);
-  findResource(withEditorTitleUuid);
+  cy.searchFor(withEditorTitleUuid);
 });
 // When('the reference is generated', () => {
 //   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
@@ -278,7 +265,7 @@ Given('a resource with 20 contributors with role "Creator"', () => {
     builder.update();
   });
 
-  findResource(withTwentyContributorsTitleUuid);
+  cy.searchFor(withTwentyContributorsTitleUuid);
 });
 // When('the reference is generated', () => {});
 Then('all 20 authors appear in the citation', () => {
@@ -306,7 +293,7 @@ Given('a resource with more than 20 contributors with role "Creator"', () => {
     builder.update();
   });
 
-  findResource(withTwentyOneContributorsTitleUuid);
+  cy.searchFor(withTwentyOneContributorsTitleUuid);
 });
 // When('the reference is generated', () => {});
 Then('the first 19 authors are listed', () => {
@@ -505,7 +492,6 @@ Then('the citation text is shown as read-only', () => {
 });
 
 // Scenarios: Copy function writes citation to clipboard / gives visual confirmation (KR-09)
-// The Given and When below are shared by both KR-09 scenarios.
 Given('I am on a resource presentation page', () => {
   cy.login(TestUsers.creators.withAuthor);
   cy.searchFor(articleTitleUuid);
