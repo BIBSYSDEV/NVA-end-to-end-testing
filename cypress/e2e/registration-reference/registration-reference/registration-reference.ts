@@ -18,9 +18,15 @@ const bookTitleUuid = uuid();
 const chapterTitleUuid = uuid();
 const degreeTitleUuid = uuid();
 const reportTitleUuid = uuid();
-const withAllCapsTitleUuid = new Date().getTime().toString();
-const withTitleCaseTitleUuid = new Date().getTime().toString();
-const withSentenceCaseTitleUuid = new Date().getTime().toString();
+// Numeric-only suffixes on purpose: the sentence-case logic decides whether to
+// down-case a title based on the percentage of all-caps characters. A regular
+// uuid() introduces lowercase letters that "poison" that ratio, so we use a
+// digits-only timestamp instead. Derive all three from one base so they can't
+// collide on the same millisecond (they're also used as unique search terms).
+const sentenceCaseBaseUuid = new Date().getTime();
+const withAllCapsTitleUuid = `${sentenceCaseBaseUuid}1`;
+const withTitleCaseTitleUuid = `${sentenceCaseBaseUuid}2`;
+const withSentenceCaseTitleUuid = `${sentenceCaseBaseUuid}3`;
 const withEditorTitleUuid = uuid();
 const withDoiTitleUuid = uuid();
 const withTwentyContributorsTitleUuid = uuid();
@@ -57,7 +63,7 @@ const referenceContributors: string[] = [
   'ReferenceAuthor10 TestUser',
   'ReferenceAuthor11 TestUser',
   'ReferenceAuthor12 TestUser',
-  'ReferenceAuthor12 TestUser',
+  'ReferenceAuthor13 TestUser',
   'ReferenceAuthor14 TestUser',
   'ReferenceAuthor15 TestUser',
   'ReferenceAuthor16 TestUser',
@@ -267,7 +273,7 @@ Given('a resource with 20 contributors with role "Creator"', () => {
         builder.addContributor(contributor);
       });
     });
-    builder.update().then();
+    builder.update();
   });
 
   findResource(withTwentyContributorsTitleUuid);
@@ -295,7 +301,7 @@ Given('a resource with more than 20 contributors with role "Creator"', () => {
         builder.addContributor(contributor);
       });
     });
-    builder.update().then();
+    builder.update();
   });
 
   findResource(withTwentyOneContributorsTitleUuid);
@@ -336,7 +342,7 @@ Given('a journal article resource without "volume" and "pages" in its metadata',
     delete publicationInstance.pages;
 
     builder.update().then(() => {
-      builder.publish().then();
+      builder.publish();
     });
 
     cy.searchFor(withoutVolumeAndPagesTitleUuid);
@@ -388,11 +394,6 @@ Then('the PID appears in the citation string', () => {
     cy.get('p').should('contain.text', 'https://handle.stage.datacite.org/');
   });
 });
-
-// Scenario: Handle is used as fallback when DOI is absent (KR-04)
-Given('a resource without a DOI but with a handle in its metadata', () => {});
-// When('the reference is generated', () => {});
-Then('the handle appears in the citation string', () => {});
 
 // Scenario: Neither DOI nor handle appears when both are absent (KR-04)
 Given('a resource without DOI and without handle', () => {
