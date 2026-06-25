@@ -118,15 +118,8 @@ BeforeAll(() => {
   });
 });
 
-// Feature: reference in right-hand menu on NVA landing page
-//   As a user of NVA
-//   I want to see a ready-to-use reference on every presentation page
-//   So that I can copy it directly into Word or a reference manager without manual formatting
-
-//   Background:
-// Given('I am viewing a resource presentation page on NVA', () => {
-//   cy.login(TestUsers.creators.withAuthor);
-// });
+const getReferenceBoxDataTestId = () =>
+  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox);
 
 // Scenario Outline: Citation is formatted correctly for supported resource types (KR-02)
 const resourceUuidByType = {
@@ -166,7 +159,7 @@ Then('the output follows the {string} for {string}', (template: unknown, resourc
       title = chapterTitle;
       break;
   }
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     const elements = (template as string).split('; ');
     elements.forEach((element) => {
       switch (element) {
@@ -200,6 +193,10 @@ Then('the output follows the {string} for {string}', (template: unknown, resourc
         case 'chapterPages':
           cy.get('p').should('contain.text', '(pp. 1–20)');
           break;
+        case 'editor':
+          // The anthology's editor is rendered with the APA "(Ed.)" marker
+          cy.get('p').should('contain.text', '(Ed.)');
+          break;
         case 'bookTitle':
           cy.get('p').should('contain.text', anthologyTitle);
           break;
@@ -208,20 +205,13 @@ Then('the output follows the {string} for {string}', (template: unknown, resourc
   });
 });
 
-// Examples:
-//   | resourceType       |  template |
-//   | JournalArticle     |  authors; year; title; journalName; volume; pages; PID          |
-//   | Book               |  authors; year; title; PID; publisher                           |
-//   | BookChapter        |  authors; year; title; PID; pages; publisher; editor; bookTitle |
-//   | Report             |  authors; year; title; PID; institution; reportNumber           |
-
 // Scenario: Unsupported resource type falls back to generic APA template (KR-02)
 Given('a resource of an unsupported type "DegreeBachelor"', () => {
   cy.login(TestUsers.creators.withAuthor);
   cy.searchFor(degreeTitleUuid);
 });
 Then('the output follows the generic APA fallback template', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('contain.text', 'Withauthor TestUser');
     cy.get('p').should('contain.text', `(${currentYear}).`);
     cy.get('p').should('contain.text', degreeTitle);
@@ -233,17 +223,14 @@ Given('a resource with contributors of mixed roles including "Creator" and "Edit
   cy.login(TestUsers.creators.withAuthor);
   cy.searchFor(withEditorTitleUuid);
 });
-// When('the reference is generated', () => {
-//   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.detailsTab).click();
-// });
 Then('only contributors with role "Creator" appear in the author list', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('not.contain.text', '(Ed.)');
     cy.get('p').should('not.contain.text', 'Withauthor1 TestUser');
   });
 });
 Then('each author is formatted as "Firstname Surname."', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('contain.text', 'Withauthor TestUser');
   });
 });
@@ -267,9 +254,8 @@ Given('a resource with 20 contributors with role "Creator"', () => {
 
   cy.searchFor(withTwentyContributorsTitleUuid);
 });
-// When('the reference is generated', () => {});
 Then('all 20 authors appear in the citation', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('not.contain.text', '...');
     cy.get('p').should('contain.text', 'ReferenceAuthor1 TestUser');
     cy.get('p').should('contain.text', `ReferenceAuthor19 TestUser (${currentYear})`);
@@ -295,9 +281,8 @@ Given('a resource with more than 20 contributors with role "Creator"', () => {
 
   cy.searchFor(withTwentyOneContributorsTitleUuid);
 });
-// When('the reference is generated', () => {});
 Then('the first 19 authors are listed', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('contain.text', '...');
     cy.get('p').should('contain.text', 'ReferenceAuthor1 TestUser');
     cy.get('p').should('contain.text', 'ReferenceAuthor21 TestUser');
@@ -305,12 +290,12 @@ Then('the first 19 authors are listed', () => {
   });
 });
 Then('"..." appears after the 19th author', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('contain.text', 'ReferenceAuthor18 TestUser, ...');
   });
 });
 Then('the last author appears after "..."', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('contain.text', `... ReferenceAuthor21 TestUser (${currentYear})`);
   });
 });
@@ -338,14 +323,14 @@ Given('a journal article resource without "volume" and "pages" in its metadata',
   });
 });
 Then('the citation is produced without error messages', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('contain.text', withoutVolumeAndPagesTitle);
     cy.get('p').should('contain.text', `(${currentYear}).`);
     cy.get('[data-testid=snackbar-error]').should('not.exist');
   });
 });
 Then('the "volume" and "pages" segments are absent from the output string', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('not.contain.text', '15(3),');
     cy.get('p').should('not.contain.text', '10–20');
   });
@@ -373,7 +358,7 @@ Given('a resource with a PID in its metadata', () => {
 });
 
 Then('the PID appears in the citation string', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('contain.text', 'https://handle.stage.datacite.org/');
   });
 });
@@ -384,7 +369,7 @@ Given('a resource without DOI and without handle', () => {
   cy.searchFor(articleTitleUuid);
 });
 Then('the citation contains no URL or identifier segment', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('not.contain.text', 'https://handle.stage.datacite.org/');
   });
 });
@@ -404,7 +389,7 @@ Given('a resource whose mainTitle is "AN INTRODUCTION TO MACHINE LEARNING"', () 
 Then(
   'the title in the citation reads "An introduction to machine learning" and not "AN INTRODUCTION TO MACHINE LEARNING"',
   () => {
-    cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+    getReferenceBoxDataTestId().within(() => {
       cy.get('p').should('not.contain.text', 'AN INTRODUCTION TO MACHINE LEARNING');
       cy.get('p').should('contain.text', 'An introduction to machine learning');
     });
@@ -437,7 +422,7 @@ Given('a resource whose mainTitle is "An introduction to machine learning"', () 
   cy.searchFor(withSentenceCaseTitleUuid);
 });
 Then('the title in the citation reads "An introduction to machine learning"', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('contain.text', 'An introduction to machine learning');
   });
 });
@@ -448,13 +433,13 @@ Given('a resource with complete metadata', () => {
   cy.searchFor(articleTitleUuid);
 });
 Then('the return value is a single plain-text string', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').should('have.length', 1);
     cy.get('p').invoke('text').should('not.be.empty');
   });
 });
 Then('the string contains no HTML tags', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
+  getReferenceBoxDataTestId().within(() => {
     cy.get('p').then(($p) => {
       expect($p.children(), 'no nested elements').to.have.length(0);
       expect($p.html(), 'no HTML tags').to.not.contain('<');
@@ -466,8 +451,8 @@ Then('the string contains no HTML tags', () => {
 Given('I am on a resource presentation page as an anonymous user', () => {
   cy.visit(`/filter`, {
     auth: {
-      username: 'osteloff',
-      password: 'osteloff',
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
     },
     failOnStatusCode: false,
   });
@@ -475,7 +460,7 @@ Given('I am on a resource presentation page as an anonymous user', () => {
   cy.searchFor(articleTitleUuid);
 });
 Then('a citation is present', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).should('exist');
+  getReferenceBoxDataTestId().should('exist');
 });
 
 // Scenario: Citation text is displayed as read-only (KR-08)
@@ -484,8 +469,7 @@ Given('I am on a resource presentation page with a long reference', () => {
   cy.searchFor(articleTitleUuid);
 });
 Then('the citation text is shown as read-only', () => {
-  cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.referenceTextBox).within(() => {
-    // The citation is rendered as plain, non-editable text - not an editable field
+  getReferenceBoxDataTestId().within(() => {
     cy.get('input, textarea, [contenteditable="true"]').should('not.exist');
     cy.get('p').should('exist').and('not.have.attr', 'contenteditable', 'true');
   });

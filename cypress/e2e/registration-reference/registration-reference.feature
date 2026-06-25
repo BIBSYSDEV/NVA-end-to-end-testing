@@ -10,11 +10,11 @@ Feature: reference in right-hand menu on NVA landing page
     Then the output follows the "<template>" for "<resourceType>"
 
     Examples:
-      | resourceType   | template                                                               |
-      | JournalArticle | authors; year; title; journalName; volume; pages; PID                  |
-      | Book           | authors; year; title; PID; publisher                                   |
-      | BookChapter    | authors; year; title; PID; chapterPages; publisher; editor; bookTitle  |
-      | Report         | authors; year; title; PID; institution; reportNumber                   |
+      | resourceType   | template                                                       |
+      | JournalArticle | authors; year; title; journalName; volume; pages              |
+      | Book           | authors; year; title; publisher                               |
+      | BookChapter    | authors; year; title; chapterPages; publisher; editor; bookTitle |
+      | Report         | authors; year; title; institution; reportNumber               |
 
   @test
   Scenario: Unsupported resource type falls back to generic APA template (KR-02)
