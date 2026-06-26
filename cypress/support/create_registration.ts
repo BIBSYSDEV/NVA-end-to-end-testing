@@ -579,7 +579,6 @@ export const updateNVICandidate = (registrationId: string, institution: string, 
 
 export const openNviPeriod = (year: string) => {
   return new Cypress.Promise((resolve, rejectsponse) => {
-
     const nextYear = new Date().getFullYear() + 1;
     const periodPayload = {
       'type': 'NviPeriod',
@@ -589,22 +588,23 @@ export const openNviPeriod = (year: string) => {
       'reportingDate': `${nextYear}-01-01T00:00:00.000Z`,
     };
     const accessToken = Cypress.env('accessToken');
-    
-      cy.request({
-        method: 'PUT',
-        url: `${baseUrl}scientific-index/period`,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          Accept: 'application/json',
-        },
-        body: periodPayload,
-      }).then(() => {resolve(null)});
+
+    cy.request({
+      method: 'PUT',
+      url: `${baseUrl}scientific-index/period`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+      body: periodPayload,
+    }).then(() => {
+      resolve(null);
+    });
   });
 };
 
 export const closeNviPeriod = (year: string) => {
-    return new Cypress.Promise((resolve, reject) => {
-
+  return new Cypress.Promise((resolve, reject) => {
     const periodPayload = {
       'type': 'NviPeriod',
       'id': `https://api.e2e.nva.aws.unit.no/scientific-index/period/${year}`,
@@ -613,18 +613,19 @@ export const closeNviPeriod = (year: string) => {
       'reportingDate': `${year}-12-31T00:00:00Z`,
     };
     const accessToken = Cypress.env('accessToken');
-    
-      cy.request({
-        method: 'PUT',
-        url: `${baseUrl}scientific-index/period`,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          Accept: 'application/json',
-        },
-        body: periodPayload,
-      }).then(() => {resolve(null)});
-  });
 
+    cy.request({
+      method: 'PUT',
+      url: `${baseUrl}scientific-index/period`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+      body: periodPayload,
+    }).then(() => {
+      resolve(null);
+    });
+  });
 };
 
 export enum FileTypes {
@@ -842,6 +843,67 @@ export const createProject = (name?: string, id?: string): ProjectType => {
       };
 };
 
+/**
+ * Creates a DOI request ticket for a published registration via the API.
+ * @param identifier - The registration's identifier.
+ * @param message - Optional message to attach to the request.
+ */
+export const requestDoi = (identifier: string, message?: string): Cypress.Chainable<Cypress.Response<unknown>> => {
+  const accessToken = Cypress.env('accessToken');
+
+  const body = message?.trim()
+    ? { type: 'DoiRequest', messages: [{ type: 'Message', text: message.trim() }] }
+    : { type: 'DoiRequest' };
+
+  return cy.request({
+    method: 'POST',
+    url: `${publicationApiUrl}/${identifier}/ticket`,
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body,
+    failOnStatusCode: true,
+  });
+};
+
+/**
+ * Approves a registration's most recent DOI request by completing its ticket.
+ * Looks up the latest DoiRequest ticket and throws if none exists.
+ * @param identifier - The registration's identifier.
+ */
+export const approveDoi = (identifier: string): Cypress.Chainable<Cypress.Response<unknown>> => {
+  const accessToken = Cypress.env('accessToken');
+  const headers = {
+    'Authorization': `Bearer ${accessToken}`,
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
+
+  return cy
+    .request({
+      method: 'GET',
+      url: `${publicationApiUrl}/${identifier}/tickets`,
+      headers,
+      failOnStatusCode: true,
+    })
+    .then((response) => {
+      const doiTicket = response.body.tickets?.findLast((ticket) => ticket.type === 'DoiRequest');
+      if (!doiTicket) {
+        throw new Error(`No DoiRequest ticket found for registration ${identifier}`);
+      }
+
+      // ticket.id is a full URL, so PUT directly to it
+      return cy.request({
+        method: 'PUT',
+        url: doiTicket.id,
+        headers,
+        body: { status: 'Completed' },
+        failOnStatusCode: true,
+      });
+    });
+};
 export type RegistrationData = {
   associatedArtifacsts: Record<string, string>[];
   identifier?: string;
