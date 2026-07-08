@@ -25,7 +25,7 @@ export const todayDatePicker = () => {
 };
 
 Cypress.Commands.add('getDataTestId', (dataTestId, options?) => {
-  const selector = `[data-testid=${dataTestId}]`;
+  const selector = `[data-testid="${dataTestId}"]`;
   cy.get(selector, options);
 });
 
@@ -368,7 +368,16 @@ const fillInField = (field: Object) => {
       break;
     case 'select':
       cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click({ force: true }).type(' ');
-      if (
+      if (field['fieldTestId'] === dataTestId.registrationWizard.description.languageField) {
+        const languageOptionTestId = dataTestId.registrationWizard.description.languageItem(field['optionId']);
+        cy.getDataTestId(dataTestId.registrationWizard.description.showMoreLanguagesButton).should('be.visible');
+        cy.get('body').then(($body) => {
+          if ($body.find(`[data-testid="${languageOptionTestId}"]`).length === 0) {
+            cy.getDataTestId(dataTestId.registrationWizard.description.showMoreLanguagesButton).click({ force: true });
+          }
+        });
+        cy.getDataTestId(languageOptionTestId).click({ force: true });
+      } else if (
         field['fieldTestId'] === dataTestId.registrationWizard.resourceType.artisticTypeField ||
         field['fieldTestId'] === dataTestId.registrationWizard.resourceType.mediaMedium
       ) {
