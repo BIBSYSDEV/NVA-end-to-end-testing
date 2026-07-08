@@ -51,6 +51,7 @@ export const registrationFields = {
       elementType: 'search',
       landingPageTestId: dataTestId.registrationLandingPage.primaryLanguage,
       value: 'Spanish',
+      optionId: 'http://lexvo.org/id/iso639-3/spa',
     },
     'project': {
       type: 'search',

@@ -368,7 +368,18 @@ const fillInField = (field: Object) => {
       break;
     case 'select':
       cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click({ force: true }).type(' ');
-      if (
+      if (field['fieldTestId'] === dataTestId.registrationWizard.description.languageField) {
+        const languageOptionSelector = `[data-testid="${dataTestId.registrationWizard.description.languageItem(
+          field['optionId']
+        )}"]`;
+        cy.getDataTestId(dataTestId.registrationWizard.description.showMoreLanguagesButton).should('be.visible');
+        cy.get('body').then(($body) => {
+          if ($body.find(languageOptionSelector).length === 0) {
+            cy.getDataTestId(dataTestId.registrationWizard.description.showMoreLanguagesButton).click({ force: true });
+          }
+        });
+        cy.get(languageOptionSelector).click({ force: true });
+      } else if (
         field['fieldTestId'] === dataTestId.registrationWizard.resourceType.artisticTypeField ||
         field['fieldTestId'] === dataTestId.registrationWizard.resourceType.mediaMedium
       ) {
