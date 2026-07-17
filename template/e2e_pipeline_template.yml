@@ -324,6 +324,7 @@ Resources:
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
+              # Text-extraction bucket ARNs follow nva-publication-api's naming convention, as that stack exports nothing.
               - Effect: Allow
                 Action:
                   - 's3:ListBucket'
@@ -331,6 +332,8 @@ Resources:
                   - !GetAtt ArtifactStoreBucket.Arn
                   - !GetAtt E2ETestReportBucket.Arn
                   - !GetAtt ApiTestReportBucket.Arn
+                  - !Sub 'arn:aws:s3:::nva-text-extraction-seed-${AWS::AccountId}'
+                  - !Sub 'arn:aws:s3:::nva-publication-text-${AWS::AccountId}'
               - Effect: Allow
                 Action:
                   - 's3:GetObject'
@@ -341,6 +344,8 @@ Resources:
                   - !Sub '${ArtifactStoreBucket.Arn}/*'
                   - !Sub '${E2ETestReportBucket.Arn}/*'
                   - !Sub '${ApiTestReportBucket.Arn}/*'
+                  - !Sub 'arn:aws:s3:::nva-text-extraction-seed-${AWS::AccountId}/*'
+                  - !Sub 'arn:aws:s3:::nva-publication-text-${AWS::AccountId}/*'
         - PolicyName: secretsPolicy
           PolicyDocument:
             Version: '2012-10-17'
@@ -349,7 +354,7 @@ Resources:
                 Action:
                   - 'ssm:GetParameters'
                   - 'secretsmanager:GetSecretValue'
-                Resource: 
+                Resource:
                   - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:E2ECypressDashboardKey-nwJlda'
                   - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:backendClientSecret-hXGNg1'
                   - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:TestUserPassword-vGQcUm'
