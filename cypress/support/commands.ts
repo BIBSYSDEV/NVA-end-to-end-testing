@@ -5,7 +5,7 @@ import { registrationFields } from './save_registration';
 import { mockPersonFeideIdSearch, mockPersonNameSearch } from './mock_data';
 import { CategoryTypes, FileVersions, userBIBSYSSecondEditor } from './constants';
 import { createValidRegistrationWithType, FileTypes } from './create_registration';
-import { login } from './login';
+import { decodeJwtPayload, exposeAccessToken, sessionLoginSetup, validateSession, visitApp } from './login';
 
 const stage = Cypress.env('STAGE') ?? 'e2e';
 
@@ -30,25 +30,16 @@ Cypress.Commands.add('getDataTestId', (dataTestId, options?) => {
 });
 
 Cypress.Commands.add('login', (userId: string) => {
-  cy.visit(`/filter`, {
-    auth: {
-      username: 'osteloff',
-      password: 'osteloff',
-    },
-    failOnStatusCode: false,
+  cy.session(userId, () => sessionLoginSetup(userId), {
+    cacheAcrossSpecs: true,
+    validate: () => validateSession(userId),
   });
-  cy.setLocalStorage('i18nextLng', 'eng');
-  cy.setLocalStorage('previouslyLoggedIn', 'true');
-  cy.wrap(null).then(() => {
-    return login(userId).then(() => {
-      cy.setLocalStorage('beta', 'true');
-    });
-  });
+  visitApp();
+  exposeAccessToken(userId);
 });
 
 Cypress.Commands.add('getNvaUserName', () => {
-  const token = Cypress.env('accessToken');
-  const payload = JSON.parse(atob(token.split('.')[1]));
+  const payload = decodeJwtPayload(Cypress.env('accessToken'));
   return payload['custom:nvaUsername'];
 });
 
@@ -782,73 +773,65 @@ Cypress.Commands.add('createRegistrationViaApi', (title: string, category?: stri
   const publicationStatus = status ?? 'PUBLISHED';
   const publicationType = category ?? CategoryTypes.ACADEMIC_ARTICLE;
 
-  // Get authentication tokens from localStorage
-  const clientId = Cypress.env('AWS_CLIENT_ID');
-  const userId = Cypress.env('CURRENT_USER') ?? 'test-user-with-author@test.no';
-  const accessTokenKey = `CognitoIdentityServiceProvider.${clientId}.${userId}.accessToken`;
+  const accessToken = Cypress.env('accessToken');
+  if (!accessToken) {
+    throw new Error('No access token found. Please login first using cy.login()');
+  }
 
-  cy.getAllLocalStorage().then((localStorage) => {
-    const accessToken = localStorage[Cypress.config().baseUrl][accessTokenKey];
-
-    if (!accessToken) {
-      throw new Error('No access token found. Please login first using cy.login()');
-    }
-
-    // Load the fixture and override necessary fields
-    cy.fixture('save_registration.json').then((fixture) => {
-      const registrationPayload = {
-        ...fixture,
-        type: 'Publication',
-        status: publicationStatus,
-        entityDescription: {
-          ...fixture.entityDescription,
-          mainTitle: title,
-          reference: {
-            ...fixture.entityDescription.reference,
-            publicationContext: getPublicationContext(publicationType),
-            publicationInstance: {
-              ...fixture.entityDescription.reference.publicationInstance,
-              type: publicationType,
-            },
+  // Load the fixture and override necessary fields
+  cy.fixture('save_registration.json').then((fixture) => {
+    const registrationPayload = {
+      ...fixture,
+      type: 'Publication',
+      status: publicationStatus,
+      entityDescription: {
+        ...fixture.entityDescription,
+        mainTitle: title,
+        reference: {
+          ...fixture.entityDescription.reference,
+          publicationContext: getPublicationContext(publicationType),
+          publicationInstance: {
+            ...fixture.entityDescription.reference.publicationInstance,
+            type: publicationType,
           },
         },
-      };
+      },
+    };
 
-      cy.request({
-        method: 'POST',
-        url: `${Cypress.config().baseUrl}publication`,
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: registrationPayload,
-        failOnStatusCode: false,
-      }).then((response) => {
-        if (response.status === 201 || response.status === 200) {
-          cy.log(`✅ Registration created: ${title}`);
-          cy.wrap(response.body.identifier).as('registrationId');
+    cy.request({
+      method: 'POST',
+      url: `${Cypress.config().baseUrl}publication`,
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: registrationPayload,
+      failOnStatusCode: false,
+    }).then((response) => {
+      if (response.status === 201 || response.status === 200) {
+        cy.log(`✅ Registration created: ${title}`);
+        cy.wrap(response.body.identifier).as('registrationId');
 
-          // If status is PUBLISHED, publish the registration
-          if (publicationStatus === 'PUBLISHED' && response.body.identifier) {
-            cy.request({
-              method: 'PUT',
-              url: `${Cypress.config().baseUrl}publication/${response.body.identifier}/publish`,
-              headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-              },
-              failOnStatusCode: false,
-            }).then(() => {
-              cy.log(`✅ Registration published: ${title}`);
-            });
-          }
-
-          return response.body;
-        } else {
-          cy.log(`❌ Failed to create registration: ${response.status}`);
-          throw new Error(`Failed to create registration: ${response.statusText}`);
+        // If status is PUBLISHED, publish the registration
+        if (publicationStatus === 'PUBLISHED' && response.body.identifier) {
+          cy.request({
+            method: 'PUT',
+            url: `${Cypress.config().baseUrl}publication/${response.body.identifier}/publish`,
+            headers: {
+              'Authorization': `Bearer ${accessToken}`,
+              'Content-Type': 'application/json',
+            },
+            failOnStatusCode: false,
+          }).then(() => {
+            cy.log(`✅ Registration published: ${title}`);
+          });
         }
-      });
+
+        return response.body;
+      } else {
+        cy.log(`❌ Failed to create registration: ${response.status}`);
+        throw new Error(`Failed to create registration: ${response.statusText}`);
+      }
     });
   });
 });
