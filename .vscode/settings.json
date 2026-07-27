@@ -1,8 +1,0 @@
-{
-    "editor.formatOnSave": true,
-    "python.formatting.provider": "none",
-    "merge-conflict.diffViewPosition": "Beside",
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter"
-    }
-}
