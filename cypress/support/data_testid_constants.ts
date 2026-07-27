@@ -8,29 +8,9 @@ export const mainButtons = {
   'Basic data': dataTestId.header.basicDataLink,
 };
 
-export const userMenu = {
-  'Log out': dataTestId.header.logOutLink,
-};
-
 export const myRegistrationsTabs = {
   Draft: 'unpublished-button',
   Published: 'published-button',
-};
-
-export const creatorMenu = {
-  ...userMenu,
-};
-
-export const curatorMenu = {
-  ...userMenu,
-};
-
-export const instAdminMenu = {
-  ...userMenu,
-};
-
-export const adminMenu = {
-  ...userMenu,
 };
 
 export const profilePageFields = {

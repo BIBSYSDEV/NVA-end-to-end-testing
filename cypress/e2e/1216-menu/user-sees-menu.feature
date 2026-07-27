@@ -9,14 +9,13 @@ Feature: User sees menu
 
     @test
     Scenario: User have option to log out
-        Given that the user is logged in
+        Given a user is logged in
         When they look at any page in NVA
         Then they have an option to log out
 
     @test
     Scenario: User without any role sees menu
-        Given that the user is logged in
-        And they have no NVA role
+        Given a user without any NVA role is logged in
         When they look at any page in NVA
         Then they see Menu items:
             | My page |
@@ -24,8 +23,7 @@ Feature: User sees menu
 
     @test
     Scenario: User sees the menu for Creator
-        Given that the user is logged in
-        And they have the "Creator" role
+        Given a user with the "Creator" role is logged in
         When they look at any page in NVA
         Then they see Menu items:
             | My page |
@@ -33,8 +31,7 @@ Feature: User sees menu
 
     @test
     Scenario: User sees the menu for Curator
-        Given that the user is logged in
-        And they have the "Curator" Role
+        Given a user with the "Curator" role is logged in
         When they look at any page in NVA
         Then they see Menu items:
             | Worklist |
@@ -43,8 +40,7 @@ Feature: User sees menu
 
     @test
     Scenario: User sees the menu for Institution-admin
-        Given that the user is logged in
-        And they have the "Institution-admin" role
+        Given a user with the "Institution-admin" role is logged in
         When they look at any page in NVA
         Then they see Menu items:
             | Basic data |
@@ -53,8 +49,7 @@ Feature: User sees menu
 
     @test
     Scenario: User sees the menu for Editor
-        Given that the user is logged in
-        And they have the "Editor" role
+        Given a user with the "Editor" role is logged in
         When they look at any page in NVA
         Then they see Menu items:
             | My page    |
@@ -62,8 +57,7 @@ Feature: User sees menu
 
     @test
     Scenario: User sees the menu for Application administrator
-        Given that the user is logged in
-        And they have the "App-admin" role
+        Given a user with the "App-admin" role is logged in
         When they look at any page in NVA
         Then they see Menu items:
             | Basic data |
