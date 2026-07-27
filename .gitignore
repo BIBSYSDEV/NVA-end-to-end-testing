@@ -320,3 +320,5 @@ venv/
 login.sh
 test_credentials
 cypress.sh
+cucumber-messages.ndjson
+.idea/
