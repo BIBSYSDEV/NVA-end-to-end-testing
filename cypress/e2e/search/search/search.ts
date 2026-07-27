@@ -1,6 +1,11 @@
 //  Feature: Scenarios for search
 
-import { CategoryTypes, userBIBSYSPublishRegistration, userUnitWithAuthor, userUnitWithAuthor1 } from '../../../support/constants';
+import {
+  CategoryTypes,
+  userBIBSYSPublishRegistration,
+  userUnitWithAuthor,
+  userUnitWithAuthor1,
+} from '../../../support/constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
@@ -44,8 +49,8 @@ Given('an anonymous User', () => {});
 When('they open the start page', () => {
   cy.visit('/', {
     auth: {
-      username: 'osteloff',
-      password: 'osteloff',
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
     },
   });
   cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
