@@ -53,8 +53,8 @@ export const accessTokenKey = (userId: string) => storageKey(`${userId}.accessTo
 export const visitApp = () => {
   cy.visit('/filter', {
     auth: {
-      username: 'osteloff',
-      password: 'osteloff',
+      username: Cypress.env('DEVUSER'),
+      password: Cypress.env('DEVPASSWORD'),
     },
     failOnStatusCode: false,
   });
