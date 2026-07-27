@@ -7,21 +7,34 @@ import {
   userUnitEditor,
   userUnitWithAuthor,
 } from '../../../support/constants';
-import {
-  adminMenu,
-  creatorMenu,
-  curatorMenu,
-  instAdminMenu,
-  mainButtons,
-  userMenu,
-} from '../../../support/data_testid_constants';
+import { mainButtons } from '../../../support/data_testid_constants';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 // Feature: User sees menu
 
+const userForRole: Record<string, string> = {
+  Creator: userUnitTestMenu,
+  Curator: userUnitCurator,
+  'Institution-admin': userUnitInstAdmin,
+  Editor: userUnitEditor,
+  'App-admin': adminUserUnit,
+};
+
 // Common steps
-Given('that the user is logged in', () => {});
+Given('a user is logged in', () => {
+  cy.login(userUnitWithAuthor);
+});
+Given('a user without any NVA role is logged in', () => {
+  cy.login(userUnitNoRole);
+});
+Given('a user with the {string} role is logged in', (role: string) => {
+  const userId = userForRole[role];
+  if (!userId) {
+    throw new Error(`No test user configured for role "${role}"`);
+  }
+  cy.login(userId);
+});
 When('they look at any page in NVA', () => {
   cy.visit(`/`, {
     auth: {
@@ -55,43 +68,6 @@ Then('they see the Log in Button', () => {
 
 // Scenario: User have option to log out
 Then('they have an option to log out', () => {
-  cy.login(userUnitWithAuthor);
-  cy.getDataTestId(dataTestId.header.menuButton).should('exist');
-  cy.getDataTestId(dataTestId.header.menuButton).click();
+  cy.getDataTestId(dataTestId.header.menuButton).should('be.visible').click();
   cy.getDataTestId(dataTestId.header.logOutLink).should('be.visible');
-});
-
-// Scenario: User without any role sees menu
-Given('they have no NVA role', () => {
-  cy.login(userUnitNoRole);
-  cy.wrap(userMenu).as('MENU');
-});
-
-// Scenario: User sees the menu for Creator
-Given('they have the "Creator" role', () => {
-  cy.login(userUnitTestMenu);
-  cy.wrap(creatorMenu).as('MENU');
-});
-
-// Scenario: User sees the menu for Curator
-Given('they have the "Curator" Role', () => {
-  cy.login(userUnitCurator);
-  cy.wrap(curatorMenu).as('MENU');
-});
-
-// Scenario: User sees the menu for Institution-admin
-Given('they have the "Institution-admin" role', () => {
-  cy.login(userUnitInstAdmin);
-  cy.wrap(instAdminMenu).as('MENU');
-});
-
-Given('they have the "Editor" role', () => {
-  cy.login(userUnitEditor);
-  cy.wrap(instAdminMenu).as('MENU');
-});
-
-// Scenario: User sees the menu for Application administrator
-Given('they have the "App-admin" role', () => {
-  cy.login(adminUserUnit);
-  cy.wrap(adminMenu).as('MENU');
 });
