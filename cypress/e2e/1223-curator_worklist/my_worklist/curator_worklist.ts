@@ -132,7 +132,7 @@ When('the {string} selects "Mark request unread" on a request of type {string}',
     );
   }
   cy.getSuccess();
-  cy.get('[title=Tasks]').click();
+  cy.getDataTestId(dataTestId.tasksPage.minimizedMenuButton).click();
 
   if (user === 'Nvi-Curator') {
     cy.selectNVIStatus(NVI_ASSIGNED);
