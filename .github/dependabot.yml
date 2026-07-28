@@ -1,0 +1,31 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: 'monday'
+      time: '07:00'
+      timezone: Europe/Oslo
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 10
+    groups:
+      aws-sdk:
+        patterns:
+          - '@aws-sdk/*'
+      aws-cdk:
+        patterns:
+          - 'aws-cdk'
+          - 'aws-cdk-lib'
+          - 'constructs'
+      cypress:
+        patterns:
+          - 'cypress'
+          - 'cypress-*'
+          - '@badeball/*'
+          - '@bahmutov/*'
+      reporting:
+        patterns:
+          - 'mochawesome*'
+          - 'cucumber-html-reporter'
