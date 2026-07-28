@@ -5,6 +5,7 @@ Real-world examples showing how to use the consolidated `TestUsers` object.
 ## Example 1: Basic Creator Workflow
 
 **Old way:**
+
 ```typescript
 import { userUnitWithAuthor } from '../../../support/constants';
 
@@ -14,6 +15,7 @@ Given('the user is logged in as Creator', () => {
 ```
 
 **New way:**
+
 ```typescript
 import { TestUsers } from '../../../support/constants';
 
@@ -27,12 +29,13 @@ Given('the user is logged in as Creator', () => {
 ## Example 2: Curator Workflows
 
 **Old way:**
+
 ```typescript
 import {
   userBIBSYSPublishingCurator,
   userBIBSYSSupportCurator,
   userBIBSYSDoiCurator,
-  userNtnuNviCurator
+  userNtnuNviCurator,
 } from '../../../support/constants';
 
 When('the {string} logs in', (curatorType: string) => {
@@ -40,13 +43,14 @@ When('the {string} logs in', (curatorType: string) => {
     'Publishing-Curator': userBIBSYSPublishingCurator,
     'Support-Curator': userBIBSYSSupportCurator,
     'DOI-Curator': userBIBSYSDoiCurator,
-    'NVI-Curator': userNtnuNviCurator
+    'NVI-Curator': userNtnuNviCurator,
   };
   cy.login(users[curatorType]);
 });
 ```
 
 **New way:**
+
 ```typescript
 import { TestUsers } from '../../../support/constants';
 
@@ -55,7 +59,7 @@ When('the {string} logs in', (curatorType: string) => {
     'Publishing-Curator': TestUsers.curators.bibsys.publishing,
     'Support-Curator': TestUsers.curators.bibsys.support,
     'DOI-Curator': TestUsers.curators.bibsys.doi,
-    'NVI-Curator': TestUsers.curators.ntnu.nvi
+    'NVI-Curator': TestUsers.curators.ntnu.nvi,
   };
   cy.login(users[curatorType]);
 });
@@ -80,7 +84,7 @@ Given('a user creates a publication', () => {
 When('a curator reviews the publication', () => {
   cy.login(TestUsers.curators.bibsys.publishing);
   cy.visit('/tasks');
-  cy.get('@publicationTitle').then(title => {
+  cy.get('@publicationTitle').then((title) => {
     cy.searchFor(title);
   });
 });
@@ -102,10 +106,7 @@ import { TestUsers, CategoryTypes } from '../../../support/constants';
 
 // Create NVI candidate at USN
 cy.login(TestUsers.nvi.usn.institution);
-cy.createPublishedRegistration(
-  'NVI Candidate USN',
-  CategoryTypes.ACADEMIC_ARTICLE
-);
+cy.createPublishedRegistration('NVI Candidate USN', CategoryTypes.ACADEMIC_ARTICLE);
 
 // Validate as USN curator
 cy.login(TestUsers.curators.usn.nvi);
@@ -131,7 +132,7 @@ import { TestUsers } from '../../../support/constants';
 const institutions = [
   { name: 'BIBSYS', user: TestUsers.curators.bibsys.curator1 },
   { name: 'NTNU', user: TestUsers.curators.ntnu.nvi },
-  { name: 'SINTEF', user: TestUsers.curators.sintef.publication }
+  { name: 'SINTEF', user: TestUsers.curators.sintef.publication },
 ];
 
 institutions.forEach(({ name, user }) => {
@@ -148,24 +149,26 @@ institutions.forEach(({ name, user }) => {
 ## Example 6: Publication Type Workflows
 
 **Old way:**
+
 ```typescript
 import { userUnitSaveJournal, userUnitSaveBook, userUnitSaveThesis } from '../../../support/constants';
 
 const publicationTypeUsers = {
   'journal': userUnitSaveJournal,
   'book': userUnitSaveBook,
-  'thesis': userUnitSaveThesis
+  'thesis': userUnitSaveThesis,
 };
 ```
 
 **New way:**
+
 ```typescript
 import { TestUsers } from '../../../support/constants';
 
 const publicationTypeUsers = {
   'journal': TestUsers.byWorkflow.journal.save,
   'book': TestUsers.byWorkflow.book.save,
-  'thesis': TestUsers.byWorkflow.thesis.save
+  'thesis': TestUsers.byWorkflow.thesis.save,
 };
 ```
 
@@ -405,6 +408,7 @@ describe('Publication Lifecycle', () => {
 ## Tips for Writing Better Tests
 
 ### 1. Use Descriptive Aliases
+
 ```typescript
 // Good
 cy.login(TestUsers.curators.bibsys.publishing);
@@ -414,6 +418,7 @@ cy.login(TestUsers.curators.basic); // Which curator?
 ```
 
 ### 2. Group Related Tests
+
 ```typescript
 describe('NVI Workflows', () => {
   context('As USN Curator', () => {
@@ -433,6 +438,7 @@ describe('NVI Workflows', () => {
 ```
 
 ### 3. Document Complex User Choices
+
 ```typescript
 // Using SINTEF publication curator because they have specific
 // permissions for cross-institutional publication management
@@ -440,6 +446,7 @@ cy.login(TestUsers.curators.sintef.publication);
 ```
 
 ### 4. Use TypeScript for Better Safety
+
 ```typescript
 // TypeScript will catch this error at compile time
 cy.login(TestUsers.curators.bibsys.publishng); // ❌ Typo!
@@ -464,6 +471,7 @@ When updating existing tests:
 ## Summary
 
 The `TestUsers` object makes tests:
+
 - ✅ **More readable** - Clear what each user represents
 - ✅ **Easier to write** - Autocomplete shows all options
 - ✅ **Safer** - TypeScript catches errors

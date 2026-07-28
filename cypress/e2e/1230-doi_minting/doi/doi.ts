@@ -24,7 +24,6 @@ Given('that the Owner navigates to Submission tab', () => {
   cy.createValidRegistration(filename, publishedRegistrationWithDraftDoi);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
-  cy.getSuccessDone();
 });
 Given('the Registration has status Draft', () => {
   cy.selectRegistration(publishedRegistrationWithDraftDoi, unpublished);
@@ -32,12 +31,10 @@ Given('the Registration has status Draft', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
   cy.getSuccess();
-  cy.getSuccessDone();
 });
 When('the Owner clicks the publish button', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
   cy.getSuccess();
-  cy.getSuccessDone();
   cy.wait(3000);
   cy.refreshPublish();
 });
@@ -88,7 +85,6 @@ Given('that the Creator Opens a DOI request entry from My Worklist', () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
     cy.getSuccess();
-    cy.getSuccessDone();
     cy.getDataTestId(dataTestId.header.myPageLink).click();
     cy.getDataTestId(dataTestId.myPage.messagesAccordion).click();
     cy.getDataTestId(dataTestId.tasksPage.typeSearch.publishingButton).click();
@@ -171,7 +167,6 @@ Given('that the Owner view Landing Page for Registration', () => {
   cy.createValidRegistration(null, draftRegistrationWithoutDoi);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
-  cy.getSuccessDone();
 });
 Given('the Registration is not Published', () => {
   cy.selectRegistration(draftRegistrationWithoutDoi, unpublished);
@@ -195,7 +190,6 @@ Given('that the Owner View Landing Page for Registration for unpublished Registr
   cy.createValidRegistration(filename, registrationTitle);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
-  cy.getSuccessDone();
   cy.selectRegistration(registrationTitle, unpublished);
 });
 Given('they are the Owner of the Registration', () => {});

@@ -75,9 +75,11 @@ When('an NVI-curator tries to change NVI reporting status', () => {
 });
 Then('they are not able to change that', () => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-  cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).filter(`:contains(${title})`).within(() => {
-    cy.get('a').first().click();
-  });
+  cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList)
+    .filter(`:contains(${title})`)
+    .within(() => {
+      cy.get('a').first().click();
+    });
   cy.get('p').filter(`:contains("The reporting period for this result is closed.")`);
 });
 
@@ -91,7 +93,7 @@ When('a user changes the metadata for the NVI-candidate', () => {
   cy.contains('Under dusken').click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
 });
 Then('the NVI-status is not changed', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();

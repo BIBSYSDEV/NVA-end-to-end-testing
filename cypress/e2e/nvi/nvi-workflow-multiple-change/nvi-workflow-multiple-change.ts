@@ -44,7 +44,6 @@ const changeToUnidentifiedUser = () => {
   cy.addUnidentifiedContributor(unidentifiedContributor);
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
-  cy.getSuccessDone();
 };
 
 const addContributor = (contributor: string) => {
@@ -56,7 +55,6 @@ const addContributor = (contributor: string) => {
   }
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
-  cy.getSuccessDone();
 };
 
 const titleNonScientificToScientificUnidentifiedToIdentified =

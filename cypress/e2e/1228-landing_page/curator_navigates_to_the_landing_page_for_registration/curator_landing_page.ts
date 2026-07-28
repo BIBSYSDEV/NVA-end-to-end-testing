@@ -54,7 +54,7 @@ Before({ tags: '@no_restriction' }, () => {
 Before({ tags: '@file_restrictions' }, () => {
   cy.wrap(TestUsers.publishing.noRights).as('user');
 });
-  
+
 Before({ tags: '@doi_request' }, () => {
   cy.wrap(true).as('doiRequest');
 });
@@ -195,7 +195,7 @@ Given('that a Curator views their Worklist', () => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-      cy.getSuccessDone();
+      cy.getSuccess();
     });
     cy.login(TestUsers.curators.sintef.doi);
     cy.wait(1000);
@@ -232,7 +232,7 @@ When('they approve the DOI Request', () => {
   cy.get('body').then((body) => {
     if (body.find(`[data-testid=${dataTestId.confirmDialog.acceptButton}]`).length > 0) {
       cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-      cy.getSuccessDone();
+      cy.getSuccess();
     }
   });
 });

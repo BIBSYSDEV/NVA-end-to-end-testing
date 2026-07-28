@@ -97,7 +97,7 @@ When('they approve the file', () => {
     if (fileType.toString() === 'Internal file') {
       cy.refreshPublish();
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAcceptButton).click();
-      cy.getSuccessDone();
+      cy.getSuccess();
     }
   });
 });
@@ -157,7 +157,6 @@ When('a curator edit the registration and changes the open file to {string}', (f
 When('navigates to the landing page', () => {
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
-  cy.getSuccessDone();
 });
 
 // Examples:

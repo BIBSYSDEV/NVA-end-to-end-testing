@@ -89,16 +89,16 @@ const initData = () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.doiMessageField).type('DOI Support message{enter}');
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-    cy.getSuccessDone();
+    cy.getSuccess();
 
     cy.startWizardWithEmptyRegistration();
     cy.createValidRegistration(null, `${registrationTitle}, ${uuidv4()}`);
     cy.getDataTestId(dataTestId.registrationWizard.formActions.openSupportButton).click();
     cy.getDataTestId(dataTestId.tasksPage.messageField).type('Support message{enter}');
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getSuccessDone();
+    cy.getSuccess();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-    cy.getSuccessDone();
+    cy.getSuccess();
   });
 };
 
@@ -118,7 +118,7 @@ Given('that the user is logged in as Creator', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).click();
   cy.getDataTestId('message-field').last().type('Test message{enter}');
   cy.getDataTestId('message-field').last().should('not.contain', 'Test message');
-  cy.getSuccessDone();
+  cy.getSuccess();
 });
 When('they click the menu item My Messages', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
@@ -210,10 +210,10 @@ When('they enter a new message', () => {
 });
 When('they click the Send Answer button', () => {});
 Then('they see that the new message is added to the Messages list', () => {
-    cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).within(() => {
-      cy.get('label').should('contain', 'Message');
-      cy.getDataTestId('message-field').should('not.contain','New message from user');
-    });
+  cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).within(() => {
+    cy.get('label').should('contain', 'Message');
+    cy.getDataTestId('message-field').should('not.contain', 'New message from user');
+  });
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).should(
     'contain',
     'New message from user'
