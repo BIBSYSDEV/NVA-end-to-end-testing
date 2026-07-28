@@ -19,7 +19,6 @@ import {
   RegistrationData,
   uploadFileToRegistration,
 } from '../../../support/create_registration';
-import { Test } from 'mocha';
 
 const fileName = 'example.txt';
 const title = `Curator published registration`;
