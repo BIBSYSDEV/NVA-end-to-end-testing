@@ -60,7 +60,7 @@ const approveCandidate = (title: string) => {
   cy.getDataTestId(dataTestId.tasksPage.nvi.approveButton).click();
   cy.getSuccess();
   cy.getSuccessDone();
-  cy.get('[title=Tasks]').click();
+  cy.getDataTestId(dataTestId.tasksPage.minimizedMenuButton).click();
 };
 
 const checkingCandidate = (title: string, curator: string) => {
@@ -74,7 +74,7 @@ const checkingCandidate = (title: string, curator: string) => {
   cy.get('.MuiAutocomplete-option').click();
   cy.getSuccess();
   cy.getSuccessDone();
-  cy.get('[title=Tasks]').click();
+  cy.getDataTestId(dataTestId.tasksPage.minimizedMenuButton).click();
 };
 
 const rejectCandidate = (title: string) => {
@@ -85,7 +85,7 @@ const rejectCandidate = (title: string) => {
   cy.getDataTestId(dataTestId.tasksPage.nvi.rejectionModalRejectButton).click();
   cy.getSuccess();
   cy.getSuccessDone();
-  cy.get('[title=Tasks]').click();
+  cy.getDataTestId(dataTestId.tasksPage.minimizedMenuButton).click();
 };
 
 BeforeAll(() => {
