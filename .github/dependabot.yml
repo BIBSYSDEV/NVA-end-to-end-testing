@@ -27,5 +27,4 @@ updates:
           - '@bahmutov/*'
       reporting:
         patterns:
-          - 'mochawesome*'
           - 'cucumber-html-reporter'
