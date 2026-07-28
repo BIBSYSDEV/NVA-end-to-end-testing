@@ -58,7 +58,6 @@ const approveCandidate = (title: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.selectNVICandidate(title);
   cy.getDataTestId(dataTestId.tasksPage.nvi.approveButton).click();
-  cy.getSuccess();
   cy.getSuccessDone();
   cy.getDataTestId(dataTestId.tasksPage.minimizedMenuButton).click();
 };
@@ -72,7 +71,6 @@ const checkingCandidate = (title: string, curator: string) => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).click();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.assigneeSearchField).type(curator);
   cy.get('.MuiAutocomplete-option').click();
-  cy.getSuccess();
   cy.getSuccessDone();
   cy.getDataTestId(dataTestId.tasksPage.minimizedMenuButton).click();
 };
@@ -83,7 +81,6 @@ const rejectCandidate = (title: string) => {
   cy.getDataTestId(dataTestId.tasksPage.nvi.rejectButton).click();
   cy.getDataTestId(dataTestId.tasksPage.nvi.rejectionModalTextField).type('Reason for rejection');
   cy.getDataTestId(dataTestId.tasksPage.nvi.rejectionModalRejectButton).click();
-  cy.getSuccess();
   cy.getSuccessDone();
   cy.getDataTestId(dataTestId.tasksPage.minimizedMenuButton).click();
 };
