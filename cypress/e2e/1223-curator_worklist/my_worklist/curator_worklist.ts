@@ -269,7 +269,7 @@ When('the Curator sends an answer of type "Support"', () => {
       cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {
         cy.getDataTestId('message-field').type('Test message{enter}');
       });
-      cy.getSuccessDone();
+      cy.getSuccess();
     });
   });
 

@@ -56,7 +56,7 @@ When('Anthology is updated and becomes NVI candidate', () => {
   cy.contains('Springer Nature').click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
 
   // cy.wait(5000);
 });
@@ -117,7 +117,6 @@ Given('publication has publicationContext refering to Anthology which is NVI can
     }
   });
   cy.get('@scientificChapterTitle').then((chapterTitle: unknown) => {
-
     cy.getNVIWorklistItem(chapterTitle as string).should('exist');
   });
 });
@@ -136,7 +135,7 @@ When('Anthology is updated and becomes non NVI candidate', () => {
 
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
 
   // cy.wait(15000);
 });
@@ -209,7 +208,7 @@ When('AcademicChapter is updated to refer to another Book', () => {
     cy.contains('SINTEF akademisk forlag').click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getSuccessDone();
+    cy.getSuccess();
 
     cy.getDataTestId('logo').click();
     cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
@@ -224,7 +223,7 @@ When('AcademicChapter is updated to refer to another Book', () => {
 
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getSuccessDone();
+    cy.getSuccess();
   });
 });
 
@@ -280,7 +279,7 @@ When('adding AcademicChapter that refers to that Anthology', () => {
     cy.contains(anthologyTitle).click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-    cy.getSuccessDone();
+    cy.getSuccess();
   });
 });
 

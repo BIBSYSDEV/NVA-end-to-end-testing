@@ -155,7 +155,7 @@ When('they send a message with the {string} request', (type) => {
         cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
           cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('Publishing request message{enter}');
         });
-        cy.getSuccessDone();
+        cy.getSuccess();
         break;
       case DOI_REQUEST:
         cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
@@ -185,14 +185,14 @@ When('a curator with role {string} responds to the message', (role: unknown) => 
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishingRequestAccordion).within(() => {
             cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('Publishing response message{enter}');
           });
-          cy.getSuccessDone();
+          cy.getSuccess();
           break;
         case DOI_REQUEST:
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).within(() => {
             cy.getDataTestId(dataTestId.tasksPage.messageField).last().type('DOI response message{enter}');
           });
-          cy.getSuccessDone();
+          cy.getSuccess();
           break;
         case SUPPORT_REQUEST:
           cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.supportAccordion).within(() => {

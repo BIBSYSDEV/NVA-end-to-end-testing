@@ -5,7 +5,11 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { landingPageButtons } from '../../../support/data_testid_constants';
 import { v4 as uuid } from 'uuid';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
-import { createDraftPublicationUsingAPI, createPublicationUsingAPI, NviLevels } from '../../../support/create_registration';
+import {
+  createDraftPublicationUsingAPI,
+  createPublicationUsingAPI,
+  NviLevels,
+} from '../../../support/create_registration';
 
 const registrationTitles = {
   'Draft': `Draft registration with DOI ${uuid()}`,
@@ -29,7 +33,7 @@ const initData = () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.sendDoiButton).click();
-    cy.getSuccessDone();
+    cy.getSuccess();
 
     cy.getDataTestId(dataTestId.header.myPageLink).click();
     cy.getDataTestId(dataTestId.myPage.registrationsAccordion).click();

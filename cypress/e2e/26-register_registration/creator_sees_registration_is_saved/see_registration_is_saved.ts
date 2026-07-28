@@ -21,7 +21,6 @@ When('they click Start', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).should('be.visible');
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
   cy.getSuccess();
-  cy.getSuccessDone();
 });
 When('they click My Registrations', () => {
   cy.openMyRegistrations();

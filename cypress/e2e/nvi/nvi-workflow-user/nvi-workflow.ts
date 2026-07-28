@@ -34,7 +34,6 @@ Given(
       cy.createValidRegistration(null, title);
       cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
       cy.getSuccess();
-      cy.getSuccessDone();
     }
     if (isCollaboration !== NO_ONE) {
       cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();

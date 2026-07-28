@@ -27,7 +27,7 @@ const addContributor = (name: string) => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.selectUserButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
 };
 
 // Scenario Outline: A user with multiple norwegian institutions registrers an NVI-candidate publication

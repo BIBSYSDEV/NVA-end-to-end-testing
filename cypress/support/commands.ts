@@ -90,9 +90,9 @@ Cypress.Commands.add('createPublishedRegistration', (title, category?, fileName?
     createValidRegistrationWithType(title, category, fileName, fileVersion, fileType);
   }
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
 });
 
 Cypress.Commands.add('createPublishedChapter', (title, anthology) => {
@@ -114,9 +114,9 @@ Cypress.Commands.add('createPublishedChapter', (title, anthology) => {
   cy.contains('Archaeology and Conservation').click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
 });
 
 Cypress.Commands.add('createValidRegistration', (fileName, title, fileVersion: FileVersions, fileType?: string) => {
@@ -205,10 +205,6 @@ Cypress.Commands.add('addUnidentifiedContributor', (contributorName: string) => 
 });
 
 Cypress.Commands.add('getSuccess', () => {
-  cy.getDataTestId('snackbar-success');
-});
-
-Cypress.Commands.add('getSuccessDone', () => {
   cy.getDataTestId('snackbar-success');
   cy.getDataTestId('snackbar-success').should('not.exist');
 });
@@ -953,5 +949,5 @@ Cypress.Commands.add('removeChannel', (channelName: string) => {
       });
   });
   cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
 });

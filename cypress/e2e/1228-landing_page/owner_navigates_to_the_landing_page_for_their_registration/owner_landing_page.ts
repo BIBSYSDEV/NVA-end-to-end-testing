@@ -70,7 +70,7 @@ Then('they see a "Publish" option', () => {
 Given('the Registration has "Draft" Status', () => {});
 Given('there is a pending Approval Request on the Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');
   cy.wait(5000);
   cy.reload();
@@ -114,7 +114,7 @@ Given('Institutions publications policy is "Registrator can only publish metadat
 });
 When('the Owner uses the Publish option', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
 });
 Then('the Owner sees a Landing Page with a Published Resource', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.publishButton).should('not.exist');

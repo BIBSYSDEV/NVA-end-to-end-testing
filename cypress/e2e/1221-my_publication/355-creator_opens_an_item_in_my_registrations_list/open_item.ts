@@ -40,7 +40,7 @@ const initData = () => {
     cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
     cy.contains('Registration updated successfully');
-    cy.getSuccessDone();
+    cy.getSuccess();
     cy.getDataTestId(dataTestId.header.myPageLink).click();
   });
 };

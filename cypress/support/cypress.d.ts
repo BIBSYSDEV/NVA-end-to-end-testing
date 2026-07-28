@@ -76,7 +76,6 @@ declare global {
       getNVIWorklistItem(title: string): Chainable<JQuery<HTMLElement>>;
 
       getSuccess(): void;
-      getSuccessDone(): void;
       refreshPublish(): void;
 
       editChannelClaims(): void;

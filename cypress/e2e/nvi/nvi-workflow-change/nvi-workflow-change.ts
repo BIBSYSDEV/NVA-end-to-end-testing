@@ -250,7 +250,7 @@ When('a User changes the publication channel to a level 2 publication channel', 
   cy.contains('ACS Chemical Biology').click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
 });
 Then('the NVI points changes to reflect the new publication channel', () => {
   cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -314,7 +314,7 @@ When('a level 2 series is added to the anthology', () => {
   cy.contains('Geoscientific Model Development').click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.filesStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.formActions.saveRegistrationButton).click();
-  cy.getSuccessDone();
+  cy.getSuccess();
   cy.wait(5000);
 });
 Then('the NVI points changes to reflect the series added to the anthology', () => {
