@@ -2,6 +2,10 @@ version: 0.2
 
 # Buildspec to generate a test report after all E2E tests are finished running.
 
+env:
+  variables:
+    # This build only merges reports and never runs Cypress, so skip the binary download.
+    CYPRESS_INSTALL_BINARY: 0
 
 phases:
   install:
