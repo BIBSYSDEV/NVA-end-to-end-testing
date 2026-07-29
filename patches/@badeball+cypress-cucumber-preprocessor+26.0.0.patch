@@ -1,0 +1,12 @@
+diff --git a/node_modules/@badeball/cypress-cucumber-preprocessor/dist/plugin-event-handlers.js b/node_modules/@badeball/cypress-cucumber-preprocessor/dist/plugin-event-handlers.js
+index dd03618..d6d9d84 100644
+--- a/node_modules/@badeball/cypress-cucumber-preprocessor/dist/plugin-event-handlers.js
++++ b/node_modules/@badeball/cypress-cucumber-preprocessor/dist/plugin-event-handlers.js
+@@ -439,6 +439,7 @@ async function afterSpecHandler(config, spec, results) {
+         case "run-hook-finished": // In case of AfterAll hooks.
+         case "before-spec": // This can happen if a spec doesn't contain any tests.
+         case "received-envelopes": // This can happen in case of a failing beforeEach hook.
++        case "run-hook-started": // NVA patch (NP-51497): this can happen in case of a failing BeforeAll/AfterAll hook.
+             break;
+         default:
+             throw createStateError("afterSpecHandler", state.state);
