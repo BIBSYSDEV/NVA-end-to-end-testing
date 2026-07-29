@@ -33,18 +33,16 @@ BeforeAll(() => {
     cy.wrap(openNviPeriod(lastYear.toString())).then(() => {});
   });
   cy.login(userUSNNviInstitution).then(() => {
-    cy.wrap(
-      createDraftPublicationUsingAPI(
-        title,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUSNNviInstitution],
-        NviLevels.LEVEL_1
-      )
+    createDraftPublicationUsingAPI(
+      title,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUSNNviInstitution],
+      NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       registrationBuilder.entityDescription.publicationDate.year = lastYear;
-      cy.wrap(registrationBuilder.update()).then(() => {
-        cy.wrap(registrationBuilder.publish()).then(() => {
+      registrationBuilder.update().then(() => {
+        registrationBuilder.publish().then(() => {
           cy.wrap(listNviCandidates(USN_ID, lastYear.toString(), '50')).then((candidates) => {
             candidates['hits'].forEach((candidate) => {
               if (candidate['publicationDetails']['identifier'] === registrationBuilder.identifier) {

@@ -104,7 +104,7 @@ Given('Institutions publications policy is "Registrator can only publish metadat
         mimeType: 'text/plain',
         size: '448',
       });
-      cy.wrap(registrationBuilder.update()).then(() => {});
+      registrationBuilder.update();
     });
     cy.wait(3000);
   });

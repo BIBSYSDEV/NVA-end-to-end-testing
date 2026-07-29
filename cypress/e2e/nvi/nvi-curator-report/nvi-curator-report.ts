@@ -288,7 +288,7 @@ BeforeAll(() => {
     });
   });
   cy.login(userNviCuratorUia).then(() => {
-    cy.wrap(findContributorByName(userName[userNviCuratorUia], ContributorTypes.CURATOR)).then(
+    findContributorByName(userName[userNviCuratorUia], ContributorTypes.CURATOR).then(
       (contributor: ContributorType) => {
         const cristinId = `${contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '')}@${UIA_ID}`;
         cy.wrap(listNviCandidates(UIA_ID, currentYear, '50')).then((candidates) => {
@@ -308,7 +308,7 @@ BeforeAll(() => {
     );
   });
   cy.login(userNviCuratorVolda).then(() => {
-    cy.wrap(findContributorByName(userName[userNviCuratorVolda], ContributorTypes.CURATOR)).then(
+    findContributorByName(userName[userNviCuratorVolda], ContributorTypes.CURATOR).then(
       (contributor: ContributorType) => {
         const cristinId = `${contributor.identity.id.replace('https://api.e2e.nva.aws.unit.no/cristin/person/', '')}@${VOLDA_ID}`;
 

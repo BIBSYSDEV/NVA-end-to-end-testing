@@ -21,61 +21,51 @@ const titleNextMonth = `Publication for My Profile Page - ${new Date(today.setMo
 
 BeforeAll(() => {
   cy.login(userUnitWithAuthor).then(() => {
-    cy.wrap(
-      createPublicationUsingAPI(
-        titleToday,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_1
-      )
-    ).then(() => {});
-    cy.wrap(
-      createDraftPublicationUsingAPI(
-        titleLastYear,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_1
-      )
+    createPublicationUsingAPI(
+      titleToday,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
+    );
+    createDraftPublicationUsingAPI(
+      titleLastYear,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       registrationBuilder.entityDescription.publicationDate.year = lastYear;
-      cy.wrap(registrationBuilder.update().then(() => registrationBuilder.publish())).then(() => {})
+      registrationBuilder.update().then(() => registrationBuilder.publish());
     });
-    cy.wrap(
-      createDraftPublicationUsingAPI(
-        titleYesterday,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_1
-      )
+    createDraftPublicationUsingAPI(
+      titleYesterday,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       registrationBuilder.entityDescription.publicationDate.day = yesterday;
-      cy.wrap(registrationBuilder.update().then(() => registrationBuilder.publish())).then(() => {})
+      registrationBuilder.update().then(() => registrationBuilder.publish());
     });
-    cy.wrap(
-      createDraftPublicationUsingAPI(
-        titleLastMonth,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_1
-      )
+    createDraftPublicationUsingAPI(
+      titleLastMonth,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       registrationBuilder.entityDescription.publicationDate.month = lastMonth + 1;
-      cy.wrap(registrationBuilder.update().then(() => registrationBuilder.publish())).then(() => {});
+      registrationBuilder.update().then(() => registrationBuilder.publish());
     });
-    cy.wrap(
-      createDraftPublicationUsingAPI(
-        titleNextMonth,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_1
-      )
+    createDraftPublicationUsingAPI(
+      titleNextMonth,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       registrationBuilder.entityDescription.publicationDate.month = nextMonth + 1;
-      cy.wrap(registrationBuilder.update().then(() => registrationBuilder.publish())).then(() => {});
+      registrationBuilder.update().then(() => registrationBuilder.publish());
     });
     // cy.wrap(
     //   createPublicationUsingAPI(

@@ -29,7 +29,7 @@ When(
       userName[TestUsers.nvi.usn.institution],
       publiserLevel,
       seriesLevel
-    ).then();
+    );
   }
 );
 Then('the publication is listed as an NVI-candidate for the institution the user is affiliated with', () => {

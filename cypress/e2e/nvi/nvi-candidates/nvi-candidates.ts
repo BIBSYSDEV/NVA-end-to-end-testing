@@ -52,7 +52,7 @@ When('the user registrers a publication that is an NVI-candidate with category {
         categories[category as string],
         userName[TestUsers.nvi.usn.institution],
         NviLevels.LEVEL_1
-      ).then();
+      );
       break;
     case CategoryTypes.ACADEMIC_CHAPTER:
       const anthologyTitle = `Anthology for NVI Candidate Anthology ${uuid()}`;
@@ -148,7 +148,7 @@ When('the user registrers a monograph without ISBN or ISSN', () => {
     NviLevels.LEVEL_1
   ).then((registration) => {
     registration.entityDescription.reference.publicationContext.isbnList = [];
-    registration.update().then();
+    registration.update();
   });
 });
 
@@ -177,7 +177,7 @@ When('the user registrers an academic chapter without ISBN or ISSN', () => {
   cy.get('@anthologyBuilder').then((builder: unknown) => {
     const anthology = builder as RegistrationData;
     anthology.entityDescription.reference.publicationContext.isbnList = [];
-    anthology.update().then();
+    anthology.update();
   });
 });
 // Then ('the publication is not listed as an NVI-candidate for the institution the user is affiliated with', () => {});
@@ -194,7 +194,7 @@ When('the user registrers a monograph with only editor as contributor', () => {
     NviLevels.LEVEL_1
   ).then((builder) => {
     builder.entityDescription.contributors[0].role.type = ContributorTypes.EDITOR;
-    builder.update().then();
+    builder.update();
   });
 });
 // Then ('the publication is not listed as an NVI-candidate for the institution the user is affiliated with', () => {});
