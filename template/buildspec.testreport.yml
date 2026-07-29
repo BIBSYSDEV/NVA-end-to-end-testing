@@ -2,13 +2,6 @@ version: 0.2
 
 # Buildspec to generate a test report after all E2E tests are finished running.
 
-batch:
-  fast-fail: false
-  build-list:
-    - identifier: cypress-e2e-testreport
-      env:
-        variables:
-          image: public.ecr.aws/cypress-io/cypress/included:cypress-14.2.0-node-22.14.0-chrome-134.0.6998.88-1-ff-136.0.2-edge-134.0.3124.68-1
 
 phases:
   install:
@@ -40,6 +33,3 @@ phases:
 artifacts:
   files:
     - '**/*'
-cache:
-  paths:
-    - NVA-end-to-end-testing-test-deploy/node_modules/**/*

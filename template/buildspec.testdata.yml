@@ -2,14 +2,6 @@ version: 0.2
 
 # Buildspec to generate test data before running E2E in parallel. It is important that all test data is independent of each other.
 
-batch:
-  fast-fail: false
-  build-list:
-    - identifier: cypress-e2e-testdata
-      env:
-        variables:
-          image: public.ecr.aws/cypress-io/cypress/included:cypress-14.2.0-node-22.14.0-chrome-134.0.6998.88-1-ff-136.0.2-edge-134.0.3124.68-1
-
 phases:
   install:
     runtime-versions:
