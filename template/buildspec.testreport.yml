@@ -9,7 +9,7 @@ phases:
       nodejs: 22
   pre_build:
     commands:
-      - npm install
+      - npm ci
       - aws sts assume-role --role-arn $ROLE_ARN --role-session-name test > Credentials
       - export CYPRESS_AWS_ACCESS_KEY_ID=$(cat Credentials | jq -r '.Credentials.AccessKeyId')
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')

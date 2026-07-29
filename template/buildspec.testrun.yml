@@ -27,7 +27,7 @@ phases:
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')
       - export CYPRESS_AWS_SESSION_TOKEN=$(cat Credentials | jq -r '.Credentials.SessionToken')
       - export CYPRESS_AWS_REGION=${AWS_REGION}
-      - npm install
+      - npm ci
   build:
     commands:
       - npx cypress run --browser chrome  --record --key $CYPRESS_DASHBOARD_KEY --parallel --ci-build-id $CODEBUILD_INITIATOR --env messagesOutput=messages/cucumber-messages-$RUNNER.ndjson
