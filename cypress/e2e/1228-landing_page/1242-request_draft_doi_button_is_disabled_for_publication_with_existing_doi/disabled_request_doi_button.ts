@@ -23,12 +23,12 @@ const initData = () => {
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitDraftDoi],
       NviLevels.LEVEL_1
-    ).then();
+    );
     createDraftPublicationUsingAPI(
       registrationTitles['Draft'],
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userUnitDraftDoi]
-    ).then();
+    );
     cy.searchFor(registrationTitles['Published']);
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.requestDoiButton).click();

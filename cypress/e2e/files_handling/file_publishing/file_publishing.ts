@@ -14,7 +14,7 @@ BeforeAll(() => {
       CategoryTypes.ACADEMIC_ARTICLE,
       TestUsers.nvi.bibsys.change,
       NviLevels.LEVEL_1
-    ).then();
+    );
     cy.wait(5000);
   });
 });

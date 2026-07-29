@@ -108,7 +108,7 @@ BeforeAll(() => {
                       builder.addContributor(externalUser);
                       break;
                   }
-                  builder.update().then();
+                  builder.update();
                 });
               });
             });

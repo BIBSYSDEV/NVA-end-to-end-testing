@@ -226,7 +226,7 @@ Given('an NVI-candidate with a level 1 publication channel', () => {
       CategoryTypes.ACADEMIC_ARTICLE,
       USN_USER,
       NviLevels.LEVEL_1
-    ).then();
+    );
     cy.login(userUSNNviCuratorInstitution).then(() => {
       cy.getDataTestId(dataTestId.header.tasksLink).click();
       cy.openNVIWorklist();
@@ -282,7 +282,7 @@ Given('an anthology with a level 1 publisher', () => {
         cy.get('@anthologyId').then((anthologyId: unknown) => {
           const anthology = anthologyId as string;
           builder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
-          builder.update().then();
+          builder.update();
 
           cy.getDataTestId(dataTestId.header.tasksLink).click();
           cy.openNVIWorklist();

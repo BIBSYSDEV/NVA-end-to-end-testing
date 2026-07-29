@@ -18,10 +18,10 @@ Given('I create a new registration', () => {
           const category: CategoryTypes = CategoryTypes.ACADEMIC_ARTICLE;
           const entity = createEntityDescription(`Test ${category} ${uuid()}`, category, '1003');
           builder.addEntityDescription(entity).addContributor(contributor);
-          builder.update().then();
+          builder.update();
           uploadFileToRegistration(builder.identifier, 'example.txt').then((fileUpload) => {
             builder.addFile(fileUpload);
-            builder.update().then();
+            builder.update();
             cy.then(() => {
               builder.publish();
               cy.then(() => {

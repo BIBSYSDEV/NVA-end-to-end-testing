@@ -47,7 +47,7 @@ const createWorklistItem = (title: string, type: string) => {
         switch (type) {
           case APPROVAL:
             uploadFileToRegistration(builder.identifier, filename).then((file) => {
-              builder.addFile(file).update().then();
+              builder.addFile(file).update();
             });
             break;
           case SUPPORT:
