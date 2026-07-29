@@ -27,4 +27,4 @@ updates:
           - '@bahmutov/*'
       reporting:
         patterns:
-          - 'cucumber-html-reporter'
+          - '@cucumber/*'

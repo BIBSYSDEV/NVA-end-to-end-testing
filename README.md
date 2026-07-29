@@ -41,8 +41,24 @@ python3 ./import_publications.py <optional_filename>
 create testusers:
 python3 ./import_users_new.py <optional_filename>
 
-run Cypress tests:
-npx cypress open --config baseUrl=https://e2e.nva.aws.unit.no/
+## Running tests locally
+
+This assumes you have configured AWS CLI with an SSO session named `sikt` and an account profile named `nva-e2e`.
+
+`run-tests.sh` fetches everything Cypress needs from AWS (temporary credentials, Cognito configuration from SSM, and the dev basic-auth login from the `E2ETesting` secret) and then runs the given specs.
+It requires an active AWS session for the E2E account (`aws sso login --profile <profile>`).
+
+```bash
+aws sso login --sso-session sikt
+./run-tests.sh -p nva-e2e                                        # run all specs
+./run-tests.sh -p nva-e2e cypress/e2e/nvi/nvi-points.feature     # single spec
+./run-tests.sh -p nva-e2e "cypress/e2e/nvi/*.feature"            # all specs for a service
+./run-tests.sh -p nva-e2e -o                                     # open the interactive runner
+```
+
+`-p` can be omitted if `AWS_PROFILE` is set or the default profile points to the e2e account.
+Run `./run-tests.sh -h` for all options.
+Every `CYPRESS_*` variable is only fetched when not already set, so any of them can be overridden by exporting it before running the script.
 
 ## Deploying the pipeline stack
 
