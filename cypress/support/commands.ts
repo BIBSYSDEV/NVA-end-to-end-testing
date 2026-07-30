@@ -262,21 +262,28 @@ Cypress.Commands.add('selectNVIStatus', (status) => {
   cy.reload();
 });
 
+const searchForNviCandidate = (title: string, remainingAttempts: number) => {
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.get('body').then((body) => {
+    const candidateIsListed = body
+      .find(`[data-testid="${dataTestId.tasksPage.nvi.candidatesList}"]`)
+      .text()
+      .includes(title);
+    if (!candidateIsListed && remainingAttempts > 0) {
+      cy.wait(2000);
+      cy.reload();
+      searchForNviCandidate(title, remainingAttempts - 1);
+    }
+  });
+};
+
 Cypress.Commands.add('selectNVICandidate', (title?, status?) => {
   if (status) {
     cy.selectNVIStatus(status);
   }
   if (title) {
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.get('body').then((body) => {
-      if (body.find(`[data-testid="${dataTestId.tasksPage.nvi.candidatesList}"]`).length === 0) {
-        cy.wait(10000);
-        cy.reload();
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
-        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      }
-    });
+    searchForNviCandidate(title, 15);
   }
   cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
     if (title) {
