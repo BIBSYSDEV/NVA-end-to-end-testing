@@ -25,6 +25,7 @@ phases:
       - if [ -d "messages" ]; then if [ -a messages/* ]; then  rm messages/*; fi; fi
       - if [ ! -d "messages" ]; then mkdir messages; fi
       - aws s3 cp s3://$TESTREPORTS_BUCKET/messages messages --recursive
+      - if [ -z "$(ls -A messages)" ]; then echo "No cucumber messages found in s3://$TESTREPORTS_BUCKET/messages, cannot generate report"; exit 1; fi
       - if [ ! -d "TestReport" ]; then mkdir TestReport; fi
       - npx cucumber-merge-messages messages/*.ndjson > cucumber-messages.ndjson
       - npm run create:cucumber:report
