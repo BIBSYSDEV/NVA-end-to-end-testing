@@ -243,6 +243,7 @@ export const NVI_DISPUTE = 'dispute';
 
 Cypress.Commands.add('openNVIWorklist', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.url().should('include', 'status=');
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.url().should('include', '/tasks/nvi');
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
