@@ -87,6 +87,10 @@ Given('that the user is logged in', () => {
 });
 When('they click the menu item My user profile', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  // TODO(NP-51500): "My page" lands on Dialogue when the user has unread
+  // notifications, hiding the profile link. Navigate explicitly until the
+  // behavior is confirmed and covered by dedicated tests.
+  cy.getDataTestId(dataTestId.myPage.researchProfileAccordion).click();
   cy.getDataTestId(dataTestId.myPage.myProfileLink).click();
 });
 Then('they see My Profile', () => {
@@ -109,6 +113,10 @@ Then('they see their Profile page which includes information for', (dataTable: D
 // Given ('the user us logged in', () => {});
 When('they view their research profile', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  // TODO(NP-51500): "My page" lands on Dialogue when the user has unread
+  // notifications. Navigate explicitly until the behavior is confirmed and
+  // covered by dedicated tests.
+  cy.getDataTestId(dataTestId.myPage.researchProfileAccordion).click();
 });
 Then('they see a list of their publications', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.greaterThan', 0);
