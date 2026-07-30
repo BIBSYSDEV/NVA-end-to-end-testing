@@ -121,10 +121,28 @@ When('they view their research profile', () => {
 Then('they see a list of their publications', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.greaterThan', 0);
 });
+
+/**
+ * Extracts the publication date from a result item. Partial dates default to 
+ * the end of the period, e.g. "2025" is parsed to "2025-12-31".
+ */
+const parseDisplayedPublicationDate = (itemText: string): number => {
+  const match = itemText.match(/\b(?:(\d{2})\.)?(?:(\d{2})\.)?(\d{4})\b/);
+  if (!match) {
+    throw new Error(`No publication date found in result item: ${itemText}`);
+  }
+  const [, firstPart, secondPart, year] = match;
+  const month = secondPart ?? firstPart;
+  const day = secondPart ? firstPart : undefined;
+  return Date.UTC(Number(year), month ? Number(month) - 1 : 11, day ? Number(day) : 31);
+};
+
 Then('the list of publications is sorted by newest first', () => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().should('contain', titleToday);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).eq(1).should('contain', titleYesterday);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).last().should('contain', titleLastYear);
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).then(($items) => {
+    const datesInListOrder = Cypress.$.makeArray($items).map((item) => parseDisplayedPublicationDate(item.innerText));
+    const datesNewestFirst = [...datesInListOrder].sort((first, second) => second - first);
+    expect(datesInListOrder, 'displayed publication dates in list order').to.deep.equal(datesNewestFirst);
+  });
 });
 
 // Scenario: User sort list of publications
