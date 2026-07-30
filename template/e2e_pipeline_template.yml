@@ -34,6 +34,10 @@ Parameters:
     Description: Base url for application under testing
     Type: String
     Default: https://e2e.nva.aws.unit.no/
+  CodeBuildImage:
+    Description: Curated CodeBuild image used by all build projects in this pipeline
+    Type: String
+    Default: aws/codebuild/standard:8.0
 Resources:
   E2ETestReportBucket:
     Type: 'AWS::S3::Bucket'
@@ -96,7 +100,7 @@ Resources:
         Type: CODEPIPELINE
       Environment:
         ComputeType: BUILD_GENERAL1_LARGE
-        Image: aws/codebuild/standard:7.0
+        Image: !Ref CodeBuildImage
         Type: LINUX_CONTAINER
         EnvironmentVariables:
           - Name: S3_BUCKET
@@ -116,7 +120,7 @@ Resources:
         Type: CODEPIPELINE
       Environment:
         ComputeType: BUILD_GENERAL1_LARGE
-        Image: aws/codebuild/standard:7.0
+        Image: !Ref CodeBuildImage
         Type: LINUX_CONTAINER
         EnvironmentVariables:
           - Name: TESTREPORTS_BUCKET
@@ -142,7 +146,7 @@ Resources:
         Type: CODEPIPELINE
       Environment:
         ComputeType: BUILD_GENERAL1_LARGE
-        Image: aws/codebuild/standard:7.0
+        Image: !Ref CodeBuildImage
         Type: LINUX_CONTAINER
         EnvironmentVariables:
           - Name: TESTREPORTS_BUCKET
