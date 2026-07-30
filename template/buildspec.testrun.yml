@@ -33,7 +33,7 @@ phases:
       - npx cypress run --browser chrome  --record --key $CYPRESS_DASHBOARD_KEY --parallel --ci-build-id $CODEBUILD_INITIATOR --env messagesOutput=messages/cucumber-messages-$RUNNER.ndjson
   post_build:
     commands:
-      - if [ -d "cypress/cucumber-json" ]; then aws s3 cp messages s3://$TESTREPORTS_BUCKET/messages --recursive; fi
+      - if [ -d "messages" ]; then aws s3 cp messages s3://$TESTREPORTS_BUCKET/messages --recursive; fi
 artifacts:
   files:
     - '**/*'
