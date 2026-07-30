@@ -31,9 +31,9 @@ phases:
       - if [ -d "cypress/screenshots" ]; then aws s3 cp cypress/screenshots s3://$S3_BUCKET/cypress/$CODEBUILD_BUILD_NUMBER/screenshots --recursive; fi
       - if [ -d "cypress/videos" ]; then aws s3 cp cypress/videos s3://$TESTREPORTS_BUCKET/videos --recursive; fi
       - if [ -d "TestReport" ]; then aws s3 cp TestReport s3://$TESTREPORTS_BUCKET/TestReport --recursive; aws s3 cp TestReport s3://$TESTREPORTS_BUCKET --recursive; fi
-  post_build:
-    commands:
-      - aws s3 rm s3://$TESTREPORTS_BUCKET/messages --recursive
+  # post_build:
+  #   commands:
+  #     - aws s3 rm s3://$TESTREPORTS_BUCKET/messages --recursive
 artifacts:
   files:
     - '**/*'
