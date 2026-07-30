@@ -6,7 +6,7 @@ import { createEsbuildPlugin } from '@badeball/cypress-cucumber-preprocessor/esb
 export default defineConfig({
   projectId: 'a6w1e7',
   env: {
-    TAGS: 'not @ignore and @test',
+    tags: 'not @ignore',
   },
   defaultCommandTimeout: 30000,
   viewportWidth: 1600,
