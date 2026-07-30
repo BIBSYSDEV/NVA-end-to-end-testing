@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "create:cucumber:report": "node scripts/cucumber_report.mjs",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "typecheck": "tsc --noEmit",
+    "lint:cfn": "cfn-lint template/e2e_pipeline_template.yml",
+    "lint:shell": "shellcheck run-tests.sh",
+    "check": "npm run typecheck && npm run lint:cfn && npm run lint:shell"
   },
   "keywords": [],
   "author": "",

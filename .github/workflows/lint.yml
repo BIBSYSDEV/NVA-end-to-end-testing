@@ -21,13 +21,14 @@ jobs:
         env:
           CYPRESS_INSTALL_BINARY: '0'
 
+      - name: Install cfn-lint
+        run: pipx install cfn-lint
+
       - name: Typecheck
-        run: npx tsc --noEmit
+        run: npm run typecheck
 
       - name: Lint CloudFormation template
-        run: |
-          pipx install cfn-lint
-          cfn-lint template/e2e_pipeline_template.yml
+        run: npm run lint:cfn
 
       - name: Shellcheck
-        run: shellcheck run-tests.sh
+        run: npm run lint:shell
