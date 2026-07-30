@@ -29,7 +29,9 @@ jobs:
           CYPRESS_INSTALL_BINARY: '0'
 
       - name: Install cfn-lint
-        run: pipx install cfn-lint
+        run: |
+          pipx install cfn-lint==1.53.3
+          cfn-lint --version
 
       - name: Typecheck
         run: npm run typecheck
