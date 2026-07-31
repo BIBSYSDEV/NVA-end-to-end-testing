@@ -9,11 +9,9 @@ import {
   userUSNNviInstitution,
 } from '../../../support/constants';
 import {
-  ContributorType,
   createPublicationUsingAPI,
   findContributorByName,
   NviLevels,
-  RegistrationData,
 } from '../../../support/create_registration';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
@@ -87,15 +85,12 @@ BeforeAll(() => {
                   titleRoot === titleNonScientificToScientificUnidentifiedToIdentified
                     ? CategoryTypes.JOURNAL_REVIEW
                     : CategoryTypes.ACADEMIC_ARTICLE;
-                const builder = createPublicationUsingAPI(
+                createPublicationUsingAPI(
                   title,
                   category,
                   userName[userUSNNviInstitution],
                   NviLevels.LEVEL_1
-                );
-                cy.wrap(builder).as('registrationBuilder');
-                cy.get('@registrationBuilder').then((regBuilder: unknown) => {
-                  const builder = regBuilder as RegistrationData;
+                ).then((builder) => {
                   builder.entityDescription.contributors[0] = unidentifiedUser;
                   switch (collaboration) {
                     case NVICollaboration:
