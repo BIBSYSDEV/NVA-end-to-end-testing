@@ -6,9 +6,10 @@ phases:
   install:
     runtime-versions:
       python: 3.x
+  pre_build:
+    commands:
+      - pip install uv
   build:
     commands:
       - cd test_data
-      - pip install babel
-      - pip install requests
-      - python create_test_data.py
+      - uv run --frozen create_test_data.py
