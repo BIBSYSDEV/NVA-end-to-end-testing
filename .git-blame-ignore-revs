@@ -3,3 +3,6 @@
 
 # chore: Normalize line endings to LF
 bf01277614eaefcd60bf0e13e829408962b601ad
+
+# style: Reformat project with Prettier
+f3d9ce0559faec894fb4047d48d804ac84016a54
