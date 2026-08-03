@@ -106,9 +106,6 @@ Resources:
           - Name: S3_BUCKET
             Type: PLAINTEXT
             Value: !Ref ArtifactStoreBucket
-          - Name: ROLE_ARN
-            Type: PLAINTEXT
-            Value: !GetAtt TestrunnerRole.Arn
       Source:
         Type: CODEPIPELINE
         BuildSpec: template/buildspec.testdata.yml
