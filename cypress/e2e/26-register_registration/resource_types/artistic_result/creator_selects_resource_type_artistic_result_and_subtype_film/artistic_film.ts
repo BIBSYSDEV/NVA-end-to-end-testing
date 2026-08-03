@@ -62,9 +62,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 });
 When('they add a Broadcast with details for:', () => {
   cy.getDataTestId(filmAnnouncements['Broadcast']).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.broadcastPublisher).type(
-    'Test Broadcast Publisher'
-  );
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.broadcastPublisher).type('Test Broadcast Publisher');
   cy.chooseDatePicker(
     `[data-testid=${dataTestId.registrationWizard.resourceType.outputInstantDateField}]`,
     '11.11.2021'
@@ -96,9 +94,7 @@ Then('the Cinematic release is listed under Exhibitions', () => {
 //   Scenario: Creator adds an Other release to a Film
 When('they add a Other release with details for:', () => {
   cy.getDataTestId(filmAnnouncements['Other release']).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.outputDescriptionField).type(
-    'Test Other release type'
-  );
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.outputDescriptionField).type('Test Other release type');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.placeField).type('Test Other release place');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.otherReleasePublisher).type(
     'Test Other release publisher'

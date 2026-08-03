@@ -9,7 +9,7 @@ Feature: Reports from navigate
 
     Examples:
       | Institution | Candidates | Under control | Approved | Rejected | Twists | Total | Controlled |
-      | Nord        |          4 |             0 |        4 |        2 |      0 |    10 |         60 |
+      | Nord        | 4          | 0             | 4        | 2        | 0      | 10    | 60         |
 
   @test
   Scenario Outline: An administrator looks at publication points status
@@ -20,7 +20,9 @@ Feature: Reports from navigate
 
     Examples:
       | Institution | Approved by us | Waiting for others | Approved by all | Publication points | Approved |
-      | Nord        |              4 |                  0 |               3 |                 12 |       37 |
+      | Nord        | 4              | 0                  | 3               | 12                 | 37       |
+
+
 #   @test
 #   Scenario: An curator exports file for NVI reporting status
 #     Given a curator in an NVI Institution

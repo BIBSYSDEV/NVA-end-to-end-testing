@@ -1,1 +1,1 @@
-Given('that the user is logged in', () => { });
+Given('that the user is logged in', () => {});

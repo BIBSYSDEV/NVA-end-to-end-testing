@@ -37,9 +37,7 @@ When('they click Start', () => {
   });
 });
 Then('they see the Wizard', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).should(
-    'be.visible'
-  );
+  cy.getDataTestId(dataTestId.registrationWizard.stepper.descriptionStepButton).should('be.visible');
 });
 // Examples:
 //   | Method               |

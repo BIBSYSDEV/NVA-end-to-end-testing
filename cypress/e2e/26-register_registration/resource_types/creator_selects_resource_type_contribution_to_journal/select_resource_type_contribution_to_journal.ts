@@ -17,10 +17,16 @@ BeforeAll(() => {
     const user = userName[userUnitResourceTypeJournal];
     createPublicationUsingAPI(originalPublication, CategoryTypes.ACADEMIC_ARTICLE, user, NviLevels.LEVEL_0).then(
       (builder) => {
-        createPublicationUsingAPI(corrigendumTitle, CategoryTypes.JOURNAL_CORRIGENDUM, user, NviLevels.LEVEL_0, null, builder.identifier).then(
-          (builder) => {}
-        );
-      });
+        createPublicationUsingAPI(
+          corrigendumTitle,
+          CategoryTypes.JOURNAL_CORRIGENDUM,
+          user,
+          NviLevels.LEVEL_0,
+          null,
+          builder.identifier
+        ).then((builder) => {});
+      }
+    );
   });
 });
 
@@ -170,7 +176,9 @@ Given('Creator sees fields for Journal article', () => {
   cy.login(userUnitResourceTypeJournal);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_ARTICLE)).click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_ARTICLE)).click({
+    force: true,
+  });
 });
 When('they select type to be {string}:', (type: string) => {
   const elements = [];

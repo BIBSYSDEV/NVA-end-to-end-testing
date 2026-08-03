@@ -14,19 +14,18 @@ Feature: Registrator worklist
       | Support Requests    | Pending, Resolved             |
     And they see that each item in the list is expandable
 
-
   @test
   Scenario: Creator opens a Registration with a DOI request
     Given that the Creator Opens a DOI request entry from My Messages
     When they click the Edit Registration button
     Then the Registration is opened in the Wizard on the first tab
-    # Scenario: Creator deletes a DOI request
-    #     Given that the Creator opens My Worklist
-    #     When they click the Delete button on a DOI request
-    #     Then the request is deleted from their Worklist
-    #     And the request is deleted from the Worklist of their Curator
-    #     And the Landing Page for Publication has an enabled "Request DOI" button
 
+  # Scenario: Creator deletes a DOI request
+  #     Given that the Creator opens My Worklist
+  #     When they click the Delete button on a DOI request
+  #     Then the request is deleted from their Worklist
+  #     And the request is deleted from the Worklist of their Curator
+  #     And the Landing Page for Publication has an enabled "Request DOI" button
   @test
   Scenario: Creator adds a new message on a message thread
     Given that a User is logged in as Creator

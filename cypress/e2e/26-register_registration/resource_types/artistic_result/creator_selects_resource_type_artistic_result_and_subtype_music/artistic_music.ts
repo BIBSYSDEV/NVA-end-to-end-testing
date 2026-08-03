@@ -43,7 +43,9 @@ Then('they can edit existing Exhibitions', () => {
   );
   cy.getDataTestId(musicConcertProgramFields['Works']).click();
   cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramTitle}]`).first().type('Title');
-  cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramComposer}]`).first().type('Composer');
+  cy.get(`[data-testid^=${dataTestId.registrationWizard.resourceType.concertProgramComposer}]`)
+    .first()
+    .type('Composer');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
   cy.get('[aria-label=Edit]');
 });

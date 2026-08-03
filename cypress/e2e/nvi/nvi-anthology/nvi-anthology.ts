@@ -181,12 +181,7 @@ Given('publication is NVI candidate', () => {
 Given('publication has AcademicChapter refering to the Anthology', () => {
   cy.then(() => {
     const scientificChapterTitle = `Chapter for Anthology ${uuid()}`;
-    createPublicationUsingAPI(
-      scientificChapterTitle,
-      CategoryTypes.ACADEMIC_CHAPTER,
-      USN_USER,
-      NviLevels.LEVEL_1
-    );
+    createPublicationUsingAPI(scientificChapterTitle, CategoryTypes.ACADEMIC_CHAPTER, USN_USER, NviLevels.LEVEL_1);
     cy.wrap(scientificChapterTitle).as('chapterTitle');
   });
 });
@@ -195,12 +190,7 @@ When('AcademicChapter is updated to refer to another Book', () => {
   // Create another book
   cy.then(() => {
     const anotherBookTitle = `Another Book ${uuid()}`;
-    createPublicationUsingAPI(
-      anotherBookTitle,
-      CategoryTypes.BOOK_ANTHOLOGY,
-      USN_USER_CHANGE,
-      NviLevels.LEVEL_1
-    );
+    createPublicationUsingAPI(anotherBookTitle, CategoryTypes.BOOK_ANTHOLOGY, USN_USER_CHANGE, NviLevels.LEVEL_1);
     cy.searchFor(anotherBookTitle);
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();

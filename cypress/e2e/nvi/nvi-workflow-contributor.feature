@@ -1,6 +1,6 @@
 Feature: NVI workflow - contributor
 
-    @test
+  @test
   Scenario Outline: Create testdata for NVI workflow - user
     Given there is testdata for a NVI candidate with "<Category>", "<PublicationStatus>", "<IsCollaboration>", "<TypeOfRegistration>", "<IsNviPublication>"
 
@@ -30,29 +30,29 @@ Feature: NVI workflow - contributor
       | Monograph          | Published         | external institution | Manual Registration | NVI Publication     |
       | Monograph          | Draft             | external institution | Manual Registration | Not NVI Publication |
       | Monograph          | Unpublished       | external institution | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Published         | No one               | Manual Registration | NVI Publication     |
-      | AcademicChapter   | Draft             | No one               | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Unpublished       | No one               | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Published         | NVI-institution      | Manual Registration | NVI Publication     |
-      | AcademicChapter   | Draft             | NVI-institution      | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Unpublished       | NVI-institution      | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Published         | NVA-institution      | Manual Registration | NVI Publication     |
-      | AcademicChapter   | Draft             | NVA-institution      | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Unpublished       | NVA-institution      | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Published         | external institution | Manual Registration | NVI Publication     |
-      | AcademicChapter   | Draft             | external institution | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Unpublished       | external institution | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Published         | No one               | Manual Registration | NVI Publication     |
+      | AcademicChapter    | Draft             | No one               | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Unpublished       | No one               | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Published         | NVI-institution      | Manual Registration | NVI Publication     |
+      | AcademicChapter    | Draft             | NVI-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Unpublished       | NVI-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Published         | NVA-institution      | Manual Registration | NVI Publication     |
+      | AcademicChapter    | Draft             | NVA-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Unpublished       | NVA-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Published         | external institution | Manual Registration | NVI Publication     |
+      | AcademicChapter    | Draft             | external institution | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Unpublished       | external institution | Manual Registration | Not NVI Publication |
 
-    @test
-    Scenario Outline: Publication NVI status - contributor
-        Given a Curator views the NVI-tasklist
-        When a Publication is a "<Category>"
-        And the Publication has status "<PublicationStatus>"
-        And the Publication is collaborating with "<IsCollaboration>"
-        And the Publication is "<TypeOfRegistration>"
-        Then the Publication has NVI status "<IsNviPublication>"
+  @test
+  Scenario Outline: Publication NVI status - contributor
+    Given a Curator views the NVI-tasklist
+    When a Publication is a "<Category>"
+    And the Publication has status "<PublicationStatus>"
+    And the Publication is collaborating with "<IsCollaboration>"
+    And the Publication is "<TypeOfRegistration>"
+    Then the Publication has NVI status "<IsNviPublication>"
 
-        Examples:
+    Examples:
       | Category           | PublicationStatus | IsCollaboration      | TypeOfRegistration  | IsNviPublication    |
       | Scientific Article | Published         | No one               | Manual Registration | NVI Publication     |
       | Scientific Article | Draft             | No one               | Manual Registration | Not NVI Publication |
@@ -78,15 +78,15 @@ Feature: NVI workflow - contributor
       | Monograph          | Published         | external institution | Manual Registration | NVI Publication     |
       | Monograph          | Draft             | external institution | Manual Registration | Not NVI Publication |
       | Monograph          | Unpublished       | external institution | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Published         | No one               | Manual Registration | NVI Publication     |
-      | AcademicChapter   | Draft             | No one               | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Unpublished       | No one               | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Published         | NVI-institution      | Manual Registration | NVI Publication     |
-      | AcademicChapter   | Draft             | NVI-institution      | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Unpublished       | NVI-institution      | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Published         | NVA-institution      | Manual Registration | NVI Publication     |
-      | AcademicChapter   | Draft             | NVA-institution      | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Unpublished       | NVA-institution      | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Published         | external institution | Manual Registration | NVI Publication     |
-      | AcademicChapter   | Draft             | external institution | Manual Registration | Not NVI Publication |
-      | AcademicChapter   | Unpublished       | external institution | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Published         | No one               | Manual Registration | NVI Publication     |
+      | AcademicChapter    | Draft             | No one               | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Unpublished       | No one               | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Published         | NVI-institution      | Manual Registration | NVI Publication     |
+      | AcademicChapter    | Draft             | NVI-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Unpublished       | NVI-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Published         | NVA-institution      | Manual Registration | NVI Publication     |
+      | AcademicChapter    | Draft             | NVA-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Unpublished       | NVA-institution      | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Published         | external institution | Manual Registration | NVI Publication     |
+      | AcademicChapter    | Draft             | external institution | Manual Registration | Not NVI Publication |
+      | AcademicChapter    | Unpublished       | external institution | Manual Registration | Not NVI Publication |

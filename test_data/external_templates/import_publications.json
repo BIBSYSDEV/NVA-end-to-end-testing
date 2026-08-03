@@ -1,14 +1,14 @@
 [
-    {
-        "title": "Test import file",
-        "institution": "sikt",
-        "handle": "https://hdl.handle.net/12345/",
-        "type": "Vitenskapelig artikkel",
-        "authors": [
-            {
-                "name": "Eirik Nilsen",
-                "cristinId": ""
-            }
-        ]
-    }
+  {
+    "title": "Test import file",
+    "institution": "sikt",
+    "handle": "https://hdl.handle.net/12345/",
+    "type": "Vitenskapelig artikkel",
+    "authors": [
+      {
+        "name": "Eirik Nilsen",
+        "cristinId": ""
+      }
+    ]
+  }
 ]

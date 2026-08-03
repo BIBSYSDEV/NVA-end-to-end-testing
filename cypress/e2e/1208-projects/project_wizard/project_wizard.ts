@@ -441,10 +441,7 @@ Then('the User selects a Financing source for Project', () => {
 });
 Then('the selected Financing source is listed', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingSourceSearchField).within(() => {
-    cy.get('textarea').should(
-      'have.text',
-      'Research Council of Norway (RCN)'
-    );
+    cy.get('textarea').should('have.text', 'Research Council of Norway (RCN)');
   });
 });
 
@@ -474,10 +471,7 @@ Then('they selects a NFR project', () => {
 });
 Then('the selected Financing title and ID is listed', () => {
   cy.getDataTestId(dataTestId.registrationWizard.description.fundingIdField).within(() => {
-    cy.get('input').should(
-      'have.value',
-      '222925'
-    );
+    cy.get('input').should('have.value', '222925');
   });
 });
 

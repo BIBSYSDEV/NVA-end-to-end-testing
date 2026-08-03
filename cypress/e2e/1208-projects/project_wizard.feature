@@ -1,14 +1,16 @@
 Feature: User edits Project
   In order to achieve a low mental load on the user
   As Product Owner
-  I want the user to experience a high degree of recognition between the desing of Project's registration wizard and Publication’s registration wizard
+  I want the user to experience a high degree of recognition between the desing of Project's registration wizard and
+  Publication’s registration wizard
 
   In order to manage a Project's content
   As a User
   I want to be able to manage all possible information about the Project in one place
 
   In most cases the Project Manager reside from the Coordinating Institution
-  Vocabulary warning: Most funding organizations use the term "project" to describe (one of possible many) funding sources a project may have.
+  Vocabulary warning: Most funding organizations use the term "project" to describe (one of possible many) funding
+  sources a project may have.
 
   Background:
     Given A User is logged in
@@ -18,6 +20,7 @@ Feature: User edits Project
       | Project Owner         |
       | Project Manager       |
       | Local Project Manager |
+
   # Rule: Any User (Registrator) can create a project, becoming origin Project Owner
   @test
   Scenario: User opens the Project Wizard to register a new Project
@@ -28,18 +31,21 @@ Feature: User edits Project
       | Empty registration   |
     #| REK Approval         |
     And they see a Close option
+
   @test
   Scenario: User starts to register a Project with a suggested Financing from NFR
     Given User opens the Project Wizard to register a new Project
     When they activate the search field, a list of Financings where the user has a role is presented
     Then they selects a Financing
     And the Project Wizard opens pre-filled with metadata
+
   @test
   Scenario: User opens the Project Wizard and start registering a Project without Financing selected
     Given User opens the Project Wizard to register a new Project
     When they open the Project Wizard to register a new Project
     And they selects Empty registration
     Then the Project Wizard opens with no metadata pre-filled
+
   @test
   Scenario: The User opens the Project Wizard and registers a new project
     Given User opens the Project Wizard to register a new Project
@@ -61,6 +67,7 @@ Feature: User edits Project
     And they can add Project participants
     And they can link to Related projects
     And they can Save and view the project
+
   @test
   Scenario: User adds a Project Participant
     Given User views the Projects Participants section
@@ -72,8 +79,8 @@ Feature: User edits Project
     And the User searches for a Project participant
     And the User selects a Participant from the search results
     Then they see the Person listed as a Project Participant with the selected role
-  # Scenario: User tries to add a duplicate Project Participant
 
+  # Scenario: User tries to add a duplicate Project Participant
   @test
   Scenario: User sees that a Project is created with correct values
     Given User opens the Project Wizard to register a new Project
@@ -110,7 +117,7 @@ Feature: User edits Project
       | Funding                  |
     And they see the Participants they added
     And they see the Connections they added
-    
+
   @test
   Scenario: User adds a Financing source for Project
     Given User views Financing tab for Project
@@ -119,6 +126,7 @@ Feature: User edits Project
     And NFR is listed first
     Then the User selects a Financing source for Project
     And the selected Financing source is listed
+
   @test
   Scenario: User selects NFR as Financing source for Project
     Given User adds a Financing source for Project
@@ -128,17 +136,17 @@ Feature: User edits Project
     When they activate the search field
     Then they selects a NFR project
     And the selected Financing title and ID is listed
-# Scenario: User selects a non-NFR as Financing source for Project
-#     Given User adds a Financing source for Project
-#     And the Financing source for Project is not NFR
-#     And the selected Financing source for Project is presented
-#     And the User is presented following fields:
-#         | Title |
-#         | ID    |
-#         | Value |
-#     When the fieleds are filled in the Financing source ia stored
-#     And the add new Financing source option is activated
 
+  # Scenario: User selects a non-NFR as Financing source for Project
+  #     Given User adds a Financing source for Project
+  #     And the Financing source for Project is not NFR
+  #     And the selected Financing source for Project is presented
+  #     And the User is presented following fields:
+  #         | Title |
+  #         | ID    |
+  #         | Value |
+  #     When the fieleds are filled in the Financing source ia stored
+  #     And the add new Financing source option is activated
   @test
   Scenario: User selects a sub-unit for a Participants
     Given User opens the Project Wizard to register a new Project
