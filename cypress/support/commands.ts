@@ -243,6 +243,7 @@ export const NVI_DISPUTE = 'dispute';
 
 Cypress.Commands.add('openNVIWorklist', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+  cy.getDataTestId(dataTestId.startPage.searchField).should('exist');
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.url().should('include', '/tasks/nvi');
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -261,21 +262,37 @@ Cypress.Commands.add('selectNVIStatus', (status) => {
   cy.reload();
 });
 
+const NVI_CANDIDATE_INDEX_RETRIES = 4;
+
+const searchForNVICandidate = (title: string) => {
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+};
+
+// A freshly created/updated NVI-candidate can take a while to show up in the search index.
+// Retry a few times with a reload in between rather than a single fixed wait, since one retry
+// isn't always enough under CI load and previously caused hangs further down.
+const waitForNVICandidateToBeIndexed = (title: string, attemptsLeft: number) => {
+  cy.get('body').then((body) => {
+    if (body.find(`[data-testid="${dataTestId.tasksPage.nvi.candidatesList}"]`).length === 0) {
+      if (attemptsLeft <= 0) {
+        throw new Error(`NVI candidate "${title}" was not indexed by the search backend in time`);
+      }
+      cy.wait(10000);
+      cy.reload();
+      searchForNVICandidate(title);
+      waitForNVICandidateToBeIndexed(title, attemptsLeft - 1);
+    }
+  });
+};
+
 Cypress.Commands.add('selectNVICandidate', (title?, status?) => {
   if (status) {
     cy.selectNVIStatus(status);
   }
   if (title) {
-    cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
-    cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-    cy.get('body').then((body) => {
-      if (body.find(`[data-testid="${dataTestId.tasksPage.nvi.candidatesList}"]`).length === 0) {
-        cy.wait(10000);
-        cy.reload();
-        cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
-        cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-      }
-    });
+    searchForNVICandidate(title);
+    waitForNVICandidateToBeIndexed(title, NVI_CANDIDATE_INDEX_RETRIES);
   }
   cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList).within(() => {
     if (title) {
