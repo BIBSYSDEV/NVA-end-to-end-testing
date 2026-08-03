@@ -54,9 +54,9 @@ Feature: Validation of an NVI resource
       | Being checked | Being checked   | No status          |
       | Approved      | Approved        | No status          |
       | Rejected      | Rejected        | No status          |
-         	# | Dispute                                     | Rejected        | Approved                   |
-         	# | Dispute                                     | Approved        | Rejected                   |
-         	# | Dispute                                     | Candidate       | Dispute                    |
+      | Dispute       | Rejected        | Approved           |
+      | Dispute       | Approved        | Rejected           |
+      | Dispute       | Candidate       | Dispute            |
 
   @test
   Scenario: The progress bar display the current NVI-report status

@@ -241,12 +241,33 @@ export const NVI_APPROVED = 'Approved';
 export const NVI_REJECTED = 'Rejected';
 export const NVI_DISPUTE = 'dispute';
 
+/**
+ * The tasks page can swallow the accordion click in a re-render or overwrite
+ * its navigation with the dialogue page's default-filter effect while still
+ * initializing, so click again until the navigation sticks.
+ */
+const clickNviAccordionUntilNavigated = (remainingAttempts: number) => {
+  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.wait(1000);
+  cy.location('pathname').then((pathname) => {
+    if (!pathname.includes('/tasks/nvi') && remainingAttempts > 0) {
+      cy.task('log', `NVI accordion click did not navigate (pathname: ${pathname}), retrying`);
+      clickNviAccordionUntilNavigated(remainingAttempts - 1);
+    }
+  });
+};
+
 Cypress.Commands.add('openNVIWorklist', () => {
+  // Wait for tasks page to settle; both landing variants (dialogue for ticket
+  // curators, NVI for NVI-only curators) end with status= in the URL.
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.url().should('include', 'status=');
-  cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+
+  // Navigate to NVI tasks
+  clickNviAccordionUntilNavigated(15);
   cy.url().should('include', '/tasks/nvi');
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
+
   // The year select renders unconditionally once the candidates page mounts,
   // but the first spec on a cold runner can need far more than the default timeout.
   cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect, { timeout: 60000 }).click();
@@ -262,20 +283,39 @@ Cypress.Commands.add('selectNVIStatus', (status) => {
   cy.reload();
 });
 
-const searchForNviCandidate = (title: string, remainingAttempts: number) => {
-  cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
-  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.get('body').then((body) => {
-    const candidateIsListed = body
-      .find(`[data-testid="${dataTestId.tasksPage.nvi.candidatesList}"]`)
-      .text()
-      .includes(title);
-    if (!candidateIsListed && remainingAttempts > 0) {
+/**
+ * Waits until the candidate search response actually contains the title.
+ * A fresh publication is evaluated and indexed asynchronously (1-2s warm),
+ * and checking the response instead of the DOM distinguishes a backend error
+ * from a candidate that does not exist yet.
+ */
+const awaitNviCandidateSearchResponse = (title: string, remainingAttempts: number) => {
+  cy.wait('@nviCandidateSearch').then(({ response }) => {
+    const candidateIsFound = response?.statusCode === 200 && JSON.stringify(response.body).includes(title);
+    if (!candidateIsFound) {
+      if (remainingAttempts <= 0) {
+        throw new Error(
+          `NVI candidate "${title}" never appeared in the search response ` +
+            `(last status: ${response?.statusCode})`
+        );
+      }
+      cy.task(
+        'log',
+        `searchForNviCandidate "${title}": response ${response?.statusCode} without candidate, ` +
+          `${remainingAttempts} attempts left`
+      );
       cy.wait(2000);
       cy.reload();
-      searchForNviCandidate(title, remainingAttempts - 1);
+      awaitNviCandidateSearchResponse(title, remainingAttempts - 1);
     }
   });
+};
+
+const searchForNviCandidate = (title: string, remainingAttempts: number) => {
+  cy.intercept('GET', '**/scientific-index/candidate?*').as('nviCandidateSearch');
+  cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
+  awaitNviCandidateSearchResponse(title, remainingAttempts);
+  cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 };
 
 Cypress.Commands.add('selectNVICandidate', (title?, status?) => {
