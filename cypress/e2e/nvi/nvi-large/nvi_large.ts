@@ -3,7 +3,7 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { CategoryTypes, ContributorTypes, userName, userUSNNviInstitution } from '../../../support/constants';
 import {
-    createDraftPublicationUsingAPI,
+  createDraftPublicationUsingAPI,
   createPublicationUsingAPI,
   NviLevels,
   RegistrationData,

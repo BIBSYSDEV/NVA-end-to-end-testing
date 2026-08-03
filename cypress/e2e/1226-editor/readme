@@ -11,15 +11,15 @@ How many Editors and Curators?
 Smaller Institutions may deem one User to be both the Editor and the Curator. A larger institution may need a handful of Curators. A large Institution may deem it necessary to define each second-to-top level Curator an Editor and each Editor may have several Curators. Some reasearch teams may create enoungh work to need their own Curators.
 
 The Editor's main menu has following options and the first is the default choice:
-    Institutions configuration     -> editor_opens_editor_administration.feature
-    Vocabulary settings            -> vocabulary_settings.feature
-    Publishing strategi            -> publishings_rights.feature
-    DOI configurasjon              -> doi_configuration.feature
-    curator's responsibility       -> curators_responsibility.feature
-   #change owner of registration   -> seize_ownership.feature
-   #Sletting av publikasjoner      ->
-    NVI-rapportering               -> nvi_report.featrure
-   #Lisenser og filer              ->
+Institutions configuration -> editor_opens_editor_administration.feature
+Vocabulary settings -> vocabulary_settings.feature
+Publishing strategi -> publishings_rights.feature
+DOI configurasjon -> doi_configuration.feature
+curator's responsibility -> curators_responsibility.feature
+#change owner of registration -> seize_ownership.feature
+#Sletting av publikasjoner ->
+NVI-rapportering -> nvi_report.featrure
+#Lisenser og filer ->
 
 Institutions configuration
 This is the starting point for Editor's menu. It lists the institutions registered official names in different languages, it's short name, author identity and a possible Feide domain. This is read-only information about how the institution is configured.
@@ -30,6 +30,6 @@ Some Institutions wish to arrange resources into classes or categories according
 
 Publishing permissions
 The Editor defines the Institutions publication policy and can choose one of the three options:
-	Registrator has full publishing rights
-	Registrator can only publish metadata
-	Only Curator can publish
+Registrator has full publishing rights
+Registrator can only publish metadata
+Only Curator can publish

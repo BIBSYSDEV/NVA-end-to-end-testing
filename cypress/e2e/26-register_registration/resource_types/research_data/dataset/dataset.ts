@@ -73,9 +73,7 @@ Given('User confirms to register data that are legal to publish on this service'
 });
 When('the User writes some free-text geographical data', () => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.geographicDescriptionField).should('be.visible');
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.geographicDescriptionField).type(
-    'Trondheim, Norway'
-  );
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.geographicDescriptionField).type('Trondheim, Norway');
 });
 // # Future: Add support for land, region, county and map reference (line, rectangle, point)
 Then('it is stored', () => {
@@ -141,9 +139,7 @@ When('User opens Landing Page for a Dataset', () => {
   cy.getDataTestId(dataTestId.confirmDialog.cancelButton).click();
 
   // fill in data in the Resouce type page
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.geographicDescriptionField).type(
-    'Trondheim, Norway'
-  );
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.geographicDescriptionField).type('Trondheim, Norway');
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.relatedRegistrationField).type('Antologi');
   cy.contains('Antologi').first().click({ force: true });
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.compliesWithField).type('Test registration DMP');

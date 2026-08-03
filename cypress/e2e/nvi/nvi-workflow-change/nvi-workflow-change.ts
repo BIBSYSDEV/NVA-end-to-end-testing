@@ -221,12 +221,7 @@ const createNVICandidateTitle = `NVI Change candidate ${uuid()}`;
 // Scenario: Publication channel changes and NVI points changes
 Given('an NVI-candidate with a level 1 publication channel', () => {
   cy.login(userUSNNviInstitution).then(() => {
-    createPublicationUsingAPI(
-      createNVICandidateTitle,
-      CategoryTypes.ACADEMIC_ARTICLE,
-      USN_USER,
-      NviLevels.LEVEL_1
-    );
+    createPublicationUsingAPI(createNVICandidateTitle, CategoryTypes.ACADEMIC_ARTICLE, USN_USER, NviLevels.LEVEL_1);
     cy.login(userUSNNviCuratorInstitution).then(() => {
       cy.getDataTestId(dataTestId.header.tasksLink).click();
       cy.openNVIWorklist();

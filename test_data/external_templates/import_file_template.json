@@ -10,26 +10,26 @@
     "nva": ""
   },
   "publisherAuthority": {
-   "brage": ["acceptedVersion"],
-   "nva": "AcceptedVersion"
- },
- "type": {
-   "brage": ["Peer reviewed", "Journal article"],
-   "nva": "Vitenskapelig artikkel"
- },
- "publication": {
-   "issnList": ["1439-7358"],
-   "journal": "Lecture Notes in Computational Science and Engineering",
-   "publicationContext": {
-     "bragePublisher": "Springer",
-     "journal": {
-       "type": "Journal",
-       "pid": "255B0CE1-55A9-4A0F-9B9D-E4F915ABE670"
-     }
-   },
-   "partOfSeries": {}
- },
- "entityDescription": {
+    "brage": ["acceptedVersion"],
+    "nva": "AcceptedVersion"
+  },
+  "type": {
+    "brage": ["Peer reviewed", "Journal article"],
+    "nva": "Vitenskapelig artikkel"
+  },
+  "publication": {
+    "issnList": ["1439-7358"],
+    "journal": "Lecture Notes in Computational Science and Engineering",
+    "publicationContext": {
+      "bragePublisher": "Springer",
+      "journal": {
+        "type": "Journal",
+        "pid": "255B0CE1-55A9-4A0F-9B9D-E4F915ABE670"
+      }
+    },
+    "partOfSeries": {}
+  },
+  "entityDescription": {
     "abstracts": ["Test article, Brage import"],
     "publicationDate": {
       "brage": "2024-05-20",

@@ -1,19 +1,21 @@
 {
-    "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication?year=2025&query=Data%20Handling%20in%20Science%20and%20Technology&offset=0&size=10",
-    "totalHits" : 1,
-    "nextResults" : null,
-    "previousResults" : null,
-    "hits" : [ {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/0669F761-7439-411C-B341-C7ACA66E3C20/2025",
-      "identifier" : "0669F761-7439-411C-B341-C7ACA66E3C20",
-      "name" : "Data Handling in Science and Technology",
-      "printIssn" : "0922-3487",
-      "scientificValue" : "Unassigned",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/nvakanal?pid=0669F761-7439-411C-B341-C7ACA66E3C20",
-      "type" : "Series",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    } ],
-    "aggregations" : { },
-    "@context" : "https://bibsysdev.github.io/src/search/paginated-search-result.json"
-  }
+  "id": "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication?year=2025&query=Data%20Handling%20in%20Science%20and%20Technology&offset=0&size=10",
+  "totalHits": 1,
+  "nextResults": null,
+  "previousResults": null,
+  "hits": [
+    {
+      "id": "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/0669F761-7439-411C-B341-C7ACA66E3C20/2025",
+      "identifier": "0669F761-7439-411C-B341-C7ACA66E3C20",
+      "name": "Data Handling in Science and Technology",
+      "printIssn": "0922-3487",
+      "scientificValue": "Unassigned",
+      "sameAs": "https://kanalregister-test.hkdir.no/publiseringskanaler/info/nvakanal?pid=0669F761-7439-411C-B341-C7ACA66E3C20",
+      "type": "Series",
+      "year": "2025",
+      "@context": "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
+    }
+  ],
+  "aggregations": {},
+  "@context": "https://bibsysdev.github.io/src/search/paginated-search-result.json"
+}

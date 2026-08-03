@@ -9,7 +9,9 @@ Before({ tags: '@openVerifyDialog' }, () => {
   cy.login(TestUsers.features.contributors);
   cy.startWizardWithEmptyRegistration();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_MONOGRAPH)).click();
+  cy.getDataTestId(
+    dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_MONOGRAPH)
+  ).click();
 });
 Before({ tags: '@verifyUser' }, () => {
   cy.wrap(dataTestId.registrationWizard.contributors.selectUserButton).as('button');
@@ -231,7 +233,8 @@ Then('they see the "Create new Author" Button in the Create new Author Dialog', 
 When('the Registration has an Unverified Contributor', () => {
   cy.mockPersonSearch(TestUsers.creators.basic);
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_MONOGRAPH)
+  cy.getDataTestId(
+    dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.ACADEMIC_MONOGRAPH)
   ).click();
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addContributorButton).click();

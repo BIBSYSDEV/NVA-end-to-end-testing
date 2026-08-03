@@ -1,14 +1,14 @@
 [
-    {
-        "publication_type": "Book",
-        "publication_context_type": "Book",
-        "publication_instance_type": "BookAnthology",
-        "owner": "test-user-access-resource-owner@test.no",
-        "status": "PUBLISHED",
-        "series": "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/7C549D84-AB27-4E94-9BC1-D57215B67697/2024",
-        "publisher": "https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/C1790C56-B2DF-4D88-9F0A-31CE6D403C83/2024",
-        "contributor": "test-user-access-verified-contributors@test.no",
-        "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
-        "title": "Anthology NVI publisher"
-    }
+  {
+    "publication_type": "Book",
+    "publication_context_type": "Book",
+    "publication_instance_type": "BookAnthology",
+    "owner": "test-user-access-resource-owner@test.no",
+    "status": "PUBLISHED",
+    "series": "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/7C549D84-AB27-4E94-9BC1-D57215B67697/2024",
+    "publisher": "https://api.e2e.nva.aws.unit.no/publication-channels-v2/publisher/C1790C56-B2DF-4D88-9F0A-31CE6D403C83/2024",
+    "contributor": "test-user-access-verified-contributors@test.no",
+    "affiliation": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0",
+    "title": "Anthology NVI publisher"
+  }
 ]

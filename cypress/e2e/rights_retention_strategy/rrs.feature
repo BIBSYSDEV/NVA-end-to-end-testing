@@ -27,14 +27,14 @@ Feature: Rights retention strategy
     When they set the file version to Published
     Then License is not automatically set
 
-@test
+  @test
   Scenario Outline: User changes version for file
     Given User registers Registration with RRS activated
     And the file version is set to "<Initial version>"
     When they set the file version to "<Final version>"
     Then license is set to "<License>"
 
-    Examples: 
+    Examples:
       | Initial version | Final version | License |
       | Accepted        | Published     | None    |
       | Published       | Accepted      | CC-BY   |

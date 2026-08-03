@@ -41,9 +41,7 @@
       "administrationId": "test-user-second-inst-admin@test.no",
       "feideOrganizationId": "20754",
       "cristinId": "https://api.dev.nva.aws.unit.no/cristin/organization/20754.0.0.0",
-      "channelClaims": [
-        "265B320A-F6F5-4B81-92AE-F09AE68AB761"
-      ]
+      "channelClaims": ["265B320A-F6F5-4B81-92AE-F09AE68AB761"]
     }
   ]
 }

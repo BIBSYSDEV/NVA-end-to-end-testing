@@ -63,7 +63,6 @@ When(
       publisherLevel,
       seriesLevel
     );
-
   }
 );
 //   Then ('the publication is listed as an NVI-candidate for the institution the user is affiliated with', () => {});

@@ -48,7 +48,6 @@ When('metadata is registered', () => {
     .create()
     .then((builder) => {
       const entity = createEntityDescription(title, CategoryTypes.DEGREE_MASTER, '1003', NviLevels.LEVEL_1);
-      
     });
 
   createPublicationUsingAPI(

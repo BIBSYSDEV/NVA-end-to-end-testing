@@ -21,7 +21,6 @@ Feature: Creator navigates to Files and License tab
     Then they see a warning message that the Resource will have no File or Linked Resource
     And they see they can cancel marking the Resource
 
-
   @test
   Scenario: Creator adds a file
     Given Creator navigates to Files and License tab
@@ -42,4 +41,3 @@ Feature: Creator navigates to Files and License tab
     And navigates to Files and License tab
     When they remove a file
     Then they no longer see the file in the list of files
-

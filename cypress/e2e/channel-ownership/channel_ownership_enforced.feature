@@ -1,12 +1,12 @@
 Feature: Channel ownership enforced
-    Approved files are files of type OpenFile, InternalFile and HiddenFile
+  Approved files are files of type OpenFile, InternalFile and HiddenFile
 
-    @test
+  @test
   Scenario: An unclaimed channel should not restrict access
     When a publication has an unclaimed channel as publisher
     Then users related to the publication are allowed to update the publication
 
-    @test
+  @test
   Scenario Outline: Claimed channel should not restrict access when no approved files
     Given a publication
     And the publication has no approved files
@@ -22,7 +22,7 @@ Feature: Channel ownership enforced
       | Related to the publication           |
       | Curator at channel claim institution |
 
-      @test
+  @test
   Scenario Outline: Claimed channel should allow some access when publication has approved files
     Given a publication
     And the publication has approved files
@@ -39,22 +39,17 @@ Feature: Channel ownership enforced
       | Curator at channel owning institution | Unpublish      |
       | Curator at channel owning institution | Upload files   |
       | Curator at channel owning institution | Approve files  |
-
       | Editor at channel owning institution  | Update         |
       | Editor at channel owning institution  | Unpublish      |
-
       | Curator at curating institution       | Partial update |
       | Curator at curating institution       | Upload files   |
-
       | Editor at curating institution        | Partial update |
-
       | Publication creator                   | Partial update |
       | Publication creator                   | Upload files   |
-
       | Contributor                           | Partial update |
       | Contributor                           | Upload files   |
 
-    @test
+  @test
   Scenario Outline: Claimed channel should restrict access when publication has approved files
     Given a publication
     And the publication has approved files
@@ -70,15 +65,12 @@ Feature: Channel ownership enforced
       | Curator at curating institution | Update        |
       | Curator at curating institution | Unpublish     |
       | Curator at curating institution | Approve files |
-
       | Editor at curating institution  | Update        |
       | Editor at curating institution  | Unpublish     |
-
       | Publication creator             | Update        |
-
       | Contributor                     | Update        |
 
-    @test
+  @test
   Scenario: Claimed channel should not restrict file owner when file is not approved
     Given a file
     And the file is uploaded to a publication
@@ -92,7 +84,7 @@ Feature: Channel ownership enforced
       | Write metadata |
       | Delete         |
 
-    @test
+  @test
   Scenario Outline: Claimed channel should restrict file curator
     Given a file
     And the file is uploaded to a publication
@@ -108,9 +100,10 @@ Feature: Channel ownership enforced
       | File curator for file owner                | Denied  |
       | File curator at channel owning institution | Allowed |
 
-    @test
+  @test
   Scenario Outline: Claimed channel should restrict access for file with embargo when
     publication is a degree
+
     Given a file with embargo
     And the file is uploaded to a publication
     And the file has status "<FileStatus>"
