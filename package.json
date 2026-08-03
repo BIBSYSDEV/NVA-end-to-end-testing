@@ -6,7 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "create:cucumber:report": "node scripts/cucumber_report.mjs",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "lint:cfn": "cfn-lint template/e2e_pipeline_template.yml",
+    "lint:shell": "shellcheck run-tests.sh",
+    "check": "npm run typecheck && npm run lint:cfn && npm run lint:shell"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +38,8 @@
     "cypress": "^15.19.0",
     "esbuild": "^0.28.1",
     "patch-package": "^8.0.1",
+    "prettier": "3.9.6",
+    "prettier-plugin-gherkin": "4.0.0",
     "tsx": "^4.23.1",
     "typescript": "^7.0.2"
   },

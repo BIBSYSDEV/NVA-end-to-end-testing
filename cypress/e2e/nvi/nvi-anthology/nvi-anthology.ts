@@ -28,7 +28,7 @@ Given('publication with publicationInstance type AcademicChapter', () => {
     cy.get('@anthologyBuilder').then((builder: unknown) => {
       const anthologyBuilder = builder as RegistrationData;
       anthologyBuilder.entityDescription.reference.publicationContext.publisher.id = SINTEF_AKADEMSIK_FORLAG_URI;
-      anthologyBuilder.update().then();
+      anthologyBuilder.update();
     });
   });
 });
@@ -101,7 +101,7 @@ Given('publication has publicationContext refering to Anthology which is NVI can
     cy.get('@anthologyBuilder').then((builder: unknown) => {
       const anthologyBuilder = builder as RegistrationData;
       anthologyBuilder.entityDescription.reference.publicationContext.publisher.id = SPRINGER_NATURE_URI;
-      anthologyBuilder.update().then();
+      anthologyBuilder.update();
     });
   });
 
@@ -186,7 +186,7 @@ Given('publication has AcademicChapter refering to the Anthology', () => {
       CategoryTypes.ACADEMIC_CHAPTER,
       USN_USER,
       NviLevels.LEVEL_1
-    ).then();
+    );
     cy.wrap(scientificChapterTitle).as('chapterTitle');
   });
 });
@@ -200,7 +200,7 @@ When('AcademicChapter is updated to refer to another Book', () => {
       CategoryTypes.BOOK_ANTHOLOGY,
       USN_USER_CHANGE,
       NviLevels.LEVEL_1
-    ).then();
+    );
     cy.searchFor(anotherBookTitle);
     cy.getDataTestId(dataTestId.registrationLandingPage.editButton).click();
     cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
@@ -320,7 +320,7 @@ When('you add a Chapter to the Monograph', () => {
         const chapterBuilder = chapter as RegistrationData;
         chapterBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${monographBuilder.identifier}`;
         chapterBuilder.entityDescription.reference.publicationContext.type = 'Anthology';
-        chapterBuilder.update().then();
+        chapterBuilder.update();
       }
     );
   });

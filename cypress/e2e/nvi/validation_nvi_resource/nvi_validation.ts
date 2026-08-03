@@ -5,6 +5,7 @@ import {
   userBIBSYSNviCuratorInstitution,
   userUSNNviCuratorInstitution,
   userNtnuNviCurator,
+  userNtnuVerifiedContributor,
   ContributorTypes,
   CategoryTypes,
   userName,
@@ -50,9 +51,7 @@ const nviYear = currentYear;
 
 const curatorInstitutionA = 'Curator NVI-institution A TestUser';
 const curatorInstitutionB = 'Curator NVI-institution B TestUser';
-
-const userNVIB = 'Change User NVI-institution B TestUser';
-const userNVIC = 'Access Verified contributor TestUser';
+const contributorInstitutionC = userName[userNtnuVerifiedContributor];
 
 const approveCandidate = (title: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
@@ -86,10 +85,14 @@ const rejectCandidate = (title: string) => {
 };
 
 BeforeAll(() => {
+  // Resolve every title synchronously, before any phase below reads them.
+  Object.keys(titles).forEach((key) => {
+    titles[key] = `${key} ${uuid()}`;
+  });
+
   cy.login(userUSNNviCuratorInstitution).then(() => {
     Object.keys(titles).forEach((key) => {
-      const NVItitle = `${key} ${uuid()}`;
-      titles[key] = NVItitle;
+      const NVItitle = titles[key];
 
       createPublicationUsingAPI(
         NVItitle,
@@ -101,11 +104,13 @@ BeforeAll(() => {
           findContributorByName(curatorInstitutionB, ContributorTypes.CREATOR).then((contributorNVIB) => {
             builder.addContributor(contributorNVIB).addContributor(contributorNVIA);
             if (key.endsWith('Dispute')) {
-              findContributorByName(curatorInstitutionB, ContributorTypes.CREATOR).then((contributorNVIC) => {
-                builder.addContributor(contributorNVIC);
+              // A dispute among the other institutions needs a third one (approved by B, rejected by NTNU).
+              findContributorByName(contributorInstitutionC, ContributorTypes.CREATOR).then((contributorNVIC) => {
+                builder.addContributor(contributorNVIC).update();
               });
+            } else {
+              builder.update();
             }
-            builder.update().then(() => {});
           });
         });
       });
@@ -139,10 +144,9 @@ BeforeAll(() => {
   });
 
   cy.login(userNtnuNviCurator);
-  const disputeTitle = titles['Dispute Candidate Dispute'];
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.openNVIWorklist();
-  rejectCandidate(disputeTitle);
+  rejectCandidate(titles['Dispute Candidate Dispute']);
 });
 
 // Background:

@@ -1,0 +1,5 @@
+# This file can be enabled locally to make `git blame` ignore specific commits
+# Usage: `git config blame.ignoreRevsFile .git-blame-ignore-revs`
+
+# chore: Normalize line endings to LF
+bf01277614eaefcd60bf0e13e829408962b601ad

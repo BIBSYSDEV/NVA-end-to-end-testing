@@ -21,61 +21,51 @@ const titleNextMonth = `Publication for My Profile Page - ${new Date(today.setMo
 
 BeforeAll(() => {
   cy.login(userUnitWithAuthor).then(() => {
-    cy.wrap(
-      createPublicationUsingAPI(
-        titleToday,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_1
-      )
-    ).then(() => {});
-    cy.wrap(
-      createDraftPublicationUsingAPI(
-        titleLastYear,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_1
-      )
+    createPublicationUsingAPI(
+      titleToday,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
+    );
+    createDraftPublicationUsingAPI(
+      titleLastYear,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       registrationBuilder.entityDescription.publicationDate.year = lastYear;
-      cy.wrap(registrationBuilder.update().then(() => registrationBuilder.publish())).then(() => {})
+      registrationBuilder.update().then(() => registrationBuilder.publish());
     });
-    cy.wrap(
-      createDraftPublicationUsingAPI(
-        titleYesterday,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_1
-      )
+    createDraftPublicationUsingAPI(
+      titleYesterday,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       registrationBuilder.entityDescription.publicationDate.day = yesterday;
-      cy.wrap(registrationBuilder.update().then(() => registrationBuilder.publish())).then(() => {})
+      registrationBuilder.update().then(() => registrationBuilder.publish());
     });
-    cy.wrap(
-      createDraftPublicationUsingAPI(
-        titleLastMonth,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_1
-      )
+    createDraftPublicationUsingAPI(
+      titleLastMonth,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       registrationBuilder.entityDescription.publicationDate.month = lastMonth + 1;
-      cy.wrap(registrationBuilder.update().then(() => registrationBuilder.publish())).then(() => {});
+      registrationBuilder.update().then(() => registrationBuilder.publish());
     });
-    cy.wrap(
-      createDraftPublicationUsingAPI(
-        titleNextMonth,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_1
-      )
+    createDraftPublicationUsingAPI(
+      titleNextMonth,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       registrationBuilder.entityDescription.publicationDate.month = nextMonth + 1;
-      cy.wrap(registrationBuilder.update().then(() => registrationBuilder.publish())).then(() => {});
+      registrationBuilder.update().then(() => registrationBuilder.publish());
     });
     // cy.wrap(
     //   createPublicationUsingAPI(
@@ -97,6 +87,10 @@ Given('that the user is logged in', () => {
 });
 When('they click the menu item My user profile', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  // TODO(NP-51500): "My page" lands on Dialogue when the user has unread
+  // notifications, hiding the profile link. Navigate explicitly until the
+  // behavior is confirmed and covered by dedicated tests.
+  cy.getDataTestId(dataTestId.myPage.researchProfileAccordion).click();
   cy.getDataTestId(dataTestId.myPage.myProfileLink).click();
 });
 Then('they see My Profile', () => {
@@ -119,14 +113,36 @@ Then('they see their Profile page which includes information for', (dataTable: D
 // Given ('the user us logged in', () => {});
 When('they view their research profile', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
+  // TODO(NP-51500): "My page" lands on Dialogue when the user has unread
+  // notifications. Navigate explicitly until the behavior is confirmed and
+  // covered by dedicated tests.
+  cy.getDataTestId(dataTestId.myPage.researchProfileAccordion).click();
 });
 Then('they see a list of their publications', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.greaterThan', 0);
 });
+
+/**
+ * Extracts the publication date from a result item. Partial dates default to 
+ * the end of the period, e.g. "2025" is parsed to "2025-12-31".
+ */
+const parseDisplayedPublicationDate = (itemText: string): number => {
+  const match = itemText.match(/\b(?:(\d{2})\.)?(?:(\d{2})\.)?(\d{4})\b/);
+  if (!match) {
+    throw new Error(`No publication date found in result item: ${itemText}`);
+  }
+  const [, firstPart, secondPart, year] = match;
+  const month = secondPart ?? firstPart;
+  const day = secondPart ? firstPart : undefined;
+  return Date.UTC(Number(year), month ? Number(month) - 1 : 11, day ? Number(day) : 31);
+};
+
 Then('the list of publications is sorted by newest first', () => {
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).first().should('contain', titleToday);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).eq(1).should('contain', titleYesterday);
-  cy.getDataTestId(dataTestId.startPage.searchResultItem).last().should('contain', titleLastYear);
+  cy.getDataTestId(dataTestId.startPage.searchResultItem).then(($items) => {
+    const datesInListOrder = Cypress.$.makeArray($items).map((item) => parseDisplayedPublicationDate(item.innerText));
+    const datesNewestFirst = [...datesInListOrder].sort((first, second) => second - first);
+    expect(datesInListOrder, 'displayed publication dates in list order').to.deep.equal(datesNewestFirst);
+  });
 });
 
 // Scenario: User sort list of publications

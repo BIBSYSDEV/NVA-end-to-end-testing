@@ -60,6 +60,20 @@ aws sso login --sso-session sikt
 Run `./run-tests.sh -h` for all options.
 Every `CYPRESS_*` variable is only fetched when not already set, so any of them can be overridden by exporting it before running the script.
 
+## Static checks
+
+The GitHub Actions lint workflow (`.github/workflows/lint.yml`) runs static checks on every pull request.
+The same checks can be run locally through npm scripts, which are the single source of truth for what each check does:
+
+```bash
+npm run check         # run all checks
+npm run typecheck     # tsc --noEmit
+npm run lint:cfn      # cfn-lint on the pipeline template
+npm run lint:shell    # shellcheck on run-tests.sh
+```
+
+`lint:cfn` and `lint:shell` need system binaries: `brew install cfn-lint shellcheck`.
+
 ## Deploying the pipeline stack
 
 The pipeline template (`template/e2e_pipeline_template.yml`) has no CI/CD of its own.

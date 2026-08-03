@@ -37,7 +37,7 @@ BeforeAll(() => {
       CategoryTypes.ACADEMIC_ARTICLE,
       USN_USER,
       NviLevels.LEVEL_1
-    ).then();
+    );
     cy.wait(5000);
   });
 });
@@ -70,14 +70,14 @@ Given(
                 case CategoryTypes.ACADEMIC_REVIEW_ARTICLE:
                 case CategoryTypes.ACADEMIC_ARTICLE:
                   builder.entityDescription.reference.publicationContext.id = channelIds['article level 1'];
-                  builder.update().then();
+                  builder.update();
                   cy.then(() => {
                     // cy.wait(3000);
                   });
                   break;
                 case CategoryTypes.ACADEMIC_MONOGRAPH:
                   builder.entityDescription.reference.publicationContext.publisher.id = channelIds['monograph level 1'];
-                  builder.update().then();
+                  builder.update();
                   cy.then(() => {
                     // cy.wait(3000);
                   });
@@ -92,14 +92,14 @@ Given(
                 case CategoryTypes.ACADEMIC_REVIEW_ARTICLE:
                 case CategoryTypes.ACADEMIC_ARTICLE:
                   builder.entityDescription.reference.publicationContext.id = channelIds['article level 2'];
-                  builder.update().then();
+                  builder.update();
                   cy.then(() => {
                     // cy.wait(3000);
                   });
                   break;
                 case CategoryTypes.ACADEMIC_MONOGRAPH:
                   builder.entityDescription.reference.publicationContext.publisher.id = channelIds['monograph level 2'];
-                  builder.update().then();
+                  builder.update();
                   cy.then(() => {
                     // cy.wait(3000);
                   });
@@ -129,7 +129,7 @@ Given(
             if (categoryText === CategoryTypes.ACADEMIC_CHAPTER) {
               cy.get('@anthologyId').then((anthologyId) => {
                 registrationBuilder.entityDescription.reference.publicationContext.id = `https://api.e2e.nva.aws.unit.no/publication/${anthologyId}`;
-                registrationBuilder.update().then();
+                registrationBuilder.update();
               });
             }
           });
@@ -207,7 +207,7 @@ Given('NVI level {string} series', (series: unknown) => {
             registrationBuilder.entityDescription.reference.publicationContext.publisher.id =
               channelIds['monograph level 2'];
           }
-          registrationBuilder.update().then();
+          registrationBuilder.update();
           cy.then(() => {
             registrationBuilder.publish();
           });
@@ -246,7 +246,7 @@ Given(
           builder.entityDescription.reference.publicationContext.publisher.id = channelIds['monograph level 1'];
           builder.entityDescription.reference.publicationContext.series.id = channelIds['series level 2'];
           builder.entityDescription.reference.publicationContext.series.type = 'Series';
-          builder.update().then();
+          builder.update();
         }
       );
     });

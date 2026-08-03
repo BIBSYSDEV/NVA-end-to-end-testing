@@ -244,8 +244,11 @@ export const NVI_DISPUTE = 'dispute';
 Cypress.Commands.add('openNVIWorklist', () => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
+  cy.url().should('include', '/tasks/nvi');
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
-  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
+  // The year select renders unconditionally once the candidates page mounts,
+  // but the first spec on a cold runner can need far more than the default timeout.
+  cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect, { timeout: 60000 }).click();
   cy.get(`[data-value=${currentYear}]`).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });

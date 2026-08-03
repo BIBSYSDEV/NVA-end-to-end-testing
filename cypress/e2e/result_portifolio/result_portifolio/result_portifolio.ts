@@ -56,38 +56,30 @@ const selectPortifolio = (portifolio: string) => {
 BeforeAll(() => {
   cy.login(userUnitEditor).then(() => {
     const publishedTitle = `Published registration ${uuid()}`;
-    cy.wrap(
-      createPublicationUsingAPI(
-        publishedTitle,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_0
-      )
-    ).then((builder: unknown) => {
-      const publicationBuilder = builder as RegistrationData;
-    });
+    createPublicationUsingAPI(
+      publishedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
+    );
 
     const unpublishedTitle = `Unpublished registration ${uuid()}`;
-    cy.wrap(
-      createPublicationUsingAPI(
-        unpublishedTitle,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_0
-      )
+    createPublicationUsingAPI(
+      unpublishedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
     ).then((builder: unknown) => {
       const publicationBuilder = builder as RegistrationData;
       unpublishPublication(publicationBuilder.identifier).then(() => {});
     });
 
     const deletedTitle = `Deleted registration ${uuid()}`;
-    cy.wrap(
-      createPublicationUsingAPI(
-        deletedTitle,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_0
-      )
+    createPublicationUsingAPI(
+      deletedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
     ).then((builder: unknown) => {
       const publicationBuilder = builder as RegistrationData;
       cy.wrap(unpublishPublication(publicationBuilder.identifier)).then(() => {
@@ -121,14 +113,12 @@ const publishedTitle = `Portfolio published result ${uuid()}`;
 // Scenario: Published Result is added to portifolio
 Given('a User publishes a Result', () => {
   cy.login(userUnitWithAuthor).then(() => {
-    cy.wrap(
-      createPublicationUsingAPI(
-        publishedTitle,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_0
-      )
-    ).then(() => {});
+    createPublicationUsingAPI(
+      publishedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
+    );
   });
 });
 When('an Editor views the Result portifolio for Published Results', () => {
@@ -156,13 +146,11 @@ const unpublishedTitle = `Portfolio unpublished result ${uuid()}`;
 // Scenario: Unublished Result is added to portifolio
 Given('a User unpublish a Result', () => {
   cy.login(userUnitWithAuthor).then(() => {
-    cy.wrap(
-      createPublicationUsingAPI(
-        unpublishedTitle,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_0
-      )
+    createPublicationUsingAPI(
+      unpublishedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       cy.wrap(unpublishPublication(registrationBuilder.identifier)).then(() => {});
@@ -194,13 +182,11 @@ const deletedTitle = `Portfolio unpublished result ${uuid()}`;
 // Scenario: Deleted Result is added to portifolio
 Given('a User deletes an unpublished Result', () => {
   cy.login(userUnitWithAuthor).then(() => {
-    cy.wrap(
-      createPublicationUsingAPI(
-        deletedTitle,
-        CategoryTypes.ACADEMIC_ARTICLE,
-        userName[userUnitWithAuthor],
-        NviLevels.LEVEL_0
-      )
+    createPublicationUsingAPI(
+      deletedTitle,
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitWithAuthor],
+      NviLevels.LEVEL_0
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
       cy.wrap(registrationBuilder.identifier).as('identifier');

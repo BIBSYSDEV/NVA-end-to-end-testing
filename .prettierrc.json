@@ -1,7 +1,7 @@
 {
+  "plugins": ["prettier-plugin-gherkin"],
   "singleQuote": true,
   "trailingComma": "es5",
   "printWidth": 120,
-  "jsxBracketSameLine": true,
   "quoteProps": "preserve"
 }
