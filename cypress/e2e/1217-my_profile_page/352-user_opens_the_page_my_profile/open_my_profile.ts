@@ -26,12 +26,7 @@ const titleNextMonth = `Publication for My Profile Page - ${new Date(today.setMo
 
 BeforeAll(() => {
   cy.login(userUnitMyPage).then(() => {
-    createPublicationUsingAPI(
-      titleToday,
-      CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userUnitMyPage],
-      NviLevels.LEVEL_1
-    );
+    createPublicationUsingAPI(titleToday, CategoryTypes.ACADEMIC_ARTICLE, userName[userUnitMyPage], NviLevels.LEVEL_1);
     createDraftPublicationUsingAPI(
       titleLastYear,
       CategoryTypes.ACADEMIC_ARTICLE,
