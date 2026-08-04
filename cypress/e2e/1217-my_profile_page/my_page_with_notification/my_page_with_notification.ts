@@ -44,7 +44,6 @@ Given('a logged-in user with at least one unread dialogue notification', () => {
   cy.login(userUnitMyPageNotification);
   cy.getDataTestId(dataTestId.header.myPageLink).find('.MuiBadge-badge').should('be.visible');
 });
-// When ('the user clicks "My page" in the header', () => {});
 Then('they are taken to the Dialogue page', () => {
   cy.location('pathname').should('eq', `/my-page/messages/my-messages`);
 });
