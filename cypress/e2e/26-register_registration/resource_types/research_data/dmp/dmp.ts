@@ -25,7 +25,9 @@ Given('User selects Resource type "Research Data"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.resourceStepButton).click();
 });
 Given('they select DMP as subtype', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.DATA_MANAGEMENT_PLAN)).click();
+  cy.getDataTestId(
+    dataTestId.registrationWizard.resourceType.resourceTypeChip(CategoryTypes.DATA_MANAGEMENT_PLAN)
+  ).click();
 });
 
 // end common steps

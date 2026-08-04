@@ -1,20 +1,22 @@
 {
-    "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication?year=2025&query=chemical&offset=0&size=10",
-    "totalHits" : 271,
-    "nextResults" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication?year=2025&query=chemical&offset=10&size=10",
-    "previousResults" : null,
-    "hits" : [ {
-      "id" : "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/1864A370-80CA-4BE5-9CB7-40B0CCEF23CA/2025",
-      "identifier" : "1864A370-80CA-4BE5-9CB7-40B0CCEF23CA",
-      "name" : "ACS Chemical Biology",
-      "onlineIssn" : "1554-8937",
-      "printIssn" : "1554-8929",
-      "scientificValue" : "LevelTwo",
-      "sameAs" : "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=1864A370-80CA-4BE5-9CB7-40B0CCEF23CA",
-      "type" : "Journal",
-      "year" : "2025",
-      "@context" : "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
-    } ],
-    "aggregations" : { },
-    "@context" : "https://bibsysdev.github.io/src/search/paginated-search-result.json"
-  }
+  "id": "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication?year=2025&query=chemical&offset=0&size=10",
+  "totalHits": 271,
+  "nextResults": "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication?year=2025&query=chemical&offset=10&size=10",
+  "previousResults": null,
+  "hits": [
+    {
+      "id": "https://api.e2e.nva.aws.unit.no/publication-channels-v2/serial-publication/1864A370-80CA-4BE5-9CB7-40B0CCEF23CA/2025",
+      "identifier": "1864A370-80CA-4BE5-9CB7-40B0CCEF23CA",
+      "name": "ACS Chemical Biology",
+      "onlineIssn": "1554-8937",
+      "printIssn": "1554-8929",
+      "scientificValue": "LevelTwo",
+      "sameAs": "https://kanalregister-test.hkdir.no/publiseringskanaler/info/tidsskrift?pid=1864A370-80CA-4BE5-9CB7-40B0CCEF23CA",
+      "type": "Journal",
+      "year": "2025",
+      "@context": "https://bibsysdev.github.io/src/publication-channel/channel-context.json"
+    }
+  ],
+  "aggregations": {},
+  "@context": "https://bibsysdev.github.io/src/search/paginated-search-result.json"
+}

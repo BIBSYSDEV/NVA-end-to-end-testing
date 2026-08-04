@@ -1,7 +1,6 @@
 Feature: Changing multiple values in a NVI-candidate
 
-
-    @test
+  @test
   Scenario Outline: Category changes from non-scientific to scientific, contributor changes from unidentified to identified
     Given a curator opens a non-scientific Result that is a NVI-candidate with unidentified contributor
     And the Result is "<Source>" registration
@@ -18,7 +17,7 @@ Feature: Changing multiple values in a NVI-candidate
       | Manual | NVA institution Collaboration      |
       | Manual | external institution Collaboration |
 
-    @test
+  @test
   Scenario Outline: Category changes from scientific to non-scientific, contributor changes from unidentified to identified
     Given a curator opens a scientific Result that is a NVI-candidate with unidentified contributor
     And the Result is "<Source>" registration

@@ -1,17 +1,17 @@
 Feature: Validation of an NVI resource
-    This feature file contains scenarios related to validation of NVI-Resources as part of the NVI-process.
+  This feature file contains scenarios related to validation of NVI-Resources as part of the NVI-process.
 
-    In order to view the current status of the NVI-prosess
-    As a Curator
-    I want to see the current status compared with last year's results
+  In order to view the current status of the NVI-prosess
+  As a Curator
+  I want to see the current status compared with last year's results
 
-    In order to view the current status of the NVI-prosess
-    As a Curator
-    I want to see how many Resources have the status Candidate, Being checked, Approved, Rejected or Dispute.
+  In order to view the current status of the NVI-prosess
+  As a Curator
+  I want to see how many Resources have the status Candidate, Being checked, Approved, Rejected or Dispute.
 
-    In order to inspect a Resource
-    As an Curator
-    I want to be able to navigate to the Resource Landing Page
+  In order to inspect a Resource
+  As an Curator
+  I want to be able to navigate to the Resource Landing Page
 
   Background:
     Given a logged-in User

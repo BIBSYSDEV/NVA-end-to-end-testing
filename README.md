@@ -81,33 +81,32 @@ It is deployed manually as the CloudFormation stack `combined-test-stack` in the
 
 1. Create a change set without executing it:
 
-    ```bash
-    aws cloudformation deploy \
-      --profile nva-e2e \
-      --region eu-west-1 \
-      --stack-name combined-test-stack \
-      --template-file template/e2e_pipeline_template.yml \
-      --capabilities CAPABILITY_IAM \
-      --no-execute-changeset
-    ```
+   ```bash
+   aws cloudformation deploy \
+     --profile nva-e2e \
+     --region eu-west-1 \
+     --stack-name combined-test-stack \
+     --template-file template/e2e_pipeline_template.yml \
+     --capabilities CAPABILITY_IAM \
+     --no-execute-changeset
+   ```
 
 2. Review the changes (the deploy command prints the change set ARN):
 
-    ```bash
-    aws cloudformation describe-change-set \
-      --profile nva-e2e \
-      --region eu-west-1 \
-      --change-set-name <arn-printed-by-deploy> \
-      --query "Changes[].ResourceChange.[Action,LogicalResourceId,Replacement]" \
-      --output table
-    ```
+   ```bash
+   aws cloudformation describe-change-set \
+     --profile nva-e2e \
+     --region eu-west-1 \
+     --change-set-name <arn-printed-by-deploy> \
+     --query "Changes[].ResourceChange.[Action,LogicalResourceId,Replacement]" \
+     --output table
+   ```
 
 3. Execute the change set:
 
-    ```bash
-    aws cloudformation execute-change-set \
-      --profile nva-e2e \
-      --region eu-west-1 \
-      --change-set-name <arn-printed-by-deploy>
-    ```
-
+   ```bash
+   aws cloudformation execute-change-set \
+     --profile nva-e2e \
+     --region eu-west-1 \
+     --change-set-name <arn-printed-by-deploy>
+   ```

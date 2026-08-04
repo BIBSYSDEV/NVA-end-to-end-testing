@@ -1,17 +1,14 @@
-Research data is one of the main forms of research results in NVA and it contains several types of resources. 
+Research data is one of the main forms of research results in NVA and it contains several types of resources.
 
-The first iterations will establish the types 'dataset' and 'data management plan' (DMP). 
+The first iterations will establish the types 'dataset' and 'data management plan' (DMP).
 ('Software' and 'dynamic dataset' (API) are proposed as next iteration.)
 
 Research data is described by following files:
-	research_data.feature
-		- describe the selection of Dataset and DMP
-	dataset.feature
-		- describe the details about this type
-	dmp.feature
-		- describe the details about this type
+research_data.feature - describe the selection of Dataset and DMP
+dataset.feature - describe the details about this type
+dmp.feature - describe the details about this type
 
-The main reason for starting with dataset and dmp is i) both types are demanded by our user representatives and ii) both are needed to cement the basic structure of NVA internal data structure. 
+The main reason for starting with dataset and dmp is i) both types are demanded by our user representatives and ii) both are needed to cement the basic structure of NVA internal data structure.
 
 Internal data structure
 There are several types of associations between datasets, DMPs, projects, and other research results.

@@ -14,13 +14,13 @@ Feature: NVI candidates for publications in series
       | isNviSeries    | isNotNviPublisher |
       | isNotNviSeries | isNviPublisher    |
 
-    @test
-    Scenario Outline: A user registrers an academic chapter in a anthology that is an NVI-candidate
-      When the user registrers an academic chapter with anthology in "<Series>" and publisher "<Publisher>"
-      Then the publication is listed as an NVI-candidate for the institution the user is affiliated with
+  @test
+  Scenario Outline: A user registrers an academic chapter in a anthology that is an NVI-candidate
+    When the user registrers an academic chapter with anthology in "<Series>" and publisher "<Publisher>"
+    Then the publication is listed as an NVI-candidate for the institution the user is affiliated with
 
-      Examples:
-        | Series         | Publisher         |
-        | isNviSeries    | isNviPublisher    |
-        | isNviSeries    | isNotNviPublisher |
-        | isNotNviSeries | isNviPublisher    |
+    Examples:
+      | Series         | Publisher         |
+      | isNviSeries    | isNviPublisher    |
+      | isNviSeries    | isNotNviPublisher |
+      | isNotNviSeries | isNviPublisher    |

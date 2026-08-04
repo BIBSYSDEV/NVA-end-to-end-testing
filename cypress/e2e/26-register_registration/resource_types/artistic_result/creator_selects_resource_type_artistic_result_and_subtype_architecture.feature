@@ -17,7 +17,6 @@ Feature: Creator selects Resource type Artistic Result and subtype Architecture
     And they can edit existing Exhibitions
     And they can delete existing Exhibitions
 
-
   @test
   Scenario: Creator adds an Competition
     Given Creator navigates to the Resource Type tab and selects Resource subtype "Architecture"

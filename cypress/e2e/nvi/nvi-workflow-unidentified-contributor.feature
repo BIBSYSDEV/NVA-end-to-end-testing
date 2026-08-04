@@ -19,6 +19,7 @@ Feature: NVI-candidates with unidentified users
       | AcademicCommentary       | publisher |
       | AcademicCommentary       | series    |
 
+
 #     Scenario: Institution can approve/reject when all their contributors are identified
 #         Given a publication identified as an NVI candidate
 #         And Institution A is an NVI institution

@@ -104,7 +104,10 @@ const storeAuthenticationState = (userId: string, tokens: Record<string, string>
     win.localStorage.setItem(storageKey(`${userId}.idToken`), tokens['id_token']);
     win.localStorage.setItem(storageKey(`${userId}.refreshToken`), tokens['refresh_token']);
     win.localStorage.setItem(storageKey('LastAuthUser'), userId);
-    win.localStorage.setItem(storageKey(`${userId}.signInDetails`), `{"loginId":"${userId}","authFlowType":"USER_SRP_AUTH"}`);
+    win.localStorage.setItem(
+      storageKey(`${userId}.signInDetails`),
+      `{"loginId":"${userId}","authFlowType":"USER_SRP_AUTH"}`
+    );
     win.localStorage.setItem('i18nextLng', 'eng');
     win.localStorage.setItem('previouslyLoggedIn', 'false');
     win.localStorage.setItem('beta', 'true');

@@ -1,5 +1,10 @@
-import { CategoryTypes, userName, userUnitMyPage} from '../../../support/constants';
-import { createDraftPublicationUsingAPI, createPublicationUsingAPI, NviLevels, RegistrationData } from '../../../support/create_registration';
+import { CategoryTypes, userName, userUnitWithAuthor } from '../../../support/constants';
+import {
+  createDraftPublicationUsingAPI,
+  createPublicationUsingAPI,
+  NviLevels,
+  RegistrationData,
+} from '../../../support/create_registration';
 import { dataTestId } from '../../../support/dataTestIds';
 import { profilePageFields } from '../../../support/data_testid_constants';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
@@ -119,7 +124,7 @@ Then('they see a list of their publications', () => {
 });
 
 /**
- * Extracts the publication date from a result item. Partial dates default to 
+ * Extracts the publication date from a result item. Partial dates default to
  * the end of the period, e.g. "2025" is parsed to "2025-12-31".
  */
 const parseDisplayedPublicationDate = (itemText: string): number => {

@@ -59,9 +59,7 @@ Given('Creator navigates to the Resource Type tab and selects Resource subtype "
 When('they add a Monograph with details for:', (dataTable: DataTable) => {
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.addBookButton).click();
   dataTable.raw().forEach((field: string[]) => {
-    cy.getDataTestId(literaryArtsBookFields[field[0]]['field']).type(
-      literaryArtsBookFields[field[0]]['value']
-    );
+    cy.getDataTestId(literaryArtsBookFields[field[0]]['field']).type(literaryArtsBookFields[field[0]]['value']);
   });
   cy.getDataTestId(dataTestId.registrationWizard.resourceType.artisticOutputSaveButton).click();
 });

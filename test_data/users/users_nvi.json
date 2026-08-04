@@ -35,12 +35,12 @@
     "nin": "08058838714",
     "username": "test-user-curator-NVI-A@test.no",
     "role": [
-        {
-          "type": "Role",
-          "rolename": "Nvi-Curator"
-        }
-      ],
-          "orcid": true,
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      }
+    ],
+    "orcid": true,
     "orgNumber": "222",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/222.0.0.0"
   }

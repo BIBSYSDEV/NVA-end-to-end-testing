@@ -32,12 +32,7 @@ const USN_USER = 'User NVI-institution A TestUser';
 
 BeforeAll(() => {
   cy.login(TestUsers.nvi.usn.institution).then(() => {
-    createPublicationUsingAPI(
-      'Publication for warmup',
-      CategoryTypes.ACADEMIC_ARTICLE,
-      USN_USER,
-      NviLevels.LEVEL_1
-    );
+    createPublicationUsingAPI('Publication for warmup', CategoryTypes.ACADEMIC_ARTICLE, USN_USER, NviLevels.LEVEL_1);
     cy.wait(5000);
   });
 });
