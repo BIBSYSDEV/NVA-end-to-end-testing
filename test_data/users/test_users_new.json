@@ -176,7 +176,7 @@
     "lastName": "TestUser",
     "firstName": "My Page Notification Unit",
     "nin": "28019038787",
-    "username": "test-user-my-page@test.no",
+    "username": "test-user-my-page-notification@test.no",
     "role": [
       {
         "type": "Role",

@@ -180,6 +180,8 @@ export const userUnitAdminRRS = 'test-user-admin-rrs@test.no';
 export const userUnitAuthorRRS = 'test-user-author-rrs@test.no';
 export const userUnitEmbargo = 'test-user-author-embargo@test.no';
 export const userUnitNVICurator = 'test-user-NVI-curator-unit@test.no';
+export const userUnitMyPage = 'test-user-my-page@test.no';
+export const userUnitMyPageNotification = 'test-user-my-page-notification@test.no';
 
 export const userSiktInstAdmin = 'test-user-second-inst-admin@test.no';
 export const userSiktThirdEditor = 'test-user-third-editor@test.no';
