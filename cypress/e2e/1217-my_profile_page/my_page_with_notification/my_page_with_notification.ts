@@ -2,19 +2,33 @@
 
 import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { CategoryTypes, userName, userUnitMyPage, userUnitMyPageNotification } from '../../../support/constants';
-import { createPublicationUsingAPI, NviLevels, RegistrationData, requestDoi } from '../../../support/create_registration';
+import {
+  createPublicationUsingAPI,
+  NviLevels,
+  RegistrationData,
+  requestDoi,
+} from '../../../support/create_registration';
 import { dataTestId } from '../../../support/dataTestIds';
-
 
 BeforeAll(() => {
   cy.login(userUnitMyPage).then(() => {
-    createPublicationUsingAPI("Publication for My Page",CategoryTypes.ACADEMIC_ARTICLE, userName[userUnitMyPage], NviLevels.LEVEL_1);
+    createPublicationUsingAPI(
+      'Publication for My Page',
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitMyPage],
+      NviLevels.LEVEL_1
+    );
   });
 
   cy.login(userUnitMyPageNotification).then(() => {
-    createPublicationUsingAPI("Publication for My Page with Notification",CategoryTypes.ACADEMIC_ARTICLE, userName[userUnitMyPageNotification], NviLevels.LEVEL_1).then((builder: unknown) => {
+    createPublicationUsingAPI(
+      'Publication for My Page with Notification',
+      CategoryTypes.ACADEMIC_ARTICLE,
+      userName[userUnitMyPageNotification],
+      NviLevels.LEVEL_1
+    ).then((builder: unknown) => {
       requestDoi((builder as RegistrationData).identifier);
-    }
+    });
   });
 });
 
@@ -32,6 +46,7 @@ Then('they are taken to their research profile', () => {
 // Scenario: User with unread dialogue notifications lands on Dialogue
 Given('a logged-in user with at least one unread dialogue notification', () => {
   cy.login(userUnitMyPageNotification);
+  cy.wait(1000);
 });
 // When ('the user clicks "My page" in the header', () => {});
 Then('they are taken to the Dialogue page', () => {
