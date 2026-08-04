@@ -180,7 +180,7 @@ export const userUnitAdminRRS = 'test-user-admin-rrs@test.no';
 export const userUnitAuthorRRS = 'test-user-author-rrs@test.no';
 export const userUnitEmbargo = 'test-user-author-embargo@test.no';
 export const userUnitNVICurator = 'test-user-NVI-curator-unit@test.no';
-export const userUnitMyPage = 'test-user-my-page@test.no';
+export const userUnitMyPageNoNotifications = 'test-user-my-page@test.no';
 export const userUnitMyPageNotification = 'test-user-my-page-notification@test.no';
 
 export const userSiktInstAdmin = 'test-user-second-inst-admin@test.no';
@@ -662,6 +662,8 @@ export const userName = {
   [userNviCuratorUia]: 'NviCurator UiA TestUser',
   [userNviCreatorVolda]: 'NVICreator Volda TestUser',
   [userNviCuratorVolda]: 'NviCurator Volda TestUser',
+  [userUnitMyPageNoNotifications]: 'My Page Unit TestUser',
+  [userUnitMyPageNotification]: 'My Page Notification Unit TestUser',
 };
 
 export enum ContributorTypes {

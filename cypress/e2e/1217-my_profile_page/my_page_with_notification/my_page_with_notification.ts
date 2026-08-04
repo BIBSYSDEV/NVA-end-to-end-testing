@@ -1,7 +1,12 @@
 // Feature: My page navigation from the header
 
 import { BeforeAll, Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { CategoryTypes, userName, userUnitMyPage, userUnitMyPageNotification } from '../../../support/constants';
+import {
+  CategoryTypes,
+  userName,
+  userUnitMyPageNoNotifications,
+  userUnitMyPageNotification,
+} from '../../../support/constants';
 import {
   createPublicationUsingAPI,
   NviLevels,
@@ -11,15 +16,6 @@ import {
 import { dataTestId } from '../../../support/dataTestIds';
 
 BeforeAll(() => {
-  cy.login(userUnitMyPage).then(() => {
-    createPublicationUsingAPI(
-      'Publication for My Page',
-      CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userUnitMyPage],
-      NviLevels.LEVEL_1
-    );
-  });
-
   cy.login(userUnitMyPageNotification).then(() => {
     createPublicationUsingAPI(
       'Publication for My Page with Notification',
@@ -34,7 +30,7 @@ BeforeAll(() => {
 
 // Scenario: User without unread dialogue notifications lands on their research profile
 Given('a logged-in user with no unread dialogue notifications', () => {
-  cy.login(userUnitMyPage);
+  cy.login(userUnitMyPageNoNotifications);
 });
 When('the user clicks "My page" in the header', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
@@ -54,4 +50,7 @@ Then('they are taken to the Dialogue page', () => {
 });
 Then('the message list shows only unread messages', () => {
   cy.getDataTestId(dataTestId.startPage.searchResultItem).should('have.length.above', 0);
+  cy.getDataTestId(dataTestId.tasksPage.unreadSearchSelect).within(() => {
+    cy.get('div').filter(':contains("Show unread only")');
+  });
 });
