@@ -42,9 +42,8 @@ Then('they are taken to their research profile', () => {
 // Scenario: User with unread dialogue notifications lands on Dialogue
 Given('a logged-in user with at least one unread dialogue notification', () => {
   cy.login(userUnitMyPageNotification);
-  cy.wait(1000);
+  cy.getDataTestId(dataTestId.header.myPageLink).find('.MuiBadge-badge').should('be.visible');
 });
-// When ('the user clicks "My page" in the header', () => {});
 Then('they are taken to the Dialogue page', () => {
   cy.location('pathname').should('eq', `/my-page/messages/my-messages`);
 });
