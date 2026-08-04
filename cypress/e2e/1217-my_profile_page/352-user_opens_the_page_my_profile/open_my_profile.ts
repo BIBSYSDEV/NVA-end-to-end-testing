@@ -1,4 +1,4 @@
-import { CategoryTypes, userName, userUnitWithAuthor } from '../../../support/constants';
+import { CategoryTypes, userName, userUnitMyPage } from '../../../support/constants';
 import {
   createDraftPublicationUsingAPI,
   createPublicationUsingAPI,
