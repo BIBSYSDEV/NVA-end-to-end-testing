@@ -30,16 +30,28 @@ To start creating tests create a directory with the same name as the feature fil
 
 Example: for `./cypress/integration/1221-my_publication/354-creator_opens_my_publications.feature` create the subdirectory `./cypress/integration/1221-my_publication/354-creator_opens_my_publications`
 
-Before running tests, create testdata:
+## Creating test data
 
-    python3 create_test_data.py
+The pipeline creates test data by running `test_data/create_test_data.py` (see `template/buildspec.testdata.yml`).
+The scripts in `test_data/` are a [uv](https://docs.astral.sh/uv/) project, so uv provides Python and the locked dependencies automatically.
 
-create publications:
-cd ./test_data
-python3 ./import_publications.py <optional_filename>
+To run the same script locally, use the wrapper from the repo root:
 
-create testusers:
-python3 ./import_users_new.py <optional_filename>
+```bash
+aws sso login --sso-session sikt
+./create-test-data.sh -p nva-e2e
+```
+
+The script runs against the account of the given AWS profile (or the ambient credentials when `-p` is omitted).
+It asks for confirmation first, since it deletes all publications and NVI candidates before importing test users.
+Pass `-y` to skip the prompt, and see `./create-test-data.sh -h` for all options.
+
+Individual scripts can be run directly with uv from the `test_data/` directory, for example:
+
+```bash
+cd test_data
+AWS_PROFILE=nva-e2e AWS_REGION=eu-west-1 uv run import_users_new.py <optional_filename>
+```
 
 ## Running tests locally
 
