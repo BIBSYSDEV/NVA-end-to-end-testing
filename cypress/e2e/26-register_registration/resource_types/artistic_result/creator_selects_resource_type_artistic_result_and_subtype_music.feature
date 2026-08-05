@@ -21,6 +21,7 @@ Feature: Creator selects Resource type Artistic Result and subtype Music
       | Date   |
       | Extent |
       | Works  |
+
     And each Work has details for:
       | Title    |
       | Composer |

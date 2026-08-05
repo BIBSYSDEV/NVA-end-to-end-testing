@@ -41,3 +41,6 @@ jobs:
 
       - name: Shellcheck
         run: npm run lint:shell
+
+      - name: Formatting
+        run: npm run format:check

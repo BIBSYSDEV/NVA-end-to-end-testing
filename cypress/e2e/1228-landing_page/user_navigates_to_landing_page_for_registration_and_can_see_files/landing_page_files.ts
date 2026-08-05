@@ -137,7 +137,6 @@ Given('the Registration contains Files', () => {
   const searchTitle = preview ? 'Not Embargoed Image file' : 'No administrative agreement';
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.searchFor(searchTitle);
-
 });
 When('they view the Files section', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.filesAccordion).as('files').should('be.visible');

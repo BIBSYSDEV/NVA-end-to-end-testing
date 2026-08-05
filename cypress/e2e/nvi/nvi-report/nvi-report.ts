@@ -57,7 +57,7 @@ BeforeAll(() => {
       CategoryTypes.ACADEMIC_ARTICLE,
       userName[userNviCreatorNord],
       NviLevels.LEVEL_1
-    ).then(() => { });
+    ).then(() => {});
     createPublicationUsingAPI(
       `NVI report publication article level 1 2 authors approved ${uuid()}`,
       CategoryTypes.ACADEMIC_ARTICLE,
@@ -68,7 +68,7 @@ BeforeAll(() => {
       approvedList.push(registrationBuilder.identifier);
       findContributorByName(userName[userBIBSYSPublishNoRights], ContributorTypes.CREATOR).then((contributor) => {
         registrationBuilder.addContributor(contributor);
-        registrationBuilder.update().then(() => { });
+        registrationBuilder.update().then(() => {});
       });
     });
     createPublicationUsingAPI(
@@ -80,7 +80,7 @@ BeforeAll(() => {
       const registrationBuilder = builder as RegistrationData;
       findContributorByName(userName[userBIBSYSPublishNoRights], ContributorTypes.CREATOR).then((contributor) => {
         registrationBuilder.addContributor(contributor);
-        registrationBuilder.update().then(() => { });
+        registrationBuilder.update().then(() => {});
       });
     });
     createPublicationUsingAPI(
@@ -106,13 +106,13 @@ BeforeAll(() => {
       CategoryTypes.ACADEMIC_MONOGRAPH,
       userName[userNviCreatorNord],
       NviLevels.LEVEL_1
-    ).then(() => { });
+    ).then(() => {});
     createPublicationUsingAPI(
       `NVI report publication monograph level 2 ${uuid()}`,
       CategoryTypes.ACADEMIC_MONOGRAPH,
       userName[userNviCreatorNord],
       NviLevels.LEVEL_2
-    ).then(() => { });
+    ).then(() => {});
     createPublicationUsingAPI(
       `NVI report publication monograph level 2 approved ${uuid()}`,
       CategoryTypes.ACADEMIC_MONOGRAPH,
@@ -133,13 +133,13 @@ BeforeAll(() => {
             const publicationId = candidate['publicationDetails']['identifier'];
             const ticketId = candidate['identifier'];
             if (approvedList.includes(publicationId)) {
-              cy.wrap(updateNVICandidate(ticketId, NORD_UNIVERSITET, NviStatus.APPROVED)).then(() => { });
+              cy.wrap(updateNVICandidate(ticketId, NORD_UNIVERSITET, NviStatus.APPROVED)).then(() => {});
             }
             if (rejectedList.includes(publicationId)) {
-              cy.wrap(updateNVICandidate(ticketId, NORD_UNIVERSITET, NviStatus.REJECTED)).then(() => { });
+              cy.wrap(updateNVICandidate(ticketId, NORD_UNIVERSITET, NviStatus.REJECTED)).then(() => {});
             }
             if (assignedList.includes(publicationId)) {
-              cy.wrap(assignNVICandidate(ticketId, NORD_UNIVERSITET, cristinId)).then(() => { });
+              cy.wrap(assignNVICandidate(ticketId, NORD_UNIVERSITET, cristinId)).then(() => {});
             }
           });
         });
@@ -205,7 +205,13 @@ When('they open the publication points status for the current year', () => {
 // When('they look at the data for "<Institution>"', () => {});
 Then(
   'they see numbers for {string}, {string}, {string}, {string}, {string}:',
-  (approvedByUs: string, waitingForOthers: string, approvedByAll: string, publicationPoints: string, approved: string) => {
+  (
+    approvedByUs: string,
+    waitingForOthers: string,
+    approvedByAll: string,
+    publicationPoints: string,
+    approved: string
+  ) => {
     cy.get('@institution').then((institution: unknown) => {
       cy.get('tr')
         .filter(`:contains(${institution as string})`)
@@ -217,22 +223,20 @@ Then(
           cy.get('td').eq(6).should('have.text', `${approved}%`);
         });
     });
-
   }
 );
-    // Examples:
-    //   | Institution | Approved by us | Waiting for others | Approved by all | Publication points | Approved |
-    //   | Nord        |              4 |                  0 |               3 |                 12 |       23 |
-
+// Examples:
+//   | Institution | Approved by us | Waiting for others | Approved by all | Publication points | Approved |
+//   | Nord        |              4 |                  0 |               3 |                 12 |       23 |
 
 //   Scenario: An curator exports file for NVI reporting status
-Given('a curator in an NVI Institution', () => { });
-When('they open the NVI reporting status', () => { });
-When('they export the NVI reporting status', () => { });
-Then('they get a file with the NVI reporting status in CSV-format with the correct data', () => { });
+Given('a curator in an NVI Institution', () => {});
+When('they open the NVI reporting status', () => {});
+When('they export the NVI reporting status', () => {});
+Then('they get a file with the NVI reporting status in CSV-format with the correct data', () => {});
 
 //   Scenario: An curator exports file for NVI publication points status
-Given('a curator in an NVI Institution', () => { });
-When('they open the NVI publication points status', () => { });
-When('they export the NVI publication points status', () => { });
-Then('they get a file with the NVI reporting status in CSV-format with the correct data', () => { });
+Given('a curator in an NVI Institution', () => {});
+When('they open the NVI publication points status', () => {});
+When('they export the NVI publication points status', () => {});
+Then('they get a file with the NVI reporting status in CSV-format with the correct data', () => {});

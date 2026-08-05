@@ -159,6 +159,36 @@
   },
   {
     "lastName": "TestUser",
+    "firstName": "My Page Unit",
+    "nin": "10044126619",
+    "username": "test-user-my-page@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
+    "firstName": "My Page Notification Unit",
+    "nin": "28019038787",
+    "username": "test-user-my-page-notification@test.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "20202",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20202.0.0.0"
+  },
+  {
+    "lastName": "TestUser",
     "firstName": "Withauthor 1",
     "nin": "20084732363",
     "username": "test-user-with-author-1@test.no",

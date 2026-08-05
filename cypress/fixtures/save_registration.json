@@ -75,17 +75,13 @@
       }
     }
   ],
-  "curatingInstitutions": [
-    "string"
-  ],
+  "curatingInstitutions": ["string"],
   "entityDescription": {
     "description": "string",
     "language": "string",
     "abstract": "string",
     "type": "string",
-    "tags": [
-      "string"
-    ],
+    "tags": ["string"],
     "reference": {
       "publicationInstance": {
         "pages": {
@@ -157,15 +153,11 @@
     }
   ],
   "identifier": {},
-  "subjects": [
-    "string"
-  ],
+  "subjects": ["string"],
   "handle": "string",
   "indexedDate": "2025-11-05T08:00:11.538Z",
   "createdDate": "2025-11-05T08:00:11.538Z",
-  "allowedOperations": [
-    "update"
-  ],
+  "allowedOperations": ["update"],
   "modifiedDate": "2025-11-05T08:00:11.538Z",
   "publisher": {
     "type": "string",

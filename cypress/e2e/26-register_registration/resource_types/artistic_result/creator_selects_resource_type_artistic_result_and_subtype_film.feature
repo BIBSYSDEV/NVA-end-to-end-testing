@@ -45,4 +45,3 @@ Feature: Creator selects Resource type Artistic Result and subtype Film
       | Publisher/Organizer |
       | Date                |
     Then the Other release is listed under Exhibitions
-

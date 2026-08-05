@@ -8,11 +8,7 @@ import {
   userUSNChangeNviCuratorInstitution,
   userUSNNviInstitution,
 } from '../../../support/constants';
-import {
-  createPublicationUsingAPI,
-  findContributorByName,
-  NviLevels,
-} from '../../../support/create_registration';
+import { createPublicationUsingAPI, findContributorByName, NviLevels } from '../../../support/create_registration';
 import { dataTestId } from '../../../support/dataTestIds';
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 import { v4 as uuid } from 'uuid';
@@ -85,26 +81,23 @@ BeforeAll(() => {
                   titleRoot === titleNonScientificToScientificUnidentifiedToIdentified
                     ? CategoryTypes.JOURNAL_REVIEW
                     : CategoryTypes.ACADEMIC_ARTICLE;
-                createPublicationUsingAPI(
-                  title,
-                  category,
-                  userName[userUSNNviInstitution],
-                  NviLevels.LEVEL_1
-                ).then((builder) => {
-                  builder.entityDescription.contributors[0] = unidentifiedUser;
-                  switch (collaboration) {
-                    case NVICollaboration:
-                      builder.addContributor(nviUser);
-                      break;
-                    case NVACollaboration:
-                      builder.addContributor(nvaUser);
-                      break;
-                    case externalCollaboration:
-                      builder.addContributor(externalUser);
-                      break;
+                createPublicationUsingAPI(title, category, userName[userUSNNviInstitution], NviLevels.LEVEL_1).then(
+                  (builder) => {
+                    builder.entityDescription.contributors[0] = unidentifiedUser;
+                    switch (collaboration) {
+                      case NVICollaboration:
+                        builder.addContributor(nviUser);
+                        break;
+                      case NVACollaboration:
+                        builder.addContributor(nvaUser);
+                        break;
+                      case externalCollaboration:
+                        builder.addContributor(externalUser);
+                        break;
+                    }
+                    builder.update();
                   }
-                  builder.update();
-                });
+                );
               });
             });
           });

@@ -1,95 +1,87 @@
 {
-    "customer": {
-        "name": "uit"
+  "customer": {
+    "name": "uit"
+  },
+  "brageLocation": "10/1",
+  "id": "https://hdl.handle.net/12345/1001",
+  "publishedDate": {
+    "brage": ["2024-11-14T01:01:01Z"],
+    "nva": "2024-11-14T01:01:01Z"
+  },
+  "publisherAuthority": {},
+  "rightsholder": "Copyright 2024 The Author(s)",
+  "type": {
+    "brage": ["Vitenskapelig artikkel"],
+    "nva": "ScientificArticle"
+  },
+  "publication": {
+    "publicationContext": {
+      "bragePublisher": "UiT Norges arktiske universitet",
+      "publisher": {
+        "type": "Publisher",
+        "pid": "DB1B17B3-1CA4-4A7A-9CDC-292FDD7B4BE5"
+      }
     },
-    "brageLocation": "10/1",
-    "id": "https://hdl.handle.net/12345/1001",
-    "publishedDate": {
-        "brage": [
-            "2024-11-14T01:01:01Z"
-        ],
-        "nva": "2024-11-14T01:01:01Z"
+    "partOfSeries": {}
+  },
+  "entityDescription": {
+    "abstracts": ["Test article, Brage import"],
+    "publicationDate": {
+      "brage": "2024-11-14",
+      "nva": {
+        "type": "PublicationDateNva",
+        "year": "2024",
+        "month": "11",
+        "day": "14"
+      }
     },
-    "publisherAuthority": {},
-    "rightsholder": "Copyright 2024 The Author(s)",
-    "type": {
-        "brage": [
-            "Vitenskapelig artikkel"
-        ],
-        "nva": "ScientificArticle"
-    },
-    "publication": {
-        "publicationContext": {
-            "bragePublisher": "UiT Norges arktiske universitet",
-            "publisher": {
-                "type": "Publisher",
-                "pid": "DB1B17B3-1CA4-4A7A-9CDC-292FDD7B4BE5"
-            }
+    "mainTitle": "Test import file",
+    "contributors": [
+      {
+        "type": "Contributor",
+        "brageRole": "author",
+        "role": "Creator",
+        "identity": {
+          "type": "Identity",
+          "name": "Eirik Nilsen",
+          "identifier": ""
         },
-        "partOfSeries": {}
-    },
-    "entityDescription": {
-        "abstracts": [
-            "Test article, Brage import"
-        ],
-        "publicationDate": {
-            "brage": "2024-11-14",
-            "nva": {
-                "type": "PublicationDateNva",
-                "year": "2024",
-                "month": "11",
-                "day": "14"
-            }
+        "sequence": 1
+      }
+    ],
+    "tags": [],
+    "publicationInstance": {},
+    "language": {
+      "brage": ["nob"],
+      "nva": "http://lexvo.org/id/iso639-3/nob"
+    }
+  },
+  "recordContent": {
+    "contentFiles": [
+      {
+        "bundleType": "ORIGINAL",
+        "description": "ORIGINAL",
+        "identifier": "b047ab9e-1129-495e-936f-288ccaf1ba24",
+        "license": {
+          "brageLicense": "https://creativecommons.org/licenses/by/4.0",
+          "nvaLicense": {
+            "license": "https://creativecommons.org/licenses/by/4.0",
+            "type": "License"
+          }
         },
-        "mainTitle": "Test import file",
-        "contributors": [
-            {
-                "type": "Contributor",
-                "brageRole": "author",
-                "role": "Creator",
-                "identity": {
-                    "type": "Identity",
-                    "name": "Eirik Nilsen",
-                    "identifier": ""
-                },
-                "sequence": 1
-            }
-        ],
-        "tags": [],
-        "publicationInstance": {},
-        "language": {
-            "brage": [
-                "nob"
-            ],
-            "nva": "http://lexvo.org/id/iso639-3/nob"
-        }
-    },
-    "recordContent": {
-        "contentFiles": [
-            {
-                "bundleType": "ORIGINAL",
-                "description": "ORIGINAL",
-                "identifier": "b047ab9e-1129-495e-936f-288ccaf1ba24",
-                "license": {
-                    "brageLicense": "https://creativecommons.org/licenses/by/4.0",
-                    "nvaLicense": {
-                        "license": "https://creativecommons.org/licenses/by/4.0",
-                        "type": "License"
-                    }
-                },
-                "filename": "example.txt"
-            }
-        ]
-    },
-    "warnings": [],
-    "prioritizedProperties": [
-        "reference",
-        "mainTitle",
-        "publisher",
-        "alternativeAbstracts",
-        "abstract",
-        "fundings",
-        "tags",
-        "alternativeTitles"
+        "filename": "example.txt"
+      }
     ]
+  },
+  "warnings": [],
+  "prioritizedProperties": [
+    "reference",
+    "mainTitle",
+    "publisher",
+    "alternativeAbstracts",
+    "abstract",
+    "fundings",
+    "tags",
+    "alternativeTitles"
+  ]
 }

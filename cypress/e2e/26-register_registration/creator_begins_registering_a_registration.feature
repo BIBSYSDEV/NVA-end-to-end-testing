@@ -6,6 +6,7 @@ Feature: Creator begins registering a Registration
     And they have selected "<Method>" for starting the Wizard
     When they click Start
     Then they see the Wizard
+
     Examples:
       | Method               |
       | Link to registration |
@@ -28,6 +29,7 @@ Feature: Creator begins registering a Registration
     When they enter "<Link>" from "<Source>"
     And they click Search
     Then they see metadata about the Link in the Expansion panel
+
     Examples:
       | Source                                             | Link                                                                                            |
       | Datacite/Crossref                                  | https://dlr.unit.no/resources/66888570-3504-4d12-81a4-c3ffe0605945                              |

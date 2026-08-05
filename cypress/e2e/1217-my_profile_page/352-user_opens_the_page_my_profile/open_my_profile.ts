@@ -1,5 +1,10 @@
-import { CategoryTypes, userName, userUnitWithAuthor } from '../../../support/constants';
-import { createDraftPublicationUsingAPI, createPublicationUsingAPI, NviLevels, RegistrationData } from '../../../support/create_registration';
+import { CategoryTypes, userName, userUnitMyPageNoNotifications } from '../../../support/constants';
+import {
+  createDraftPublicationUsingAPI,
+  createPublicationUsingAPI,
+  NviLevels,
+  RegistrationData,
+} from '../../../support/create_registration';
 import { dataTestId } from '../../../support/dataTestIds';
 import { profilePageFields } from '../../../support/data_testid_constants';
 import { Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
@@ -20,17 +25,17 @@ const titleLastMonth = `Publication for My Profile Page - ${new Date(today.setMo
 const titleNextMonth = `Publication for My Profile Page - ${new Date(today.setMonth(nextMonth)).toISOString().split('T')[0]} ${uuid()}`;
 
 BeforeAll(() => {
-  cy.login(userUnitWithAuthor).then(() => {
+  cy.login(userUnitMyPageNoNotifications).then(() => {
     createPublicationUsingAPI(
       titleToday,
       CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userUnitWithAuthor],
+      userName[userUnitMyPageNoNotifications],
       NviLevels.LEVEL_1
     );
     createDraftPublicationUsingAPI(
       titleLastYear,
       CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userUnitWithAuthor],
+      userName[userUnitMyPageNoNotifications],
       NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
@@ -40,7 +45,7 @@ BeforeAll(() => {
     createDraftPublicationUsingAPI(
       titleYesterday,
       CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userUnitWithAuthor],
+      userName[userUnitMyPageNoNotifications],
       NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
@@ -50,7 +55,7 @@ BeforeAll(() => {
     createDraftPublicationUsingAPI(
       titleLastMonth,
       CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userUnitWithAuthor],
+      userName[userUnitMyPageNoNotifications],
       NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
@@ -60,7 +65,7 @@ BeforeAll(() => {
     createDraftPublicationUsingAPI(
       titleNextMonth,
       CategoryTypes.ACADEMIC_ARTICLE,
-      userName[userUnitWithAuthor],
+      userName[userUnitMyPageNoNotifications],
       NviLevels.LEVEL_1
     ).then((builder: unknown) => {
       const registrationBuilder = builder as RegistrationData;
@@ -83,17 +88,13 @@ BeforeAll(() => {
 });
 
 Given('that the user is logged in', () => {
-  cy.login(userUnitWithAuthor);
+  cy.login(userUnitMyPageNoNotifications);
 });
 When('they click the menu item My user profile', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
-  // TODO(NP-51500): "My page" lands on Dialogue when the user has unread
-  // notifications, hiding the profile link. Navigate explicitly until the
-  // behavior is confirmed and covered by dedicated tests.
-  cy.getDataTestId(dataTestId.myPage.researchProfileAccordion).click();
-  cy.getDataTestId(dataTestId.myPage.myProfileLink).click();
 });
 Then('they see My Profile', () => {
+  cy.getDataTestId(dataTestId.myPage.myProfileLink).click();
   cy.location('pathname').should('contain', '/my-page/profile/personalia');
 });
 Then('they see their Profile page which includes information for', (dataTable: DataTable) => {
@@ -113,9 +114,6 @@ Then('they see their Profile page which includes information for', (dataTable: D
 // Given ('the user us logged in', () => {});
 When('they view their research profile', () => {
   cy.getDataTestId(dataTestId.header.myPageLink).click();
-  // TODO(NP-51500): "My page" lands on Dialogue when the user has unread
-  // notifications. Navigate explicitly until the behavior is confirmed and
-  // covered by dedicated tests.
   cy.getDataTestId(dataTestId.myPage.researchProfileAccordion).click();
 });
 Then('they see a list of their publications', () => {
@@ -123,7 +121,7 @@ Then('they see a list of their publications', () => {
 });
 
 /**
- * Extracts the publication date from a result item. Partial dates default to 
+ * Extracts the publication date from a result item. Partial dates default to
  * the end of the period, e.g. "2025" is parsed to "2025-12-31".
  */
 const parseDisplayedPublicationDate = (itemText: string): number => {
