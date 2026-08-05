@@ -2839,7 +2839,7 @@
     "lastName": "ApiTestUser",
     "firstName": "Publishing Curator UiS",
     "nin": "09022170705",
-    "username": "api-test-user-registrator-two-uis@test.sikt.no",
+    "username": "api-test-user-publishing-curator-uis@test.sikt.no",
     "role": [
       {
         "type": "Role",
@@ -2912,7 +2912,7 @@
     "lastName": "ApiTestUser",
     "firstName": "Publishing Curator Kristiania",
     "nin": "16026338372",
-    "username": "api-test-user-registrator-two-kristiania@test.sikt.no",
+    "username": "api-test-user-publishing-curator-kristiania@test.sikt.no",
     "role": [
       {
         "type": "Role",
@@ -2969,7 +2969,7 @@
   {
     "lastName": "ApiTestUser",
     "firstName": "Registrator OsloMet",
-    "nin": "30019038765",
+    "nin": "19045132377",
     "username": "api-test-user-registrator-oslomet@test.sikt.no",
     "role": [
       {
@@ -2983,9 +2983,9 @@
   },
   {
     "lastName": "ApiTestUser",
-    "firstName": "Publishing Curator OsloMet",
+    "firstName": "Publishing curator OsloMet",
     "nin": "24112488002",
-    "username": "api-test-user-registrator-two-oslomet@test.sikt.no",
+    "username": "api-test-user-publishing-curator-oslomet@test.sikt.no",
     "role": [
       {
         "type": "Role",
