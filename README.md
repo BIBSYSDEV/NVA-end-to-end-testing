@@ -17,8 +17,15 @@ python3 .\aws-cli-tools\samlauth\samlauth.py -f -a NVAE2ETesting
 (dev)
 python3 .\aws-cli-tools\samlauth\samlauth.py -f -a NVAdev
 
-Install Cypress:
-`npm install cypress`
+Install dependencies (requires the node version in `.nvmrc`):
+
+```bash
+npm ci
+npm run setup
+```
+
+`npm run setup` applies the repo's patch-package patches and downloads the Cypress binary.
+Both steps are needed because `.npmrc` sets `ignore-scripts=true`, which stops `npm ci` from running them automatically.
 
 Cypress docs:
 https://docs.cypress.io/guides/overview/why-cypress
