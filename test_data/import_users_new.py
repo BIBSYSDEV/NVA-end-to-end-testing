@@ -269,33 +269,7 @@ def readUsers():
     print(f'{len(users)} users found...')
     return userMap
 
-def deleteUsers(admin):
-    print('deleting from DynamoDb...')
-    client = boto3.client('dynamodb')
-    users = client.scan(TableName=USERS_ROLES_TABLE_NAME)['Items']
-    for user in users:
-        if 'affiliation' in user:
-            affiliation = user['affiliation']['S']
-            familyName = user['familyName']['S']
-            givenName = user['givenName']['S']
-            if not admin and givenName == 'Create testdata':
-                print(f'Not deleting {givenName} {familyName}')
-            else:
-                if 'TestUser' in familyName:
-                    print(f'deleting {givenName} {familyName}')
-                    response = client.delete_item(
-                        TableName=USERS_ROLES_TABLE_NAME,
-                        Key={'PrimaryKeyHashKey': {
-                            'S': user['PrimaryKeyHashKey']['S']
-                        },
-                            'PrimaryKeyRangeKey': {
-                                'S': user['PrimaryKeyRangeKey']['S']
-                        }
-                        })
-
-
 def run(user_file, admin):
-    # deleteUsers(admin=admin)
     importUsers(test_users_file_name=user_file)
 
 
