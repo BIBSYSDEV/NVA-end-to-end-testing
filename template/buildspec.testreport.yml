@@ -2,19 +2,17 @@ version: 0.2
 
 # Buildspec to generate a test report after all E2E tests are finished running.
 
-env:
-  variables:
-    # This build only merges reports and never runs Cypress, so skip the binary download.
-    CYPRESS_INSTALL_BINARY: 0
-
 phases:
   install:
     runtime-versions:
+      # Keep in sync with .nvmrc and package.json engines
       nodejs: 24
   pre_build:
     commands:
       - node -v
-      - npm ci --ignore-scripts --no-audit --no-fund
+      - npm ci
+      # This build never runs Cypress, so patches suffice (no binary)
+      - npm run apply:patches
       - aws sts assume-role --role-arn $ROLE_ARN --role-session-name test > Credentials
       - export CYPRESS_AWS_ACCESS_KEY_ID=$(cat Credentials | jq -r '.Credentials.AccessKeyId')
       - export CYPRESS_AWS_SECRET_ACCESS_KEY=$(cat Credentials | jq -r '.Credentials.SecretAccessKey')
