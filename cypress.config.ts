@@ -35,6 +35,15 @@ export default defineConfig({
         }
       });
 
+      // Lets test code surface diagnostics in the runner's stdout via cy.task('log', ...),
+      // which is the only output visible in headless CI runs.
+      on('task', {
+        log(message: string) {
+          console.log(message);
+          return null;
+        },
+      });
+
       on(
         'file:preprocessor',
         createBundler({
