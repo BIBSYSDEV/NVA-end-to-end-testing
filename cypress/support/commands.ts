@@ -242,6 +242,7 @@ export const NVI_REJECTED = 'Rejected';
 export const NVI_DISPUTE = 'dispute';
 
 Cypress.Commands.add('openNVIWorklist', () => {
+  cy.wait(1000);
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).should('exist');
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();

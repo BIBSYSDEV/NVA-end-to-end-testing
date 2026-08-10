@@ -114,6 +114,10 @@ BeforeAll(() => {
           });
         });
       });
+    });
+
+    Object.keys(titles).forEach((key) => {
+      const NVItitle = titles[key];
 
       if (!key.startsWith('Candidate')) {
         cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -233,17 +237,23 @@ When('status for other institutions is {string}', (otherInstitution) => {
 Then('the Results are listed under {string}', (status) => {
   cy.get('@ownInstitution').then((ownInstitution) => {
     cy.get('@otherInstitution').then((otherInstitution) => {
-      cy.selectNVIStatus(statusSelection[status.toString()]);
-      if (status.toString().endsWith('Waiting for your institution')) {
-        cy.getDataTestId('availability-filter').click();
-        cy.getDataTestId('availability-filter').within(() => {
-          cy.get(`[data-value=${availabilityFilter[status.toString()]}]`).click();
-        });
+      if (status.toString() === 'Dispute') {
+        cy.getDataTestId(dataTestId.tasksPage.nvi.showDisputesButton).click();
+        cy.wait(1000);
+      } else {
+        cy.selectNVIStatus(statusSelection[status.toString()]);
+        if (status.toString().endsWith('Waiting for your institution')) {
+          cy.getDataTestId('availability-filter').click();
+          cy.getDataTestId('availability-filter').within(() => {
+            cy.get(`[data-value=${availabilityFilter[status.toString()]}]`).click();
+          });
+        }
       }
       const titleKey = `${status} ${ownInstitution} ${otherInstitution}`;
       const title = titles[titleKey];
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       cy.getDataTestId(dataTestId.startPage.searchField).within(() => {
+        cy.get('input').should('be.enabled');
         cy.get('input').type(`{selectall}{del}${title}{enter}`);
       });
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');

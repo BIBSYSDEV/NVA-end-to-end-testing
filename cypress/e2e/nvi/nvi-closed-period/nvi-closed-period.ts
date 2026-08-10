@@ -73,6 +73,12 @@ When('an NVI-curator tries to change NVI reporting status', () => {
 });
 Then('they are not able to change that', () => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
+  cy.get('body').then(($body) => {
+    if ($body.find(`[data-testid="${dataTestId.tasksPage.nvi.candidatesList}"]`).length > 0) {
+      cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList)
+        .filter(`:contains(${title})`).should('not.exist');
+      }
+    });
   cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList)
     .filter(`:contains(${title})`)
     .within(() => {
