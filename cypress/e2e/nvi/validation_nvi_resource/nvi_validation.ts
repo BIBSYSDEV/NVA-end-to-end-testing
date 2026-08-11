@@ -13,11 +13,7 @@ import {
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { NVI_APPROVED, NVI_ASSIGNED, NVI_DISPUTE, NVI_PENDING, NVI_REJECTED } from '../../../support/commands';
-import {
-  createContributor,
-  createPublicationUsingAPI,
-  NviLevels,
-} from '../../../support/create_registration';
+import { createContributor, createPublicationUsingAPI, NviLevels } from '../../../support/create_registration';
 
 const nviFields = {
   'Search': dataTestId.startPage.searchField,
