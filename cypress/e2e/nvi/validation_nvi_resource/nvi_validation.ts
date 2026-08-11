@@ -14,11 +14,9 @@ import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { NVI_APPROVED, NVI_ASSIGNED, NVI_DISPUTE, NVI_PENDING, NVI_REJECTED } from '../../../support/commands';
 import {
-  createEntityDescription,
+  createContributor,
   createPublicationUsingAPI,
-  findContributorByName,
   NviLevels,
-  registrationBuilder,
 } from '../../../support/create_registration';
 
 const nviFields = {
@@ -94,26 +92,20 @@ BeforeAll(() => {
     Object.keys(titles).forEach((key) => {
       const NVItitle = titles[key];
 
+      const contributors = [createContributor(curatorInstitutionA), createContributor(curatorInstitutionB)];
+      if (key.endsWith('Dispute')) {
+        contributors.push(createContributor(contributorInstitutionC));
+      }
+
       createPublicationUsingAPI(
         NVItitle,
         CategoryTypes.ACADEMIC_ARTICLE,
         userName[userUSNNviCuratorInstitution],
-        NviLevels.LEVEL_1
-      ).then((builder) => {
-        findContributorByName(curatorInstitutionA, ContributorTypes.CREATOR).then((contributorNVIA) => {
-          findContributorByName(curatorInstitutionB, ContributorTypes.CREATOR).then((contributorNVIB) => {
-            builder.addContributor(contributorNVIB).addContributor(contributorNVIA);
-            if (key.endsWith('Dispute')) {
-              // A dispute among the other institutions needs a third one (approved by B, rejected by NTNU).
-              findContributorByName(contributorInstitutionC, ContributorTypes.CREATOR).then((contributorNVIC) => {
-                builder.addContributor(contributorNVIC).update();
-              });
-            } else {
-              builder.update();
-            }
-          });
-        });
-      });
+        NviLevels.LEVEL_1,
+        null,
+        null,
+        contributors
+      );
     });
 
     Object.keys(titles).forEach((key) => {
