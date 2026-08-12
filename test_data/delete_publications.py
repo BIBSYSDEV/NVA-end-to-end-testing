@@ -96,7 +96,7 @@ def delete_items(items, table):
 def delete_nvi_items(items, table):
   with table.batch_writer() as batch:
     for item in items:
-      print('deleting', 'NVI candidate', item['PrimaryKeyHashKey'])
+      print(f"Deleting {item['PrimaryKeyHashKey']} : {item['PrimaryKeyRangeKey']}")
       batch.delete_item(Key={'PrimaryKeyHashKey': item['PrimaryKeyHashKey'], 'PrimaryKeyRangeKey': item['PrimaryKeyRangeKey']})
 
 def create_nvi_periods():
