@@ -1,0 +1,21 @@
+{
+  "PrimaryKeyHashKey": "PERIOD",
+  "PrimaryKeyRangeKey": "PERIOD#<year>",
+  "data": {
+    "createdBy": {
+      "value": "43419@20754.0.0.0"
+    }
+  },
+  "id": "https://api.e2e.nva.aws.unit.no/scientific-index/period/<year>",
+  "modifiedBy": {
+    "value": "43419@20754.0.0.0"
+  },
+  "publishingYear": "<year>",
+  "reportingDate": "<dateTime>",
+  "startDate": "<dateTime>",
+  "identifier": "<year>",
+  "lastWrittenAt": "<dateTime>",
+  "revision": 1,
+  "type": "PERIOD",
+  "version": "<uuid>"
+}
