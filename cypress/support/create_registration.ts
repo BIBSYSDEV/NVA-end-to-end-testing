@@ -182,7 +182,7 @@ export const registrationBuilder = () => {
       this.payload.entityDescription = description;
       return this;
     },
-    addContributor(newContributor: ContributorType) {
+    addContributor(newContributor: PersonType) {
       if (!this.payload) throw new Error('Payload is not defined. Create registration first.');
       if (!this.entityDescription) throw new Error('Entity description is not defined. Add entity description first.');
       newContributor.sequence = this.entityDescription.contributors.length + 1;
@@ -277,8 +277,15 @@ const parseName = (nameObject: any): string => {
   return name;
 };
 
+export const createContributor = (name: string, contributorRole?: ContributorTypes): ContributorType => {
+  return {
+    name: name,
+    role: contributorRole ? contributorRole : ContributorTypes.CREATOR,
+  };
+};
+
 export const findContributorByName = (name: string, role: ContributorTypes, isUnverified?: boolean) => {
-  let contributor: ContributorType = {
+  let contributor: PersonType = {
     identity: {
       type: RegistrationPartTypes.IDENTITY,
       id: '',
@@ -750,16 +757,24 @@ export const createPublicationUsingAPI = (
   creatorName: string,
   nviLevel: NviLevels,
   seriesLevel?: NviLevels,
-  corrigendumFor?: string
+  corrigendumFor?: string,
+  contributors?: ContributorType[]
 ) => {
   return registrationBuilder()
     .create()
     .then((builder) => {
       const entity = createEntityDescription(title, category, '1003', nviLevel, seriesLevel, corrigendumFor);
-      return findContributorByName(creatorName, ContributorTypes.CREATOR)
-        .then((creator) => builder.addEntityDescription(entity).addContributor(creator).update())
-        .then(() => builder.publish())
-        .then(() => cy.wait(1000).then(() => builder));
+      builder.addEntityDescription(entity);
+      findContributorByName(creatorName, ContributorTypes.CREATOR).then((creator) => {
+        builder.addContributor(creator);
+      });
+      contributors?.forEach((contributor) => {
+        findContributorByName(contributor.name, contributor.role).then((addedContributor) => {
+          builder.addContributor(addedContributor);
+        });
+      });
+
+      return builder.update().then(() => builder.publish().then(() => cy.wait(1000).then(() => builder)));
     });
 };
 
@@ -893,7 +908,7 @@ export type RegistrationData = {
   projects?: [];
   create(): Cypress.Chainable<RegistrationData>;
   addEntityDescription(description: EntityDescriptionType): RegistrationData;
-  addContributor(contributors: ContributorType): RegistrationData;
+  addContributor(contributors: PersonType): RegistrationData;
   addFile(file: FileType): RegistrationData;
   addProject(project: ProjectType): RegistrationData;
   addReference(reference: ReferenceType): RegistrationData;
@@ -902,6 +917,11 @@ export type RegistrationData = {
 };
 
 export type ContributorType = {
+  name: string;
+  role: ContributorTypes;
+};
+
+export type PersonType = {
   identity: IdentityType;
   role: {
     type: ContributorTypes;
@@ -989,7 +1009,7 @@ export type EntityDescriptionType = {
     month: number;
     year: number;
   };
-  contributors: ContributorType[];
+  contributors: PersonType[];
   npiSubjectHeading: string;
   tags: string[];
   reference: ReferenceType;

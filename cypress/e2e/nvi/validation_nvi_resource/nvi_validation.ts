@@ -13,13 +13,7 @@ import {
 import { dataTestId } from '../../../support/dataTestIds';
 import { v4 as uuid } from 'uuid';
 import { NVI_APPROVED, NVI_ASSIGNED, NVI_DISPUTE, NVI_PENDING, NVI_REJECTED } from '../../../support/commands';
-import {
-  createEntityDescription,
-  createPublicationUsingAPI,
-  findContributorByName,
-  NviLevels,
-  registrationBuilder,
-} from '../../../support/create_registration';
+import { createContributor, createPublicationUsingAPI, NviLevels } from '../../../support/create_registration';
 
 const nviFields = {
   'Search': dataTestId.startPage.searchField,
@@ -94,26 +88,24 @@ BeforeAll(() => {
     Object.keys(titles).forEach((key) => {
       const NVItitle = titles[key];
 
+      const contributors = [createContributor(curatorInstitutionA), createContributor(curatorInstitutionB)];
+      if (key.endsWith('Dispute')) {
+        contributors.push(createContributor(contributorInstitutionC));
+      }
+
       createPublicationUsingAPI(
         NVItitle,
         CategoryTypes.ACADEMIC_ARTICLE,
         userName[userUSNNviCuratorInstitution],
-        NviLevels.LEVEL_1
-      ).then((builder) => {
-        findContributorByName(curatorInstitutionA, ContributorTypes.CREATOR).then((contributorNVIA) => {
-          findContributorByName(curatorInstitutionB, ContributorTypes.CREATOR).then((contributorNVIB) => {
-            builder.addContributor(contributorNVIB).addContributor(contributorNVIA);
-            if (key.endsWith('Dispute')) {
-              // A dispute among the other institutions needs a third one (approved by B, rejected by NTNU).
-              findContributorByName(contributorInstitutionC, ContributorTypes.CREATOR).then((contributorNVIC) => {
-                builder.addContributor(contributorNVIC).update();
-              });
-            } else {
-              builder.update();
-            }
-          });
-        });
-      });
+        NviLevels.LEVEL_1,
+        null,
+        null,
+        contributors
+      );
+    });
+
+    Object.keys(titles).forEach((key) => {
+      const NVItitle = titles[key];
 
       if (!key.startsWith('Candidate')) {
         cy.getDataTestId(dataTestId.header.tasksLink).click();
@@ -233,17 +225,23 @@ When('status for other institutions is {string}', (otherInstitution) => {
 Then('the Results are listed under {string}', (status) => {
   cy.get('@ownInstitution').then((ownInstitution) => {
     cy.get('@otherInstitution').then((otherInstitution) => {
-      cy.selectNVIStatus(statusSelection[status.toString()]);
-      if (status.toString().endsWith('Waiting for your institution')) {
-        cy.getDataTestId('availability-filter').click();
-        cy.getDataTestId('availability-filter').within(() => {
-          cy.get(`[data-value=${availabilityFilter[status.toString()]}]`).click();
-        });
+      if (status.toString() === 'Dispute') {
+        cy.getDataTestId(dataTestId.tasksPage.nvi.showDisputesButton).click();
+        cy.wait(1000);
+      } else {
+        cy.selectNVIStatus(statusSelection[status.toString()]);
+        if (status.toString().endsWith('Waiting for your institution')) {
+          cy.getDataTestId('availability-filter').click();
+          cy.getDataTestId('availability-filter').within(() => {
+            cy.get(`[data-value=${availabilityFilter[status.toString()]}]`).click();
+          });
+        }
       }
       const titleKey = `${status} ${ownInstitution} ${otherInstitution}`;
       const title = titles[titleKey];
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
       cy.getDataTestId(dataTestId.startPage.searchField).within(() => {
+        cy.get('input').should('be.enabled');
         cy.get('input').type(`{selectall}{del}${title}{enter}`);
       });
       cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
