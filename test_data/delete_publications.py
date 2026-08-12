@@ -27,7 +27,6 @@ deleteSearchIndexLambda = 'master-pipelines-NvaSearchApi-DeleteIndicesHandler-EK
 searchInitHandlerLambda = 'master-pipelines-NvaSearchApiClientPip-InitHandler-LEwtReql7EUp'
 deleteNviIndexLambda = 'master-pipelines-NvaNvi-1-DeleteNviCandidateIndexH-zfxYODFdVnjs'
 nviInitHandlerLambda = 'master-pipelines-NvaNvi-1V33HP5I7F42I--InitHandler-IX8ystUbVaIG'
-apiUrl = f'https://api.{STAGE}.nva.aws.unit.no/'
 
 STRING = 'S'
 MAP = 'M'
