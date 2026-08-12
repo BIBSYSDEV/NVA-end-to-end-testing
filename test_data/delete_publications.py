@@ -1,13 +1,9 @@
 import boto3
 import json
-import copy
-import requests
-import os
 import common
 import time
-from datetime import datetime, date, timedelta
-import babel
-import sys
+from datetime import datetime
+import uuid
 
 dynamodb_client = boto3.resource('dynamodb')
 s3_client = boto3.client('s3')
@@ -31,14 +27,7 @@ deleteSearchIndexLambda = 'master-pipelines-NvaSearchApi-DeleteIndicesHandler-EK
 searchInitHandlerLambda = 'master-pipelines-NvaSearchApiClientPip-InitHandler-LEwtReql7EUp'
 deleteNviIndexLambda = 'master-pipelines-NvaNvi-1-DeleteNviCandidateIndexH-zfxYODFdVnjs'
 nviInitHandlerLambda = 'master-pipelines-NvaNvi-1V33HP5I7F42I--InitHandler-IX8ystUbVaIG'
-
-username = 'admin-user-testdata@test.no'
-
-bearer_tokens = {}
-headers = {
-    'Authorization': 'Bearer',
-    'accept': 'application/json'
-}
+apiUrl = f'https://api.{STAGE}.nva.aws.unit.no/'
 
 STRING = 'S'
 MAP = 'M'
@@ -108,9 +97,39 @@ def delete_items(items, table):
 def delete_nvi_items(items, table):
   with table.batch_writer() as batch:
     for item in items:
-      if item['PrimaryKeyHashKey'] != 'PERIOD':
-        print('deleting', 'NVI candidate', item['PrimaryKeyHashKey'])
-        batch.delete_item(Key={'PrimaryKeyHashKey': item['PrimaryKeyHashKey'], 'PrimaryKeyRangeKey': item['PrimaryKeyRangeKey']})
+      print('deleting', 'NVI candidate', item['PrimaryKeyHashKey'])
+      batch.delete_item(Key={'PrimaryKeyHashKey': item['PrimaryKeyHashKey'], 'PrimaryKeyRangeKey': item['PrimaryKeyRangeKey']})
+
+def create_nvi_periods():
+  current_year = datetime.now().year
+  next_year = current_year + 1
+  last_year = current_year - 1
+
+  create_period(last_year)
+  create_period(current_year)
+  create_period(next_year)
+
+def create_period(year):
+  print(f'Creating NVI period for {year}')
+  currentStartDate = f'{year}-01-01T01:00:00Z'
+  currentReportingDate = f'{year}-12-31T23:59:00Z'
+  period_template_file = './publications/files/nvi_period_template.json'
+  with open(period_template_file) as period_template:
+    period = json.load(period_template)
+    period['PrimaryKeyRangeKey'] = f'PERIOD#{year}'
+    period['data']['id'] = f'https://api.e2e.nva.aws.unit.no/scientific-index/period/{year}'
+    period['data']['publishingYear'] = str(year)
+    period['data']['startDate'] = currentStartDate
+    period['data']['reportingDate'] = currentReportingDate
+    period['publishingYear'] = str(year)
+    period['startDate'] = currentStartDate
+    period['reportingDate'] = currentReportingDate
+    period['identifier'] = str(year)
+    period['version'] = str(uuid.uuid4())
+    period['lastWrittenAt'] = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
+
+    table = dynamodb_client.Table(nvi_tablename)
+    table.put_item(Item=period)
 
 def delete_all_in_dynamoDb():
   table = dynamodb_client.Table(publications_tablename)
@@ -138,11 +157,10 @@ def delete_publications():
 
 def run():
     print('publications...')
-    bearer_token = common.login(username=username)
-    headers['Authorization'] = f'Bearer {bearer_token}'
     delete_indices()
     create_indices()
     delete_publications()
+    create_nvi_periods()
 
 if __name__ == '__main__':
     run()
