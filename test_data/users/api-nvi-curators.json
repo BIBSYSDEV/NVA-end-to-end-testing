@@ -1,0 +1,78 @@
+[
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "Nvi-curator OsloMet",
+    "nin": "08075614498",
+    "username": "api-test-user-nvi-curator-oslomet@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "215",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/215.0.0.0"
+  },
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "Nvi-curator Kristiania",
+    "nin": "15022079627",
+    "username": "api-test-user-nvi-curator-kristiania@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "1615",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/1615.0.0.0"
+  },
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "Nvi-curator UiS",
+    "nin": "15042239507",
+    "username": "api-test-user-nvi-curator-uis@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "217",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/217.0.0.0"
+  },
+  {
+    "lastName": "ApiTestUser",
+    "firstName": "NVI Curator UiB",
+    "nin": "15108938797",
+    "username": "api-test-user-nvi-curator-uib@test.sikt.no",
+    "role": [
+      {
+        "type": "Role",
+        "rolename": "Creator"
+      },
+      {
+        "type": "Role",
+        "rolename": "Nvi-Curator"
+      }
+    ],
+    "orcid": true,
+    "orgNumber": "184",
+    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/184.0.0.0"
+  }
+]
