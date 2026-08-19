@@ -266,7 +266,7 @@ Cypress.Commands.add('selectNVIStatus', (status) => {
   cy.reload();
 });
 
-const NVI_CANDIDATE_INDEX_RETRIES = 4;
+const NVI_CANDIDATE_INDEX_RETRIES = 24;
 
 const searchForNVICandidate = (title: string) => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
@@ -282,7 +282,7 @@ const waitForNVICandidateToBeIndexed = (title: string, attemptsLeft: number) => 
       if (attemptsLeft <= 0) {
         throw new Error(`NVI candidate "${title}" was not indexed by the search backend in time`);
       }
-      cy.wait(10000);
+      cy.wait(5000);
       cy.reload();
       searchForNVICandidate(title);
       waitForNVICandidateToBeIndexed(title, attemptsLeft - 1);

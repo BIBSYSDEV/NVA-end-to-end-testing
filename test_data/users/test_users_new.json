@@ -2860,7 +2860,7 @@
       },
       {
         "type": "Role",
-        "rolename": "Nvi-curator"
+        "rolename": "Nvi-Curator"
       }
     ],
     "orcid": true,
@@ -2932,7 +2932,7 @@
       },
       {
         "type": "Role",
-        "rolename": "Nvi-curator"
+        "rolename": "Nvi-Curator"
       }
     ],
     "orcid": true,
@@ -3004,7 +3004,7 @@
       },
       {
         "type": "Role",
-        "rolename": "Nvi-curator"
+        "rolename": "Nvi-Curator"
       }
     ],
     "orcid": true,
