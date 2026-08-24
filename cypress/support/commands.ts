@@ -266,7 +266,7 @@ Cypress.Commands.add('selectNVIStatus', (status) => {
   cy.reload();
 });
 
-const NVI_CANDIDATE_INDEX_RETRIES = 24;
+const NVI_CANDIDATE_INDEX_RETRIES = 60;
 
 const searchForNVICandidate = (title: string) => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
