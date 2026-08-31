@@ -49,8 +49,8 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.1096.0",
-    "@aws-sdk/client-secrets-manager": "^3.1096.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.1116.0",
+    "@aws-sdk/client-secrets-manager": "^3.1116.0",
     "@badeball/cypress-cucumber-preprocessor": "^26.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
     "cypress-localstorage-commands": "^2.3.0",
