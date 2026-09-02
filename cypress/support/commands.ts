@@ -378,7 +378,7 @@ const fillInField = (field: Object) => {
       });
       break;
     case 'select':
-      cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click({ force: true }).type(' ');
+      cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click();
       if (field['fieldTestId'] === dataTestId.registrationWizard.description.languageField) {
         const languageOptionTestId = dataTestId.registrationWizard.description.languageItem(field['optionId']);
         cy.getDataTestId(dataTestId.registrationWizard.description.showMoreLanguagesButton).should('be.visible');
