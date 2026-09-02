@@ -266,7 +266,7 @@ Cypress.Commands.add('selectNVIStatus', (status) => {
   cy.reload();
 });
 
-const NVI_CANDIDATE_INDEX_RETRIES = 60;
+const NVI_CANDIDATE_INDEX_RETRIES = 24;
 
 const searchForNVICandidate = (title: string) => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
@@ -378,7 +378,7 @@ const fillInField = (field: Object) => {
       });
       break;
     case 'select':
-      cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click({ force: true }).type(' ');
+      cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click();
       if (field['fieldTestId'] === dataTestId.registrationWizard.description.languageField) {
         const languageOptionTestId = dataTestId.registrationWizard.description.languageItem(field['optionId']);
         cy.getDataTestId(dataTestId.registrationWizard.description.showMoreLanguagesButton).should('be.visible');
