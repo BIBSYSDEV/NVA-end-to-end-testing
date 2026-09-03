@@ -56,7 +56,8 @@ def create_external_client(client: dict, customer_uri: str, access_token: str) -
         headers={
             'Authorization': f'Bearer {access_token}',
             'Content-type': 'application/json'
-        })
+        },
+        timeout=30)
     response.raise_for_status()
     return response.json()
 
