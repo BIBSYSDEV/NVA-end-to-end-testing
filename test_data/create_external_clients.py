@@ -72,7 +72,7 @@ def create_external_client(client: dict, customer_uri: str, access_token: str) -
         timeout=30)
     if response.status_code == CLIENT_NAME_TAKEN_STATUS:
         raise ClientNameTaken(
-            f'{client["clientName"]} already exists but {client["secretName"]} does not hold its '
+            f'{client["clientName"]} already exists but its credentials secret does not hold the '
             f'credentials. External clients cannot be deleted, so either restore the secret or '
             f'give the client a new name.')
     response.raise_for_status()
@@ -83,11 +83,10 @@ def store_credentials(secret_name: str, client_name: str, credentials: dict) -> 
     try:
         store_secret(secret_name, credentials)
     except Exception:
-        # The client already exists remotely and cannot be deleted, so losing these credentials
-        # loses the client for good.
-        print(f'Could not store {secret_name}. Put these credentials for {client_name} there '
-              f'manually, they cannot be read back:')
-        print(json.dumps(credentials))
+        # The client already exists remotely and cannot be deleted, and its credentials cannot be
+        # read back, so it has to be replaced under a new name.
+        print(f'Could not store the credentials for {client_name}. The client exists but is now '
+              f'unusable, so give it a new name in the clients file and seed it again.')
         raise
 
 
