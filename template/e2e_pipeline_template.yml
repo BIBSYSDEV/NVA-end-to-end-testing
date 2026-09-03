@@ -363,6 +363,30 @@ Resources:
                   - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/test/CognitoTestClient1'
                   - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/NVA/ApiDomain'
                   - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/NVA/CognitoUri'
+        - PolicyName: apiTestClientSeedingPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # Credentials for the external clients the api tests authenticate as. Secrets Manager
+              # appends a random suffix to the name, hence the wildcard.
+              - Effect: Allow
+                Action:
+                  - 'secretsmanager:CreateSecret'
+                  - 'secretsmanager:PutSecretValue'
+                  - 'secretsmanager:RestoreSecret'
+                  - 'secretsmanager:DescribeSecret'
+                Resource:
+                  - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:ApiTest*'
+              - Effect: Allow
+                Action:
+                  - 'ssm:PutParameter'
+                Resource:
+                  - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/test/ApprovalsTable'
+              # ListTables is an account level action and cannot be scoped to a single table.
+              - Effect: Allow
+                Action:
+                  - 'dynamodb:ListTables'
+                Resource: '*'
         - PolicyName: searchIndexLambdaPolicy
           PolicyDocument:
             Version: '2012-10-17'
