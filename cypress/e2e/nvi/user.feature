@@ -1,5 +1,5 @@
 Feature: log in testuser
 
-# @test
-Scenario: User logs in
-Given a User logs in
+  # @test
+  Scenario: User logs in
+    Given a User logs in
