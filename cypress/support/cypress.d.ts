@@ -41,6 +41,8 @@ declare global {
 
       openMyRegistrations(): void;
       chooseDatePicker(selector: string, date: string): void;
+      typeInDateField(testId: string, value: string, sectionIndex?: number): void;
+      checkDateField(testId: string, date: string): void;
 
       selectRegistration(title: string, type: string): void;
       testDataTestidList(table: DataTable, values: Object): void;
@@ -52,10 +54,6 @@ declare global {
       fillInResourceType(subtype: string, fields: any[]): void;
       fillInContributors(contributorRoles: any): void;
       checkLandingPage(): void;
-
-      // setWorkflowRegistratorPublishesAll(): void;
-      // setWorkflowRegistratorPublishesMetadata(): void;
-      // setWorkflowRegistratorRequiresApproval(): void;
 
       filterMessages(messageType: string): void;
       /**

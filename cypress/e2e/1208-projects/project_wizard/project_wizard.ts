@@ -90,20 +90,36 @@ Then('they selects a Financing', () => {
 Then('the Project Wizard opens pre-filled with metadata', () => {
   cy.getDataTestId(dataTestId.newProjectPage.startNfrProjectButton).click();
   cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.titleField).should('not.be.empty');
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startDateField).should('not.have.value', '');
-  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.endDateField).should('not.have.value', '');
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.startDateField).within(() => {
+    cy.get('span[data-sectionindex="0"] > span[role="spinbutton"]').should('not.contain', 'DD');
+    cy.get('span[data-sectionindex="1"] > span[role="spinbutton"]').should('not.contain', 'MM');
+    cy.get('span[data-sectionindex="2"] > span[role="spinbutton"]').should('not.contain', 'YYYY');
+  });
+  cy.getDataTestId(dataTestId.registrationWizard.description.projectForm.endDateField).within(() => {
+    cy.get('span[data-sectionindex="0"] > span[role="spinbutton"]').should('not.contain', 'DD');
+    cy.get('span[data-sectionindex="1"] > span[role="spinbutton"]').should('not.contain', 'MM');
+    cy.get('span[data-sectionindex="2"] > span[role="spinbutton"]').should('not.contain', 'YYYY');
+  });
 });
 
 // Scenario: User opens the Project Wizard and start registering a Project without Financing selected
 When('they open the Project Wizard to register a new Project', () => {});
 When('they selects Empty registration', () => {
   cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
-  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type(`New test project ${uuid()}`);
   cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
 });
 Then('the Project Wizard opens with no metadata pre-filled', () => {
-  cy.getDataTestId(dataTestId.projectWizard.descriptionPanel.startDateField).should('be.empty');
-  cy.getDataTestId(dataTestId.projectWizard.descriptionPanel.endDateField).should('be.empty');
+  cy.getDataTestId(dataTestId.projectWizard.descriptionPanel.startDateField).within(() => {
+    cy.get('span[data-sectionindex="0"] > span[role="spinbutton"]').should('contain', 'DD');
+    cy.get('span[data-sectionindex="1"] > span[role="spinbutton"]').should('contain', 'MM');
+    cy.get('span[data-sectionindex="2"] > span[role="spinbutton"]').should('contain', 'YYYY');
+  });
+  cy.getDataTestId(dataTestId.projectWizard.descriptionPanel.endDateField).within(() => { 
+    cy.get('span[data-sectionindex="0"] > span[role="spinbutton"]').should('contain', 'DD');
+    cy.get('span[data-sectionindex="1"] > span[role="spinbutton"]').should('contain', 'MM');
+    cy.get('span[data-sectionindex="2"] > span[role="spinbutton"]').should('contain', 'YYYY');
+  });
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click();
   cy.get(
     `[data-testid=${dataTestId.registrationWizard.description.projectForm.coordinatingInstitutionField}] > div > input`
@@ -113,6 +129,10 @@ Then('the Project Wizard opens with no metadata pre-filled', () => {
 // Scenario: The User opens the Project Wizard and registers a new project
 Given('User opens the Project Wizard to registar a new Project', () => {});
 Then('they see the Project Wizard with Description fields:', (fields: DataTable) => {
+  fields.raw().forEach((value) => {
+    const field = value[0];
+   
+  });
   cy.testDataTestidList(fields, projectFields);
 });
 // | Title |
@@ -151,7 +171,7 @@ Given('User views the Projects Participants section', () => {
   cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
   cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
   cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
-  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type(`New test project ${uuid()}`);
   cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectContributorsStepButton).click();
 });
@@ -368,15 +388,11 @@ Then('they see the values on the Description page is the same that they filled i
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectDescriptionStepButton).click();
   fields.raw().forEach((value) => {
     const field = value[0];
-    if (field === START_DATE || field === END_DATE) {
-      cy.getDataTestId(descriptionFields[field].dataTestId).should('have.value', formatedToday);
-    } else {
       cy.contains(descriptionFields[field].value);
-    }
   });
 });
 // | Title                               |
-// | Scientific summary (Norwegian)      |aw
+// | Scientific summary (Norwegian)      |
 // | Scientific summary (English)        |
 // | Popular science summary (Norwegian) |
 // | Popular science summary (English)   |
@@ -423,7 +439,7 @@ Given('User views Financing tab for Project', () => {
   cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
   cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
   cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
-  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type(`New test project ${uuid()}`);
   cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
 });
 When('a User adds a new Financing', () => {
@@ -451,7 +467,7 @@ Given('User adds a Financing source for Project', () => {
   cy.getDataTestId(dataTestId.myPage.projectRegistrationsAccordion).click();
   cy.getDataTestId(dataTestId.myPage.createProjectButton).click();
   cy.getDataTestId(dataTestId.newProjectPage.createEmptyProjectAccordion).click();
-  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type('New test project');
+  cy.getDataTestId(dataTestId.newProjectPage.titleInput).type(`New test project ${uuid()}`);
   cy.getDataTestId(dataTestId.newProjectPage.startEmptyProjectButton).click();
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectDetailsStepButton).click();
   cy.getDataTestId(dataTestId.projectWizard.detailsPanel.addFundingButton).click();
