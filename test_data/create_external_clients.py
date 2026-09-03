@@ -4,7 +4,7 @@ Which clients to create is defined in a json file, so a new integration needs an
 rather than a code change. Each entry names the secret its credentials are stored under, which is
 what the tests read to authenticate.
 
-External clients cannot be deleted through the API, so an existing client is left alone rather
+External clients cannot be deleted through the API, so if the credentials secret already exists the client is assumed to exist and is left alone rather
 than replaced.
 
 Usage: uv run --frozen create_external_clients.py [--dry-run]
@@ -68,7 +68,8 @@ def create_external_client(client: dict, customer_uri: str, access_token: str) -
         headers={
             'Authorization': f'Bearer {access_token}',
             'Content-type': 'application/json'
-        })
+        },
+        timeout=30)
     if response.status_code == CLIENT_NAME_TAKEN_STATUS:
         raise ClientNameTaken(
             f'{client["clientName"]} already exists but {client["secretName"]} does not hold its '
