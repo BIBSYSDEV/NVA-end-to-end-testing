@@ -392,7 +392,7 @@ Then('they see the values on the Description page is the same that they filled i
   });
 });
 // | Title                               |
-// | Scientific summary (Norwegian)      |aw
+// | Scientific summary (Norwegian)      |
 // | Scientific summary (English)        |
 // | Popular science summary (Norwegian) |
 // | Popular science summary (English)   |
