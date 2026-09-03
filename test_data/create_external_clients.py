@@ -21,6 +21,11 @@ import common
 secretsmanager = boto3.client('secretsmanager')
 
 DEFAULT_CLIENTS_FILE = './clients/external_clients.json'
+CLIENT_NAME_TAKEN_STATUS = 409
+
+
+class ClientNameTaken(RuntimeError):
+    pass
 
 
 def secret_is_usable(secret_name: str) -> bool:
@@ -32,13 +37,20 @@ def secret_is_usable(secret_name: str) -> bool:
     return 'DeletedDate' not in description
 
 
+def restore_if_scheduled_for_deletion(secret_name: str) -> None:
+    description = secretsmanager.describe_secret(SecretId=secret_name)
+    if 'DeletedDate' in description:
+        secretsmanager.restore_secret(SecretId=secret_name)
+
+
 def store_secret(secret_name: str, credentials: dict) -> None:
     secret_string = json.dumps(credentials)
     try:
         secretsmanager.create_secret(Name=secret_name, SecretString=secret_string)
-    except secretsmanager.exceptions.InvalidRequestException:
-        # Scheduled for deletion, and cannot be recreated under the same name until restored.
-        secretsmanager.restore_secret(SecretId=secret_name)
+    except (secretsmanager.exceptions.InvalidRequestException,
+            secretsmanager.exceptions.ResourceExistsException):
+        # The name is taken, either by a live secret or by one within its recovery window.
+        restore_if_scheduled_for_deletion(secret_name)
         secretsmanager.put_secret_value(SecretId=secret_name, SecretString=secret_string)
 
 
@@ -57,8 +69,25 @@ def create_external_client(client: dict, customer_uri: str, access_token: str) -
             'Authorization': f'Bearer {access_token}',
             'Content-type': 'application/json'
         })
+    if response.status_code == CLIENT_NAME_TAKEN_STATUS:
+        raise ClientNameTaken(
+            f'{client["clientName"]} already exists but {client["secretName"]} does not hold its '
+            f'credentials. External clients cannot be deleted, so either restore the secret or '
+            f'give the client a new name.')
     response.raise_for_status()
     return response.json()
+
+
+def store_credentials(secret_name: str, client_name: str, credentials: dict) -> None:
+    try:
+        store_secret(secret_name, credentials)
+    except Exception:
+        # The client already exists remotely and cannot be deleted, so losing these credentials
+        # loses the client for good.
+        print(f'Could not store {secret_name}. Put these credentials for {client_name} there '
+              f'manually, they cannot be read back:')
+        print(json.dumps(credentials))
+        raise
 
 
 def seed_client(client: dict, customers: dict, access_token: str, dry_run: bool) -> None:
@@ -73,7 +102,7 @@ def seed_client(client: dict, customers: dict, access_token: str, dry_run: bool)
         return
 
     credentials = create_external_client(client, customer_uri, access_token)
-    store_secret(client['secretName'], credentials)
+    store_credentials(client['secretName'], client_name, credentials)
     print(f'Created {client_name} for {customer_uri}')
 
 
@@ -88,8 +117,16 @@ def run(clients_file: str = DEFAULT_CLIENTS_FILE, dry_run: bool = False) -> None
     access_token = common.getBackendAccessToken()
     customers = common.customer_uri_by_cristin_organization()
 
+    failed_clients = []
     for client in clients:
-        seed_client(client, customers, access_token, dry_run)
+        try:
+            seed_client(client, customers, access_token, dry_run)
+        except Exception as error:
+            print(f'Failed to seed {client["clientName"]}: {error}')
+            failed_clients.append(client['clientName'])
+
+    if failed_clients:
+        raise RuntimeError(f'Could not seed these external clients: {failed_clients}')
 
 
 if __name__ == '__main__':
