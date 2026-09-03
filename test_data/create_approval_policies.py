@@ -11,6 +11,7 @@ Usage: uv run --frozen create_approval_policies.py [--dry-run]
 
 import json
 import sys
+from typing import Optional
 
 import boto3
 
@@ -26,15 +27,15 @@ IDENTIFIER_POLICY_SORT_KEY = 'IdentifierPolicy'
 DEFAULT_POLICIES_FILE = './approvals/identifier_policies.json'
 
 
-def find_approvals_table() -> str:
+def find_approvals_table() -> Optional[str]:
     tables = [name
               for page in dynamodb.get_paginator('list_tables').paginate()
               for name in page['TableNames']
               if name.startswith(APPROVALS_TABLE_PREFIX)]
-    if len(tables) != 1:
+    if len(tables) > 1:
         raise RuntimeError(
-            f'Expected exactly one table named {APPROVALS_TABLE_PREFIX}*, found {tables}')
-    return tables[0]
+            f'Expected at most one table named {APPROVALS_TABLE_PREFIX}*, found {tables}')
+    return tables[0] if tables else None
 
 
 def put_identifier_policy(table_name: str, customer_identifier: str,
@@ -69,10 +70,14 @@ def run(policies_file: str = DEFAULT_POLICIES_FILE, dry_run: bool = False) -> No
     if dry_run:
         print('Dry run: nothing is written')
 
+    table_name = find_approvals_table()
+    if table_name is None:
+        print(f'Found no {APPROVALS_TABLE_PREFIX}* table, skipping the identifier policies')
+        return
+
     with open(policies_file) as file:
         policies = json.load(file)['policies']
 
-    table_name = find_approvals_table()
     customers = common.customer_uri_by_cristin_organization()
     print(f'Approvals table: {table_name}')
 
