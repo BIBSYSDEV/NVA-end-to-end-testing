@@ -115,7 +115,7 @@ Then('the Project Wizard opens with no metadata pre-filled', () => {
     cy.get('span[data-sectionindex="1"] > span[role="spinbutton"]').should('contain', 'MM');
     cy.get('span[data-sectionindex="2"] > span[role="spinbutton"]').should('contain', 'YYYY');
   });
-  cy.getDataTestId(dataTestId.projectWizard.descriptionPanel.endDateField).within(() => { 
+  cy.getDataTestId(dataTestId.projectWizard.descriptionPanel.endDateField).within(() => {
     cy.get('span[data-sectionindex="0"] > span[role="spinbutton"]').should('contain', 'DD');
     cy.get('span[data-sectionindex="1"] > span[role="spinbutton"]').should('contain', 'MM');
     cy.get('span[data-sectionindex="2"] > span[role="spinbutton"]').should('contain', 'YYYY');
@@ -131,7 +131,6 @@ Given('User opens the Project Wizard to registar a new Project', () => {});
 Then('they see the Project Wizard with Description fields:', (fields: DataTable) => {
   fields.raw().forEach((value) => {
     const field = value[0];
-   
   });
   cy.testDataTestidList(fields, projectFields);
 });
@@ -388,7 +387,7 @@ Then('they see the values on the Description page is the same that they filled i
   cy.getDataTestId(dataTestId.projectWizard.stepper.projectDescriptionStepButton).click();
   fields.raw().forEach((value) => {
     const field = value[0];
-      cy.contains(descriptionFields[field].value);
+    cy.contains(descriptionFields[field].value);
   });
 });
 // | Title                               |
