@@ -266,7 +266,7 @@ Cypress.Commands.add('selectNVIStatus', (status) => {
   cy.reload();
 });
 
-const NVI_CANDIDATE_INDEX_RETRIES = 60;
+const NVI_CANDIDATE_INDEX_RETRIES = 24;
 
 const searchForNVICandidate = (title: string) => {
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${title}{enter}`);
@@ -348,15 +348,6 @@ const fillInField = (field: Object) => {
       cy.chooseDatePicker(`[data-testid=${field['fieldTestId']}]`, todayDatePicker());
       break;
     case 'search':
-      // if (field['fieldTestId'] == dataTestId.registrationWizard.resourceType.seriesField) {
-      //   cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_series.json' }).as(
-      //     'serialChannel'
-      //   );
-      // } else {
-      //   cy.intercept('/publication-channels-v2/serial-publication?*', { fixture: 'channel_mock_serial.json' }).as(
-      //     'serialChannel'
-      //   );
-      // }
       cy.getDataTestId(field['fieldTestId']).should('be.visible').type(field['value'], { delay: 1 });
       cy.contains(field['value']).click();
       break;
@@ -369,16 +360,11 @@ const fillInField = (field: Object) => {
       cy.get('body').then(($body) => {
         if ($body.find(`[data-testid=${dataTestId.registrationWizard.files.version}]`).length > 0) {
           cy.get('[value=PublishedVersion').click();
-          // cy.getDataTestId(dataTestId.registrationWizard.files.version, { timeout: 30000 })
-          //   .last()
-          //   .within(() => {
-          //     cy.get('input[type=radio]').first().click();
-          //   });
         }
       });
       break;
     case 'select':
-      cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click({ force: true }).type(' ');
+      cy.getDataTestId(field['fieldTestId']).scrollIntoView().should('be.visible').click();
       if (field['fieldTestId'] === dataTestId.registrationWizard.description.languageField) {
         const languageOptionTestId = dataTestId.registrationWizard.description.languageItem(field['optionId']);
         cy.getDataTestId(dataTestId.registrationWizard.description.showMoreLanguagesButton).should('be.visible');
@@ -627,118 +613,106 @@ Cypress.Commands.add('checkLandingPage', () => {
   });
 });
 
-Cypress.Commands.add('chooseDatePicker', (selector, value) => {
-  const selectingYear = value.length === 4;
-  let selectDate = '';
-  let selectMonth = '';
-  let selectMonthName = '';
-  let selectYear = value;
-  if (!selectingYear) {
-    const months = {
-      '1': 'Jan',
-      '01': 'Jan',
-      '2': 'Feb',
-      '02': 'Feb',
-      '3': 'Mar',
-      '03': 'Mar',
-      '4': 'Apr',
-      '04': 'Apr',
-      '5': 'May',
-      '05': 'May',
-      '6': 'Jun',
-      '06': 'Jun',
-      '7': 'Jul',
-      '07': 'Jul',
-      '8': 'Aug',
-      '08': 'Aug',
-      '9': 'Sep',
-      '09': 'Sep',
-      '10': 'Oct',
-      '11': 'Nov',
-      '12': 'Dec',
-    };
-    value = value.replaceAll('.', '');
-    selectDate = Number(value.substring(0, 2)).toString();
-    selectMonth = value.substring(2, 4);
-    selectMonthName = !selectMonth ? months['1'] : months[selectMonth];
-    selectYear = value.substring(4);
-  }
+Cypress.Commands.add('typeInDateField', (testId: string, value: string, sectionIndex = 0) =>
+  cy.get(`${testId} [data-sectionindex=${sectionIndex}] [role=spinbutton]`).type(value)
+);
 
-  cy.get(selector)
-    .parent()
-    .then(($body) => {
-      const mobilePickerSelector = `[readonly]`;
-      const isMobile = $body.find(mobilePickerSelector).length !== 0;
-      if (isMobile) {
-        cy.get(selector).click();
-        cy.get('[role=dialog]').then(($dialog) => {
-          const typableField = !(
-            $dialog.find('.MuiPickersDay-today').length > 0 ||
-            $dialog.find('.MuiPickersYear-yearButton').length > 0 ||
-            $dialog.find('.Mui-selected').length > 0
-          );
-          if (typableField) {
-            cy.get(selector).within(() => {
-              cy.get('input').type(value, { force: true });
-            });
-          } else {
-            if (!selectingYear) {
-              if (!value) {
-                cy.get('.MuiPickersDay-today').click();
-                cy.contains('[role="dialog"] button', 'OK').click();
-              } else {
-                cy.get('.MuiPickersCalendarHeader-labelContainer').within(() => {
-                  cy.get('button').first().click();
-                });
-                cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
-                cy.get('.MuiPickersMonth-monthButton').filter(`:contains(${selectMonthName})`).click();
-                cy.get('.MuiPickersDay-dayWithMargin').filter(`:contains(${selectDate})`).first().click();
-                cy.contains('[role="dialog"] button', 'OK').click();
-              }
-            } else {
-              if (!value) {
-                cy.get('.Mui-selected').click();
-                cy.contains('[role="dialog"] button', 'OK').click();
-              } else {
-                cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
-                cy.contains('[role="dialog"] button', 'OK').click();
-              }
-            }
-          }
-        });
-      } else {
-        cy.get(selector).type(value);
-      }
-    });
+Cypress.Commands.add('checkDateField', (testId: string, date: string) => {
+  const day = date.split('.')[0];
+  const month = date.split('.')[1];
+  const year = date.split('.')[2];
+  cy.getDataTestId(testId).within(() => {
+    cy.get('span[data-sectionindex="0"] > span[role="spinbutton"]').should('contain', day);
+    cy.get('span[data-sectionindex="1"] > span[role="spinbutton"]').should('contain', month);
+    cy.get('span[data-sectionindex="2"] > span[role="spinbutton"]').should('contain', year);
+  });
 });
 
-// Cypress.Commands.add('setWorkflowRegistratorPublishesAll', () => {
-//   cy.login(userBIBSYSSecondEditor);
-//   cy.getDataTestId(dataTestId.header.editorLink).click();
-//   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
-//   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
-//   cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesAll).click({
-//     force: true,
-//   });
-//   // cy.wait(5000);
-// });
+Cypress.Commands.add('chooseDatePicker', (selector, value) => {
+  cy.typeInDateField(selector, value);
+  // const selectingYear = value.length === 4;
+  // let selectDate = '';
+  // let selectMonth = '';
+  // let selectMonthName = '';
+  // let selectYear = value;
+  // if (!selectingYear) {
+  //   const months = {
+  //     '1': 'Jan',
+  //     '01': 'Jan',
+  //     '2': 'Feb',
+  //     '02': 'Feb',
+  //     '3': 'Mar',
+  //     '03': 'Mar',
+  //     '4': 'Apr',
+  //     '04': 'Apr',
+  //     '5': 'May',
+  //     '05': 'May',
+  //     '6': 'Jun',
+  //     '06': 'Jun',
+  //     '7': 'Jul',
+  //     '07': 'Jul',
+  //     '8': 'Aug',
+  //     '08': 'Aug',
+  //     '9': 'Sep',
+  //     '09': 'Sep',
+  //     '10': 'Oct',
+  //     '11': 'Nov',
+  //     '12': 'Dec',
+  //   };
+  //   value = value.replaceAll('.', '');
+  //   selectDate = Number(value.substring(0, 2)).toString();
+  //   selectMonth = value.substring(2, 4);
+  //   selectMonthName = !selectMonth ? months['1'] : months[selectMonth];
+  //   selectYear = value.substring(4);
+  // }
 
-// Cypress.Commands.add('setWorkflowRegistratorPublishesMetadata', () => {
-//   cy.login(userBIBSYSSecondEditor);
-//   cy.getDataTestId(dataTestId.header.editorLink).click();
-//   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
-//   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
-//   cy.getDataTestId(dataTestId.editor.workflowRegistratorPublishesMetadata).click({ force: true });
-//   // cy.wait(5000);
-// });
-
-// Cypress.Commands.add('setWorkflowRegistratorRequiresApproval', () => {
-//   cy.login(userBIBSYSSecondEditor);
-//   cy.getDataTestId(dataTestId.header.editorLink).click();
-//   cy.getDataTestId(dataTestId.editor.settingsAccordion).click();
-//   cy.getDataTestId(dataTestId.editor.publishStrategyLinkButton).click();
-//   cy.getDataTestId(dataTestId.editor.workflowRegistratorRequiresApproval).click({ force: true });
-// });
+  // cy.get(selector)
+  //   .parent()
+  //   .then(($body) => {
+  //     const mobilePickerSelector = `[readonly]`;
+  //     const isMobile = $body.find(mobilePickerSelector).length !== 0;
+  //     if (isMobile) {
+  //       cy.get(selector).click();
+  //       cy.get('[role=dialog]').then(($dialog) => {
+  //         const typableField = !(
+  //           $dialog.find('.MuiPickersDay-today').length > 0 ||
+  //           $dialog.find('.MuiPickersYear-yearButton').length > 0 ||
+  //           $dialog.find('.Mui-selected').length > 0
+  //         );
+  //         if (typableField) {
+  //           cy.get(selector).within(() => {
+  //             cy.get('input').type(value, { force: true });
+  //           });
+  //         } else {
+  //           if (!selectingYear) {
+  //             if (!value) {
+  //               cy.get('.MuiPickersDay-today').click();
+  //               cy.contains('[role="dialog"] button', 'OK').click();
+  //             } else {
+  //               cy.get('.MuiPickersCalendarHeader-labelContainer').within(() => {
+  //                 cy.get('button').first().click();
+  //               });
+  //               cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
+  //               cy.get('.MuiPickersMonth-monthButton').filter(`:contains(${selectMonthName})`).click();
+  //               cy.get('.MuiPickersDay-dayWithMargin').filter(`:contains(${selectDate})`).first().click();
+  //               cy.contains('[role="dialog"] button', 'OK').click();
+  //             }
+  //           } else {
+  //             if (!value) {
+  //               cy.get('.Mui-selected').click();
+  //               cy.contains('[role="dialog"] button', 'OK').click();
+  //             } else {
+  //               cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
+  //               cy.contains('[role="dialog"] button', 'OK').click();
+  //             }
+  //           }
+  //         }
+  //       });
+  //     } else {
+  //       cy.get(selector).type(value);
+  //     }
+  //   });
+});
 
 const doiRequests = 'DoiRequests';
 const publishingRequests = 'Publishing Requests';
