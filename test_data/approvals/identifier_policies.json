@@ -1,0 +1,12 @@
+{
+  "policies": [
+    {
+      "cristinOrganization": "184.0.0.0",
+      "allowedIdentifierNames": ["apitest-uib"]
+    },
+    {
+      "cristinOrganization": "217.0.0.0",
+      "allowedIdentifierNames": ["apitest-uis"]
+    }
+  ]
+}

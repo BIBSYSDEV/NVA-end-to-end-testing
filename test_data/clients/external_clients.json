@@ -1,0 +1,18 @@
+{
+  "clients": [
+    {
+      "secretName": "ApiTestApprovalClientUib",
+      "clientName": "api-test-approval-uib",
+      "cristinOrganization": "184.0.0.0",
+      "actingUser": "api-test-user-creator-uib@test.sikt.no",
+      "scopes": ["https://api.nva.unit.no/scopes/third-party/approval-upsert"]
+    },
+    {
+      "secretName": "ApiTestApprovalClientUis",
+      "clientName": "api-test-approval-uis",
+      "cristinOrganization": "217.0.0.0",
+      "actingUser": "api-test-user-registrator-uis@test.sikt.no",
+      "scopes": ["https://api.nva.unit.no/scopes/third-party/approval-upsert"]
+    }
+  ]
+}
