@@ -61,8 +61,8 @@ Then('they see the tab Resource Type is clickable', () => {
 Then('they see the tab Contributors is selected', () => {
   cy.getDataTestId(dataTestId.registrationWizard.stepper.contributorsStepButton).should(
     'have.attr',
-    'aria-current',
-    'step'
+    'aria-selected',
+    'true'
   );
 });
 Then('they see the tab Files and License is clickable', () => {

@@ -207,7 +207,11 @@ Then('the action outcome is {string}', (outcome: string) => {
               cy.get('input').should('be.enabled');
             });
             cy.getDataTestId(dataTestId.registrationWizard.files.expandFileRowButton).click();
-            cy.getDataTestId(dataTestId.registrationWizard.files.embargoDateField).should('be.enabled');
+            cy.getDataTestId(dataTestId.registrationWizard.files.embargoDateField).within(() => {
+              cy.get('span[data-sectionindex="0"] > span[role="spinbutton"]').should('contain', 'DD');
+              cy.get('span[data-sectionindex="1"] > span[role="spinbutton"]').should('contain', 'MM');
+              cy.get('span[data-sectionindex="2"] > span[role="spinbutton"]').should('contain', 'YYYY');
+            });
           }
         } else {
           cy.getDataTestId(dataTestId.registrationLandingPage.openFileButton).should('exist');
