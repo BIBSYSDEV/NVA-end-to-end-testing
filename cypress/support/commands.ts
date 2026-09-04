@@ -629,89 +629,12 @@ Cypress.Commands.add('checkDateField', (testId: string, date: string) => {
 });
 
 Cypress.Commands.add('chooseDatePicker', (selector, value) => {
-  cy.typeInDateField(selector, value);
-  // const selectingYear = value.length === 4;
-  // let selectDate = '';
-  // let selectMonth = '';
-  // let selectMonthName = '';
-  // let selectYear = value;
-  // if (!selectingYear) {
-  //   const months = {
-  //     '1': 'Jan',
-  //     '01': 'Jan',
-  //     '2': 'Feb',
-  //     '02': 'Feb',
-  //     '3': 'Mar',
-  //     '03': 'Mar',
-  //     '4': 'Apr',
-  //     '04': 'Apr',
-  //     '5': 'May',
-  //     '05': 'May',
-  //     '6': 'Jun',
-  //     '06': 'Jun',
-  //     '7': 'Jul',
-  //     '07': 'Jul',
-  //     '8': 'Aug',
-  //     '08': 'Aug',
-  //     '9': 'Sep',
-  //     '09': 'Sep',
-  //     '10': 'Oct',
-  //     '11': 'Nov',
-  //     '12': 'Dec',
-  //   };
-  //   value = value.replaceAll('.', '');
-  //   selectDate = Number(value.substring(0, 2)).toString();
-  //   selectMonth = value.substring(2, 4);
-  //   selectMonthName = !selectMonth ? months['1'] : months[selectMonth];
-  //   selectYear = value.substring(4);
-  // }
-
-  // cy.get(selector)
-  //   .parent()
-  //   .then(($body) => {
-  //     const mobilePickerSelector = `[readonly]`;
-  //     const isMobile = $body.find(mobilePickerSelector).length !== 0;
-  //     if (isMobile) {
-  //       cy.get(selector).click();
-  //       cy.get('[role=dialog]').then(($dialog) => {
-  //         const typableField = !(
-  //           $dialog.find('.MuiPickersDay-today').length > 0 ||
-  //           $dialog.find('.MuiPickersYear-yearButton').length > 0 ||
-  //           $dialog.find('.Mui-selected').length > 0
-  //         );
-  //         if (typableField) {
-  //           cy.get(selector).within(() => {
-  //             cy.get('input').type(value, { force: true });
-  //           });
-  //         } else {
-  //           if (!selectingYear) {
-  //             if (!value) {
-  //               cy.get('.MuiPickersDay-today').click();
-  //               cy.contains('[role="dialog"] button', 'OK').click();
-  //             } else {
-  //               cy.get('.MuiPickersCalendarHeader-labelContainer').within(() => {
-  //                 cy.get('button').first().click();
-  //               });
-  //               cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
-  //               cy.get('.MuiPickersMonth-monthButton').filter(`:contains(${selectMonthName})`).click();
-  //               cy.get('.MuiPickersDay-dayWithMargin').filter(`:contains(${selectDate})`).first().click();
-  //               cy.contains('[role="dialog"] button', 'OK').click();
-  //             }
-  //           } else {
-  //             if (!value) {
-  //               cy.get('.Mui-selected').click();
-  //               cy.contains('[role="dialog"] button', 'OK').click();
-  //             } else {
-  //               cy.get('.MuiPickersYear-yearButton').filter(`:contains(${selectYear})`).click();
-  //               cy.contains('[role="dialog"] button', 'OK').click();
-  //             }
-  //           }
-  //         }
-  //       });
-  //     } else {
-  //       cy.get(selector).type(value);
-  //     }
-  //   });
+  const selectingYear = value.length === 4;
+  if (selectingYear) {
+    cy.get(selector).type(value);
+  } else {
+    cy.typeInDateField(selector, value);
+  }
 });
 
 const doiRequests = 'DoiRequests';
