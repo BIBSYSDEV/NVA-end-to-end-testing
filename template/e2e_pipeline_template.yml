@@ -422,6 +422,10 @@ Resources:
                 Resource: '*'
               - Effect: Allow
                 Action:
+                  - 'tag:GetResources'
+                Resource: '*'
+              - Effect: Allow
+                Action:
                   - 'secretsmanager:GetSecretValue'
                   - 'secretsmanager:GetResourcePolicy'
                   - 'secretsmanager:DescribeSecret'
