@@ -489,11 +489,11 @@ Then('the formatted citation string is written to the clipboard', () => {
 Then('a visual confirmation is shown', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.copyReferenceButton).should(
     'contain.text',
-    'Referanse kopiert'
+    'Reference copied'
   );
 });
 Then('the confirmation disappears after a short delay', () => {
   cy.getDataTestId(dataTestId.registrationLandingPage.detailsTab.copyReferenceButton, {
     timeout: 4000,
-  }).should('contain.text', 'Kopier referanse');
+  }).should('contain.text', 'Copy reference');
 });

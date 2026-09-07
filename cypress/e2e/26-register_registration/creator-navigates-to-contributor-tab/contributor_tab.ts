@@ -94,7 +94,7 @@ When('they click "Add me as Author"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
 });
 Then('their Author identity is added to the list of Authors', () => {
-  cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton('Contributor TestUser')}"`);
+  cy.getDataTestId(`"${dataTestId.registrationWizard.contributors.removeContributorButton('Contributor TestUser')}-Creator"`);
 });
 Then('their current Affiliations are listed', () => {
   cy.contains('Unit');
