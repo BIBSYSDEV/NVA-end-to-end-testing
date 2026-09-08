@@ -1,0 +1,17 @@
+/*
+ * Custom CSS appended to @cucumber/html-formatter's own stylesheet when generating the report.
+ *
+ * NOTE: Only stable hooks may be used here - the `--cucumber-*` variables, `#report`,
+ * `.html-formatter`, `data-testid` / `data-status` attributes and plain tag names. The rest of
+ * the class names in the package's main.css are hashed CSS module names that change whenever
+ * the package is rebuilt, so do not target them.
+ */
+
+#report [data-testid='cucumber.summary.status'] svg {
+  height: 8em;
+}
+
+/* Keep the "N / M passed" text vertically centred against the now much taller chart. */
+#report [data-testid='cucumber.summary.status'] > div {
+  align-items: center;
+}
