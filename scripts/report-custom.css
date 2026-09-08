@@ -8,7 +8,7 @@
  */
 
 #report [data-testid='cucumber.summary.status'] svg {
-  height: 4em;
+  height: 8em;
 }
 
 /* Keep the "N / M passed" text vertically centred against the now much taller chart. */
