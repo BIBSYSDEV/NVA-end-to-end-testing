@@ -54,6 +54,6 @@
     "@badeball/cypress-cucumber-preprocessor": "^26.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
     "cypress-localstorage-commands": "^2.3.0",
-    "uuid": "^14.0.1"
+    "uuid": "^14.0.2"
   }
 }
