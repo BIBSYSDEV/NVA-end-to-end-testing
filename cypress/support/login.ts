@@ -205,7 +205,7 @@ const getCode = (userName: string, password: string) => {
 const generateUrl = () => {
   const baseUrl = `${cognitoUri}/login`;
   const queryString = `client_id=${encodeURIComponent(clientId)}&response_type=code&scope=${encodeURIComponent(
-    'aws.cognito.signin.user.admin email https://api.nva.unit.no/scopes/frontend openid phone profile'
+    'email https://api.nva.unit.no/scopes/frontend openid phone profile'
   )}&redirect_uri=${encodeURIComponent(redirectUri)}`;
   return `${baseUrl}?${queryString}`;
 };
