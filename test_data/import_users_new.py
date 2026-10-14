@@ -24,6 +24,9 @@ customer_tablename = ssm.get_parameter(Name='/test/CustomerTable',
 secretsmanager = boto3.client('secretsmanager')
 USER_PASSWORD = secretsmanager.get_secret_value(SecretId='TestUserPassword')['SecretString']
 
+cognito = boto3.client('cognito-idp')
+TERMS_URI = 'https://nva.sikt.no/terms/2024-10-01'
+
 def createHeaders(accessToken):
     return {
         'Authorization': f'Bearer {accessToken}',
@@ -74,6 +77,13 @@ def organizationExists(affiliations, organization):
     return False
 
 
+def extractCristinPersonId(personUri):
+    cristinPersonId = personUri.rsplit('/', 1)[-1]
+    if not cristinPersonId.isdigit():
+        raise ValueError(f'Unexpected Cristin person id in {personUri}')
+    return cristinPersonId
+
+
 def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId, additionalOrgs=[]):
     createUrl = f'{apiUrl}cristin/person'
     headers = createHeaders(accessToken=accessToken)
@@ -86,10 +96,8 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId, add
             nin=nin, firstName=firstName, lastName=lastName)
         response = requests.post(url=createUrl, headers=headers, json=payload)
         if response.status_code != 201:
-            print(payload)
-            print(response.text)
-        cristinPersonId = response.json()['id'].replace(
-            f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
+            print(f'Creating Cristin person for {firstName} {lastName} failed: {response.status_code} {response.text}')
+        cristinPersonId = extractCristinPersonId(response.json()['id'])
         time.sleep(10)
         for org in additionalOrgs:
             updateUrl = f'{apiUrl}cristin/person/{cristinPersonId}/employment'
@@ -108,8 +116,7 @@ def createCristinPerson(accessToken, nin, firstName, lastName, cristinOrgId, add
                 url=updateUrl, json=payload, headers=headers)
     else:
         print('Employment exists...')
-        cristinPersonId = existingPerson.json()['id'].replace(
-            f'https://api.{STAGE}.nva.aws.unit.no/cristin/person/', '')
+        cristinPersonId = extractCristinPersonId(existingPerson.json()['id'])
 
     return cristinPersonId
 
@@ -117,7 +124,7 @@ def setTermsAndConditions(cristinPersonId):
     print('Setting terms and conditions')
     payload = {
         "id": {
-            "S": "https://api.e2e.nva.aws.unit.no/cristin/person/43419"
+            "S": cristinPersonUri(cristinPersonId)
         },
         "type": {
             "S": "TermsConditions"
@@ -135,10 +142,9 @@ def setTermsAndConditions(cristinPersonId):
             "S": "43419@20754.0.0.0"
         },
         "termsConditionsUri": {
-            "S": "https://nva.sikt.no/terms/2024-10-01"
+            "S": TERMS_URI
         }
     }
-    payload['id']['S'] = f'https://api.e2e.nva.aws.unit.no/cristin/person/{cristinPersonId}'
     client = boto3.client('dynamodb')
     response = client.put_item(
         TableName = TERMS_CONDITION_TABLE_NAME,
@@ -147,15 +153,78 @@ def setTermsAndConditions(cristinPersonId):
 
 
 
-def createNvaUser(accessToken, nin, customer, roles, username, givenName, userMap):
-    if givenName in userMap:
+def cristinPersonUri(cristinPersonId):
+    # Same host as the identity service uses when it writes custom:cristinId
+    # back (SSM /NVA/ApiDomain), so the admin-set value is byte-identical.
+    return f'{common.API_URL}/cristin/person/{cristinPersonId}'
+
+
+def ensureCognitoUser(username, nin, cristinPersonId):
+    """Creates the Cognito user if it is missing, and makes sure custom:cristinId
+    points at the person. Password users never go through federation, so the
+    pre-token Lambda needs the admin-set custom:cristinId to find them.
+    Returns True when the Cognito user was created."""
+    personUri = cristinPersonUri(cristinPersonId)
+    try:
+        user = cognito.admin_get_user(
+            UserPoolId=USER_POOL_ID,
+            Username=username,
+        )
+    except cognito.exceptions.UserNotFoundException:
+        print(f'Creating Cognito user {username}')
+        cognito.admin_create_user(
+            UserPoolId=USER_POOL_ID,
+            Username=username,
+            UserAttributes=[
+                {
+                    'Name': 'custom:cristinId',
+                    'Value': personUri
+                },
+                {
+                    'Name': 'custom:feideIdNin',
+                    'Value': nin
+                },
+                {
+                    'Name': 'custom:feideId',
+                    'Value': username
+                },
+                {
+                    'Name': "custom:currentTerms",
+                    'Value': TERMS_URI
+                },
+                {
+                    "Name": "custom:acceptedTerms",
+                    "Value": TERMS_URI
+                }
+            ],
+            MessageAction='SUPPRESS'
+        )
+        return True
+    attributes = {attribute['Name']: attribute['Value'] for attribute in user['UserAttributes']}
+    if attributes.get('custom:cristinId') != personUri:
+        print(f'Setting custom:cristinId for {username}')
+        cognito.admin_update_user_attributes(
+            UserPoolId=USER_POOL_ID,
+            Username=username,
+            UserAttributes=[
+                {
+                    'Name': 'custom:cristinId',
+                    'Value': personUri
+                }
+            ]
+        )
+    return False
+
+
+def createNvaUser(accessToken, nin, cristinPersonId, customer, roles, username, givenName, userMap):
+    userExists = givenName in userMap
+    if userExists:
         print(f'found user with name {givenName} TestUser')
     else:
         print('Creating NVA user...')
         url = f'{apiUrl}users-roles/users/'
-        termsUri = 'https://nva.sikt.no/terms/2024-10-01'
         payload = {
-            "nationalIdentityNumber": nin,
+            "cristinIdentifier": cristinPersonId,
             "customerId": customer,
             "roles": roles,
             "feideId": username
@@ -167,41 +236,11 @@ def createNvaUser(accessToken, nin, customer, roles, username, givenName, userMa
             print(payload)
             print(response.json())
 
-        client = boto3.client('cognito-idp')
-        print(f'Username: {username}')
-
+    created = ensureCognitoUser(username=username, nin=nin, cristinPersonId=cristinPersonId)
+    if created or not userExists:
+        print(f'setting password for {username}')
         try:
-            response = client.admin_get_user(
-                UserPoolId=USER_POOL_ID,
-                Username=username,
-            )
-        except:
-            client.admin_create_user(
-                UserPoolId=USER_POOL_ID,
-                Username=username,
-                UserAttributes=[
-                    {
-                        'Name': 'custom:feideIdNin',
-                        'Value': nin
-                    },
-                    {
-                        'Name': 'custom:feideId',
-                        'Value': username
-                    },
-                    {
-                        'Name': "custom:currentTerms",
-                        'Value': termsUri
-                    },
-                    {
-                        "Name": "custom:acceptedTerms",
-                        "Value": termsUri
-                    }
-                ],
-                MessageAction='SUPPRESS'
-            )
-        print('setting password')
-        try:
-            client.admin_set_user_password(
+            cognito.admin_set_user_password(
                 UserPoolId=USER_POOL_ID,
                 Username=username,
                 Password=USER_PASSWORD,
@@ -247,7 +286,7 @@ def importUsers(test_users_file_name):
                                 firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId, additionalOrgs=additionalOrgs)
             setTermsAndConditions(cristinPersonId=cristinPersonId)
             if not 'cristinUser' in test_user:
-                createNvaUser(accessToken=accessToken, nin=nin,
+                createNvaUser(accessToken=accessToken, nin=nin, cristinPersonId=cristinPersonId,
                               customer=customer, roles=roles, username=username, givenName=firstName, userMap=userMap)
 
 
