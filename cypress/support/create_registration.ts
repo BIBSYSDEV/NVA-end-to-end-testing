@@ -80,12 +80,9 @@ const addCategoryData = (type: string, parentTitle?: string) => {
     case CategoryTypes.REPORT_BOOK_OF_ABSTRACT:
     case CategoryTypes.RESEARCH_REPORT:
     case CategoryTypes.DATA_MANAGEMENT_PLAN:
-      cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type(
-        'academic conferences',
-        {
-          delay: 1,
-        }
-      );
+      cy.getDataTestId(dataTestId.registrationWizard.resourceType.publisherField).type('academic conferences', {
+        delay: 1,
+      });
       cy.contains('Academic Conferences').click();
       break;
     case CategoryTypes.ACADEMIC_ARTICLE:
