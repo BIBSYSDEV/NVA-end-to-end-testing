@@ -35,6 +35,12 @@ updates:
       reporting:
         patterns:
           - '@cucumber/*'
+      other:
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
       security:
         applies-to: security-updates
         patterns:
