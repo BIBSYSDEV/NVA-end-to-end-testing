@@ -389,6 +389,38 @@ Resources:
                 Action:
                   - 'dynamodb:ListTables'
                 Resource: '*'
+        - PolicyName: apiTestScopusImportPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # Scopus bucket ARNs follow nva-publication-api's naming convention, as that stack exports nothing.
+              - Effect: Allow
+                Action:
+                  - 's3:PutObject'
+                Resource:
+                  - !Sub 'arn:aws:s3:::scopus-xml-files-v2-${AWS::AccountId}/*'
+                  - !Sub 'arn:aws:s3:::scopus-zip-files-v2-${AWS::AccountId}/*'
+              - Effect: Allow
+                Action:
+                  - 's3:GetObject'
+                Resource:
+                  - !Sub 'arn:aws:s3:::scopus-import-reports-${AWS::AccountId}/*'
+              # Without ListBucket, S3 answers AccessDenied instead of NoSuchKey while a report is not written yet.
+              - Effect: Allow
+                Action:
+                  - 's3:ListBucket'
+                Resource:
+                  - !Sub 'arn:aws:s3:::scopus-import-reports-${AWS::AccountId}'
+              # The queue name is generated, so the tests find it by listing. ListQueues cannot be scoped.
+              - Effect: Allow
+                Action:
+                  - 'sqs:ListQueues'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'sqs:SendMessage'
+                Resource:
+                  - !Sub 'arn:aws:sqs:eu-west-1:${AWS::AccountId}:*-ScopusImportQueue-*'
         - PolicyName: searchIndexLambdaPolicy
           PolicyDocument:
             Version: '2012-10-17'
