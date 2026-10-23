@@ -2,7 +2,7 @@
 name = "nva-e2e-test-data"
 version = "0.1.0"
 description = "Scripts that create and reset NVA E2E test data"
-requires-python = ">=3.9"
+requires-python = ">=3.14"
 dependencies = [
     "babel>=2",
     "boto3>=1",
