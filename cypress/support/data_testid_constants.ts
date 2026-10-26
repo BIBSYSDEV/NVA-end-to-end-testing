@@ -96,18 +96,18 @@ export const resourceTypes = {
 };
 
 export const journalSubtypes = {
-  'Academic article': 'resource-type-chip-AcademicArticle',
-  'Academic literature review': 'resource-type-chip-AcademicLiteratureReview',
-  'Case report': 'resource-type-chip-CaseReport',
-  'Study protocol': 'resource-type-chip-StudyProtocol',
-  'Professional article': 'resource-type-chip-ProfessionalArticle',
-  'Popular science article': 'resource-type-chip-PopularScienceArticle',
-  Commentary: 'resource-type-chip-JournalLetter',
-  'Book review': 'resource-type-chip-JournalReview',
-  Editorial: 'resource-type-chip-JournalLeader',
-  Corrigendum: 'resource-type-chip-JournalCorrigendum',
-  'Journal issue': 'resource-type-chip-JournalIssue',
-  'Conference abstract': 'resource-type-chip-ConferenceAbstract',
+  'Academic article': dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicArticle'),
+  'Academic literature review': dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicLiteratureReview'),
+  'Case report': dataTestId.registrationWizard.resourceType.resourceTypeChip('CaseReport'),
+  'Study protocol': dataTestId.registrationWizard.resourceType.resourceTypeChip('StudyProtocol'),
+  'Professional article': dataTestId.registrationWizard.resourceType.resourceTypeChip('ProfessionalArticle'),
+  'Popular science article': dataTestId.registrationWizard.resourceType.resourceTypeChip('PopularScienceArticle'),
+  Commentary: dataTestId.registrationWizard.resourceType.resourceTypeChip('JournalLetter'),
+  'Book review': dataTestId.registrationWizard.resourceType.resourceTypeChip('JournalReview'),
+  Editorial: dataTestId.registrationWizard.resourceType.resourceTypeChip('JournalLeader'),
+  Corrigendum: dataTestId.registrationWizard.resourceType.resourceTypeChip('JournalCorrigendum'),
+  'Journal issue': dataTestId.registrationWizard.resourceType.resourceTypeChip('JournalIssue'),
+  'Conference abstract': dataTestId.registrationWizard.resourceType.resourceTypeChip('ConferenceAbstract'),
 };
 
 export const journalFields = {
@@ -127,13 +127,13 @@ export const journalFields = {
 };
 
 export const bookSubtypes = {
-  'Academic Monograph': 'resource-type-chip-AcademicMonograph',
-  Anthology: 'resource-type-chip-BookAnthology',
-  'Non-fiction Monograph': 'resource-type-chip-NonFictionMonograph',
-  'Popular Science Monograph': 'resource-type-chip-PopularScienceMonograph',
-  Textbook: 'resource-type-chip-Textbook',
-  Encyclopedia: 'resource-type-chip-Encyclopedia',
-  'Exhibition catalog': 'resource-type-chip-ExhibitionCatalog',
+  'Academic Monograph': dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicMonograph'),
+  Anthology: dataTestId.registrationWizard.resourceType.resourceTypeChip('BookAnthology'),
+  'Non-fiction Monograph': dataTestId.registrationWizard.resourceType.resourceTypeChip('NonFictionMonograph'),
+  'Popular Science Monograph': dataTestId.registrationWizard.resourceType.resourceTypeChip('PopularScienceMonograph'),
+  Textbook: dataTestId.registrationWizard.resourceType.resourceTypeChip('Textbook'),
+  Encyclopedia: dataTestId.registrationWizard.resourceType.resourceTypeChip('Encyclopedia'),
+  'Exhibition catalog': dataTestId.registrationWizard.resourceType.resourceTypeChip('ExhibitionCatalog'),
 };
 
 export const bookFields = {
@@ -146,11 +146,11 @@ export const bookFields = {
 };
 
 export const reportSubtypes = {
-  'Research report': 'resource-type-chip-ReportResearch',
-  'Policy report': 'resource-type-chip-ReportPolicy',
-  'Working paper': 'resource-type-chip-ReportWorkingPaper',
-  'Abstract collection': 'resource-type-chip-ReportBookOfAbstract',
-  'Other type of report': 'resource-type-chip-ReportBasic',
+  'Research report': dataTestId.registrationWizard.resourceType.resourceTypeChip('ReportResearch'),
+  'Policy report': dataTestId.registrationWizard.resourceType.resourceTypeChip('ReportPolicy'),
+  'Working paper': dataTestId.registrationWizard.resourceType.resourceTypeChip('ReportWorkingPaper'),
+  'Abstract collection': dataTestId.registrationWizard.resourceType.resourceTypeChip('ReportBookOfAbstract'),
+  'Other type of report': dataTestId.registrationWizard.resourceType.resourceTypeChip('ReportBasic'),
 };
 
 export const reportFields = {
@@ -162,11 +162,11 @@ export const reportFields = {
 };
 
 export const studentThesisSubtypes = {
-  'Bachelor thesis': 'resource-type-chip-DegreeBachelor',
-  'Master thesis': 'resource-type-chip-DegreeMaster',
-  'Doctoral thesis': 'resource-type-chip-DegreePhd',
-  'Licentiate thesis': 'resource-type-chip-DegreeLicentiate',
-  'Other student thesis': 'resource-type-chip-OtherStudentWork',
+  'Bachelor thesis': dataTestId.registrationWizard.resourceType.resourceTypeChip('DegreeBachelor'),
+  'Master thesis': dataTestId.registrationWizard.resourceType.resourceTypeChip('DegreeMaster'),
+  'Doctoral thesis': dataTestId.registrationWizard.resourceType.resourceTypeChip('DegreePhd'),
+  'Licentiate thesis': dataTestId.registrationWizard.resourceType.resourceTypeChip('DegreeLicentiate'),
+  'Other student thesis': dataTestId.registrationWizard.resourceType.resourceTypeChip('OtherStudentWork'),
 };
 
 export const studentThesisFields = {
@@ -179,10 +179,15 @@ export const studentThesisFields = {
 };
 
 export const chapterSubtypes = {
-  'Chapter of Anthology': 'resource-type-chip-AcademicChapter',
-  'Chapter in Anthology': 'resource-type-chip-AcademicChapter',
-  'Chapter in Report': 'resource-type-chip-ChapterInReport',
-  'Conference abstract': 'resource-type-chip-ChapterConferenceAbstract',
+  'Academic chapter': dataTestId.registrationWizard.resourceType.resourceTypeChip('AcademicChapter'),
+  'Chapter in report': dataTestId.registrationWizard.resourceType.resourceTypeChip('ChapterInReport'),
+  'Non-fiction chapter': dataTestId.registrationWizard.resourceType.resourceTypeChip('NonFictionChapter'),
+  'Popular science chapter': dataTestId.registrationWizard.resourceType.resourceTypeChip('PopularScienceChapter'),
+  'Textbook chapter': dataTestId.registrationWizard.resourceType.resourceTypeChip('TextbookChapter'),
+  'Chapter in encyclopedia': dataTestId.registrationWizard.resourceType.resourceTypeChip('EncyclopediaChapter'),
+  'Introduction in anthology': dataTestId.registrationWizard.resourceType.resourceTypeChip('Introduction'),
+  'Chapter in exhibition catalog': dataTestId.registrationWizard.resourceType.resourceTypeChip('ExhibitionCatalogChapter'),
+  'Conference abstract': dataTestId.registrationWizard.resourceType.resourceTypeChip('ChapterConferenceAbstract'),
 };
 
 export const chapterFields = {
