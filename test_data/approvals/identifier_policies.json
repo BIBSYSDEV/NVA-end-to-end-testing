@@ -6,7 +6,7 @@
       "sourceConfigs": [
         {
           "path": "/",
-          "authentication": {"type": "NoAuthentication"}
+          "authentication": { "type": "NoAuthentication" }
         }
       ]
     },
@@ -16,7 +16,7 @@
       "sourceConfigs": [
         {
           "path": "/",
-          "authentication": {"type": "NoAuthentication"}
+          "authentication": { "type": "NoAuthentication" }
         }
       ]
     }
