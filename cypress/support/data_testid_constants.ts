@@ -186,7 +186,8 @@ export const chapterSubtypes = {
   'Textbook chapter': dataTestId.registrationWizard.resourceType.resourceTypeChip('TextbookChapter'),
   'Chapter in encyclopedia': dataTestId.registrationWizard.resourceType.resourceTypeChip('EncyclopediaChapter'),
   'Introduction in anthology': dataTestId.registrationWizard.resourceType.resourceTypeChip('Introduction'),
-  'Chapter in exhibition catalog': dataTestId.registrationWizard.resourceType.resourceTypeChip('ExhibitionCatalogChapter'),
+  'Chapter in exhibition catalog':
+    dataTestId.registrationWizard.resourceType.resourceTypeChip('ExhibitionCatalogChapter'),
   'Conference abstract': dataTestId.registrationWizard.resourceType.resourceTypeChip('ChapterConferenceAbstract'),
 };
 

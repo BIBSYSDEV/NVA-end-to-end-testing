@@ -31,15 +31,15 @@ Feature: Creator selects Resource type Chapter
     Given Creator navigates to the Resource Type tab and selects Resource type Chapter
     When they select the Resource Subtype Chapter
     Then they see Content type field with options:
-      | Academic chapter                |
-      | Non-fiction chapter             |
-      | Popular science chapter         |
-      | Textbook chapter                |
-      | Chapter in encyclopedia         |
-      | Introduction in anthology       |
-      | Chapter in exhibition catalog   |
-      | Chapter in report               |
-      | Conference abstract             |
+      | Academic chapter              |
+      | Non-fiction chapter           |
+      | Popular science chapter       |
+      | Textbook chapter              |
+      | Chapter in encyclopedia       |
+      | Introduction in anthology     |
+      | Chapter in exhibition catalog |
+      | Chapter in report             |
+      | Conference abstract           |
 
   @test
   Scenario: Creator selects Resource subtype Chapter and Content type "Academic chapter"

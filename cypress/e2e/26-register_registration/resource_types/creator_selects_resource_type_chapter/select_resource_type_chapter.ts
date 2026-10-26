@@ -80,7 +80,7 @@ Then('they see fields:', (dataTable: DataTable) => {
 //     | Conference abstract  | Search box for published Abstract collections |
 
 // Scenario: Creator sees fields for Resource subtype "Chapter in Anthology"
-When ('they select the Resource Subtype Chapter', () => {});
+When('they select the Resource Subtype Chapter', () => {});
 Then('they see Content type field with options:', (dataTable: DataTable) => {
   dataTable.raw().forEach((row) => {
     const subtype = row[0];
