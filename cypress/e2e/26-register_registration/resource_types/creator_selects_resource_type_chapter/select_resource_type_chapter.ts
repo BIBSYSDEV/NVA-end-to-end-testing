@@ -1,10 +1,18 @@
-import { userUnitResourceTypeChapter } from '../../../../support/constants';
+import { CategoryTypes, userUnitResourceTypeChapter } from '../../../../support/constants';
 import { chapterContainerField, chapterFields, chapterSubtypes } from '../../../../support/data_testid_constants';
-import { Before, Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
+import { Before, Given, When, Then, DataTable, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 import { dataTestId } from '../../../../support/dataTestIds';
+import { v4 as uuid } from 'uuid';
 // import { chapterSubtypes } from
 
 // Feature: Creator selects Resource type Chapter
+
+const anthology = 'Test Anthology ' + uuid();
+
+BeforeAll(() => {
+  cy.login(userUnitResourceTypeChapter);
+  cy.createPublishedRegistration(anthology, CategoryTypes.BOOK_ANTHOLOGY);
+});
 
 Before(() => {
   cy.login(userUnitResourceTypeChapter);
@@ -12,7 +20,7 @@ Before(() => {
 });
 
 // Common steps
-Given('Creator navigates to the Resource Type tab and selects Resource type "Chapter"', () => {
+Given('Creator navigates to the Resource Type tab and selects Resource type Chapter', () => {
   navigateToResourceTab();
 });
 When('they select the Resource Subtype {string}', (chapterType: string) => {
@@ -43,11 +51,11 @@ Then('they see an information box describing that a Container report must be pub
     cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField)
       .parent()
       .within(() => {
-        if (chapterType.toString() === 'Chapter in Anthology') {
+        if (chapterType.toString() === 'Academic chapter') {
           cy.contains(
             'The anthology where the chapter is published, must be registered and made public in NVA before you can register the chapter'
           ).should('be.visible');
-        } else if (chapterType.toString() === 'Chapter in Report') {
+        } else if (chapterType.toString() === 'Chapter in report') {
           cy.contains('The report where the chapter is published must be published first').should('be.visible');
         } else if (chapterType.toString() === 'Conference abstract') {
           cy.contains('The abstract collection where the abstract is published must be published first').should(
@@ -72,29 +80,32 @@ Then('they see fields:', (dataTable: DataTable) => {
 //     | Conference abstract  | Search box for published Abstract collections |
 
 // Scenario: Creator sees fields for Resource subtype "Chapter in Anthology"
+When('they select the Resource Subtype Chapter', () => {});
 Then('they see Content type field with options:', (dataTable: DataTable) => {
-  // cy.get(`[data-testid=${dataTestId.registrationWizard.resourceType.contentField}]`).click();
-  // dataTable.raw().forEach((value) => {
-  //   cy.get(`[data-testid=${chapterContentTypes[value[0]]}]`);
-  // });
+  dataTable.raw().forEach((row) => {
+    const subtype = row[0];
+    cy.getDataTestId(chapterSubtypes[subtype]);
+  });
 });
 // | Academic Chapter           |
 // | Non-fiction Chapter        |
 // | Popular Science Chapter    |
 // | Textbook Chapter           |
 // | Encyclopedia Chapter       |
+// | Introduction               |
+// | Exhibition Catalog Chapter |
+// | Chapter in report          |
+// | Conference abstract        |
 
 // Scenario: Creator selects Resource subtype "Chapter in Anthology" and Content type "Academic chapter"
-Given('Creator sees fields for Resource subtype "Chapter in Anthology"', () => {
+Given('Creator sees fields for Resource subtype Chapter', () => {
   navigateToResourceTab();
-  cy.getDataTestId(chapterSubtypes['Chapter in Anthology']).click();
 });
 When('they select Content type "Academic chapter"', () => {
-  // cy.getDataTestId(dataTestId.registrationWizard.resourceType.contentField).click();
-  // cy.getDataTestId(chapterContentTypes['Academic Chapter']).click();
+  cy.getDataTestId(chapterSubtypes['Academic chapter']).click();
 });
 Then('they see the Norwegian Science Index \\(NVI) evaluation status', () => {
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type('Antologi');
-  cy.contains('Antologi').first().click({ force: true });
-  cy.getDataTestId(dataTestId.registrationWizard.resourceType.nviFailed).should('be.visible');
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.partOfField).type(anthology);
+  cy.contains(anthology).first().click({ force: true });
+  cy.getDataTestId(dataTestId.registrationWizard.resourceType.nviSuccess).should('be.visible');
 });

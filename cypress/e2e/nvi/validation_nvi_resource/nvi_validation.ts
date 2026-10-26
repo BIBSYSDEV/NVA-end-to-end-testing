@@ -88,7 +88,7 @@ BeforeAll(() => {
     Object.keys(titles).forEach((key) => {
       const NVItitle = titles[key];
 
-      const contributors = [createContributor(curatorInstitutionA), createContributor(curatorInstitutionB)];
+      const contributors = [createContributor(curatorInstitutionB)];
       if (key.endsWith('Dispute')) {
         contributors.push(createContributor(contributorInstitutionC));
       }
