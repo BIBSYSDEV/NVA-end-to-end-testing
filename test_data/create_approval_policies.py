@@ -1,8 +1,10 @@
 """Writes the identifier policies the approval API authorizes third-party clients against.
 
-A client may only write the identifier names its own customer is registered for. There is no API
-for registering them, so the policies are written straight to the approvals table, and the table
-name is published as /test/ApprovalsTable for the tests to find.
+A client may only write the identifier names its own customer is registered for, and only point
+an approval at a source matching one of the customer's source configs. A source config is given as
+a path on this environment's API, so the base URI follows the environment the data is seeded in.
+There is no API for registering them, so the policies are written straight to the approvals table,
+and the table name is published as /test/ApprovalsTable for the tests to find.
 
 The policies are rewritten on every run, so drift is corrected.
 
@@ -14,11 +16,13 @@ import sys
 from typing import Optional
 
 import boto3
+from boto3.dynamodb.types import TypeSerializer
 
 import common
 
 ssm = boto3.client('ssm')
 dynamodb = boto3.client('dynamodb')
+serializer = TypeSerializer()
 
 APPROVALS_TABLE_PARAMETER = '/test/ApprovalsTable'
 APPROVALS_TABLE_PREFIX = 'nva-approvals-'
@@ -39,7 +43,7 @@ def find_approvals_table() -> Optional[str]:
 
 
 def put_identifier_policy(table_name: str, customer_identifier: str,
-                          allowed_identifier_names: list) -> None:
+                          allowed_identifier_names: list, source_configs: list) -> None:
     dynamodb.put_item(
         TableName=table_name,
         Item={
@@ -48,21 +52,35 @@ def put_identifier_policy(table_name: str, customer_identifier: str,
             'type': {'S': IDENTIFIER_POLICY_SORT_KEY},
             'customerIdentifier': {'S': customer_identifier},
             'allowedIdentifierNames': {'L': [{'S': name}
-                                             for name in allowed_identifier_names]}
+                                             for name in allowed_identifier_names]},
+            'sourceConfigs': serializer.serialize(source_configs)
         })
+
+
+def to_source_config(source_config: dict) -> dict:
+    return {
+        'baseUri': f'{common.API_URL}{source_config["path"]}',
+        'authentication': source_config['authentication']
+    }
 
 
 def seed_policy(policy: dict, customers: dict, table_name: str, dry_run: bool) -> None:
     customer_uri = common.require_customer_uri(customers, policy['cristinOrganization'])
     customer_identifier = customer_uri.rsplit('/', 1)[-1]
     allowed_identifier_names = policy['allowedIdentifierNames']
+    source_configs = [to_source_config(source_config)
+                      for source_config in policy['sourceConfigs']]
+    base_uris = [source_config['baseUri'] for source_config in source_configs]
 
     if dry_run:
-        print(f'Would let {customer_identifier} write {allowed_identifier_names}')
+        print(f'Would let {customer_identifier} write {allowed_identifier_names} '
+              f'with sources under {base_uris}')
         return
 
-    put_identifier_policy(table_name, customer_identifier, allowed_identifier_names)
-    print(f'{customer_identifier} may write {allowed_identifier_names}')
+    put_identifier_policy(table_name, customer_identifier, allowed_identifier_names,
+                          source_configs)
+    print(f'{customer_identifier} may write {allowed_identifier_names} '
+          f'with sources under {base_uris}')
 
 
 def run(policies_file: str = DEFAULT_POLICIES_FILE, dry_run: bool = False) -> None:
