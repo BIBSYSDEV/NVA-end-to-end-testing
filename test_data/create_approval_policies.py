@@ -2,7 +2,8 @@
 
 A client may only write the identifier names its own customer is registered for, and only point
 an approval at a source matching one of the customer's source configs. A source config's baseUri
-is given relative to this environment's API, so it follows the environment the data is seeded in.
+may start with {apiUrl}, which is replaced by this environment's API URL, so it follows the
+environment the data is seeded in.
 There is no API for registering them, so the policies are written straight to the approvals table,
 and the table name is published as /test/ApprovalsTable for the tests to find.
 
@@ -14,7 +15,6 @@ Usage: uv run --frozen create_approval_policies.py [--dry-run]
 import json
 import sys
 from typing import Optional
-from urllib.parse import urljoin
 
 import boto3
 from boto3.dynamodb.types import TypeSerializer
@@ -28,6 +28,7 @@ serializer = TypeSerializer()
 APPROVALS_TABLE_PARAMETER = '/test/ApprovalsTable'
 APPROVALS_TABLE_PREFIX = 'nva-approvals-'
 IDENTIFIER_POLICY_SORT_KEY = 'IdentifierPolicy'
+API_URL_PLACEHOLDER = '{apiUrl}'
 
 DEFAULT_POLICIES_FILE = './approvals/identifier_policies.json'
 
@@ -60,7 +61,7 @@ def put_identifier_policy(table_name: str, customer_identifier: str,
 
 def to_source_config(source_config: dict) -> dict:
     return {
-        'baseUri': urljoin(common.API_URL, source_config['baseUri']),
+        'baseUri': source_config['baseUri'].replace(API_URL_PLACEHOLDER, common.API_URL),
         'authentication': source_config['authentication']
     }
 
