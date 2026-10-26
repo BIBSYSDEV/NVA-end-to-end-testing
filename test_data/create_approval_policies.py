@@ -1,8 +1,8 @@
 """Writes the identifier policies the approval API authorizes third-party clients against.
 
 A client may only write the identifier names its own customer is registered for, and only point
-an approval at a source matching one of the customer's source configs. A source config is given as
-a path on this environment's API, so the base URI follows the environment the data is seeded in.
+an approval at a source matching one of the customer's source configs. A source config's baseUri
+is given relative to this environment's API, so it follows the environment the data is seeded in.
 There is no API for registering them, so the policies are written straight to the approvals table,
 and the table name is published as /test/ApprovalsTable for the tests to find.
 
@@ -14,6 +14,7 @@ Usage: uv run --frozen create_approval_policies.py [--dry-run]
 import json
 import sys
 from typing import Optional
+from urllib.parse import urljoin
 
 import boto3
 from boto3.dynamodb.types import TypeSerializer
@@ -59,7 +60,7 @@ def put_identifier_policy(table_name: str, customer_identifier: str,
 
 def to_source_config(source_config: dict) -> dict:
     return {
-        'baseUri': f'{common.API_URL}{source_config["path"]}',
+        'baseUri': urljoin(common.API_URL, source_config['baseUri']),
         'authentication': source_config['authentication']
     }
 
