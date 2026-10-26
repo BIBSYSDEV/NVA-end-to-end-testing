@@ -41,6 +41,7 @@ const initData = () => {
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.doiRequestAccordion).click();
     cy.getDataTestId(dataTestId.registrationLandingPage.tasksPanel.reserveDoiButton).click();
     cy.getDataTestId(dataTestId.confirmDialog.acceptButton).click();
+    cy.getSuccess();
   });
 };
 

@@ -64,21 +64,18 @@ Given('an NVI-candidate reported in a closed NVI-period', () => {
   cy.login(userUSNChangeNviCuratorInstitution).then(() => {});
 });
 When('an NVI-curator tries to change NVI reporting status', () => {
+  const closedYear = new Date().getFullYear() - 1;
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.getDataTestId(dataTestId.tasksPage.nviAccordion).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.tasksPage.nvi.yearSelect).click();
-  cy.get(`[data-value="${new Date().getFullYear() - 1}"]`).click();
+  cy.get(`[data-value="${closedYear}"]`).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
 });
 Then('they are not able to change that', () => {
+  const closedYear = new Date().getFullYear() - 1;
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${title}{enter}`);
-  cy.getDataTestId(dataTestId.tasksPage.nvi.candidatesList)
-    .filter(`:contains(${title})`)
-    .within(() => {
-      cy.get('a').first().click();
-    });
-  cy.get('p').filter(`:contains("The reporting period for this result is closed.")`);
+  cy.get('p').filter(`:contains("The NVI period for ${closedYear} is closed.")`);
 });
 
 //   Scenario: A user changes the metadata for the NVI-candidate
