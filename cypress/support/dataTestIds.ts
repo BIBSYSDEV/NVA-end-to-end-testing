@@ -781,6 +781,9 @@ export const dataTestId = {
   serviceBanner: {
     serviceInfoLink: 'service-info-link',
   },
+  snackbar: {
+    error: 'snackbar-error',
+  },
   tasksPage: {
     areaOfResponsibilitySelector: 'area-of-responsibility-selector',
     correctionList: {

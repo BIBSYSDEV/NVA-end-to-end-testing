@@ -250,6 +250,16 @@ export const userNviCuratorVolda = 'test-user-nvicurator-volda@test.no';
 
 export const userForegin = 'test-user-foreign@test.no';
 
+/**
+ * A Feide test user for the federated login test. The person exists in Cristin
+ * test without an employment at a customer, so the user has no roles.
+ */
+export const feideTestUser = 'no214215942_rektor@testusers.feide.no';
+export const feideTestUserGivenName = 'FREIDIG';
+
+/** A generic Feide test user that Feide sends without a national identity number. */
+export const feideTestUserWithoutNin = 'jan123teacher@testusers.feide.no';
+
 const userData = {
   name: '',
   orgunitids: ['https://api.cristin.no/v2/institutions/1111111111'],

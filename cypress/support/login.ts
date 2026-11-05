@@ -9,17 +9,17 @@ const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
 const clientId = Cypress.env('AWS_CLIENT_ID');
 const redirectUri = 'https://e2e.nva.aws.unit.no';
 
-let passwordPromise: Promise<string> | undefined;
+const secretPromises = new Map<string, Promise<string>>();
 
 /**
- * Fetches the shared test user password from AWS Secrets Manager.
- * Lazy and memoized: specs that run entirely on cached sessions never call
- * Secrets Manager and therefore do not need valid AWS credentials.
+ * Fetches a secret from AWS Secrets Manager.
+ * Lazy and memoized per secret: specs that run entirely on cached sessions never
+ * call Secrets Manager and therefore do not need valid AWS credentials.
  * A failed fetch clears the memo so the next login attempt retries.
  */
-const readPassword = () => {
-  if (!passwordPromise) {
-    passwordPromise = new Promise((resolve, reject) => {
+const readSecret = (secretId: string) => {
+  if (!secretPromises.has(secretId)) {
+    const promise = new Promise<string>((resolve, reject) => {
       const secretsManager = new SecretsManagerClient({
         region: region,
         credentials: {
@@ -28,17 +28,21 @@ const readPassword = () => {
           sessionToken: awsSessionToken,
         },
       });
-      const command = new GetSecretValueCommand({ SecretId: 'TestUserPassword' });
-      secretsManager.send(command).then((passwordResponse) => {
-        resolve(passwordResponse.SecretString);
+      const command = new GetSecretValueCommand({ SecretId: secretId });
+      secretsManager.send(command).then((secretResponse) => {
+        resolve(secretResponse.SecretString);
       }, reject);
     });
-    passwordPromise.catch(() => {
-      passwordPromise = undefined;
+    promise.catch(() => {
+      secretPromises.delete(secretId);
     });
+    secretPromises.set(secretId, promise);
   }
-  return passwordPromise;
+  return secretPromises.get(secretId);
 };
+
+/** The password shared by the test users that log in with a password. */
+const readPassword = () => readSecret('TestUserPassword');
 
 const storageKey = (suffix: string) => `CognitoIdentityServiceProvider.${clientId}.${suffix}`;
 
@@ -72,6 +76,50 @@ export const sessionLoginSetup = (userId: string) => {
     .then((password: string) => getCode(userId, password))
     .then((code: string) => exchangeCodeForTokens(code))
     .then((response) => storeAuthenticationState(userId, response.body));
+};
+
+/**
+ * Completes the federated login the app itself starts: the Login button sends
+ * the browser to Cognito, which forwards to Dataporten, which forwards to the
+ * Feide login for the test-user realm, and the app receives the code. Each of
+ * the two foreign origins needs its own cy.origin block. Dataporten lands on
+ * its discovery page by itself when it remembers no account, which holds as
+ * long as test isolation clears the cookies between tests. On the user's first
+ * login Dataporten asks them to accept what the client may read, and remembers
+ * the answer, so the consent page may or may not appear. Dataporten's response
+ * to the authorisation request after the return from Feide (the one with
+ * reauthentication in the query) tells which: 200 is the consent page, a
+ * redirect means the consent is already stored.
+ */
+export const loginThroughFeide = (feideName: string) => {
+  cy.intercept({
+    hostname: 'auth.dataporten.no',
+    pathname: '/oauth/authorization',
+    query: { reauthentication: /./ },
+  }).as('returnFromFeide');
+  cy.wrap(readSecret('FeideTestUserPassword'), { log: false }).then((password: string) => {
+    cy.origin('https://auth.dataporten.no', () => {
+      cy.get('a[href*="testusers.feide.no"]').click();
+    });
+    cy.origin('https://idp.feide.no', { args: { feideName, password } }, ({ feideName, password }) => {
+      // The login page probes for passkeys, which the browser refuses inside the test frame.
+      Cypress.on('uncaught:exception', (error) => !error.message.includes('publickey-credentials-get'));
+      cy.get('form[name="f"]').within(() => {
+        cy.get('input[name="feidename"]').type(feideName);
+        cy.get('input[name="password"]').type(password, { log: false });
+        cy.get('button[type="submit"]').click();
+      });
+    });
+  });
+  // Feide checks the password and posts back to Dataporten before the request appears.
+  cy.wait('@returnFromFeide', { requestTimeout: 30000 }).then(({ response }) => {
+    expect(response?.statusCode, "Dataporten's answer after the return from Feide").to.be.lessThan(400);
+    if (response?.statusCode === 200) {
+      cy.origin('https://auth.dataporten.no', () => {
+        cy.get('button[name="continue"]').click();
+      });
+    }
+  });
 };
 
 /** Exchanges an OAuth authorization code for Cognito tokens. */

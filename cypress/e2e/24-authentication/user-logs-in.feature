@@ -32,6 +32,21 @@ Feature: User logs in
   #   Then they are redirected back to the Start page
   #   And they see their name in the Menu
   @test
+  Scenario: A user logs in through Feide
+    Given that the user is not logged in
+    When they click Log in
+    And they log in as a Feide test user
+    Then they see their name in the Menu
+
+  @test
+  Scenario: A Feide user without a national identity number is refused
+    Given that the user is not logged in
+    When they click Log in
+    And they log in as a Feide test user without a national identity number
+    Then they are told that the login failed and to try BankID instead
+    And they are still not logged in
+
+  @test
   Scenario: A user logs out
     Given that the user is logged in
     When they click on the Menu
