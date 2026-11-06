@@ -66,6 +66,7 @@ This assumes you have configured AWS CLI with an SSO session named `sikt` and an
 
 `run-tests.sh` fetches everything Cypress needs from AWS (temporary credentials, Cognito configuration from SSM, and the dev basic-auth login from the `E2ETesting` secret) and then runs the given specs.
 It requires an active AWS session for the E2E account (`aws sso login --profile <profile>`).
+The specs read the test user passwords from the `TestUserPassword` and `FeideTestUserPassword` secrets while they run, so the profile must be allowed to read them.
 
 ```bash
 aws sso login --sso-session sikt
