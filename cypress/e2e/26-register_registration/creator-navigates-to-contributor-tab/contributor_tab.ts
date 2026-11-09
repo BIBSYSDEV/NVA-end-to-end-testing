@@ -94,8 +94,9 @@ When('they click "Add me as Author"', () => {
   cy.getDataTestId(dataTestId.registrationWizard.contributors.addSelfButton).click();
 });
 Then('their Author identity is added to the list of Authors', () => {
-  cy.getDataTestId(dataTestId.researchProfileLink('https://api.e2e.nva.aws.unit.no/cristin/person/1862236'))
-  .should('be.visible');
+  cy.getDataTestId(dataTestId.researchProfileLink('https://api.e2e.nva.aws.unit.no/cristin/person/1862236')).should(
+    'be.visible'
+  );
 });
 Then('their current Affiliations are listed', () => {
   cy.contains('Unit');
