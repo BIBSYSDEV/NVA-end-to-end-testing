@@ -92,6 +92,27 @@ Resources:
             Principal: '*'
             Action: 's3:GetObject'
             Resource: !Sub '${ApiTestReportBucket.Arn}/*'
+  ApprovalSourceFixtureBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub 'approval-source-fixtures-${AWS::AccountId}'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
+  ApprovalSourceFixtureBucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref ApprovalSourceFixtureBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: PublicReadOfFixtures
+            Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Sub '${ApprovalSourceFixtureBucket.Arn}/*'
   CodeBuildTestDataProject:
     Type: AWS::CodeBuild::Project
     Properties:
@@ -331,6 +352,7 @@ Resources:
                   - !GetAtt ArtifactStoreBucket.Arn
                   - !GetAtt E2ETestReportBucket.Arn
                   - !GetAtt ApiTestReportBucket.Arn
+                  - !GetAtt ApprovalSourceFixtureBucket.Arn
                   - !Sub 'arn:aws:s3:::nva-text-extraction-seed-${AWS::AccountId}'
                   - !Sub 'arn:aws:s3:::nva-publication-text-${AWS::AccountId}'
               - Effect: Allow
@@ -343,6 +365,7 @@ Resources:
                   - !Sub '${ArtifactStoreBucket.Arn}/*'
                   - !Sub '${E2ETestReportBucket.Arn}/*'
                   - !Sub '${ApiTestReportBucket.Arn}/*'
+                  - !Sub '${ApprovalSourceFixtureBucket.Arn}/*'
                   - !Sub 'arn:aws:s3:::nva-text-extraction-seed-${AWS::AccountId}/*'
                   - !Sub 'arn:aws:s3:::nva-publication-text-${AWS::AccountId}/*'
         - PolicyName: secretsPolicy
