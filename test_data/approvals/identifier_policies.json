@@ -7,6 +7,10 @@
         {
           "baseUri": "{apiUrl}/",
           "authentication": { "type": "NoAuthentication" }
+        },
+        {
+          "baseUri": "{fixtureBucketUrl}",
+          "authentication": { "type": "NoAuthentication" }
         }
       ]
     },
