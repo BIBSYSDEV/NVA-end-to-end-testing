@@ -4,7 +4,8 @@ A client may only write the identifier names its own customer is registered for,
 an approval at a source matching one of the customer's source configs. A source config's baseUri
 may start with {apiUrl} or {fixtureBucketUrl}, which are replaced by this environment's API URL
 and by the bucket serving the clinical trial fixtures, so they follow the environment the data is
-seeded in.
+seeded in. The fixture bucket is declared in template/e2e_pipeline_template.yml and named after
+the account, as that stack exports nothing.
 There is no API for registering them, so the policies are written straight to the approvals table,
 and the table name is published as /test/ApprovalsTable for the tests to find.
 
@@ -21,9 +22,9 @@ import boto3
 from boto3.dynamodb.types import TypeSerializer
 
 import common
-import create_fixture_bucket
 
 ssm = boto3.client('ssm')
+sts = boto3.client('sts')
 dynamodb = boto3.client('dynamodb')
 serializer = TypeSerializer()
 
@@ -32,6 +33,7 @@ APPROVALS_TABLE_PREFIX = 'nva-approvals-'
 IDENTIFIER_POLICY_SORT_KEY = 'IdentifierPolicy'
 API_URL_PLACEHOLDER = '{apiUrl}'
 FIXTURE_BUCKET_URL_PLACEHOLDER = '{fixtureBucketUrl}'
+FIXTURE_BUCKET_PREFIX = 'approval-source-fixtures-'
 
 DEFAULT_POLICIES_FILE = './approvals/identifier_policies.json'
 
@@ -62,10 +64,14 @@ def put_identifier_policy(table_name: str, customer_identifier: str,
         })
 
 
+def fixture_bucket_url() -> str:
+    account = sts.get_caller_identity()['Account']
+    return f'https://{FIXTURE_BUCKET_PREFIX}{account}.s3.{sts.meta.region_name}.amazonaws.com/'
+
+
 def to_base_uri(base_uri: str) -> str:
     if FIXTURE_BUCKET_URL_PLACEHOLDER in base_uri:
-        base_uri = base_uri.replace(FIXTURE_BUCKET_URL_PLACEHOLDER,
-                                    create_fixture_bucket.fixture_bucket_url())
+        base_uri = base_uri.replace(FIXTURE_BUCKET_URL_PLACEHOLDER, fixture_bucket_url())
     return base_uri.replace(API_URL_PLACEHOLDER, common.API_URL)
 
 
