@@ -7,6 +7,29 @@ updates:
       day: 'monday'
       time: '07:00'
       timezone: Europe/Oslo
+  # The uv executable that the test-data build installs (template/requirements-uv.txt)
+  - package-ecosystem: pip
+    directory: '/template'
+    schedule:
+      interval: weekly
+      day: 'monday'
+      time: '07:00'
+      timezone: Europe/Oslo
+    cooldown:
+      default-days: 7
+  - package-ecosystem: uv
+    directory: '/test_data'
+    schedule:
+      interval: weekly
+      day: 'monday'
+      time: '07:00'
+      timezone: Europe/Oslo
+    cooldown:
+      default-days: 7
+    groups:
+      python:
+        patterns:
+          - '*'
   - package-ecosystem: npm
     directory: '/'
     schedule:

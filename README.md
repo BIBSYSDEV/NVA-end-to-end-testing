@@ -41,6 +41,8 @@ Example: for `./cypress/integration/1221-my_publication/354-creator_opens_my_pub
 
 The pipeline creates test data by running `test_data/create_test_data.py` (see `template/buildspec.testdata.yml`).
 The scripts in `test_data/` are a [uv](https://docs.astral.sh/uv/) project, so uv provides Python and the locked dependencies automatically.
+The pipeline installs the exact uv release pinned with hashes in `template/requirements-uv.txt`, and uses the Python version set in the buildspec.
+Dependabot bumps the pin after a 7-day cooldown.
 
 To run the same script locally, use the wrapper from the repo root:
 
