@@ -2,13 +2,20 @@ version: 0.2
 
 # Buildspec to generate test data before running E2E in parallel. It is important that all test data is independent of each other.
 
+env:
+  variables:
+    # Fail instead of letting uv download its own Python
+    UV_PYTHON_DOWNLOADS: never
+
 phases:
   install:
     runtime-versions:
-      python: 3.x
+      # Keep in sync with requires-python in test_data/pyproject.toml
+      python: 3.14
   pre_build:
     commands:
-      - pip install uv
+      - 'pip install --require-hashes --only-binary :all: -r template/requirements-uv.txt'
+      - uv --version
   build:
     commands:
       - cd test_data
