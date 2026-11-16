@@ -27,15 +27,19 @@ deleteSearchIndexLambda = 'master-pipelines-NvaSearchApi-DeleteIndicesHandler-EK
 searchInitHandlerLambda = 'master-pipelines-NvaSearchApiClientPip-InitHandler-LEwtReql7EUp'
 deleteNviIndexLambda = 'master-pipelines-NvaNvi-1-DeleteNviCandidateIndexH-zfxYODFdVnjs'
 nviInitHandlerLambda = 'master-pipelines-NvaNvi-1V33HP5I7F42I--InitHandler-IX8ystUbVaIG'
+deleteApprovalsIndexLambda = 'master-pipelines-NvaHandl-NvaDeleteApprovalsIndexF-4RI0Znk5x3XG'
+approvalsInitHandlerLambda = 'master-pipelines-NvaHandl-NvaInitApprovalsIndexFun-3I5zxx7Pb2sN'
 
 STRING = 'S'
 MAP = 'M'
 
 def delete_indices():
     print("Deleting OpenSearch indices...")
-    delete_handlers = [deleteNviIndexLambda, deleteSearchIndexLambda]
-    for handler in delete_handlers:
-        response = lambda_client.invoke(FunctionName=handler, Payload=json.dumps({"indices": ["resources", "tickets", "import-candidates"]}))
+    delete_handlers = [(deleteNviIndexLambda, {"indices": ["resources", "tickets", "import-candidates"]}),
+                       (deleteSearchIndexLambda, {"indices": ["resources", "tickets", "import-candidates"]}),
+                       (deleteApprovalsIndexLambda, {"indexName": "approvals"})]
+    for handler, payload in delete_handlers:
+        response = lambda_client.invoke(FunctionName=handler, Payload=json.dumps(payload))
         if response['StatusCode'] != 200:
             print(response)
     time.sleep(30)
@@ -43,7 +47,7 @@ def delete_indices():
 
 def create_indices():
     print("Creating OpenSearch indices...")
-    create_handlers = [nviInitHandlerLambda, searchInitHandlerLambda]
+    create_handlers = [nviInitHandlerLambda, searchInitHandlerLambda, approvalsInitHandlerLambda]
     for handler in create_handlers:
         response = lambda_client.invoke(FunctionName=handler)
         if response['StatusCode'] != 200:
