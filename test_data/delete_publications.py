@@ -27,27 +27,37 @@ deleteSearchIndexLambda = 'master-pipelines-NvaSearchApi-DeleteIndicesHandler-EK
 searchInitHandlerLambda = 'master-pipelines-NvaSearchApiClientPip-InitHandler-LEwtReql7EUp'
 deleteNviIndexLambda = 'master-pipelines-NvaNvi-1-DeleteNviCandidateIndexH-zfxYODFdVnjs'
 nviInitHandlerLambda = 'master-pipelines-NvaNvi-1V33HP5I7F42I--InitHandler-IX8ystUbVaIG'
+deleteApprovalsIndexLambda = 'master-pipelines-NvaHandl-NvaDeleteApprovalsIndexF-4RI0Znk5x3XG'
+approvalsInitHandlerLambda = 'master-pipelines-NvaHandl-NvaInitApprovalsIndexFun-3I5zxx7Pb2sN'
 
 STRING = 'S'
 MAP = 'M'
 
+def invoke_handler(function_name, payload=None):
+    arguments = {'FunctionName': function_name}
+    if payload is not None:
+        arguments['Payload'] = json.dumps(payload)
+    response = lambda_client.invoke(**arguments)
+    function_error = response.get('FunctionError')
+    if response['StatusCode'] != 200 or function_error:
+        details = response['Payload'].read().decode()
+        raise RuntimeError(f'{function_name} failed ({function_error}): {details}')
+
 def delete_indices():
     print("Deleting OpenSearch indices...")
-    delete_handlers = [deleteNviIndexLambda, deleteSearchIndexLambda]
-    for handler in delete_handlers:
-        response = lambda_client.invoke(FunctionName=handler, Payload=json.dumps({"indices": ["resources", "tickets", "import-candidates"]}))
-        if response['StatusCode'] != 200:
-            print(response)
+    delete_handlers = [(deleteNviIndexLambda, {"indices": ["resources", "tickets", "import-candidates"]}),
+                       (deleteSearchIndexLambda, {"indices": ["resources", "tickets", "import-candidates"]}),
+                       (deleteApprovalsIndexLambda, {"indexName": "approvals"})]
+    for handler, payload in delete_handlers:
+        invoke_handler(handler, payload)
     time.sleep(30)
     print("Finished deleting OpenSearch indices")
 
 def create_indices():
     print("Creating OpenSearch indices...")
-    create_handlers = [nviInitHandlerLambda, searchInitHandlerLambda]
+    create_handlers = [nviInitHandlerLambda, searchInitHandlerLambda, approvalsInitHandlerLambda]
     for handler in create_handlers:
-        response = lambda_client.invoke(FunctionName=handler)
-        if response['StatusCode'] != 200:
-            print(response)
+        invoke_handler(handler)
     time.sleep(30)
     print("Finished creating OpenSearch indices")
 
