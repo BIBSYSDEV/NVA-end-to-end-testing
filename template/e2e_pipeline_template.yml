@@ -381,6 +381,7 @@ Resources:
                   - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:backendClientSecret-hXGNg1'
                   - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:TestUserPassword-vGQcUm'
                   - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:E2ETesting-62EqP9'
+                  - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:CristinClientBasicAuth'
                   - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/CognitoUserPoolId'
                   - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/NVA/ApplicationDomain'
                   - !Sub 'arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/test/CognitoTestClient1'
