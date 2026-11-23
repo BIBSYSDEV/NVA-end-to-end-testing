@@ -159,7 +159,7 @@ def cristinPersonUri(cristinPersonId):
     return f'{common.API_URL}/cristin/person/{cristinPersonId}'
 
 
-def ensureCognitoUser(username, nin, cristinPersonId):
+def ensureCognitoUser(username, cristinPersonId):
     """Creates the Cognito user if it is missing, and makes sure custom:cristinId
     points at the person. Password users never go through federation, so the
     pre-token Lambda needs the admin-set custom:cristinId to find them.
@@ -179,10 +179,6 @@ def ensureCognitoUser(username, nin, cristinPersonId):
                 {
                     'Name': 'custom:cristinId',
                     'Value': personUri
-                },
-                {
-                    'Name': 'custom:feideIdNin',
-                    'Value': nin
                 },
                 {
                     'Name': 'custom:feideId',
@@ -216,7 +212,7 @@ def ensureCognitoUser(username, nin, cristinPersonId):
     return False
 
 
-def createNvaUser(accessToken, nin, cristinPersonId, customer, roles, username, givenName, userMap):
+def createNvaUser(accessToken, cristinPersonId, customer, roles, username, givenName, userMap):
     userExists = givenName in userMap
     if userExists:
         print(f'found user with name {givenName} TestUser')
@@ -236,7 +232,7 @@ def createNvaUser(accessToken, nin, cristinPersonId, customer, roles, username, 
             print(payload)
             print(response.json())
 
-    created = ensureCognitoUser(username=username, nin=nin, cristinPersonId=cristinPersonId)
+    created = ensureCognitoUser(username=username, cristinPersonId=cristinPersonId)
     if created or not userExists:
         print(f'setting password for {username}')
         try:
@@ -286,7 +282,7 @@ def importUsers(test_users_file_name):
                                 firstName=firstName, lastName=lastName, cristinOrgId=cristinOrgId, additionalOrgs=additionalOrgs)
             setTermsAndConditions(cristinPersonId=cristinPersonId)
             if not 'cristinUser' in test_user:
-                createNvaUser(accessToken=accessToken, nin=nin, cristinPersonId=cristinPersonId,
+                createNvaUser(accessToken=accessToken, cristinPersonId=cristinPersonId,
                               customer=customer, roles=roles, username=username, givenName=firstName, userMap=userMap)
 
 
