@@ -13,6 +13,13 @@
       "cristinOrganization": "217.0.0.0",
       "actingUser": "api-test-user-registrator-uis@test.sikt.no",
       "scopes": ["https://api.nva.unit.no/scopes/third-party/approval-upsert"]
+    },
+    {
+      "secretName": "ApiTestPersonLookupClientSikt",
+      "clientName": "api-test-person-lookup-sikt",
+      "cristinOrganization": "20754.0.0.0",
+      "actingUser": "api-test-user-person-lookup-by-nin@test.sikt.no",
+      "scopes": ["https://api.nva.unit.no/scopes/third-party/person-lookup-by-nin"]
     }
   ]
 }
