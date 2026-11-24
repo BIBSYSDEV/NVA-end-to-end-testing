@@ -3029,20 +3029,5 @@
     "orcid": true,
     "orgNumber": "215",
     "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/215.0.0.0"
-  },
-  {
-    "lastName": "ApiTestUser",
-    "firstName": "Person Lookup Sikt",
-    "nin": "14913439067",
-    "username": "api-test-user-person-lookup-by-nin@test.sikt.no",
-    "role": [
-      {
-        "type": "Role",
-        "rolename": "Creator"
-      }
-    ],
-    "orcid": true,
-    "orgNumber": "20754",
-    "cristinId": "https://api.e2e.nva.aws.unit.no/cristin/organization/20754.0.0.0"
   }
 ]
