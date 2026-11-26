@@ -565,20 +565,6 @@ Resources:
               AWS: !GetAtt CodeBuildServiceRole.Arn
       Path: /
       Policies:
-        # - PolicyName: CodeBuildCognito
-        #   PolicyDocument:
-        #     Version: '2012-10-17'
-        #     Statement:
-        #       - Effect: Allow
-        #         Action:
-        #           - 'cognito-idp:AdminGetUser'
-        #           - 'cognito-idp:AdminDeleteUser'
-        #           - 'cognito-idp:AdminSetUserPassword'
-        #           - 'cognito-idp:AdminInitiateAuth'
-        #           - 'cognito-idp:AdminCreateUser'
-        #           - 'cognito-idp:AdminUpdateUserAttributes'
-        #           - 'cognito-idp:ListUsers'
-        #         Resource: '*'
         - PolicyName: bucketPolicy
           PolicyDocument:
             Version: '2012-10-17'
