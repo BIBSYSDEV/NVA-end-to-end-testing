@@ -179,6 +179,9 @@ Resources:
           - Name: ROLE_ARN
             Type: PLAINTEXT
             Value: !GetAtt TestrunnerRole.Arn
+          - Name: REPORT_ROLE_ARN
+            Type: PLAINTEXT
+            Value: !GetAtt ReportRole.Arn
           - Name: CYPRESS_baseUrl
             Type: PLAINTEXT
             Value: !Ref CypressBaseUrl
@@ -546,7 +549,51 @@ Resources:
                 Action:
                   - 'ssm:GetParameters'
                   - 'secretsmanager:GetSecretValue'
-                Resource: '*'
+                Resource:
+                  - !Sub 'arn:aws:secretsmanager:eu-west-1:${AWS::AccountId}:secret:TestUserPassword-vGQcUm'
+                  - !Sub 'arn:aws:secretsmanager:eu-west-1:282305091481:secret:FeideTestUserPassword-qDmgCJ'
+  ReportRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Action:
+              - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              AWS: !GetAtt CodeBuildServiceRole.Arn
+      Path: /
+      Policies:
+        # - PolicyName: CodeBuildCognito
+        #   PolicyDocument:
+        #     Version: '2012-10-17'
+        #     Statement:
+        #       - Effect: Allow
+        #         Action:
+        #           - 'cognito-idp:AdminGetUser'
+        #           - 'cognito-idp:AdminDeleteUser'
+        #           - 'cognito-idp:AdminSetUserPassword'
+        #           - 'cognito-idp:AdminInitiateAuth'
+        #           - 'cognito-idp:AdminCreateUser'
+        #           - 'cognito-idp:AdminUpdateUserAttributes'
+        #           - 'cognito-idp:ListUsers'
+        #         Resource: '*'
+        - PolicyName: bucketPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                  - 's3:ListBucket'
+                  - 's3:GetBucketVersioning'
+                  - 's3:PutObject'
+                  - 's3:GetObject'
+                  - 's3:GetObjectVersion'
+                Effect: Allow
+                Resource:
+                  - !Sub '${E2ETestReportBucket.Arn}/*'
+                  - !Sub '${ArtifactStoreBucket.Arn}/*'
+                  
 
   ArtifactStoreBucket:
     Type: AWS::S3::Bucket
