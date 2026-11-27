@@ -444,12 +444,14 @@ Then('the string contains no HTML tags', () => {
 
 // Scenario: Citation is visible for anonymous user (KR-07)
 Given('I am on a resource presentation page as an anonymous user', () => {
-  cy.visit(`/filter`, {
-    auth: {
-      username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVPASSWORD'),
-    },
-    failOnStatusCode: false,
+  cy.env(['DEVUSER', 'DEVPASSWORD']).then(({ devUser, devPassword }) => {
+    cy.visit(`/filter`, {
+      auth: {
+        username: devUser,
+        password: devPassword,
+      },
+      failOnStatusCode: false,
+    });
   });
 
   cy.searchFor(articleTitleUuid);

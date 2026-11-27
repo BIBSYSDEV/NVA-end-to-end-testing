@@ -39,8 +39,10 @@ Cypress.Commands.add('login', (userId: string) => {
 });
 
 Cypress.Commands.add('getNvaUserName', () => {
-  const payload = decodeJwtPayload(Cypress.env('accessToken'));
-  return payload['custom:nvaUsername'];
+  cy.env(['accessToken']).then((accessToken: any) => {
+    const payload = decodeJwtPayload(accessToken);
+    return payload['custom:nvaUsername'];
+  });
 });
 
 Cypress.Commands.add('startRegistrationWithLink', (doiLink) => {
@@ -665,11 +667,13 @@ Cypress.Commands.add('filterMessages', (messageType) => {
 Cypress.Commands.add('searchFor', (searchTerm: string) => {
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.url().then((url) => {
-    cy.visit(url + '?from=0&results=50', {
-      auth: {
-        username: Cypress.env('DEVUSER'),
-        password: Cypress.env('DEVPASSWORD'),
-      },
+    cy.env(['DEVUSER', 'DEVPASSWORD']).then((env) => {
+      cy.visit(url + '?from=0&results=50', {
+        auth: {
+          username: env.devUser,
+          password: env.devPassword,
+        },
+      });
     });
   });
   cy.getDataTestId(dataTestId.startPage.searchField).type(`{selectall}{del}${searchTerm}{enter}`);

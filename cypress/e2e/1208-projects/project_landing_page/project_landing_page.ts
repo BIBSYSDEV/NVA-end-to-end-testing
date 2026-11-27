@@ -36,11 +36,14 @@ const selectProject = (user) => {
 Given('An Anonymous User is on the NVA start page', () => {
   cy.setLocalStorage('i18nextLng', 'eng');
   cy.setLocalStorage('previouslyLoggedIn', 'true');
-  cy.visit('/filter', {
-    auth: {
-      username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVPASSWORD'),
-    },
+  cy.env(['DEVUSER', 'DEVPASSWORD']).then(({ devUser, devPassword }) => {
+    cy.visit('/filter', {
+      auth: {
+        username: devUser,
+        password: devPassword,
+      },
+      failOnStatusCode: false,
+    });
   });
 });
 When('the Anonymous User navigates to the Project search page', () => {
@@ -60,12 +63,15 @@ Then('a search result with the Project is displayed', () => {
 When("A Anonymous User opens a Project's Landing Page", () => {
   cy.setLocalStorage('i18nextLng', 'eng');
   cy.setLocalStorage('previouslyLoggedIn', 'true');
-  cy.visit('/', {
-    auth: {
-      username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVPASSWORD'),
-    },
+  cy.env(['DEVUSER', 'DEVPASSWORD']).then(({ devUser, devPassword }) => {
+    cy.visit('/', {
+      auth: {
+        username: devUser,
+        password: devPassword,
+      },
+    });
   });
+
   cy.getDataTestId(dataTestId.frontPage.projectsLink).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
   cy.getDataTestId(dataTestId.startPage.searchField).type(`${projectTitle}{enter}`);

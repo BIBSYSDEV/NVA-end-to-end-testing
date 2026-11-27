@@ -149,12 +149,15 @@ Then('the request is listed in Curator Worklist', () => {
   cy.getDataTestId(dataTestId.header.menuButton).click();
   cy.getDataTestId(dataTestId.header.logOutLink).click();
   cy.login(userUnitCuratorDraftDoi);
-  cy.visit(`/`, {
-    auth: {
-      username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVPASSWORD'),
-    },
+  cy.env(['DEVUSER', 'DEVPASSWORD']).then(({ devUser, devPassword }) => {
+    cy.visit(`/`, {
+      auth: {
+        username: devUser,
+        password: devPassword,
+      },
+    });
   });
+
   cy.getDataTestId(dataTestId.header.tasksLink).click();
   cy.get('[data-testid^=message-title]').filter(`:contains(${publicRegistrationRequestingDoi})`).should('be.visible');
 });

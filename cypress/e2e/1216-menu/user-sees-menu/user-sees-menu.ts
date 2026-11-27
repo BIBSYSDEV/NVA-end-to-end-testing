@@ -36,11 +36,13 @@ Given('a user with the {string} role is logged in', (role: string) => {
   cy.login(userId);
 });
 When('they look at any page in NVA', () => {
-  cy.visit(`/`, {
-    auth: {
-      username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVPASSWORD'),
-    },
+  cy.env(['DEVUSER', 'DEVPASSWORD']).then(({ devUser, devPassword }) => {
+    cy.visit(`/`, {
+      auth: {
+        username: devUser,
+        password: devPassword,
+      },
+    });
   });
 });
 When('they see Menu items:', (dataTable: DataTable) => {
@@ -55,13 +57,16 @@ When('they see the Language selector', () => {
 // @344
 // Scenario: Unauthenticated User sees menu
 Given('that the User is not logged in', () => {
-  cy.visit(`/`, {
-    auth: {
-      username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVPASSWORD'),
-    },
+  cy.env(['DEVUSER', 'DEVPASSWORD']).then(({ devUser, devPassword }) => {
+    cy.visit(`/`, {
+      auth: {
+        username: devUser,
+        password: devPassword,
+      },
+    });
   });
 });
+
 Then('they see the Log in Button', () => {
   cy.getDataTestId(dataTestId.header.logInButton).should('be.visible');
 });

@@ -39,11 +39,13 @@ Given('there is a published Registration in NVA', () => {
 // @881
 // Scenario: Anonymous User views Landing Page for Registration
 When('an Anonymous user navigates to a Landing Page for a Resource', () => {
-  cy.visit(`/`, {
-    auth: {
-      username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVPASSWORD'),
-    },
+  cy.env(['DEVUSER', 'DEVPASSWORD']).then(({ devUser, devPassword }) => {
+    cy.visit(`/`, {
+      auth: {
+        username: devUser,
+        password: devPassword,
+      },
+    });
   });
   cy.getDataTestId(dataTestId.frontPage.registrationsLink).click();
   cy.getDataTestId(dataTestId.common.skeleton).should('not.exist');
