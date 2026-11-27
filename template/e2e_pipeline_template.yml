@@ -179,9 +179,6 @@ Resources:
           - Name: ROLE_ARN
             Type: PLAINTEXT
             Value: !GetAtt TestrunnerRole.Arn
-          - Name: REPORT_ROLE_ARN
-            Type: PLAINTEXT
-            Value: !GetAtt ReportRole.Arn
           - Name: CYPRESS_baseUrl
             Type: PLAINTEXT
             Value: !Ref CypressBaseUrl
