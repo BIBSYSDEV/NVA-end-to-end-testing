@@ -1,15 +1,50 @@
 import { GetSecretValueCommand, SecretsManagerClient } from '@aws-sdk/client-secrets-manager';
 import { v4 as uuid } from 'uuid';
 
-const cognitoUri = Cypress.env('COGNITO_URI');
-const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
-const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
-const awsSessionToken = Cypress.env('AWS_SESSION_TOKEN');
-const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
-const clientId = Cypress.env('AWS_CLIENT_ID');
-const redirectUri = 'https://e2e.nva.aws.unit.no';
+// const cognitoUri = Cypress.env('COGNITO_URI');
+// const awsAccessKeyId = Cypress.env('AWS_ACCESS_KEY_ID');
+// const awsSecretAccessKey = Cypress.env('AWS_SECRET_ACCESS_KEY');
+// const awsSessionToken = Cypress.env('AWS_SESSION_TOKEN');
+// const region = Cypress.env('AWS_REGION') ?? 'eu-west-1';
+// const clientId = Cypress.env('AWS_CLIENT_ID');
+let cognitoUri: string;
+let awsAccessKeyId: string;
+let awsSecretAccessKey: string;
+let awsSessionToken: string;
+let region: string;
+let clientId: string;
+let redirectUri: string;
 
 const secretPromises = new Map<string, Promise<string>>();
+
+const initEnv = () => {
+  if (!cognitoUri || !awsAccessKeyId || !awsSecretAccessKey || !awsSessionToken || !region || !clientId) {
+    cy.env([
+      'COGNITO_URI',
+      'AWS_ACCESS_KEY_ID',
+      'AWS_SECRET_ACCESS_KEY',
+      'AWS_SESSION_TOKEN',
+      'AWS_REGION',
+      'AWS_CLIENT_ID',
+    ]).then(
+      ({
+        cognitoUriEnv,
+        awsAccessKeyIdEnv,
+        awsSecretAccessKeyEnv,
+        awsSessionTokenEnv,
+        regionEnv = 'eu-west-1',
+        clientIdEnv,
+      }) => {
+        cognitoUri = cognitoUriEnv;
+        awsAccessKeyId = awsAccessKeyIdEnv;
+        awsSecretAccessKey = awsSecretAccessKeyEnv;
+        awsSessionToken = awsSessionTokenEnv;
+        region = regionEnv;
+        clientId = clientIdEnv;
+      }
+    );
+  }
+};
 
 /**
  * Fetches a secret from AWS Secrets Manager.
@@ -18,6 +53,9 @@ const secretPromises = new Map<string, Promise<string>>();
  * A failed fetch clears the memo so the next login attempt retries.
  */
 const readSecret = (secretId: string) => {
+  if (!region || !awsAccessKeyId || !awsSecretAccessKey || !awsSessionToken) {
+    initEnv();
+  }
   if (!secretPromises.has(secretId)) {
     const promise = new Promise<string>((resolve, reject) => {
       const secretsManager = new SecretsManagerClient({
@@ -44,7 +82,12 @@ const readSecret = (secretId: string) => {
 /** The password shared by the test users that log in with a password. */
 const readPassword = () => readSecret('TestUserPassword');
 
-const storageKey = (suffix: string) => `CognitoIdentityServiceProvider.${clientId}.${suffix}`;
+const storageKey = (suffix: string) =>  {
+  if(!clientId) {
+    initEnv();
+  }
+  return `CognitoIdentityServiceProvider.${clientId}.${suffix}`;
+}
 
 /** The localStorage key holding the Cognito access token for the given user. */
 export const accessTokenKey = (userId: string) => storageKey(`${userId}.accessToken`);
@@ -55,12 +98,14 @@ export const accessTokenKey = (userId: string) => storageKey(`${userId}.accessTo
  * and at the start of session setup, which begins on about:blank.
  */
 export const visitApp = () => {
-  cy.visit('/filter', {
-    auth: {
-      username: Cypress.env('DEVUSER'),
-      password: Cypress.env('DEVPASSWORD'),
-    },
-    failOnStatusCode: false,
+  cy.env(['DEVUSER', 'DEVPASSWORD']).then(({ devUser, devPassword }) => {
+    cy.visit('/filter', {
+      auth: {
+        username: devUser,
+        password: devPassword,
+      },
+      failOnStatusCode: false,
+    });
   });
 };
 
